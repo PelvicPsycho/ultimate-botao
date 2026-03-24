@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://c8v85oqmwxdtp"]
+
+[ext_resource type="Script" uid="uid://bdb4c4vm44ka" path="res://Scenes/main.gd" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://hmf6i4gidpr8" path="res://Scenes/peca.tscn" id="1_jjgbg"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7u77a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjgbg"]
+albedo_color = Color(0.20439999, 0.73, 0.28323993, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bo1nx"]
+size = Vector3(20.285095, 0.5196533, 20.153198)
+
+[node name="Main" type="Node3D" unique_id=785794955]
+script = ExtResource("1_bo1nx")
+
+[node name="Campo" type="StaticBody3D" parent="." unique_id=2135210053]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Campo" unique_id=1664618316]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_7u77a")
+surface_material_override/0 = SubResource("StandardMaterial3D_jjgbg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Campo" unique_id=1298046137]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24017334, 0)
+shape = SubResource("BoxShape3D_bo1nx")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1253175979]
+transform = Transform3D(1, 0, 0, 0, 0.712663, 0.70150656, 0, -0.70150656, 0.712663, 0, 4.4737644, 5.6491303)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=726548517]
+transform = Transform3D(1, 0, 0, 0, 0.5333636, 0.8458861, 0, -0.8458861, 0.5333636, 0, 15.213234, 10.093478)
+
+[node name="Peca" parent="." unique_id=147395339 instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1144791, 0.06965332, 3.8086073)
+
+[node name="Peca2" parent="." unique_id=1883444097 instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5255547, 0.06965332, -2.0457597)
+
+[node name="Peca3" parent="." unique_id=1644745887 instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9512768, 0.06965236, -0.99243927)
+
+[node name="Peca4" parent="." unique_id=763806067 instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0284653, 0.06965332, 1.911521)
+
+[node name="Peca5" parent="." unique_id=2063393494 instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1713457, 0.06965332, 6.211427)
+
+[node name="Peca6" parent="." unique_id=1129985443 instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4269676, 0.06965332, 5.226914)
+
+[node name="Peca7" parent="." unique_id=1474190616 instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3825645, 0.06965332, -4.1011376)
+
+[node name="Peca8" parent="." unique_id=847503100 instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.96764, 0.06965332, 1.6024246)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=389019415]
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=1412068170]
+offset_left = 62.0
+offset_top = 67.0
+offset_right = 168.0
+offset_bottom = 98.0
+scale = Vector2(2, 2)
+text = "Modo: Puxar"
+
+[node name="BotaoRestart" type="Button" parent="CanvasLayer" unique_id=2024017331]
+offset_left = 63.0
+offset_top = 154.0
+offset_right = 170.0
+offset_bottom = 185.0
+scale = Vector2(2, 2)
+text = "ReloadGame"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_puxar_pressed"]
+[connection signal="pressed" from="CanvasLayer/BotaoRestart" to="." method="_on_botao_restart_pressed"]
