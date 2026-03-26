@@ -25,8 +25,30 @@ var direcao_atual_modo3: Vector2 = Vector2.ZERO
 
 @onready var mira_pivot: Node3D = $MiraPivot
 
+#Times possíveis no campo
+enum Team {Team1,Team2}
+@export var team: Team
+
+#material da peça
+@onready var mesh = $MeshInstance3D
+
+#declara time
+func declara_time():
+	var material = StandardMaterial3D.new()
+	
+	if position.z < 0:
+		team = Team.Team1
+		material.albedo_color = Color(1, 0, 0) # vermelho
+	
+	else:
+		team = Team.Team2;
+		material.albedo_color = Color(0, 0, 1) # azul
+	
+	mesh.material_override = material
+
 func _ready() -> void:
 	mira_pivot.visible = false
+	declara_time()
 
 # ==========================================
 # LOOP DE TEMPO (Necessário para o Modo 3)

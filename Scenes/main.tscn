@@ -26,7 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24017334, 0)
 shape = SubResource("BoxShape3D_bo1nx")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1253175979]
-transform = Transform3D(1, 0, 0, 0, 0.712663, 0.70150656, 0, -0.70150656, 0.712663, 0, 4.4737644, 5.6491303)
+transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0, 10, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=726548517]
 transform = Transform3D(1, 0, 0, 0, 0.5333636, 0.8458861, 0, -0.8458861, 0.5333636, 0, 15.213234, 10.093478)
@@ -53,7 +53,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4269676, 0.06965332, 5.226
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3825645, 0.06965332, -4.1011376)
 
 [node name="Peca8" parent="." unique_id=847503100 instance=ExtResource("1_jjgbg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.96764, 0.06965332, 1.6024246)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.403015, 0.06965332, -4.5541105)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=389019415]
 
