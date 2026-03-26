@@ -1,5 +1,7 @@
 extends RigidBody3D
 
+class_name Peca
+
 enum ModoTiro { PUXAR, EMPURRAR, CARREGAR }
 var modo_atual: ModoTiro = ModoTiro.PUXAR
 
@@ -36,7 +38,7 @@ enum Team {Team1,Team2}
 func declara_time():
 	var material = StandardMaterial3D.new()
 	
-	if position.z < 0:
+	if position.x < 0:
 		team = Team.Team1
 		material.albedo_color = Color(1, 0, 0) # vermelho
 	
