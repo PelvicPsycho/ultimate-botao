@@ -82,6 +82,15 @@ func set_modo_tiro(novo_modo: int) -> void:
 	_cancelar_interacao()
 
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
+	
+	#se não for da equipe, não interage
+	if EquipeAtual.current_team == 1:
+		if team == Team.Team2:
+			return
+	if EquipeAtual.current_team == 2:
+		if team == Team.Team1:
+			return
+	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			is_dragging = true
@@ -101,7 +110,9 @@ func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, n
 func _input(event: InputEvent) -> void:
 	if not is_dragging:
 		return
-
+	
+	
+	
 	if event is InputEventMouseMotion:
 		match modo_atual:
 			ModoTiro.PUXAR:
@@ -186,6 +197,9 @@ func _processar_carregar(posicao_atual: Vector2) -> void:
 			
 			apply_central_impulse(vetor_forca_3d)
 			
+			#troca time depois da força
+			EquipeAtual.troca_time()
+			
 		_cancelar_interacao()
 
 # ==========================================
@@ -207,6 +221,9 @@ func _aplicar_forca(vetor_2d: Vector2) -> void:
 		vetor_forca_3d = vetor_forca_3d.normalized() * forca_maxima
 	apply_central_impulse(vetor_forca_3d)
 	_cancelar_interacao()
+	
+	#depois de aplicar força, troca time
+	EquipeAtual.troca_time()
 
 func _cancelar_interacao() -> void:
 	is_dragging = false

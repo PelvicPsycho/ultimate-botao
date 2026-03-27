@@ -1,5 +1,6 @@
 extends Node
 
+
 @export var current_team = 1
 
 func _ready():
@@ -8,3 +9,9 @@ func _ready():
 		current_team = 1
 	else:
 		current_team = 2
+
+func troca_time():
+	if current_team == 1:
+		current_team = 2
+	else:
+		current_team = 1

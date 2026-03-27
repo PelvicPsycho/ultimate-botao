@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bdb4c4vm44ka" path="res://Scenes/main.gd" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://hmf6i4gidpr8" path="res://Scenes/peca.tscn" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://ca7o838h3ugpd" path="res://Scenes/canvas_HUD.gd" id="3_8gbba"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7u77a"]
 
@@ -32,7 +33,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1
 transform = Transform3D(1, 0, 0, 0, 0.5333636, 0.8458861, 0, -0.8458861, 0.5333636, 0, 15.213234, 10.093478)
 
 [node name="Peca" parent="." unique_id=147395339 instance=ExtResource("1_jjgbg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1144791, 0.06965332, 3.8086073)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8317127, 0.06965332, 3.8086073)
 
 [node name="Peca2" parent="." unique_id=1883444097 instance=ExtResource("1_jjgbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5255547, 0.06965332, -2.0457597)
@@ -56,6 +57,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3825645, 0.06965332, -4.10
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.403015, 0.06965332, -4.5541105)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=389019415]
+script = ExtResource("3_8gbba")
 
 [node name="Button" type="Button" parent="CanvasLayer" unique_id=1412068170]
 offset_left = 62.0
@@ -72,6 +74,10 @@ offset_right = 170.0
 offset_bottom = 185.0
 scale = Vector2(2, 2)
 text = "ReloadGame"
+
+[node name="Label_Time" type="Label" parent="CanvasLayer" unique_id=1518430916]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_puxar_pressed"]
 [connection signal="pressed" from="CanvasLayer/BotaoRestart" to="." method="_on_botao_restart_pressed"]
