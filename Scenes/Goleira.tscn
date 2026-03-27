@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://d4nu7awvfje7u"]
+
+[ext_resource type="Script" uid="uid://cqbbkigcgp83r" path="res://Scenes/goleira.gd" id="1_vtwsu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vtwsu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vtwsu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ynsj8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vtwsu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cesnm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cesnm"]
+
+[node name="Goleira" type="Node3D" unique_id=654322067]
+script = ExtResource("1_vtwsu")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=2056839990]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=979188500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 19, 0, 0, 0)
+shape = SubResource("BoxShape3D_vtwsu")
+
+[node name="MeshInstance3D" type="StaticBody3D" parent="." unique_id=568080747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=311688617]
+mesh = SubResource("BoxMesh_vtwsu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D" unique_id=1457523213]
+
+[node name="MeshInstance3D2" type="StaticBody3D" parent="." unique_id=465247796]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D2" unique_id=332957652]
+mesh = SubResource("BoxMesh_ynsj8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2" unique_id=308059775]
+
+[node name="MeshInstance3D3" type="StaticBody3D" parent="." unique_id=1111076685]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 21.5, -1, 0, 0)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_vtwsu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D3" unique_id=2129474693]
+mesh = SubResource("BoxMesh_cesnm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3" unique_id=1358365545]
+shape = SubResource("BoxShape3D_cesnm")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

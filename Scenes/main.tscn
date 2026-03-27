@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bdb4c4vm44ka" path="res://Scenes/main.gd" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://hmf6i4gidpr8" path="res://Scenes/peca.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://d4nu7awvfje7u" path="res://Scenes/Goleira.tscn" id="2_kry3j"]
 [ext_resource type="Script" uid="uid://ca7o838h3ugpd" path="res://Scenes/canvas_HUD.gd" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://cfiyrhnqdww6q" path="res://Scenes/ball.tscn" id="4_jjvhh"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7u77a"]
 
@@ -14,6 +16,12 @@ size = Vector3(20.285095, 0.5196533, 20.153198)
 
 [node name="Main" type="Node3D" unique_id=785794955]
 script = ExtResource("1_bo1nx")
+
+[node name="Goleira" parent="." unique_id=654322067 instance=ExtResource("2_kry3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, 0)
+
+[node name="Goleira2" parent="." unique_id=391093553 instance=ExtResource("2_kry3j")]
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 8, 0.5, 0)
 
 [node name="Campo" type="StaticBody3D" parent="." unique_id=2135210053]
 
@@ -56,8 +64,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3825645, 0.06965332, -4.10
 [node name="Peca8" parent="." unique_id=847503100 instance=ExtResource("1_jjgbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.403015, 0.06965332, -4.5541105)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=389019415]
+[node name="Ball" parent="." unique_id=573001688 instance=ExtResource("4_jjvhh")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=389019415 node_paths=PackedStringArray("goleira1", "goleira2")]
 script = ExtResource("3_8gbba")
+goleira1 = NodePath("../Goleira")
+goleira2 = NodePath("../Goleira2")
 
 [node name="Button" type="Button" parent="CanvasLayer" unique_id=1412068170]
 offset_left = 62.0
@@ -79,5 +91,12 @@ text = "ReloadGame"
 offset_right = 40.0
 offset_bottom = 23.0
 
+[node name="Label_Placar" type="Label" parent="CanvasLayer" unique_id=484203410]
+offset_left = 164.0
+offset_top = 5.0
+offset_right = 204.0
+offset_bottom = 28.0
+
+[connection signal="gol_de" from="CanvasLayer" to="CanvasLayer" method="_on_gol_de"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_puxar_pressed"]
 [connection signal="pressed" from="CanvasLayer/BotaoRestart" to="." method="_on_botao_restart_pressed"]
