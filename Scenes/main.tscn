@@ -41,28 +41,36 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1
 transform = Transform3D(1, 0, 0, 0, 0.5333636, 0.8458861, 0, -0.8458861, 0.5333636, 0, 15.213234, 10.093478)
 
 [node name="Peca" parent="." unique_id=147395339 instance=ExtResource("1_jjgbg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8317127, 0.06965332, 3.8086073)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+initialPos = Vector3(-6, 0, 0)
 
 [node name="Peca2" parent="." unique_id=1883444097 instance=ExtResource("1_jjgbg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5255547, 0.06965332, -2.0457597)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, -2)
+initialPos = Vector3(4.5, 0, -2)
 
 [node name="Peca3" parent="." unique_id=1644745887 instance=ExtResource("1_jjgbg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9512768, 0.06965236, -0.99243927)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+initialPos = Vector3(-3, 0, 0)
 
 [node name="Peca4" parent="." unique_id=763806067 instance=ExtResource("1_jjgbg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0284653, 0.06965332, 1.911521)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+initialPos = Vector3(6, 0, 0)
 
 [node name="Peca5" parent="." unique_id=2063393494 instance=ExtResource("1_jjgbg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1713457, 0.06965332, 6.211427)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+initialPos = Vector3(3, 0, 0)
 
 [node name="Peca6" parent="." unique_id=1129985443 instance=ExtResource("1_jjgbg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4269676, 0.06965332, 5.226914)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, 2)
+initialPos = Vector3(-4.5, 0, 2)
 
 [node name="Peca7" parent="." unique_id=1474190616 instance=ExtResource("1_jjgbg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3825645, 0.06965332, -4.1011376)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -2)
+initialPos = Vector3(-4.5, 0, -2)
 
 [node name="Peca8" parent="." unique_id=847503100 instance=ExtResource("1_jjgbg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.403015, 0.06965332, -4.5541105)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, 2)
+initialPos = Vector3(4.5, 0, 2)
 
 [node name="Ball" parent="." unique_id=573001688 instance=ExtResource("4_jjvhh")]
 

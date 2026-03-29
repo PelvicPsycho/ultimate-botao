@@ -14,6 +14,8 @@ axis_lock_angular_x = true
 axis_lock_angular_z = true
 physics_material_override = SubResource("PhysicsMaterial_25osk")
 continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 8
 script = ExtResource("1_d60mj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1678610985]
@@ -23,3 +25,4 @@ mesh = SubResource("CylinderMesh_25osk")
 shape = SubResource("CylinderShape3D_d60mj")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

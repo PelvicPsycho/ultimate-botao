@@ -24,6 +24,7 @@ axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 physics_material_override = SubResource("PhysicsMaterial_no7uw")
+continuous_cd = true
 linear_damp = 1.0
 script = ExtResource("1_1g8xe")
 
@@ -42,4 +43,5 @@ transform = Transform3D(0.1, 0, 0, 0, 0.001, 0, 0, 0, 0.8, 0, 0, -0.4)
 mesh = SubResource("BoxMesh_1g8xe")
 surface_material_override/0 = SubResource("StandardMaterial3D_vsb21")
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -19,6 +19,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		print('goal')
 		if team == 1:
 			emit_signal("gol",2)
+			EquipeAtual.reset_field()
 		else:
 			emit_signal("gol",1)
+			EquipeAtual.reset_field()
 		

@@ -7,15 +7,15 @@ extends CanvasLayer
 @export var goleira1:Node3D = null
 @export var goleira2:Node3D = null
 
-@export var pontos1 = 0
-@export var pontos2 = 0
+@export var pontos1:int = 0
+@export var pontos2:int = 0
 
 signal gol_de(team:int);
 
 func _ready() -> void:
 	label_placar.text = "0 x 0"
-	pontos1=0
-	pontos2 = 0
+	#pontos1=0
+	#pontos2 = 0
 	goleira1.gol.connect(_on_gol_de,1)
 	goleira2.gol.connect(_on_gol_de,2);
 

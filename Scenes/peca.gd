@@ -34,6 +34,8 @@ enum Team {Team1,Team2}
 #material da peça
 @onready var mesh = $MeshInstance3D
 
+@export var initialPos:Vector3
+
 #declara time
 func declara_time():
 	var material = StandardMaterial3D.new()
@@ -198,7 +200,11 @@ func _processar_carregar(posicao_atual: Vector2) -> void:
 			apply_central_impulse(vetor_forca_3d)
 			
 			#troca time depois da força
-			EquipeAtual.troca_time()
+			await get_tree().create_timer(2.0).timeout
+			if !EquipeAtual.colidiu:
+				EquipeAtual.troca_time()
+			else:
+				EquipeAtual.colidiu = false
 			
 		_cancelar_interacao()
 
@@ -223,10 +229,25 @@ func _aplicar_forca(vetor_2d: Vector2) -> void:
 	_cancelar_interacao()
 	
 	#depois de aplicar força, troca time
-	EquipeAtual.troca_time()
+	await get_tree().create_timer(2.0).timeout
+	if !EquipeAtual.colidiu:
+		EquipeAtual.troca_time()
+	else:
+		EquipeAtual.colidiu = false
 
 func _cancelar_interacao() -> void:
 	is_dragging = false
 	direcao_travada = false
 	carregando_modo3 = false
 	mira_pivot.visible = false
+
+
+func _on_body_entered(body: Node) -> void:
+	pass
+	"""
+	if body is ball:
+		if team == Team.Team1:
+			EquipeAtual.current_posse=1
+		elif team == Team.Team2:
+			EquipeAtual.current_posse=2
+	"""
