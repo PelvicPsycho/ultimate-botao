@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://c8v85oqmwxdtp"]
 
-[ext_resource type="Script" uid="uid://bdb4c4vm44ka" path="res://Scenes/main.gd" id="1_bo1nx"]
-[ext_resource type="PackedScene" uid="uid://hmf6i4gidpr8" path="res://Scenes/peca.tscn" id="1_jjgbg"]
-[ext_resource type="PackedScene" uid="uid://d4nu7awvfje7u" path="res://Scenes/Goleira.tscn" id="2_kry3j"]
-[ext_resource type="Script" uid="uid://ca7o838h3ugpd" path="res://Scenes/canvas_HUD.gd" id="3_8gbba"]
-[ext_resource type="PackedScene" uid="uid://cfiyrhnqdww6q" path="res://Scenes/ball.tscn" id="4_jjvhh"]
+[ext_resource type="Script" uid="uid://bdb4c4vm44ka" path="res://Scripts Globais/main.gd" id="1_lquwl"]
+[ext_resource type="PackedScene" uid="uid://d4nu7awvfje7u" path="res://Componentes/Goal/Goleira.tscn" id="2_7mycd"]
+[ext_resource type="PackedScene" uid="uid://hmf6i4gidpr8" path="res://Componentes/Player/peca.tscn" id="3_272bh"]
+[ext_resource type="PackedScene" uid="uid://cfiyrhnqdww6q" path="res://Componentes/Ball/ball.tscn" id="4_5vw27"]
+[ext_resource type="Script" uid="uid://ca7o838h3ugpd" path="res://canvas_HUD.gd" id="5_kek77"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7u77a"]
 
@@ -15,12 +15,12 @@ albedo_color = Color(0.20439999, 0.73, 0.28323993, 1)
 size = Vector3(20.285095, 0.5196533, 20.153198)
 
 [node name="Main" type="Node3D" unique_id=785794955]
-script = ExtResource("1_bo1nx")
+script = ExtResource("1_lquwl")
 
-[node name="Goleira" parent="." unique_id=654322067 instance=ExtResource("2_kry3j")]
+[node name="Goleira" parent="." unique_id=654322067 instance=ExtResource("2_7mycd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, 0)
 
-[node name="Goleira2" parent="." unique_id=391093553 instance=ExtResource("2_kry3j")]
+[node name="Goleira2" parent="." unique_id=391093553 instance=ExtResource("2_7mycd")]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 8, 0.5, 0)
 
 [node name="Campo" type="StaticBody3D" parent="." unique_id=2135210053]
@@ -40,42 +40,42 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=726548517]
 transform = Transform3D(1, 0, 0, 0, 0.5333636, 0.8458861, 0, -0.8458861, 0.5333636, 0, 15.213234, 10.093478)
 
-[node name="Peca" parent="." unique_id=147395339 instance=ExtResource("1_jjgbg")]
+[node name="Peca" parent="." unique_id=147395339 instance=ExtResource("3_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
 initialPos = Vector3(-6, 0, 0)
 
-[node name="Peca2" parent="." unique_id=1883444097 instance=ExtResource("1_jjgbg")]
+[node name="Peca2" parent="." unique_id=1883444097 instance=ExtResource("3_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, -2)
 initialPos = Vector3(4.5, 0, -2)
 
-[node name="Peca3" parent="." unique_id=1644745887 instance=ExtResource("1_jjgbg")]
+[node name="Peca3" parent="." unique_id=1644745887 instance=ExtResource("3_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
 initialPos = Vector3(-3, 0, 0)
 
-[node name="Peca4" parent="." unique_id=763806067 instance=ExtResource("1_jjgbg")]
+[node name="Peca4" parent="." unique_id=763806067 instance=ExtResource("3_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
 initialPos = Vector3(6, 0, 0)
 
-[node name="Peca5" parent="." unique_id=2063393494 instance=ExtResource("1_jjgbg")]
+[node name="Peca5" parent="." unique_id=2063393494 instance=ExtResource("3_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 initialPos = Vector3(3, 0, 0)
 
-[node name="Peca6" parent="." unique_id=1129985443 instance=ExtResource("1_jjgbg")]
+[node name="Peca6" parent="." unique_id=1129985443 instance=ExtResource("3_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, 2)
 initialPos = Vector3(-4.5, 0, 2)
 
-[node name="Peca7" parent="." unique_id=1474190616 instance=ExtResource("1_jjgbg")]
+[node name="Peca7" parent="." unique_id=1474190616 instance=ExtResource("3_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -2)
 initialPos = Vector3(-4.5, 0, -2)
 
-[node name="Peca8" parent="." unique_id=847503100 instance=ExtResource("1_jjgbg")]
+[node name="Peca8" parent="." unique_id=847503100 instance=ExtResource("3_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, 2)
 initialPos = Vector3(4.5, 0, 2)
 
-[node name="Ball" parent="." unique_id=573001688 instance=ExtResource("4_jjvhh")]
+[node name="Ball" parent="." unique_id=573001688 instance=ExtResource("4_5vw27")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=389019415 node_paths=PackedStringArray("goleira1", "goleira2")]
-script = ExtResource("3_8gbba")
+script = ExtResource("5_kek77")
 goleira1 = NodePath("../Goleira")
 goleira2 = NodePath("../Goleira2")
 

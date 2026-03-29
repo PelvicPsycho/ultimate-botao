@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://hmf6i4gidpr8"]
 
-[ext_resource type="Script" uid="uid://culvfbawbkfu8" path="res://Scenes/peca.gd" id="1_1g8xe"]
+[ext_resource type="Script" uid="uid://culvfbawbkfu8" path="res://Componentes/Player/peca.gd" id="1_1g8xe"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_no7uw"]
 friction = 0.0

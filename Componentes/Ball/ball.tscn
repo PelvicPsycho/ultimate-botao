@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cfiyrhnqdww6q"]
 
-[ext_resource type="Script" uid="uid://bi5qwnf836a6l" path="res://Scenes/ball.gd" id="1_d60mj"]
+[ext_resource type="Script" uid="uid://bi5qwnf836a6l" path="res://Componentes/Ball/ball.gd" id="1_d60mj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_25osk"]
 
