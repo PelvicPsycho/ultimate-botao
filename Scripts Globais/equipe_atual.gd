@@ -11,12 +11,30 @@ extends Node
 
 @export var esperando_fisica = false
 
+var pecas = null
+
+var ball = null
+
 func _ready():
 	var r = randi_range(1,10)
 	if r > 5:
 		current_team = 1
 	else:
 		current_team = 2
+
+	pecas = get_tree().get_nodes_in_group("pecas")
+	ball = get_tree().get_nodes_in_group("ball")[0]
+
+func _process(delta: float) -> void:
+	for p in pecas:
+		if !p.sleeping:
+			esperando_fisica = true
+			return
+			
+	if !ball.sleeping:
+		esperando_fisica=true
+		return
+	esperando_fisica=false
 
 func troca_time():
 		if current_team == 1:

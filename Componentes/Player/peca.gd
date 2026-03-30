@@ -237,13 +237,13 @@ func _aplicar_forca(vetor_2d: Vector2) -> void:
 	
 func espera_fisica():
 	EquipeAtual.esperando_fisica = true
-	await get_tree().create_timer(2.0).timeout
-	sleeping = true
+	await get_tree().create_timer(3.0).timeout
+	#sleeping = true
 	if !EquipeAtual.colidiu:
 		EquipeAtual.troca_time()
 	else:
 		EquipeAtual.colidiu = false
-	EquipeAtual.esperando_fisica = false
+	#EquipeAtual.esperando_fisica = false
 
 func _cancelar_interacao() -> void:
 	is_dragging = false
