@@ -105,6 +105,18 @@ offset_top = 5.0
 offset_right = 204.0
 offset_bottom = 28.0
 
+[node name="Label_Tempo" type="Label" parent="CanvasLayer" unique_id=595736754]
+offset_left = 396.0
+offset_top = 29.0
+offset_right = 436.0
+offset_bottom = 52.0
+text = "00:00"
+
+[node name="Timer" type="Timer" parent="CanvasLayer" unique_id=1439227636]
+wait_time = 150.0
+autostart = true
+
 [connection signal="gol_de" from="CanvasLayer" to="CanvasLayer" method="_on_gol_de"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_puxar_pressed"]
 [connection signal="pressed" from="CanvasLayer/BotaoRestart" to="." method="_on_botao_restart_pressed"]
+[connection signal="timeout" from="CanvasLayer/Timer" to="." method="_on_timer_timeout"]
