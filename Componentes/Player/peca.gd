@@ -85,6 +85,9 @@ func set_modo_tiro(novo_modo: int) -> void:
 
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
 	
+	if EquipeAtual.esperando_fisica:
+		return
+	
 	#se não for da equipe, não interage
 	if EquipeAtual.current_team == 1:
 		if team == Team.Team2:
@@ -113,9 +116,14 @@ func _input(event: InputEvent) -> void:
 	if not is_dragging:
 		return
 	
-	
+	if EquipeAtual.esperando_fisica:
+		return
 	
 	if event is InputEventMouseMotion:
+		
+		EquipeAtual.peca_selecionada = self
+		print(str(EquipeAtual.peca_selecionada))
+		
 		match modo_atual:
 			ModoTiro.PUXAR:
 				_atualizar_mira_puxar(event.position)
@@ -199,12 +207,8 @@ func _processar_carregar(posicao_atual: Vector2) -> void:
 			
 			apply_central_impulse(vetor_forca_3d)
 			
-			#troca time depois da força
-			await get_tree().create_timer(2.0).timeout
-			if !EquipeAtual.colidiu:
-				EquipeAtual.troca_time()
-			else:
-				EquipeAtual.colidiu = false
+			#espera a fisica ocorrer
+			espera_fisica()
 			
 		_cancelar_interacao()
 
@@ -228,12 +232,18 @@ func _aplicar_forca(vetor_2d: Vector2) -> void:
 	apply_central_impulse(vetor_forca_3d)
 	_cancelar_interacao()
 	
-	#depois de aplicar força, troca time
+	#espera a fisica ocorrer
+	espera_fisica()
+	
+func espera_fisica():
+	EquipeAtual.esperando_fisica = true
 	await get_tree().create_timer(2.0).timeout
+	sleeping = true
 	if !EquipeAtual.colidiu:
 		EquipeAtual.troca_time()
 	else:
 		EquipeAtual.colidiu = false
+	EquipeAtual.esperando_fisica = false
 
 func _cancelar_interacao() -> void:
 	is_dragging = false

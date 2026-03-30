@@ -7,6 +7,10 @@ extends Node
 	
 @export var colidiu = false
 
+@export var peca_selecionada:Peca = null
+
+@export var esperando_fisica = false
+
 func _ready():
 	var r = randi_range(1,10)
 	if r > 5:

@@ -39,7 +39,7 @@ func update_timer_label():
 
 	var texto = "%02d:%02d" % [minutos, segundos]
 	label_tempo.text = texto
-	print(texto)
+	
 	
 func _on_gol_de(team: int) -> void:
 	if team == 1:
