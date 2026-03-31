@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://cmr1tg758m3vc"]
+
+[ext_resource type="Script" uid="uid://dk828cj38hv0o" path="res://Temporarios/Scenes_testes/pause_menu.gd" id="1_qe3g4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe3g4"]
+bg_color = Color(0.088219516, 0.22485891, 0.14035928, 1)
+corner_radius_top_left = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 6
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=649671765]
+process_mode = 3
+script = ExtResource("1_qe3g4")
+
+[node name="Control" type="Control" parent="." unique_id=1313633818]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect - Fundo Preto" type="ColorRect" parent="Control" unique_id=2124737438]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.4392157)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control" unique_id=620711891]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -174.0
+offset_top = -164.5
+offset_right = 174.0
+offset_bottom = 164.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer - Abas" type="TabContainer" parent="Control/CenterContainer" unique_id=1698994393]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qe3g4")
+tab_alignment = 1
+current_tab = 0
+
+[node name="Jogo" type="MarginContainer" parent="Control/CenterContainer/TabContainer - Abas" unique_id=773568432]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+metadata/_tab_index = 0
+
+[node name="VBoxMenu" type="VBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Jogo" unique_id=1948797305]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Label - Jogo Pausado" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=990441323]
+layout_mode = 2
+text = "Pause Menu"
+horizontal_alignment = 1
+
+[node name="Button - Continuar" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=10636318]
+layout_mode = 2
+text = "Continuar"
+
+[node name="Button - Recomecar" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=1438065989]
+layout_mode = 2
+text = "Recomeçar Partida"
+
+[node name="Button - Menu Inicial" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=93931786]
+layout_mode = 2
+text = "Menu Inicial"
+
+[node name="Debug" type="MarginContainer" parent="Control/CenterContainer/TabContainer - Abas" unique_id=1121924991]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+metadata/_tab_index = 1
+
+[node name="VboxDebug" type="VBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug" unique_id=1765252321]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1499901274]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer" unique_id=897332013]
+layout_mode = 2
+text = "Slider 1"
+
+[node name="HSlider" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer" unique_id=8681016]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+value = 50.0
+
+[node name="CheckBox" type="CheckBox" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1754716686]
+layout_mode = 2
+text = "Checkbox 1"
+
+[connection signal="gui_input" from="Control/ColorRect - Fundo Preto" to="." method="_on_color_rect__fundo_preto_gui_input"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu/Button - Continuar" to="." method="_on_button__continuar_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu/Button - Recomecar" to="." method="_on_button__recomecar_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu/Button - Menu Inicial" to="." method="_on_button__menu_inicial_pressed"]
