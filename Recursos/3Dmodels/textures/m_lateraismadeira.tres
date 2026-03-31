@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c8ikca5aisqeb"]
+
+[ext_resource type="Texture2D" uid="uid://bue4oqw4q2dg0" path="res://Recursos/3Dmodels/textures/LateraisBotao_ParedeMadeira_BaseColor.png" id="1_j72aa"]
+[ext_resource type="Texture2D" uid="uid://bgc5wpypbkxtx" path="res://Recursos/3Dmodels/textures/LateraisBotao_ParedeMadeira_Height.png" id="2_up3mv"]
+[ext_resource type="Texture2D" uid="uid://vfpnyld6enrx" path="res://Recursos/3Dmodels/textures/LateraisBotao_ParedeMadeira_Normal.png" id="3_5bxww"]
+[ext_resource type="Texture2D" uid="uid://2hpmjb8ksi8d" path="res://Recursos/3Dmodels/textures/LateraisBotao_ParedeMadeira_Roughness.png" id="4_vi286"]
+
+[resource]
+albedo_texture = ExtResource("1_j72aa")
+roughness_texture = ExtResource("4_vi286")
+normal_enabled = true
+normal_texture = ExtResource("3_5bxww")
+heightmap_enabled = true
+heightmap_scale = 1.0
+heightmap_texture = ExtResource("2_up3mv")
