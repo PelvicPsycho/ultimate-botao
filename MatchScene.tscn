@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="4_xqcg1"]
 [ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="6_rrtur"]
 [ext_resource type="PackedScene" uid="uid://cfiyrhnqdww6q" path="res://Componentes/Ball/ball.tscn" id="7_rrtur"]
+[ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="9_y3jfn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsfy7"]
 albedo_color = Color(0, 1, 0, 1)
@@ -43,10 +44,10 @@ material_override = SubResource("StandardMaterial3D_qsfy7")
 mesh = SubResource("BoxMesh_h7fbo")
 
 [node name="Goleira" parent="Pitch" unique_id=654322067 instance=ExtResource("4_oor5f")]
-transform = Transform3D(-8.742278e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.742278e-09, 0, 0.20951569, 7.1994133)
+transform = Transform3D(-4.371139e-07, 0, 10, 0, 10, 0, -10, 0, -4.371139e-07, 0, 0.2, 6.403)
 
 [node name="Goleira2" parent="Pitch" unique_id=905293801 instance=ExtResource("4_oor5f")]
-transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, 0, 0.20951569, -7.1769433)
+transform = Transform3D(-4.371139e-07, 0, -10, 0, 10, 0, 10, 0, -4.371139e-07, 0, 0.20951569, -5.87429)
 team = 1
 
 [node name="Floor" type="CollisionShape3D" parent="Pitch" unique_id=1523702553]
@@ -82,3 +83,6 @@ playerInfo = ExtResource("6_rrtur")
 
 [node name="Ball" parent="." unique_id=573001688 instance=ExtResource("7_rrtur")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+
+[node name="Gol_Manager(Temporario)" type="Node3D" parent="." unique_id=736409669]
+script = ExtResource("9_y3jfn")
