@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var Pecas_Jogo: Array[Peca] = []
+var Pecas_Jogo: Array[Player] = []
 
 func _ready():
 	# Garante que o menu comece invisível quando o jogo roda

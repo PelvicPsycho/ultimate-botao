@@ -60,14 +60,14 @@ shape = SubResource("BoxShape3D_y7mf0")
 [node name="HomeTeam" type="Node" parent="." unique_id=127159349]
 
 [node name="Player" parent="HomeTeam" unique_id=792270927 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57299757, 3.1198897)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 3.12)
 playerInfo = ExtResource("4_xqcg1")
 
 [node name="AwayTeam" type="Node" parent="." unique_id=1453187810]
 
 [node name="Player2" parent="AwayTeam" unique_id=1384454041 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57299757, -3.8857727)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -3.886)
 playerInfo = ExtResource("6_rrtur")
 
 [node name="Ball" parent="." unique_id=573001688 instance=ExtResource("7_rrtur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64326286, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
