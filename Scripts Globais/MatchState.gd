@@ -47,6 +47,9 @@ func onGoal(isHome: bool):
 		awayScore += 1
 	else:
 		homeScore += 1
+	if homeScore > 2 or awayScore > 2:
+		endMatch()
+	print("GOL! ", homeScore, " X ", awayScore)
 
 func onClickedPiece(piece: Player):
 	selectedPiece = piece
@@ -55,7 +58,7 @@ func onClickedPiece(piece: Player):
 func onTurnPlayed():
 	for piece in allPieces:
 		piece.disabled = true
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(1.0).timeout #FUTURAMENTE, ESPERAR AS PEÇAS PARAREM
 	for piece in allPieces:
 		piece.disabled = false
 	print("turno jogado")
@@ -115,18 +118,20 @@ func decideTurn():
 	var balls = get_tree().get_nodes_in_group("ball")
 	for ball in balls:
 		var lastTouch = ball.lastTouch
-		if lastTouch != null and lastTouch.team and turnCounter < 3 and !foulFlag:
+		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter < 2 and !foulFlag:
 			turnCounter+=1
+			ball.lastTouch = null
 			return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
 	changeTurn() # Senão troca
 
-func goal(scorer: Team):
-	if scorer == homeTeam:
-		homeScore+=1
+func isCorrectSide(team:Team) -> bool:
+	if currentTurn == turn.HOME:
+		if team == homeTeam:
+			return true
 	else:
-		awayScore+=1
-	if homeScore > 2 or awayScore > 2:
-		endMatch()
+		if team == awayTeam:
+			return true
+	return false
 
 func endMatch():
 	pass
