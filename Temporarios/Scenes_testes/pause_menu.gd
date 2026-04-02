@@ -1,8 +1,12 @@
 extends CanvasLayer
 
+var Pecas_Jogo: Array[Peca] = []
+
 func _ready():
 	# Garante que o menu comece invisível quando o jogo roda
+	pegar_todas_pecas()
 	hide()
+	print(Pecas_Jogo)
 
 func _unhandled_input(event):
 	# "ui_cancel" é a tecla ESC por padrão
@@ -44,3 +48,7 @@ func _on_button__menu_inicial_pressed() -> void:
 	alternar_pause()
 	# Substitua pelo caminho da sua cena de menu principal
 #	get_tree().change_scene_to_file("res://cenas/menu_principal.tscn")
+
+func pegar_todas_pecas():
+#	var pecas = get_tree().get_nodes_in_group("pecas")
+	Pecas_Jogo.assign(get_tree().get_nodes_in_group("pecas"))

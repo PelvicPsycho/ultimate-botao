@@ -49,9 +49,10 @@ custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qe3g4")
 tab_alignment = 1
-current_tab = 0
+current_tab = 1
 
 [node name="Jogo" type="MarginContainer" parent="Control/CenterContainer/TabContainer - Abas" unique_id=773568432]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 24
@@ -83,7 +84,6 @@ layout_mode = 2
 text = "Menu Inicial"
 
 [node name="Debug" type="MarginContainer" parent="Control/CenterContainer/TabContainer - Abas" unique_id=1121924991]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 24
@@ -97,8 +97,9 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1499901274]
 layout_mode = 2
+theme_override_constants/separation = 15
 
-[node name="Label2" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer" unique_id=897332013]
+[node name="Slider1Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer" unique_id=897332013]
 layout_mode = 2
 text = "Slider 1"
 
@@ -106,6 +107,44 @@ text = "Slider 1"
 custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 value = 50.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer" unique_id=1135434074]
+layout_mode = 2
+text = "ValorSlider"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1096311835]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Slider2Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer2" unique_id=1483922375]
+layout_mode = 2
+text = "Slider 2"
+
+[node name="HSlider" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer2" unique_id=1817866603]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+value = 50.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer2" unique_id=1783659343]
+layout_mode = 2
+text = "ValorSlider"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1902765141]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Slider3Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer3" unique_id=1112730630]
+layout_mode = 2
+text = "Slider 2"
+
+[node name="HSlider" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer3" unique_id=1873651709]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+value = 50.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer3" unique_id=737840578]
+layout_mode = 2
+text = "ValorSlider"
 
 [node name="CheckBox" type="CheckBox" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1754716686]
 layout_mode = 2
