@@ -1,0 +1,123 @@
+extends Node
+
+enum turn {HOME, AWAY}
+enum ModoTiro { PUXAR, EMPURRAR, MODO_3 }
+
+var modo_atual = ModoTiro.PUXAR
+
+var allPieces: Array[Player]
+var selectedPiece: Player
+
+@export var homeTeam: Team
+var homeScore: int
+var homePlayers: Array[Player]
+@export var awayTeam: Team
+var awayScore: int
+var awayPlayers: Array[Player]
+
+var currentTurn: turn
+var rallyCounter: int
+var turnCounter: int
+var foulFlag: bool = false
+
+func _ready():
+	selectFirstTurn()
+	homeScore = 0
+	awayScore = 0
+	rallyCounter = 0
+	turnCounter = 0
+	foulFlag = false
+	var nodes = get_tree().get_nodes_in_group("Players")
+	allPieces.assign(nodes)
+	for piece in allPieces:
+		piece.connect("clickedPiece", onClickedPiece)
+		piece.connect("turnPlayed", onTurnPlayed)
+		if piece.team == homeTeam:
+			homePlayers.append(piece)
+			piece.canPlay = true if currentTurn == turn.HOME else false
+		else:
+			awayPlayers.append(piece)
+			piece.canPlay = true if currentTurn == turn.AWAY else false
+
+func onClickedPiece(piece: Player):
+	selectedPiece = piece
+	print("Selected Piece: ", str(selectedPiece))
+
+func onTurnPlayed():
+	for piece in allPieces:
+		piece.disabled = true
+	await get_tree().create_timer(1.0).timeout
+	for piece in allPieces:
+		piece.disabled = false
+	print("turno jogado")
+	decideTurn()
+
+func _on_button_pressed() -> void:
+	# Alterna entre os modos (por enquanto 0 e 1, o 2 deixaremos pronto)
+	modo_atual = (modo_atual + 1) % 3 
+	
+	var texto_botao = ""
+	match modo_atual:
+		ModoTiro.PUXAR:
+			texto_botao = "Modo: Puxar"
+		ModoTiro.EMPURRAR:
+			texto_botao = "Modo: Empurrar"
+		ModoTiro.MODO_3:
+			texto_botao = "Modo: Carregar"
+			
+	$CanvasLayer/Button.text = texto_botao
+	
+	# Avisa todas as peças do jogo qual é o novo modo
+	get_tree().call_group("pecas", "set_modo_tiro", modo_atual)
+
+func _on_button_puxar_pressed() -> void:
+	_on_button_pressed()
+
+func _on_botao_restart_pressed() -> void:
+	get_tree().reload_current_scene()
+
+func _on_timer_timeout() -> void:
+	get_tree().reload_current_scene()
+
+func selectFirstTurn():
+	var randomNum = randi_range(0,1)
+	if randomNum>0:
+		currentTurn = turn.AWAY
+	else:
+		currentTurn = turn.HOME
+	print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
+
+func changeTurn():
+	if currentTurn == turn.HOME:
+		currentTurn = turn.AWAY
+	else:
+		currentTurn = turn.HOME
+	for piece in allPieces:
+		piece.canPlay = !piece.canPlay
+	print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
+
+# -------------REGRAS DA POSSE-----------------------------
+# Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
+# Se o time que possui a posse tocar na bola mas tiver no seu terceiro turno consecutivo, troca
+# Se o time do turno não encostar ou do time sem a posse tocar por ultimo, troca
+# Se o time que possui a posse cometer uma infração(fazer gol no primeiro lance), troca
+# ---------------------------------------------------------
+func decideTurn():
+	var balls = get_tree().get_nodes_in_group("ball")
+	for ball in balls:
+		var lastTouch = ball.lastTouch
+		if lastTouch != null and lastTouch.team and turnCounter < 3 and !foulFlag:
+			turnCounter+=1
+			return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
+	changeTurn() # Senão troca
+
+func goal(scorer: Team):
+	if scorer == homeTeam:
+		homeScore+=1
+	else:
+		awayScore+=1
+	if homeScore > 2 or awayScore > 2:
+		endMatch()
+
+func endMatch():
+	pass

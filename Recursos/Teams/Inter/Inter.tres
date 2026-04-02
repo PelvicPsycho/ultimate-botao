@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://cqnsye86fls8o"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_t7if8"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_wdtrl"]
+
+[resource]
+script = ExtResource("2_wdtrl")
+name = "Inter"
+id = 2
+cor = Color(1, 0, 0, 1)
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

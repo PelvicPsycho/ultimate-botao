@@ -11,13 +11,19 @@ config_version=5
 [application]
 
 config/name="UltimateBotao"
-run/main_scene="uid://c8v85oqmwxdtp"
+config/tags=PackedStringArray("em_desenvolvimento", "grupo", "puc")
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
+[display]
 
-EquipeAtual="*uid://dj7yntsas6hsm"
+window/size/viewport_width=720
+window/size/viewport_height=1280
+
+[global_group]
+
+Goals=""
+Players=""
 
 [physics]
 

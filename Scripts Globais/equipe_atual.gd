@@ -43,10 +43,7 @@ func troca_time():
 		else:
 			current_team = 1
 			current_posse=1
-		
-	
-		
-	
+
 func reset_field():
 	var pecas = get_tree().get_nodes_in_group("pecas")
 	for p in pecas:

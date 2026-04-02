@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://dsr512dkuo864"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_amvcu"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_li65g"]
+
+[resource]
+script = ExtResource("2_li65g")
+name = "Gremio"
+id = 1
+ranque = 6
+cor = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

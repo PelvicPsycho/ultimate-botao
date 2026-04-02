@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://mvbcflomxtbk"]
+
+[ext_resource type="Script" uid="uid://bcxprpwyrxefe" path="res://Componentes/PlayerV2/player.gd" id="1_2wsv6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_e0ky2"]
+height = 0.3
+radius = 0.52
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pndby"]
+height = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_e0ky2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pndby"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.43333334, 0, 0.21176471)
+
+[node name="Player" type="RigidBody3D" unique_id=792270927 groups=["Players"]]
+script = ExtResource("1_2wsv6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1160546555]
+shape = SubResource("CylinderShape3D_e0ky2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=712414182]
+mesh = SubResource("CylinderMesh_pndby")
+
+[node name="MiraPivot" type="Node3D" parent="." unique_id=1176405879]
+
+[node name="MiraMesh" type="MeshInstance3D" parent="MiraPivot" unique_id=32877958]
+transform = Transform3D(0.1, 0, 0, 0, 0.001, 0, 0, 0, 0.8, 0, 0, -0.4)
+mesh = SubResource("BoxMesh_e0ky2")
+surface_material_override/0 = SubResource("StandardMaterial3D_pndby")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

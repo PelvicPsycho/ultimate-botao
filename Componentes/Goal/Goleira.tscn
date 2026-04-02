@@ -2,11 +2,16 @@
 
 [ext_resource type="Script" uid="uid://cqbbkigcgp83r" path="res://Componentes/Goal/goleira.gd" id="1_vtwsu"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_vtwsu"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_rhyh4"]
+size = Vector3(1, 1, 18.952179)
 
 [sub_resource type="BoxMesh" id="BoxMesh_vtwsu"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_4oaft"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_ynsj8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ta5al"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vtwsu"]
 
@@ -14,14 +19,14 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cesnm"]
 
-[node name="Goleira" type="Node3D" unique_id=654322067]
+[node name="Goleira" type="Node3D" unique_id=654322067 groups=["Goals"]]
 script = ExtResource("1_vtwsu")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=2056839990]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=979188500]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 19, 0, 0, 0)
-shape = SubResource("BoxShape3D_vtwsu")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.010299683)
+shape = SubResource("BoxShape3D_rhyh4")
 
 [node name="MeshInstance3D" type="StaticBody3D" parent="." unique_id=568080747]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
@@ -30,6 +35,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 mesh = SubResource("BoxMesh_vtwsu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D" unique_id=1457523213]
+shape = SubResource("BoxShape3D_4oaft")
 
 [node name="MeshInstance3D2" type="StaticBody3D" parent="." unique_id=465247796]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
@@ -38,18 +44,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 mesh = SubResource("BoxMesh_ynsj8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2" unique_id=308059775]
+shape = SubResource("BoxShape3D_ta5al")
 
 [node name="MeshInstance3D3" type="StaticBody3D" parent="." unique_id=1111076685]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 21.5, -1, 0, 0)
-axis_lock_linear_x = true
-axis_lock_linear_y = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 physics_material_override = SubResource("PhysicsMaterial_vtwsu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D3" unique_id=2129474693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 21.458195, 0, 0, 0)
 mesh = SubResource("BoxMesh_cesnm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3" unique_id=1358365545]
