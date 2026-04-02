@@ -19,6 +19,7 @@ var currentTurn: turn
 var rallyCounter: int
 var turnCounter: int
 var foulFlag: bool = false
+var goalFlag: bool = false
 
 func _ready():
 	selectFirstTurn()
@@ -27,6 +28,7 @@ func _ready():
 	rallyCounter = 0
 	turnCounter = 0
 	foulFlag = false
+	goalFlag = false
 	var nodes = get_tree().get_nodes_in_group("Players")
 	allPieces.assign(nodes)
 	var goals = get_tree().get_nodes_in_group("Goals")
@@ -43,6 +45,7 @@ func _ready():
 			piece.canPlay = true if currentTurn == turn.AWAY else false
 
 func onGoal(isHome: bool):
+	goalFlag = true
 	if isHome:
 		awayScore += 1
 	else:
@@ -108,6 +111,20 @@ func changeTurn():
 		piece.canPlay = !piece.canPlay
 	print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
 
+# Chamado pelo gol_manager após a animação de gol.
+# Força o turno para o time vitima e limpa todas as flags.
+func forceTurn(target: turn) -> void:
+	currentTurn = target
+	turnCounter = 0
+	foulFlag = false
+	goalFlag = false
+	for piece in allPieces:
+		if piece.team == homeTeam:
+			piece.canPlay = (currentTurn == turn.HOME)
+		else:
+			piece.canPlay = (currentTurn == turn.AWAY)
+	print("Turno forçado para ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
+
 # -------------REGRAS DA POSSE-----------------------------
 # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
 # Se o time que possui a posse tocar na bola mas tiver no seu terceiro turno consecutivo, troca
@@ -115,6 +132,8 @@ func changeTurn():
 # Se o time que possui a posse cometer uma infração(fazer gol no primeiro lance), troca
 # ---------------------------------------------------------
 func decideTurn():
+	if goalFlag:
+		return # Aguarda o gol_manager resolver o turno via forceTurn()
 	var balls = get_tree().get_nodes_in_group("ball")
 	for ball in balls:
 		var lastTouch = ball.lastTouch

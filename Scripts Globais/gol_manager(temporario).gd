@@ -9,14 +9,14 @@ var canvas_layer: CanvasLayer
 var label_gol: Label
 
 # Variável para referenciar o seu MatchState (assumindo que ele seja um Autoload ou esteja na cena)
-@onready var match_state = get_node_or_null("/root/MatchState") 
+@onready var match_state = $".."
 
 func _ready() -> void:
 	# Aguarda um frame para garantir que os outros nós terminaram o _ready
 	await get_tree().process_frame
 	
 	if not match_state:
-		match_state = get_tree().root.get_node("MatchState")
+		match_state = get_tree().root.get_node("MatchScene")
 		
 	# ---------------------------------------------------------
 	# CORREÇÃO 1: Conexão de sinais padrão Godot 4 (Callable)
@@ -114,20 +114,7 @@ func gol_de_quem(isHome: bool):
 func _forcar_turno_para_vitima(isHome: bool):
 	if not match_state:
 		return
-		
-	# Resetamos os contadores de regra de posse para zerar tudo
-	match_state.turnCounter = 0 
-	match_state.foulFlag = false 
 	
-	# No sinal, "true" significa que a bola entrou no gol Home[cite: 2]. Logo, o time Home sofreu o gol e ganha a posse.
-	if isHome:
-		match_state.currentTurn = match_state.turn.HOME 
-	else:
-		match_state.currentTurn = match_state.turn.AWAY 
-		
-	# Atualizamos o canPlay de cada peça individualmente
-	for peca in todas_pecas:
-		if peca.team == match_state.homeTeam: 
-			peca.canPlay = (match_state.currentTurn == match_state.turn.HOME) 
-		else:
-			peca.canPlay = (match_state.currentTurn == match_state.turn.AWAY)
+	# isHome=true → bola entrou no gol do HOME → AWAY marcou → HOME é a vítima
+	var vitima = match_state.turn.HOME if isHome else match_state.turn.AWAY
+	match_state.forceTurn(vitima) 
