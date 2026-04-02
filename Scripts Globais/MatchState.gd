@@ -29,6 +29,9 @@ func _ready():
 	foulFlag = false
 	var nodes = get_tree().get_nodes_in_group("Players")
 	allPieces.assign(nodes)
+	var goals = get_tree().get_nodes_in_group("Goals")
+	for goal in goals:
+		goal.connect("gol", onGoal)
 	for piece in allPieces:
 		piece.connect("clickedPiece", onClickedPiece)
 		piece.connect("turnPlayed", onTurnPlayed)
@@ -38,6 +41,12 @@ func _ready():
 		else:
 			awayPlayers.append(piece)
 			piece.canPlay = true if currentTurn == turn.AWAY else false
+
+func onGoal(isHome: bool):
+	if isHome:
+		awayScore += 1
+	else:
+		homeScore += 1
 
 func onClickedPiece(piece: Player):
 	selectedPiece = piece

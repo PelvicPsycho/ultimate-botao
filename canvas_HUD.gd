@@ -27,7 +27,7 @@ func _ready() -> void:
 	timer.start()
 
 func _process(delta: float) -> void:
-	label_time.text = "Team " +str(EquipeAtual.current_team)
+	#label_time.text = "Team " +str(EquipeAtual.current_team)
 	update_timer_label()
 	
 	
