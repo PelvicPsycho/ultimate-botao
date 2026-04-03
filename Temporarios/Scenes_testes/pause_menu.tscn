@@ -108,6 +108,8 @@ theme_override_constants/separation = 15
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 1
+tooltip_text = "Quanto mais puxar, maior a força"
+mouse_filter = 1
 text = "Força Multiplicador"
 
 [node name="ForcaMultiplicador" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer" unique_id=8681016]
@@ -135,6 +137,8 @@ theme_override_constants/separation = 15
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 1
+tooltip_text = "Força máxima de impulso"
+mouse_filter = 1
 text = "Força Máxima"
 
 [node name="ForcaMaxima" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer2" unique_id=1817866603]
@@ -159,6 +163,8 @@ theme_override_constants/separation = 15
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 1
+tooltip_text = "Tamanho do raio laranja"
+mouse_filter = 1
 text = "Distância Raio (visual)"
 
 [node name="DistanciaRaio" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer3" unique_id=1873651709]
@@ -184,6 +190,8 @@ theme_override_constants/separation = 15
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 1
+tooltip_text = "Maior = maior desaceleração em contato com o chão ou outras coisas (a peca não fica  em contato com o chão)"
+mouse_filter = 1
 text = "Fricção"
 
 [node name="Friccao" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer4" unique_id=836005539]
@@ -209,6 +217,8 @@ theme_override_constants/separation = 15
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 1
+tooltip_text = "Maior = Maior bounciness"
+mouse_filter = 1
 text = "Bounce"
 
 [node name="Bounce" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer5" unique_id=1253104067]
@@ -222,6 +232,34 @@ step = 0.05
 value = 0.35
 
 [node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer5" unique_id=551527133]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1254166142]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer6" unique_id=1830683689]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+tooltip_text = "Maior = maior a desaceleração"
+mouse_filter = 1
+text = "Linear Damp"
+
+[node name="LinearDamp" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer6" unique_id=1039275884]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.1
+value = 2.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer6" unique_id=86868644]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 1
@@ -245,3 +283,4 @@ text = "Checkbox 1"
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer3/DistanciaRaio" to="." method="_on_distancia_raio_value_changed"]
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer4/Friccao" to="." method="_on_friccao_value_changed"]
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer5/Bounce" to="." method="_on_bounce_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer6/LinearDamp" to="." method="_on_linear_damp_value_changed"]

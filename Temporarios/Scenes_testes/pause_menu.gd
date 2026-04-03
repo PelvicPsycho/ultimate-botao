@@ -117,3 +117,10 @@ func _on_rough_value_changed(value: float) -> void:
 	labelValor.text = str(value)
 	for peca in Pecas_Jogo:
 		peca.physics_material_override.rough = value
+
+
+func _on_linear_damp_value_changed(value: float) -> void:
+	var labelValor = %LinearDamp.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	for peca in Pecas_Jogo:
+		peca.linear_damp = value
