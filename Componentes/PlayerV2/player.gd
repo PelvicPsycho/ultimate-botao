@@ -1,6 +1,5 @@
 extends RigidBody3D
-
-class_name Peca
+class_name Player
 
 enum ModoTiro { PUXAR, EMPURRAR, CARREGAR }
 var modo_atual: ModoTiro = ModoTiro.PUXAR
@@ -27,32 +26,26 @@ var direcao_atual_modo3: Vector2 = Vector2.ZERO
 
 @onready var mira_pivot: Node3D = $MiraPivot
 
-#Times possíveis no campo
-enum Team {Team1,Team2}
-@export var team: Team
+#info do time da peça
+var team: Team
+@export var playerInfo: TeamPlayer
+var canPlay: bool
+var disabled: bool = false
 
 #material da peça
 @onready var mesh = $MeshInstance3D
 
-@export var initialPos:Vector3
-
-#declara time
-func declara_time():
-	var material = StandardMaterial3D.new()
-	
-	if position.x < 0:
-		team = Team.Team1
-		material.albedo_color = Color(1, 0, 0) # vermelho
-	
-	else:
-		team = Team.Team2;
-		material.albedo_color = Color(0, 0, 1) # azul
-	
-	mesh.material_override = material
+signal clickedPiece(Piece: Player)
+signal turnPlayed
 
 func _ready() -> void:
 	mira_pivot.visible = false
-	declara_time()
+	team = playerInfo.time
+	var material = StandardMaterial3D.new()
+	material.albedo_color = team.cor      
+	# Aplicamos o material ao mesh (índice 0 é a primeira superfície)
+	$MeshInstance3D.set_surface_override_material(0, material)
+	
 
 # ==========================================
 # LOOP DE TEMPO (Necessário para o Modo 3)
@@ -78,23 +71,11 @@ func _process(_delta: float) -> void:
 			var vetor_mira_pulsante = direcao_atual_modo3.normalized() * (forca_carga_atual / forca_multiplicador)
 			_desenhar_mira(vetor_mira_pulsante)
 
-# Chamado pelo botão na cena Main
-func set_modo_tiro(novo_modo: int) -> void:
-	modo_atual = novo_modo as ModoTiro
-	_cancelar_interacao()
-
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
-	
-	if EquipeAtual.esperando_fisica:
-		return
-	
+
 	#se não for da equipe, não interage
-	if EquipeAtual.current_team == 1:
-		if team == Team.Team2:
-			return
-	if EquipeAtual.current_team == 2:
-		if team == Team.Team1:
-			return
+	if !canPlay or disabled:
+		return
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
@@ -116,13 +97,11 @@ func _input(event: InputEvent) -> void:
 	if not is_dragging:
 		return
 	
-	if EquipeAtual.esperando_fisica:
+	if !canPlay or disabled:
 		return
 	
 	if event is InputEventMouseMotion:
-		
-		EquipeAtual.peca_selecionada = self
-		print(str(EquipeAtual.peca_selecionada))
+		clickedPiece.emit(self)
 		
 		match modo_atual:
 			ModoTiro.PUXAR:
@@ -208,7 +187,7 @@ func _processar_carregar(posicao_atual: Vector2) -> void:
 			apply_central_impulse(vetor_forca_3d)
 			
 			#espera a fisica ocorrer
-			espera_fisica()
+			turnPlayed.emit()
 			
 		_cancelar_interacao()
 
@@ -232,18 +211,7 @@ func _aplicar_forca(vetor_2d: Vector2) -> void:
 	apply_central_impulse(vetor_forca_3d)
 	_cancelar_interacao()
 	
-	#espera a fisica ocorrer
-	espera_fisica()
-	
-func espera_fisica():
-	EquipeAtual.esperando_fisica = true
-	await get_tree().create_timer(3.0).timeout
-	#sleeping = true
-	if !EquipeAtual.colidiu:
-		EquipeAtual.troca_time()
-	else:
-		EquipeAtual.colidiu = false
-	#EquipeAtual.esperando_fisica = false
+	turnPlayed.emit()
 
 func _cancelar_interacao() -> void:
 	is_dragging = false
