@@ -5,7 +5,7 @@ enum ModoTiro { PUXAR, EMPURRAR, CARREGAR }
 var modo_atual: ModoTiro = ModoTiro.PUXAR
 
 @export var forca_multiplicador: float = 0.05
-@export var forca_maxima: float = 30.0
+@export var forca_maxima: float = 15.0
 @export var raio_saida_pixels: float = 40.0 # Define a borda da peça na tela
 
 # Variáveis Gerais
