@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="6_rrtur"]
 [ext_resource type="PackedScene" uid="uid://cfiyrhnqdww6q" path="res://Componentes/Ball/ball.tscn" id="7_rrtur"]
 [ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="9_y3jfn"]
+[ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Temporarios/Scenes_testes/pause_menu.tscn" id="10_xa1af"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsfy7"]
 albedo_color = Color(0, 1, 0, 1)
@@ -73,12 +74,14 @@ shape = SubResource("BoxShape3D_y7mf0")
 
 [node name="Player" parent="HomeTeam" unique_id=792270927 instance=ExtResource("2_a60kw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 3.12)
+forca_multiplicador = 0.5
 playerInfo = ExtResource("4_xqcg1")
 
 [node name="AwayTeam" type="Node" parent="." unique_id=1453187810]
 
 [node name="Player2" parent="AwayTeam" unique_id=1384454041 instance=ExtResource("2_a60kw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7580256, 0.2, -3.886)
+forca_multiplicador = 0.5
 playerInfo = ExtResource("6_rrtur")
 
 [node name="Ball" parent="." unique_id=573001688 instance=ExtResource("7_rrtur")]
@@ -86,3 +89,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 
 [node name="Gol_Manager(Temporario)" type="Node3D" parent="." unique_id=736409669]
 script = ExtResource("9_y3jfn")
+
+[node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("10_xa1af")]
