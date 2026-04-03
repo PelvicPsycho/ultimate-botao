@@ -22,6 +22,7 @@ axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 physics_material_override = ExtResource("1_o7wco")
+continuous_cd = true
 linear_damp = 2.0
 script = ExtResource("1_2wsv6")
 
