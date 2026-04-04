@@ -59,7 +59,10 @@ func onGoal(isHome: bool):
 	elif !foulFlag:
 		homeScore += 1
 	if homeScore > 2 or awayScore > 2:
-		endMatch()
+		if homeScore > awayScore:
+			endMatch(homeTeam.name)
+		else:
+			endMatch(awayTeam.name)
 	print("GOL! ", homeScore, " X ", awayScore)
 
 func onClickedPiece(piece: Player):
@@ -69,12 +72,26 @@ func onClickedPiece(piece: Player):
 func onTurnPlayed():
 	for piece in allPieces:
 		piece.disabled = true
-	await get_tree().create_timer(1.0).timeout #FUTURAMENTE, ESPERAR AS PEÇAS PARAREM
-	
+	await get_tree().create_timer(2.0).timeout #FUTURAMENTE, ESPERAR AS PEÇAS PARAREM
+	#await waitAllStopped()
 	for piece in allPieces:
 		piece.disabled = false
 	print("turno jogado")
 	decideTurn()
+
+#Função para checar se todas a bola parou ( é um pouco ineficiente)
+func waitAllStopped() -> void:
+	const VELOCITY_THRESHOLD: float = 0.5
+	var balls = get_tree().get_nodes_in_group("Balls")
+	while true:
+		await get_tree().physics_frame
+		var all_stopped: bool = true
+		for ball in balls:
+			if ball.linear_velocity.length() > VELOCITY_THRESHOLD or ball.angular_velocity.length() > VELOCITY_THRESHOLD:
+				all_stopped = false
+				break
+		if all_stopped:
+			break
 
 func _on_button_pressed() -> void:
 	# Alterna entre os modos (por enquanto 0 e 1, o 2 deixaremos pronto)
@@ -143,7 +160,7 @@ func forceTurn(target: turn) -> void:
 func decideTurn():
 	if goalFlag:
 		return # Aguarda o gol_manager resolver o turno via forceTurn()
-	var balls = get_tree().get_nodes_in_group("ball")
+	var balls = get_tree().get_nodes_in_group("Balls")
 	for ball in balls:
 		var lastTouch = ball.lastTouch
 		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter < 2 and !foulFlag:
@@ -165,5 +182,8 @@ func isCorrectSide(team:Team) -> bool:
 			return true
 	return false
 
-func endMatch():
-	pass
+# Chamar uma caixa de texto dizendo quem ganhou e um botão para reiniciar
+func endMatch(winner: String):
+	var resultCanvas = $ResultCanvas
+	await get_tree().create_timer(3.0, true).timeout
+	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore))

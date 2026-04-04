@@ -40,7 +40,7 @@ func _ready() -> void:
 		posicoes_iniciais_pecas[peca] = peca.global_transform
 		
 	# 2. Salvar posição inicial da bola (para reposicioná-la junto com as peças)
-	var balls = get_tree().get_nodes_in_group("ball")
+	var balls = get_tree().get_nodes_in_group("Balls")
 	if balls.size() > 0:
 		posicao_inicial_bola = balls[0].global_position
 		
@@ -100,7 +100,7 @@ func gol_de_quem(isHome: bool):
 		peca.angular_velocity = Vector3.ZERO
 		
 	# Reposicionar e limpar a bola
-	var balls = get_tree().get_nodes_in_group("ball")
+	var balls = get_tree().get_nodes_in_group("Balls")
 	for ball in balls:
 		ball.global_position = posicao_inicial_bola
 		ball.linear_velocity = Vector3.ZERO

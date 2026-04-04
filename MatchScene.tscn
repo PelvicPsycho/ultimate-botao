@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cfiyrhnqdww6q" path="res://Componentes/Ball/ball.tscn" id="7_rrtur"]
 [ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="9_y3jfn"]
 [ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Temporarios/Scenes_testes/pause_menu.tscn" id="10_xa1af"]
+[ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="11_yyp1h"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsfy7"]
 albedo_color = Color(0, 1, 0, 1)
@@ -58,7 +59,7 @@ shape = SubResource("BoxShape3D_a60kw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.104018, 0, 0)
 shape = SubResource("BoxShape3D_h7fbo")
 
-[node name="RBarrier2" type="CollisionShape3D" parent="Pitch" unique_id=842875705]
+[node name="LBarrier" type="CollisionShape3D" parent="Pitch" unique_id=842875705]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0464582, 0, 0)
 shape = SubResource("BoxShape3D_h7fbo")
 
@@ -73,7 +74,7 @@ shape = SubResource("BoxShape3D_y7mf0")
 [node name="HomeTeam" type="Node" parent="." unique_id=127159349]
 
 [node name="Player" parent="HomeTeam" unique_id=792270927 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 3.12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4268494, 0.2, 3.12)
 forca_multiplicador = 0.5
 playerInfo = ExtResource("4_xqcg1")
 
@@ -91,3 +92,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 script = ExtResource("9_y3jfn")
 
 [node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("10_xa1af")]
+
+[node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("11_yyp1h")]
