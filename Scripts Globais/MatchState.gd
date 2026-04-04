@@ -25,7 +25,7 @@ func _ready():
 	selectFirstTurn()
 	homeScore = 0
 	awayScore = 0
-	rallyCounter = 0
+	rallyCounter = 1
 	turnCounter = 0
 	foulFlag = false
 	goalFlag = false
@@ -46,9 +46,17 @@ func _ready():
 
 func onGoal(isHome: bool):
 	goalFlag = true
-	if isHome:
+	
+	#checa infração de bola no gol de primeira
+	if rallyCounter == 1:
+		foulFlag=true
+		#return
+		
+	rallyCounter=1
+	
+	if isHome and !foulFlag:
 		awayScore += 1
-	else:
+	elif !foulFlag:
 		homeScore += 1
 	if homeScore > 2 or awayScore > 2:
 		endMatch()
@@ -62,6 +70,7 @@ func onTurnPlayed():
 	for piece in allPieces:
 		piece.disabled = true
 	await get_tree().create_timer(1.0).timeout #FUTURAMENTE, ESPERAR AS PEÇAS PARAREM
+	
 	for piece in allPieces:
 		piece.disabled = false
 	print("turno jogado")
@@ -138,6 +147,10 @@ func decideTurn():
 	for ball in balls:
 		var lastTouch = ball.lastTouch
 		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter < 2 and !foulFlag:
+			
+			#conta rally
+			rallyCounter+= 1
+			
 			turnCounter+=1
 			ball.lastTouch = null
 			return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse

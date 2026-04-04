@@ -74,13 +74,16 @@ func gol_de_quem(isHome: bool):
 	for peca in todas_pecas:
 		peca.disabled = true
 	
-	# Dispara a UI
-	label_gol.visible = true
-	label_gol.scale = Vector2.ZERO
+	#checa se foi falta o gol
+	if !match_state.foulFlag:
+		
+		# Dispara a UI
+		label_gol.visible = true
+		label_gol.scale = Vector2.ZERO
 	
-	# Inicia o crescimento do Label por 1.5 segundos (usando Easing elástico para ficar dinâmico)
-	var tween = create_tween()
-	tween.tween_property(label_gol, "scale", Vector2(4, 4), 1.5).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+		# Inicia o crescimento do Label por 1.5 segundos (usando Easing elástico para ficar dinâmico)
+		var tween = create_tween()
+		tween.tween_property(label_gol, "scale", Vector2(4, 4), 1.5).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 	
 	# Delay de 3 segundos exigido antes do jogo voltar
 	await get_tree().create_timer(3.0).timeout
