@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cfiyrhnqdww6q" path="res://Componentes/Ball/ball.tscn" id="7_rrtur"]
 [ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="9_y3jfn"]
 [ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Temporarios/Scenes_testes/pause_menu.tscn" id="10_xa1af"]
+[ext_resource type="Texture2D" uid="uid://bo3iftgkblwmo" path="res://ProgressBar/progress_track.png" id="11_1s8k8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsfy7"]
 albedo_color = Color(0, 1, 0, 1)
@@ -39,6 +40,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1
 current = true
 
 [node name="Pitch" type="StaticBody3D" parent="." unique_id=371043304]
+transform = Transform3D(0.84906733, 0, 0, 0, 0.92380244, 0, 0, 0, 0.80869037, 0, 0.0050798394, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch" unique_id=983077752]
 material_override = SubResource("StandardMaterial3D_qsfy7")
@@ -85,9 +87,55 @@ forca_multiplicador = 0.5
 playerInfo = ExtResource("6_rrtur")
 
 [node name="Ball" parent="." unique_id=573001688 instance=ExtResource("7_rrtur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+transform = Transform3D(0.84906733, 0, 0, 0, 0.92380244, 0, 0, 0, 0.80869037, 0, 0.18984033, 0)
 
 [node name="Gol_Manager(Temporario)" type="Node3D" parent="." unique_id=736409669]
+transform = Transform3D(0.84906733, 0, 0, 0, 0.92380244, 0, 0, 0, 0.80869037, 0, 0.0050798394, 0)
 script = ExtResource("9_y3jfn")
 
 [node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("10_xa1af")]
+
+[node name="TimerLance" type="Timer" parent="." unique_id=6464019]
+
+[node name="TimerPartida" type="Timer" parent="." unique_id=1568358960]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=530172457]
+
+[node name="TextureProgressBar_Lance" type="TextureProgressBar" parent="CanvasLayer" unique_id=1106449500]
+offset_left = 140.0
+offset_top = 34.0
+offset_right = 1164.0
+offset_bottom = 1058.0
+scale = Vector2(0.2943146, 0.12010982)
+texture_progress = ExtResource("11_1s8k8")
+
+[node name="Label_Lance" type="Label" parent="CanvasLayer" unique_id=1683072390]
+offset_left = 174.0
+offset_top = 98.0
+offset_right = 214.0
+offset_bottom = 121.0
+
+[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer" unique_id=840211666]
+offset_left = 256.0
+offset_top = -4.0
+offset_right = 296.0
+offset_bottom = 54.0
+scale = Vector2(2.0545774, 1.440821)
+
+[node name="Label_Tempo" type="Label" parent="CanvasLayer/VSplitContainer" unique_id=873417848]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VSplitContainer" unique_id=863195139]
+layout_mode = 2
+
+[node name="Label_Home" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=690835399]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=1370785962]
+layout_mode = 2
+text = "x"
+
+[node name="Label_Away" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=146010707]
+layout_mode = 2
+
+[connection signal="timeout" from="TimerLance" to="." method="_on_timer_lance_timeout"]
