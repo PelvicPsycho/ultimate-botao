@@ -7,9 +7,12 @@ var modo_atual: ModoTiro = ModoTiro.PUXAR
 @export var forca_multiplicador: float = 0.05
 @export var forca_maxima: float = 30.0
 @export var raio_saida_pixels: float = 40.0 # Define a borda da peça na tela
+@export var multiplicador_comprimento_mira: float = 1.0 #nao parece estar fazendo nada
+@export var tamanho_maximo_linha: float = 15.0
 
 # Variáveis Gerais
 var is_dragging: bool = false
+var is_pointer_inside: bool = false #Mouse/dedo dentro da peça
 var posicao_inicial_toque: Vector2 = Vector2.ZERO
 
 # Variáveis do Modo Empurrar
@@ -46,6 +49,9 @@ func _ready() -> void:
 	# Aplicamos o material ao mesh (índice 0 é a primeira superfície)
 	$MeshInstance3D.set_surface_override_material(0, material)
 	
+	# Conecta os sinais de mouse/touch nativos da Godot
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
 
 # ==========================================
 # LOOP DE TEMPO (Necessário para o Modo 3)
@@ -100,7 +106,8 @@ func _input(event: InputEvent) -> void:
 	if !canPlay or disabled:
 		return
 	
-	if event is InputEventMouseMotion:
+	# TRATA O ARRASTO (Movimento do Mouse ou do Dedo)
+	if event is InputEventMouseMotion or event is InputEventScreenDrag:
 		clickedPiece.emit(self)
 		
 		match modo_atual:
@@ -111,26 +118,39 @@ func _input(event: InputEvent) -> void:
 			ModoTiro.CARREGAR:
 				_processar_carregar(event.position)
 
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if not event.pressed: # Soltou o dedo
-			match modo_atual:
-				ModoTiro.PUXAR:
+	# TRATA O SOLTAR (Quando o clique ou o toque na tela acaba)
+	var is_mouse_release = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed
+	var is_touch_release = event is InputEventScreenTouch and not event.pressed
+	
+	if is_mouse_release or is_touch_release:
+		match modo_atual:
+			ModoTiro.PUXAR:
+				# Se soltou o dedo e ele estava FORA da peça, atira!
+				if not is_pointer_inside:
 					_chutar_peca_puxar(event.position)
-				ModoTiro.EMPURRAR:
-					if direcao_travada:
-						_executar_tiro_empurrar()
-					else:
-						_cancelar_interacao()
-				ModoTiro.CARREGAR:
-					# Se o jogador soltou o dedo ANTES de sair da peça, cancela!
+				# Se soltou o dedo EM CIMA da peça, cancela a jogada.
+				else:
 					_cancelar_interacao()
+
+			ModoTiro.EMPURRAR:
+				if direcao_travada:
+					_executar_tiro_empurrar()
+				else:
+					_cancelar_interacao()
+			ModoTiro.CARREGAR:
+				_cancelar_interacao()
 
 # ==========================================
 # LÓGICA MODO 1: PUXAR
 # ==========================================
 func _atualizar_mira_puxar(posicao_atual: Vector2) -> void:
-	var vetor_arrasto_2d = posicao_inicial_toque - posicao_atual
-	_desenhar_mira(vetor_arrasto_2d)
+	# Se o ponteiro NÃO estiver dentro da peça, desenha a mira
+	if not is_pointer_inside:
+		var vetor_arrasto_2d = posicao_inicial_toque - posicao_atual
+		_desenhar_mira(vetor_arrasto_2d)
+	else:
+		# Se o ponteiro estiver em cima da peça, esconde a mira
+		mira_pivot.visible = false
 
 func _chutar_peca_puxar(posicao_final: Vector2) -> void:
 	var vetor_arrasto_2d = posicao_inicial_toque - posicao_final
@@ -196,11 +216,21 @@ func _processar_carregar(posicao_atual: Vector2) -> void:
 # ==========================================
 func _desenhar_mira(vetor_2d: Vector2) -> void:
 	var vetor_direcao_3d = Vector3(vetor_2d.x, 0, vetor_2d.y) * forca_multiplicador
-	if vetor_direcao_3d.length() > 0.1:
+	var forca_visual = vetor_direcao_3d.length()
+
+	if forca_visual > 0.1:
 		mira_pivot.visible = true
-		var ponto_alvo = global_position + vetor_direcao_3d
+		var ponto_alvo = global_position + vetor_direcao_3d #Mira aponta p chute
 		mira_pivot.look_at(ponto_alvo, Vector3.UP)
-		mira_pivot.scale.z = min(vetor_direcao_3d.length(), forca_maxima)
+		
+		# 1. Trava a força física no máximo normal (ex: 30)
+		var forca_travada = clamp(forca_visual, 0.1, forca_maxima)
+		
+		# 2. Converte a escala da física para a escala visual!
+		# Lê-se: "Pegue a forca_travada (que vai de 0.1 até forca_maxima) 
+		# e transforme isso num valor que vai de 0.1 até tamanho_maximo_linha"
+		mira_pivot.scale.z = remap(forca_travada, 0.1, forca_maxima, 0.1, tamanho_maximo_linha)
+		
 	else:
 		mira_pivot.visible = false
 
@@ -219,9 +249,14 @@ func _cancelar_interacao() -> void:
 	carregando_modo3 = false
 	mira_pivot.visible = false
 
+func _on_mouse_entered() -> void:
+	is_pointer_inside = true
 
-func _on_body_entered(body: Node) -> void:
-	pass
+func _on_mouse_exited() -> void:
+	is_pointer_inside = false
+
+#func _on_body_entered(body: Node) -> void:
+#	pass
 	"""
 	if body is ball:
 		if team == Team.Team1:

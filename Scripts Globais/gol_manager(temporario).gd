@@ -16,8 +16,7 @@ func _ready() -> void:
 	await get_tree().process_frame
 	
 	if not match_state:
-		match_state = get_tree().root.get_node("MatchScene") 
-	#teste	
+		match_state = get_tree().root.get_node("MatchScene")
 		
 	# ---------------------------------------------------------
 	# CORREÇÃO 1: Conexão de sinais padrão Godot 4 (Callable)
@@ -41,7 +40,7 @@ func _ready() -> void:
 		posicoes_iniciais_pecas[peca] = peca.global_transform
 		
 	# 2. Salvar posição inicial da bola (para reposicioná-la junto com as peças)
-	var balls = get_tree().get_nodes_in_group("ball")
+	var balls = get_tree().get_nodes_in_group("Balls")
 	if balls.size() > 0:
 		posicao_inicial_bola = balls[0].global_position
 		
@@ -75,13 +74,16 @@ func gol_de_quem(isHome: bool):
 	for peca in todas_pecas:
 		peca.disabled = true
 	
-	# Dispara a UI
-	label_gol.visible = true
-	label_gol.scale = Vector2.ZERO
+	#checa se foi falta o gol
+	if !match_state.foulFlag:
+		
+		# Dispara a UI
+		label_gol.visible = true
+		label_gol.scale = Vector2.ZERO
 	
-	# Inicia o crescimento do Label por 1.5 segundos (usando Easing elástico para ficar dinâmico)
-	var tween = create_tween()
-	tween.tween_property(label_gol, "scale", Vector2(4, 4), 1.5).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+		# Inicia o crescimento do Label por 1.5 segundos (usando Easing elástico para ficar dinâmico)
+		var tween = create_tween()
+		tween.tween_property(label_gol, "scale", Vector2(4, 4), 1.5).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 	
 	# Delay de 3 segundos exigido antes do jogo voltar
 	await get_tree().create_timer(3.0).timeout
@@ -98,7 +100,7 @@ func gol_de_quem(isHome: bool):
 		peca.angular_velocity = Vector3.ZERO
 		
 	# Reposicionar e limpar a bola
-	var balls = get_tree().get_nodes_in_group("ball")
+	var balls = get_tree().get_nodes_in_group("Balls")
 	for ball in balls:
 		ball.global_position = posicao_inicial_bola
 		ball.linear_velocity = Vector3.ZERO

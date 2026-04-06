@@ -15,7 +15,7 @@ height = 0.1
 height = 0.1
 radius = 0.32
 
-[node name="Ball" type="RigidBody3D" unique_id=573001688 groups=["ball"]]
+[node name="Ball" type="RigidBody3D" unique_id=573001688 groups=["Balls"]]
 axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_z = true
