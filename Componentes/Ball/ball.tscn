@@ -31,6 +31,7 @@ material_override = SubResource("StandardMaterial3D_iu4gp")
 mesh = SubResource("CylinderMesh_25osk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1199803410]
+process_physics_priority = 1
 shape = SubResource("CylinderShape3D_d60mj")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

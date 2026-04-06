@@ -36,7 +36,7 @@ var canPlay: bool
 var disabled: bool = false
 
 #material da peça
-@onready var mesh = $MeshInstance3D
+@onready var mesh = $Botao2
 
 signal clickedPiece(Piece: Player)
 signal turnPlayed
@@ -47,7 +47,7 @@ func _ready() -> void:
 	var material = StandardMaterial3D.new()
 	material.albedo_color = team.cor      
 	# Aplicamos o material ao mesh (índice 0 é a primeira superfície)
-	$MeshInstance3D.set_surface_override_material(0, material)
+	mesh.set_surface_override_material(0, material)
 	
 	# Conecta os sinais de mouse/touch nativos da Godot
 	mouse_entered.connect(_on_mouse_entered)

@@ -10,7 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://cfiyrhnqdww6q" path="res://Componentes/Ball/ball.tscn" id="7_rrtur"]
 [ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="9_y3jfn"]
 [ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Temporarios/Scenes_testes/pause_menu.tscn" id="10_xa1af"]
+[ext_resource type="Texture2D" uid="uid://bo3iftgkblwmo" path="res://ProgressBar/progress_track.png" id="11_1s8k8"]
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="11_yyp1h"]
+[ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="12_matchtimer"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsfy7"]
 albedo_color = Color(0, 1, 0, 1)
@@ -40,6 +42,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1
 current = true
 
 [node name="Pitch" type="StaticBody3D" parent="." unique_id=371043304]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9152705, 0, 0, 0.76126885)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch" unique_id=983077752]
 material_override = SubResource("StandardMaterial3D_qsfy7")
@@ -86,7 +89,7 @@ forca_multiplicador = 0.5
 playerInfo = ExtResource("6_rrtur")
 
 [node name="Ball" parent="." unique_id=573001688 instance=ExtResource("7_rrtur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9152705, 0, 0.2, 0.76126885)
 
 [node name="Gol_Manager(Temporario)" type="Node3D" parent="." unique_id=736409669]
 script = ExtResource("9_y3jfn")
@@ -94,3 +97,52 @@ script = ExtResource("9_y3jfn")
 [node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("10_xa1af")]
 
 [node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("11_yyp1h")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=172425499]
+
+[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer" unique_id=923744815]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -576.0
+offset_right = 576.0
+offset_bottom = 91.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VSplitContainer" unique_id=1827291511]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label_Home" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=1036070927]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="Label" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=1739498816]
+layout_mode = 2
+text = "X"
+
+[node name="Label_Away" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=259015049]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="Label_Tempo" type="Label" parent="CanvasLayer/VSplitContainer" unique_id=518614080]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "02:30"
+horizontal_alignment = 1
+
+[node name="TextureProgressBar_Lance" type="TextureProgressBar" parent="CanvasLayer" unique_id=171338667]
+offset_left = 189.0
+offset_top = 72.0
+offset_right = 1213.0
+offset_bottom = 1096.0
+scale = Vector2(0.21389647, 0.06645368)
+max_value = 10.0
+value = 10.0
+texture_progress = ExtResource("11_1s8k8")
+
+[node name="MatchTimer" type="Node" parent="." unique_id=750440205]
+script = ExtResource("12_matchtimer")
