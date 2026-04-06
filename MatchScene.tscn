@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="9_y3jfn"]
 [ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Temporarios/Scenes_testes/pause_menu.tscn" id="10_xa1af"]
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="11_yyp1h"]
-[ext_resource type="Script" path="res://Scripts Globais/MatchTimer.gd" id="12_matchtimer"]
+[ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="12_matchtimer"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsfy7"]
 albedo_color = Color(0, 1, 0, 1)
@@ -96,34 +96,39 @@ script = ExtResource("9_y3jfn")
 
 [node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("11_yyp1h")]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=172425499]
 
-[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer"]
-offset_right = 1152.0
-offset_bottom = 64.0
+[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer" unique_id=923744815]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -576.0
+offset_right = 576.0
+offset_bottom = 91.0
+grow_horizontal = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VSplitContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VSplitContainer" unique_id=1827291511]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Label_Home" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer"]
+[node name="Label_Home" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=1036070927]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "0"
 
-[node name="Label_Away" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer"]
+[node name="Label_Away" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=259015049]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "0"
 
-[node name="Label_Tempo" type="Label" parent="CanvasLayer/VSplitContainer"]
+[node name="Label_Tempo" type="Label" parent="CanvasLayer/VSplitContainer" unique_id=518614080]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "02:30"
 horizontal_alignment = 1
 
-[node name="TextureProgressBar_Lance" type="TextureProgressBar" parent="CanvasLayer"]
+[node name="TextureProgressBar_Lance" type="TextureProgressBar" parent="CanvasLayer" unique_id=171338667]
 offset_left = 426.0
 offset_top = 80.0
 offset_right = 726.0
@@ -131,5 +136,5 @@ offset_bottom = 100.0
 max_value = 10.0
 value = 10.0
 
-[node name="MatchTimer" type="Node" parent="."]
+[node name="MatchTimer" type="Node" parent="." unique_id=750440205]
 script = ExtResource("12_matchtimer")
