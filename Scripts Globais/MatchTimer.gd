@@ -7,8 +7,8 @@ signal partida_acabou
 @export var tempo_maximo_lance: float = 10.0
 @export var tempo_maximo_partida: float = 150.0 # 2:30
 
-@onready var label_partida: Label = $"CanvasLayer/VSplitContainer/Label_Tempo"
-@onready var progress_bar_lance: TextureProgressBar = $"CanvasLayer/TextureProgressBar_Lance"
+@onready var label_partida: Label =$"../CanvasLayer/VSplitContainer/Label_Tempo"
+@onready var progress_bar_lance: TextureProgressBar = $"../CanvasLayer/TextureProgressBar_Lance"
 
 var tempo_lance_restante: float = 0.0
 var tempo_partida_restante: float = 0.0

@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cfiyrhnqdww6q" path="res://Componentes/Ball/ball.tscn" id="7_rrtur"]
 [ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="9_y3jfn"]
 [ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Temporarios/Scenes_testes/pause_menu.tscn" id="10_xa1af"]
+[ext_resource type="Texture2D" uid="uid://bo3iftgkblwmo" path="res://ProgressBar/progress_track.png" id="11_1s8k8"]
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="11_yyp1h"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="12_matchtimer"]
 
@@ -41,6 +42,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1
 current = true
 
 [node name="Pitch" type="StaticBody3D" parent="." unique_id=371043304]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9152705, 0, 0, 0.76126885)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch" unique_id=983077752]
 material_override = SubResource("StandardMaterial3D_qsfy7")
@@ -87,7 +89,7 @@ forca_multiplicador = 0.5
 playerInfo = ExtResource("6_rrtur")
 
 [node name="Ball" parent="." unique_id=573001688 instance=ExtResource("7_rrtur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9152705, 0, 0.2, 0.76126885)
 
 [node name="Gol_Manager(Temporario)" type="Node3D" parent="." unique_id=736409669]
 script = ExtResource("9_y3jfn")
@@ -117,6 +119,10 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "0"
 
+[node name="Label" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=1739498816]
+layout_mode = 2
+text = "X"
+
 [node name="Label_Away" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=259015049]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
@@ -129,12 +135,14 @@ text = "02:30"
 horizontal_alignment = 1
 
 [node name="TextureProgressBar_Lance" type="TextureProgressBar" parent="CanvasLayer" unique_id=171338667]
-offset_left = 426.0
-offset_top = 80.0
-offset_right = 726.0
-offset_bottom = 100.0
+offset_left = 189.0
+offset_top = 72.0
+offset_right = 1213.0
+offset_bottom = 1096.0
+scale = Vector2(0.21389647, 0.06645368)
 max_value = 10.0
 value = 10.0
+texture_progress = ExtResource("11_1s8k8")
 
 [node name="MatchTimer" type="Node" parent="." unique_id=750440205]
 script = ExtResource("12_matchtimer")
