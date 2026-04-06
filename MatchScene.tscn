@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="9_y3jfn"]
 [ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Temporarios/Scenes_testes/pause_menu.tscn" id="10_xa1af"]
 [ext_resource type="Texture2D" uid="uid://bo3iftgkblwmo" path="res://ProgressBar/progress_track.png" id="11_1s8k8"]
+[ext_resource type="Script" uid="uid://bminfw21hws6" path="res://Componentes/MatchTimer.gd" id="12_1s8k8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsfy7"]
 albedo_color = Color(0, 1, 0, 1)
@@ -137,5 +138,8 @@ text = "x"
 
 [node name="Label_Away" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=146010707]
 layout_mode = 2
+
+[node name="MatchTimer" type="Node" parent="." unique_id=112737087]
+script = ExtResource("12_1s8k8")
 
 [connection signal="timeout" from="TimerLance" to="." method="_on_timer_lance_timeout"]

@@ -16,7 +16,8 @@ func _ready() -> void:
 	await get_tree().process_frame
 	
 	if not match_state:
-		match_state = get_tree().root.get_node("MatchScene")
+		match_state = get_tree().root.get_node("MatchScene") 
+	#teste	
 		
 	# ---------------------------------------------------------
 	# CORREÇÃO 1: Conexão de sinais padrão Godot 4 (Callable)
