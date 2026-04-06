@@ -73,6 +73,7 @@ func _on_partida_acabou() -> void:
 func onGoal(isHome: bool):
 	goalFlag = true
 
+	
 	#checa infração de bola no gol de primeira
 	if rallyCounter == 1:
 		foulFlag=true
