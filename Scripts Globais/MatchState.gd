@@ -47,9 +47,7 @@ func _ready():
 		else:
 			awayPlayers.append(piece)
 			piece.canPlay = (currentTurn == turn.AWAY)
-
 	_atualizar_placar()
-
 	timer.partida_acabou.connect(_on_partida_acabou)
 	timer.lance_acabou.connect(_on_lance_acabou)
 	timer.iniciar_partida()
@@ -63,24 +61,19 @@ func _atualizar_placar() -> void:
 		label_away.text = str(awayScore)
 
 func _on_lance_acabou() -> void:
-	print("Tempo do lance acabou.")
 	changeTurn()
 
 func _on_partida_acabou() -> void:
-	print("Fim da partida!")
 	timer.parar_tudo()
+	endMatch(homeTeam.name if homeScore>awayScore else awayTeam.name if homeScore<awayScore else "ninguém")
 
 func onGoal(isHome: bool):
 	goalFlag = true
-
-	
 	#checa infração de bola no gol de primeira
 	if rallyCounter == 1:
 		foulFlag=true
 		#return
-
 	rallyCounter=1
-
 	if isHome and !foulFlag:
 		awayScore += 1
 	elif !foulFlag:
@@ -90,28 +83,30 @@ func onGoal(isHome: bool):
 			endMatch(homeTeam.name)
 		else:
 			endMatch(awayTeam.name)
-	print("GOL! ", homeScore, " X ", awayScore)
 	_atualizar_placar()
 
 func onClickedPiece(piece: Player):
 	selectedPiece = piece
-	print("Selected Piece: ", str(selectedPiece))
+
+func printState():
+	print("turnCounter: ", turnCounter)
+	print("rallyCounter: ", rallyCounter)
+	print("goalFlag: ", goalFlag)
+	print("foulFlag: ", foulFlag)
+	print("homeScore: ", homeScore)
+	print("awayScore: ", awayScore)
+	print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
 
 func onTurnPlayed():
 	for piece in allPieces:
 		piece.disabled = true
-
 	timer.pausar_lance()
-
 	await get_tree().create_timer(1.0).timeout #FUTURAMENTE, ESPERAR AS PEÇAS PARAREM
 	#await waitAllStopped()
-
+	printState()
 	for piece in allPieces:
 		piece.disabled = false
-
-	print("turno jogado")
 	decideTurn()
-
 	timer.retomar_lance()
 	timer.resetar_barra_lance()
 
@@ -134,17 +129,12 @@ func _on_timer_timeout() -> void:
 
 func selectFirstTurn():
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
-	print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
 
 func changeTurn():
-	if currentTurn == turn.HOME:
-		currentTurn = turn.AWAY
-	else:
-		currentTurn = turn.HOME
+	currentTurn = turn.AWAY if currentTurn == turn.HOME else turn.HOME
 	for piece in allPieces:
 		piece.canPlay = !piece.canPlay
-	print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
-
+	turnCounter = 0
 	timer.iniciar_lance(currentTurn)
 
 # Chamado pelo gol_manager após a animação de gol.
@@ -159,8 +149,6 @@ func forceTurn(target: turn) -> void:
 			piece.canPlay = (currentTurn == turn.HOME)
 		else:
 			piece.canPlay = (currentTurn == turn.AWAY)
-	print("Turno forçado para ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
-
 	timer.iniciar_lance(currentTurn)
 
 # -------------REGRAS DA POSSE-----------------------------
@@ -175,14 +163,19 @@ func decideTurn():
 	var balls = get_tree().get_nodes_in_group("Balls")
 	for ball in balls:
 		var lastTouch = ball.lastTouch
-		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter < 2 and !foulFlag:
-
-			#conta rally
+		if lastTouch != null:
 			rallyCounter+= 1
-
-			turnCounter+=1
-			ball.lastTouch = null
-			return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
+			if isCorrectSide(lastTouch.team) and turnCounter < 2:
+				print("Ultimo a tocar: ", lastTouch.team.name, "\nTurn Counter: ", turnCounter)
+				turnCounter+=1
+				ball.lastTouch = null
+				print("----------------------------------------------")
+				return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
+		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:
+			print("TOCOU MAIS DE 3 VEZES")
+		if lastTouch != null and !isCorrectSide(lastTouch.team):
+			print("Ultimo a tocar: ", lastTouch.team.name)
+	print("----------------------------------------------")
 	changeTurn() # Senão troca
 
 func isCorrectSide(team:Team) -> bool:
