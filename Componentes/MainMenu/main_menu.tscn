@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://giq0hrttkfn2"]
+
+[ext_resource type="Script" uid="uid://bmjj3xhlnenji" path="res://Componentes/MainMenu/main_menu.gd" id="1_u175k"]
+[ext_resource type="StyleBox" uid="uid://bvob2aefle4y0" path="res://Componentes/MainMenu/ButtonStyle.tres" id="2_lq001"]
+
+[node name="MainMenu" type="Control" unique_id=756813658]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u175k")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=806724989]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2043296790]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 13
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=267374552]
+layout_mode = 2
+text = "A Volta Dos Botões Que Não Foram"
+
+[node name="ContinueButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=471053413]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_lq001")
+text = "Continue"
+
+[node name="NewGameButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1568442155]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_lq001")
+text = "New Game"
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=675715436]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_lq001")
+text = "Settings"
+
+[node name="TeamButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=366108977]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_lq001")
+text = "My Team
+"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TeamButton" to="." method="_on_team_button_pressed"]

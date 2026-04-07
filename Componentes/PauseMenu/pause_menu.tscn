@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cmr1tg758m3vc"]
 
-[ext_resource type="Script" uid="uid://dk828cj38hv0o" path="res://Temporarios/Scenes_testes/pause_menu.gd" id="1_qe3g4"]
+[ext_resource type="Script" uid="uid://dk828cj38hv0o" path="res://Componentes/PauseMenu/pause_menu.gd" id="1_qe3g4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe3g4"]
 bg_color = Color(0.088219516, 0.22485891, 0.14035928, 1)
