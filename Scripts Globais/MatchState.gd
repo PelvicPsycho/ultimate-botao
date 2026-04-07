@@ -97,14 +97,13 @@ func onClickedPiece(piece: Player):
 	selectedPiece = piece
 	print("Selected Piece: ", str(selectedPiece))
 
-func onTurnPlayed():
+func onTurnPlayed() -> void:
 	for piece in allPieces:
 		piece.disabled = true
 
 	timer.pausar_lance()
 
-	await get_tree().create_timer(1.0).timeout #FUTURAMENTE, ESPERAR AS PEÇAS PARAREM
-	#await waitAllStopped()
+	await get_tree().create_timer(1.0).timeout
 
 	for piece in allPieces:
 		piece.disabled = false
@@ -112,8 +111,7 @@ func onTurnPlayed():
 	print("turno jogado")
 	decideTurn()
 
-	timer.retomar_lance()
-	timer.resetar_barra_lance()
+	
 
 #Função para checar se todas a bola parou ( é um pouco ineficiente)
 func waitAllStopped() -> void:
@@ -136,17 +134,24 @@ func selectFirstTurn():
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
 	print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
 
-func changeTurn():
+func changeTurn() -> void:
 	if currentTurn == turn.HOME:
 		currentTurn = turn.AWAY
 	else:
 		currentTurn = turn.HOME
+
 	for piece in allPieces:
-		piece.canPlay = !piece.canPlay
+		if piece.team == homeTeam:
+			piece.canPlay = (currentTurn == turn.HOME)
+		else:
+			piece.canPlay = (currentTurn == turn.AWAY)
+
+	turnCounter = 0
+	goalFlag = false
+	foulFlag = false
+
 	print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
-
 	timer.iniciar_lance(currentTurn)
-
 # Chamado pelo gol_manager após a animação de gol.
 # Força o turno para o time vitima e limpa todas as flags.
 func forceTurn(target: turn) -> void:
@@ -154,13 +159,14 @@ func forceTurn(target: turn) -> void:
 	turnCounter = 0
 	foulFlag = false
 	goalFlag = false
+
 	for piece in allPieces:
 		if piece.team == homeTeam:
 			piece.canPlay = (currentTurn == turn.HOME)
 		else:
 			piece.canPlay = (currentTurn == turn.AWAY)
-	print("Turno forçado para ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
 
+	print("Turno forçado para ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
 	timer.iniciar_lance(currentTurn)
 
 # -------------REGRAS DA POSSE-----------------------------
@@ -169,22 +175,25 @@ func forceTurn(target: turn) -> void:
 # Se o time do turno não encostar ou do time sem a posse tocar por ultimo, troca
 # Se o time que possui a posse cometer uma infração(fazer gol no primeiro lance), troca
 # ---------------------------------------------------------
-func decideTurn():
+func decideTurn() -> void:
 	if goalFlag:
-		return # Aguarda o gol_manager resolver o turno via forceTurn()
+		return
+
 	var balls = get_tree().get_nodes_in_group("Balls")
+	var manteve_posse := false
+
 	for ball in balls:
 		var lastTouch = ball.lastTouch
-		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter < 2 and !foulFlag:
 
-			#conta rally
-			rallyCounter+= 1
-
-			turnCounter+=1
+		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter < 2 and not foulFlag:
+			rallyCounter += 1
+			turnCounter += 1
 			ball.lastTouch = null
-			return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
-	changeTurn() # Senão troca
+			manteve_posse = true
+			break
 
+	if not manteve_posse:
+		changeTurn()
 func isCorrectSide(team:Team) -> bool:
 	return (currentTurn == turn.HOME and team == homeTeam) or (currentTurn == turn.AWAY and team == awayTeam)
 

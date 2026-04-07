@@ -100,10 +100,9 @@ func _atualizar_barra_lance() -> void:
 	progress_bar_lance.value = tempo_lance_restante
 func resetar_barra_lance() -> void:
 	tempo_lance_restante = tempo_maximo_lance
-	if progress_bar_lance:
-		progress_bar_lance.max_value = tempo_maximo_lance
-		progress_bar_lance.min_value = 0
-		progress_bar_lance.value = tempo_maximo_lance
+	lance_rodando = true
+	pausado = false
+	_atualizar_barra_lance()
 
 func _atualizar_cor_barra() -> void:
 	if progress_bar_lance == null:
