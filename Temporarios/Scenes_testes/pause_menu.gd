@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 var Pecas_Jogo: Array[Player] = []
+var a_bola: Ball
 
 func _ready():
 	# Garante que o menu comece invisível quando o jogo roda
@@ -61,6 +62,7 @@ func _on_color_rect__fundo_preto_gui_input(event: InputEvent) -> void:
 	# Se qualquer um dos dois acontecer, fecha o menu
 	if clicou_com_mouse or tocou_com_dedo:
 		alternar_pause()
+		pegar_a_bola()
 
 func _on_button__continuar_pressed() -> void:
 	alternar_pause()
@@ -81,6 +83,9 @@ func pegar_todas_pecas():
 	for node in nodes_pecas:
 		if node is Player:
 			Pecas_Jogo.append(node as Player)
+
+func pegar_a_bola():
+	a_bola = get_tree().get_first_node_in_group("Balls")
 
 func _on_forca_multiplicador_value_changed(value: float) -> void:
 	var labelValor = %ForcaMultiplicador.get_parent().get_node("ValorSlider")
@@ -118,9 +123,28 @@ func _on_rough_value_changed(value: float) -> void:
 	for peca in Pecas_Jogo:
 		peca.physics_material_override.rough = value
 
-
 func _on_linear_damp_value_changed(value: float) -> void:
 	var labelValor = %LinearDamp.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
 	for peca in Pecas_Jogo:
 		peca.linear_damp = value
+
+func _on_peso_bola_value_changed(value: float) -> void:
+	var labelValor = %PesoBola.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	a_bola.mass = value
+
+func _on_bounce_bola_value_changed(value: float) -> void:
+	var labelValor = %BounceBola.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	a_bola.physics_material_override.bounce = value
+
+func _on_linear_damp_bola_value_changed(value: float) -> void:
+	var labelValor = %LinearDampBola.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	a_bola.linear_damp = value
+
+func _on_friccao_bola_value_changed(value: float) -> void:
+	var labelValor = %FriccaoBola.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	a_bola.physics_material_override.friction = value
