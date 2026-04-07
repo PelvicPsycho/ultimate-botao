@@ -101,8 +101,11 @@ func onTurnPlayed():
 	for piece in allPieces:
 		piece.disabled = true
 	timer.pausar_lance()
+	
 	await get_tree().create_timer(1.0).timeout #FUTURAMENTE, ESPERAR AS PEÇAS PARAREM
+	
 	#await waitAllStopped()
+	
 	printState()
 	for piece in allPieces:
 		piece.disabled = false
@@ -112,12 +115,18 @@ func onTurnPlayed():
 
 #Função para checar se todas a bola parou ( é um pouco ineficiente)
 func waitAllStopped() -> void:
-	const VELOCITY_THRESHOLD: float = 0.5
+	const VELOCITY_THRESHOLD: float = 0.01
 	var balls = get_tree().get_nodes_in_group("Balls")
 	while true:
 		await get_tree().physics_frame
 		var all_stopped: bool = true
+		for p in allPieces:
+			print(p.name + " " + str(p.linear_velocity.length()))
+			if p.linear_velocity.length() > VELOCITY_THRESHOLD or p.angular_velocity.length() > VELOCITY_THRESHOLD:
+				all_stopped = false
+				break
 		for ball in balls:
+			print(ball.name +" "+str(ball.linear_velocity.length()))
 			if ball.linear_velocity.length() > VELOCITY_THRESHOLD or ball.angular_velocity.length() > VELOCITY_THRESHOLD:
 				all_stopped = false
 				break
