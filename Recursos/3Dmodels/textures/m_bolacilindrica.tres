@@ -1,6 +1,17 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://hcwe0b66p2uw"]
 
+[ext_resource type="Texture2D" uid="uid://cmggrdv8rbhej" path="res://Recursos/3Dmodels/textures/BolaCilindro/BolaCilindro_1.0_DefaultMaterial_BaseColor.png" id="1_itrxa"]
+[ext_resource type="Texture2D" uid="uid://xvbucivkhh84" path="res://Recursos/3Dmodels/textures/BolaCilindro/BolaCilindro_1.0_DefaultMaterial_Height.png" id="2_d0cpb"]
+[ext_resource type="Texture2D" uid="uid://bea36qjqvr06g" path="res://Recursos/3Dmodels/textures/BolaCilindro/BolaCilindro_1.0_DefaultMaterial_Metallic.png" id="3_674rg"]
+[ext_resource type="Texture2D" uid="uid://ccvgmwe4v54tv" path="res://Recursos/3Dmodels/textures/BolaCilindro/BolaCilindro_1.0_DefaultMaterial_Normal.png" id="4_lp7uf"]
+[ext_resource type="Texture2D" uid="uid://hclg0gij4tlq" path="res://Recursos/3Dmodels/textures/BolaCilindro/BolaCilindro_1.0_DefaultMaterial_Roughness.png" id="5_nfg26"]
+
 [resource]
-albedo_color = Color(0.28, 0.28, 0.28, 1)
-metallic_specular = 1.0
-roughness = 0.42
+albedo_texture = ExtResource("1_itrxa")
+metallic_texture = ExtResource("3_674rg")
+roughness_texture = ExtResource("5_nfg26")
+normal_enabled = true
+normal_texture = ExtResource("4_lp7uf")
+heightmap_enabled = true
+heightmap_scale = 1.0
+heightmap_texture = ExtResource("2_d0cpb")

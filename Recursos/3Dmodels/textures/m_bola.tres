@@ -1,8 +1,8 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://c6aoscews6mr2"]
 
-[ext_resource type="Texture2D" uid="uid://dfnxdqp8a7d8l" path="res://Recursos/3Dmodels/textures/BolaRedondaUVNormal_MaterialBola_BaseColor.png" id="1_xjxn2"]
-[ext_resource type="Texture2D" uid="uid://sjvnc1m031et" path="res://Recursos/3Dmodels/textures/BolaRedondaUVNormal_MaterialBola_Height.png" id="2_s3nep"]
-[ext_resource type="Texture2D" uid="uid://2386x50salbf" path="res://Recursos/3Dmodels/textures/BolaRedondaUVNormal_MaterialBola_Normal.png" id="3_t4g02"]
+[ext_resource type="Texture2D" uid="uid://dfnxdqp8a7d8l" path="res://Recursos/3Dmodels/textures/BolaRedonda/BolaRedondaUVNormal_MaterialBola_BaseColor.png" id="1_xjxn2"]
+[ext_resource type="Texture2D" uid="uid://sjvnc1m031et" path="res://Recursos/3Dmodels/textures/BolaRedonda/BolaRedondaUVNormal_MaterialBola_Height.png" id="2_s3nep"]
+[ext_resource type="Texture2D" uid="uid://2386x50salbf" path="res://Recursos/3Dmodels/textures/BolaRedonda/BolaRedondaUVNormal_MaterialBola_Normal.png" id="3_t4g02"]
 
 [resource]
 albedo_texture = ExtResource("1_xjxn2")

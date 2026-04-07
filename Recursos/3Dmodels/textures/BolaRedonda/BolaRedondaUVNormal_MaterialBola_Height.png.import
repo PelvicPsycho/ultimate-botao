@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfnxdqp8a7d8l"
-path.s3tc="res://.godot/imported/BolaRedondaUVNormal_MaterialBola_BaseColor.png-f7ac2ea5160a9d71a13a770dc0095a49.s3tc.ctex"
-path.etc2="res://.godot/imported/BolaRedondaUVNormal_MaterialBola_BaseColor.png-f7ac2ea5160a9d71a13a770dc0095a49.etc2.ctex"
+uid="uid://sjvnc1m031et"
+path.s3tc="res://.godot/imported/BolaRedondaUVNormal_MaterialBola_Height.png-3b56bbdf28ac53523e8bf655f48b4107.s3tc.ctex"
+path.etc2="res://.godot/imported/BolaRedondaUVNormal_MaterialBola_Height.png-3b56bbdf28ac53523e8bf655f48b4107.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Recursos/3Dmodels/textures/BolaRedondaUVNormal_MaterialBola_BaseColor.png"
-dest_files=["res://.godot/imported/BolaRedondaUVNormal_MaterialBola_BaseColor.png-f7ac2ea5160a9d71a13a770dc0095a49.s3tc.ctex", "res://.godot/imported/BolaRedondaUVNormal_MaterialBola_BaseColor.png-f7ac2ea5160a9d71a13a770dc0095a49.etc2.ctex"]
+source_file="res://Recursos/3Dmodels/textures/BolaRedonda/BolaRedondaUVNormal_MaterialBola_Height.png"
+dest_files=["res://.godot/imported/BolaRedondaUVNormal_MaterialBola_Height.png-3b56bbdf28ac53523e8bf655f48b4107.s3tc.ctex", "res://.godot/imported/BolaRedondaUVNormal_MaterialBola_Height.png-3b56bbdf28ac53523e8bf655f48b4107.etc2.ctex"]
 
 [params]
 

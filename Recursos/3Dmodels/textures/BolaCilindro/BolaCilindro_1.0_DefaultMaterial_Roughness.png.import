@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sjvnc1m031et"
-path.s3tc="res://.godot/imported/BolaRedondaUVNormal_MaterialBola_Height.png-0e23ac45ff861178e54a6092b8a6d6be.s3tc.ctex"
-path.etc2="res://.godot/imported/BolaRedondaUVNormal_MaterialBola_Height.png-0e23ac45ff861178e54a6092b8a6d6be.etc2.ctex"
+uid="uid://hclg0gij4tlq"
+path.s3tc="res://.godot/imported/BolaCilindro_1.0_DefaultMaterial_Roughness.png-c8b0344170e8d79b6322c8e25d201c02.s3tc.ctex"
+path.etc2="res://.godot/imported/BolaCilindro_1.0_DefaultMaterial_Roughness.png-c8b0344170e8d79b6322c8e25d201c02.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Recursos/3Dmodels/textures/BolaRedondaUVNormal_MaterialBola_Height.png"
-dest_files=["res://.godot/imported/BolaRedondaUVNormal_MaterialBola_Height.png-0e23ac45ff861178e54a6092b8a6d6be.s3tc.ctex", "res://.godot/imported/BolaRedondaUVNormal_MaterialBola_Height.png-0e23ac45ff861178e54a6092b8a6d6be.etc2.ctex"]
+source_file="res://Recursos/3Dmodels/textures/BolaCilindro/BolaCilindro_1.0_DefaultMaterial_Roughness.png"
+dest_files=["res://.godot/imported/BolaCilindro_1.0_DefaultMaterial_Roughness.png-c8b0344170e8d79b6322c8e25d201c02.s3tc.ctex", "res://.godot/imported/BolaCilindro_1.0_DefaultMaterial_Roughness.png-c8b0344170e8d79b6322c8e25d201c02.etc2.ctex"]
 
 [params]
 
