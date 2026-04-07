@@ -101,8 +101,8 @@ func onTurnPlayed():
 	for piece in allPieces:
 		piece.disabled = true
 	timer.pausar_lance()
-	await get_tree().create_timer(1.0).timeout #FUTURAMENTE, ESPERAR AS PEÇAS PARAREM
-	#await waitAllStopped()
+	#await get_tree().create_timer(1.0).timeout #FUTURAMENTE, ESPERAR AS PEÇAS PARAREM
+	await waitAllStopped()
 	printState()
 	for piece in allPieces:
 		piece.disabled = false
@@ -110,19 +110,51 @@ func onTurnPlayed():
 	timer.retomar_lance()
 	timer.resetar_barra_lance()
 
-#Função para checar se todas a bola parou ( é um pouco ineficiente)
+# Função para checar se todas as peças e a bola realmente estabilizaram.
+# Exige vários physics frames seguidos em repouso para evitar falso positivo.
 func waitAllStopped() -> void:
-	const VELOCITY_THRESHOLD: float = 0.5
+	const LINEAR_THRESHOLD: float = 0.01
+	const ANGULAR_THRESHOLD: float = 0.01
+	const FRAMES_ESTAVEIS: int = 8
+	const FRAMES_DE_GRACA: int = 2
+
+	var frames_estaveis := 0
+	var frames_passados := 0
 	var balls = get_tree().get_nodes_in_group("Balls")
-	while true:
+
+	while frames_estaveis < FRAMES_ESTAVEIS:
 		await get_tree().physics_frame
-		var all_stopped: bool = true
-		for ball in balls:
-			if ball.linear_velocity.length() > VELOCITY_THRESHOLD or ball.angular_velocity.length() > VELOCITY_THRESHOLD:
-				all_stopped = false
+		frames_passados += 1
+
+		# Dá alguns frames para o impulso inicial e as primeiras colisões acontecerem.
+		if frames_passados <= FRAMES_DE_GRACA:
+			continue
+
+		var todos_parados := true
+
+		for piece in allPieces:
+			if (
+				piece.linear_velocity.length() > LINEAR_THRESHOLD
+				or piece.angular_velocity.length() > ANGULAR_THRESHOLD
+				or not piece.sleeping
+			):
+				todos_parados = false
 				break
-		if all_stopped:
-			break
+
+		if todos_parados:
+			for ball in balls:
+				if (
+					ball.linear_velocity.length() > LINEAR_THRESHOLD
+					or ball.angular_velocity.length() > ANGULAR_THRESHOLD
+					or not ball.sleeping
+				):
+					todos_parados = false
+					break
+
+		if todos_parados:
+			frames_estaveis += 1
+		else:
+			frames_estaveis = 0
 
 func _on_timer_timeout() -> void:
 	get_tree().reload_current_scene()
