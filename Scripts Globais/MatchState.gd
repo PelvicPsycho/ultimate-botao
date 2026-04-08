@@ -65,6 +65,7 @@ func _on_lance_acabou() -> void:
 
 func _on_partida_acabou() -> void:
 	timer.parar_tudo()
+	print("FIM DO TEMPO!")
 	endMatch(homeTeam.name if homeScore>awayScore else awayTeam.name if homeScore<awayScore else "ninguém")
 
 func onGoal(isHome: bool):
@@ -79,6 +80,7 @@ func onGoal(isHome: bool):
 	elif !foulFlag:
 		homeScore += 1
 	if homeScore > 2 or awayScore > 2:
+		print("REGRA DA CLEMÊNCIA!")
 		if homeScore > awayScore:
 			endMatch(homeTeam.name)
 		else:

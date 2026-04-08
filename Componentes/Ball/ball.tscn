@@ -7,13 +7,13 @@
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_25osk"]
-top_radius = 0.3
-bottom_radius = 0.3
-height = 0.1
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.05
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_d60mj"]
-height = 0.1
-radius = 0.32
+height = 0.05
+radius = 0.11
 
 [node name="Ball" type="RigidBody3D" unique_id=573001688 groups=["Balls"]]
 axis_lock_linear_y = true
