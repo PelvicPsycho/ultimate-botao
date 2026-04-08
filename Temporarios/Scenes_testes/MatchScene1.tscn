@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://du1nsjujoug16" path="res://Scripts Globais/MatchState.gd" id="1_e3gwx"]
 [ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_6xdkp"]
 [ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_w88vh"]
-[ext_resource type="PackedScene" uid="uid://d4nu7awvfje7u" path="res://Componentes/Goal/Goleira.tscn" id="4_gfino"]
 [ext_resource type="PackedScene" uid="uid://cuoecfox3x6o7" path="res://Temporarios/Scenes_testes/Player_escala3x.tscn" id="5_ceb22"]
 [ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="6_whapd"]
 [ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="7_87pxs"]
@@ -15,23 +14,14 @@
 [ext_resource type="PackedScene" uid="uid://evedwlh2n1by" path="res://Temporarios/Scenes_testes/Goleira_escala3x.tscn" id="12_ahre0"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="13_o4etl"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_h7fbo"]
-size = Vector3(0.5, 1, 15.7)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_y7mf0"]
-size = Vector3(8.85, 1, 0.5)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wxt6j"]
-rough = true
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsfy7"]
 albedo_color = Color(0, 1, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_h7fbo"]
-size = Vector3(8, 0.2, 15)
+size = Vector3(3.3, 0.2, 4.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a60kw"]
-size = Vector3(8, 0.2, 15)
+size = Vector3(3.3989258, 0.2, 4.637329)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_itbxn"]
 
@@ -80,45 +70,51 @@ awayTeam = ExtResource("3_w88vh")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.36453, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1003734817]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 3.9622536, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2.875, -0.31231642)
 current = true
+size = 3.6
 
 [node name="Pitch" type="StaticBody3D" parent="." unique_id=371043304]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9152705, 0, 0, 0.76126885)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="Goleira" parent="Pitch" unique_id=654322067 instance=ExtResource("4_gfino")]
-transform = Transform3D(-4.371139e-07, 0, 10, 0, 10, 0, -10, 0, -4.371139e-07, 0, 0.2, 6.403)
-
-[node name="Goleira2" parent="Pitch" unique_id=905293801 instance=ExtResource("4_gfino")]
-transform = Transform3D(-4.371139e-07, 0, -10, 0, 10, 0, 10, 0, -4.371139e-07, 0, 0.20951569, -5.87429)
-team = 1
-
-[node name="RBarrier" type="CollisionShape3D" parent="Pitch" unique_id=20794466]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.104018, 0, 0)
-shape = SubResource("BoxShape3D_h7fbo")
-
-[node name="LBarrier" type="CollisionShape3D" parent="Pitch" unique_id=842875705]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0464582, 0, 0)
-shape = SubResource("BoxShape3D_h7fbo")
-
-[node name="TBarrier" type="CollisionShape3D" parent="Pitch" unique_id=969606746]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.057587624, 0, -7.6954503)
-shape = SubResource("BoxShape3D_y7mf0")
-
-[node name="BBarrier" type="CollisionShape3D" parent="Pitch" unique_id=1563714456]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.057587624, 0, 7.7561636)
-shape = SubResource("BoxShape3D_y7mf0")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Pitch" unique_id=717878267]
-physics_material_override = SubResource("PhysicsMaterial_wxt6j")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch/StaticBody3D" unique_id=983077752]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4434317, 0, 0, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch" unique_id=983077752]
 material_override = SubResource("StandardMaterial3D_qsfy7")
 mesh = SubResource("BoxMesh_h7fbo")
 
-[node name="Floor" type="CollisionShape3D" parent="Pitch/StaticBody3D" unique_id=1523702553]
+[node name="Floor" type="CollisionShape3D" parent="Pitch" unique_id=1523702553]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0012207031, 0, -0.722229)
 shape = SubResource("BoxShape3D_a60kw")
+
+[node name="LateraisBotao" type="Node3D" parent="Pitch" unique_id=423250027]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, -0.004087176, 0.1, -2.0001297)
+
+[node name="Laterais" type="MeshInstance3D" parent="Pitch/LateraisBotao" unique_id=1368086782]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.025415111, 0, 0.23414269)
+mesh = SubResource("ArrayMesh_73ueg")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pitch/LateraisBotao/Laterais" unique_id=731677628]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pitch/LateraisBotao/Laterais/StaticBody3D" unique_id=1169641968]
+shape = SubResource("ConcavePolygonShape3D_oeav1")
+
+[node name="LateraisBotao2" type="Node3D" parent="Pitch" unique_id=842775159]
+transform = Transform3D(3.9340247e-07, 0, 3, 0, 3, 0, -3, 0, 3.9340247e-07, -0.0040875264, 0.1, 1.9998704)
+
+[node name="Laterais" type="MeshInstance3D" parent="Pitch/LateraisBotao2" unique_id=1582488223]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.025415111, 0, 0.23414269)
+mesh = SubResource("ArrayMesh_73ueg")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pitch/LateraisBotao2/Laterais" unique_id=386159866]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pitch/LateraisBotao2/Laterais/StaticBody3D" unique_id=1170450487]
+shape = SubResource("ConcavePolygonShape3D_4bqcb")
+
+[node name="Goleira" parent="Pitch" unique_id=2016388534 instance=ExtResource("12_ahre0")]
+transform = Transform3D(1.4424758e-07, 0, 1.1, 0, 1.1, 0, -1.1, 0, 1.4424758e-07, -0.004087544, 0.1, 2.2050395)
+team = 1
+
+[node name="Goleira2" parent="Pitch" unique_id=1895795452 instance=ExtResource("12_ahre0")]
+transform = Transform3D(-4.8082534e-08, 0, -1.1, 0, 1.1, 0, 1.1, 0, -4.8082534e-08, -0.004540303, 0.1, -2.206139)
 
 [node name="HomeTeam" type="Node" parent="." unique_id=127159349]
 
@@ -153,10 +149,13 @@ offset_left = -576.0
 offset_right = 576.0
 offset_bottom = 91.0
 grow_horizontal = 2
+mouse_filter = 2
+dragging_enabled = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VSplitContainer" unique_id=1827291511]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 alignment = 1
 
 [node name="Label_Home" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=1036070927]
@@ -180,45 +179,19 @@ text = "02:30"
 horizontal_alignment = 1
 
 [node name="TextureProgressBar_Lance" type="TextureProgressBar" parent="CanvasLayer" unique_id=171338667]
-offset_left = 189.0
-offset_top = 72.0
-offset_right = 1213.0
-offset_bottom = 1096.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -121.99994
+offset_top = 67.00001
+offset_right = 902.0
+offset_bottom = 1091.0
+grow_horizontal = 2
 scale = Vector2(0.21389647, 0.06645368)
+mouse_filter = 2
 max_value = 10.0
 value = 10.0
 texture_progress = ExtResource("12_4ijrv")
 
 [node name="MatchTimer" type="Node" parent="." unique_id=750440205]
 script = ExtResource("13_o4etl")
-
-[node name="LateraisBotao" type="Node3D" parent="." unique_id=423250027]
-transform = Transform3D(-1.3113416e-07, 0, 3, 0, 3, 0, -3, 0, -1.3113416e-07, -0.0004531443, 0.1, 2.0039907)
-
-[node name="Laterais" type="MeshInstance3D" parent="LateraisBotao" unique_id=1368086782]
-transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.025415111, 0, 0.23414269)
-mesh = SubResource("ArrayMesh_73ueg")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="LateraisBotao/Laterais" unique_id=731677628]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LateraisBotao/Laterais/StaticBody3D" unique_id=1169641968]
-shape = SubResource("ConcavePolygonShape3D_oeav1")
-
-[node name="LateraisBotao2" type="Node3D" parent="." unique_id=842775159]
-transform = Transform3D(3.577464e-08, 0, -3, 0, 3, 0, 3, 0, 3.577464e-08, -0.0004531443, 0.1, -1.9960096)
-
-[node name="Laterais" type="MeshInstance3D" parent="LateraisBotao2" unique_id=1582488223]
-transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.025415111, 0, 0.23414269)
-mesh = SubResource("ArrayMesh_73ueg")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="LateraisBotao2/Laterais" unique_id=386159866]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LateraisBotao2/Laterais/StaticBody3D" unique_id=1170450487]
-shape = SubResource("ConcavePolygonShape3D_4bqcb")
-
-[node name="Goleira" parent="." unique_id=2016388534 instance=ExtResource("12_ahre0")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.0004531443, 0.1, -2.1704266)
-team = 1
-
-[node name="Goleira2" parent="." unique_id=1895795452 instance=ExtResource("12_ahre0")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.0004531443, 0.1, 2.1631048)

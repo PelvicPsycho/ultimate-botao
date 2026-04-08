@@ -88,7 +88,7 @@ forca_multiplicador = 0.5
 playerInfo = ExtResource("6_rrtur")
 
 [node name="Ball" parent="." unique_id=573001688 instance=ExtResource("7_rrtur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9152705, 0, 0.2, 0.76126885)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.76126885)
 
 [node name="Gol_Manager(Temporario)" type="Node3D" parent="." unique_id=736409669]
 script = ExtResource("9_y3jfn")
