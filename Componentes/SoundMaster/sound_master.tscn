@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://bafr0ruromd8"]
+
+[ext_resource type="Script" uid="uid://eehv305dxa0i" path="res://Componentes/SoundMaster/sound_master.gd" id="1_w2dor"]
+
+[node name="SoundMaster" type="Node" unique_id=1100200711]
+script = ExtResource("1_w2dor")
+
+[node name="AudioBGM" type="AudioStreamPlayer" parent="." unique_id=1857867180]
+unique_name_in_owner = true
+bus = &"BGM"
+
+[node name="GroupSFX" type="Node" parent="." unique_id=279846630]
+
+[node name="AudioSFX" type="AudioStreamPlayer" parent="GroupSFX" unique_id=886373662]
+bus = &"SFX1"
+
+[node name="AudioSFX2" type="AudioStreamPlayer" parent="GroupSFX" unique_id=1974771129]
+bus = &"SFX2"
+
+[node name="AudioSFX3" type="AudioStreamPlayer" parent="GroupSFX" unique_id=19291476]
+bus = &"SFX3"
+
+[node name="AudioSFX4" type="AudioStreamPlayer" parent="GroupSFX" unique_id=1559137211]
+bus = &"SFX4"
+
+[node name="AudioSFX5" type="AudioStreamPlayer" parent="GroupSFX" unique_id=263679208]
+bus = &"SFX5"
+
+[node name="AudioSFX6" type="AudioStreamPlayer" parent="GroupSFX" unique_id=1351980319]
+bus = &"SFX6"
+
+[node name="AudioSFX7" type="AudioStreamPlayer" parent="GroupSFX" unique_id=2119296933]
+bus = &"SFX7"
+
+[node name="AudioSFX8" type="AudioStreamPlayer" parent="GroupSFX" unique_id=1044425902]
+bus = &"SFX8"
+
+[node name="AudioSFX9" type="AudioStreamPlayer" parent="GroupSFX" unique_id=1995159835]
+bus = &"SFX9"
+
+[node name="AudioSFX10" type="AudioStreamPlayer" parent="GroupSFX" unique_id=1898735478]
+bus = &"SFX10"
+
+[node name="AudioSFX11" type="AudioStreamPlayer" parent="GroupSFX" unique_id=985517374]
+bus = &"SFX11"
+
+[node name="AudioSFX12" type="AudioStreamPlayer" parent="GroupSFX" unique_id=349622365]
+bus = &"SFX12"
+
+[node name="AudioSFX13" type="AudioStreamPlayer" parent="GroupSFX" unique_id=1746244239]
+bus = &"SFX13"
+
+[node name="AudioSFX14" type="AudioStreamPlayer" parent="GroupSFX" unique_id=1705920116]
+bus = &"SFX14"
+
+[node name="AudioSFX15" type="AudioStreamPlayer" parent="GroupSFX" unique_id=697751296]
+bus = &"SFX15"
+
+[node name="AudioSFX16" type="AudioStreamPlayer" parent="GroupSFX" unique_id=780336227]
+bus = &"SFX16"
+
+[node name="AudioSFX17" type="AudioStreamPlayer" parent="GroupSFX" unique_id=1256062994]
+bus = &"SFX17"
+
+[node name="AudioSFX18" type="AudioStreamPlayer" parent="GroupSFX" unique_id=245626186]
+bus = &"SFX18"
+
+[node name="AudioSFX19" type="AudioStreamPlayer" parent="GroupSFX" unique_id=740774520]
+bus = &"SFX19"
+
+[node name="AudioSFX20" type="AudioStreamPlayer" parent="GroupSFX" unique_id=98846858]
+bus = &"SFX20"
+
+[connection signal="finished" from="AudioBGM" to="." method="_on_audio_bgm_finished"]

@@ -33,6 +33,7 @@ func _ready():
 				slider.value_changed.connect(func(novo_valor): label_valor.text = str(novo_valor))
 	await get_tree().process_frame
 	pegar_todas_pecas()
+	pegar_a_bola()
 
 
 func _unhandled_input(event):

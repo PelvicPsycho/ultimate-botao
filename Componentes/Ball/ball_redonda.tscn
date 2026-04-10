@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://c6aoscews6mr2" path="res://Recursos/3Dmodels/textures/m_bola.tres" id="3_jwucw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hx5gs"]
-radius = 0.25286058
+radius = 0.076769754
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_do1kh"]
 

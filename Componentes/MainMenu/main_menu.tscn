@@ -28,9 +28,10 @@ theme_override_constants/separation = 13
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=267374552]
 layout_mode = 2
-text = "A Volta Dos Botões Que Não Foram"
+text = "Super League Ball"
 
 [node name="ContinueButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=471053413]
+visible = false
 layout_mode = 2
 theme_override_styles/normal = ExtResource("2_lq001")
 text = "Continue"
@@ -41,11 +42,13 @@ theme_override_styles/normal = ExtResource("2_lq001")
 text = "New Game"
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=675715436]
+visible = false
 layout_mode = 2
 theme_override_styles/normal = ExtResource("2_lq001")
 text = "Settings"
 
 [node name="TeamButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=366108977]
+visible = false
 layout_mode = 2
 theme_override_styles/normal = ExtResource("2_lq001")
 text = "My Team

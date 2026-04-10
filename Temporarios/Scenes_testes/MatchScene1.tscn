@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://du1nsjujoug16" path="res://Scripts Globais/MatchState.gd" id="1_e3gwx"]
 [ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_6xdkp"]
 [ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_w88vh"]
+[ext_resource type="Texture2D" uid="uid://dnbws6dmwvupf" path="res://Recursos/3Dmodels/textures/Campo2.png" id="4_oeav1"]
 [ext_resource type="PackedScene" uid="uid://cuoecfox3x6o7" path="res://Temporarios/Scenes_testes/Player_escala3x.tscn" id="5_ceb22"]
 [ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="6_whapd"]
 [ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="7_87pxs"]
@@ -14,11 +15,41 @@
 [ext_resource type="PackedScene" uid="uid://evedwlh2n1by" path="res://Temporarios/Scenes_testes/Goleira_escala3x.tscn" id="12_ahre0"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="13_o4etl"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsfy7"]
-albedo_color = Color(0, 1, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boc7w"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_h7fbo"]
-size = Vector3(3.3, 0.2, 4.5)
+[sub_resource type="ArrayMesh" id="ArrayMesh_5cwc2"]
+_surfaces = [{
+"aabb": AABB(-0.5, -0.5, 0, 1, 1, 1e-05),
+"format": 34359742465,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAPwAAAD8AAAAAAAAAPwAAAL8AAAAAAAAAvwAAAL8AAAAAAAAAvwAAAD8AAAAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_by4d6"]
+resource_name = "Campo"
+_surfaces = [{
+"aabb": AABB(-0.5, -0.5, 0, 1, 1, 1e-05),
+"attribute_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAAAAAIA/AAAAAAAAAAA="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"material": SubResource("StandardMaterial3D_boc7w"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAPwAAAD8AAAAAAAAAPwAAAL8AAAAAAAAAvwAAAL8AAAAAAAAAvwAAAD8AAAAA/3//f////7//f/9/////v/9//3////+//3//f////78=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_5cwc2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4bqcb"]
+transparency = 1
+albedo_texture = ExtResource("4_oeav1")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a60kw"]
 size = Vector3(3.3989258, 0.2, 4.637329)
@@ -70,23 +101,24 @@ awayTeam = ExtResource("3_w88vh")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.36453, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1003734817]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2.875, -0.31231642)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2.875, -0.18965834)
 current = true
 size = 3.6
 
 [node name="Pitch" type="StaticBody3D" parent="." unique_id=371043304]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch" unique_id=983077752]
-material_override = SubResource("StandardMaterial3D_qsfy7")
-mesh = SubResource("BoxMesh_h7fbo")
+[node name="Campo" type="MeshInstance3D" parent="Pitch" unique_id=1961435889]
+transform = Transform3D(-3.059797e-07, -3.675095, -4.371139e-08, 0, -1.606435e-07, 1, -7, 1.6064348e-07, 1.9106855e-15, -0.03542614, 0.08184767, -1.5485258e-09)
+mesh = SubResource("ArrayMesh_by4d6")
+surface_material_override/0 = SubResource("StandardMaterial3D_4bqcb")
 
 [node name="Floor" type="CollisionShape3D" parent="Pitch" unique_id=1523702553]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0012207031, 0, -0.722229)
 shape = SubResource("BoxShape3D_a60kw")
 
 [node name="LateraisBotao" type="Node3D" parent="Pitch" unique_id=423250027]
-transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, -0.004087176, 0.1, -2.0001297)
+transform = Transform3D(-1.9232601e-07, 0, -3, 0, 3, 0, 4.399906, 0, -1.3113416e-07, -0.0040871357, 0.1, -2.9334004)
 
 [node name="Laterais" type="MeshInstance3D" parent="Pitch/LateraisBotao" unique_id=1368086782]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.025415111, 0, 0.23414269)
@@ -98,7 +130,7 @@ mesh = SubResource("ArrayMesh_73ueg")
 shape = SubResource("ConcavePolygonShape3D_oeav1")
 
 [node name="LateraisBotao2" type="Node3D" parent="Pitch" unique_id=842775159]
-transform = Transform3D(3.9340247e-07, 0, 3, 0, 3, 0, -3, 0, 3.9340247e-07, -0.0040875264, 0.1, 1.9998704)
+transform = Transform3D(3.3218367e-07, 0, 2.9999998, 0, 3, 0, -4.399906, 0, 2.2649368e-07, -0.004087567, 0.1, 2.933141)
 
 [node name="Laterais" type="MeshInstance3D" parent="Pitch/LateraisBotao2" unique_id=1582488223]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.025415111, 0, 0.23414269)
@@ -110,11 +142,11 @@ mesh = SubResource("ArrayMesh_73ueg")
 shape = SubResource("ConcavePolygonShape3D_4bqcb")
 
 [node name="Goleira" parent="Pitch" unique_id=2016388534 instance=ExtResource("12_ahre0")]
-transform = Transform3D(1.4424758e-07, 0, 1.1, 0, 1.1, 0, -1.1, 0, 1.4424758e-07, -0.004087544, 0.1, 2.2050395)
+transform = Transform3D(1.4424758e-07, 0, 1.1, 0, 1.1, 0, -1.1, 0, 1.4424758e-07, -0.0040875804, 0.1, 3.0370116)
 team = 1
 
 [node name="Goleira2" parent="Pitch" unique_id=1895795452 instance=ExtResource("12_ahre0")]
-transform = Transform3D(-4.8082534e-08, 0, -1.1, 0, 1.1, 0, 1.1, 0, -4.8082534e-08, -0.004540303, 0.1, -2.206139)
+transform = Transform3D(-4.8082534e-08, 0, -1.1, 0, 1.1, 0, 1.1, 0, -4.8082534e-08, -0.0045402655, 0.1, -3.0601563)
 
 [node name="HomeTeam" type="Node" parent="." unique_id=127159349]
 

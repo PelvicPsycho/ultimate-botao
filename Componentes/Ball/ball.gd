@@ -18,6 +18,9 @@ func _on_body_entered(body):
 
 func _physics_process(_delta: float) -> void:
 	# 1. Pega a velocidade com que a bola está deslizando pelo chão
+	if sleeping:
+		return
+
 	var velocidade_atual = linear_velocity
 	velocidade_atual.y = 0 # Ignora o eixo Y para evitar cálculos errados
 	
@@ -25,9 +28,15 @@ func _physics_process(_delta: float) -> void:
 	
 	# Se a bola estiver quase parando, zera a rotação para evitar tremedeira
 	if speed < 0.1:
-		angular_velocity = Vector3.ZERO
+		#Só alteramos a angular_velocity se ela ainda não for zero.
+		# Isso evita que o corpo seja "acordado" a cada frame.
+		if angular_velocity.length() > 0.01:
+			angular_velocity = Vector3.ZERO
+			
+			# Dica extra: Se quiser ter certeza absoluta que ela para retoquei a linear também:
+			linear_velocity = Vector3.ZERO 
 		return
-		
+	
 	# 2. Descobre para qual lado ela está indo
 	var direcao_movimento = velocidade_atual.normalized()
 	
