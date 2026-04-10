@@ -34,4 +34,28 @@ Balls=""
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
+
+[shader_globals]
+
+diffuse_curve={
+"type": "sampler2D",
+"value": "::0gqfi"
+}
+outline_width={
+"type": "float",
+"value": 8.0
+}
+specular_smoothness={
+"type": "float",
+"value": 0.05
+}
+fresnel_smoothness={
+"type": "float",
+"value": 0.05
+}
+outline_color={
+"type": "color",
+"value": Color(0, 0, 0, 1)
+}
