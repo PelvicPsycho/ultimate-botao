@@ -14,6 +14,7 @@ var modo_atual: ModoTiro = ModoTiro.PUXAR
 var is_dragging: bool = false
 var is_pointer_inside: bool = false #Mouse/dedo dentro da peça
 var posicao_inicial_toque: Vector2 = Vector2.ZERO
+var vetor_arrasto_atual: Vector2 = Vector2.ZERO
 
 # Variáveis do Modo Empurrar
 var direcao_travada: bool = false
@@ -86,6 +87,7 @@ func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, n
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			is_dragging = true
+			vetor_arrasto_atual = Vector2.ZERO
 			posicao_inicial_toque = event.position
 			
 			# Resets específicos
@@ -145,6 +147,7 @@ func _input(event: InputEvent) -> void:
 # ==========================================
 func _atualizar_mira_puxar(posicao_atual: Vector2) -> void:
 	# Se o ponteiro NÃO estiver dentro da peça, desenha a mira
+	vetor_arrasto_atual = posicao_inicial_toque - posicao_atual
 	if not is_pointer_inside:
 		var vetor_arrasto_2d = posicao_inicial_toque - posicao_atual
 		_desenhar_mira(vetor_arrasto_2d)
@@ -155,6 +158,15 @@ func _atualizar_mira_puxar(posicao_atual: Vector2) -> void:
 func _chutar_peca_puxar(posicao_final: Vector2) -> void:
 	var vetor_arrasto_2d = posicao_inicial_toque - posicao_final
 	_aplicar_forca(vetor_arrasto_2d)
+
+func puxar_no_timeout():
+	if not is_dragging:
+		return
+	if vetor_arrasto_atual.length() > 5.0:
+		_aplicar_forca(vetor_arrasto_atual)
+	else:
+		_cancelar_interacao()
+		turnPlayed.emit()
 
 # ==========================================
 # LÓGICA MODO 2: EMPURRAR

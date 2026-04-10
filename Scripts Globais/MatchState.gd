@@ -60,8 +60,19 @@ func _atualizar_placar() -> void:
 	if label_away:
 		label_away.text = str(awayScore)
 
-func _on_lance_acabou() -> void:
-	changeTurn()
+func _on_lance_acabou() -> void: 
+	var alguma_peca_arrastada = false
+	var peca_arrastada
+	for piece in allPieces: #verifica se alguma peca esta sendo arrastada
+		if piece.is_dragging == true:
+			alguma_peca_arrastada = true
+			peca_arrastada = piece
+			break
+	if alguma_peca_arrastada:
+		timer.lance_rodando = true
+		peca_arrastada.puxar_no_timeout()
+	else:
+		changeTurn()
 
 func _on_partida_acabou() -> void:
 	timer.parar_tudo()
