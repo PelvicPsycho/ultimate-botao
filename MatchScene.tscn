@@ -120,54 +120,54 @@ shape = SubResource("ConcavePolygonShape3D_jd3xb")
 
 [node name="Player" parent="HomeTeam" unique_id=792270927 instance=ExtResource("2_a60kw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.131, 0)
-forca_multiplicador = 0.5
+forca_multiplicador = 0.21
 playerInfo = ExtResource("4_xqcg1")
 
 [node name="Player2" parent="HomeTeam" unique_id=1350086234 instance=ExtResource("2_a60kw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8932083, 0.131, 0)
-forca_multiplicador = 0.5
+forca_multiplicador = 0.21
 playerInfo = ExtResource("4_xqcg1")
 
 [node name="Player3" parent="HomeTeam" unique_id=1880878002 instance=ExtResource("2_a60kw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.131, -0.77055645)
-forca_multiplicador = 0.5
+forca_multiplicador = 0.21
 playerInfo = ExtResource("4_xqcg1")
 
 [node name="Player4" parent="HomeTeam" unique_id=1741078430 instance=ExtResource("2_a60kw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.131, 0.84449697)
-forca_multiplicador = 0.5
+forca_multiplicador = 0.21
 playerInfo = ExtResource("4_xqcg1")
 
 [node name="Player5" parent="HomeTeam" unique_id=2128014667 instance=ExtResource("2_a60kw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5119095, 0.131, 0)
-forca_multiplicador = 0.5
+forca_multiplicador = 0.21
 playerInfo = ExtResource("4_xqcg1")
 
 [node name="AwayTeam" type="Node" parent="." unique_id=1453187810]
 
 [node name="Player2" parent="AwayTeam" unique_id=1384454041 instance=ExtResource("2_a60kw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.131, 0)
-forca_multiplicador = 0.5
+forca_multiplicador = 0.21
 playerInfo = ExtResource("6_rrtur")
 
 [node name="Player3" parent="AwayTeam" unique_id=1579945855 instance=ExtResource("2_a60kw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4255567, 0.131, 0)
-forca_multiplicador = 0.5
+forca_multiplicador = 0.21
 playerInfo = ExtResource("6_rrtur")
 
 [node name="Player4" parent="AwayTeam" unique_id=2080314620 instance=ExtResource("2_a60kw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8045008, 0.131, 0)
-forca_multiplicador = 0.5
+forca_multiplicador = 0.21
 playerInfo = ExtResource("6_rrtur")
 
 [node name="Player5" parent="AwayTeam" unique_id=1146290176 instance=ExtResource("2_a60kw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8188465, 0.131, 0.93689907)
-forca_multiplicador = 0.5
+forca_multiplicador = 0.21
 playerInfo = ExtResource("6_rrtur")
 
 [node name="Player6" parent="AwayTeam" unique_id=1069092750 instance=ExtResource("2_a60kw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7895684, 0.131, -0.8517053)
-forca_multiplicador = 0.5
+forca_multiplicador = 0.21
 playerInfo = ExtResource("6_rrtur")
 
 [node name="Ball" parent="." unique_id=573001688 instance=ExtResource("7_rrtur")]

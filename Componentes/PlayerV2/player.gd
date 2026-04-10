@@ -4,7 +4,7 @@ class_name Player
 enum ModoTiro { PUXAR, EMPURRAR, CARREGAR }
 var modo_atual: ModoTiro = ModoTiro.PUXAR
 
-@export var forca_multiplicador: float = 0.05
+@export var forca_multiplicador: float = 0.21
 @export var forca_maxima: float = 30.0
 @export var raio_saida_pixels: float = 40.0 # Define a borda da peça na tela
 @export var multiplicador_comprimento_mira: float = 1.0 #nao parece estar fazendo nada
@@ -29,6 +29,8 @@ var forca_carga_atual: float = 0.0
 var direcao_atual_modo3: Vector2 = Vector2.ZERO
 
 @onready var mira_pivot: Node3D = $MiraPivot
+@onready var circulo_limite: MeshInstance3D = $CirculoLimite
+var material_circulo: StandardMaterial3D
 
 #info do time da peça
 var team: Team
@@ -44,12 +46,16 @@ signal turnPlayed
 
 func _ready() -> void:
 	mira_pivot.visible = false
+	circulo_limite.visible = false
 	team = playerInfo.time
 	var material = StandardMaterial3D.new()
 	material.albedo_color = team.cor      
 	# Aplicamos o material ao mesh (índice 0 é a primeira superfície)
 	mesh.set_surface_override_material(0, material)
-	
+	material_circulo = StandardMaterial3D.new()
+	material_circulo.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material_circulo.albedo_color = Color(1.0, 1.0, 1.0, 0.0) # Começa totalmente invisível
+	circulo_limite.set_surface_override_material(0, material_circulo)
 	# Conecta os sinais de mouse/touch nativos da Godot
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
@@ -88,7 +94,8 @@ func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, n
 		if event.pressed:
 			is_dragging = true
 			vetor_arrasto_atual = Vector2.ZERO
-			posicao_inicial_toque = event.position
+#			posicao_inicial_toque = event.position
+			posicao_inicial_toque = camera.unproject_position(global_position)
 			
 			# Resets específicos
 			direcao_travada = false
@@ -151,9 +158,20 @@ func _atualizar_mira_puxar(posicao_atual: Vector2) -> void:
 	if not is_pointer_inside:
 		var vetor_arrasto_2d = posicao_inicial_toque - posicao_atual
 		_desenhar_mira(vetor_arrasto_2d)
+		#Logica do circulo
+		circulo_limite.visible = true
+		var vetor_direcao_3d = Vector3(vetor_arrasto_2d.x, 0, vetor_arrasto_2d.y) * forca_multiplicador
+		var forca_atual = vetor_direcao_3d.length()
+		var porcentagem_forca = clamp(forca_atual / forca_maxima, 0.0, 1.0)
+		material_circulo.albedo_color.a = lerp(0.1, 0.6, porcentagem_forca)
+		if porcentagem_forca >= 1.0:
+			material_circulo.albedo_color = Color(1.0, 0.2, 0.2, 0.8) # Vermelho
+		else:
+			material_circulo.albedo_color = Color(1.0, 1.0, 1.0, material_circulo.albedo_color.a) # Branco
 	else:
 		# Se o ponteiro estiver em cima da peça, esconde a mira
 		mira_pivot.visible = false
+		circulo_limite.visible = false
 
 func _chutar_peca_puxar(posicao_final: Vector2) -> void:
 	var vetor_arrasto_2d = posicao_inicial_toque - posicao_final
@@ -260,6 +278,7 @@ func _cancelar_interacao() -> void:
 	direcao_travada = false
 	carregando_modo3 = false
 	mira_pivot.visible = false
+	circulo_limite.visible = false
 
 func _on_mouse_entered() -> void:
 	is_pointer_inside = true
