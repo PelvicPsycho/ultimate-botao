@@ -68,20 +68,20 @@ alignment = 1
 
 [node name="Label - Jogo Pausado" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=990441323]
 layout_mode = 2
-text = "Pause Menu"
+text = "PAUSE"
 horizontal_alignment = 1
 
 [node name="Button - Continuar" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=10636318]
 layout_mode = 2
-text = "Continuar"
+text = "CONTINUE"
 
 [node name="Button - Recomecar" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=1438065989]
 layout_mode = 2
-text = "Recomeçar Partida"
+text = "RESTART"
 
 [node name="Button - Menu Inicial" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=93931786]
 layout_mode = 2
-text = "Menu Inicial"
+text = "QUIT"
 
 [node name="Debug" type="MarginContainer" parent="Control/CenterContainer/TabContainer - Abas" unique_id=1121924991]
 layout_mode = 2
@@ -98,7 +98,7 @@ layout_mode = 2
 [node name="PecasDebug" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=872752825]
 auto_translate_mode = 1
 layout_mode = 2
-text = "TEST"
+text = "Jogadores"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1499901274]

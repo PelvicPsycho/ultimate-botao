@@ -51,7 +51,7 @@ func _configurar_ui():
 	add_child(canvas_layer)
 	
 	label_gol = Label.new()
-	label_gol.text = "GOL!"
+	label_gol.text = tr("GOAL")+"!"
 	label_gol.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label_gol.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label_gol.add_theme_font_size_override("font_size", 64) # Fonte base grande

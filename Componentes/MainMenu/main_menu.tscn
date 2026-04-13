@@ -39,7 +39,7 @@ text = "Continue"
 [node name="NewGameButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1568442155]
 layout_mode = 2
 theme_override_styles/normal = ExtResource("2_lq001")
-text = "New Game"
+text = "NEW_GAME"
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=675715436]
 visible = false
