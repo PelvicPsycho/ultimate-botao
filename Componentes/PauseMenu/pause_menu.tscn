@@ -96,8 +96,9 @@ custom_minimum_size = Vector2(300, 500)
 layout_mode = 2
 
 [node name="PecasDebug" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=872752825]
+auto_translate_mode = 1
 layout_mode = 2
-text = "Pecas"
+text = "TEST"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1499901274]

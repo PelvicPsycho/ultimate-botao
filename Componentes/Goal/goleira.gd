@@ -6,6 +6,11 @@ enum TeamSide {HOME, AWAY}
 
 signal gol(isHome: bool) #True = gol Home, False = gol Away (a principio)
 
+func changeColor(color: Color):
+	var material = StandardMaterial3D.new()
+	material.albedo_color = color      
+	$Goleira/StaticBody3D/Goleira.material_override = material
+
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	#print('body entrou no gol: ' + str(body))
 	if body.is_in_group('Balls'):

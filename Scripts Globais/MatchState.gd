@@ -38,6 +38,10 @@ func _ready():
 	var goals = get_tree().get_nodes_in_group("Goals")
 	for goal in goals:
 		goal.connect("gol", onGoal)
+		if goal.team == goal.TeamSide.HOME:
+			goal.changeColor(homeTeam.cor)
+		else:
+			goal.changeColor(awayTeam.cor)
 	for piece in allPieces:
 		piece.connect("clickedPiece", onClickedPiece)
 		piece.connect("turnPlayed", onTurnPlayed)

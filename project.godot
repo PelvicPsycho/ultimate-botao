@@ -36,6 +36,11 @@ Goals=""
 Players=""
 Balls=""
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://Locales/pt_BR/translations.pt_BR.translation", "res://Locales/pt_BR/translations.en.translation")
+locale/test="pt_BR"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
