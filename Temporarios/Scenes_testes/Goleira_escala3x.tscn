@@ -10,6 +10,8 @@ size = Vector3(0.25759888, 0.03753662, 0.79887414)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_71voe"]
 render_priority = 0
 shader = ExtResource("2_1wk68")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/size = 1.00999999977648
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1wk68"]
 render_priority = 0
@@ -18,6 +20,8 @@ shader = ExtResource("2_w0yno")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
 shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/specular_strength = 1.0
+shader_parameter/fresnel_strength = 1.0
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 

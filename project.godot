@@ -45,7 +45,7 @@ diffuse_curve={
 }
 outline_width={
 "type": "float",
-"value": 8.0
+"value": 0.8
 }
 specular_smoothness={
 "type": "float",

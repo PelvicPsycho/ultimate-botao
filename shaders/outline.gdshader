@@ -1,25 +1,14 @@
 shader_type spatial;
+render_mode blend_mix, cull_front, unshaded;
 
-render_mode cull_front, unshaded, depth_draw_never;
-
-global uniform vec4 outline_color;
-global uniform float outline_width;
+uniform vec4 color : source_color = vec4(0,0,0,1);
+uniform float size : hint_range(1.0, 1.5, 0.01) = 1.05;
 
 void vertex() {
-	vec4 clip_position = 
-			PROJECTION_MATRIX *
-			(MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
-	vec3 clip_normal =
-			mat3(PROJECTION_MATRIX) *
-			(mat3(MODELVIEW_MATRIX) * NORMAL);
-	clip_position.xy +=
-			normalize(clip_normal.xy) /
-			VIEWPORT_SIZE *
-			clip_position.w *
-			outline_width;
-	POSITION = clip_position;
+	VERTEX *= size;
 }
 
 void fragment() {
-	ALBEDO = outline_color.rgb;
+	ALBEDO = color.rgb;
+	ALPHA = color.a;
 }

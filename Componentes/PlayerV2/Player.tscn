@@ -19,6 +19,8 @@ albedo_color = Color(1, 0.43333334, 0, 0.21176471)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tykxf"]
 render_priority = 0
 shader = ExtResource("3_dkuec")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/size = 1.05
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e60r6"]
 render_priority = 0
