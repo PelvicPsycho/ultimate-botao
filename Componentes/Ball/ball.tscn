@@ -2,9 +2,26 @@
 
 [ext_resource type="Script" uid="uid://bi5qwnf836a6l" path="res://Componentes/Ball/ball.gd" id="1_d60mj"]
 [ext_resource type="PhysicsMaterial" uid="uid://46t3u1yh1h7m" path="res://Componentes/PlayerV2/PlayerPhysicsMaerial.tres" id="1_yhqis"]
+[ext_resource type="Shader" uid="uid://pn80x7vapsyx" path="res://shaders/outline.gdshader" id="3_nsumo"]
+[ext_resource type="Shader" uid="uid://bl700v8cpsrid" path="res://shaders/Ball_Legacy.gdshader" id="4_iebsh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iu4gp"]
-albedo_color = Color(0, 0, 0, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v7dh8"]
+render_priority = 0
+shader = ExtResource("3_nsumo")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/size = 1.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vnj8c"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_v7dh8")
+shader = ExtResource("4_iebsh")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/specular = Color(0.06469653, 0.06469653, 0.06469653, 0.5019608)
+shader_parameter/fresnel = Color(0.029506557, 0.029506557, 0.029506557, 0.3019608)
+shader_parameter/specular_strength = 1.0
+shader_parameter/fresnel_strength = 0.385
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_25osk"]
 top_radius = 0.1
@@ -29,7 +46,7 @@ angular_damp = 2.0
 script = ExtResource("1_d60mj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1678610985]
-material_override = SubResource("StandardMaterial3D_iu4gp")
+material_override = SubResource("ShaderMaterial_vnj8c")
 mesh = SubResource("CylinderMesh_25osk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1199803410]

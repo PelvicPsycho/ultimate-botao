@@ -39,9 +39,9 @@ func _ready():
 	for goal in goals:
 		goal.connect("gol", onGoal)
 		if goal.team == goal.TeamSide.HOME:
-			goal.changeColor(homeTeam.cor)
+			goal.changeColor(homeTeam.id)
 		else:
-			goal.changeColor(awayTeam.cor)
+			goal.changeColor(awayTeam.id)
 	for piece in allPieces:
 		piece.connect("clickedPiece", onClickedPiece)
 		piece.connect("turnPlayed", onTurnPlayed)
