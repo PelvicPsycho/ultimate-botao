@@ -5,6 +5,8 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_rhyh4"]
 size = Vector3(0.25759888, 0.03753662, 0.79887414)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8xnqo"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iv11r"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_y5ca8"]
@@ -60,6 +62,7 @@ shape = SubResource("BoxShape3D_rhyh4")
 
 [node name="Goleira" type="MeshInstance3D" parent="Goleira/StaticBody3D" unique_id=221781048]
 transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, 3, 0, -3, -1.3113416e-07, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_8xnqo")
 mesh = SubResource("ArrayMesh_dvbvn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Goleira/StaticBody3D" unique_id=586657296]

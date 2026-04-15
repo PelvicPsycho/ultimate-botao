@@ -2,7 +2,9 @@
 
 [ext_resource type="PhysicsMaterial" uid="uid://46t3u1yh1h7m" path="res://Componentes/PlayerV2/PlayerPhysicsMaerial.tres" id="1_ibk2b"]
 [ext_resource type="Script" uid="uid://bi5qwnf836a6l" path="res://Componentes/Ball/ball.gd" id="2_jwucw"]
-[ext_resource type="Material" uid="uid://c6aoscews6mr2" path="res://Recursos/3Dmodels/textures/m_bola.tres" id="3_jwucw"]
+[ext_resource type="Shader" uid="uid://pn80x7vapsyx" path="res://shaders/outline.gdshader" id="3_el5e0"]
+[ext_resource type="Shader" uid="uid://38at61vm3gln" path="res://shaders/Ball.gdshader" id="4_n5tg4"]
+[ext_resource type="Texture2D" uid="uid://dfnxdqp8a7d8l" path="res://Recursos/3Dmodels/textures/BolaRedonda/BolaRedondaUVNormal_MaterialBola_BaseColor.png" id="5_h672k"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hx5gs"]
 radius = 0.076769754
@@ -41,6 +43,25 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_pvveq")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f6n15"]
+render_priority = 0
+shader = ExtResource("3_el5e0")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/size = 1.17999999597664
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rr8cb"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_f6n15")
+shader = ExtResource("4_n5tg4")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/base_texture = ExtResource("5_h672k")
+shader_parameter/specular = Color(0.06469653, 0.064696535, 0.0646965, 0.5019608)
+shader_parameter/fresnel = Color(0.04755766, 0.047557645, 0.047557645, 0.3019608)
+shader_parameter/specular_strength = 1.0
+shader_parameter/fresnel_strength = 0.245
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
 [node name="Ball" type="RigidBody3D" unique_id=573001688 groups=["Balls"]]
 axis_lock_linear_y = true
 mass = 0.5
@@ -51,6 +72,7 @@ max_contacts_reported = 8
 linear_damp = 2.0
 angular_damp = 2.0
 script = ExtResource("2_jwucw")
+raio_da_bola = 0.1
 is_ball_redonda = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1199803410]
@@ -60,7 +82,7 @@ shape = SubResource("SphereShape3D_hx5gs")
 [node name="BolaRedonda" type="MeshInstance3D" parent="." unique_id=1899937594]
 transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, 3, 0, -3, -1.3113416e-07, 0, 0, 0)
 mesh = SubResource("ArrayMesh_tb73o")
-surface_material_override/0 = ExtResource("3_jwucw")
+surface_material_override/0 = SubResource("ShaderMaterial_rr8cb")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

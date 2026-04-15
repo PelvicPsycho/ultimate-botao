@@ -1,9 +1,29 @@
 [gd_scene format=4 uid="uid://d4nu7awvfje7u"]
 
 [ext_resource type="Script" uid="uid://cqbbkigcgp83r" path="res://Componentes/Goal/goleira.gd" id="1_vtwsu"]
+[ext_resource type="Shader" uid="uid://3oc4n5n75ubm" path="res://shaders/outline_Complex.gdshader" id="2_ta5al"]
+[ext_resource type="Shader" uid="uid://b7jpffdoljyg5" path="res://shaders/Goleira_Azul.gdshader" id="3_63ohw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rhyh4"]
 size = Vector3(0.08117676, 0.03753662, 0.26092625)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o60gv"]
+render_priority = 0
+shader = ExtResource("2_ta5al")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/outline_size = 0.005
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rhyh4"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_o60gv")
+shader = ExtResource("3_63ohw")
+shader_parameter/color = Color(0, 0, 1, 1)
+shader_parameter/specular = Color(0.3019608, 0.3019608, 0.3019608, 0.5019608)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3019608)
+shader_parameter/specular_strength = 1.0
+shader_parameter/fresnel_strength = 0.585
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iv11r"]
 
@@ -52,6 +72,7 @@ shape = SubResource("BoxShape3D_rhyh4")
 
 [node name="Goleira" type="MeshInstance3D" parent="Goleira" unique_id=221781048]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.0944635, 0, 0)
+material_override = SubResource("ShaderMaterial_rhyh4")
 mesh = SubResource("ArrayMesh_dvbvn")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

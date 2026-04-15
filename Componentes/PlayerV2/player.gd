@@ -31,7 +31,8 @@ var direcao_atual_modo3: Vector2 = Vector2.ZERO
 @onready var mira_pivot: Node3D = $MiraPivot
 @onready var circulo_limite: MeshInstance3D = $CirculoLimite
 var material_circulo: StandardMaterial3D
-
+var material: ShaderMaterial
+var outline_material: ShaderMaterial
 #info do time da peça
 var team: Team
 @export var playerInfo: TeamPlayer
@@ -48,10 +49,27 @@ func _ready() -> void:
 	mira_pivot.visible = false
 	circulo_limite.visible = false
 	team = playerInfo.time
-	var material = StandardMaterial3D.new()
-	material.albedo_color = team.cor      
-	# Aplicamos o material ao mesh (índice 0 é a primeira superfície)
-	mesh.set_surface_override_material(0, material)
+	material = ShaderMaterial.new()
+	
+	outline_material = ShaderMaterial.new()
+	mesh.material_override = material
+	outline_material.shader = load("res://shaders/outline.gdshader") as Shader
+	if team.id == 1:
+		trocar_shader("res://shaders/pesaAzul.gdshader")
+		material.set_shader_parameter("specular_color", Color.html("#13131380"))
+		material.set_shader_parameter("fresnel_color", Color.html("#003d354d"))
+		material.set_shader_parameter("specular_strength", 0.1)
+		material.set_shader_parameter("fresnel_strength",0.77)
+	else:
+		trocar_shader("res://shaders/pesaVermelha.gdshader")
+		material.set_shader_parameter("specular_color", Color.html("#13131380"))
+		material.set_shader_parameter("fresnel_color", Color.html("#003d354d"))
+		material.set_shader_parameter("specular_strength", 0.1)
+		material.set_shader_parameter("fresnel_strength",0.77)
+	
+	material.next_pass = outline_material
+	print("material override aplicado: ", mesh.material_override)
+	print("shader final: ", material.shader)
 	material_circulo = StandardMaterial3D.new()
 	material_circulo.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	material_circulo.albedo_color = Color(1.0, 1.0, 1.0, 0.0) # Começa totalmente invisível
@@ -83,7 +101,9 @@ func _process(_delta: float) -> void:
 			# Para a função de desenhar mira entender, passamos o vetor no formato 2D
 			var vetor_mira_pulsante = direcao_atual_modo3.normalized() * (forca_carga_atual / forca_multiplicador)
 			_desenhar_mira(vetor_mira_pulsante)
-
+func trocar_shader(path: String) -> void:
+	var shader := load(path) as Shader
+	material.shader = shader
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
 
 	#se não for da equipe, não interage
