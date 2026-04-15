@@ -49,3 +49,22 @@ locale/test="pt_BR"
 
 rendering_device/driver.windows="d3d12"
 textures/vram_compression/import_etc2_astc=true
+
+[shader_globals]
+
+diffuse_curve={
+"type": "sampler2D",
+"value": "res://shaders/Smoke/new_gradient_texture_1d.tres"
+}
+specular_smoothness={
+"type": "float",
+"value": 4.0
+}
+fresnel_smoothness={
+"type": "float",
+"value": 0.05
+}
+outline_width={
+"type": "float",
+"value": 0.0
+}
