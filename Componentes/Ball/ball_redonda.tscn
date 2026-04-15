@@ -47,7 +47,7 @@ shadow_mesh = SubResource("ArrayMesh_pvveq")
 render_priority = 0
 shader = ExtResource("3_el5e0")
 shader_parameter/color = Color(0, 0, 0, 1)
-shader_parameter/size = 1.05
+shader_parameter/size = 1.17999999597664
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rr8cb"]
 render_priority = 0
@@ -72,6 +72,7 @@ max_contacts_reported = 8
 linear_damp = 2.0
 angular_damp = 2.0
 script = ExtResource("2_jwucw")
+raio_da_bola = 0.1
 is_ball_redonda = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1199803410]

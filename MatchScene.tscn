@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bo3iftgkblwmo" path="res://ProgressBar/progress_track.png" id="11_1s8k8"]
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="11_yyp1h"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="12_matchtimer"]
+[ext_resource type="PackedScene" uid="uid://i0rr4lxax2lo" path="res://Componentes/Ball/ball_redonda.tscn" id="18_veq7s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xiaim"]
 render_priority = 0
@@ -28,11 +29,11 @@ shader_parameter/size = 1.00999999977648
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_xiaim")
 shader = ExtResource("5_xujo0")
-shader_parameter/color = Color(4.0911136e-06, 0.65036696, 0.17704618, 1)
-shader_parameter/specular = Color(0.09998604, 0.09998598, 0.099985994, 0.5019608)
-shader_parameter/fresnel = Color(0.1148968, 0.11489681, 0.1148968, 0.3019608)
-shader_parameter/specular_strength = 1.0
-shader_parameter/fresnel_strength = 0.405
+shader_parameter/color = Color(8.061901e-07, 0.47663605, 0.11930808, 1)
+shader_parameter/specular = Color(0.5152081, 0.5152081, 0.515208, 0.49803922)
+shader_parameter/fresnel = Color(0.16026929, 0.16026932, 0.16026923, 0.3019608)
+shader_parameter/specular_strength = 0.985
+shader_parameter/fresnel_strength = 0.63
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 
@@ -125,10 +126,11 @@ awayTeam = ExtResource("3_qsfy7")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.36453, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1003734817]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.5, 0)
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 3.3438315, 3.3802805)
 keep_aspect = 0
 v_offset = 0.245
 current = true
+size = 6.608
 
 [node name="Pitch" type="StaticBody3D" parent="." unique_id=371043304]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
@@ -275,3 +277,6 @@ texture_progress = ExtResource("11_1s8k8")
 
 [node name="MatchTimer" type="Node" parent="." unique_id=750440205]
 script = ExtResource("12_matchtimer")
+
+[node name="Ball2" parent="." unique_id=297591895 instance=ExtResource("18_veq7s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34538007, 0.17500003, 0.72315764)
