@@ -54,7 +54,7 @@ textures/vram_compression/import_etc2_astc=true
 
 diffuse_curve={
 "type": "sampler2D",
-"value": "::grqsp"
+"value": "res://shaders/Smoke/new_gradient_texture_1d.tres"
 }
 specular_smoothness={
 "type": "float",

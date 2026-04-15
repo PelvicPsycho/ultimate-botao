@@ -195,7 +195,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.131, 0.84449697)
 playerInfo = ExtResource("4_xqcg1")
 
 [node name="Player5" parent="HomeTeam" unique_id=2128014667 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5119095, 0.131, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3767562, 0.131, 0)
 playerInfo = ExtResource("4_xqcg1")
 
 [node name="AwayTeam" type="Node" parent="." unique_id=1453187810]
