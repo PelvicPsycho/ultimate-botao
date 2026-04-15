@@ -2,8 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bcxprpwyrxefe" path="res://Componentes/PlayerV2/player.gd" id="1_2wsv6"]
 [ext_resource type="PhysicsMaterial" uid="uid://46t3u1yh1h7m" path="res://Componentes/PlayerV2/PlayerPhysicsMaerial.tres" id="1_o7wco"]
+[ext_resource type="Shader" uid="uid://d1kvc0cm1f628" path="res://GPUTrail-main/shaders/trail.gdshader" id="3_75hxl"]
 [ext_resource type="Shader" uid="uid://pn80x7vapsyx" path="res://shaders/outline.gdshader" id="3_dkuec"]
+[ext_resource type="Shader" uid="uid://40v5rmld7jj7" path="res://GPUTrail-main/shaders/trail_draw_pass.gdshader" id="4_mf3xq"]
 [ext_resource type="Shader" uid="uid://bq0dktydsfj56" path="res://shaders/pesaAzul.gdshader" id="4_qlv43"]
+[ext_resource type="Script" uid="uid://bxyy0y3fu5svc" path="res://GPUTrail-main/GPUTrail3D.gd" id="5_egdk7"]
+[ext_resource type="Texture2D" uid="uid://clah07ifurpwu" path="res://shaders/TrailsTexture/T_VFX_N41.PNG" id="5_mf3xq"]
 [ext_resource type="PackedScene" uid="uid://bmylfjjf2brdp" path="res://shaders/Smoke/Smoke.tscn" id="5_qlv43"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_e0ky2"]
@@ -78,6 +82,39 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_l00db")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4r7k"]
+shader = ExtResource("3_75hxl")
+
+[sub_resource type="Gradient" id="Gradient_cxphc"]
+offsets = PackedFloat32Array(0.19545455, 0.6931818, 0.7090909)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.28531075, 1, 1, 1, 0.28531075)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6g8b7"]
+gradient = SubResource("Gradient_cxphc")
+
+[sub_resource type="Curve" id="Curve_7w6yy"]
+bake_resolution = 16
+_data = [Vector2(0.008583691, 0.9789815), 0.0, 0.0, 0, 0, Vector2(1, 0.006871462), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_u3hnd"]
+curve = SubResource("Curve_7w6yy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nr084"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_mf3xq")
+shader_parameter/tex = ExtResource("5_mf3xq")
+shader_parameter/mask_strength = 1.0
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_6g8b7")
+shader_parameter/curve = SubResource("CurveTexture_u3hnd")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 42
+
+[sub_resource type="QuadMesh" id="QuadMesh_8g0tu"]
+material = SubResource("ShaderMaterial_nr084")
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_o7wco"]
 height = 0.01
 rings = 0
@@ -107,13 +144,32 @@ transform = Transform3D(0.1, 0, 0, 0, 0.001, 0, 0, 0, 0.8, 0, 0, -0.4)
 mesh = SubResource("BoxMesh_e0ky2")
 surface_material_override/0 = SubResource("StandardMaterial3D_pndby")
 
-[node name="Node3D" parent="MiraPivot" unique_id=2064837984 instance=ExtResource("5_qlv43")]
-transform = Transform3D(-0.21064238, 0, -0.3422303, 0, 0.80586797, 0, 0.9775632, 0, -0.073742755, -0.06055963, 0.0022009313, 0.08371884)
-
 [node name="Botao2" type="MeshInstance3D" parent="." unique_id=1947117845]
 transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, 3, 0, -3, -1.3113416e-07, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_o7wco")
 mesh = SubResource("ArrayMesh_g68ec")
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="Botao2" unique_id=1865826185]
+transform = Transform3D(-0.00069807976, 0.033326022, 0, 1.4567266e-09, 3.0514032e-11, -0.033333335, -0.033326022, -0.00069807976, -1.4570463e-09, 0, -0.0014167528, -6.1928226e-11)
+amount = 60
+amount_ratio = 0.205
+lifetime = 60.0
+explosiveness = 1.0
+fixed_fps = 164
+process_material = SubResource("ShaderMaterial_u4r7k")
+draw_pass_1 = SubResource("QuadMesh_8g0tu")
+script = ExtResource("5_egdk7")
+length = 60
+length_seconds = 0.36585365853658536
+texture = ExtResource("5_mf3xq")
+color_ramp = SubResource("GradientTexture1D_6g8b7")
+curve = SubResource("CurveTexture_u3hnd")
+use_red_as_alpha = true
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://bxyy0y3fu5svc"
+
+[node name="Smoke" parent="Botao2/GPUTrail3D" unique_id=2064837984 instance=ExtResource("5_qlv43")]
+transform = Transform3D(0.044113558, -8.056912, 0.07167122, -2.105962, -0.16876805, -3.4215527, 9.775632, 0, -0.73742753, -0.009321851, -0.6059244, 0.7946858)
 
 [node name="CirculoLimite" type="MeshInstance3D" parent="." unique_id=1150041566]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.017288428, 0)
