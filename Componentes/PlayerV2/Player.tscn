@@ -20,6 +20,42 @@ transparency = 1
 shading_mode = 0
 albedo_color = Color(1, 0.43333334, 0, 0.21176471)
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_o7wco"]
+height = 0.01
+rings = 0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_75hxl"]
+shader = ExtResource("3_75hxl")
+
+[sub_resource type="Gradient" id="Gradient_mf3xq"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_egdk7"]
+gradient = SubResource("Gradient_mf3xq")
+
+[sub_resource type="Curve" id="Curve_u4r7k"]
+bake_resolution = 16
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.40128762, 0.49029917), 0.0, 0.0, 0, 0, Vector2(0.78540784, 0.006871462), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_cxphc"]
+curve = SubResource("Curve_u4r7k")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6g8b7"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_mf3xq")
+shader_parameter/mask_strength = 1.0
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_egdk7")
+shader_parameter/curve = SubResource("CurveTexture_cxphc")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 43
+
+[sub_resource type="QuadMesh" id="QuadMesh_7w6yy"]
+material = SubResource("ShaderMaterial_6g8b7")
+orientation = 0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tykxf"]
 render_priority = 0
 shader = ExtResource("3_dkuec")
@@ -81,42 +117,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_l00db")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_75hxl"]
-shader = ExtResource("3_75hxl")
-
-[sub_resource type="Gradient" id="Gradient_mf3xq"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_egdk7"]
-gradient = SubResource("Gradient_mf3xq")
-
-[sub_resource type="Curve" id="Curve_u4r7k"]
-bake_resolution = 16
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.40128762, 0.49029917), 0.0, 0.0, 0, 0, Vector2(0.78540784, 0.006871462), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_cxphc"]
-curve = SubResource("Curve_u4r7k")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6g8b7"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("4_mf3xq")
-shader_parameter/mask_strength = 1.0
-shader_parameter/uv_offset = Vector2(0, 0)
-shader_parameter/color_ramp = SubResource("GradientTexture1D_egdk7")
-shader_parameter/curve = SubResource("CurveTexture_cxphc")
-shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/flags = 43
-
-[sub_resource type="QuadMesh" id="QuadMesh_7w6yy"]
-material = SubResource("ShaderMaterial_6g8b7")
-orientation = 0
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_o7wco"]
-height = 0.01
-rings = 0
-
 [node name="Player" type="RigidBody3D" unique_id=792270927 groups=["Players"]]
 collision_layer = 3
 collision_mask = 3
@@ -143,16 +143,12 @@ transform = Transform3D(0.1, 0, 0, 0, 0.001, 0, 0, 0, 0.8, 0, 0, -0.4)
 mesh = SubResource("BoxMesh_e0ky2")
 surface_material_override/0 = SubResource("StandardMaterial3D_pndby")
 
-[node name="Smoke" parent="MiraPivot" unique_id=2064837984 instance=ExtResource("5_qlv43")]
-transform = Transform3D(-0.21064241, 0, -0.34223032, -3.5527137e-15, 0.805868, -2.220446e-16, 0.97756326, 0, -0.07374276, -0.060559638, 0.0022009313, 0.083718844)
+[node name="CirculoLimite" type="MeshInstance3D" parent="." unique_id=1150041566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.017288428, 0)
+mesh = SubResource("CylinderMesh_o7wco")
 
-[node name="Botao2" type="MeshInstance3D" parent="." unique_id=1947117845]
-transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, 3, 0, -3, -1.3113416e-07, 0, 0, 0)
-material_override = SubResource("ShaderMaterial_o7wco")
-mesh = SubResource("ArrayMesh_g68ec")
-
-[node name="GPUTrail3D" type="GPUParticles3D" parent="Botao2" unique_id=553736834]
-transform = Transform3D(-0.01544711, -0.025096891, 1.09702e-09, -0.071687974, 0.0054078028, 2.3468285e-09, -3.133581e-09, -2.3468292e-09, -0.05909699, 0, 0, 0)
+[node name="GPUTrail3D" type="GPUParticles3D" parent="." unique_id=553736834]
+transform = Transform3D(-0.04634133, -0.07529067, 3.29106e-09, -8.881784e-16, -7.749635e-09, -0.17729096, 0.21506393, -0.016223408, 7.091483e-10, 0, 0, 0)
 amount = 100
 lifetime = 100.0
 explosiveness = 1.0
@@ -169,8 +165,15 @@ use_red_as_alpha = true
 _defaults_have_been_set = true
 metadata/_custom_type_script = "uid://bxyy0y3fu5svc"
 
-[node name="CirculoLimite" type="MeshInstance3D" parent="." unique_id=1150041566]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.017288428, 0)
-mesh = SubResource("CylinderMesh_o7wco")
+[node name="Visual" type="Node3D" parent="." unique_id=277839914]
+
+[node name="Smoke" parent="Visual" unique_id=2064837984 instance=ExtResource("5_qlv43")]
+transform = Transform3D(-0.21064241, 0, -0.34223032, -3.5527137e-15, 0.805868, -2.220446e-16, 0.97756326, 0, -0.07374276, -0.060559638, 0.0022009313, 0.083718844)
+visible = false
+
+[node name="Botao2" type="MeshInstance3D" parent="Visual" unique_id=1947117845]
+transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, 3, 0, -3, -1.3113416e-07, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_o7wco")
+mesh = SubResource("ArrayMesh_g68ec")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
