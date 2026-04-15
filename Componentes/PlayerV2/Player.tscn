@@ -4,6 +4,7 @@
 [ext_resource type="PhysicsMaterial" uid="uid://46t3u1yh1h7m" path="res://Componentes/PlayerV2/PlayerPhysicsMaerial.tres" id="1_o7wco"]
 [ext_resource type="Shader" uid="uid://pn80x7vapsyx" path="res://shaders/outline.gdshader" id="3_dkuec"]
 [ext_resource type="Shader" uid="uid://bq0dktydsfj56" path="res://shaders/pesaAzul.gdshader" id="4_qlv43"]
+[ext_resource type="PackedScene" uid="uid://bmylfjjf2brdp" path="res://shaders/Smoke/Smoke.tscn" id="5_qlv43"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_e0ky2"]
 height = 0.05
@@ -105,6 +106,9 @@ shape = SubResource("CylinderShape3D_e0ky2")
 transform = Transform3D(0.1, 0, 0, 0, 0.001, 0, 0, 0, 0.8, 0, 0, -0.4)
 mesh = SubResource("BoxMesh_e0ky2")
 surface_material_override/0 = SubResource("StandardMaterial3D_pndby")
+
+[node name="Node3D" parent="MiraPivot" unique_id=2064837984 instance=ExtResource("5_qlv43")]
+transform = Transform3D(-0.21064238, 0, -0.3422303, 0, 0.80586797, 0, 0.9775632, 0, -0.073742755, -0.06055963, 0.0022009313, 0.08371884)
 
 [node name="Botao2" type="MeshInstance3D" parent="." unique_id=1947117845]
 transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, 3, 0, -3, -1.3113416e-07, 0, 0, 0)
