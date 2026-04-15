@@ -58,6 +58,7 @@ script = ExtResource("1_hbnas")
 
 [node name="VFX_Smoke" type="GPUParticles3D" parent="." unique_id=2061630422]
 transform = Transform3D(1, 0, 0, 0, 0.5055297, 0, 0, 0, 0.7031287, 0, -0.013588965, 0)
+visible = false
 material_override = SubResource("ShaderMaterial_hbnas")
 amount = 30
 lifetime = 0.5700000000000001
