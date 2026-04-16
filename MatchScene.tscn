@@ -17,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://bo3iftgkblwmo" path="res://ProgressBar/progress_track.png" id="11_1s8k8"]
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="11_yyp1h"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="12_matchtimer"]
-[ext_resource type="PackedScene" uid="uid://i0rr4lxax2lo" path="res://Componentes/Ball/ball_redonda.tscn" id="18_veq7s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xiaim"]
 render_priority = 0
@@ -279,6 +278,3 @@ texture_progress = ExtResource("11_1s8k8")
 [node name="MatchTimer" type="Node" parent="." unique_id=750440205]
 script = ExtResource("12_matchtimer")
 tempo_maximo_lance = 15.0
-
-[node name="Ball2" parent="." unique_id=297591895 instance=ExtResource("18_veq7s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34538007, 0.17500003, 0.72315764)

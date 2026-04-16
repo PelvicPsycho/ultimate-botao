@@ -25,6 +25,8 @@ var goalFlag: bool = false
 @onready var label_away: Label = $CanvasLayer/VSplitContainer/HBoxContainer/Label_Away
 @onready var timer = $MatchTimer
 
+var gol_de_ouro = false
+
 func _ready():
 	selectFirstTurn()
 	homeScore = 0
@@ -81,7 +83,11 @@ func _on_lance_acabou() -> void:
 func _on_partida_acabou() -> void:
 	timer.parar_tudo()
 	print("FIM DO TEMPO!")
-	endMatch(homeTeam.name if homeScore>awayScore else awayTeam.name if homeScore<awayScore else "ninguém")
+	
+	if homeScore == awayScore:
+		gol_de_ouro = true
+	else:
+		endMatch(homeTeam.name if homeScore>awayScore else awayTeam.name if homeScore<awayScore else "ninguém")
 
 func onGoal(isHome: bool):
 	goalFlag = true
@@ -92,8 +98,12 @@ func onGoal(isHome: bool):
 	rallyCounter=1
 	if isHome and !foulFlag:
 		awayScore += 1
+		if gol_de_ouro:
+			endMatch(awayTeam.name)
 	elif !foulFlag:
 		homeScore += 1
+		if gol_de_ouro:
+			endMatch(homeTeam.name)
 	if homeScore > 2 or awayScore > 2:
 		print("REGRA DA CLEMÊNCIA!")
 		if homeScore > awayScore:
