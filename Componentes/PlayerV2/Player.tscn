@@ -50,7 +50,7 @@ shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/color_ramp = SubResource("GradientTexture1D_egdk7")
 shader_parameter/curve = SubResource("CurveTexture_cxphc")
 shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/flags = 43
+shader_parameter/flags = 3
 
 [sub_resource type="QuadMesh" id="QuadMesh_7w6yy"]
 material = SubResource("ShaderMaterial_6g8b7")

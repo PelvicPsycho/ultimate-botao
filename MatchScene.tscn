@@ -126,12 +126,14 @@ awayTeam = ExtResource("3_qsfy7")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.36453, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1003734817]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 3.3438315, 0.031650186)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2.6376507, 0.115520835)
 keep_aspect = 0
-v_offset = 0.245
+v_offset = 0.295
 projection = 1
 current = true
-size = 6.608
+fov = 100.5
+size = 7.057
+near = 0.04
 
 [node name="Pitch" type="StaticBody3D" parent="." unique_id=371043304]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)

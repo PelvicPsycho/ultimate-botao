@@ -13,13 +13,14 @@ var modo_atual: ModoTiro = ModoTiro.PUXAR
 @export var tamanho_maximo_linha: float = 15.0
 
 # Shake visual
-@export var shake_amplitude_min: float = 0.003
+
+@export var shake_amplitude_min: float = 0.001
 @export var shake_amplitude_max: float = 0.02
-@export var shake_frequency_min: float = 10.0
+@export var shake_frequency_min: float = 1
 @export var shake_frequency_max: float = 30.0
 @export var shake_duration_min: float = 0.05
 @export var shake_duration_max: float = 0.12
-
+var debug: bool = true
 # Variáveis Gerais
 var is_dragging: bool = false
 var is_pointer_inside: bool = false #Mouse/dedo dentro da peça
@@ -46,7 +47,10 @@ var material: ShaderMaterial
 var outline_material: ShaderMaterial
 
 @onready var smoke_scene: Node = $Visual/Smoke
+var spark_scene: PackedScene = preload("res://spark.tscn")
+var spark_particule: GPUParticles3D
 var smoke_particles: GPUParticles3D
+var spark_cooldowns := {}
 var team: Team
 @export var playerInfo: TeamPlayer
 
@@ -59,12 +63,17 @@ signal clickedPiece(Piece: Player)
 signal turnPlayed
 
 # Shake state
+var shake_update_timer: float = 0.0
+@export var shake_update_interval: float = 0.3
+var shake_intensity_target: float = 0.0
+var shake_intensity_current: float = 0.0
 var shaking: bool = false
 var shake_timer: float = 0.0
 var shake_duration: float = 0.0
 var shake_amplitude: float = 0.0
 var shake_frequency: float = 0.0
-
+var cooldown_timer: float = 0.0
+var cooldown_duration: float = 0.1  # Cooldown curto para evitar disparos repetidos
 var base_visual_position: Vector3 = Vector3.ZERO
 var base_visual_rotation: Vector3 = Vector3.ZERO
 
@@ -74,8 +83,11 @@ func _ready() -> void:
 	smoke_particles = smoke_scene.get_node_or_null("VFX_Smoke") as GPUParticles3D
 	if smoke_particles == null:
 		push_error("Partícula de fumaça não encontrada dentro da cena instanciada.")
-	team = playerInfo.time
 
+
+	max_contacts_reported = 1
+	team = playerInfo.time
+	
 	material = ShaderMaterial.new()
 	outline_material = ShaderMaterial.new()
 	mesh.material_override = material
@@ -140,8 +152,13 @@ func _process(delta: float) -> void:
 			cos(t * 1.5) * shake_amplitude * 1.5,
 			sin(t * 2.8) * shake_amplitude * 1.5
 		)
-
-
+	
+func _physics_process(delta: float) -> void:
+	var ids := spark_cooldowns.keys()
+	for id in ids:
+		spark_cooldowns[id] -= delta
+		if spark_cooldowns[id] <= 0.0:
+			spark_cooldowns.erase(id)
 func trocar_shader(path: String) -> void:
 	var shader := load(path) as Shader
 	material.shader = shader
@@ -228,7 +245,7 @@ func _atualizar_mira_puxar(posicao_atual: Vector2) -> void:
 			material_circulo.albedo_color = Color(1.0, 1.0, 1.0, material_circulo.albedo_color.a)
 			smoke_particles.emitting = false
 
-		_atualizar_shake_puxar(porcentagem_forca)
+		_atualizar_shake_puxar(porcentagem_forca )
 	else:
 		mira_pivot.visible = false
 		circulo_limite.visible = false
@@ -238,11 +255,20 @@ func _atualizar_shake_puxar(intensidade: float) -> void:
 	if visual_piece == null:
 		return
 
+	shake_intensity_target = intensidade
+	shaking = true
+
+	shake_update_timer += get_process_delta_time()
+
+	if shake_update_timer < shake_update_interval:
+		return
+
+	shake_update_timer = 0.0
+
 	if not shaking:
 		shake_timer = 0.0
 		shake_duration = lerpf(shake_duration_min, shake_duration_max, intensidade)
 
-	shaking = true
 	shake_amplitude = lerpf(shake_amplitude_min, shake_amplitude_max, intensidade)
 	shake_frequency = lerpf(shake_frequency_min, shake_frequency_max, intensidade)
 
@@ -352,3 +378,38 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	is_pointer_inside = false
+func ativar_spark_no_ponto_global(ponto_global: Vector3) -> void:
+	if spark_scene == null:
+		return
+
+	var spark_instance := spark_scene.instantiate() as Node3D
+	if spark_instance == null:
+		return
+
+	get_tree().current_scene.add_child(spark_instance)
+	spark_instance.global_position = ponto_global
+
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	var total := state.get_contact_count()
+	if total <= 0:
+		return
+
+	for i in range(total):
+		var collider := state.get_contact_collider_object(i)
+		if collider == null:
+			continue
+
+		if collider.name.to_lower() == "pitch":
+			continue
+
+		var collider_id := collider.get_instance_id()
+		if spark_cooldowns.has(collider_id) and spark_cooldowns[collider_id] > 0.0:
+			continue
+
+		var ponto_global := state.get_contact_collider_position(i)
+		print("colidiu com:", collider.name, " em:", ponto_global)
+
+		ativar_spark_no_ponto_global(ponto_global)
+
+		spark_cooldowns[collider_id] = 0.2
+		break
