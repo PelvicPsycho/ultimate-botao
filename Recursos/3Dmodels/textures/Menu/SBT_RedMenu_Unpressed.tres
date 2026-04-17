@@ -1,0 +1,7 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://djm8vhwuuubf3"]
+
+[ext_resource type="Texture2D" uid="uid://clckwp68hutvo" path="res://Recursos/3Dmodels/textures/Menu/botaocinza_1.png" id="1_oxwx8"]
+
+[resource]
+texture = ExtResource("1_oxwx8")
+modulate_color = Color(1, 0.26, 0.26, 1)
