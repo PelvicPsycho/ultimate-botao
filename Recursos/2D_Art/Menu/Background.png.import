@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d31uxg5j02m38"
-path="res://.godot/imported/bola.png-8fa0d1265edf77f893bdd8e6c3220a22.ctex"
+uid="uid://loc0kilifcub"
+path="res://.godot/imported/Background.png-84b2a2e9d56f58e8058ef2d653dfdaeb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Recursos/3Dmodels/textures/Menu/bola.png"
-dest_files=["res://.godot/imported/bola.png-8fa0d1265edf77f893bdd8e6c3220a22.ctex"]
+source_file="res://Recursos/2D_Art/Menu/Background.png"
+dest_files=["res://.godot/imported/Background.png-84b2a2e9d56f58e8058ef2d653dfdaeb.ctex"]
 
 [params]
 

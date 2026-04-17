@@ -2,20 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clckwp68hutvo"
-path="res://.godot/imported/botaocinza_1.png-d237756ab3de2033781b86e69e5fae63.ctex"
+uid="uid://dnbws6dmwvupf"
+path.s3tc="res://.godot/imported/Campo2.png-ae388be28e265218b80cb74440e480ee.s3tc.ctex"
+path.etc2="res://.godot/imported/Campo2.png-ae388be28e265218b80cb74440e480ee.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://Recursos/3Dmodels/textures/Menu/botaocinza_1.png"
-dest_files=["res://.godot/imported/botaocinza_1.png-d237756ab3de2033781b86e69e5fae63.ctex"]
+source_file="res://Recursos/2D_Art/Campo2.png"
+dest_files=["res://.godot/imported/Campo2.png-ae388be28e265218b80cb74440e480ee.s3tc.ctex", "res://.godot/imported/Campo2.png-ae388be28e265218b80cb74440e480ee.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -23,7 +25,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -37,4 +39,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

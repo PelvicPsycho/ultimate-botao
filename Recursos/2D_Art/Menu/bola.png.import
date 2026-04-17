@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxtl86b50h7h"
-path="res://.godot/imported/botaocinza_2.png-9aad57bc07765de9f24a634690674210.ctex"
+uid="uid://d31uxg5j02m38"
+path="res://.godot/imported/bola.png-70bc37daf884a7bc21787eeceeb94ab4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Recursos/3Dmodels/textures/Menu/botaocinza_2.png"
-dest_files=["res://.godot/imported/botaocinza_2.png-9aad57bc07765de9f24a634690674210.ctex"]
+source_file="res://Recursos/2D_Art/Menu/bola.png"
+dest_files=["res://.godot/imported/bola.png-70bc37daf884a7bc21787eeceeb94ab4.ctex"]
 
 [params]
 

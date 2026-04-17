@@ -1,6 +1,6 @@
 extends Control
 
-# Variáveis exportadas para você alterar o tamanho base e espaçamento direto no Inspetor para ver como fica melhor
+@export var new_game_level: PackedScene
 
 func _ready():
 	pass
@@ -9,7 +9,10 @@ func _on_continue_button_pressed() -> void:
 	favor_me_deletar()
 
 func _on_new_game_button_pressed() -> void:
-	favor_me_deletar()
+	if new_game_level != null:
+		get_tree().change_scene_to_packed(new_game_level)
+	else:
+		favor_me_deletar()
 
 func _on_team_button_pressed() -> void:
 	favor_me_deletar()

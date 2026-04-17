@@ -2,22 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnbws6dmwvupf"
-path.s3tc="res://.godot/imported/Campo2.png-e193bf9cf7cb3b7e9209a202d91746ee.s3tc.ctex"
-path.etc2="res://.godot/imported/Campo2.png-e193bf9cf7cb3b7e9209a202d91746ee.etc2.ctex"
+uid="uid://dovfebk05xl4q"
+path="res://.godot/imported/menu_laterais_1.png-01fe6ed4b00961c8d9eb531eafc5c89f.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Recursos/3Dmodels/textures/Campo2.png"
-dest_files=["res://.godot/imported/Campo2.png-e193bf9cf7cb3b7e9209a202d91746ee.s3tc.ctex", "res://.godot/imported/Campo2.png-e193bf9cf7cb3b7e9209a202d91746ee.etc2.ctex"]
+source_file="res://Recursos/2D_Art/Menu/menu_laterais_1.png"
+dest_files=["res://.godot/imported/menu_laterais_1.png-01fe6ed4b00961c8d9eb531eafc5c89f.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -25,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -39,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

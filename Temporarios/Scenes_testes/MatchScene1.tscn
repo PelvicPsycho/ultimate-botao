@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://du1nsjujoug16" path="res://Scripts Globais/MatchState.gd" id="1_e3gwx"]
 [ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_6xdkp"]
 [ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_w88vh"]
-[ext_resource type="Texture2D" uid="uid://dnbws6dmwvupf" path="res://Recursos/3Dmodels/textures/Campo2.png" id="4_oeav1"]
+[ext_resource type="Texture2D" uid="uid://dnbws6dmwvupf" path="res://Recursos/2D_Art/Campo2.png" id="4_oeav1"]
 [ext_resource type="PackedScene" uid="uid://cuoecfox3x6o7" path="res://Temporarios/Scenes_testes/Player_escala3x.tscn" id="5_ceb22"]
 [ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="6_whapd"]
 [ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="7_87pxs"]

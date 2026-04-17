@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0uj8ff6yiefq"
-path="res://.godot/imported/botao_bola.png-9cae991cf269f9c2f50bcb97034da9c3.ctex"
+uid="uid://cf2nu38u3o36j"
+path="res://.godot/imported/Settings.png-697db2c888ae5196143b6f3befdedfbf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Recursos/3Dmodels/textures/Menu/botao_bola.png"
-dest_files=["res://.godot/imported/botao_bola.png-9cae991cf269f9c2f50bcb97034da9c3.ctex"]
+source_file="res://Recursos/2D_Art/Menu/Settings.png"
+dest_files=["res://.godot/imported/Settings.png-697db2c888ae5196143b6f3befdedfbf.ctex"]
 
 [params]
 

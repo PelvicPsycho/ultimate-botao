@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cf2nu38u3o36j"
-path="res://.godot/imported/Settings.png-0e8e47a219dafca031d9278ed9cf6495.ctex"
+uid="uid://ddvtg8cqscopc"
+path="res://.godot/imported/CampoMenu1.jpg-ebed685b52f03584169cfbd604a30d92.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Recursos/3Dmodels/textures/Menu/Settings.png"
-dest_files=["res://.godot/imported/Settings.png-0e8e47a219dafca031d9278ed9cf6495.ctex"]
+source_file="res://Recursos/2D_Art/CampoMenu1.jpg"
+dest_files=["res://.godot/imported/CampoMenu1.jpg-ebed685b52f03584169cfbd604a30d92.ctex"]
 
 [params]
 

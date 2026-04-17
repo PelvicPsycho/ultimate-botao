@@ -12,7 +12,7 @@ config_version=5
 
 config/name="UltimateBotao"
 config/tags=PackedStringArray("em_desenvolvimento", "grupo", "puc")
-run/main_scene="uid://dl2ux2q62wpjv"
+run/main_scene="uid://giq0hrttkfn2"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

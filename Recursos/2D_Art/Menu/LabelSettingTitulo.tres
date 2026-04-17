@@ -1,0 +1,13 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://bpc0qphpafepb"]
+
+[ext_resource type="FontFile" uid="uid://b8f7dj4qbp66f" path="res://Recursos/Fontes/Baloo2-Bold.ttf" id="1_62e2n"]
+
+[resource]
+font = ExtResource("1_62e2n")
+font_size = 120
+font_color = Color(0.9384497, 0.9384497, 0.9384497, 1)
+outline_size = 13
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 22
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(3, 6)

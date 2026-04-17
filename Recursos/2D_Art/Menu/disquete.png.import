@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2k8a3gukheod"
-path="res://.godot/imported/disquete.png-83fc8ad338e959cf3f7cdaeed8ba7046.ctex"
+path="res://.godot/imported/disquete.png-fdfe2b75af71a7220956b009b68767f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Recursos/3Dmodels/textures/Menu/disquete.png"
-dest_files=["res://.godot/imported/disquete.png-83fc8ad338e959cf3f7cdaeed8ba7046.ctex"]
+source_file="res://Recursos/2D_Art/Menu/disquete.png"
+dest_files=["res://.godot/imported/disquete.png-fdfe2b75af71a7220956b009b68767f7.ctex"]
 
 [params]
 

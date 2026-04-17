@@ -1,20 +1,24 @@
 [gd_scene format=3 uid="uid://giq0hrttkfn2"]
 
 [ext_resource type="Script" uid="uid://bmjj3xhlnenji" path="res://Componentes/MainMenu/main_menu.gd" id="1_u175k"]
-[ext_resource type="Texture2D" uid="uid://loc0kilifcub" path="res://Recursos/3Dmodels/textures/Background.png" id="2_x8yhw"]
-[ext_resource type="Texture2D" uid="uid://d31uxg5j02m38" path="res://Recursos/3Dmodels/textures/Menu/bola.png" id="3_bga17"]
-[ext_resource type="Texture2D" uid="uid://dovfebk05xl4q" path="res://Recursos/3Dmodels/textures/Menu/menu_laterais_1.png" id="3_ncxyy"]
-[ext_resource type="StyleBox" uid="uid://daoaro2esa5ve" path="res://Recursos/3Dmodels/textures/Menu/SBT_GreenMenu_Unpressed.tres" id="4_bga17"]
-[ext_resource type="StyleBox" uid="uid://o6s125c57l4q" path="res://Recursos/3Dmodels/textures/Menu/SBT_GreenMenu_Pressed.tres" id="6_pguqj"]
-[ext_resource type="Texture2D" uid="uid://2k8a3gukheod" path="res://Recursos/3Dmodels/textures/Menu/disquete.png" id="7_34kry"]
-[ext_resource type="StyleBox" uid="uid://3djsp420t8g5" path="res://Recursos/3Dmodels/textures/Menu/SBT_YellowMenu_Unpressed.tres" id="8_16jpb"]
-[ext_resource type="Texture2D" uid="uid://cf2nu38u3o36j" path="res://Recursos/3Dmodels/textures/Menu/Settings.png" id="8_34kry"]
-[ext_resource type="Texture2D" uid="uid://clckwp68hutvo" path="res://Recursos/3Dmodels/textures/Menu/botaocinza_1.png" id="9_pguqj"]
-[ext_resource type="StyleBox" uid="uid://4nqa8fs7wwcw" path="res://Recursos/3Dmodels/textures/Menu/SBT_YellowMenu_Pressed.tres" id="9_x8yhw"]
-[ext_resource type="Texture2D" uid="uid://0uj8ff6yiefq" path="res://Recursos/3Dmodels/textures/Menu/botao_bola.png" id="10_mfn1i"]
-[ext_resource type="StyleBox" uid="uid://djm8vhwuuubf3" path="res://Recursos/3Dmodels/textures/Menu/SBT_RedMenu_Unpressed.tres" id="11_d3taj"]
-[ext_resource type="StyleBox" uid="uid://bgbohxvhj7j57" path="res://Recursos/3Dmodels/textures/Menu/SBT_RedMenu_Pressed.tres" id="12_2g6w5"]
-[ext_resource type="Texture2D" uid="uid://0gmslav3le38" path="res://Recursos/3Dmodels/textures/Menu/menu_laterais_2.png" id="12_x8yhw"]
+[ext_resource type="PackedScene" uid="uid://dl2ux2q62wpjv" path="res://MatchScene.tscn" id="2_g1t36"]
+[ext_resource type="Texture2D" uid="uid://loc0kilifcub" path="res://Recursos/2D_Art/Menu/Background.png" id="2_x8yhw"]
+[ext_resource type="Material" uid="uid://ct74cpg7q434k" path="res://Recursos/2D_Art/Menu/LabelMenuShader.tres" id="3_2g6w5"]
+[ext_resource type="Texture2D" uid="uid://d31uxg5j02m38" path="res://Recursos/2D_Art/Menu/bola.png" id="3_bga17"]
+[ext_resource type="FontFile" uid="uid://b8f7dj4qbp66f" path="res://Recursos/Fontes/Baloo2-Bold.ttf" id="3_mfn1i"]
+[ext_resource type="Texture2D" uid="uid://dovfebk05xl4q" path="res://Recursos/2D_Art/Menu/menu_laterais_1.png" id="3_ncxyy"]
+[ext_resource type="StyleBox" uid="uid://daoaro2esa5ve" path="res://Recursos/2D_Art/Menu/SBT_GreenMenu_Unpressed.tres" id="4_bga17"]
+[ext_resource type="LabelSettings" uid="uid://bpc0qphpafepb" path="res://Recursos/2D_Art/Menu/LabelSettingTitulo.tres" id="5_g1t36"]
+[ext_resource type="StyleBox" uid="uid://o6s125c57l4q" path="res://Recursos/2D_Art/Menu/SBT_GreenMenu_Pressed.tres" id="6_pguqj"]
+[ext_resource type="Texture2D" uid="uid://2k8a3gukheod" path="res://Recursos/2D_Art/Menu/disquete.png" id="7_34kry"]
+[ext_resource type="StyleBox" uid="uid://3djsp420t8g5" path="res://Recursos/2D_Art/Menu/SBT_YellowMenu_Unpressed.tres" id="8_16jpb"]
+[ext_resource type="Texture2D" uid="uid://cf2nu38u3o36j" path="res://Recursos/2D_Art/Menu/Settings.png" id="8_34kry"]
+[ext_resource type="Texture2D" uid="uid://clckwp68hutvo" path="res://Recursos/2D_Art/Menu/botaocinza_1.png" id="9_pguqj"]
+[ext_resource type="StyleBox" uid="uid://4nqa8fs7wwcw" path="res://Recursos/2D_Art/Menu/SBT_YellowMenu_Pressed.tres" id="9_x8yhw"]
+[ext_resource type="Texture2D" uid="uid://0uj8ff6yiefq" path="res://Recursos/2D_Art/Menu/botao_bola.png" id="10_mfn1i"]
+[ext_resource type="StyleBox" uid="uid://djm8vhwuuubf3" path="res://Recursos/2D_Art/Menu/SBT_RedMenu_Unpressed.tres" id="11_d3taj"]
+[ext_resource type="StyleBox" uid="uid://bgbohxvhj7j57" path="res://Recursos/2D_Art/Menu/SBT_RedMenu_Pressed.tres" id="12_2g6w5"]
+[ext_resource type="Texture2D" uid="uid://0gmslav3le38" path="res://Recursos/2D_Art/Menu/menu_laterais_2.png" id="12_x8yhw"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pguqj"]
 texture = ExtResource("9_pguqj")
@@ -40,6 +44,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_u175k")
+new_game_level = ExtResource("2_g1t36")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1789091008]
 layout_mode = 1
@@ -69,13 +74,18 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 13
+theme_override_constants/separation = 50
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=267374552]
+material = ExtResource("3_2g6w5")
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 36
+theme_override_fonts/font = ExtResource("3_mfn1i")
+theme_override_font_sizes/font_size = 80
 text = "Super League Ball"
+label_settings = ExtResource("5_g1t36")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=163502608]
 layout_mode = 2

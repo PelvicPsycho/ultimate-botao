@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ct74cpg7q434k"]
+
+[ext_resource type="Shader" uid="uid://c4gj012b8eahs" path="res://Recursos/2D_Art/Menu/LabelMenuShader.gdshader" id="1_a1a1m"]
+
+[resource]
+shader = ExtResource("1_a1a1m")
+shader_parameter/altura_arco = 128.57102985712254
+shader_parameter/largura_total = 958.0
+shader_parameter/compensacao_largura = 1.2150000339625
