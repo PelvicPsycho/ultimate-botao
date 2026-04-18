@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://0bn2sn5jr6hp"]
+
+[ext_resource type="Shader" uid="uid://evfcy8rnyl6u" path="res://shaders/Lances_Bolinha.gdshader" id="1_o0cv2"]
+
+[resource]
+shader = ExtResource("1_o0cv2")
+shader_parameter/cor_do_contorno = Color(1, 1, 1, 1)

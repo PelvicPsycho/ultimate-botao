@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cmn4f0tk60yt0" path="res://Recursos/2D_Art/MatchUI/Ativo 2.png" id="7_jt1jy"]
 [ext_resource type="Texture2D" uid="uid://cyjkc7wtca4g" path="res://Recursos/2D_Art/MatchUI/Match_Placar_Right.png" id="7_yfw0a"]
 [ext_resource type="Texture2D" uid="uid://cp1vdwceha0d1" path="res://Recursos/2D_Art/MatchUI/Match_Placar_Left.png" id="8_jt1jy"]
+[ext_resource type="Material" uid="uid://0bn2sn5jr6hp" path="res://shaders/Lances_Bolinha.tres" id="8_ky2rs"]
 [ext_resource type="Texture2D" uid="uid://jriomq0tn3ni" path="res://Recursos/2D_Art/MatchUI/Ativo 1.png" id="8_xrqu3"]
 [ext_resource type="Texture2D" uid="uid://cqsce67mxbkpw" path="res://Recursos/2D_Art/MatchUI/pause.png" id="14_vxabe"]
 
@@ -142,22 +143,25 @@ theme_override_font_sizes/font_size = 30
 text = "Lances"
 
 [node name="Lance1" type="TextureRect" parent="MarginContainer/Control/HBox_LancesEsquerda" unique_id=899273125]
+material = ExtResource("8_ky2rs")
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("6_yfw0a")
 
 [node name="Lance2" type="TextureRect" parent="MarginContainer/Control/HBox_LancesEsquerda" unique_id=1564477149]
+material = ExtResource("8_ky2rs")
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("7_jt1jy")
 
 [node name="Lance3" type="TextureRect" parent="MarginContainer/Control/HBox_LancesEsquerda" unique_id=1890631645]
+material = ExtResource("8_ky2rs")
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("8_xrqu3")
@@ -179,22 +183,25 @@ mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="Lance3" type="TextureRect" parent="MarginContainer/Control/HBox_LancesDireita" unique_id=1021428770]
+material = ExtResource("8_ky2rs")
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("8_xrqu3")
 
 [node name="Lance2" type="TextureRect" parent="MarginContainer/Control/HBox_LancesDireita" unique_id=247050383]
+material = ExtResource("8_ky2rs")
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("7_jt1jy")
 
 [node name="Lance1" type="TextureRect" parent="MarginContainer/Control/HBox_LancesDireita" unique_id=914985060]
+material = ExtResource("8_ky2rs")
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("6_yfw0a")

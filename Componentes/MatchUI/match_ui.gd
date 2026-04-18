@@ -26,25 +26,38 @@ func UI_start(team_home, team_away) -> void:
 	time_away = team_away
 
 func colorir_turno(time_jogando, lances) -> void:
+	# A lateral continua com modulate, pois é inteira de uma cor só
 	lateral_quem_joga.modulate = time_jogando.cor
+	
 	if time_jogando == time_home:
+		# Pinta o time Esquerdo
 		for i in range(lances_esq.size()):
 			if i <= lances:
-#				print("caraio ",time_jogando.cor)
-				lances_esq[i].modulate = time_jogando.cor
+				lances_esq[i].set_instance_shader_parameter("cor_da_bolinha", time_jogando.cor)
+				lances_esq[i].set_instance_shader_parameter("espessura_contorno", 2.0)
 			else:
-				lances_esq[i].modulate = Color(1.0, 1.0, 1.0, 1.0)
+				lances_esq[i].set_instance_shader_parameter("cor_da_bolinha", Color.GRAY)
+				lances_esq[i].set_instance_shader_parameter("espessura_contorno", 0.0)
+				
+		# Zera o time Direito
 		for bolinha in lances_dir:
-			bolinha.modulate = Color(1.0, 1.0, 1.0, 1.0)
+			bolinha.set_instance_shader_parameter("cor_da_bolinha", Color.GRAY)
+			bolinha.set_instance_shader_parameter("espessura_contorno", 0.0)
+			
 	else:
+		# Pinta o time Direito
 		for i in range(lances_dir.size()):
 			if i <= lances:
-				lances_dir[i].modulate = time_jogando.cor
+				lances_dir[i].set_instance_shader_parameter("cor_da_bolinha", time_jogando.cor)
+				lances_dir[i].set_instance_shader_parameter("espessura_contorno", 2.0)
 			else:
-				lances_dir[i].modulate = Color(1.0, 1.0, 1.0, 1.0)
+				lances_dir[i].set_instance_shader_parameter("cor_da_bolinha", Color.GRAY)
+				lances_dir[i].set_instance_shader_parameter("espessura_contorno", 0.0)
 				
+		# Zera o time Esquerdo
 		for bolinha in lances_esq:
-			bolinha.modulate = Color(1.0, 1.0, 1.0, 1.0)
+			bolinha.set_instance_shader_parameter("cor_da_bolinha", Color.GRAY)
+			bolinha.set_instance_shader_parameter("espessura_contorno", 0.0)
 
 
 # %MatchUI.UI_start(homeTeam,awayTeam)
