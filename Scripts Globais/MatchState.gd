@@ -28,6 +28,7 @@ var goalFlag: bool = false
 var gol_de_ouro = false
 
 func _ready():
+	%MatchUI.UI_start(homeTeam,awayTeam)
 	selectFirstTurn()
 	homeScore = 0
 	awayScore = 0
@@ -58,13 +59,15 @@ func _ready():
 	timer.lance_acabou.connect(_on_lance_acabou)
 	timer.iniciar_partida()
 	timer.iniciar_lance(currentTurn)
-
+	
+	
 func _atualizar_placar() -> void:
 	if label_home:
 		label_home.text = str(homeScore)
-
 	if label_away:
 		label_away.text = str(awayScore)
+	%MatchUI.placar_esq.text = str(homeScore)
+	%MatchUI.placar_dir.text = str(awayScore)
 
 func _on_lance_acabou() -> void: 
 	var alguma_peca_arrastada = false
@@ -130,7 +133,7 @@ func onTurnPlayed():
 	timer.pausar_lance()
 	#await get_tree().create_timer(1.0).timeout #FUTURAMENTE, ESPERAR AS PEÇAS PARAREM
 	await waitAllStopped()
-	printState()
+#	printState()
 	for piece in allPieces:
 		piece.disabled = false
 	decideTurn()
@@ -150,7 +153,7 @@ func waitAllStopped() -> void:
 	var balls = get_tree().get_nodes_in_group("Balls")
 
 	while frames_estaveis < FRAMES_ESTAVEIS:
-		await get_tree().physics_frame
+		await get_tree().physics_frame #crashou o jogo usando o pause + reiniciar partida
 		frames_passados += 1
 
 		# Dá alguns frames para o impulso inicial e as primeiras colisões acontecerem.
@@ -188,6 +191,10 @@ func _on_timer_timeout() -> void:
 
 func selectFirstTurn():
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
+	if currentTurn == turn.HOME:
+		%MatchUI.colorir_turno(homeTeam,turnCounter) 
+	else: %MatchUI.colorir_turno(awayTeam,turnCounter)
+	
 
 func changeTurn():
 	currentTurn = turn.AWAY if currentTurn == turn.HOME else turn.HOME
@@ -195,6 +202,9 @@ func changeTurn():
 		piece.canPlay = !piece.canPlay
 	turnCounter = 0
 	timer.iniciar_lance(currentTurn)
+	if currentTurn == turn.HOME:
+		%MatchUI.colorir_turno(homeTeam,turnCounter)
+	else: %MatchUI.colorir_turno(awayTeam,turnCounter)
 
 # Chamado pelo gol_manager após a animação de gol.
 # Força o turno para o time vitima e limpa todas as flags.
@@ -209,6 +219,9 @@ func forceTurn(target: turn) -> void:
 		else:
 			piece.canPlay = (currentTurn == turn.AWAY)
 	timer.iniciar_lance(currentTurn)
+	if currentTurn == turn.HOME:
+		%MatchUI.colorir_turno(homeTeam,turnCounter)
+	else: %MatchUI.colorir_turno(awayTeam,turnCounter)
 
 # -------------REGRAS DA POSSE-----------------------------
 # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
@@ -229,6 +242,9 @@ func decideTurn():
 				turnCounter+=1
 				ball.lastTouch = null
 				print("----------------------------------------------")
+				if currentTurn == turn.HOME:
+					%MatchUI.colorir_turno(homeTeam,turnCounter)
+				else: %MatchUI.colorir_turno(awayTeam,turnCounter)
 				return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
 		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:
 			print("TOCOU MAIS DE 3 VEZES")

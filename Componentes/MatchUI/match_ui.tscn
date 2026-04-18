@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cyjkc7wtca4g" path="res://Recursos/2D_Art/MatchUI/Match_Placar_Right.png" id="7_yfw0a"]
 [ext_resource type="Texture2D" uid="uid://cp1vdwceha0d1" path="res://Recursos/2D_Art/MatchUI/Match_Placar_Left.png" id="8_jt1jy"]
 [ext_resource type="Texture2D" uid="uid://jriomq0tn3ni" path="res://Recursos/2D_Art/MatchUI/Ativo 1.png" id="8_xrqu3"]
+[ext_resource type="Texture2D" uid="uid://cqsce67mxbkpw" path="res://Recursos/2D_Art/MatchUI/pause.png" id="14_vxabe"]
 
 [node name="MatchUI" type="CanvasLayer" unique_id=2001534732 node_paths=PackedStringArray("placar_esq", "placar_dir", "nome_time_esq", "nome_time_dir", "lateral_quem_joga", "lateral_time_esq", "lateral_time_dir", "cor_placar_esq", "cor_placar_dir", "lances_esq", "lances_dir")]
 script = ExtResource("1_xrqu3")
@@ -29,36 +30,47 @@ lances_esq = [NodePath("MarginContainer/Control/HBox_LancesEsquerda/Lance1"), No
 lances_dir = [NodePath("MarginContainer/Control/HBox_LancesDireita/Lance1"), NodePath("MarginContainer/Control/HBox_LancesDireita/Lance2"), NodePath("MarginContainer/Control/HBox_LancesDireita/Lance3")]
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=519582948]
-offset_right = 1920.0
-offset_bottom = 1080.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="LateraisQuemJoga" type="TextureRect" parent="MarginContainer" unique_id=922603446]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("1_vlj2w")
+expand_mode = 1
 
 [node name="LateraisTimeEsquerda" type="TextureRect" parent="MarginContainer" unique_id=584838740]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("2_dudno")
+expand_mode = 1
 
 [node name="LateraisTimeDireita" type="TextureRect" parent="MarginContainer" unique_id=1743698421]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("3_daawi")
+expand_mode = 1
 
 [node name="Control" type="Control" parent="MarginContainer" unique_id=299534550]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="EmblemaEsquerda" type="TextureRect" parent="MarginContainer/Control" unique_id=817500125]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+offset_right = 220.0
+offset_bottom = 240.0
+mouse_filter = 2
 texture = ExtResource("4_dxqk6")
 
 [node name="Nome_Time_Esquerda" type="Label" parent="MarginContainer/Control" unique_id=70203208]
 layout_mode = 1
-offset_left = 248.0
-offset_top = 32.0
-offset_right = 753.0
-offset_bottom = 107.0
+offset_left = 237.0
+offset_top = 41.0
+offset_right = 742.0
+offset_bottom = 116.0
 size_flags_vertical = 0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -77,14 +89,19 @@ anchor_right = 1.0
 offset_left = -220.0
 offset_bottom = 240.0
 grow_horizontal = 0
+mouse_filter = 2
 texture = ExtResource("6_jt1jy")
 
 [node name="Nome_Time_Direita" type="Label" parent="MarginContainer/Control" unique_id=544421197]
 layout_mode = 1
-offset_left = 1155.0
-offset_top = 32.0
-offset_right = 1671.0
-offset_bottom = 107.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -729.0
+offset_top = 37.0
+offset_right = -241.0
+offset_bottom = 112.0
+grow_horizontal = 0
 size_flags_vertical = 0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -98,14 +115,18 @@ horizontal_alignment = 2
 
 [node name="HBox_LancesEsquerda" type="HBoxContainer" parent="MarginContainer/Control" unique_id=687401235]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -482.0
-offset_top = 140.0
-offset_right = -221.0
-offset_bottom = 189.0
+anchors_preset = -1
+anchor_left = 0.263
+anchor_top = 0.13100001
+anchor_right = 0.39800003
+anchor_bottom = 0.17600001
+offset_left = 0.039978027
+offset_top = -0.480011
+offset_right = -0.16003418
+offset_bottom = -0.08001709
 grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="Lances" type="Label" parent="MarginContainer/Control/HBox_LancesEsquerda" unique_id=372591886]
@@ -124,48 +145,58 @@ text = "Lances"
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 texture = ExtResource("6_yfw0a")
 
 [node name="Lance2" type="TextureRect" parent="MarginContainer/Control/HBox_LancesEsquerda" unique_id=1564477149]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 texture = ExtResource("7_jt1jy")
 
 [node name="Lance3" type="TextureRect" parent="MarginContainer/Control/HBox_LancesEsquerda" unique_id=1890631645]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 texture = ExtResource("8_xrqu3")
 
 [node name="HBox_LancesDireita" type="HBoxContainer" parent="MarginContainer/Control" unique_id=329278285]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 220.0
-offset_top = 140.0
-offset_right = 481.0
-offset_bottom = 189.0
+anchors_preset = -1
+anchor_left = 0.59900004
+anchor_top = 0.12900001
+anchor_right = 0.734
+anchor_bottom = 0.17400001
+offset_left = -0.080078125
+offset_top = -0.32000732
+offset_right = -0.2800293
+offset_bottom = 0.07998657
 grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="Lance3" type="TextureRect" parent="MarginContainer/Control/HBox_LancesDireita" unique_id=1021428770]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 texture = ExtResource("8_xrqu3")
 
 [node name="Lance2" type="TextureRect" parent="MarginContainer/Control/HBox_LancesDireita" unique_id=247050383]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 texture = ExtResource("7_jt1jy")
 
 [node name="Lance1" type="TextureRect" parent="MarginContainer/Control/HBox_LancesDireita" unique_id=914985060]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 texture = ExtResource("6_yfw0a")
 
 [node name="Lances" type="Label" parent="MarginContainer/Control/HBox_LancesDireita" unique_id=1014897963]
@@ -182,41 +213,59 @@ text = "Lances"
 
 [node name="ControlPlacar" type="Control" parent="MarginContainer/Control" unique_id=148619865]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MatchPlacarCentro" type="TextureRect" parent="MarginContainer/Control/ControlPlacar" unique_id=57570315]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-grow_horizontal = 2
-
-[node name="MatchPlacarCentro" type="TextureRect" parent="MarginContainer/Control/ControlPlacar" unique_id=57570315]
-layout_mode = 0
 offset_left = -197.0
-offset_top = 2.0
 offset_right = 197.0
-offset_bottom = 198.0
+offset_bottom = 196.0
+grow_horizontal = 2
+mouse_filter = 2
 texture = ExtResource("6_ufigq")
 
 [node name="MatchPlacarDireita" type="TextureRect" parent="MarginContainer/Control/ControlPlacar" unique_id=1631741334]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
 offset_left = -197.0
-offset_top = 2.0
 offset_right = 197.0
-offset_bottom = 198.0
+offset_bottom = 196.0
+grow_horizontal = 2
+mouse_filter = 2
 texture = ExtResource("7_yfw0a")
 
 [node name="MatchPlacarEsquerda" type="TextureRect" parent="MarginContainer/Control/ControlPlacar" unique_id=1132614875]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
 offset_left = -197.0
-offset_top = 2.0
 offset_right = 197.0
-offset_bottom = 198.0
+offset_bottom = 196.0
+grow_horizontal = 2
+mouse_filter = 2
 texture = ExtResource("8_jt1jy")
 
 [node name="Placar_Esquerda" type="Label" parent="MarginContainer/Control/ControlPlacar" unique_id=1268883545]
-layout_mode = 0
-offset_left = -95.0
-offset_top = 35.0
-offset_right = -52.0
-offset_bottom = 151.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -97.0
+offset_top = 44.0
+offset_right = -54.0
+offset_bottom = 160.0
+grow_horizontal = 2
 size_flags_horizontal = 4
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -228,11 +277,15 @@ theme_override_font_sizes/font_size = 72
 text = "0"
 
 [node name="Placar_Direita" type="Label" parent="MarginContainer/Control/ControlPlacar" unique_id=1068222214]
-layout_mode = 0
-offset_left = 55.0
-offset_top = 35.0
-offset_right = 98.0
-offset_bottom = 151.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 50.0
+offset_top = 42.0
+offset_right = 93.0
+offset_bottom = 158.0
+grow_horizontal = 2
 size_flags_horizontal = 4
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -242,3 +295,19 @@ theme_override_constants/shadow_outline_size = 5
 theme_override_fonts/font = ExtResource("5_1jthf")
 theme_override_font_sizes/font_size = 72
 text = "0"
+
+[node name="BotaoPause" type="TextureButton" parent="MarginContainer/Control" unique_id=1379902925]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -126.0
+offset_right = 127.0
+offset_bottom = -3.0
+grow_vertical = 0
+texture_normal = ExtResource("14_vxabe")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="MarginContainer/Control/BotaoPause" to="." method="_on_botao_pause_pressed"]
