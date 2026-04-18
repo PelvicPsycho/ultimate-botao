@@ -254,11 +254,7 @@ func atualizar_fumaça_limite(porcentagem_forca: float, vetor_arrasto_2d: Vector
 	if porcentagem_forca >= 1.0:
 		if smoke_instance_atual == null:
 			spawn_smoke_limite(vetor_arrasto_2d)
-		else:
-			var particles := smoke_instance_atual.get_node_or_null("VFX_Smoke") as GPUParticles3D
-			if particles:
-				particles.emitting = true
-				
+
 	else:
 		parar_fumaça()
 func spawn_smoke_limite(vetor_arrasto_2d: Vector2) -> void:
