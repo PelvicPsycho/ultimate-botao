@@ -32,7 +32,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.032258067, 0.032258067, 0.032258067, 1, 
 gradient = SubResource("Gradient_g740r")
 
 [sub_resource type="Curve" id="Curve_nu0v8"]
-_data = [Vector2(0, 0.025283337), 0.0, 0.0, 0, 0, Vector2(0.5521327, 0.27058828), 0.0, 0.0, 0, 0, Vector2(0.9691943, 0.3588236), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.025283337), 0.0, 0.0, 0, 0, Vector2(0.521327, 0.06470597), 0.0, 0.0, 0, 0, Vector2(0.978673, 0.11176479), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_1dt8e"]
@@ -60,7 +60,7 @@ transform = Transform3D(-0.1647034, 0, 0.98634315, 0, 1, 0, -0.98634315, 0, -0.1
 script = ExtResource("1_hbnas")
 
 [node name="VFX_Smoke" type="GPUParticles3D" parent="." unique_id=2061630422]
-transform = Transform3D(0.020837786, 0, 0.08272385, 0, 0.06, 0, -0.11817692, 0, 0.0145864505, 0, 0, 0)
+transform = Transform3D(0.0020837786, 0, 0.007878462, 0, 0.006, 0, -0.011817693, 0, 0.0013891859, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_hbnas")
 amount = 53
 lifetime = 0.5700000000000001
