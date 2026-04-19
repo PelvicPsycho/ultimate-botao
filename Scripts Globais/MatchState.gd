@@ -209,6 +209,7 @@ func changeTurn():
 	for piece in allPieces:
 		piece.canPlay = !piece.canPlay
 	turnCounter = 0
+	atualizar_cores_pecas()
 	timer.iniciar_lance(currentTurn)
 	if currentTurn == turn.HOME:
 		%MatchUI.colorir_turno(homeTeam,turnCounter)
@@ -271,7 +272,14 @@ func decideTurn():
 			print("Ultimo a tocar: ", lastTouch.team.name)
 	print("----------------------------------------------")
 	changeTurn() # Senão troca
+	atualizar_cores_pecas()
+func atualizar_cores_pecas() -> void:
+	for piece in allPieces:
+		var is_home_turn := (currentTurn == turn.HOME and piece.team == homeTeam)
+		var is_away_turn := (currentTurn == turn.AWAY and piece.team == awayTeam)
+		var pode_mexer := is_home_turn or is_away_turn
 
+		piece.set_piece_available(pode_mexer)
 func isCorrectSide(team:Team) -> bool:
 	return (currentTurn == turn.HOME and team == homeTeam) or (currentTurn == turn.AWAY and team == awayTeam)
 

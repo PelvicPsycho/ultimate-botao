@@ -13,13 +13,14 @@ var modo_atual: ModoTiro = ModoTiro.PUXAR
 @export var tamanho_maximo_linha: float = 15.0
 
 # Shake visual
-@export var shake_amplitude_min: float = 0.003
-@export var shake_amplitude_max: float = 0.02
-@export var shake_frequency_min: float = 10.0
+
+@export var shake_amplitude_min: float = 0.001
+@export var shake_amplitude_max: float = 0.01
+@export var shake_frequency_min: float = 1
 @export var shake_frequency_max: float = 30.0
 @export var shake_duration_min: float = 0.05
 @export var shake_duration_max: float = 0.12
-
+var debug: bool = true
 # Variáveis Gerais
 var is_dragging: bool = false
 var is_pointer_inside: bool = false #Mouse/dedo dentro da peça
@@ -37,16 +38,29 @@ var carregando_modo3: bool = false
 var tempo_inicio_carga: int = 0
 var forca_carga_atual: float = 0.0
 var direcao_atual_modo3: Vector2 = Vector2.ZERO
-
+var fresnel_color 
 @onready var mira_pivot: Node3D = $MiraPivot
 @onready var circulo_limite: MeshInstance3D = $CirculoLimite
 @onready var visual_piece: Node3D = $Visual
 var material_circulo: StandardMaterial3D
 var material: ShaderMaterial
 var outline_material: ShaderMaterial
-
-@onready var smoke_scene: Node = $Visual/Smoke
+var specular_strength
+var fresnel_strength
+var smoke_scene: PackedScene = preload("res://shaders/Smoke/Smoke.tscn")
+var spark_scene: PackedScene = preload("res://spark.tscn")
+var spark_particule: GPUParticles3D
 var smoke_particles: GPUParticles3D
+var rotacao_base_y: float = 0.0
+@onready var mesh_instance: MeshInstance3D =$Visual/Botao2
+@export var smoke_rotation_offset_deg: float = 0.0
+@export var smoke_cooldown: float = 1.0  # Cooldown in seconds to prevent spam
+@export var smoke_offset_distance: float = 1.0  # Distance from center to spawn smoke
+var spark_cooldowns := {}
+var last_smoke_time: float = 0.0  # For smoke cooldown
+var smoke_threshold_reached: bool = false  # To ensure one spawn per threshold
+var smoke_instance_atual: Node3D = null
+
 var team: Team
 @export var playerInfo: TeamPlayer
 
@@ -57,45 +71,66 @@ var disabled: bool = false
 
 signal clickedPiece(Piece: Player)
 signal turnPlayed
-
+var base_rotation_y: float = 0.0
 # Shake state
+var shake_update_timer: float = 0.0
+var color
+var Specular_color
+@export var shake_update_interval: float = 0.3
+var shake_intensity_target: float = 0.0
+var shake_intensity_current: float = 0.0
 var shaking: bool = false
 var shake_timer: float = 0.0
 var shake_duration: float = 0.0
 var shake_amplitude: float = 0.0
 var shake_frequency: float = 0.0
-
+var cooldown_timer: float = 0.0
+var cooldown_duration: float = 0.1  # Cooldown curto para evitar disparos repetidos
 var base_visual_position: Vector3 = Vector3.ZERO
 var base_visual_rotation: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
 	mira_pivot.visible = false
 	circulo_limite.visible = false
-	smoke_particles = smoke_scene.get_node_or_null("VFX_Smoke") as GPUParticles3D
-	if smoke_particles == null:
-		push_error("Partícula de fumaça não encontrada dentro da cena instanciada.")
-	team = playerInfo.time
 
+
+	max_contacts_reported = 1
+	team = playerInfo.time
+	
 	material = ShaderMaterial.new()
 	outline_material = ShaderMaterial.new()
 	mesh.material_override = material
 	outline_material.shader = load("res://shaders/outline.gdshader") as Shader
+	
+	
 
 	if team.id == 1:
-		trocar_shader("res://shaders/pesaAzul.gdshader")
-		material.set_shader_parameter("specular_color", Color.html("#13131380"))
-		material.set_shader_parameter("fresnel_color", Color.html("#003d354d"))
-		material.set_shader_parameter("specular_strength", 0.1)
-		material.set_shader_parameter("fresnel_strength", 0.77)
+		trocar_shader("res://shaders/pesaVermelha.gdshader")
+		color = Color(0, 0.0, 1, 1)
+		material.set_shader_parameter("color",color)
+		Specular_color = Color(0.28,0.28,0.28,1.77)
+		material.set_shader_parameter("specular_color", Specular_color)
+		fresnel_color = Color(0.51,0.51,0.51,0.77)
+		material.set_shader_parameter("fresnel_color", fresnel_color)
+		specular_strength =0.1
+		material.set_shader_parameter("specular_strength", specular_strength)
+		fresnel_strength = 0.77
+		material.set_shader_parameter("fresnel_strength", fresnel_strength)
 	else:
 		trocar_shader("res://shaders/pesaVermelha.gdshader")
-		material.set_shader_parameter("specular_color", Color.html("#13131380"))
-		material.set_shader_parameter("fresnel_color", Color.html("#003d354d"))
-		material.set_shader_parameter("specular_strength", 0.1)
-		material.set_shader_parameter("fresnel_strength", 0.77)
+		var color := Color(1, 0, 0, 1)
+		material.set_shader_parameter("color",color)
+		Specular_color = Color(0.28,0.28,0.28,1.77)
+		material.set_shader_parameter("specular_color", Specular_color)
+		fresnel_color = Color(0.51,0.51,0.51,0.77)
+		material.set_shader_parameter("fresnel_color", fresnel_color)
+		specular_strength =0.1
+		material.set_shader_parameter("specular_strength", specular_strength)
+		fresnel_strength = 0.77
+		material.set_shader_parameter("fresnel_strength", fresnel_strength)
 
 	material.next_pass = outline_material
-
+	
 	material_circulo = StandardMaterial3D.new()
 	material_circulo.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	material_circulo.albedo_color = Color(1.0, 1.0, 1.0, 0.0)
@@ -142,6 +177,21 @@ func _process(delta: float) -> void:
 		)
 
 
+func set_piece_available(pode_mexer: bool) -> void:
+	if material == null:
+		return
+
+	if team.id == 1:
+		material.set_shader_parameter("color", Color(0.0, 0.0, 1.0, 1.0) if pode_mexer else Color(0.0, 0.0, 0.35, 1.0))
+	else:
+		material.set_shader_parameter("color", Color(1.0, 0.0, 0.0, 1.0) if pode_mexer else Color(0.45, 0.0, 0.0, 1.0))
+
+func _physics_process(delta: float) -> void:
+	var ids := spark_cooldowns.keys()
+	for id in ids:
+		spark_cooldowns[id] -= delta
+		if spark_cooldowns[id] <= 0.0:
+			spark_cooldowns.erase(id)
 func trocar_shader(path: String) -> void:
 	var shader := load(path) as Shader
 	material.shader = shader
@@ -209,46 +259,103 @@ func _atualizar_mira_puxar(posicao_atual: Vector2) -> void:
 	if not is_pointer_inside:
 		var vetor_arrasto_2d = posicao_inicial_toque - posicao_atual
 		_desenhar_mira(vetor_arrasto_2d)
-
 		circulo_limite.visible = true
-
 		var vetor_direcao_3d = Vector3(vetor_arrasto_2d.x, 0, vetor_arrasto_2d.y) * forca_multiplicador
 		var forca_atual = vetor_direcao_3d.length()
 		var porcentagem_forca = clamp(forca_atual / forca_maxima, 0.0, 1.0)
-	
 		material_circulo.albedo_color.a = lerp(0.1, 0.6, porcentagem_forca)
-		
-	
-			
 		if porcentagem_forca >= 1.0:
 			material_circulo.albedo_color = Color(1.0, 0.2, 0.2, 0.8)
-			smoke_particles.emitting = true
-			
 		else:
-			material_circulo.albedo_color = Color(1.0, 1.0, 1.0, material_circulo.albedo_color.a)
-			smoke_particles.emitting = false
+			material_circulo.albedo_color = Color(1.0, 1.0, 1.0, lerp(0.1, 0.6, porcentagem_forca))
 
+		atualizar_fumaça_limite(porcentagem_forca, vetor_arrasto_2d)
+		
 		_atualizar_shake_puxar(porcentagem_forca)
 	else:
 		mira_pivot.visible = false
 		circulo_limite.visible = false
 		parar_shake()
+		smoke_threshold_reached = false
+func atualizar_fumaça_limite(porcentagem_forca: float, vetor_arrasto_2d: Vector2) -> void:
+	if porcentagem_forca >= 1.0:
+		if smoke_instance_atual == null:
+			spawn_smoke_limite(vetor_arrasto_2d)
+
+	else:
+		parar_fumaça()
+func spawn_smoke_limite(vetor_arrasto_2d: Vector2) -> void:
+	if smoke_scene == null:
+		return
+
+	var direcao_arrasto := vetor_arrasto_2d.normalized()
+	if direcao_arrasto == Vector2.ZERO:
+		return
+
+	var direcao_local := Vector3(direcao_arrasto.x, 0, direcao_arrasto.y).normalized()
+	var direcao_oposta_local := -direcao_local
+
+	smoke_instance_atual = smoke_scene.instantiate() as Node3D
+	if smoke_instance_atual == null:
+		return
+
+	mira_pivot.add_child(smoke_instance_atual)
+
+
+
+
+	# usa a rotação inicial da peça, não a rotação física atual
+	var basis_base := Basis(Vector3.UP, base_rotation_y)
+	var offset_local := direcao_oposta_local * smoke_offset_distance * 0.2
+	var posicao_spawn := global_position + (basis_base * offset_local)
+	smoke_instance_atual.global_position = posicao_spawn
+
+	var look_dir := basis_base * direcao_oposta_local
+	smoke_instance_atual.look_at(smoke_instance_atual.global_position + look_dir.normalized(), Vector3.UP)
+
+	if smoke_rotation_offset_deg != 0.0:
+		smoke_instance_atual.rotate_y(deg_to_rad(smoke_rotation_offset_deg))
+
+	var particles := smoke_instance_atual.get_node_or_null("VFX_Smoke") as GPUParticles3D
+	if particles:
+		
+		particles.emitting = true
+func parar_fumaça() -> void:
+	if smoke_instance_atual == null:
+		return
+
+	var particles := smoke_instance_atual.get_node_or_null("VFX_Smoke") as GPUParticles3D
+	if particles:
+		particles.emitting = false
+
+	smoke_instance_atual.queue_free()
+	smoke_instance_atual = null
 
 func _atualizar_shake_puxar(intensidade: float) -> void:
 	if visual_piece == null:
 		return
 
+	shake_intensity_target = intensidade
+	shaking = true
+
+	shake_update_timer += get_process_delta_time()
+
+	if shake_update_timer < shake_update_interval:
+		return
+
+	shake_update_timer = 0.0
+
 	if not shaking:
 		shake_timer = 0.0
 		shake_duration = lerpf(shake_duration_min, shake_duration_max, intensidade)
 
-	shaking = true
 	shake_amplitude = lerpf(shake_amplitude_min, shake_amplitude_max, intensidade)
 	shake_frequency = lerpf(shake_frequency_min, shake_frequency_max, intensidade)
 
 func _chutar_peca_puxar(posicao_final: Vector2) -> void:
 	var vetor_arrasto_2d = posicao_inicial_toque - posicao_final
 	parar_shake()
+	parar_fumaça()
 	_aplicar_forca(vetor_arrasto_2d)
 
 func puxar_no_timeout():
@@ -352,3 +459,38 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	is_pointer_inside = false
+func ativar_spark_no_ponto_global(ponto_global: Vector3) -> void:
+	if spark_scene == null:
+		return
+
+	var spark_instance := spark_scene.instantiate() as Node3D
+	if spark_instance == null:
+		return
+
+	get_tree().current_scene.add_child(spark_instance)
+	spark_instance.global_position = ponto_global
+
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	var total := state.get_contact_count()
+	if total <= 0:
+		return
+
+	for i in range(total):
+		var collider := state.get_contact_collider_object(i)
+		if collider == null:
+			continue
+
+		if collider.name.to_lower() == "pitch":
+			continue
+
+		var collider_id := collider.get_instance_id()
+		if spark_cooldowns.has(collider_id) and spark_cooldowns[collider_id] > 0.0:
+			continue
+
+		var ponto_global := state.get_contact_collider_position(i)
+		print("colidiu com:", collider.name, " em:", ponto_global)
+
+		ativar_spark_no_ponto_global(ponto_global)
+
+		spark_cooldowns[collider_id] = 0.2
+		break

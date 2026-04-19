@@ -66,5 +66,5 @@ fresnel_smoothness={
 }
 outline_width={
 "type": "float",
-"value": 0.0
+"value": 6.15
 }

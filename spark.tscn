@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://c86bid55qn3dh"]
+
+[ext_resource type="Shader" uid="uid://cgsea3imgs038" path="res://shaders/Smoke/SmokeDisolve.tres" id="1_hxtne"]
+[ext_resource type="Script" uid="uid://b6qvcma46kddb" path="res://spark.gd" id="1_t5ynl"]
+[ext_resource type="Texture2D" uid="uid://clah07ifurpwu" path="res://shaders/TrailsTexture/T_VFX_N41.PNG" id="2_t5ynl"]
+[ext_resource type="ArrayMesh" uid="uid://rlmvwyx6qy6m" path="res://shaders/Smoke/SimCloud.obj" id="3_05d0b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ca1bt"]
+render_priority = 0
+shader = ExtResource("1_hxtne")
+shader_parameter/TexturScale = Vector2(0.5, 0.5)
+shader_parameter/Disolver_texture2 = ExtResource("2_t5ynl")
+
+[sub_resource type="Curve" id="Curve_0f4xt"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 0.0058823824), 0.0, 0.0, 0, 0, Vector2(0.00947867, 0.07058835), 0.0, 0.0, 0, 0, Vector2(0.9336493, 0.84394073), 0.0, 0.0, 0, 0, Vector2(1, 1.7959896), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_6mr4j"]
+curve = SubResource("Curve_0f4xt")
+
+[sub_resource type="Gradient" id="Gradient_1crlh"]
+offsets = PackedFloat32Array(0, 0.04040404, 0.121212125)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6ljbn"]
+gradient = SubResource("Gradient_1crlh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wdr7v"]
+particle_flag_rotate_y = true
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = -2.2351742e-05
+gravity = Vector3(0, 0, 0)
+scale_min = 0.04
+scale_max = 0.049999997
+color = Color(1, 0.92156863, 0.4, 1)
+color_ramp = SubResource("GradientTexture1D_6ljbn")
+alpha_curve = SubResource("CurveTexture_6mr4j")
+anim_speed_min = 4.52
+anim_speed_max = 4.52
+
+[node name="Spark" type="Node3D" unique_id=1653633249]
+script = ExtResource("1_t5ynl")
+
+[node name="VFX_Spark" type="GPUParticles3D" parent="." unique_id=1157438790]
+material_override = SubResource("ShaderMaterial_ca1bt")
+amount = 1
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_wdr7v")
+draw_pass_1 = ExtResource("3_05d0b")

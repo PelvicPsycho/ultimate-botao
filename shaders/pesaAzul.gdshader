@@ -56,11 +56,11 @@ group_uniforms BaseProperties;
 uniform float alpha_cutoff: hint_range(0.0, 1.0) = 0.5;
 #endif
 
-uniform vec4 color: source_color = vec4(0.0, 0.0, 1.0, 1.0);
+uniform vec4 color: source_color = vec4(0.0, 1, 1, 1.0);
 
 uniform sampler2D base_texture: source_color;
 
-uniform vec4 specular: source_color = vec4(0.3, 0.3, 0.3, 0.5);
+uniform vec4 specular: source_color = vec4(0.28,0.28,0.28,1.77);
 uniform sampler2D specular_texture: hint_default_white;
 
 uniform vec4 fresnel: source_color = vec4(0.2, 0.2, 0.2, 0.3);

@@ -25,7 +25,7 @@ texture_mode = 1
 curve = SubResource("Curve_4jhkq")
 
 [sub_resource type="Gradient" id="Gradient_g740r"]
-offsets = PackedFloat32Array(0, 0.017676767, 0.7550505, 0.8989899)
+offsets = PackedFloat32Array(0, 0.030303031, 0.17676768, 0.21717171)
 colors = PackedColorArray(0, 0, 0, 1, 0.032258067, 0.032258067, 0.032258067, 1, 0.59041625, 0.59041625, 0.59041625, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_nu0v8"]
@@ -48,18 +48,21 @@ direction = Vector3(1.585, 0.625, 0)
 spread = 0.0
 initial_velocity_max = 3.0
 gravity = Vector3(0, 0, 0)
-scale_max = 1.1999999
+scale_min = 0.14999999
+scale_max = 0.84999996
 scale_curve = SubResource("CurveTexture_1dt8e")
+color = Color(0.76240367, 0.76240367, 0.76240367, 1)
 color_ramp = SubResource("GradientTexture1D_nu0v8")
 alpha_curve = SubResource("CurveTexture_num3b")
 
 [node name="Smoke" type="Node3D" unique_id=2064837984]
+transform = Transform3D(-0.1647034, 0, 0.98634315, 0, 1, 0, -0.98634315, 0, -0.1647034, 0, 0, 0)
 script = ExtResource("1_hbnas")
 
 [node name="VFX_Smoke" type="GPUParticles3D" parent="." unique_id=2061630422]
-transform = Transform3D(1, 0, 0, 0, 0.5055297, 0, 0, 0, 0.7031287, 0, -0.013588965, 0)
+transform = Transform3D(0.020837786, 0, 0.08272385, 0, 0.06, 0, -0.11817692, 0, 0.0145864505, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_hbnas")
-amount = 30
+amount = 53
 lifetime = 0.5700000000000001
 fixed_fps = 60
 trail_lifetime = 0.9
