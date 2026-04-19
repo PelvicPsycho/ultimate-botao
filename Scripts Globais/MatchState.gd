@@ -27,6 +27,9 @@ var goalFlag: bool = false
 
 var gol_de_ouro = false
 
+# Contador de congelamento. Só descongela quando chegar a zero.
+var freeze_level: int = 0
+
 func _ready():
 	%MatchUI.UI_start(homeTeam,awayTeam)
 	selectFirstTurn()
@@ -59,6 +62,9 @@ func _ready():
 	timer.lance_acabou.connect(_on_lance_acabou)
 	timer.iniciar_partida()
 	timer.iniciar_lance(currentTurn)
+	disparar_anuncio_com_pausa("LET'S HAVE THE CARNAGE BEGIN", 100, 2.0, Color.DARK_RED)
+	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
+	get_tree().create_timer(2).timeout.connect(disparar_anuncio_com_pausa.bind("TURNO DE:\n" + nome, 80, 1.5), CONNECT_ONE_SHOT)
 	
 	
 func _atualizar_placar() -> void:
@@ -127,22 +133,20 @@ func printState():
 	print("awayScore: ", awayScore)
 	print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
 
-func onTurnPlayed():
-	for piece in allPieces:
-		piece.disabled = true
-	timer.pausar_lance()
+func onTurnPlayed() -> void:
+	congelar_jogo(true)
 	#await get_tree().create_timer(1.0).timeout #FUTURAMENTE, ESPERAR AS PEÇAS PARAREM
-	await waitAllStopped()
+	var parado_corretamente = await waitAllStopped()
+	if not parado_corretamente or not is_inside_tree():
+		return
 #	printState()
-	for piece in allPieces:
-		piece.disabled = false
+	congelar_jogo(false)
 	decideTurn()
-	timer.retomar_lance()
-	timer.resetar_barra_lance()
 
 # Função para checar se todas as peças e a bola realmente estabilizaram.
 # Exige vários physics frames seguidos em repouso para evitar falso positivo.
-func waitAllStopped() -> void:
+# Retorna false se foi abortado (ex: cena reiniciada durante o await).
+func waitAllStopped() -> bool:
 	const LINEAR_THRESHOLD: float = 0.01
 	const ANGULAR_THRESHOLD: float = 0.01
 	const FRAMES_ESTAVEIS: int = 8
@@ -153,6 +157,8 @@ func waitAllStopped() -> void:
 	var balls = get_tree().get_nodes_in_group("Balls")
 
 	while frames_estaveis < FRAMES_ESTAVEIS:
+		if not is_inside_tree():
+			return false
 		await get_tree().physics_frame #crashou o jogo usando o pause + reiniciar partida
 		frames_passados += 1
 
@@ -186,6 +192,8 @@ func waitAllStopped() -> void:
 		else:
 			frames_estaveis = 0
 
+	return true
+
 func _on_timer_timeout() -> void:
 	get_tree().reload_current_scene()
 
@@ -206,15 +214,17 @@ func changeTurn():
 		%MatchUI.colorir_turno(homeTeam,turnCounter)
 	else: %MatchUI.colorir_turno(awayTeam,turnCounter)
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
-	disparar_anuncio_com_pausa("changeTurn() TURNO DE:\n" + nome, 80, 1.5)
+	disparar_anuncio_com_pausa("TURNO DE:\n" + nome, 80, 1.5)
 
 # Chamado pelo gol_manager após a animação de gol.
-# Força o turno para o time vitima e limpa todas as flags.
+# Força o turno para o time vitima e limpa as flags de lance.
+# NOTA: não limpamos goalFlag aqui; isso é feito em decideTurn()
+# para garantir que onTurnPlayed() saiba que houve gol mesmo que
+# acorde depois de forceTurn() ter sido chamado.
 func forceTurn(target: turn) -> void:
 	currentTurn = target
 	turnCounter = 0
 	foulFlag = false
-	goalFlag = false
 	for piece in allPieces:
 		if piece.team == homeTeam:
 			piece.canPlay = (currentTurn == turn.HOME)
@@ -226,7 +236,7 @@ func forceTurn(target: turn) -> void:
 #	timer.pausado = true
 	timer.iniciar_lance(currentTurn)
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
-	disparar_anuncio_com_pausa("forceTurn() TURNO DE:\n" + nome, 80, 1.5)
+	disparar_anuncio_com_pausa("TURNO DE:\n" + nome, 80, 1.5)
 
 # -------------REGRAS DA POSSE-----------------------------
 # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
@@ -236,7 +246,10 @@ func forceTurn(target: turn) -> void:
 # ---------------------------------------------------------
 func decideTurn():
 	if goalFlag:
-		return # Aguarda o gol_manager resolver o turno via forceTurn()
+		# O gol_manager já chamou forceTurn() durante o anúncio de gol.
+		# Apenas limpamos a flag para o próximo lance e saímos.
+		goalFlag = false
+		return
 	var balls = get_tree().get_nodes_in_group("Balls")
 	for ball in balls:
 		var lastTouch = ball.lastTouch
@@ -268,32 +281,44 @@ func endMatch(winner: String):
 	await get_tree().create_timer(3.0, true).timeout
 	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore))
 
-func congelar_jogo(congelar: bool) -> void:
-	# 1. Para ou retoma o cronômetro do lance
+func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
 	if congelar:
+		freeze_level += 1
+	else:
+		freeze_level = max(0, freeze_level - 1)
+	_sincronizar_estado_congelamento()
+	
+	# Se um tempo foi especificado, agenda o descongelamento automático.
+	if congelar and tempo > 0.0:
+		get_tree().create_timer(tempo).timeout.connect(_descongelar_auto, CONNECT_ONE_SHOT)
+
+func _descongelar_auto() -> void:
+	# Proteção caso o nó tenha sido destruído antes do timer disparar.
+	if is_instance_valid(self) and is_inside_tree():
+		congelar_jogo(false)
+
+func _sincronizar_estado_congelamento() -> void:
+	var deve_congelar: bool= freeze_level > 0
+	if deve_congelar:
 		timer.pausar_lance()
 	else:
 		timer.retomar_lance()
-
-	# 2. Desabilita ou habilita a interação com TODAS as peças
 	for piece in allPieces:
-		# Usamos o 'disabled' que você já tem para impedir cliques
-		piece.disabled = congelar
+		piece.disabled = deve_congelar
 
 func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: Color = Color.WHITE):
 	#Trava as peças e o lance
-	congelar_jogo(true)
+	congelar_jogo(true, tempo + 0.2)
 	
 	#Mostra o texto
 	anunciador_ui.mostrar_evento(texto, tamanho, tempo, cor)
 	
-	#Quando o sinal 'anuncio_encerrado' tocar, chamamos a liberação
-	# CONNECT_ONE_SHOT é vital para não acumular conexões
-	if not anunciador_ui.anuncio_encerrado.is_connected(_pos_anuncio):
-		anunciador_ui.anuncio_encerrado.connect(_pos_anuncio, CONNECT_ONE_SHOT)
-
-func _pos_anuncio():
-	#Destrava e volta o jogo
-	congelar_jogo(false)
-	# Se for uma troca de turno, você pode chamar o reset da barra aqui
-	timer.resetar_barra_lance()
+	# Usamos um callable local para garantir que CADA chamada desta função
+	# seja pareada com exatamente um descongelamento, mesmo que anúncios
+	# sejam disparados em sequência antes do anterior terminar.
+	var descongelar = func():
+		congelar_jogo(false)
+		# Se for uma troca de turno, você pode chamar o reset da barra aqui
+		timer.resetar_barra_lance()
+	
+	anunciador_ui.anuncio_encerrado.connect(descongelar, CONNECT_ONE_SHOT)

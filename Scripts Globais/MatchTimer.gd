@@ -58,6 +58,8 @@ func parar_tudo() -> void:
 
 
 func _process(delta: float) -> void:
+	if pausado:
+		return
 	if partida_rodando:
 		tempo_partida_restante -= delta
 		_atualizar_label_partida()
@@ -71,8 +73,6 @@ func _process(delta: float) -> void:
 	if not lance_rodando:
 		return
 
-	if pausado:
-		return
 
 	tempo_lance_restante -= delta
 	_atualizar_barra_lance()
