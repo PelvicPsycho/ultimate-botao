@@ -38,20 +38,21 @@ var carregando_modo3: bool = false
 var tempo_inicio_carga: int = 0
 var forca_carga_atual: float = 0.0
 var direcao_atual_modo3: Vector2 = Vector2.ZERO
-
+var fresnel_color 
 @onready var mira_pivot: Node3D = $MiraPivot
 @onready var circulo_limite: MeshInstance3D = $CirculoLimite
 @onready var visual_piece: Node3D = $Visual
 var material_circulo: StandardMaterial3D
 var material: ShaderMaterial
 var outline_material: ShaderMaterial
-
+var specular_strength
+var fresnel_strength
 var smoke_scene: PackedScene = preload("res://shaders/Smoke/Smoke.tscn")
 var spark_scene: PackedScene = preload("res://spark.tscn")
 var spark_particule: GPUParticles3D
 var smoke_particles: GPUParticles3D
 var rotacao_base_y: float = 0.0
-
+@onready var mesh_instance: MeshInstance3D =$Visual/Botao2
 @export var smoke_rotation_offset_deg: float = 0.0
 @export var smoke_cooldown: float = 1.0  # Cooldown in seconds to prevent spam
 @export var smoke_offset_distance: float = 1.0  # Distance from center to spawn smoke
@@ -73,6 +74,8 @@ signal turnPlayed
 var base_rotation_y: float = 0.0
 # Shake state
 var shake_update_timer: float = 0.0
+var color
+var Specular_color
 @export var shake_update_interval: float = 0.3
 var shake_intensity_target: float = 0.0
 var shake_intensity_current: float = 0.0
@@ -98,22 +101,36 @@ func _ready() -> void:
 	outline_material = ShaderMaterial.new()
 	mesh.material_override = material
 	outline_material.shader = load("res://shaders/outline.gdshader") as Shader
+	
+	
 
 	if team.id == 1:
-		trocar_shader("res://shaders/pesaAzul.gdshader")
-		material.set_shader_parameter("specular_color", Color.html("#13131380"))
-		material.set_shader_parameter("fresnel_color", Color.html("#003d354d"))
-		material.set_shader_parameter("specular_strength", 0.1)
-		material.set_shader_parameter("fresnel_strength", 0.77)
+		trocar_shader("res://shaders/pesaVermelha.gdshader")
+		color = Color(0, 0.0, 1, 1)
+		material.set_shader_parameter("color",color)
+		Specular_color = Color(0.28,0.28,0.28,1.77)
+		material.set_shader_parameter("specular_color", Specular_color)
+		fresnel_color = Color(0.51,0.51,0.51,0.77)
+		material.set_shader_parameter("fresnel_color", fresnel_color)
+		specular_strength =0.1
+		material.set_shader_parameter("specular_strength", specular_strength)
+		fresnel_strength = 0.77
+		material.set_shader_parameter("fresnel_strength", fresnel_strength)
 	else:
 		trocar_shader("res://shaders/pesaVermelha.gdshader")
-		material.set_shader_parameter("specular_color", Color.html("#13131380"))
-		material.set_shader_parameter("fresnel_color", Color.html("#003d354d"))
-		material.set_shader_parameter("specular_strength", 0.1)
-		material.set_shader_parameter("fresnel_strength", 0.77)
+		var color := Color(1, 0, 0, 1)
+		material.set_shader_parameter("color",color)
+		Specular_color = Color(0.28,0.28,0.28,1.77)
+		material.set_shader_parameter("specular_color", Specular_color)
+		fresnel_color = Color(0.51,0.51,0.51,0.77)
+		material.set_shader_parameter("fresnel_color", fresnel_color)
+		specular_strength =0.1
+		material.set_shader_parameter("specular_strength", specular_strength)
+		fresnel_strength = 0.77
+		material.set_shader_parameter("fresnel_strength", fresnel_strength)
 
 	material.next_pass = outline_material
-
+	
 	material_circulo = StandardMaterial3D.new()
 	material_circulo.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	material_circulo.albedo_color = Color(1.0, 1.0, 1.0, 0.0)
@@ -158,7 +175,17 @@ func _process(delta: float) -> void:
 			cos(t * 1.5) * shake_amplitude * 1.5,
 			sin(t * 2.8) * shake_amplitude * 1.5
 		)
-	
+
+
+func set_piece_available(pode_mexer: bool) -> void:
+	if material == null:
+		return
+
+	if team.id == 1:
+		material.set_shader_parameter("color", Color(0.0, 0.0, 1.0, 1.0) if pode_mexer else Color(0.0, 0.0, 0.35, 1.0))
+	else:
+		material.set_shader_parameter("color", Color(1.0, 0.0, 0.0, 1.0) if pode_mexer else Color(0.45, 0.0, 0.0, 1.0))
+
 func _physics_process(delta: float) -> void:
 	var ids := spark_cooldowns.keys()
 	for id in ids:
