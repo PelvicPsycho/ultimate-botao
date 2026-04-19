@@ -1,7 +1,7 @@
 extends Resource
-
 class_name Padrao
 
+@export var name: String = ""
 
 @export_category("Jogadores")
 @export var forca_multiplicador := 0.0

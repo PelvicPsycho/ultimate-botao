@@ -46,7 +46,8 @@ func _ready():
 	pegar_todas_pecas()
 	pegar_a_bola()
 	
-	label_padrao.text = str(padrao_atual_index+1)
+	label_padrao.text = padrao_atual.name
+	set_padrao_atual()
 
 
 func _unhandled_input(event):
@@ -131,12 +132,6 @@ func _on_bounce_value_changed(value: float) -> void:
 	for peca in Pecas_Jogo:
 		peca.physics_material_override.bounce = value
 
-func _on_rough_value_changed(value: float) -> void:
-	var labelValor = %Rough.get_parent().get_node("ValorSlider")
-	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.physics_material_override.rough = value
-
 func _on_linear_damp_value_changed(value: float) -> void:
 	var labelValor = %LinearDamp.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
@@ -163,6 +158,57 @@ func _on_friccao_bola_value_changed(value: float) -> void:
 	labelValor.text = str(value)
 	a_bola.physics_material_override.friction = value
 
+func _on_shakedown_amp_min_value_changed(value):
+	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10/ShakedownAmpMin"
+	var labelValor = label.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	for peca in Pecas_Jogo:
+		peca.shake_amplitude_min = value
+
+
+func _on_shakedown_amp_max_value_changed(value):
+	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer11/ShakedownAmpMax"
+	var labelValor = label.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	for peca in Pecas_Jogo:
+		peca.shake_amplitude_max = value
+
+
+func _on_shakedown_freq_min_value_changed(value):
+	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer12/ShakedownFreqMin"
+	var labelValor = label.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	for peca in Pecas_Jogo:
+		peca.shake_frequency_min = value
+
+
+func _on_shakedown_freq_max_value_changed(value):
+	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer13/ShakedownFreqMax"
+	var labelValor = label.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	for peca in Pecas_Jogo:
+		peca.shake_frequency_max = value
+
+func _on_shake_duration_min_value_changed(value):
+	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer14/ShakeDurationMin"
+	var labelValor = label.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	for peca in Pecas_Jogo:
+		peca.shake_duration_min = value
+
+func _on_shake_duration_max_value_changed(value):
+	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer15/ShakeDurationMax"
+	var labelValor = label.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	for peca in Pecas_Jogo:
+		peca.shake_duration_max = value
+
+func _on_line_max_value_changed(value):
+	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer16/lineMax"
+	var labelValor = label.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	for peca in Pecas_Jogo:
+		peca.tamanho_maximo_linha = value
 
 func _on_padrao_pressed() -> void:
 	padrao_atual_index += 1
@@ -171,7 +217,7 @@ func _on_padrao_pressed() -> void:
 		padrao_atual_index = 0
 	
 	padrao_atual = recursos[padrao_atual_index]
-	label_padrao.text = str(padrao_atual_index+1)
+	label_padrao.text = padrao_atual.name
 	
 	set_padrao_atual()
 
@@ -182,20 +228,42 @@ func _on_padrao_2_pressed() -> void:
 		padrao_atual_index = recursos.size() - 1
 	
 	padrao_atual = recursos[padrao_atual_index]
-	label_padrao.text = str(padrao_atual_index+1)
+	label_padrao.text = padrao_atual.name
 	
 	set_padrao_atual()
 	
 func set_padrao_atual():
 	#Jogador
+	%ForcaMultiplicador.set_value_no_signal(padrao_atual.forca_multiplicador)
+	%ForcaMaxima.set_value_no_signal(padrao_atual.forca_maxima)
+	%DistanciaRaio.set_value_no_signal(padrao_atual.distancia_raio_visual)
+	%Friccao.set_value_no_signal(padrao_atual.friccao_jogador)
+	%Bounce.set_value_no_signal(padrao_atual.bounce_jogador)
+	%LinearDamp.set_value_no_signal(padrao_atual.linear_damp_jogador)
+	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10/ShakedownAmpMin".set_value_no_signal(padrao_atual.shake_amplitude_min)
+	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer11/ShakedownAmpMax".set_value_no_signal(padrao_atual.shake_amplitude_max)
+	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer12/ShakedownFreqMin".set_value_no_signal(padrao_atual.shake_frequency_min)
+	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer13/ShakedownFreqMax".set_value_no_signal(padrao_atual.shake_frequency_max)
+	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer14/ShakeDurationMin".set_value_no_signal(padrao_atual.shake_duration_min)
+	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer15/ShakeDurationMax".set_value_no_signal(padrao_atual.shake_duration_max)
 	_on_forca_multiplicador_value_changed(padrao_atual.forca_multiplicador)
 	_on_forca_maxima_value_changed(padrao_atual.forca_maxima)
 	_on_distancia_raio_value_changed(padrao_atual.distancia_raio_visual)
 	_on_friccao_value_changed(padrao_atual.friccao_jogador)
 	_on_bounce_value_changed(padrao_atual.bounce_jogador)
 	_on_linear_damp_value_changed(padrao_atual.linear_damp_jogador)
+	_on_shakedown_amp_min_value_changed(padrao_atual.shake_amplitude_min)
+	_on_shakedown_amp_max_value_changed(padrao_atual.shake_amplitude_max)
+	_on_shakedown_freq_min_value_changed(padrao_atual.shake_frequency_min)
+	_on_shakedown_freq_max_value_changed(padrao_atual.shake_frequency_max)
+	_on_shake_duration_min_value_changed(padrao_atual.shake_duration_min)
+	_on_shake_duration_max_value_changed(padrao_atual.shake_duration_max)
 	
 	#Bola
+	%FriccaoBola.set_value_no_signal(padrao_atual.friccao_bola)
+	%BounceBola.set_value_no_signal(padrao_atual.bounce_bola)
+	%PesoBola.set_value_no_signal(padrao_atual.peso_bola)
+	%LinearDampBola.set_value_no_signal(padrao_atual.linear_damp_bola)
 	_on_friccao_bola_value_changed(padrao_atual.friccao_bola)
 	_on_bounce_bola_value_changed(padrao_atual.bounce_bola)
 	_on_peso_bola_value_changed(padrao_atual.peso_bola)

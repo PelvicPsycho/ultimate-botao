@@ -1,9 +1,10 @@
 [gd_resource type="Resource" script_class="Padrao" format=3 uid="uid://dyilqikau0cbe"]
 
-[ext_resource type="Script" uid="uid://ejxtb67lkht7" path="res://Recursos/Padroes/padrao.gd" id="1_metq3"]
+[ext_resource type="Script" uid="uid://ejxtb67lkht7" path="res://Recursos/Res_Pattern.gd" id="1_metq3"]
 
 [resource]
 script = ExtResource("1_metq3")
+name = "Floaty"
 forca_multiplicador = 0.21
 forca_maxima = 15.0
 distancia_raio_visual = 40.0

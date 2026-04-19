@@ -266,6 +266,195 @@ size_flags_horizontal = 2
 size_flags_vertical = 1
 text = "ValorSlider"
 
+[node name="HBoxContainer10" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=68340456]
+layout_mode = 2
+tooltip_text = "Maior = maior a desaceleração"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10" unique_id=486027947]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "Shake amp min"
+
+[node name="ShakedownAmpMin" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10" unique_id=2020397168]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.1
+value = 2.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10" unique_id=388412454]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer11" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=932646129]
+layout_mode = 2
+tooltip_text = "Maior = maior a desaceleração"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer11" unique_id=103482016]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "Shake amp max"
+
+[node name="ShakedownAmpMax" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer11" unique_id=1928573035]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.1
+value = 2.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer11" unique_id=1060835543]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer12" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=2014269146]
+layout_mode = 2
+tooltip_text = "Maior = maior a desaceleração"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer12" unique_id=545122802]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "Shake freq min"
+
+[node name="ShakedownFreqMin" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer12" unique_id=960129808]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.1
+value = 2.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer12" unique_id=869321731]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer13" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1762525229]
+layout_mode = 2
+tooltip_text = "Maior = maior a desaceleração"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer13" unique_id=1152159109]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "Shake freq max"
+
+[node name="ShakedownFreqMax" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer13" unique_id=1379114720]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.1
+value = 2.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer13" unique_id=731956408]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer14" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1159264377]
+layout_mode = 2
+tooltip_text = "Maior = maior a desaceleração"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer14" unique_id=1914981764]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "Shake duration min"
+
+[node name="ShakeDurationMin" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer14" unique_id=197892794]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.1
+value = 2.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer14" unique_id=1501617016]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer15" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=18917880]
+layout_mode = 2
+tooltip_text = "Maior = maior a desaceleração"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer15" unique_id=184024357]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "Shake duration max"
+
+[node name="ShakeDurationMax" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer15" unique_id=858975424]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.1
+value = 2.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer15" unique_id=571819366]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer16" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1548215381]
+layout_mode = 2
+tooltip_text = "Maior = maior a desaceleração"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer16" unique_id=754816278]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "Tamanho max linha"
+
+[node name="lineMax" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer16" unique_id=2039194105]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.1
+value = 2.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer16" unique_id=368156282]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
 [node name="BolaDebug" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=932804153]
 layout_mode = 2
 text = "Bola"
@@ -382,23 +571,26 @@ size_flags_horizontal = 2
 size_flags_vertical = 1
 text = "ValorSlider"
 
-[node name="CheckBox" type="CheckBox" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1754716686]
-layout_mode = 2
-text = "Checkbox 1"
-
 [node name="PadroesPerfis" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=818903027]
 layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
 
 [node name="Padrao1" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis" unique_id=716880085]
 layout_mode = 2
-text = "-"
+text = "<"
 
 [node name="Label_Padrao" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis" unique_id=1366224677]
+custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 
 [node name="Padrao2" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis" unique_id=1983042811]
 layout_mode = 2
-text = "+"
+text = ">"
+
+[node name="SaveButton" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=635276514]
+layout_mode = 2
+text = "SAVE SETTINGS"
 
 [connection signal="gui_input" from="Control/ColorRect - Fundo Preto" to="." method="_on_color_rect__fundo_preto_gui_input"]
 [connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu/Button - Continuar" to="." method="_on_button__continuar_pressed"]
@@ -410,9 +602,17 @@ text = "+"
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer4/Friccao" to="." method="_on_friccao_value_changed"]
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer5/Bounce" to="." method="_on_bounce_value_changed"]
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer6/LinearDamp" to="." method="_on_linear_damp_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10/ShakedownAmpMin" to="." method="_on_shakedown_amp_min_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer11/ShakedownAmpMax" to="." method="_on_shakedown_amp_max_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer12/ShakedownFreqMin" to="." method="_on_shakedown_freq_min_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer13/ShakedownFreqMax" to="." method="_on_shakedown_freq_max_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer14/ShakeDurationMin" to="." method="_on_shake_duration_min_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer15/ShakeDurationMax" to="." method="_on_shake_duration_max_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer16/lineMax" to="." method="_on_line_max_value_changed"]
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer7/FriccaoBola" to="." method="_on_friccao_bola_value_changed"]
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer1/BounceBola" to="." method="_on_bounce_bola_value_changed"]
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer8/LinearDampBola" to="." method="_on_linear_damp_bola_value_changed"]
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer9/PesoBola" to="." method="_on_peso_bola_value_changed"]
 [connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis/Padrao1" to="." method="_on_padrao_pressed"]
 [connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis/Padrao2" to="." method="_on_padrao_2_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/SaveButton" to="." method="_on_save_button_pressed"]

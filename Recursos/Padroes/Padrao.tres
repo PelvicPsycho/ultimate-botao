@@ -1,9 +1,10 @@
 [gd_resource type="Resource" script_class="Padrao" format=3 uid="uid://c1p2wwuu2nyjk"]
 
-[ext_resource type="Script" uid="uid://ejxtb67lkht7" path="res://Recursos/Padroes/padrao.gd" id="1_m3q6x"]
+[ext_resource type="Script" uid="uid://ejxtb67lkht7" path="res://Recursos/Res_Pattern.gd" id="1_m3q6x"]
 
 [resource]
 script = ExtResource("1_m3q6x")
+name = "Realist"
 forca_multiplicador = 0.05
 forca_maxima = 10.0
 distancia_raio_visual = 40.0
