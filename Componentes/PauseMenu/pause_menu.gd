@@ -3,6 +3,17 @@ extends CanvasLayer
 var Pecas_Jogo: Array[Player] = []
 var a_bola: Ball
 
+@onready var recursos: Array[Padrao] = [
+	preload("res://Recursos/Padroes/Padrao.tres"),
+	preload("res://Recursos/Padroes/PadraoIgor.tres")
+	]
+
+@onready var padrao_atual: Padrao = recursos[0] 
+
+@onready var padrao_atual_index = 0
+
+@onready var label_padrao = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis/Label_Padrao"
+
 func _ready():
 	# Garante que o menu comece invisível quando o jogo roda
 	hide()
@@ -34,6 +45,8 @@ func _ready():
 	await get_tree().process_frame
 	pegar_todas_pecas()
 	pegar_a_bola()
+	
+	label_padrao.text = str(padrao_atual_index+1)
 
 
 func _unhandled_input(event):
@@ -149,3 +162,41 @@ func _on_friccao_bola_value_changed(value: float) -> void:
 	var labelValor = %FriccaoBola.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
 	a_bola.physics_material_override.friction = value
+
+
+func _on_padrao_pressed() -> void:
+	padrao_atual_index += 1
+	
+	if padrao_atual_index >= recursos.size():
+		padrao_atual_index = 0
+	
+	padrao_atual = recursos[padrao_atual_index]
+	label_padrao.text = str(padrao_atual_index+1)
+	
+	set_padrao_atual()
+
+func _on_padrao_2_pressed() -> void:
+	padrao_atual_index -= 1
+	
+	if padrao_atual_index < 0:
+		padrao_atual_index = recursos.size() - 1
+	
+	padrao_atual = recursos[padrao_atual_index]
+	label_padrao.text = str(padrao_atual_index+1)
+	
+	set_padrao_atual()
+	
+func set_padrao_atual():
+	#Jogador
+	_on_forca_multiplicador_value_changed(padrao_atual.forca_multiplicador)
+	_on_forca_maxima_value_changed(padrao_atual.forca_maxima)
+	_on_distancia_raio_value_changed(padrao_atual.distancia_raio_visual)
+	_on_friccao_value_changed(padrao_atual.friccao_jogador)
+	_on_bounce_value_changed(padrao_atual.bounce_jogador)
+	_on_linear_damp_value_changed(padrao_atual.linear_damp_jogador)
+	
+	#Bola
+	_on_friccao_bola_value_changed(padrao_atual.friccao_bola)
+	_on_bounce_bola_value_changed(padrao_atual.bounce_bola)
+	_on_peso_bola_value_changed(padrao_atual.peso_bola)
+	_on_linear_damp_bola_value_changed(padrao_atual.linear_damp_bola)

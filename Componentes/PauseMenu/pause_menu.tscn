@@ -386,6 +386,20 @@ text = "ValorSlider"
 layout_mode = 2
 text = "Checkbox 1"
 
+[node name="PadroesPerfis" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=818903027]
+layout_mode = 2
+
+[node name="Padrao1" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis" unique_id=716880085]
+layout_mode = 2
+text = "-"
+
+[node name="Label_Padrao" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis" unique_id=1366224677]
+layout_mode = 2
+
+[node name="Padrao2" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis" unique_id=1983042811]
+layout_mode = 2
+text = "+"
+
 [connection signal="gui_input" from="Control/ColorRect - Fundo Preto" to="." method="_on_color_rect__fundo_preto_gui_input"]
 [connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu/Button - Continuar" to="." method="_on_button__continuar_pressed"]
 [connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu/Button - Recomecar" to="." method="_on_button__recomecar_pressed"]
@@ -400,3 +414,5 @@ text = "Checkbox 1"
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer1/BounceBola" to="." method="_on_bounce_bola_value_changed"]
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer8/LinearDampBola" to="." method="_on_linear_damp_bola_value_changed"]
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer9/PesoBola" to="." method="_on_peso_bola_value_changed"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis/Padrao1" to="." method="_on_padrao_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis/Padrao2" to="." method="_on_padrao_2_pressed"]
