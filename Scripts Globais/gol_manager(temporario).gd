@@ -3,13 +3,15 @@ extends Node3D
 var todas_pecas: Array[Player] = []
 var posicoes_iniciais_pecas: Dictionary = {}
 var posicao_inicial_bola: Vector3
-
+@export var tempo_anuncio_gol: float = 2
 # CanvasLayer e Label criados por código para não precisar alterar a cena manualmente
 var canvas_layer: CanvasLayer
 var label_gol: Label
+@export var anunciadorui: CanvasLayer
+@export var match_state: Node3D
 
 # Variável para referenciar o seu MatchState (assumindo que ele seja um Autoload ou esteja na cena)
-@onready var match_state = $".."
+#@onready var match_state = $".."
 
 func _ready() -> void:
 	# Aguarda um frame para garantir que os outros nós terminaram o _ready
@@ -24,7 +26,7 @@ func _ready() -> void:
 	var goals = get_tree().get_nodes_in_group("Goals")
 	for goal in goals:
 		# Usa a referência direta do sinal 'gol' em vez de string
-		goal.gol.connect(gol_de_quem)
+		goal.gol.connect(anunciar_gol_e_resetar_campo)
 		
 	# ---------------------------------------------------------
 	# CORREÇÃO 2: Cast seguro de Array de Nodes para Array de Player
@@ -44,9 +46,9 @@ func _ready() -> void:
 	if balls.size() > 0:
 		posicao_inicial_bola = balls[0].global_position
 		
-	_configurar_ui()
+#	_configurar_ui()
 	
-func _configurar_ui():
+func _configurar_ui(): #da pra deletar se usar anunciadorUI
 	canvas_layer = CanvasLayer.new()
 	add_child(canvas_layer)
 	
@@ -69,7 +71,7 @@ func _configurar_ui():
 	await get_tree().process_frame # Espera renderizar para pegar o tamanho exato
 	label_gol.pivot_offset = label_gol.size / 2
 
-func gol_de_quem(isHome: bool):
+func gol_de_quem(isHome: bool): #provavelmente não será usada
 	# Trava as interações para nenhum jogador clicar nas peças durante a comemoração
 	for peca in todas_pecas:
 		peca.disabled = true
@@ -93,6 +95,45 @@ func gol_de_quem(isHome: bool):
 	label_gol.scale = Vector2.ZERO
 	
 	# Reposicionar as peças para as Transforms originais
+	for peca in todas_pecas:
+		peca.global_transform = posicoes_iniciais_pecas[peca]
+		# MUITO IMPORTANTE: Zerar velocidades para não continuarem deslizando/girando ao teleportar
+		peca.linear_velocity = Vector3.ZERO
+		peca.angular_velocity = Vector3.ZERO
+		
+	# Reposicionar e limpar a bola
+	var balls = get_tree().get_nodes_in_group("Balls")
+	for ball in balls:
+		ball.global_position = posicao_inicial_bola
+		ball.linear_velocity = Vector3.ZERO
+		ball.angular_velocity = Vector3.ZERO
+		ball.lastTouch = null # Evita carregar informações de posse para o novo lance 
+		
+	# Forçar o turno para quem tomou o gol
+	_forcar_turno_para_vitima(isHome)
+	
+	# Destrava as peças para recomeçar
+	for peca in todas_pecas:
+		peca.disabled = false
+
+func anunciar_gol_e_resetar_campo(isHome: bool):
+	# Trava as interações para nenhum jogador clicar nas peças durante a comemoração
+	for peca in todas_pecas:
+		peca.disabled = true
+	
+	#checa se foi falta o gol
+	if !match_state.foulFlag:
+		
+		# Dispara a UI
+		anunciadorui.mostrar_evento("GOOOL!", 120, tempo_anuncio_gol, Color.RED)
+		
+	# Delay de segundos (tempo_anuncio_gol)
+	get_tree().create_timer(tempo_anuncio_gol).timeout.connect(anunciar_gol_pt2.bind(isHome))
+
+
+func anunciar_gol_pt2(isHome):
+		# Reseta e esconde o Label
+		# Reposicionar as peças para as Transforms originais
 	for peca in todas_pecas:
 		peca.global_transform = posicoes_iniciais_pecas[peca]
 		# MUITO IMPORTANTE: Zerar velocidades para não continuarem deslizando/girando ao teleportar

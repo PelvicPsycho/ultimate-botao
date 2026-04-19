@@ -7,7 +7,7 @@ var modo_atual = ModoTiro.PUXAR
 
 var allPieces: Array[Player]
 var selectedPiece: Player
-
+@export var anunciador_ui: CanvasLayer
 @export var homeTeam: Team
 var homeScore: int
 var homePlayers: Array[Player]
@@ -205,6 +205,8 @@ func changeTurn():
 	if currentTurn == turn.HOME:
 		%MatchUI.colorir_turno(homeTeam,turnCounter)
 	else: %MatchUI.colorir_turno(awayTeam,turnCounter)
+	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
+	disparar_anuncio_com_pausa("changeTurn() TURNO DE:\n" + nome, 80, 1.5)
 
 # Chamado pelo gol_manager após a animação de gol.
 # Força o turno para o time vitima e limpa todas as flags.
@@ -218,10 +220,13 @@ func forceTurn(target: turn) -> void:
 			piece.canPlay = (currentTurn == turn.HOME)
 		else:
 			piece.canPlay = (currentTurn == turn.AWAY)
-	timer.iniciar_lance(currentTurn)
 	if currentTurn == turn.HOME:
 		%MatchUI.colorir_turno(homeTeam,turnCounter)
 	else: %MatchUI.colorir_turno(awayTeam,turnCounter)
+#	timer.pausado = true
+	timer.iniciar_lance(currentTurn)
+	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
+	disparar_anuncio_com_pausa("forceTurn() TURNO DE:\n" + nome, 80, 1.5)
 
 # -------------REGRAS DA POSSE-----------------------------
 # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
@@ -245,6 +250,7 @@ func decideTurn():
 				if currentTurn == turn.HOME:
 					%MatchUI.colorir_turno(homeTeam,turnCounter)
 				else: %MatchUI.colorir_turno(awayTeam,turnCounter)
+				disparar_anuncio_com_pausa("CONTINUA!", 60, 0.5, Color.YELLOW)
 				return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
 		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:
 			print("TOCOU MAIS DE 3 VEZES")
@@ -261,3 +267,33 @@ func endMatch(winner: String):
 	var resultCanvas = $ResultCanvas
 	await get_tree().create_timer(3.0, true).timeout
 	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore))
+
+func congelar_jogo(congelar: bool) -> void:
+	# 1. Para ou retoma o cronômetro do lance
+	if congelar:
+		timer.pausar_lance()
+	else:
+		timer.retomar_lance()
+
+	# 2. Desabilita ou habilita a interação com TODAS as peças
+	for piece in allPieces:
+		# Usamos o 'disabled' que você já tem para impedir cliques
+		piece.disabled = congelar
+
+func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: Color = Color.WHITE):
+	#Trava as peças e o lance
+	congelar_jogo(true)
+	
+	#Mostra o texto
+	anunciador_ui.mostrar_evento(texto, tamanho, tempo, cor)
+	
+	#Quando o sinal 'anuncio_encerrado' tocar, chamamos a liberação
+	# CONNECT_ONE_SHOT é vital para não acumular conexões
+	if not anunciador_ui.anuncio_encerrado.is_connected(_pos_anuncio):
+		anunciador_ui.anuncio_encerrado.connect(_pos_anuncio, CONNECT_ONE_SHOT)
+
+func _pos_anuncio():
+	#Destrava e volta o jogo
+	congelar_jogo(false)
+	# Se for uma troca de turno, você pode chamar o reset da barra aqui
+	timer.resetar_barra_lance()

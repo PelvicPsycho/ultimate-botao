@@ -34,8 +34,8 @@ func changeColor(color: int):
 		material.set_shader_parameter("fresnel_strength",0.585)
 	
 	material.next_pass = outline_material
-	print("material override aplicado: ", mesh.material_override)
-	print("shader final: ", material.shader)
+#	print("material override aplicado: ", mesh.material_override)
+#	print("shader final: ", material.shader)
 func trocar_shader(path: String) -> void:
 	var shader := load(path) as Shader
 	material.shader = shader
