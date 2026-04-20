@@ -62,9 +62,9 @@ func _ready():
 	timer.lance_acabou.connect(_on_lance_acabou)
 	timer.iniciar_partida()
 	timer.iniciar_lance(currentTurn)
-	disparar_anuncio_com_pausa("LET'S HAVE THE CARNAGE BEGIN", 100, 2.0, Color.DARK_RED)
+	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, Color.DARK_RED)
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
-	get_tree().create_timer(2).timeout.connect(disparar_anuncio_com_pausa.bind("TURNO DE:\n" + nome, 80, 1.5), CONNECT_ONE_SHOT)
+	get_tree().create_timer(2).timeout.connect(disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5), CONNECT_ONE_SHOT)
 	
 	
 func _atualizar_placar() -> void:
@@ -215,7 +215,7 @@ func changeTurn():
 		%MatchUI.colorir_turno(homeTeam,turnCounter)
 	else: %MatchUI.colorir_turno(awayTeam,turnCounter)
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
-	disparar_anuncio_com_pausa("TURNO DE:\n" + nome, 80, 1.5)
+	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + nome, 80, 1.5)
 	atualizar_cores_pecas()
 
 # Chamado pelo gol_manager após a animação de gol.
@@ -238,7 +238,7 @@ func forceTurn(target: turn) -> void:
 #	timer.pausado = true
 	timer.iniciar_lance(currentTurn)
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
-	disparar_anuncio_com_pausa("TURNO DE:\n" + nome, 80, 1.5)
+	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + nome, 80, 1.5)
 
 # -------------REGRAS DA POSSE-----------------------------
 # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
@@ -265,7 +265,7 @@ func decideTurn():
 				if currentTurn == turn.HOME:
 					%MatchUI.colorir_turno(homeTeam,turnCounter)
 				else: %MatchUI.colorir_turno(awayTeam,turnCounter)
-				disparar_anuncio_com_pausa("CONTINUA!", 60, 0.5, Color.YELLOW)
+				disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
 				return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
 		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:
 			print("TOCOU MAIS DE 3 VEZES")

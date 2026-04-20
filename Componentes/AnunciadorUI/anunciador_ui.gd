@@ -45,7 +45,7 @@ func _avisar_fim_do_anuncio() -> void:
 	anuncio_encerrado.emit()
 
 # EXEMPLOS \/
-
+"""
 func fazer_gol():
 	# GOL! Gigante, vermelho, fica 2 segundos na tela
 	mostrar_evento("GOOOL!
@@ -54,7 +54,7 @@ func fazer_gol():
 func mudar_turno(nome_do_time):
 	# Turno do time. Médio, fica 1.5 segundos
 	mostrar_evento("Turno: " + nome_do_time, 80, 1.5, Color.WHITE)
-
+"""
 func lance_acertou():
 	# Continua! Pequeno, amarelo, sai da tela rapidão (0.5s) para não travar o jogo
 	mostrar_evento("Continua!", 60, 0.5, Color.YELLOW)

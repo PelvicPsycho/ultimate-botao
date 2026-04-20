@@ -4,6 +4,7 @@
 [ext_resource type="LabelSettings" uid="uid://b5kp1l8mylmj2" path="res://Componentes/AnunciadorUI/LabelSettingsAnunciador.tres" id="1_jnd2a"]
 
 [node name="AnunciadorUI" type="CanvasLayer" unique_id=263291148]
+auto_translate_mode = 1
 script = ExtResource("1_4hmqb")
 
 [node name="Control" type="Control" parent="." unique_id=450824202]

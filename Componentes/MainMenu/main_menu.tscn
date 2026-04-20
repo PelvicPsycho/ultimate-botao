@@ -153,7 +153,7 @@ theme_override_styles/normal = ExtResource("4_bga17")
 theme_override_styles/pressed = ExtResource("6_pguqj")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pguqj")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_x8yhw")
-text = "Continue"
+text = "CONTINUE"
 
 [node name="TextureRect3" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=693099404]
 custom_minimum_size = Vector2(350, 300)
@@ -191,7 +191,7 @@ theme_override_styles/normal = ExtResource("8_16jpb")
 theme_override_styles/pressed = ExtResource("9_x8yhw")
 theme_override_styles/hover = SubResource("StyleBoxTexture_34kry")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_x8yhw")
-text = "Settings"
+text = "SETTINGS"
 
 [node name="TextureRect4" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=787523899]
 custom_minimum_size = Vector2(500, 150)
@@ -232,7 +232,7 @@ theme_override_styles/normal = ExtResource("11_d3taj")
 theme_override_styles/pressed = ExtResource("12_2g6w5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_16jpb")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_x8yhw")
-text = "My Team
+text = "MY_TEAM
 "
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/TextureRect/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]

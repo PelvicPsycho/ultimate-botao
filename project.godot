@@ -39,7 +39,6 @@ Balls=""
 [internationalization]
 
 locale/translations=PackedStringArray("res://Locales/translations.pt_BR.translation", "res://Locales/translations.en.translation")
-locale/test="pt_BR"
 
 [physics]
 
