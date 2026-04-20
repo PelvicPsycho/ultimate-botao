@@ -216,6 +216,7 @@ func changeTurn():
 	else: %MatchUI.colorir_turno(awayTeam,turnCounter)
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
 	disparar_anuncio_com_pausa("TURNO DE:\n" + nome, 80, 1.5)
+	atualizar_cores_pecas()
 
 # Chamado pelo gol_manager após a animação de gol.
 # Força o turno para o time vitima e limpa as flags de lance.
@@ -272,7 +273,7 @@ func decideTurn():
 			print("Ultimo a tocar: ", lastTouch.team.name)
 	print("----------------------------------------------")
 	changeTurn() # Senão troca
-	atualizar_cores_pecas()
+	
 func atualizar_cores_pecas() -> void:
 	for piece in allPieces:
 		var is_home_turn := (currentTurn == turn.HOME and piece.team == homeTeam)
