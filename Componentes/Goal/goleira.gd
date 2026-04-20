@@ -6,6 +6,7 @@ enum TeamSide {HOME, AWAY}
 @onready var mesh = $Goleira/StaticBody3D/Goleira
 
 @export var team: TeamSide
+@export var expulsar_forca_base: float = 12.0
 
 signal gol(isHome: bool) #True = gol Home, False = gol Away (a principio)
 
@@ -36,12 +37,17 @@ func changeColor(color: int):
 	material.next_pass = outline_material
 #	print("material override aplicado: ", mesh.material_override)
 #	print("shader final: ", material.shader)
+
 func trocar_shader(path: String) -> void:
 	var shader := load(path) as Shader
 	material.shader = shader
+
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	
-	#print('body entrou no gol: ' + str(body))
 	if body.is_in_group('Balls'):
 		#print('gol de: ' + str(true if team == TeamSide.HOME else false))
 		gol.emit(true if team == TeamSide.HOME else false)
+	elif body.is_in_group('Players'):
+		var bodySpeed = body.linear_velocity.length()
+		var bodyForce = expulsar_forca_base / (1.0 + bodySpeed)
+		var direcao := (body.global_position - global_position).normalized()
+		body.apply_central_impulse(direcao * bodyForce)

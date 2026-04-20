@@ -10,11 +10,17 @@ var lastTouch: Player
 
 func _ready() -> void:
 	set_physics_process(is_ball_redonda)
+	max_contacts_reported = 4
 
-func _on_body_entered(body):
-	if body.is_in_group("Players") or body is Player:
-		#print('Tocou em ' + str(body))
-		lastTouch = body
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	var maior_impulso := 0.0
+	for i in range(state.get_contact_count()):
+		var collider = state.get_contact_collider_object(i)
+		if collider is Player:
+			var impulso = state.get_contact_impulse(i).length()
+			if impulso > maior_impulso:
+				maior_impulso = impulso
+				lastTouch = collider
 
 func _physics_process(_delta: float) -> void:
 	# 1. Pega a velocidade com que a bola está deslizando pelo chão

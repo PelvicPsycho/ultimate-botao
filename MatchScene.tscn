@@ -10,12 +10,12 @@
 [ext_resource type="Shader" uid="uid://pn80x7vapsyx" path="res://shaders/outline.gdshader" id="6_r80oo"]
 [ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="6_rrtur"]
 [ext_resource type="Shader" uid="uid://djue0ggtg0bvb" path="res://shaders/Laterais.gdshader" id="7_7uv3y"]
-[ext_resource type="PackedScene" uid="uid://cfiyrhnqdww6q" path="res://Componentes/Ball/ball.tscn" id="7_rrtur"]
 [ext_resource type="Shader" uid="uid://3oc4n5n75ubm" path="res://shaders/outline_Complex.gdshader" id="7_veq7s"]
 [ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="9_y3jfn"]
 [ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Componentes/PauseMenu/pause_menu.tscn" id="10_xa1af"]
 [ext_resource type="Texture2D" uid="uid://bo3iftgkblwmo" path="res://ProgressBar/progress_track.png" id="11_1s8k8"]
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="11_yyp1h"]
+[ext_resource type="PackedScene" uid="uid://i0rr4lxax2lo" path="res://Componentes/Ball/ball_redonda.tscn" id="12_jd3xb"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="12_matchtimer"]
 [ext_resource type="PackedScene" uid="uid://b8ms3txou0nej" path="res://Componentes/MatchUI/match_ui.tscn" id="16_veq7s"]
 [ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="19_jd3xb"]
@@ -222,8 +222,8 @@ playerInfo = ExtResource("6_rrtur")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7895684, 0.131, -0.8517053)
 playerInfo = ExtResource("6_rrtur")
 
-[node name="Ball" parent="." unique_id=573001688 instance=ExtResource("7_rrtur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13133469, 0)
+[node name="Ball2" parent="." unique_id=573001688 instance=ExtResource("12_jd3xb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18872759, 0)
 
 [node name="Gol_Manager(Temporario)" type="Node3D" parent="." unique_id=736409669 node_paths=PackedStringArray("anunciadorui", "match_state")]
 script = ExtResource("9_y3jfn")
