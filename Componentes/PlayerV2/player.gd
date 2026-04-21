@@ -89,6 +89,9 @@ var cooldown_duration: float = 0.1  # Cooldown curto para evitar disparos repeti
 var base_visual_position: Vector3 = Vector3.ZERO
 var base_visual_rotation: Vector3 = Vector3.ZERO
 
+signal zoom_out_signal(pos)
+signal zoom_in_signal(pos)
+
 func _ready() -> void:
 	mira_pivot.visible = false
 	circulo_limite.visible = false
@@ -102,8 +105,6 @@ func _ready() -> void:
 	mesh.material_override = material
 	outline_material.shader = load("res://shaders/outline.gdshader") as Shader
 	
-	
-
 	if team.id == 1:
 		trocar_shader("res://shaders/pesaVermelha.gdshader")
 		color = Color(0, 0.0, 1, 1)
@@ -203,6 +204,7 @@ func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, n
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			is_dragging = true
+			_on_player_pressed(position)
 			vetor_arrasto_atual = Vector2.ZERO
 			posicao_inicial_toque = camera.unproject_position(global_position)
 
@@ -224,7 +226,7 @@ func _input(event: InputEvent) -> void:
 
 	if event is InputEventMouseMotion or event is InputEventScreenDrag:
 		clickedPiece.emit(self)
-
+		
 		match modo_atual:
 			ModoTiro.PUXAR:
 				_atualizar_mira_puxar(event.position)
@@ -448,6 +450,7 @@ func parar_shake() -> void:
 		visual_piece.rotation = base_visual_rotation
 
 func _cancelar_interacao() -> void:
+	_on_player_released(position)
 	is_dragging = false
 	direcao_travada = false
 	carregando_modo3 = false
@@ -494,3 +497,9 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 
 		spark_cooldowns[collider_id] = 0.2
 		break
+
+func _on_player_pressed(pos: Vector3):
+	zoom_out_signal.emit(pos)
+
+func _on_player_released(pos: Vector3):
+	zoom_in_signal.emit(pos)
