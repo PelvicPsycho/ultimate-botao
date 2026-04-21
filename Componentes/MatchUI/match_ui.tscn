@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bmcwg8lrpf3yo" path="res://Recursos/2D_Art/MatchUI/Match_Top_Direita.png" id="3_daawi"]
 [ext_resource type="Texture2D" uid="uid://b8s7pwbqhd00g" path="res://Recursos/2D_Art/MatchUI/Foto Esquerda.png" id="4_dxqk6"]
 [ext_resource type="FontFile" uid="uid://b8f7dj4qbp66f" path="res://Recursos/Fontes/Baloo2-Bold.ttf" id="5_1jthf"]
+[ext_resource type="Texture2D" uid="uid://cvj7rqqmgx45x" path="res://Recursos/2D_Art/MatchUI/Gremio_logo.png" id="6_hdx5a"]
 [ext_resource type="Texture2D" uid="uid://v6k6v7jkujx7" path="res://Recursos/2D_Art/MatchUI/foto Direita.png" id="6_jt1jy"]
 [ext_resource type="Texture2D" uid="uid://bwkt165o4vcqd" path="res://Recursos/2D_Art/MatchUI/Match_Placar_Center.png" id="6_ufigq"]
 [ext_resource type="Texture2D" uid="uid://bhta1l4ahtw1i" path="res://Recursos/2D_Art/MatchUI/Ativo 3.png" id="6_yfw0a"]
@@ -14,9 +15,12 @@
 [ext_resource type="Texture2D" uid="uid://cp1vdwceha0d1" path="res://Recursos/2D_Art/MatchUI/Match_Placar_Left.png" id="8_jt1jy"]
 [ext_resource type="Material" uid="uid://0bn2sn5jr6hp" path="res://shaders/Lances_Bolinha.tres" id="8_ky2rs"]
 [ext_resource type="Texture2D" uid="uid://jriomq0tn3ni" path="res://Recursos/2D_Art/MatchUI/Ativo 1.png" id="8_xrqu3"]
+[ext_resource type="Texture2D" uid="uid://bspvf8n8v742y" path="res://Recursos/2D_Art/MatchUI/Sport_Club_Internacional_logopng.png" id="9_gww17"]
 [ext_resource type="Texture2D" uid="uid://cqsce67mxbkpw" path="res://Recursos/2D_Art/MatchUI/pause.png" id="14_vxabe"]
+[ext_resource type="Texture2D" uid="uid://cx0vwdmnaue5m" path="res://Recursos/2D_Art/MatchUI/formato timer partida - White.png" id="16_eukvx"]
+[ext_resource type="Texture2D" uid="uid://bo3iftgkblwmo" path="res://ProgressBar/progress_track.png" id="16_rbbqf"]
 
-[node name="MatchUI" type="CanvasLayer" unique_id=2001534732 node_paths=PackedStringArray("placar_esq", "placar_dir", "nome_time_esq", "nome_time_dir", "lateral_quem_joga", "lateral_time_esq", "lateral_time_dir", "cor_placar_esq", "cor_placar_dir", "lances_esq", "lances_dir")]
+[node name="MatchUI" type="CanvasLayer" unique_id=2001534732 node_paths=PackedStringArray("placar_esq", "placar_dir", "nome_time_esq", "nome_time_dir", "lateral_quem_joga", "lateral_time_esq", "lateral_time_dir", "cor_placar_esq", "cor_placar_dir", "lances_esq", "lances_dir", "label_tempo", "team_barra_Lance", "timer_background")]
 script = ExtResource("1_xrqu3")
 placar_esq = NodePath("MarginContainer/Control/ControlPlacar/Placar_Esquerda")
 placar_dir = NodePath("MarginContainer/Control/ControlPlacar/Placar_Direita")
@@ -29,6 +33,9 @@ cor_placar_esq = NodePath("MarginContainer/Control/ControlPlacar/MatchPlacarEsqu
 cor_placar_dir = NodePath("MarginContainer/Control/ControlPlacar/MatchPlacarDireita")
 lances_esq = [NodePath("MarginContainer/Control/HBox_LancesEsquerda/Lance1"), NodePath("MarginContainer/Control/HBox_LancesEsquerda/Lance2"), NodePath("MarginContainer/Control/HBox_LancesEsquerda/Lance3")]
 lances_dir = [NodePath("MarginContainer/Control/HBox_LancesDireita/Lance1"), NodePath("MarginContainer/Control/HBox_LancesDireita/Lance2"), NodePath("MarginContainer/Control/HBox_LancesDireita/Lance3")]
+label_tempo = NodePath("MarginContainer/Control/Label_Tempo")
+team_barra_Lance = NodePath("MarginContainer/Control/TextureProgressBar_Lance")
+timer_background = NodePath("MarginContainer/Control/TextureRect")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=519582948]
 anchors_preset = 15
@@ -66,6 +73,14 @@ offset_bottom = 240.0
 mouse_filter = 2
 texture = ExtResource("4_dxqk6")
 
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaEsquerda" unique_id=339068560]
+layout_mode = 0
+offset_right = 207.0
+offset_bottom = 218.0
+texture = ExtResource("6_hdx5a")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Nome_Time_Esquerda" type="Label" parent="MarginContainer/Control" unique_id=70203208]
 layout_mode = 1
 offset_left = 237.0
@@ -92,6 +107,16 @@ offset_bottom = 240.0
 grow_horizontal = 0
 mouse_filter = 2
 texture = ExtResource("6_jt1jy")
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaDireita" unique_id=655243240]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 2.0
+offset_right = 213.0
+offset_bottom = 225.0
+texture = ExtResource("9_gww17")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Nome_Time_Direita" type="Label" parent="MarginContainer/Control" unique_id=544421197]
 layout_mode = 1
@@ -316,5 +341,54 @@ grow_vertical = 0
 texture_normal = ExtResource("14_vxabe")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control" unique_id=186011459]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.39200002
+anchor_top = 0.915
+anchor_right = 0.60800004
+anchor_bottom = 1.001
+offset_left = -0.64001465
+offset_top = -0.2000122
+offset_right = 0.6398926
+offset_bottom = -0.080078125
+texture = ExtResource("16_eukvx")
+expand_mode = 1
+
+[node name="Label_Tempo" type="Label" parent="MarginContainer/Control" unique_id=1312493592]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.39200002
+anchor_top = 0.91400003
+anchor_right = 0.60800004
+anchor_bottom = 0.95600003
+offset_left = -0.64001465
+offset_top = -0.12005615
+offset_right = 0.6398926
+offset_bottom = -0.47998047
+theme_override_font_sizes/font_size = 24
+text = "02:30"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureProgressBar_Lance" type="TextureProgressBar" parent="MarginContainer/Control" unique_id=1892061700]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.39200002
+anchor_top = 0.93000007
+anchor_right = 0.60800004
+anchor_bottom = 1.0
+offset_left = -0.64001465
+offset_top = 8.551392
+offset_right = 1524.831
+offset_bottom = 956.9514
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.21389647, 0.06645368)
+max_value = 10.0
+value = 10.0
+nine_patch_stretch = true
+texture_progress = ExtResource("16_rbbqf")
 
 [connection signal="pressed" from="MarginContainer/Control/BotaoPause" to="." method="_on_botao_pause_pressed"]

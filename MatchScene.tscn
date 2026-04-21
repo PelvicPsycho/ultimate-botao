@@ -14,7 +14,6 @@
 [ext_resource type="Shader" uid="uid://3oc4n5n75ubm" path="res://shaders/outline_Complex.gdshader" id="7_veq7s"]
 [ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="9_y3jfn"]
 [ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Componentes/PauseMenu/pause_menu.tscn" id="10_xa1af"]
-[ext_resource type="Texture2D" uid="uid://bo3iftgkblwmo" path="res://ProgressBar/progress_track.png" id="11_1s8k8"]
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="11_yyp1h"]
 [ext_resource type="PackedScene" uid="uid://i0rr4lxax2lo" path="res://Componentes/Ball/ball_redonda.tscn" id="12_jd3xb"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="12_matchtimer"]
@@ -241,52 +240,6 @@ pause_menu = NodePath("../PauseMenu")
 [node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("10_xa1af")]
 
 [node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("11_yyp1h")]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=172425499]
-
-[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer" unique_id=923744815]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -576.0
-offset_right = 576.0
-offset_bottom = 91.0
-grow_horizontal = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VSplitContainer" unique_id=1827291511]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="Label_Home" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=1036070927]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "0"
-
-[node name="Label" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=1739498816]
-layout_mode = 2
-text = "X"
-
-[node name="Label_Away" type="Label" parent="CanvasLayer/VSplitContainer/HBoxContainer" unique_id=259015049]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "0"
-
-[node name="Label_Tempo" type="Label" parent="CanvasLayer/VSplitContainer" unique_id=518614080]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "02:30"
-horizontal_alignment = 1
-
-[node name="TextureProgressBar_Lance" type="TextureProgressBar" parent="CanvasLayer" unique_id=171338667]
-offset_left = 189.0
-offset_top = 72.0
-offset_right = 1213.0
-offset_bottom = 1096.0
-scale = Vector2(0.21389647, 0.06645368)
-max_value = 10.0
-value = 10.0
-texture_progress = ExtResource("11_1s8k8")
 
 [node name="MatchTimer" type="Node" parent="." unique_id=750440205]
 script = ExtResource("12_matchtimer")

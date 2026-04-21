@@ -21,8 +21,8 @@ var turnCounter: int = 0
 var foulFlag: bool = false
 var goalFlag: bool = false
 
-@onready var label_home: Label = $CanvasLayer/VSplitContainer/HBoxContainer/Label_Home
-@onready var label_away: Label = $CanvasLayer/VSplitContainer/HBoxContainer/Label_Away
+#@onready var label_home: Label = $CanvasLayer/VSplitContainer/HBoxContainer/Label_Home
+#@onready var label_away: Label = $CanvasLayer/VSplitContainer/HBoxContainer/Label_Away
 @onready var timer = $MatchTimer
 
 var gol_de_ouro = false
@@ -60,6 +60,13 @@ func _ready():
 	_atualizar_placar()
 	timer.partida_acabou.connect(_on_partida_acabou)
 	timer.lance_acabou.connect(_on_lance_acabou)
+	
+	timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)
+	
+	timer._atualizar_barra_lance.connect(%MatchUI._atualizar_barra_lance)
+	timer.resetar_barra_lance.connect(%MatchUI.resetar_barra_lance)
+	#timer._atualizar_cor_barra.connect(%MatchUI._atualizar_cor_barra)
+	
 	timer.iniciar_partida()
 	timer.iniciar_lance(currentTurn)
 	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, Color.DARK_RED)
@@ -68,10 +75,10 @@ func _ready():
 	
 	
 func _atualizar_placar() -> void:
-	if label_home:
-		label_home.text = str(homeScore)
-	if label_away:
-		label_away.text = str(awayScore)
+	#if label_home:
+		#label_home.text = str(homeScore)
+	#if label_away:
+		#label_away.text = str(awayScore)
 	%MatchUI.placar_esq.text = str(homeScore)
 	%MatchUI.placar_dir.text = str(awayScore)
 
@@ -328,6 +335,6 @@ func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: 
 	var descongelar = func():
 		congelar_jogo(false)
 		# Se for uma troca de turno, você pode chamar o reset da barra aqui
-		timer.resetar_barra_lance()
+		timer.call_resetar_barra_lance()
 	
 	anunciador_ui.anuncio_encerrado.connect(descongelar, CONNECT_ONE_SHOT)

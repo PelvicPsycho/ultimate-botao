@@ -15,6 +15,13 @@ var time_home: Team #esquerda
 var time_away: Team #direita
 @export var pause_menu: CanvasLayer
 
+var current_turn_value: int = 0
+
+
+@export var label_tempo: Label
+@export var team_barra_Lance: TextureProgressBar
+@export var timer_background: TextureRect
+
 func UI_start(team_home, team_away) -> void:
 	lateral_time_esq.modulate = team_home.cor
 	lateral_time_dir.modulate = team_away.cor
@@ -28,6 +35,7 @@ func UI_start(team_home, team_away) -> void:
 func colorir_turno(time_jogando, lances) -> void:
 	# A lateral continua com modulate, pois é inteira de uma cor só
 	lateral_quem_joga.modulate = time_jogando.cor
+	timer_background.modulate = time_jogando.cor
 	
 	if time_jogando == time_home:
 		# Pinta o time Esquerdo
@@ -67,7 +75,37 @@ func colorir_turno(time_jogando, lances) -> void:
 #	else: %MatchUI.colorir_turno(awayTeam,turnCounter)
 # adicionar no matchstate /\
 
-
 func _on_botao_pause_pressed() -> void:
 	pause_menu.alternar_pause()
 	pass # Replace with function body.
+
+func _atualizar_label_partida(time: float) -> void:
+	print("AAAAAAAAAAAAAAAAAA")
+	
+	var minutos := int(time) / 60
+	var segundos := int(time) % 60
+	label_tempo.text = "%02d:%02d" % [minutos, segundos]
+
+func _atualizar_barra_lance(tempo_lance_restante: float, tempo_maximo_lance: float) -> void:
+	if team_barra_Lance == null:
+		return
+
+	team_barra_Lance.min_value = 0
+	team_barra_Lance.max_value = tempo_maximo_lance
+	team_barra_Lance.value = tempo_lance_restante
+
+func resetar_barra_lance(tempo_lance_restante: float, tempo_maximo_lance: float) -> void:
+	tempo_lance_restante = tempo_maximo_lance
+	if team_barra_Lance:
+		team_barra_Lance.max_value = tempo_maximo_lance
+		team_barra_Lance.min_value = 0
+		team_barra_Lance.value = tempo_maximo_lance
+
+#func _atualizar_cor_barra() -> void:
+	#if team_barra_Lance == null:
+		#return
+#
+	#if current_turn_value == 0:
+		#team_barra_Lance.self_modulate = Color(0.2, 0.5, 1.0, 1.0) # HOME
+	#else:
+		#team_barra_Lance.self_modulate = Color(1.0, 0.3, 0.3, 1.0) # AWAY
