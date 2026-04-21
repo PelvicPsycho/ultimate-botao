@@ -127,9 +127,10 @@ data = PackedVector3Array(0.096999995, -0.16499999, 0, 0.0968, 0.0683, 0, 0.057,
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j6p3p"]
 albedo_texture = ExtResource("12_by2kd")
+ao_light_affect = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrny7"]
-albedo_color = Color(0.13629898, 0.044792973, 0.008260849, 1)
+albedo_color = Color(0.6484881, 0.6484881, 0.6484881, 1)
 
 [node name="MatchScene" type="Node3D" unique_id=92966225 node_paths=PackedStringArray("anunciador_ui")]
 script = ExtResource("1_xth2n")
