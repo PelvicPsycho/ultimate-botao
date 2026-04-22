@@ -157,28 +157,24 @@ func aplicar_gradiente_no_material() -> void:
 		
 		var grad_tex := GradientTexture1D.new()
 		grad_tex.gradient = gradientV
-		var band_count: int = 6
-		var light_min: float = 0.25
-		var light_max: float = 0.83
-		var saturatuion: float =1.194
+		var band_count: int = 7
+		var light_min: float = 0.005
+		var light_max: float = 0.97
 		material.set_shader_parameter("diffuse_curve", grad_tex)
 		material.set_shader_parameter("band_count", band_count)
 		material.set_shader_parameter("light_min", light_min)
 		material.set_shader_parameter("light_max", light_max)
-		material.set_shader_parameter("saturation", saturatuion)
 		material.set_shader_parameter("enable specular", false)
 	else:
 		var grad_tex := GradientTexture1D.new()
 		grad_tex.gradient = gradientAz
-		var band_count: int = 6
-		var light_min: float = 0.165
-		var light_max: float = 0.655
-		var saturatuion: float =0.985
+		var band_count: int = 4
+		var light_min: float = 0.005
+		var light_max: float = 0.97
 		material.set_shader_parameter("diffuse_curve", grad_tex)
 		material.set_shader_parameter("band_count", band_count)
 		material.set_shader_parameter("light_min", light_min)
 		material.set_shader_parameter("light_max", light_max)
-		material.set_shader_parameter("saturation", saturatuion)
 		material.set_shader_parameter("enable specular", false)
 func atualizar_gradiente() -> void:
 	aplicar_gradiente_no_material()
@@ -223,9 +219,11 @@ func set_piece_available(pode_mexer: bool) -> void:
 
 	if team.id == 1:
 		
-		material.set_shader_parameter("saturation",0.958 if pode_mexer else 0.479)
+		material.set_shader_parameter("light_min", 0.005 if pode_mexer else 0.76)
+		material.set_shader_parameter("light_max",  0.97 if pode_mexer else 1.0)
 	else:
-		material.set_shader_parameter("saturation", 0.958 if pode_mexer else 0.479)
+		material.set_shader_parameter("light_min", 0.005 if pode_mexer else 0.76)
+		material.set_shader_parameter("light_max",  0.97 if pode_mexer else 1.0)
 
 func _physics_process(delta: float) -> void:
 	var ids := spark_cooldowns.keys()
