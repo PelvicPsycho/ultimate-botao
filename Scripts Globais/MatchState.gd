@@ -72,7 +72,7 @@ func _ready():
 	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, Color.DARK_RED)
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
 	get_tree().create_timer(2).timeout.connect(disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5), CONNECT_ONE_SHOT)
-	
+	atualizar_cores_pecas()
 	
 func _atualizar_placar() -> void:
 	#if label_home:

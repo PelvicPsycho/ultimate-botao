@@ -1,24 +1,34 @@
 shader_type spatial;
+
 render_mode diffuse_burley, specular_disabled;
 
 uniform sampler2D diffuse_curve : repeat_disable;
+
 uniform int band_count = 4;
 uniform float light_min = 0.15;
 uniform float light_max = 0.85;
 
+// ★ Novo controle de saturação (0 = P&B, 1 = normal, 2+ = saturado)
+uniform float saturation : hint_range(0.0, 3.0) = 1.0;
+
 void fragment() {
-	float t = clamp(NORMAL.y * 0.5 + 0.5, 0.0, 1.0);
-	t = clamp((t - light_min) / max(light_max - light_min, 0.0001), 0.0, 1.0);
+    float t = clamp(NORMAL.y * 0.5 + 0.5, 0.0, 1.0);
 
-	float bands = max(float(band_count), 2.0);
-	float band_t = floor(t * bands) / (bands - 1.0);
-	band_t = clamp(band_t, 0.0, 1.0);
+    t = clamp((t - light_min) / max(light_max - light_min, 0.0001), 0.0, 1.0);
 
-	vec3 grad = texture(diffuse_curve, vec2(band_t, 0.5)).rgb;
+    float bands = max(float(band_count), 2.0);
+    float band_t = floor(t * bands) / (bands - 1.0);
+    band_t = clamp(band_t, 0.0, 1.0);
 
-	if (length(grad) < 0.001) {
-		grad = vec3(band_t);
-	}
+    vec3 grad = texture(diffuse_curve, vec2(band_t, 0.5)).rgb;
 
-	ALBEDO = grad;
+    if (length(grad) < 0.001) {
+        grad = vec3(band_t);
+    }
+
+    // ★ Aplicar saturação
+    vec3 gray = vec3(dot(grad, vec3(0.299, 0.587, 0.114)));
+    grad = mix(gray, grad, saturation);
+
+    ALBEDO = grad;
 }
