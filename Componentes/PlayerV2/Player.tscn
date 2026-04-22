@@ -126,7 +126,7 @@ forca_maxima = 10.0
 tamanho_maximo_linha = 4.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1160546555]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0057414556, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07502146, 0, 0)
 shape = SubResource("CylinderShape3D_e0ky2")
 
 [node name="MiraPivot" type="Node3D" parent="." unique_id=1176405879]
@@ -159,6 +159,7 @@ _defaults_have_been_set = true
 metadata/_custom_type_script = "uid://bxyy0y3fu5svc"
 
 [node name="Visual" type="Node3D" parent="." unique_id=277839914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.050308004, 0, 0)
 
 [node name="Botao2" type="MeshInstance3D" parent="Visual" unique_id=1947117845]
 transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, 3, 0, -3, -1.3113416e-07, -0.12049034, 0, 0)
@@ -167,6 +168,6 @@ material_override = SubResource("ShaderMaterial_e60r6")
 mesh = SubResource("ArrayMesh_g68ec")
 
 [node name="peca v1" parent="Visual" unique_id=1416813795 instance=ExtResource("8_75hxl")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.10823187, -0.01636739, -0.015502408)
+transform = Transform3D(0.16, 0, 0, 0, 0.226, 0, 0, 0, 0.148, -0.117885366, 0, 0)
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
