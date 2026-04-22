@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_li65g")
-name = "Gremio"
+name = "Grêmio"
 id = 1
 ranque = 6
 cor = Color(0, 0, 1, 1)

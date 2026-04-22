@@ -156,6 +156,7 @@ mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="Lances" type="Label" parent="MarginContainer/Control/HBox_LancesEsquerda" unique_id=372591886]
+auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
@@ -165,7 +166,7 @@ theme_override_constants/outline_size = 3
 theme_override_constants/shadow_outline_size = 5
 theme_override_fonts/font = ExtResource("5_1jthf")
 theme_override_font_sizes/font_size = 30
-text = "Lances"
+text = "SHOTS"
 
 [node name="Lance1" type="TextureRect" parent="MarginContainer/Control/HBox_LancesEsquerda" unique_id=899273125]
 material = ExtResource("8_ky2rs")
@@ -241,7 +242,7 @@ theme_override_constants/outline_size = 3
 theme_override_constants/shadow_outline_size = 5
 theme_override_fonts/font = ExtResource("5_1jthf")
 theme_override_font_sizes/font_size = 30
-text = "Lances"
+text = "SHOTS"
 
 [node name="ControlPlacar" type="Control" parent="MarginContainer/Control" unique_id=148619865]
 layout_mode = 1

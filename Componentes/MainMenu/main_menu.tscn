@@ -224,6 +224,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="TeamButton" type="Button" parent="MarginContainer/VBoxContainer/TextureRect4/HBoxContainer2" unique_id=366108977]
+auto_translate_mode = 1
 custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -232,8 +233,7 @@ theme_override_styles/normal = ExtResource("11_d3taj")
 theme_override_styles/pressed = ExtResource("12_2g6w5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_16jpb")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_x8yhw")
-text = "MY_TEAM
-"
+text = "MY_TEAM"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/TextureRect/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/TextureRect2/VBoxContainer2/ContinueButton" to="." method="_on_continue_button_pressed"]

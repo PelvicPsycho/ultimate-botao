@@ -233,6 +233,8 @@ script = ExtResource("9_y3jfn")
 anunciadorui = NodePath("../AnunciadorUI")
 match_state = NodePath("..")
 
+[node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("19_jd3xb")]
+
 [node name="MatchUI" parent="." unique_id=2001534732 node_paths=PackedStringArray("pause_menu") instance=ExtResource("16_veq7s")]
 unique_name_in_owner = true
 pause_menu = NodePath("../PauseMenu")
@@ -244,5 +246,3 @@ pause_menu = NodePath("../PauseMenu")
 [node name="MatchTimer" type="Node" parent="." unique_id=750440205]
 script = ExtResource("12_matchtimer")
 tempo_maximo_lance = 15.0
-
-[node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("19_jd3xb")]

@@ -55,7 +55,7 @@ func anunciar_gol_e_resetar_campo(isHome: bool):
 	if !match_state.foulFlag:
 		
 		# Dispara a UI
-		anunciadorui.mostrar_evento("GOOOL!", 120, tempo_anuncio_gol, Color.RED)
+		anunciadorui.mostrar_evento(tr("GOAL"), 120, tempo_anuncio_gol, match_state.homeTeam.cor if !isHome else match_state.awayTeam.cor)
 		
 	# Delay de segundos (tempo_anuncio_gol)
 	get_tree().create_timer(tempo_anuncio_gol).timeout.connect(anunciar_gol_pt2.bind(isHome))

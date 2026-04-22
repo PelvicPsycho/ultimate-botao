@@ -45,6 +45,7 @@ func _ready():
 	await get_tree().process_frame
 	pegar_todas_pecas()
 	pegar_a_bola()
+	carregar_recursos()
 	
 	label_padrao.text = padrao_atual.name
 	set_padrao_atual()
@@ -268,3 +269,102 @@ func set_padrao_atual():
 	_on_bounce_bola_value_changed(padrao_atual.bounce_bola)
 	_on_peso_bola_value_changed(padrao_atual.peso_bola)
 	_on_linear_damp_bola_value_changed(padrao_atual.linear_damp_bola)
+
+func carregar_recursos():
+	if not FileAccess.file_exists("user://padroes.json"):
+		return
+	var f = FileAccess.open("user://padroes.json", FileAccess.READ)
+	var dados = JSON.parse_string(f.get_as_text())
+	f.close()
+	if not dados is Array:
+		return
+	for entrada in dados:
+		var padrao = Padrao.new()
+		padrao.name = entrada.get("name", "Custom")
+		padrao.forca_multiplicador = entrada.get("forca_multiplicador", 0.0)
+		padrao.forca_maxima = entrada.get("forca_maxima", 0.0)
+		padrao.distancia_raio_visual = entrada.get("distancia_raio_visual", 0.0)
+		padrao.friccao_jogador = entrada.get("friccao_jogador", 0.0)
+		padrao.bounce_jogador = entrada.get("bounce_jogador", 0.0)
+		padrao.linear_damp_jogador = entrada.get("linear_damp_jogador", 0.0)
+		padrao.shake_amplitude_min = entrada.get("shake_amplitude_min", 0.0)
+		padrao.shake_amplitude_max = entrada.get("shake_amplitude_max", 0.0)
+		padrao.shake_frequency_min = entrada.get("shake_frequency_min", 0.0)
+		padrao.shake_frequency_max = entrada.get("shake_frequency_max", 0.0)
+		padrao.shake_duration_min = entrada.get("shake_duration_min", 0.0)
+		padrao.shake_duration_max = entrada.get("shake_duration_max", 0.0)
+		padrao.line_max = entrada.get("line_max", 0.0)
+		padrao.friccao_bola = entrada.get("friccao_bola", 0.0)
+		padrao.bounce_bola = entrada.get("bounce_bola", 0.0)
+		padrao.peso_bola = entrada.get("peso_bola", 0.0)
+		padrao.linear_damp_bola = entrada.get("linear_damp_bola", 0.0)
+		recursos.append(padrao)
+
+func _on_save_button_pressed():
+	var dados: Array = []
+	if FileAccess.file_exists("user://padroes.json"):
+		var f = FileAccess.open("user://padroes.json", FileAccess.READ)
+		var parsed = JSON.parse_string(f.get_as_text())
+		f.close()
+		if parsed is Array:
+			dados = parsed
+	
+	var custom_count = 0
+	for r in recursos:
+		if r.name.begins_with("Custom"):
+			custom_count += 1
+	
+	var novo_padrao = Padrao.new()
+	novo_padrao.name = "Custom " + str(custom_count + 1)
+	
+	if Pecas_Jogo.size() > 0:
+		var peca = Pecas_Jogo[0]
+		novo_padrao.forca_multiplicador = peca.forca_multiplicador
+		novo_padrao.forca_maxima = peca.forca_maxima
+		novo_padrao.distancia_raio_visual = peca.raio_saida_pixels
+		novo_padrao.friccao_jogador = peca.physics_material_override.friction
+		novo_padrao.bounce_jogador = peca.physics_material_override.bounce
+		novo_padrao.linear_damp_jogador = peca.linear_damp
+		novo_padrao.shake_amplitude_min = peca.shake_amplitude_min
+		novo_padrao.shake_amplitude_max = peca.shake_amplitude_max
+		novo_padrao.shake_frequency_min = peca.shake_frequency_min
+		novo_padrao.shake_frequency_max = peca.shake_frequency_max
+		novo_padrao.shake_duration_min = peca.shake_duration_min
+		novo_padrao.shake_duration_max = peca.shake_duration_max
+		novo_padrao.line_max = peca.tamanho_maximo_linha
+	
+	if a_bola:
+		novo_padrao.friccao_bola = a_bola.physics_material_override.friction
+		novo_padrao.bounce_bola = a_bola.physics_material_override.bounce
+		novo_padrao.peso_bola = a_bola.mass
+		novo_padrao.linear_damp_bola = a_bola.linear_damp
+	
+	dados.append({
+		"name": novo_padrao.name,
+		"forca_multiplicador": novo_padrao.forca_multiplicador,
+		"forca_maxima": novo_padrao.forca_maxima,
+		"distancia_raio_visual": novo_padrao.distancia_raio_visual,
+		"friccao_jogador": novo_padrao.friccao_jogador,
+		"bounce_jogador": novo_padrao.bounce_jogador,
+		"linear_damp_jogador": novo_padrao.linear_damp_jogador,
+		"shake_amplitude_min": novo_padrao.shake_amplitude_min,
+		"shake_amplitude_max": novo_padrao.shake_amplitude_max,
+		"shake_frequency_min": novo_padrao.shake_frequency_min,
+		"shake_frequency_max": novo_padrao.shake_frequency_max,
+		"shake_duration_min": novo_padrao.shake_duration_min,
+		"shake_duration_max": novo_padrao.shake_duration_max,
+		"line_max": novo_padrao.line_max,
+		"friccao_bola": novo_padrao.friccao_bola,
+		"bounce_bola": novo_padrao.bounce_bola,
+		"peso_bola": novo_padrao.peso_bola,
+		"linear_damp_bola": novo_padrao.linear_damp_bola,
+	})
+	
+	var f = FileAccess.open("user://padroes.json", FileAccess.WRITE)
+	f.store_string(JSON.stringify(dados, "\t"))
+	f.close()
+	
+	recursos.append(novo_padrao)
+	padrao_atual_index = recursos.size() - 1
+	padrao_atual = novo_padrao
+	label_padrao.text = novo_padrao.name
