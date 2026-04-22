@@ -5,6 +5,9 @@
 [ext_resource type="Shader" uid="uid://d1kvc0cm1f628" path="res://GPUTrail-main/shaders/trail.gdshader" id="3_75hxl"]
 [ext_resource type="Shader" uid="uid://40v5rmld7jj7" path="res://GPUTrail-main/shaders/trail_draw_pass.gdshader" id="4_mf3xq"]
 [ext_resource type="Script" uid="uid://bxyy0y3fu5svc" path="res://GPUTrail-main/GPUTrail3D.gd" id="5_egdk7"]
+[ext_resource type="Shader" uid="uid://c4vawi7km84mk" path="res://shaders/NewShaderPlayer.gdshader" id="6_tykxf"]
+[ext_resource type="Gradient" uid="uid://conlwkkft6rme" path="res://GradienteCores.tres" id="7_e60r6"]
+[ext_resource type="PackedScene" uid="uid://ef20rsgg16pq" path="res://peca_v_1.tscn" id="8_75hxl"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_e0ky2"]
 height = 0.05
@@ -52,6 +55,17 @@ shader_parameter/flags = 43
 [sub_resource type="QuadMesh" id="QuadMesh_7w6yy"]
 material = SubResource("ShaderMaterial_6g8b7")
 orientation = 0
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_e60r6"]
+gradient = ExtResource("7_e60r6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e60r6"]
+render_priority = 0
+shader = ExtResource("6_tykxf")
+shader_parameter/diffuse_curve = SubResource("GradientTexture1D_e60r6")
+shader_parameter/band_count = 5
+shader_parameter/light_min = -0.128
+shader_parameter/light_max = 1.205
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oiuqu"]
 resource_name = "Material #42"
@@ -123,7 +137,7 @@ mesh = SubResource("BoxMesh_e0ky2")
 surface_material_override/0 = SubResource("StandardMaterial3D_pndby")
 
 [node name="CirculoLimite" type="MeshInstance3D" parent="." unique_id=1150041566]
-transform = Transform3D(0.9999005, -0.007957179, -0.011642224, 0.00813396, 0.9998512, 0.015216035, 0.01151941, -0.015309222, 0.9998165, 0, -0.017288428, 2.7120113e-06)
+transform = Transform3D(0.9999005, -0.007957179, -0.011642224, 0.00813396, 0.9998512, 0.015216035, 0.01151941, -0.015309222, 0.9998165, -0.12308455, -0.017288428, 2.7120113e-06)
 mesh = SubResource("CylinderMesh_o7wco")
 
 [node name="GPUTrail3D" type="GPUParticles3D" parent="." unique_id=553736834]
@@ -147,7 +161,12 @@ metadata/_custom_type_script = "uid://bxyy0y3fu5svc"
 [node name="Visual" type="Node3D" parent="." unique_id=277839914]
 
 [node name="Botao2" type="MeshInstance3D" parent="Visual" unique_id=1947117845]
-transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, 3, 0, -3, -1.3113416e-07, 0, 0, 0)
+transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, 3, 0, -3, -1.3113416e-07, -0.12049034, 0, 0)
+visible = false
+material_override = SubResource("ShaderMaterial_e60r6")
 mesh = SubResource("ArrayMesh_g68ec")
+
+[node name="peca v1" parent="Visual" unique_id=1416813795 instance=ExtResource("8_75hxl")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.10823187, -0.01636739, -0.015502408)
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

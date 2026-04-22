@@ -13,7 +13,10 @@ var modo_atual: ModoTiro = ModoTiro.PUXAR
 @export var tamanho_maximo_linha: float = 15.0
 
 # Shake visual
-
+@export var band_count: int = 5
+@export var light_min: float = 0.182
+@export var light_max: float = 0.975
+@export var gradient: Gradient
 @export var shake_amplitude_min: float = 0.001
 @export var shake_amplitude_max: float = 0.01
 @export var shake_frequency_min: float = 1
@@ -104,31 +107,31 @@ func _ready() -> void:
 	outline_material = ShaderMaterial.new()
 	mesh.material_override = material
 	outline_material.shader = load("res://shaders/outline.gdshader") as Shader
-	
-	if team.id == 1:
-		trocar_shader("res://shaders/pesaVermelha.gdshader")
-		color = Color(0, 0.0, 1, 1)
-		material.set_shader_parameter("color",color)
-		Specular_color = Color(0.28,0.28,0.28,1.77)
-		material.set_shader_parameter("specular_color", Specular_color)
-		fresnel_color = Color(0.51,0.51,0.51,0.77)
-		material.set_shader_parameter("fresnel_color", fresnel_color)
-		specular_strength =0.1
-		material.set_shader_parameter("specular_strength", specular_strength)
-		fresnel_strength = 0.77
-		material.set_shader_parameter("fresnel_strength", fresnel_strength)
-	else:
-		trocar_shader("res://shaders/pesaVermelha.gdshader")
-		var color := Color(1, 0, 0, 1)
-		material.set_shader_parameter("color",color)
-		Specular_color = Color(0.28,0.28,0.28,1.77)
-		material.set_shader_parameter("specular_color", Specular_color)
-		fresnel_color = Color(0.51,0.51,0.51,0.77)
-		material.set_shader_parameter("fresnel_color", fresnel_color)
-		specular_strength =0.1
-		material.set_shader_parameter("specular_strength", specular_strength)
-		fresnel_strength = 0.77
-		material.set_shader_parameter("fresnel_strength", fresnel_strength)
+	material.shader = load("res://shaders/pesaVermelha.gdshader") as Shader
+	#if team.id == 1:
+		#trocar_shader("res://shaders/pesaVermelha.gdshader")
+		#color = Color(0, 0.0, 1, 1)
+		#material.set_shader_parameter("color",color)
+		#Specular_color = Color(0.28,0.28,0.28,1.77)
+		#material.set_shader_parameter("specular_color", Specular_color)
+		#fresnel_color = Color(0.51,0.51,0.51,0.77)
+		#material.set_shader_parameter("fresnel_color", fresnel_color)
+		#specular_strength =0.1
+		#material.set_shader_parameter("specular_strength", specular_strength)
+		#fresnel_strength = 0.77
+		#material.set_shader_parameter("fresnel_strength", fresnel_strength)
+	#else:
+		#trocar_shader("res://shaders/pesaVermelha.gdshader")
+		#var color := Color(1, 0, 0, 1)
+		#material.set_shader_parameter("color",color)
+		#Specular_color = Color(0.28,0.28,0.28,1.77)
+		#material.set_shader_parameter("specular_color", Specular_color)
+		#fresnel_color = Color(0.51,0.51,0.51,0.77)
+		#material.set_shader_parameter("fresnel_color", fresnel_color)
+		#specular_strength =0.1
+		#material.set_shader_parameter("specular_strength", specular_strength)
+		#fresnel_strength = 0.77
+		#material.set_shader_parameter("fresnel_strength", fresnel_strength)
 
 	material.next_pass = outline_material
 	
@@ -146,6 +149,28 @@ func _ready() -> void:
 
 	base_visual_position = visual_piece.position
 	base_visual_rotation = visual_piece.rotation
+func aplicar_gradiente_no_material() -> void:
+	if material == null or gradient == null:
+		return
+
+	var grad_tex := GradientTexture1D.new()
+	grad_tex.gradient = gradient
+
+	material.set_shader_parameter("diffuse_curve", grad_tex)
+	material.set_shader_parameter("band_count", band_count)
+	material.set_shader_parameter("light_min", light_min)
+	material.set_shader_parameter("light_max", light_max)
+	material.set_shader_parameter("enable specular", false)
+func atualizar_gradiente() -> void:
+	aplicar_gradiente_no_material()
+func atualizar_bandas(novo_band_count: int, novo_min: float, novo_max: float) -> void:
+	if material == null:
+		return
+
+	band_count = novo_band_count
+	light_min = novo_min
+	light_max = novo_max
+	aplicar_gradiente_no_material()
 
 func _process(delta: float) -> void:
 	if modo_atual == ModoTiro.CARREGAR and carregando_modo3:
@@ -196,7 +221,7 @@ func _physics_process(delta: float) -> void:
 func trocar_shader(path: String) -> void:
 	var shader := load(path) as Shader
 	material.shader = shader
-
+	aplicar_gradiente_no_material()
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
 	if !canPlay or disabled:
 		return
