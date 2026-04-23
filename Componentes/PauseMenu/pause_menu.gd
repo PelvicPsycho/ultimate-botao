@@ -88,10 +88,7 @@ func _on_button__recomecar_pressed() -> void:
 	get_tree().reload_current_scene()
 
 func _on_button__menu_inicial_pressed() -> void:
-	print ("Falta o menu inicial")
-	alternar_pause()
-	# Substitua pelo caminho da sua cena de menu principal
-#	get_tree().change_scene_to_file("res://cenas/menu_principal.tscn")
+	get_tree().change_scene_to_file("res://Componentes/MainMenu/main_menu.tscn")
 
 func pegar_todas_pecas():
 	Pecas_Jogo.clear()

@@ -125,7 +125,7 @@ homeTeam = ExtResource("2_guahn")
 awayTeam = ExtResource("3_qsfy7")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=517725734]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.36453, 0)
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 15.36453, -0.08624363)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1003734817]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 5.5, 0.116)
@@ -196,7 +196,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.131, -0.77055645)
 playerInfo = ExtResource("4_xqcg1")
 
 [node name="Player4" parent="HomeTeam" unique_id=1741078430 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.131, 0.84449697)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1973245, 0.131, 0.84517646)
 playerInfo = ExtResource("4_xqcg1")
 
 [node name="Player5" parent="HomeTeam" unique_id=2128014667 instance=ExtResource("2_a60kw")]
