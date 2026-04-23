@@ -6,7 +6,7 @@ enum TeamSide {HOME, AWAY}
 @onready var mesh = $Goleira/StaticBody3D/Goleira
 
 @export var team: TeamSide
-@export var expulsar_forca_base: float = 6.0
+@export var expulsar_forca_base: float = 3.0
 
 signal gol(isHome: bool) #True = gol Home, False = gol Away (a principio)
 

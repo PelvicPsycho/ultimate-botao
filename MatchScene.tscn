@@ -1,38 +1,39 @@
-[gd_scene format=4 uid="uid://dl2ux2q62wpjv"]
+[gd_scene format=4 uid="uid://couny8iu1eeoo"]
 
-[ext_resource type="Script" uid="uid://du1nsjujoug16" path="res://Scripts Globais/MatchState.gd" id="1_h7fbo"]
-[ext_resource type="PackedScene" uid="uid://mvbcflomxtbk" path="res://Componentes/PlayerV2/Player.tscn" id="2_a60kw"]
-[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_guahn"]
-[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_qsfy7"]
-[ext_resource type="AudioStream" uid="uid://tclxbyhjm3yn" path="res://Recursos/SFXs/MudouTurno_667494__sieuamthanh__football_whistle.wav" id="4_slx7p"]
-[ext_resource type="PackedScene" uid="uid://evedwlh2n1by" path="res://Temporarios/Scenes_testes/Goleira_escala3x.tscn" id="4_wxt6j"]
-[ext_resource type="Script" uid="uid://dvg0h7e17ftol" path="res://camera_3d.gd" id="4_xiaim"]
-[ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="4_xqcg1"]
-[ext_resource type="AudioStream" uid="uid://3bk0a6xqio48" path="res://Recursos/SFXs/MudouTurnoErrouLance_error_006.wav" id="5_mroej"]
-[ext_resource type="Shader" uid="uid://cftna3jbb7ir5" path="res://shaders/Goleira_escala3x.gdshader" id="5_xujo0"]
-[ext_resource type="Shader" uid="uid://pn80x7vapsyx" path="res://shaders/outline.gdshader" id="6_r80oo"]
-[ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="6_rrtur"]
-[ext_resource type="Shader" uid="uid://djue0ggtg0bvb" path="res://shaders/Laterais.gdshader" id="7_7uv3y"]
-[ext_resource type="Shader" uid="uid://3oc4n5n75ubm" path="res://shaders/outline_Complex.gdshader" id="7_veq7s"]
-[ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="9_y3jfn"]
-[ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Componentes/PauseMenu/pause_menu.tscn" id="10_xa1af"]
-[ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="11_yyp1h"]
-[ext_resource type="PackedScene" uid="uid://i0rr4lxax2lo" path="res://Componentes/Ball/ball_redonda.tscn" id="12_jd3xb"]
-[ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="12_matchtimer"]
-[ext_resource type="PackedScene" uid="uid://b8ms3txou0nej" path="res://Componentes/MatchUI/match_ui.tscn" id="16_veq7s"]
-[ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="19_jd3xb"]
-[ext_resource type="AudioStream" uid="uid://xj30tlwjpu7r" path="res://Recursos/SFXs/AcabandoTempo_418896__lynx_5969__clock-tick-tock.wav" id="22_mroej"]
+[ext_resource type="Script" uid="uid://du1nsjujoug16" path="res://Scripts Globais/MatchState.gd" id="1_xth2n"]
+[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_clyvb"]
+[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_mshaf"]
+[ext_resource type="Script" uid="uid://dvg0h7e17ftol" path="res://camera_3d.gd" id="4_5bfbt"]
+[ext_resource type="PackedScene" uid="uid://evedwlh2n1by" path="res://Temporarios/Scenes_testes/Goleira_escala3x.tscn" id="5_cfivu"]
+[ext_resource type="Shader" uid="uid://pn80x7vapsyx" path="res://shaders/outline.gdshader" id="6_7v6xg"]
+[ext_resource type="Shader" uid="uid://cftna3jbb7ir5" path="res://shaders/Goleira_escala3x.gdshader" id="7_by2kd"]
+[ext_resource type="Shader" uid="uid://3oc4n5n75ubm" path="res://shaders/outline_Complex.gdshader" id="8_1303m"]
+[ext_resource type="ArrayMesh" uid="uid://btiy3enw5ye2w" path="res://Recursos/3Dmodels/campo/campo largo/botao arena prot CAMPO LONGO COLISOR-colonly.obj" id="8_cfivu"]
+[ext_resource type="Shader" uid="uid://djue0ggtg0bvb" path="res://shaders/Laterais.gdshader" id="9_vb5xj"]
+[ext_resource type="PackedScene" uid="uid://mvbcflomxtbk" path="res://Componentes/PlayerV2/Player.tscn" id="10_j6p3p"]
+[ext_resource type="ArrayMesh" uid="uid://28wtovxr043y" path="res://Recursos/3Dmodels/campo/campo largo/botao arena prot CAMPO LONGO CHAO.obj" id="11_7v6xg"]
+[ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="11_vrny7"]
+[ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="12_6ui4b"]
+[ext_resource type="Texture2D" uid="uid://ctli8bc2bqpih" path="res://Recursos/3Dmodels/campo/campo largo/textura-campo-2-longo_2k.png" id="12_by2kd"]
+[ext_resource type="ArrayMesh" uid="uid://cqicsfijsyx2h" path="res://Recursos/3Dmodels/campo/campo largo/botao arena prot CAMPO LONGO LATERAL.obj" id="13_1303m"]
+[ext_resource type="PackedScene" uid="uid://i0rr4lxax2lo" path="res://Componentes/Ball/ball_redonda.tscn" id="13_i127o"]
+[ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="14_a7c6u"]
+[ext_resource type="PackedScene" uid="uid://b8ms3txou0nej" path="res://Componentes/MatchUI/match_ui.tscn" id="15_16anl"]
+[ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Componentes/PauseMenu/pause_menu.tscn" id="16_hual4"]
+[ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="17_dlfdf"]
+[ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="18_01kgc"]
+[ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="19_5d46n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xiaim"]
 render_priority = 0
-shader = ExtResource("6_r80oo")
+shader = ExtResource("6_7v6xg")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/size = 1.00999999977648
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1281y"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_xiaim")
-shader = ExtResource("5_xujo0")
+shader = ExtResource("7_by2kd")
 shader_parameter/color = Color(8.061901e-07, 0.47663605, 0.11930808, 1)
 shader_parameter/specular = Color(0.5152081, 0.5152081, 0.515208, 0.49803922)
 shader_parameter/fresnel = Color(0.16026929, 0.16026932, 0.16026923, 0.3019608)
@@ -45,18 +46,21 @@ shader_parameter/uv_offset = Vector2(0, 0)
 size = Vector3(3.3, 0.2, 6.735)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r80oo"]
-size = Vector3(3.399, 0.2, 6.735)
+size = Vector3(3.399, 0.024804689, 6.735)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vb5xj"]
+data = PackedVector3Array(-1.5934, 0.3732, -1, -1.5934, 0, -1, -2, 0.3732, -0.59349996, -2, 0.3732, -0.59349996, -1.5934, 0, -1, -2, 0, -0.59349996, 2, 0.3732, 0.59349996, 2, 0, 0.59349996, 2, 0.3732, 0.3891, 2, 0.3732, 0.3891, 2, 0, 0.59349996, 2, 0, 0.3891, 2, 0.3732, -0.59349996, 2, 0, -0.59349996, 1.5934, 0.3732, -1, 1.5934, 0.3732, -1, 2, 0, -0.59349996, 1.5934, 0, -1, 2.4336998, 0.3732, 0.38799998, 2.4336998, 0, 0.38799998, 2.4336998, 0.3732, -0.38799998, 2.4336998, 0.3732, -0.38799998, 2.4336998, 0, 0.38799998, 2.4336998, 0, -0.38799998, 1.5934, 0.3732, 1, 1.5934, 0, 1, 2, 0.3732, 0.59349996, 2, 0.3732, 0.59349996, 1.5934, 0, 1, 2, 0, 0.59349996, 2.4336998, 0.3732, -0.38799998, 2.4336998, 0, -0.38799998, 2, 0.3732, -0.3891, 2, 0.3732, -0.3891, 2.4336998, 0, -0.38799998, 2, 0, -0.3891, -2, 0.3732, -0.59349996, -2, 0, -0.59349996, -2, 0.3732, -0.3891, -2, 0.3732, -0.3891, -2, 0, -0.59349996, -2, 0, -0.3891, 2, 0.3732, 0.3891, 2, 0, 0.3891, 2.4336998, 0.3732, 0.38799998, 2.4336998, 0.3732, 0.38799998, 2, 0, 0.3891, 2.4336998, 0, 0.38799998, -1.5934, 0.3732, 1, -1.5934, 0, 1, 1.5934, 0.3732, 1, 1.5934, 0.3732, 1, -1.5934, 0, 1, 1.5934, 0, 1, -2.4436998, 0.3732, -0.3891, -2.4436998, 0, -0.3891, -2.4436998, 0.3732, 0.3891, -2.4436998, 0.3732, 0.3891, -2.4436998, 0, -0.3891, -2.4436998, 0, 0.3891, 2, 0.3732, -0.3891, 2, 0, -0.3891, 2, 0.3732, -0.59349996, 2, 0.3732, -0.59349996, 2, 0, -0.3891, 2, 0, -0.59349996, -2.4436998, 0.3732, 0.3891, -2.4436998, 0, 0.3891, -2, 0.3732, 0.3891, -2, 0.3732, 0.3891, -2.4436998, 0, 0.3891, -2, 0, 0.3891, 1.5934, 0.3732, -1, 1.5934, 0, -1, -1.5934, 0.3732, -1, -1.5934, 0.3732, -1, 1.5934, 0, -1, -1.5934, 0, -1, -2, 0.3732, 0.59349996, -2, 0, 0.59349996, -1.5934, 0.3732, 1, -1.5934, 0.3732, 1, -2, 0, 0.59349996, -1.5934, 0, 1, -2, 0.3732, -0.3891, -2, 0, -0.3891, -2.4436998, 0.3732, -0.3891, -2.4436998, 0.3732, -0.3891, -2, 0, -0.3891, -2.4436998, 0, -0.3891, -2, 0.3732, 0.3891, -2, 0, 0.3891, -2, 0.3732, 0.59349996, -2, 0.3732, 0.59349996, -2, 0, 0.3891, -2, 0, 0.59349996, -2.3093998, 0, -0.7216, -1.7215999, 0, -1.3094, -2.3093998, 0.3732, -0.7216, -2.3093998, 0.3732, -0.7216, -1.7215999, 0, -1.3094, -1.7215999, 0.3732, -1.3094, 2.2371, 0, 0.6256, 2.3093998, 0, 0.7216, 2.2371, 0.3732, 0.6256, 2.2371, 0.3732, 0.6256, 2.3093998, 0, 0.7216, 2.3093998, 0.3732, 0.7216, 1.7215999, 0, -1.3094, 2.3093998, 0, -0.7216, 1.7215999, 0.3732, -1.3094, 1.7215999, 0.3732, -1.3094, 2.3093998, 0, -0.7216, 2.3093998, 0.3732, -0.7216, 2.6708999, 0, -0.6245, 2.6708999, 0, 0.6245, 2.6708999, 0.3732, -0.6245, 2.6708999, 0.3732, -0.6245, 2.6708999, 0, 0.6245, 2.6708999, 0.3732, 0.6245, 2.3093998, 0, 0.7216, 1.7215999, 0, 1.3094, 2.3093998, 0.3732, 0.7216, 2.3093998, 0.3732, 0.7216, 1.7215999, 0, 1.3094, 1.7215999, 0.3732, 1.3094, 2.2371, 0, -0.6256, 2.6708999, 0, -0.6245, 2.2371, 0.3732, -0.6256, 2.2371, 0.3732, -0.6256, 2.6708999, 0, -0.6245, 2.6708999, 0.3732, -0.6245, -2.2368, 0, -0.6259, -2.3093998, 0, -0.7216, -2.2368, 0.3732, -0.6259, -2.2368, 0.3732, -0.6259, -2.3093998, 0, -0.7216, -2.3093998, 0.3732, -0.7216, 2.6708999, 0, 0.6245, 2.2371, 0, 0.6256, 2.6708999, 0.3732, 0.6245, 2.6708999, 0.3732, 0.6245, 2.2371, 0, 0.6256, 2.2371, 0.3732, 0.6256, 1.7215999, 0, 1.3094, -1.7215999, 0, 1.3094, 1.7215999, 0.3732, 1.3094, 1.7215999, 0.3732, 1.3094, -1.7215999, 0, 1.3094, -1.7215999, 0.3732, 1.3094, -2.6805, 0, 0.6259, -2.6805, 0, -0.6259, -2.6805, 0.3732, 0.6259, -2.6805, 0.3732, 0.6259, -2.6805, 0, -0.6259, -2.6805, 0.3732, -0.6259, 2.3093998, 0, -0.7216, 2.2371, 0, -0.6256, 2.3093998, 0.3732, -0.7216, 2.3093998, 0.3732, -0.7216, 2.2371, 0, -0.6256, 2.2371, 0.3732, -0.6256, -2.2368, 0, 0.6259, -2.6805, 0, 0.6259, -2.2368, 0.3732, 0.6259, -2.2368, 0.3732, 0.6259, -2.6805, 0, 0.6259, -2.6805, 0.3732, 0.6259, -1.7215999, 0, -1.3094, 1.7215999, 0, -1.3094, -1.7215999, 0.3732, -1.3094, -1.7215999, 0.3732, -1.3094, 1.7215999, 0, -1.3094, 1.7215999, 0.3732, -1.3094, -1.7215999, 0, 1.3094, -2.3093998, 0, 0.7216, -1.7215999, 0.3732, 1.3094, -1.7215999, 0.3732, 1.3094, -2.3093998, 0, 0.7216, -2.3093998, 0.3732, 0.7216, -2.6805, 0, -0.6259, -2.2368, 0, -0.6259, -2.6805, 0.3732, -0.6259, -2.6805, 0.3732, -0.6259, -2.2368, 0, -0.6259, -2.2368, 0.3732, -0.6259, -2.3093998, 0, 0.7216, -2.2368, 0, 0.6259, -2.3093998, 0.3732, 0.7216, -2.3093998, 0.3732, 0.7216, -2.2368, 0, 0.6259, -2.2368, 0.3732, 0.6259, -2, 0.3732, 0.3891, -2, 0.3732, 0.59349996, -2.2368, 0.3732, 0.6259, -2.2368, 0.3732, 0.6259, -2, 0.3732, 0.59349996, -2.3093998, 0.3732, 0.7216, -2.6805, 0.3732, 0.6259, -2, 0.3732, 0.3891, -2.2368, 0.3732, 0.6259, -2, 0.3732, 0.59349996, -1.5934, 0.3732, 1, -2.3093998, 0.3732, 0.7216, -2.4436998, 0.3732, 0.3891, -2, 0.3732, 0.3891, -2.6805, 0.3732, 0.6259, -2.3093998, 0.3732, 0.7216, -1.5934, 0.3732, 1, -1.7215999, 0.3732, 1.3094, -2.6805, 0.3732, -0.6259, -2.4436998, 0.3732, 0.3891, -2.6805, 0.3732, 0.6259, -1.5934, 0.3732, 1, 1.5934, 0.3732, 1, -1.7215999, 0.3732, 1.3094, -2.4436998, 0.3732, -0.3891, -2.4436998, 0.3732, 0.3891, -2.6805, 0.3732, -0.6259, -1.7215999, 0.3732, 1.3094, 1.5934, 0.3732, 1, 1.7215999, 0.3732, 1.3094, -2.2368, 0.3732, -0.6259, -2.4436998, 0.3732, -0.3891, -2.6805, 0.3732, -0.6259, 1.5934, 0.3732, 1, 2, 0.3732, 0.59349996, 1.7215999, 0.3732, 1.3094, -2, 0.3732, -0.3891, -2.4436998, 0.3732, -0.3891, -2.2368, 0.3732, -0.6259, 1.7215999, 0.3732, 1.3094, 2, 0.3732, 0.59349996, 2.3093998, 0.3732, 0.7216, -2.3093998, 0.3732, -0.7216, -2, 0.3732, -0.3891, -2.2368, 0.3732, -0.6259, 2, 0.3732, 0.59349996, 2, 0.3732, 0.3891, 2.3093998, 0.3732, 0.7216, -2, 0.3732, -0.59349996, -2, 0.3732, -0.3891, -2.3093998, 0.3732, -0.7216, 2.3093998, 0.3732, 0.7216, 2, 0.3732, 0.3891, 2.2371, 0.3732, 0.6256, -1.7215999, 0.3732, -1.3094, -2, 0.3732, -0.59349996, -2.3093998, 0.3732, -0.7216, 2, 0.3732, 0.3891, 2.4336998, 0.3732, 0.38799998, 2.2371, 0.3732, 0.6256, -1.5934, 0.3732, -1, -2, 0.3732, -0.59349996, -1.7215999, 0.3732, -1.3094, 2.2371, 0.3732, 0.6256, 2.4336998, 0.3732, 0.38799998, 2.6708999, 0.3732, 0.6245, 1.7215999, 0.3732, -1.3094, -1.5934, 0.3732, -1, -1.7215999, 0.3732, -1.3094, 2.4336998, 0.3732, 0.38799998, 2.4336998, 0.3732, -0.38799998, 2.6708999, 0.3732, 0.6245, 1.5934, 0.3732, -1, -1.5934, 0.3732, -1, 1.7215999, 0.3732, -1.3094, 2.6708999, 0.3732, 0.6245, 2.4336998, 0.3732, -0.38799998, 2.6708999, 0.3732, -0.6245, 2.3093998, 0.3732, -0.7216, 1.5934, 0.3732, -1, 1.7215999, 0.3732, -1.3094, 2.4336998, 0.3732, -0.38799998, 2, 0.3732, -0.3891, 2.6708999, 0.3732, -0.6245, 2, 0.3732, -0.59349996, 1.5934, 0.3732, -1, 2.3093998, 0.3732, -0.7216, 2.6708999, 0.3732, -0.6245, 2, 0.3732, -0.3891, 2.2371, 0.3732, -0.6256, 2, 0.3732, -0.3891, 2, 0.3732, -0.59349996, 2.2371, 0.3732, -0.6256, 2.2371, 0.3732, -0.6256, 2, 0.3732, -0.59349996, 2.3093998, 0.3732, -0.7216, 2, 0, -0.3891, 2.4336998, 0, -0.38799998, 2.2371, 0, -0.6256, 2.2371, 0, -0.6256, 2.4336998, 0, -0.38799998, 2.6708999, 0, -0.6245, 2.3093998, 0, -0.7216, 2, 0, -0.3891, 2.2371, 0, -0.6256, 2.4336998, 0, -0.38799998, 2.4336998, 0, 0.38799998, 2.6708999, 0, -0.6245, 2, 0, -0.59349996, 2, 0, -0.3891, 2.3093998, 0, -0.7216, 2.6708999, 0, -0.6245, 2.4336998, 0, 0.38799998, 2.6708999, 0, 0.6245, 1.7215999, 0, -1.3094, 2, 0, -0.59349996, 2.3093998, 0, -0.7216, 2.4336998, 0, 0.38799998, 2, 0, 0.3891, 2.6708999, 0, 0.6245, 1.5934, 0, -1, 2, 0, -0.59349996, 1.7215999, 0, -1.3094, 2.6708999, 0, 0.6245, 2, 0, 0.3891, 2.2371, 0, 0.6256, -1.7215999, 0, -1.3094, 1.5934, 0, -1, 1.7215999, 0, -1.3094, 2, 0, 0.3891, 2, 0, 0.59349996, 2.2371, 0, 0.6256, -1.5934, 0, -1, 1.5934, 0, -1, -1.7215999, 0, -1.3094, 2.2371, 0, 0.6256, 2, 0, 0.59349996, 2.3093998, 0, 0.7216, -2.3093998, 0, -0.7216, -1.5934, 0, -1, -1.7215999, 0, -1.3094, 2, 0, 0.59349996, 1.5934, 0, 1, 2.3093998, 0, 0.7216, -2, 0, -0.59349996, -1.5934, 0, -1, -2.3093998, 0, -0.7216, 2.3093998, 0, 0.7216, 1.5934, 0, 1, 1.7215999, 0, 1.3094, -2.2368, 0, -0.6259, -2, 0, -0.59349996, -2.3093998, 0, -0.7216, 1.5934, 0, 1, -1.5934, 0, 1, 1.7215999, 0, 1.3094, -2, 0, -0.3891, -2, 0, -0.59349996, -2.2368, 0, -0.6259, 1.7215999, 0, 1.3094, -1.5934, 0, 1, -1.7215999, 0, 1.3094, -2.6805, 0, -0.6259, -2, 0, -0.3891, -2.2368, 0, -0.6259, -1.5934, 0, 1, -2, 0, 0.59349996, -1.7215999, 0, 1.3094, -2.4436998, 0, -0.3891, -2, 0, -0.3891, -2.6805, 0, -0.6259, -1.7215999, 0, 1.3094, -2, 0, 0.59349996, -2.3093998, 0, 0.7216, -2.6805, 0, 0.6259, -2.4436998, 0, -0.3891, -2.6805, 0, -0.6259, -2, 0, 0.59349996, -2, 0, 0.3891, -2.3093998, 0, 0.7216, -2.4436998, 0, 0.3891, -2.4436998, 0, -0.3891, -2.6805, 0, 0.6259, -2.3093998, 0, 0.7216, -2, 0, 0.3891, -2.2368, 0, 0.6259, -2, 0, 0.3891, -2.4436998, 0, 0.3891, -2.2368, 0, 0.6259, -2.2368, 0, 0.6259, -2.4436998, 0, 0.3891, -2.6805, 0, 0.6259)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_veq7s"]
 render_priority = 0
-shader = ExtResource("7_veq7s")
+shader = ExtResource("8_1303m")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/outline_size = 0.002
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jd3xb"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_veq7s")
-shader = ExtResource("7_7uv3y")
+shader = ExtResource("9_vb5xj")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/specular = Color(0.14044744, 0.14044747, 0.14044738, 0.5019608)
 shader_parameter/fresnel = Color(0.10747979, 0.107479714, 0.10747973, 0.3019608)
@@ -102,14 +106,14 @@ data = PackedVector3Array(0.096999995, -0.16499999, 0, 0.0968, 0.0683, 0, 0.057,
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7uv3y"]
 render_priority = 0
-shader = ExtResource("7_veq7s")
+shader = ExtResource("8_1303m")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/outline_size = 0.002
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_slx7p"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_7uv3y")
-shader = ExtResource("7_7uv3y")
+shader = ExtResource("9_vb5xj")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
 shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
@@ -121,16 +125,21 @@ shader_parameter/uv_offset = Vector2(0, 0)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jd3xb"]
 data = PackedVector3Array(0.096999995, -0.16499999, 0, 0.0968, 0.0683, 0, 0.057, 0.0683, 0, 0.057, 0.0683, 0, 0.057, -0.1827, 0, 0.096999995, -0.16499999, 0, 0.096999995, -0.16499999, 0.049599998, 0.057, -0.1827, 0.049599998, 0.057, 0.0683, 0.049599998, 0.057, 0.0683, 0.049599998, 0.0968, 0.0683, 0.049599998, 0.096999995, -0.16499999, 0.049599998, 0.057, -0.1827, 0.049599998, 0.057, -0.1827, 0, 0.057, 0.0683, 0, 0.057, 0.0683, 0, 0.057, 0.0683, 0.049599998, 0.057, -0.1827, 0.049599998, 0.0968, 0.0683, 0.049599998, 0.0968, 0.0683, 0, 0.096999995, -0.16499999, 0, 0.096999995, -0.16499999, 0, 0.096999995, -0.16499999, 0.049599998, 0.0968, 0.0683, 0.049599998, 0.057, 0.0683, 0.049599998, 0.057, 0.0683, 0, 0.0968, 0.0683, 0, 0.0968, 0.0683, 0, 0.0968, 0.0683, 0.049599998, 0.057, 0.0683, 0.049599998, 0.18869999, -0.2985, 0, 0.21169999, -0.2566, 0, 0.096999995, -0.16499999, 0, 0.096999995, -0.16499999, 0, 0.057, -0.1827, 0, 0.18869999, -0.2985, 0, 0.21169999, -0.2566, 0.049599998, 0.096999995, -0.16499999, 0.049599998, 0.096999995, -0.16499999, 0, 0.096999995, -0.16499999, 0, 0.21169999, -0.2566, 0, 0.21169999, -0.2566, 0.049599998, 0.18869999, -0.2985, 0.049599998, 0.057, -0.1827, 0.049599998, 0.096999995, -0.16499999, 0.049599998, 0.096999995, -0.16499999, 0.049599998, 0.21169999, -0.2566, 0.049599998, 0.18869999, -0.2985, 0.049599998, 0.18869999, -0.2985, 0, 0.057, -0.1827, 0, 0.057, -0.1827, 0.049599998, 0.057, -0.1827, 0.049599998, 0.18869999, -0.2985, 0.049599998, 0.18869999, -0.2985, 0, 0.4473, -0.2985, 0, 0.4473, -0.2566, 0, 0.21169999, -0.2566, 0, 0.21169999, -0.2566, 0, 0.18869999, -0.2985, 0, 0.4473, -0.2985, 0, 0.4473, -0.2566, 0, 0.4473, -0.2566, 0.049599998, 0.21169999, -0.2566, 0.049599998, 0.21169999, -0.2566, 0.049599998, 0.21169999, -0.2566, 0, 0.4473, -0.2566, 0, 0.4473, -0.2985, 0.049599998, 0.18869999, -0.2985, 0.049599998, 0.21169999, -0.2566, 0.049599998, 0.21169999, -0.2566, 0.049599998, 0.4473, -0.2566, 0.049599998, 0.4473, -0.2985, 0.049599998, 0.4473, -0.2985, 0.049599998, 0.4473, -0.2985, 0, 0.18869999, -0.2985, 0, 0.18869999, -0.2985, 0, 0.18869999, -0.2985, 0.049599998, 0.4473, -0.2985, 0.049599998, 0.4473, -0.2566, 0, 0.4473, -0.2985, 0, 0.69189996, -0.2985, 0, 0.69189996, -0.2985, 0, 0.69189996, -0.2566, 0, 0.4473, -0.2566, 0, 0.93659997, -0.2566, 0, 0.69189996, -0.2566, 0, 0.69189996, -0.2985, 0, 0.69189996, -0.2985, 0, 0.93659997, -0.2985, 0, 0.93659997, -0.2566, 0, 0.4473, -0.2566, 0, 0.69189996, -0.2566, 0, 0.69189996, -0.2566, 0.049599998, 0.69189996, -0.2566, 0.049599998, 0.4473, -0.2566, 0.049599998, 0.4473, -0.2566, 0, 0.69189996, -0.2566, 0.049599998, 0.69189996, -0.2566, 0, 0.93659997, -0.2566, 0, 0.93659997, -0.2566, 0, 0.93659997, -0.2566, 0.049599998, 0.69189996, -0.2566, 0.049599998, 0.4473, -0.2566, 0.049599998, 0.69189996, -0.2566, 0.049599998, 0.69189996, -0.2985, 0.049599998, 0.69189996, -0.2985, 0.049599998, 0.4473, -0.2985, 0.049599998, 0.4473, -0.2566, 0.049599998, 0.69189996, -0.2985, 0.049599998, 0.69189996, -0.2566, 0.049599998, 0.93659997, -0.2566, 0.049599998, 0.93659997, -0.2566, 0.049599998, 0.93659997, -0.2985, 0.049599998, 0.69189996, -0.2985, 0.049599998, 0.4473, -0.2985, 0.049599998, 0.69189996, -0.2985, 0.049599998, 0.69189996, -0.2985, 0, 0.69189996, -0.2985, 0, 0.4473, -0.2985, 0, 0.4473, -0.2985, 0.049599998, 0.69189996, -0.2985, 0, 0.69189996, -0.2985, 0.049599998, 0.93659997, -0.2985, 0.049599998, 0.93659997, -0.2985, 0.049599998, 0.93659997, -0.2985, 0, 0.69189996, -0.2985, 0, 1.2868, -0.16499999, 0, 1.3268, -0.1827, 0, 1.3268, 0.0683, 0, 1.3268, 0.0683, 0, 1.287, 0.0683, 0, 1.2868, -0.16499999, 0, 1.2868, -0.16499999, 0.049599998, 1.287, 0.0683, 0.049599998, 1.3268, 0.0683, 0.049599998, 1.3268, 0.0683, 0.049599998, 1.3268, -0.1827, 0.049599998, 1.2868, -0.16499999, 0.049599998, 1.3268, -0.1827, 0.049599998, 1.3268, 0.0683, 0.049599998, 1.3268, 0.0683, 0, 1.3268, 0.0683, 0, 1.3268, -0.1827, 0, 1.3268, -0.1827, 0.049599998, 1.287, 0.0683, 0.049599998, 1.2868, -0.16499999, 0.049599998, 1.2868, -0.16499999, 0, 1.2868, -0.16499999, 0, 1.287, 0.0683, 0, 1.287, 0.0683, 0.049599998, 1.3268, 0.0683, 0.049599998, 1.287, 0.0683, 0.049599998, 1.287, 0.0683, 0, 1.287, 0.0683, 0, 1.3268, 0.0683, 0, 1.3268, 0.0683, 0.049599998, 1.2868, -0.16499999, 0, 1.1722, -0.2566, 0, 1.1952, -0.2985, 0, 1.1952, -0.2985, 0, 1.3268, -0.1827, 0, 1.2868, -0.16499999, 0, 1.1722, -0.2566, 0.049599998, 1.1722, -0.2566, 0, 1.2868, -0.16499999, 0, 1.2868, -0.16499999, 0, 1.2868, -0.16499999, 0.049599998, 1.1722, -0.2566, 0.049599998, 1.1952, -0.2985, 0.049599998, 1.1722, -0.2566, 0.049599998, 1.2868, -0.16499999, 0.049599998, 1.2868, -0.16499999, 0.049599998, 1.3268, -0.1827, 0.049599998, 1.1952, -0.2985, 0.049599998, 1.1952, -0.2985, 0, 1.1952, -0.2985, 0.049599998, 1.3268, -0.1827, 0.049599998, 1.3268, -0.1827, 0.049599998, 1.3268, -0.1827, 0, 1.1952, -0.2985, 0, 1.1722, -0.2566, 0, 0.93659997, -0.2566, 0, 0.93659997, -0.2985, 0, 0.93659997, -0.2985, 0, 1.1952, -0.2985, 0, 1.1722, -0.2566, 0, 1.1722, -0.2566, 0.049599998, 0.93659997, -0.2566, 0.049599998, 0.93659997, -0.2566, 0, 0.93659997, -0.2566, 0, 1.1722, -0.2566, 0, 1.1722, -0.2566, 0.049599998, 0.93659997, -0.2985, 0.049599998, 0.93659997, -0.2566, 0.049599998, 1.1722, -0.2566, 0.049599998, 1.1722, -0.2566, 0.049599998, 1.1952, -0.2985, 0.049599998, 0.93659997, -0.2985, 0.049599998, 1.1952, -0.2985, 0, 0.93659997, -0.2985, 0, 0.93659997, -0.2985, 0.049599998, 0.93659997, -0.2985, 0.049599998, 1.1952, -0.2985, 0.049599998, 1.1952, -0.2985, 0)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j6p3p"]
+albedo_texture = ExtResource("12_by2kd")
+ao_light_affect = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrny7"]
+albedo_color = Color(0.6484881, 0.6484881, 0.6484881, 1)
+
 [node name="MatchScene" type="Node3D" unique_id=92966225 node_paths=PackedStringArray("anunciador_ui")]
-script = ExtResource("1_h7fbo")
+script = ExtResource("1_xth2n")
 anunciador_ui = NodePath("AnunciadorUI")
-homeTeam = ExtResource("2_guahn")
-awayTeam = ExtResource("3_qsfy7")
-audio_mudou_turno = ExtResource("4_slx7p")
-audio_perdeu_turno = ExtResource("5_mroej")
+homeTeam = ExtResource("2_clyvb")
+awayTeam = ExtResource("3_mshaf")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=517725734]
-transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 15.36453, -0.08624363)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.36453, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1003734817]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 5.5, 0.116)
@@ -138,30 +147,42 @@ keep_aspect = 0
 v_offset = 0.295
 current = true
 size = 8.0
-script = ExtResource("4_xiaim")
+script = ExtResource("4_5bfbt")
 zoom_speed = 2.0
 min_zoom = Vector3(0, 5.5, 0.116)
 max_zoom = Vector3(0, 7, 0.116)
 
 [node name="Pitch" type="StaticBody3D" parent="." unique_id=371043304]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(-5.6824803e-08, 0, 1.3, 0, 1.3, 0, -1.3, 0, -5.6824803e-08, 0, 0, 0)
 
-[node name="GoleiraAway" parent="Pitch" unique_id=654322067 instance=ExtResource("4_wxt6j")]
-transform = Transform3D(1.4424758e-07, 0, 1.2888446, 0, 1.1, 0, -1.1, 0, 1.6901154e-07, -0.004048709, 0.1, 3.253981)
+[node name="GoleiraAway" parent="Pitch" unique_id=654322067 instance=ExtResource("5_cfivu")]
+transform = Transform3D(7.54979e-08, 0, 1, 0, 1, 0, -1, 0, 7.54979e-08, -1.0746205e-07, 0, 2.458445)
 team = 1
 
-[node name="GoleiraHome" parent="Pitch" unique_id=1060408711 instance=ExtResource("4_wxt6j")]
-transform = Transform3D(-4.8082534e-08, 0, -1.2888446, 0, 1.1, 0, 1.1, 0, -5.6337196e-08, -0.0045791385, 0.1, -3.2344832)
+[node name="GoleiraHome" parent="Pitch" unique_id=1060408711 instance=ExtResource("5_cfivu")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.0760743e-07, 0, -2.461771)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch" unique_id=274680510]
+visible = false
 material_override = SubResource("ShaderMaterial_1281y")
 mesh = SubResource("BoxMesh_1281y")
 
 [node name="Floor" type="CollisionShape3D" parent="Pitch" unique_id=1414677260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08759765, 0)
 shape = SubResource("BoxShape3D_r80oo")
+
+[node name="BotaoArenaProtCampoLongoColisorColonly" type="MeshInstance3D" parent="Pitch" unique_id=55317131]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+visible = false
+mesh = ExtResource("8_cfivu")
+
+[node name="LateraisColision" type="CollisionShape3D" parent="Pitch" unique_id=459879938]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_vb5xj")
 
 [node name="LateraisBotao" type="Node3D" parent="Pitch" unique_id=551117176]
 transform = Transform3D(-1.3224869e-07, 0, -2.0293088, 0, 3, 0, 3.0254974, 0, -8.8703906e-08, -0.367, 0.061, -2)
+visible = false
 
 [node name="Laterais" type="MeshInstance3D" parent="Pitch/LateraisBotao" unique_id=2042689790]
 transform = Transform3D(1.5750003, 0, 0, 0, -5.2090112e-08, 1, 0, -1.1916828, -4.371139e-08, -0.42590088, 0, 0.21389374)
@@ -175,6 +196,7 @@ shape = SubResource("ConcavePolygonShape3D_veq7s")
 
 [node name="LateraisBotao2" type="Node3D" parent="Pitch" unique_id=1453108007]
 transform = Transform3D(2.2841871e-07, 0, 2.0293088, 0, 3, 0, -3.0254974, 0, 1.5320856e-07, 0.3421608, 0.061, 2.013)
+visible = false
 
 [node name="Laterais" type="MeshInstance3D" parent="Pitch/LateraisBotao2" unique_id=915231019]
 transform = Transform3D(1.5750002, 4.2632564e-14, 1.6940659e-21, 0, -4.8082526e-08, 0.9940001, 5.684342e-14, -1.1000001, -4.344912e-08, -0.42594254, 0, 0.21757953)
@@ -186,69 +208,78 @@ mesh = SubResource("ArrayMesh_7uv3y")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pitch/LateraisBotao2/Laterais/StaticBody3D" unique_id=705539732]
 shape = SubResource("ConcavePolygonShape3D_jd3xb")
 
+[node name="BotaoArenaProtCampoLongoChao" type="MeshInstance3D" parent="Pitch" unique_id=254948524]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+mesh = ExtResource("11_7v6xg")
+surface_material_override/0 = SubResource("StandardMaterial3D_j6p3p")
+
+[node name="BotaoArenaProtCampoLongoLateral" type="MeshInstance3D" parent="Pitch" unique_id=275979301]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+mesh = ExtResource("13_1303m")
+surface_material_override/0 = SubResource("StandardMaterial3D_vrny7")
+
 [node name="HomeTeam" type="Node" parent="." unique_id=127159349]
 
-[node name="Player" parent="HomeTeam" unique_id=792270927 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.131, 0)
-playerInfo = ExtResource("4_xqcg1")
+[node name="Player" parent="HomeTeam" unique_id=792270927 instance=ExtResource("10_j6p3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.025860503, 0)
+playerInfo = ExtResource("11_vrny7")
 
-[node name="Player2" parent="HomeTeam" unique_id=1350086234 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8932083, 0.131, 0)
-playerInfo = ExtResource("4_xqcg1")
+[node name="Player2" parent="HomeTeam" unique_id=1350086234 instance=ExtResource("10_j6p3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8432808, 0.025860503, 0)
+playerInfo = ExtResource("11_vrny7")
 
-[node name="Player3" parent="HomeTeam" unique_id=1880878002 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.131, -0.77055645)
-playerInfo = ExtResource("4_xqcg1")
+[node name="Player3" parent="HomeTeam" unique_id=1880878002 instance=ExtResource("10_j6p3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.025860503, -0.77055645)
+playerInfo = ExtResource("11_vrny7")
 
-[node name="Player4" parent="HomeTeam" unique_id=1741078430 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1973245, 0.131, 0.84517646)
-playerInfo = ExtResource("4_xqcg1")
+[node name="Player4" parent="HomeTeam" unique_id=1741078430 instance=ExtResource("10_j6p3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.025860503, 0.84449697)
+playerInfo = ExtResource("11_vrny7")
 
-[node name="Player5" parent="HomeTeam" unique_id=2128014667 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5119095, 0.131, 0)
-playerInfo = ExtResource("4_xqcg1")
+[node name="Player5" parent="HomeTeam" unique_id=2128014667 instance=ExtResource("10_j6p3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4427795, 0.025860503, 0)
+playerInfo = ExtResource("11_vrny7")
 
 [node name="AwayTeam" type="Node" parent="." unique_id=1453187810]
 
-[node name="Player2" parent="AwayTeam" unique_id=1384454041 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.131, 0)
-playerInfo = ExtResource("6_rrtur")
+[node name="Player2" parent="AwayTeam" unique_id=1384454041 instance=ExtResource("10_j6p3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.025860503, 0)
+playerInfo = ExtResource("12_6ui4b")
 
-[node name="Player3" parent="AwayTeam" unique_id=1579945855 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4255567, 0.131, 0)
-playerInfo = ExtResource("6_rrtur")
+[node name="Player3" parent="AwayTeam" unique_id=1579945855 instance=ExtResource("10_j6p3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4255567, 0.025860503, 0)
+playerInfo = ExtResource("12_6ui4b")
 
-[node name="Player4" parent="AwayTeam" unique_id=2080314620 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8045008, 0.131, 0)
-playerInfo = ExtResource("6_rrtur")
+[node name="Player4" parent="AwayTeam" unique_id=2080314620 instance=ExtResource("10_j6p3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8045008, 0.025860503, 0)
+playerInfo = ExtResource("12_6ui4b")
 
-[node name="Player5" parent="AwayTeam" unique_id=1146290176 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8188465, 0.131, 0.93689907)
-playerInfo = ExtResource("6_rrtur")
+[node name="Player5" parent="AwayTeam" unique_id=1146290176 instance=ExtResource("10_j6p3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8188465, 0.025860503, 0.93689907)
+playerInfo = ExtResource("12_6ui4b")
 
-[node name="Player6" parent="AwayTeam" unique_id=1069092750 instance=ExtResource("2_a60kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7895684, 0.131, -0.8517053)
-playerInfo = ExtResource("6_rrtur")
+[node name="Player6" parent="AwayTeam" unique_id=1069092750 instance=ExtResource("10_j6p3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7895684, 0.025860503, -0.8517053)
+playerInfo = ExtResource("12_6ui4b")
 
-[node name="Ball2" parent="." unique_id=573001688 instance=ExtResource("12_jd3xb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18872759, 0)
+[node name="Ball2" parent="." unique_id=573001688 instance=ExtResource("13_i127o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08358809, 0)
 
 [node name="Gol_Manager(Temporario)" type="Node3D" parent="." unique_id=736409669 node_paths=PackedStringArray("anunciadorui", "match_state")]
-script = ExtResource("9_y3jfn")
+script = ExtResource("14_a7c6u")
 anunciadorui = NodePath("../AnunciadorUI")
 match_state = NodePath("..")
 
-[node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("19_jd3xb")]
+[node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("19_5d46n")]
 
-[node name="MatchUI" parent="." unique_id=2001534732 node_paths=PackedStringArray("pause_menu") instance=ExtResource("16_veq7s")]
+[node name="MatchUI" parent="." unique_id=2001534732 node_paths=PackedStringArray("pause_menu") instance=ExtResource("15_16anl")]
 unique_name_in_owner = true
 pause_menu = NodePath("../PauseMenu")
 
-[node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("10_xa1af")]
+[node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("16_hual4")]
 
-[node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("11_yyp1h")]
+[node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("17_dlfdf")]
 
 [node name="MatchTimer" type="Node" parent="." unique_id=750440205]
-script = ExtResource("12_matchtimer")
+script = ExtResource("18_01kgc")
 tempo_maximo_lance = 15.0
-audio_tempo_acabando = ExtResource("22_mroej")

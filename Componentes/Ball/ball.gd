@@ -33,7 +33,7 @@ func _physics_process(_delta: float) -> void:
 	var speed = velocidade_atual.length()
 	
 	# Se a bola estiver quase parando, zera a rotação para evitar tremedeira
-	if speed < 0.1:
+	if speed < 0.01:
 		#Só alteramos a angular_velocity se ela ainda não for zero.
 		# Isso evita que o corpo seja "acordado" a cada frame.
 		if angular_velocity.length() > 0.01:
