@@ -55,6 +55,7 @@ var spark_scene: PackedScene = preload("res://spark.tscn")
 var spark_particule: GPUParticles3D
 var smoke_particles: GPUParticles3D
 var rotacao_base_y: float = 0.0
+
 @export var smoke_rotation_offset_deg: float = 0.0
 @export var smoke_cooldown: float = 1.0  # Cooldown in seconds to prevent spam
 @export var smoke_offset_distance: float = 1.0  # Distance from center to spawn smoke
@@ -180,6 +181,7 @@ func aplicar_gradiente_no_material() -> void:
 		material.set_shader_parameter("light_min", light_min)
 		material.set_shader_parameter("light_max", light_max)
 		material.set_shader_parameter("enable specular", false)
+		material.set_shader_parameter("saturation", 0.958)
 	else:
 		var grad_tex := GradientTexture1D.new()
 		grad_tex.gradient = gradientAz
@@ -191,6 +193,7 @@ func aplicar_gradiente_no_material() -> void:
 		material.set_shader_parameter("light_min", light_min)
 		material.set_shader_parameter("light_max", light_max)
 		material.set_shader_parameter("enable specular", false)
+		material.set_shader_parameter("saturation", 0.958)
 func atualizar_gradiente() -> void:
 	aplicar_gradiente_no_material()
 
@@ -234,10 +237,10 @@ func set_piece_available(pode_mexer: bool) -> void:
 
 	if team.id == 1:
 		
-		material.set_shader_parameter("light_min", 0.005 if pode_mexer else 0.76)
+		material.set_shader_parameter("saturation", 0.958 if pode_mexer else 0.4)
 		material.set_shader_parameter("light_max",  0.97 if pode_mexer else 1.0)
 	else:
-		material.set_shader_parameter("light_min", 0.005 if pode_mexer else 0.76)
+		material.set_shader_parameter("saturation", 0.958 if pode_mexer else 0.2)
 		material.set_shader_parameter("light_max",  0.97 if pode_mexer else 1.0)
 
 func _physics_process(delta: float) -> void:

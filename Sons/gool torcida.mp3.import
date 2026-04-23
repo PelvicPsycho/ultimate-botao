@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c1bge5ffy3gs7"
+path="res://.godot/imported/gool torcida.mp3-d2a663a2ec0c4d74f503151146844448.mp3str"
+
+[deps]
+
+source_file="res://Sons/gool torcida.mp3"
+dest_files=["res://.godot/imported/gool torcida.mp3-d2a663a2ec0c4d74f503151146844448.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
