@@ -20,6 +20,17 @@ func play_button(Audio) -> void:
 		sfx.stream = Audio
 		sfx.play()
 
+# Nova função flexível que permite alterar tom, volume e retorna o player
+func play_sfx(audio: AudioStream, pitch: float = 1.0, volume: float = 0.0) -> AudioStreamPlayer:
+	var sfx = get_free_sfx_stream()
+	if sfx != null:
+		sfx.stream = audio
+		sfx.pitch_scale = pitch
+		sfx.volume_db = volume
+		sfx.play()
+		return sfx
+	return null
+
 func play_bgm(BGM, nome_string) -> void:
 	musica_atual = nome_string
 	AudioBGM.stream = BGM

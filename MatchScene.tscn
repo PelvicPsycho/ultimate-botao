@@ -4,9 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://mvbcflomxtbk" path="res://Componentes/PlayerV2/Player.tscn" id="2_a60kw"]
 [ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_guahn"]
 [ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_qsfy7"]
+[ext_resource type="AudioStream" uid="uid://tclxbyhjm3yn" path="res://Recursos/SFXs/MudouTurno_667494__sieuamthanh__football_whistle.wav" id="4_slx7p"]
 [ext_resource type="PackedScene" uid="uid://evedwlh2n1by" path="res://Temporarios/Scenes_testes/Goleira_escala3x.tscn" id="4_wxt6j"]
 [ext_resource type="Script" uid="uid://dvg0h7e17ftol" path="res://camera_3d.gd" id="4_xiaim"]
 [ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="4_xqcg1"]
+[ext_resource type="AudioStream" uid="uid://3bk0a6xqio48" path="res://Recursos/SFXs/MudouTurnoErrouLance_error_006.wav" id="5_mroej"]
 [ext_resource type="Shader" uid="uid://cftna3jbb7ir5" path="res://shaders/Goleira_escala3x.gdshader" id="5_xujo0"]
 [ext_resource type="Shader" uid="uid://pn80x7vapsyx" path="res://shaders/outline.gdshader" id="6_r80oo"]
 [ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="6_rrtur"]
@@ -19,6 +21,7 @@
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="12_matchtimer"]
 [ext_resource type="PackedScene" uid="uid://b8ms3txou0nej" path="res://Componentes/MatchUI/match_ui.tscn" id="16_veq7s"]
 [ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="19_jd3xb"]
+[ext_resource type="AudioStream" uid="uid://xj30tlwjpu7r" path="res://Recursos/SFXs/AcabandoTempo_418896__lynx_5969__clock-tick-tock.wav" id="22_mroej"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xiaim"]
 render_priority = 0
@@ -123,6 +126,8 @@ script = ExtResource("1_h7fbo")
 anunciador_ui = NodePath("AnunciadorUI")
 homeTeam = ExtResource("2_guahn")
 awayTeam = ExtResource("3_qsfy7")
+audio_mudou_turno = ExtResource("4_slx7p")
+audio_perdeu_turno = ExtResource("5_mroej")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=517725734]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 15.36453, -0.08624363)
@@ -246,3 +251,4 @@ pause_menu = NodePath("../PauseMenu")
 [node name="MatchTimer" type="Node" parent="." unique_id=750440205]
 script = ExtResource("12_matchtimer")
 tempo_maximo_lance = 15.0
+audio_tempo_acabando = ExtResource("22_mroej")

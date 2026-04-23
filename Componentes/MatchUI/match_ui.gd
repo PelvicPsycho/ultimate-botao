@@ -80,7 +80,7 @@ func _on_botao_pause_pressed() -> void:
 	pass # Replace with function body.
 
 func _atualizar_label_partida(time: float) -> void:
-	print("AAAAAAAAAAAAAAAAAA")
+#	print("AAAAAAAAAAAAAAAAAA")
 	
 	var minutos := int(time) / 60
 	var segundos := int(time) % 60

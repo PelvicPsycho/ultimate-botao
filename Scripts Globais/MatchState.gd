@@ -21,6 +21,10 @@ var turnCounter: int = 0
 var foulFlag: bool = false
 var goalFlag: bool = false
 
+@export_group("Sons do Árbitro")
+@export var audio_mudou_turno: AudioStream
+@export var audio_perdeu_turno: AudioStream
+
 #@onready var label_home: Label = $CanvasLayer/VSplitContainer/HBoxContainer/Label_Home
 #@onready var label_away: Label = $CanvasLayer/VSplitContainer/HBoxContainer/Label_Away
 @onready var timer = $MatchTimer
@@ -254,6 +258,7 @@ func forceTurn(target: turn) -> void:
 # Se o time que possui a posse cometer uma infração(fazer gol no primeiro lance), troca
 # ---------------------------------------------------------
 func decideTurn():
+	var por_erro = true
 	if goalFlag:
 		# O gol_manager já chamou forceTurn() durante o anúncio de gol.
 		# Apenas limpamos a flag para o próximo lance e saímos.
@@ -276,9 +281,15 @@ func decideTurn():
 				return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
 		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:
 			print("TOCOU MAIS DE 3 VEZES")
+			por_erro = false
 		if lastTouch != null and !isCorrectSide(lastTouch.team):
 			print("Ultimo a tocar: ", lastTouch.team.name)
 	print("----------------------------------------------")
+	if por_erro:
+		SoundMaster.play_sfx(audio_perdeu_turno, 1.0, 0.0)
+	else:
+		SoundMaster.play_sfx(audio_mudou_turno, 1.0, 0.0)
+
 	changeTurn() # Senão troca
 	
 func atualizar_cores_pecas() -> void:

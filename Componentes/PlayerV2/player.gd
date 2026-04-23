@@ -92,6 +92,22 @@ var cooldown_duration: float = 0.1  # Cooldown curto para evitar disparos repeti
 var base_visual_position: Vector3 = Vector3.ZERO
 var base_visual_rotation: Vector3 = Vector3.ZERO
 
+#Variáveis de sons
+@export_group("Sons de Interação")
+@export var audio_clique: AudioStream
+@export var audio_tensao: AudioStream
+@export var audio_chute_normal: AudioStream
+@export var audio_chute_max: AudioStream
+@export var audio_cancelar: AudioStream
+# Variável para rastrear o som contínuo da puxada
+var sfx_tensao_atual: AudioStreamPlayer
+@export_group("Sons de Colisão")
+@export var audio_impacto_peca: AudioStream
+@export var audio_impacto_bola: AudioStream
+@export var audio_impacto_parede: AudioStream
+@export var audio_impacto_trave: AudioStream
+
+
 signal zoom_out_signal(pos)
 signal zoom_in_signal(pos)
 
@@ -242,6 +258,8 @@ func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, n
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			is_dragging = true
+			SoundMaster.play_sfx(audio_clique) #Toca o som de clique normal
+			sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) #Toca tensao e salva a ref
 			_on_player_pressed(position)
 			vetor_arrasto_atual = Vector2.ZERO
 			posicao_inicial_toque = camera.unproject_position(global_position)
@@ -303,6 +321,12 @@ func _atualizar_mira_puxar(posicao_atual: Vector2) -> void:
 		var vetor_direcao_3d = Vector3(vetor_arrasto_2d.x, 0, vetor_arrasto_2d.y) * forca_multiplicador
 		var forca_atual = vetor_direcao_3d.length()
 		var porcentagem_forca = clamp(forca_atual / forca_maxima, 0.0, 1.0)
+		#Checa se o som existe e altera o pitch baseado na força (de 0.8x a 1.8x)
+		if is_instance_valid(sfx_tensao_atual): 
+			if not sfx_tensao_atual.playing:
+				sfx_tensao_atual.play()
+			sfx_tensao_atual.pitch_scale = lerp(0.8, 1.8, porcentagem_forca)
+		
 		material_circulo.albedo_color.a = lerp(0.1, 0.6, porcentagem_forca)
 		if porcentagem_forca >= 1.0:
 			material_circulo.albedo_color = Color(1.0, 0.2, 0.2, 0.8)
@@ -313,6 +337,9 @@ func _atualizar_mira_puxar(posicao_atual: Vector2) -> void:
 		
 		_atualizar_shake_puxar(porcentagem_forca)
 	else:
+		# Se voltar a mira pro centro, para o som de tensão
+		if is_instance_valid(sfx_tensao_atual):
+			sfx_tensao_atual.stop()
 		mira_pivot.visible = false
 		circulo_limite.visible = false
 		parar_shake()
@@ -471,14 +498,29 @@ func _desenhar_mira(vetor_2d: Vector2) -> void:
 		mira_pivot.visible = false
 
 func _aplicar_forca(vetor_2d: Vector2) -> void:
+	if is_instance_valid(sfx_tensao_atual): # Para o som da tensão esticando
+		sfx_tensao_atual.stop()
 	var vetor_forca_3d = Vector3(vetor_2d.x, 0, vetor_2d.y) * forca_multiplicador
+	# Decide qual som tocar baseado na força e varia o pitch
+	var audio_tiro = audio_chute_normal
+	if vetor_forca_3d.length() >= forca_maxima: # >= e não só >
+		audio_tiro = audio_chute_max
+	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
 
 	if vetor_forca_3d.length() > forca_maxima:
 		vetor_forca_3d = vetor_forca_3d.normalized() * forca_maxima
 
 	apply_central_impulse(vetor_forca_3d)
-	_cancelar_interacao()
+	_cancelar_interacao_silenciosa() # Limpa as variáveis sem tocar o som de erro
 	turnPlayed.emit()
+
+# Função usada quando o jogador desiste da jogada (solta o mouse no centro)
+func _cancelar_interacao() -> void:
+	if is_instance_valid(sfx_tensao_atual):
+		sfx_tensao_atual.stop()
+		
+	SoundMaster.play_sfx(audio_cancelar)
+	_cancelar_interacao_silenciosa()
 
 func parar_shake() -> void:
 	shaking = false
@@ -487,7 +529,7 @@ func parar_shake() -> void:
 		visual_piece.position = base_visual_position
 		visual_piece.rotation = base_visual_rotation
 
-func _cancelar_interacao() -> void:
+func _cancelar_interacao_silenciosa() -> void:
 	_on_player_released(position)
 	is_dragging = false
 	direcao_travada = false
@@ -527,9 +569,42 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		var collider_id := collider.get_instance_id()
 		if spark_cooldowns.has(collider_id) and spark_cooldowns[collider_id] > 0.0:
 			continue
+		
+		#Som
+		if collider is Player:
+			if collider.spark_cooldowns.has(get_instance_id()) and collider.spark_cooldowns[get_instance_id()] > 0.0:
+				continue # Ele acordou e já tocou, então eu fico quieto.
+
+		#(Velocidade Relativa)
+		# Calcula exatamente o quão rápido um bateu de frente com o outro, ignorando o peso
+		var minha_vel = state.get_contact_local_velocity_at_position(i)
+		var vel_outro = state.get_contact_collider_velocity_at_position(i)
+		var forca_impacto = (minha_vel - vel_outro).length()
+
+		# Ignora esbarrões lentos. Como agora é velocidade pura, .5 ou 1.0 é um bom limite
+		if forca_impacto > 0.2: 
+			var audio_escolhido: AudioStream = null
+			
+			if collider is Player:
+				audio_escolhido = audio_impacto_peca
+			elif collider is Ball or collider.is_in_group("Balls"):
+				audio_escolhido = audio_impacto_bola
+			elif collider is Goal or collider.is_in_group("GoleiraHitSom"):
+				audio_escolhido = audio_impacto_trave
+			else:
+				audio_escolhido = audio_impacto_parede
+				
+			if audio_escolhido != null:
+				# Matemática do Volume baseada na Velocidade.
+				var forca_relativa = clamp(forca_impacto / 5.0, 0.0, 1.0) 
+				var volume_dinamico = lerp(-5.0, 2.0, forca_relativa)
+				
+				var pitch_dinamico = randf_range(0.85, 1.15)
+#				print("Batida de forca: ", forca_impacto, " | Arquivo: ", audio_escolhido, " | Volume dB: ", volume_dinamico)
+				SoundMaster.play_sfx(audio_escolhido, pitch_dinamico, volume_dinamico)
 
 		var ponto_global := state.get_contact_collider_position(i)
-		print("colidiu com:", collider.name, " em:", ponto_global)
+#		print("colidiu com:", collider.name, " em:", ponto_global)
 
 		ativar_spark_no_ponto_global(ponto_global)
 

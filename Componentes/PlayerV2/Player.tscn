@@ -3,8 +3,17 @@
 [ext_resource type="Script" uid="uid://bcxprpwyrxefe" path="res://Componentes/PlayerV2/player.gd" id="1_2wsv6"]
 [ext_resource type="PhysicsMaterial" uid="uid://46t3u1yh1h7m" path="res://Componentes/PlayerV2/PlayerPhysicsMaerial.tres" id="1_o7wco"]
 [ext_resource type="Shader" uid="uid://d1kvc0cm1f628" path="res://GPUTrail-main/shaders/trail.gdshader" id="3_75hxl"]
+[ext_resource type="AudioStream" uid="uid://dophc5rewn0on" path="res://Recursos/SFXs/ClicouNaPeca_544883__ashboy34__smallgranitedry.wav" id="3_egdk7"]
 [ext_resource type="Shader" uid="uid://40v5rmld7jj7" path="res://GPUTrail-main/shaders/trail_draw_pass.gdshader" id="4_mf3xq"]
+[ext_resource type="AudioStream" uid="uid://b8x46eek4pke2" path="res://Recursos/SFXs/SomDePuxarAPeca_freesound_community-wind-up3-89578.wav" id="4_u4r7k"]
+[ext_resource type="AudioStream" uid="uid://b30b1yxsrtvue" path="res://Recursos/SFXs/ChutouAPeca_freesound_community-soccer-ball-kick-37625.wav" id="5_cxphc"]
 [ext_resource type="Script" uid="uid://bxyy0y3fu5svc" path="res://GPUTrail-main/GPUTrail3D.gd" id="5_egdk7"]
+[ext_resource type="AudioStream" uid="uid://bqpkt6r0ypfx8" path="res://Recursos/SFXs/ChutouAPeca_ribhavagrawal-woosh-230554.wav" id="6_6g8b7"]
+[ext_resource type="AudioStream" uid="uid://8wor35bd1myu" path="res://Recursos/SFXs/CancelouAJogada_drop_003.wav" id="7_7w6yy"]
+[ext_resource type="AudioStream" uid="uid://dv1awxb4wsu8x" path="res://Recursos/SFXs/BateuEmOutraPeca_freesound_community-clack-85854.wav" id="8_7w6yy"]
+[ext_resource type="AudioStream" uid="uid://d4fx3ptn8m03m" path="res://Recursos/SFXs/BateuNaBola_footstep_carpet_003.wav" id="9_u3hnd"]
+[ext_resource type="AudioStream" uid="uid://clc333t0ptaed" path="res://Recursos/SFXs/BateuNaParede_footstep_wood_003.wav" id="10_nr084"]
+[ext_resource type="AudioStream" uid="uid://c7i8wt5kqjjw6" path="res://Recursos/SFXs/BateuNaTrave_406490__anthousai__hit-metallic-basketball-hoop-pipe-01.wav" id="11_8g0tu"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_e0ky2"]
 height = 0.05
@@ -144,6 +153,15 @@ script = ExtResource("1_2wsv6")
 forca_multiplicador = 0.05
 forca_maxima = 10.0
 tamanho_maximo_linha = 4.0
+audio_clique = ExtResource("3_egdk7")
+audio_tensao = ExtResource("4_u4r7k")
+audio_chute_normal = ExtResource("5_cxphc")
+audio_chute_max = ExtResource("6_6g8b7")
+audio_cancelar = ExtResource("7_7w6yy")
+audio_impacto_peca = ExtResource("8_7w6yy")
+audio_impacto_bola = ExtResource("9_u3hnd")
+audio_impacto_parede = ExtResource("10_nr084")
+audio_impacto_trave = ExtResource("11_8g0tu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1160546555]
 shape = SubResource("CylinderShape3D_e0ky2")
