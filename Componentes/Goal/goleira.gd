@@ -46,8 +46,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group('Balls'):
 		#print('gol de: ' + str(true if team == TeamSide.HOME else false))
 		gol.emit(true if team == TeamSide.HOME else false)
-	elif body.is_in_group('Players'):
-		var bodySpeed = body.linear_velocity.length()
-		var bodyForce = expulsar_forca_base / (1.0 + bodySpeed)
-		var direcao := (body.global_position - global_position).normalized()
-		body.apply_central_impulse(direcao * bodyForce)
+#	elif body.is_in_group('Players'):
+		#var bodySpeed = body.linear_velocity.length()
+		#var bodyForce = expulsar_forca_base / (1.0 + bodySpeed)
+		#var direcao := (body.global_position - global_position).normalized()
+		#body.apply_central_impulse(direcao * bodyForce)
