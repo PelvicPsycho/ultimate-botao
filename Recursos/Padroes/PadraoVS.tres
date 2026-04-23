@@ -4,4 +4,22 @@
 
 [resource]
 script = ExtResource("1_ums73")
+name = "Vertical Slice"
+forca_multiplicador = 0.05
+forca_maxima = 10.0
+distancia_raio_visual = 40.0
+friccao_jogador = 0.8
+bounce_jogador = 0.7
+linear_damp_jogador = 2.0
+shake_amplitude_min = 0.003
+shake_amplitude_max = 0.02
+shake_frequency_min = 10.0
+shake_frequency_max = 30.0
+shake_duration_min = 0.05
+shake_duration_max = 0.12
+line_max = 4.0
+friccao_bola = 0.8
+bounce_bola = 0.7
+peso_bola = 0.5
+linear_damp_bola = 0.8
 metadata/_custom_type_script = "uid://ejxtb67lkht7"

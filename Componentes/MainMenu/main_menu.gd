@@ -1,6 +1,6 @@
 extends Control
 
-@export var new_game_level: PackedScene = preload("res://MatchScene.tscn")
+@onready var new_game_level: PackedScene = preload("res://MatchScene.tscn")
 
 func _ready():
 	pass

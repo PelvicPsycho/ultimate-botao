@@ -153,6 +153,7 @@ func onTurnPlayed() -> void:
 #	printState()
 	congelar_jogo(false)
 	decideTurn()
+	timer.iniciar_lance(currentTurn)
 
 # Função para checar se todas as peças e a bola realmente estabilizaram.
 # Exige vários physics frames seguidos em repouso para evitar falso positivo.
@@ -221,7 +222,6 @@ func changeTurn():
 		piece.canPlay = !piece.canPlay
 	turnCounter = 0
 	atualizar_cores_pecas()
-	timer.iniciar_lance(currentTurn)
 	if currentTurn == turn.HOME:
 		%MatchUI.colorir_turno(homeTeam,turnCounter)
 	else: %MatchUI.colorir_turno(awayTeam,turnCounter)
