@@ -24,6 +24,9 @@
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="18_01kgc"]
 [ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="19_5d46n"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xtpvl"]
+friction = 0.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xiaim"]
 render_priority = 0
 shader = ExtResource("6_7v6xg")
@@ -154,6 +157,7 @@ max_zoom = Vector3(0, 7, 0.116)
 
 [node name="Pitch" type="StaticBody3D" parent="." unique_id=371043304]
 transform = Transform3D(-5.6824803e-08, 0, 1.3, 0, 1.3, 0, -1.3, 0, -5.6824803e-08, 0, 0, 0)
+physics_material_override = SubResource("PhysicsMaterial_xtpvl")
 
 [node name="GoleiraAway" parent="Pitch" unique_id=654322067 instance=ExtResource("5_cfivu")]
 transform = Transform3D(7.54979e-08, 0, 1, 0, 1, 0, -1, 0, 7.54979e-08, -1.0746205e-07, 0, 2.458445)

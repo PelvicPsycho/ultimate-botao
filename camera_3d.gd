@@ -29,13 +29,13 @@ func _process(delta: float) -> void:
 	position.z = clamp(position.z, min_zoom.z, max_zoom.z)
 
 func StartZoomOut(pos: Vector3):
-	print("Start __________________")
-	print("pos = ", pos)
-	print("num players = ", allPieces.size())
+	#print("Start __________________")
+	#print("pos = ", pos)
+	#print("num players = ", allPieces.size())
 	target_zoom = max_zoom
 	
 func EndZoomOut(pos: Vector3):
-	print("End ____________________")
-	print("pos = ", pos)
-	print("num players = ", allPieces.size())
+	#print("End ____________________")
+	#print("pos = ", pos)
+	#print("num players = ", allPieces.size())
 	target_zoom = min_zoom

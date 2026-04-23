@@ -4,8 +4,9 @@ var Pecas_Jogo: Array[Player] = []
 var a_bola: Ball
 
 @onready var recursos: Array[Padrao] = [
+	preload("res://Recursos/Padroes/PadraoVS.tres"),
 	preload("res://Recursos/Padroes/Padrao.tres"),
-	preload("res://Recursos/Padroes/PadraoIgor.tres")
+	preload("res://Recursos/Padroes/PadraoIgor.tres"),
 	]
 
 @onready var padrao_atual: Padrao = recursos[0] 

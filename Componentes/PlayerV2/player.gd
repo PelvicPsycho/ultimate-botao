@@ -55,7 +55,6 @@ var spark_scene: PackedScene = preload("res://spark.tscn")
 var spark_particule: GPUParticles3D
 var smoke_particles: GPUParticles3D
 var rotacao_base_y: float = 0.0
-@onready var mesh_instance: MeshInstance3D =$"Visual/peca v1"
 @export var smoke_rotation_offset_deg: float = 0.0
 @export var smoke_cooldown: float = 1.0  # Cooldown in seconds to prevent spam
 @export var smoke_offset_distance: float = 1.0  # Distance from center to spawn smoke

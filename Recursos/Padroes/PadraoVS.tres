@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Padrao" format=3 uid="uid://ycu7jpgo6se"]
+
+[ext_resource type="Script" uid="uid://ejxtb67lkht7" path="res://Recursos/Res_Pattern.gd" id="1_ums73"]
+
+[resource]
+script = ExtResource("1_ums73")
+metadata/_custom_type_script = "uid://ejxtb67lkht7"

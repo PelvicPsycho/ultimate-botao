@@ -102,7 +102,7 @@ func _on_lance_acabou() -> void:
 
 func _on_partida_acabou() -> void:
 	timer.parar_tudo()
-	print("FIM DO TEMPO!")
+	#print("FIM DO TEMPO!")
 	
 	if homeScore == awayScore:
 		gol_de_ouro = true
@@ -125,7 +125,7 @@ func onGoal(isHome: bool):
 		if gol_de_ouro:
 			endMatch(homeTeam.name)
 	if homeScore > 2 or awayScore > 2:
-		print("REGRA DA CLEMÊNCIA!")
+		#print("REGRA DA CLEMÊNCIA!")
 		if homeScore > awayScore:
 			endMatch(homeTeam.name)
 		else:
@@ -270,21 +270,21 @@ func decideTurn():
 		if lastTouch != null:
 			rallyCounter+= 1
 			if isCorrectSide(lastTouch.team) and turnCounter < 2:
-				print("Ultimo a tocar: ", lastTouch.team.name, "\nTurn Counter: ", turnCounter)
+				#print("Ultimo a tocar: ", lastTouch.team.name, "\nTurn Counter: ", turnCounter)
 				turnCounter+=1
 				ball.lastTouch = null
-				print("----------------------------------------------")
+				#print("----------------------------------------------")
 				if currentTurn == turn.HOME:
 					%MatchUI.colorir_turno(homeTeam,turnCounter)
 				else: %MatchUI.colorir_turno(awayTeam,turnCounter)
 				disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
 				return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
 		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:
-			print("TOCOU MAIS DE 3 VEZES")
+			#print("TOCOU MAIS DE 3 VEZES")
 			por_erro = false
-		if lastTouch != null and !isCorrectSide(lastTouch.team):
-			print("Ultimo a tocar: ", lastTouch.team.name)
-	print("----------------------------------------------")
+		#if lastTouch != null and !isCorrectSide(lastTouch.team):
+			#print("Ultimo a tocar: ", lastTouch.team.name)
+	#print("----------------------------------------------")
 	if por_erro:
 		SoundMaster.play_sfx(audio_perdeu_turno, 1.0, 0.0)
 	else:

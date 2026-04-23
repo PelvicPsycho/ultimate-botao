@@ -22,17 +22,17 @@ func pintar():
 	
 	if result:
 		# --- RAIO-X DAS POSIÇÕES ---
-		print("Ponto exato do clique (Mundo): ", result.position)
-		print("Ponto convertido para a Malha (Local): ", objeto_malha.to_local(result.position))
+		#print("Ponto exato do clique (Mundo): ", result.position)
+		#print("Ponto convertido para a Malha (Local): ", objeto_malha.to_local(result.position))
 		# ---------------------------
 		
 		var uv = calcular_uv_por_posicao(objeto_malha, result.position)
 		
 		if uv != Vector2(-1, -1):
-			print("📍 Pintura Perfeita no UV: ", uv)
+			#print("📍 Pintura Perfeita no UV: ", uv)
 			pincel.position = uv * Vector2(viewport.size)
-		else:
-			print("❌ O clique colidiu, mas não achou a malha visual por perto.")
+		#else:
+			#print("❌ O clique colidiu, mas não achou a malha visual por perto.")
 
 # --- A MÁGICA: Busca Espacial Global (Imune a Rotações do 3ds Max) ---
 func calcular_uv_por_posicao(mesh_instance: MeshInstance3D, hit_position: Vector3) -> Vector2:

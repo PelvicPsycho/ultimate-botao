@@ -5,6 +5,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe3g4"]
 bg_color = Color(0.088219516, 0.22485891, 0.14035928, 1)
 corner_radius_top_left = 20
+corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 shadow_size = 6
@@ -32,20 +33,13 @@ color = Color(0, 0, 0, 0.4392157)
 
 [node name="CenterContainer" type="CenterContainer" parent="Control" unique_id=620711891]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -174.0
-offset_top = -164.5
-offset_right = 174.0
-offset_bottom = 164.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TabContainer - Abas" type="TabContainer" parent="Control/CenterContainer" unique_id=1698994393]
-custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qe3g4")
 tab_alignment = 1
