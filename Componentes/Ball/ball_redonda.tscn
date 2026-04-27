@@ -46,8 +46,9 @@ shadow_mesh = SubResource("ArrayMesh_pvveq")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f6n15"]
 render_priority = 0
 shader = ExtResource("3_el5e0")
-shader_parameter/color = Color(0, 0, 0, 1)
-shader_parameter/size = 1.07999999821184
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_thickness = 1.0
+shader_parameter/outline_softness = 0.2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rr8cb"]
 render_priority = 0

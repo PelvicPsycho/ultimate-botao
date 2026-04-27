@@ -47,6 +47,10 @@ var fresnel_color
 
 var material_circulo: StandardMaterial3D
 var material: ShaderMaterial
+@export var vermelho_active : ShaderMaterial = preload("res://Componentes/PlayerGradientes/TimeVermelho.tres")
+@export var vermelho_inactive : ShaderMaterial =preload("res://Componentes/PlayerGradientes/TimeVermelhoDesactive.tres")
+@export var azul_active : ShaderMaterial= preload("res://Componentes/PlayerGradientes/TimeAzul.tres")
+@export var azul_inactive : ShaderMaterial = preload("res://Componentes/PlayerGradientes/TimeAzulDesactive.tres")
 var outline_material: ShaderMaterial
 var specular_strength
 var fresnel_strength
@@ -119,12 +123,12 @@ func _ready() -> void:
 	max_contacts_reported = 1
 	team = playerInfo.time
 	
-	material = ShaderMaterial.new()
-	outline_material = ShaderMaterial.new()
-	mesh.material_override = material
-	outline_material.shader = load("res://shaders/outline.gdshader") as Shader
-	material.shader = load("res://shaders/NewShaderPlayer.gdshader") as Shader
-	aplicar_gradiente_no_material()
+	#material = ShaderMaterial.new()
+	#outline_material = ShaderMaterial.new()
+	#mesh.material_override = material
+	#outline_material.shader = load("res://shaders/outline.gdshader") as Shader
+	#material.shader = load("res://shaders/NewShaderPlayer.gdshader") as Shader
+	#aplicar_gradiente_no_material()
 	#if team.id == 1:
 		#trocar_shader("res://shaders/pesaVermelha.gdshader")
 		#color = Color(0, 0.0, 1, 1)
@@ -150,7 +154,7 @@ func _ready() -> void:
 		#fresnel_strength = 0.77
 		#material.set_shader_parameter("fresnel_strength", fresnel_strength)
 
-	material.next_pass = outline_material
+	#material.next_pass = outline_material
 	
 	material_circulo = StandardMaterial3D.new()
 	material_circulo.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -166,37 +170,34 @@ func _ready() -> void:
 
 	base_visual_position = visual_piece.position
 	base_visual_rotation = visual_piece.rotation
-func aplicar_gradiente_no_material() -> void:
-	if material == null :
-		return
-	if team.id == 2:
-		
-		var grad_tex := GradientTexture1D.new()
-		grad_tex.gradient = gradientV
-		var band_count: int = 7
-		var light_min: float = 0.005
-		var light_max: float = 0.97
-		material.set_shader_parameter("diffuse_curve", grad_tex)
-		material.set_shader_parameter("band_count", band_count)
-		material.set_shader_parameter("light_min", light_min)
-		material.set_shader_parameter("light_max", light_max)
-		material.set_shader_parameter("enable specular", false)
-		material.set_shader_parameter("saturation", 0.958)
-	else:
-		var grad_tex := GradientTexture1D.new()
-		grad_tex.gradient = gradientAz
-		var band_count: int = 4
-		var light_min: float = 0.005
-		var light_max: float = 0.97
-		material.set_shader_parameter("diffuse_curve", grad_tex)
-		material.set_shader_parameter("band_count", band_count)
-		material.set_shader_parameter("light_min", light_min)
-		material.set_shader_parameter("light_max", light_max)
-		material.set_shader_parameter("enable specular", false)
-		material.set_shader_parameter("saturation", 0.958)
-func atualizar_gradiente() -> void:
-	aplicar_gradiente_no_material()
-
+#func aplicar_gradiente_no_material() -> void:
+	#if material == null :
+		#return
+	#if team.id == 2:
+		#
+		#var grad_tex := GradientTexture1D.new()
+		#grad_tex.gradient = gradientV
+		#var band_count: int = 7
+		#var light_min: float = 0.005
+		#var light_max: float = 0.97
+		#material.set_shader_parameter("diffuse_curve", grad_tex)
+		#material.set_shader_parameter("band_count", band_count)
+		#material.set_shader_parameter("light_min", light_min)
+		#material.set_shader_parameter("light_max", light_max)
+		#material.set_shader_parameter("enable specular", false)
+		#material.set_shader_parameter("saturation", 0.958)
+	#else:
+		#var grad_tex := GradientTexture1D.new()
+		#grad_tex.gradient = gradientAz
+		#var band_count: int = 4
+		#var light_min: float = 0.005
+		#var light_max: float = 0.97
+		#material.set_shader_parameter("diffuse_curve", grad_tex)
+		#material.set_shader_parameter("band_count", band_count)
+		#material.set_shader_parameter("light_min", light_min)
+		#material.set_shader_parameter("light_max", light_max)
+		#material.set_shader_parameter("enable specular", false)
+		#material.set_shader_parameter("saturation", 0.958)
 
 
 
@@ -229,30 +230,35 @@ func _process(delta: float) -> void:
 			cos(t * 1.5) * shake_amplitude * 1.5,
 			sin(t * 2.8) * shake_amplitude * 1.5
 		)
-
-
-func set_piece_available(pode_mexer: bool) -> void:
-	if material == null:
-		return
-
-	if team.id == 1:
-		
-		material.set_shader_parameter("saturation", 0.958 if pode_mexer else 0.4)
-		material.set_shader_parameter("light_max",  0.97 if pode_mexer else 1.0)
-	else:
-		material.set_shader_parameter("saturation", 0.958 if pode_mexer else 0.2)
-		material.set_shader_parameter("light_max",  0.97 if pode_mexer else 1.0)
-
+#func set_piece_available(pode_mexer: bool) -> void:
+	#if team.id == 1:
+		#mesh.material_override = vermelho_active if pode_mexer else vermelho_inactive
+	#else:
+		#mesh.material_override = azul_active  if pode_mexer else azul_inactive
+func aplicar_material(mat: Material) -> void:
+	mesh.material_override = mat
+#func set_piece_available(pode_mexer: bool) -> void:
+	#if material == null:
+		#return
+#
+	#var sat_on  := 0.958
+	#var sat_off := (0.4 if team.id == 1 else 0.2)
+#
+	#var new_sat  := (sat_on if pode_mexer else sat_off)
+	#var new_lmax := (0.97 if pode_mexer else 1.0)
+#
+	#material.set_shader_parameter("saturation", new_sat)
+	#material.set_shader_parameter("light_max", new_lmax)
 func _physics_process(delta: float) -> void:
 	var ids := spark_cooldowns.keys()
 	for id in ids:
 		spark_cooldowns[id] -= delta
 		if spark_cooldowns[id] <= 0.0:
 			spark_cooldowns.erase(id)
-func trocar_shader(path: String) -> void:
-	var shader := load(path) as Shader
-	material.shader = shader
-	aplicar_gradiente_no_material()
+#func trocar_shader(path: String) -> void:
+	#var shader := load(path) as Shader
+	#material.shader = shader
+	#aplicar_gradiente_no_material()
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
 	if !canPlay or disabled:
 		return

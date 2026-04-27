@@ -2,19 +2,23 @@
 
 [ext_resource type="PackedScene" uid="uid://dihhv7d1c4ksr" path="res://peca v1.fbx" id="1_kcr3p"]
 [ext_resource type="Shader" uid="uid://c4vawi7km84mk" path="res://shaders/NewShaderPlayer.gdshader" id="2_lvwbq"]
-[ext_resource type="Gradient" uid="uid://cbqy4dp3x2xc1" path="res://Componentes/PlayerGradientes/GradienteVermelho.tres" id="4_g7reo"]
+[ext_resource type="Gradient" uid="uid://do75047ecwtug" path="res://Gradient.tres" id="3_lvwbq"]
+[ext_resource type="Gradient" uid="uid://conlwkkft6rme" path="res://GradienteCores.tres" id="4_g7reo"]
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_lvwbq"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g7reo"]
+gradient = ExtResource("3_lvwbq")
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vrki6"]
 gradient = ExtResource("4_g7reo")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kcr3p"]
 render_priority = 0
 shader = ExtResource("2_lvwbq")
-shader_parameter/diffuse_curve = SubResource("GradientTexture1D_lvwbq")
-shader_parameter/band_count = 7
-shader_parameter/light_min = 0.085
-shader_parameter/light_max = 1.2349999999999999
-shader_parameter/saturation = 0.958000045505
+shader_parameter/bw_gradient = SubResource("GradientTexture1D_g7reo")
+shader_parameter/color_gradient = SubResource("GradientTexture1D_vrki6")
+shader_parameter/cutoff = 0.9590000455525
+shader_parameter/intensity = 1.03500004590262
+shader_parameter/saturation = 0.9930000471675
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_07lov"]
 _surfaces = [{

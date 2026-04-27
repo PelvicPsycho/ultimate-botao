@@ -14,6 +14,10 @@ var homePlayers: Array[Player]
 @export var awayTeam: Team
 var awayScore: int
 var awayPlayers: Array[Player]
+@export var vermelho_active : ShaderMaterial = preload("res://Componentes/PlayerGradientes/TimeVermelho.tres")
+@export var vermelho_inactive : ShaderMaterial =preload("res://Componentes/PlayerGradientes/TimeVermelhoDesactive.tres")
+@export var azul_active : ShaderMaterial= preload("res://Componentes/PlayerGradientes/TimeAzul.tres")
+@export var azul_inactive : ShaderMaterial = preload("res://Componentes/PlayerGradientes/TimeAzulDesactive.tres")
 
 var currentTurn: turn
 var rallyCounter: int
@@ -293,12 +297,18 @@ func decideTurn():
 	changeTurn() # Senão troca
 	
 func atualizar_cores_pecas() -> void:
-	for piece in allPieces:
-		var is_home_turn := (currentTurn == turn.HOME and piece.team == homeTeam)
-		var is_away_turn := (currentTurn == turn.AWAY and piece.team == awayTeam)
-		var pode_mexer := is_home_turn or is_away_turn
+	var home_turn := (currentTurn == turn.HOME)
 
-		piece.set_piece_available(pode_mexer)
+	for p in allPieces:
+		var pode := (p.team == homeTeam) if home_turn else (p.team == awayTeam)
+
+		# aplicar material correspondente
+		if p.team == homeTeam:
+			p.aplicar_material(azul_active if pode else azul_inactive)
+		else:
+			p.aplicar_material(vermelho_active if pode else vermelho_inactive)
+
+		p.canPlay = pode
 func isCorrectSide(team:Team) -> bool:
 	return (currentTurn == turn.HOME and team == homeTeam) or (currentTurn == turn.AWAY and team == awayTeam)
 

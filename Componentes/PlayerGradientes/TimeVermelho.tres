@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://3fsnu7d2ec1g"]
+
+[ext_resource type="Shader" uid="uid://c4vawi7km84mk" path="res://shaders/NewShaderPlayer.gdshader" id="1_v05lv"]
+[ext_resource type="Gradient" uid="uid://cbqy4dp3x2xc1" path="res://Componentes/PlayerGradientes/GradienteVermelho.tres" id="2_y5mv6"]
+
+[sub_resource type="Gradient" id="Gradient_uxoox"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.64236903, 0.78132117)
+colors = PackedColorArray(0, 0, 0, 1, 0.37413925, 0.37413928, 0.37413922, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uibpp"]
+gradient = SubResource("Gradient_uxoox")
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_abwel"]
+gradient = ExtResource("2_y5mv6")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_v05lv")
+shader_parameter/bw_gradient = SubResource("GradientTexture1D_uibpp")
+shader_parameter/color_gradient = SubResource("GradientTexture1D_abwel")
+shader_parameter/cutoff = 0.2870000136325
+shader_parameter/intensity = 1.2
+shader_parameter/saturation = 1.0
+shader_parameter/steps = 1.0

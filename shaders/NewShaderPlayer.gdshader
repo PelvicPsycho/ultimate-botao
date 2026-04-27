@@ -1,31 +1,30 @@
 shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_toon, specular_toon;
 
-render_mode diffuse_burley, specular_disabled;
-
-uniform sampler2D diffuse_curve : repeat_disable;
-uniform int band_count = 4;
-uniform float light_min = 0.15;
-uniform float light_max = 0.85;
-
+uniform sampler2D bw_gradient;
+uniform sampler2D color_gradient;
+uniform float cutoff : hint_range(0.0, 1.0) = 0.3;
+uniform float intensity : hint_range(0.1, 3.0) = 1.2;
 uniform float saturation : hint_range(0.0, 2.0) = 1.0;
+uniform float steps : hint_range(1.0, 10.0) = 1.0;
 
-void fragment() {
-    float t = clamp(NORMAL.y * 0.5 + 0.5, 0.0, 1.0);
-    t = clamp((t - light_min) / max(light_max - light_min, 0.0001), 0.0, 1.0);
+void light() {
+    vec3 L = LIGHT;
+    float raw = clamp(dot(NORMAL, L), 0.0, 1.0);
 
-    float bands = max(float(band_count), 2.0);
-    float band_t = floor(t * bands) / (bands - 1.0);
-    band_t = clamp(band_t, 0.0, 1.0);
+    float remap = smoothstep(cutoff, 1.0, raw);
+    float toon_l = pow(remap, intensity);
 
-    vec3 grad = texture(diffuse_curve, vec2(band_t, 0.5)).rgb;
-
-    if (length(grad) < 0.001) {
-        grad = vec3(band_t);
+    if (steps > 1.0) {
+        toon_l = floor(toon_l * steps) / steps;
     }
 
-    // --- Saturação ---
-    float gray = dot(grad, vec3(0.299, 0.587, 0.114));
-    grad = mix(vec3(gray), grad, saturation);
+    float bw_val = texture(bw_gradient, vec2(toon_l, 0.5)).r;
+    vec3 col_val = texture(color_gradient, vec2(bw_val, 0.5)).rgb;
 
-    ALBEDO = grad;
+    float lum = dot(col_val, vec3(0.299, 0.587, 0.114));
+    col_val = mix(vec3(lum), col_val, saturation);
+
+    DIFFUSE_LIGHT += col_val * ATTENUATION * LIGHT_COLOR;
+    SPECULAR_LIGHT = vec3(0.0);
 }
