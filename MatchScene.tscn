@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_mshaf"]
 [ext_resource type="Script" uid="uid://dvg0h7e17ftol" path="res://camera_3d.gd" id="4_5bfbt"]
 [ext_resource type="PackedScene" uid="uid://evedwlh2n1by" path="res://Temporarios/Scenes_testes/Goleira_escala3x.tscn" id="5_cfivu"]
+[ext_resource type="Shader" uid="uid://btvope03gaakl" path="res://Componentes/PlayerV2/PlayerOutline.gdshader" id="5_oqsax"]
 [ext_resource type="Shader" uid="uid://pn80x7vapsyx" path="res://shaders/outline.gdshader" id="6_7v6xg"]
 [ext_resource type="Shader" uid="uid://cftna3jbb7ir5" path="res://shaders/Goleira_escala3x.gdshader" id="7_by2kd"]
 [ext_resource type="Shader" uid="uid://3oc4n5n75ubm" path="res://shaders/outline_Complex.gdshader" id="8_1303m"]
@@ -23,6 +24,15 @@
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="17_dlfdf"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="18_01kgc"]
 [ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="19_5d46n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pk6wu"]
+render_priority = 0
+shader = ExtResource("5_oqsax")
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_thickness = 2.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dmcwy"]
+material = SubResource("ShaderMaterial_pk6wu")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xtpvl"]
 friction = 0.0
@@ -163,6 +173,10 @@ script = ExtResource("4_5bfbt")
 zoom_speed = 2.0
 min_zoom = Vector3(0, 5.5, 0.116)
 max_zoom = Vector3(0, 7, 0.116)
+
+[node name="Outiline" type="MeshInstance3D" parent="Camera3D" unique_id=2027248125]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 7.450581e-09, -0.15860558)
+mesh = SubResource("PlaneMesh_dmcwy")
 
 [node name="Pitch" type="StaticBody3D" parent="." unique_id=371043304]
 transform = Transform3D(-5.6824803e-08, 0, 1.3, 0, 1.3, 0, -1.3, 0, -5.6824803e-08, 0, 0, 0)

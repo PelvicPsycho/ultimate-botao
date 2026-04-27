@@ -6,18 +6,19 @@ uniform sampler2D color_gradient;
 uniform float cutoff : hint_range(0.0, 1.0) = 0.3;
 uniform float intensity : hint_range(0.1, 3.0) = 1.2;
 uniform float saturation : hint_range(0.0, 2.0) = 1.0;
-uniform float steps : hint_range(1.0, 10.0) = 1.0;
+uniform int steps : hint_range(1, 10) = 1;
 
 void light() {
     vec3 L = LIGHT;
-    float raw = clamp(dot(NORMAL, L), 0.0, 1.0);
+    float raw = clamp(dot(NORMAL, L), 0.0, 1);
 
-    float remap = smoothstep(cutoff, 1.0, raw);
+    float remap = smoothstep(cutoff, 1, raw);
     float toon_l = pow(remap, intensity);
+	
 
-    if (steps > 1.0) {
-        toon_l = floor(toon_l * steps) / steps;
-    }
+   if (steps > 1) {
+    toon_l = floor(toon_l * float(steps)) / float(steps);
+}
 
     float bw_val = texture(bw_gradient, vec2(toon_l, 0.5)).r;
     vec3 col_val = texture(color_gradient, vec2(bw_val, 0.5)).rgb;
