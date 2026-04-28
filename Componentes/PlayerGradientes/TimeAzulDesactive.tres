@@ -1,18 +1,25 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://x67w856wlle8"]
 
-[ext_resource type="Shader" uid="uid://c4vawi7km84mk" path="res://shaders/NewShaderPlayer.gdshader" id="1_p0u6b"]
+[ext_resource type="Shader" uid="uid://5qmnhbwh7wew" path="res://Componentes/PlayerGradientes/Cartoon.gdshader" id="1_p0u6b"]
 [ext_resource type="Texture2D" uid="uid://5c61xkcrp7ii" path="res://Componentes/PlayerGradientes/Ilumination.tres" id="2_fyo4m"]
 [ext_resource type="Gradient" uid="uid://badsde8im0uji" path="res://Componentes/PlayerGradientes/GradienteAzul.tres" id="2_p0u6b"]
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_abwel"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fyo4m"]
 gradient = ExtResource("2_p0u6b")
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_p0u6b")
-shader_parameter/bw_gradient = ExtResource("2_fyo4m")
-shader_parameter/color_gradient = SubResource("GradientTexture1D_abwel")
-shader_parameter/cutoff = 0.84400004009
-shader_parameter/intensity = 1.2
-shader_parameter/saturation = 0.4490000213275
-shader_parameter/steps = 4
+shader_parameter/albedo = Color(0.45733255, 0.63059723, 1, 1)
+shader_parameter/point_size = 0.0
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/normal_scale = 0.0
+shader_parameter/uv1_scale = Vector3(0, 0, 0)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(0, 0, 0)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/color_gradient = ExtResource("2_fyo4m")
+shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_fyo4m")

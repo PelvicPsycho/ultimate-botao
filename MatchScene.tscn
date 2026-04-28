@@ -142,12 +142,12 @@ data = PackedVector3Array(0.096999995, -0.16499999, 0, 0.0968, 0.0683, 0, 0.057,
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xtpvl"]
 render_priority = 0
 shader = ExtResource("7_by2kd")
-shader_parameter/color = Color(0.0862279, 0.5328192, 0, 1)
+shader_parameter/color = Color(0.12556726, 0.69696826, 0, 1)
 shader_parameter/base_texture = ExtResource("12_by2kd")
 shader_parameter/specular = Color(0, 0, 0, 0.58431375)
 shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
 shader_parameter/specular_strength = 0.905
-shader_parameter/fresnel_strength = 0.42
+shader_parameter/fresnel_strength = 0.475
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 

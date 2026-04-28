@@ -1,11 +1,11 @@
-[gd_resource type="ShaderMaterial" format=3 uid="uid://3fsnu7d2ec1g"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bk65xa3mtgfsw"]
 
-[ext_resource type="Shader" uid="uid://5qmnhbwh7wew" path="res://Componentes/PlayerGradientes/Cartoon.gdshader" id="1_v05lv"]
-[ext_resource type="Texture2D" uid="uid://5c61xkcrp7ii" path="res://Componentes/PlayerGradientes/Ilumination.tres" id="2_uxoox"]
+[ext_resource type="Shader" uid="uid://5qmnhbwh7wew" path="res://Componentes/PlayerGradientes/Cartoon.gdshader" id="1_mn3g4"]
+[ext_resource type="Texture2D" uid="uid://5c61xkcrp7ii" path="res://Componentes/PlayerGradientes/Ilumination.tres" id="2_0nypo"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_v05lv")
+shader = ExtResource("1_mn3g4")
 shader_parameter/albedo = Color(1, 0, 0, 1)
 shader_parameter/point_size = 0.0
 shader_parameter/roughness = 0.0
@@ -17,5 +17,4 @@ shader_parameter/uv1_scale = Vector3(0, 0, 0)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(0, 0, 0)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
-shader_parameter/color_gradient = ExtResource("2_uxoox")
-shader_parameter/fresnel_gradient = ExtResource("2_uxoox")
+shader_parameter/color_gradient = ExtResource("2_0nypo")

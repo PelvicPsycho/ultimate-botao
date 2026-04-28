@@ -2,10 +2,8 @@
 
 [ext_resource type="PhysicsMaterial" uid="uid://46t3u1yh1h7m" path="res://Componentes/PlayerV2/PlayerPhysicsMaerial.tres" id="1_bajvs"]
 [ext_resource type="Script" uid="uid://bi5qwnf836a6l" path="res://Componentes/Ball/ball.gd" id="2_g0eop"]
+[ext_resource type="Material" uid="uid://bk65xa3mtgfsw" path="res://Componentes/PlayerGradientes/Cartoon.tres" id="3_5srny"]
 [ext_resource type="Material" uid="uid://hcwe0b66p2uw" path="res://Recursos/3Dmodels/textures/m_bolacilindrica.tres" id="3_g0eop"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iu4gp"]
-albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_25osk"]
 top_radius = 0.3
@@ -65,7 +63,7 @@ script = ExtResource("2_g0eop")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1678610985]
 visible = false
-material_override = SubResource("StandardMaterial3D_iu4gp")
+material_override = ExtResource("3_5srny")
 mesh = SubResource("CylinderMesh_25osk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1199803410]
