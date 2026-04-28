@@ -215,7 +215,4 @@ layers = 17
 material_override = ExtResource("12_ba5pf")
 mesh = SubResource("ArrayMesh_qlv43")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Visual/Botao2" unique_id=1484971422]
-transform = Transform3D(0.04583365, 1.8573619e-09, -0.04249149, -1.8573619e-09, 0.0625, 7.2850925e-10, 0.04249149, 7.2850925e-10, 0.04583365, 0, 0, 0)
-
 [connection signal="input_event" from="." to="." method="_on_input_event"]

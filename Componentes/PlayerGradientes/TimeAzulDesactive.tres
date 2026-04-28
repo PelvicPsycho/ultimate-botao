@@ -2,10 +2,10 @@
 
 [ext_resource type="Shader" uid="uid://5qmnhbwh7wew" path="res://Componentes/PlayerGradientes/Cartoon.gdshader" id="1_p0u6b"]
 [ext_resource type="Texture2D" uid="uid://5c61xkcrp7ii" path="res://Componentes/PlayerGradientes/Ilumination.tres" id="2_fyo4m"]
-[ext_resource type="Gradient" uid="uid://b67he60urdnr1" path="res://Componentes/PlayerGradientes/FresenlGradiente.tres" id="3_fyo4m"]
+[ext_resource type="Gradient" uid="uid://badsde8im0uji" path="res://Componentes/PlayerGradientes/GradienteAzul.tres" id="2_p0u6b"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_fyo4m"]
-gradient = ExtResource("3_fyo4m")
+gradient = ExtResource("2_p0u6b")
 
 [resource]
 render_priority = 0

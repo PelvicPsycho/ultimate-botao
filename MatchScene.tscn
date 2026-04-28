@@ -161,7 +161,7 @@ homeTeam = ExtResource("2_clyvb")
 awayTeam = ExtResource("3_mshaf")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=517725734]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.36453, 0)
+transform = Transform3D(1, 0, 0, 0, -0.1588991, 0.9872949, 0, -0.9872949, -0.1588991, 0, 15.36453, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1003734817]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 5.5, 0.116)
