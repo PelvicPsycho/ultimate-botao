@@ -3,7 +3,8 @@
 [ext_resource type="PhysicsMaterial" uid="uid://46t3u1yh1h7m" path="res://Componentes/PlayerV2/PlayerPhysicsMaerial.tres" id="1_bajvs"]
 [ext_resource type="Script" uid="uid://bi5qwnf836a6l" path="res://Componentes/Ball/ball.gd" id="2_g0eop"]
 [ext_resource type="Material" uid="uid://bk65xa3mtgfsw" path="res://Componentes/PlayerGradientes/Cartoon.tres" id="3_5srny"]
-[ext_resource type="Material" uid="uid://hcwe0b66p2uw" path="res://Recursos/3Dmodels/textures/m_bolacilindrica.tres" id="3_g0eop"]
+[ext_resource type="Shader" uid="uid://38at61vm3gln" path="res://shaders/Ball.gdshader" id="4_0wryw"]
+[ext_resource type="Texture2D" uid="uid://cmggrdv8rbhej" path="res://Recursos/3Dmodels/textures/BolaCilindro/BolaCilindro_1.0_DefaultMaterial_BaseColor.png" id="5_2qo88"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_25osk"]
 top_radius = 0.3
@@ -48,6 +49,18 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_f4bho")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_38glg"]
+render_priority = 0
+shader = ExtResource("4_0wryw")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/base_texture = ExtResource("5_2qo88")
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/specular_strength = 0.88
+shader_parameter/fresnel_strength = 0.255
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
 [node name="Ball" type="RigidBody3D" unique_id=573001688 groups=["Balls"]]
 axis_lock_linear_y = true
 axis_lock_angular_x = true
@@ -74,7 +87,7 @@ shape = SubResource("CylinderShape3D_d60mj")
 [node name="BolaCilindro" type="MeshInstance3D" parent="." unique_id=1223336886]
 transform = Transform3D(15, 0, 0, 0, -6.556708e-07, 15, 0, -15, -6.556708e-07, 0, 0, 0)
 mesh = SubResource("ArrayMesh_a68nk")
-surface_material_override/0 = ExtResource("3_g0eop")
+surface_material_override/0 = SubResource("ShaderMaterial_38glg")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

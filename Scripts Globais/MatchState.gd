@@ -242,6 +242,7 @@ func forceTurn(target: turn) -> void:
 	currentTurn = target
 	turnCounter = 0
 	foulFlag = false
+	atualizar_cores_pecas()
 	for piece in allPieces:
 		if piece.team == homeTeam:
 			piece.canPlay = (currentTurn == turn.HOME)
