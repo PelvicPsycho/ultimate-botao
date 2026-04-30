@@ -1,8 +1,11 @@
 extends Control
 
 @onready var new_game_level: PackedScene = preload("res://MatchScene.tscn")
+@export var audio_murmurio_fundo: AudioStream
+
 
 func _ready():
+	SoundMaster.play_bgm(audio_murmurio_fundo, "loop")
 	pass
 
 func _on_continue_button_pressed() -> void:

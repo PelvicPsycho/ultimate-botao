@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_clyvb"]
 [ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_mshaf"]
 [ext_resource type="Script" uid="uid://dvg0h7e17ftol" path="res://camera_3d.gd" id="4_5bfbt"]
+[ext_resource type="AudioStream" uid="uid://tclxbyhjm3yn" path="res://Recursos/SFXs/MudouTurno_667494__sieuamthanh__football_whistle.wav" id="4_pk6wu"]
 [ext_resource type="PackedScene" uid="uid://evedwlh2n1by" path="res://Temporarios/Scenes_testes/Goleira_escala3x.tscn" id="5_cfivu"]
 [ext_resource type="Shader" uid="uid://pn80x7vapsyx" path="res://shaders/outline.gdshader" id="6_7v6xg"]
 [ext_resource type="Shader" uid="uid://cftna3jbb7ir5" path="res://shaders/Goleira_escala3x.gdshader" id="7_by2kd"]
@@ -23,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="17_dlfdf"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="18_01kgc"]
 [ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="19_5d46n"]
+[ext_resource type="AudioStream" uid="uid://cjmj3m8i68a7r" path="res://Recursos/SFXs/gol_5s_fadeout.wav" id="20_pk6wu"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xtpvl"]
 friction = 0.0
@@ -30,8 +32,9 @@ friction = 0.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xiaim"]
 render_priority = 0
 shader = ExtResource("6_7v6xg")
-shader_parameter/color = Color(0, 0, 0, 1)
-shader_parameter/size = 1.00999999977648
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_thickness = 1.0
+shader_parameter/outline_softness = 0.2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1281y"]
 render_priority = 0
@@ -140,6 +143,8 @@ script = ExtResource("1_xth2n")
 anunciador_ui = NodePath("AnunciadorUI")
 homeTeam = ExtResource("2_clyvb")
 awayTeam = ExtResource("3_mshaf")
+audio_mudou_turno = ExtResource("4_pk6wu")
+audio_perdeu_turno = ExtResource("4_pk6wu")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=517725734]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.36453, 0)
@@ -271,8 +276,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08358809, 0)
 
 [node name="Gol_Manager(Temporario)" type="Node3D" parent="." unique_id=736409669 node_paths=PackedStringArray("anunciadorui", "match_state")]
 script = ExtResource("14_a7c6u")
+tempo_anuncio_gol = 5.0
 anunciadorui = NodePath("../AnunciadorUI")
 match_state = NodePath("..")
+audio_fez_gol = ExtResource("20_pk6wu")
 
 [node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("19_5d46n")]
 

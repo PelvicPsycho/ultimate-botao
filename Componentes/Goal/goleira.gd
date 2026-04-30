@@ -7,6 +7,8 @@ enum TeamSide {HOME, AWAY}
 
 @export var team: TeamSide
 @export var expulsar_forca_base: float = 3.0
+@export var audio_quase_gol: AudioStream
+var cooldown_quase_gol: bool = false
 
 signal gol(isHome: bool) #True = gol Home, False = gol Away (a principio)
 
@@ -51,3 +53,11 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		#var bodyForce = expulsar_forca_base / (1.0 + bodySpeed)
 		#var direcao := (body.global_position - global_position).normalized()
 		#body.apply_central_impulse(direcao * bodyForce)
+
+
+func _on_area_3d_quase_gol_body_entered(body: Node3D) -> void: #Quase gol
+	if cooldown_quase_gol == false:
+		if body.is_in_group('Balls'):
+			cooldown_quase_gol = true
+			SoundMaster.play_sfx(audio_quase_gol)
+			get_tree().create_timer(15.0).timeout.connect(func(): cooldown_quase_gol = false)
