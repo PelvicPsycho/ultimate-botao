@@ -19,7 +19,7 @@
 [ext_resource type="StyleBox" uid="uid://bgbohxvhj7j57" path="res://Recursos/2D_Art/Menu/SBT_RedMenu_Pressed.tres" id="12_2g6w5"]
 [ext_resource type="Texture2D" uid="uid://0gmslav3le38" path="res://Recursos/2D_Art/Menu/menu_laterais_2.png" id="12_x8yhw"]
 [ext_resource type="Script" uid="uid://b3008pymwpp85" path="res://Componentes/MainMenu/ControleCard.gd" id="19_anf8f"]
-[ext_resource type="PackedScene" uid="uid://cftckljesa8nt" path="res://Componentes/Cartas/CartaVisual.tscn" id="20_anf8f"]
+[ext_resource type="PackedScene" uid="uid://cftckljesa8nt" path="res://Componentes/Cartas/CartaVisual.tscn" id="19_g1t36"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pguqj"]
 texture = ExtResource("9_pguqj")
@@ -235,24 +235,20 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_16jpb")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_x8yhw")
 text = "MY_TEAM"
 
-[node name="GridContainer" type="GridContainer" parent="." unique_id=1035422724]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/TextureRect4/HBoxContainer2/TeamButton" unique_id=2000947757]
 layout_mode = 0
-offset_left = 390.0
-offset_top = 310.0
-offset_right = 390.0
-offset_bottom = 310.0
-
-[node name="HBoxContainerCARTAS" type="HBoxContainer" parent="GridContainer" unique_id=1060743035]
-layout_mode = 2
-theme_override_constants/separation = 10
+offset_left = -33.0
+offset_top = 101.0
+offset_right = 147.0
+offset_bottom = 361.0
+columns = 5
 script = ExtResource("19_anf8f")
 
-[node name="Carta" parent="." unique_id=484579638 instance=ExtResource("20_anf8f")]
-layout_mode = 1
-offset_left = -836.0
-offset_top = 51.0
-offset_right = 188.0
-offset_bottom = 1075.0
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TextureRect4/HBoxContainer2/TeamButton/GridContainer" unique_id=1060743035]
+layout_mode = 2
+
+[node name="Carta" parent="MarginContainer/VBoxContainer/TextureRect4/HBoxContainer2/TeamButton/GridContainer/HBoxContainer" unique_id=440077578 instance=ExtResource("19_g1t36")]
+layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/TextureRect/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/TextureRect2/VBoxContainer2/ContinueButton" to="." method="_on_continue_button_pressed"]

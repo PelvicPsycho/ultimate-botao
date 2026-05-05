@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://cftckljesa8nt"]
+
+[ext_resource type="Texture2D" uid="uid://fghlfjbdifq4" path="res://Componentes/Cartas/Editedimage_1777910377634.png" id="1_1us31"]
+[ext_resource type="Script" uid="uid://bw06vk2so35a5" path="res://CartaVisual.gd" id="2_qifg0"]
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="3_qifg0"]
+
+[node name="Carta" type="TextureButton" unique_id=484579638]
+clip_contents = true
+custom_minimum_size = Vector2(180, 260)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 64.0
+offset_bottom = 484.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.015, 0.015)
+texture_normal = ExtResource("1_1us31")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("2_qifg0")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1435566961]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.046577405, 0.10931957)
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="TextureRect" unique_id=1441732442]
+anchors_preset = 0
+offset_left = 7156.5454
+offset_top = 609.8329
+offset_right = 7196.5454
+offset_bottom = 649.8329
+
+[node name="ImagemCarta" type="TextureRect" parent="TextureRect/Control" unique_id=2024573117]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+scale = Vector2(65.29635, 27.423359)
+texture = ExtResource("3_qifg0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Control2" type="Control" parent="TextureRect" unique_id=98612390]
+anchors_preset = 0
+offset_left = 7156.5454
+offset_top = 609.8329
+offset_right = 7196.5454
+offset_bottom = 649.8329
+
+[node name="Custo" type="Label" parent="TextureRect/Control2" unique_id=352921885]
+layout_mode = 0
+offset_left = 8587.855
+offset_top = 6.1035156e-05
+offset_right = 8627.855
+offset_bottom = 23.000061
+scale = Vector2(100.83567, 45.54489)
+
+[node name="Control3" type="Control" parent="TextureRect" unique_id=3865526]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NomeCard" type="Label" parent="TextureRect/Control3" unique_id=40664779]
+layout_mode = 0
+offset_left = 5725.2363
+offset_top = 6098.329
+offset_right = 5888.2363
+offset_bottom = 6121.329
+scale = Vector2(60.82169, 55.06035)
+
+[node name="Descrição" type="RichTextLabel" parent="TextureRect/Control3" unique_id=2121047816]
+layout_mode = 0
+offset_left = 10656.203
+offset_top = 6919.817
+offset_right = 10696.203
+offset_bottom = 6959.817
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

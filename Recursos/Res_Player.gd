@@ -8,3 +8,7 @@ class_name TeamPlayer
 
 @export_category("Habilidades")
 @export var geral: int
+@export var slotsUpgrates:int
+@export var força:int
+@export var PA:int
+@export var disabilitado:bool
