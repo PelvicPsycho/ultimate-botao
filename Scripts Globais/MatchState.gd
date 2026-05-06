@@ -8,12 +8,10 @@ var modo_atual = ModoTiro.PUXAR
 var allPieces: Array[Player]
 var selectedPiece: Player
 @export var anunciador_ui: CanvasLayer
-@export var homeTeam: Team
+var homeTeam: Team
 var homeScore: int
-var homePlayers: Array[Player]
-@export var awayTeam: Team
+var awayTeam: Team
 var awayScore: int
-var awayPlayers: Array[Player]
 
 var currentTurn: turn
 var rallyCounter: int
@@ -35,14 +33,9 @@ var gol_de_ouro = false
 var freeze_level: int = 0
 
 func _ready():
+	loadMatch()
 	%MatchUI.UI_start(homeTeam,awayTeam)
 	selectFirstTurn()
-	homeScore = 0
-	awayScore = 0
-	rallyCounter = 1
-	turnCounter = 0
-	foulFlag = false
-	goalFlag = false
 	var nodes = get_tree().get_nodes_in_group("Players")
 	allPieces.assign(nodes)
 	var goals = get_tree().get_nodes_in_group("Goals")
@@ -56,10 +49,8 @@ func _ready():
 		piece.connect("clickedPiece", onClickedPiece)
 		piece.connect("turnPlayed", onTurnPlayed)
 		if piece.team == homeTeam:
-			homePlayers.append(piece)
 			piece.canPlay = (currentTurn == turn.HOME)
 		else:
-			awayPlayers.append(piece)
 			piece.canPlay = (currentTurn == turn.AWAY)
 	_atualizar_placar()
 	timer.partida_acabou.connect(_on_partida_acabou)
@@ -77,7 +68,37 @@ func _ready():
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
 	get_tree().create_timer(2).timeout.connect(disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5), CONNECT_ONE_SHOT)
 	atualizar_cores_pecas()
-	
+
+func loadMatch():
+	homeTeam = GameState.myTeam
+	awayTeam = GameState.currentCompetitor
+	homeScore = 0
+	awayScore = 0
+	rallyCounter = 1
+	turnCounter = 0
+	foulFlag = false
+	goalFlag = false
+	assignPieces()
+
+func assignPieces():
+	var homePlayers: Array[TeamPlayer] = homeTeam.mainSquad
+	var awayPlayers: Array[TeamPlayer] = awayTeam.mainSquad
+	var homePieces = $HomeTeam.get_children()
+	var awayPieces = $AwayTeam.get_children()
+	for i in range(homePieces.size()):
+		var piece = homePieces[i]
+		var player = homePlayers[i]
+		piece.team = homeTeam
+		piece.playerInfo = player
+		piece.atualizar_gradiente()
+
+	for i in range(awayPieces.size()):
+		var piece = awayPieces[i]
+		var player = awayPlayers[i]
+		piece.team = awayTeam
+		piece.playerInfo = player
+		piece.atualizar_gradiente()
+
 func _atualizar_placar() -> void:
 	#if label_home:
 		#label_home.text = str(homeScore)

@@ -1,11 +1,17 @@
 [gd_resource type="Resource" script_class="Team" format=3 uid="uid://cqnsye86fls8o"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_t7if8"]
+[ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="2_l5g4j"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_wdtrl"]
+[ext_resource type="Resource" uid="uid://b5c6381f41spf" path="res://Recursos/Teams/Inter/Borre.tres" id="3_5ykjh"]
+[ext_resource type="Resource" uid="uid://j7nwhwjfiixi" path="res://Recursos/Teams/Inter/Maia.tres" id="4_bfthx"]
+[ext_resource type="Resource" uid="uid://c1sosk4o74k6k" path="res://Recursos/Teams/Inter/Rochet.tres" id="5_4vr7p"]
+[ext_resource type="Resource" uid="uid://cobdqh4x1paf5" path="res://Recursos/Teams/Inter/Wesley.tres" id="6_hqtxk"]
 
 [resource]
 script = ExtResource("2_wdtrl")
 name = "Inter"
-id = 2
+id = 3
 cor = Color(1, 0, 0, 1)
+mainSquad = Array[ExtResource("1_t7if8")]([ExtResource("2_l5g4j"), ExtResource("3_5ykjh"), ExtResource("4_bfthx"), ExtResource("5_4vr7p"), ExtResource("6_hqtxk")])
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

@@ -13,6 +13,7 @@ func _on_continue_button_pressed() -> void:
 
 func _on_new_game_button_pressed() -> void:
 	if new_game_level != null:
+		GameState.newRun()
 		get_tree().change_scene_to_packed(new_game_level)
 	else:
 		favor_me_deletar()

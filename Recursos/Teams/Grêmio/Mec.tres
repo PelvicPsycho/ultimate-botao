@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://m8ilx3kupq67"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_d22n1"]
+
+[resource]
+script = ExtResource("1_d22n1")
+nome = "Mec"
+num_camisa = 10
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

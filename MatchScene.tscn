@@ -1,8 +1,6 @@
 [gd_scene format=4 uid="uid://couny8iu1eeoo"]
 
 [ext_resource type="Script" uid="uid://du1nsjujoug16" path="res://Scripts Globais/MatchState.gd" id="1_xth2n"]
-[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_clyvb"]
-[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_mshaf"]
 [ext_resource type="Script" uid="uid://dvg0h7e17ftol" path="res://camera_3d.gd" id="4_5bfbt"]
 [ext_resource type="AudioStream" uid="uid://tclxbyhjm3yn" path="res://Recursos/SFXs/MudouTurno_667494__sieuamthanh__football_whistle.wav" id="4_pk6wu"]
 [ext_resource type="PackedScene" uid="uid://evedwlh2n1by" path="res://Temporarios/Scenes_testes/Goleira_escala3x.tscn" id="5_cfivu"]
@@ -13,8 +11,6 @@
 [ext_resource type="Shader" uid="uid://djue0ggtg0bvb" path="res://shaders/Laterais.gdshader" id="9_vb5xj"]
 [ext_resource type="PackedScene" uid="uid://mvbcflomxtbk" path="res://Componentes/PlayerV2/Player.tscn" id="10_j6p3p"]
 [ext_resource type="ArrayMesh" uid="uid://28wtovxr043y" path="res://Recursos/3Dmodels/campo/campo largo/botao arena prot CAMPO LONGO CHAO.obj" id="11_7v6xg"]
-[ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="11_vrny7"]
-[ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="12_6ui4b"]
 [ext_resource type="Texture2D" uid="uid://ctli8bc2bqpih" path="res://Recursos/3Dmodels/campo/campo largo/textura-campo-2-longo_2k.png" id="12_by2kd"]
 [ext_resource type="ArrayMesh" uid="uid://cqicsfijsyx2h" path="res://Recursos/3Dmodels/campo/campo largo/botao arena prot CAMPO LONGO LATERAL.obj" id="13_1303m"]
 [ext_resource type="PackedScene" uid="uid://i0rr4lxax2lo" path="res://Componentes/Ball/ball_redonda.tscn" id="13_i127o"]
@@ -141,8 +137,6 @@ albedo_color = Color(0.6484881, 0.6484881, 0.6484881, 1)
 [node name="MatchScene" type="Node3D" unique_id=92966225 node_paths=PackedStringArray("anunciador_ui")]
 script = ExtResource("1_xth2n")
 anunciador_ui = NodePath("AnunciadorUI")
-homeTeam = ExtResource("2_clyvb")
-awayTeam = ExtResource("3_mshaf")
 audio_mudou_turno = ExtResource("4_pk6wu")
 audio_perdeu_turno = ExtResource("4_pk6wu")
 
@@ -231,45 +225,35 @@ surface_material_override/0 = SubResource("StandardMaterial3D_vrny7")
 
 [node name="Player" parent="HomeTeam" unique_id=792270927 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.025860503, 0)
-playerInfo = ExtResource("11_vrny7")
 
 [node name="Player2" parent="HomeTeam" unique_id=1350086234 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8432808, 0.025860503, 0)
-playerInfo = ExtResource("11_vrny7")
 
 [node name="Player3" parent="HomeTeam" unique_id=1880878002 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.025860503, -0.77055645)
-playerInfo = ExtResource("11_vrny7")
 
 [node name="Player4" parent="HomeTeam" unique_id=1741078430 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.025860503, 0.84449697)
-playerInfo = ExtResource("11_vrny7")
 
 [node name="Player5" parent="HomeTeam" unique_id=2128014667 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4427795, 0.025860503, 0)
-playerInfo = ExtResource("11_vrny7")
 
 [node name="AwayTeam" type="Node" parent="." unique_id=1453187810]
 
 [node name="Player2" parent="AwayTeam" unique_id=1384454041 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.025860503, 0)
-playerInfo = ExtResource("12_6ui4b")
 
 [node name="Player3" parent="AwayTeam" unique_id=1579945855 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4255567, 0.025860503, 0)
-playerInfo = ExtResource("12_6ui4b")
 
 [node name="Player4" parent="AwayTeam" unique_id=2080314620 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8045008, 0.025860503, 0)
-playerInfo = ExtResource("12_6ui4b")
 
 [node name="Player5" parent="AwayTeam" unique_id=1146290176 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8188465, 0.025860503, 0.93689907)
-playerInfo = ExtResource("12_6ui4b")
 
 [node name="Player6" parent="AwayTeam" unique_id=1069092750 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7895684, 0.025860503, -0.8517053)
-playerInfo = ExtResource("12_6ui4b")
 
 [node name="Ball2" parent="." unique_id=573001688 instance=ExtResource("13_i127o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08358809, 0)

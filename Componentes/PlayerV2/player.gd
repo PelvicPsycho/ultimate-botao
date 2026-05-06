@@ -65,7 +65,7 @@ var smoke_threshold_reached: bool = false  # To ensure one spawn per threshold
 var smoke_instance_atual: Node3D = null
 
 var team: Team
-@export var playerInfo: TeamPlayer
+var playerInfo: TeamPlayer
 
 var canPlay: bool
 var disabled: bool = false
@@ -114,10 +114,7 @@ signal zoom_in_signal(pos)
 func _ready() -> void:
 	mira_pivot.visible = false
 	circulo_limite.visible = false
-
-
 	max_contacts_reported = 1
-	team = playerInfo.time
 	
 	material = ShaderMaterial.new()
 	outline_material = ShaderMaterial.new()
@@ -167,7 +164,7 @@ func _ready() -> void:
 	base_visual_position = visual_piece.position
 	base_visual_rotation = visual_piece.rotation
 func aplicar_gradiente_no_material() -> void:
-	if material == null :
+	if material == null or team == null:
 		return
 	if team.id == 2:
 		

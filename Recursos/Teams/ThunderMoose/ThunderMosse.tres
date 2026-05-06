@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://crhp74yqtvg25"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_vxa25"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_032yo"]
+[ext_resource type="Resource" uid="uid://d03ps4nls5m0x" path="res://Recursos/Teams/ThunderMoose/Cindy.tres" id="2_y4q2w"]
+[ext_resource type="Resource" uid="uid://cjuyov33ojjhp" path="res://Recursos/Teams/ThunderMoose/Connor.tres" id="3_8jt6f"]
+[ext_resource type="Resource" uid="uid://wim88j4qoe7s" path="res://Recursos/Teams/ThunderMoose/Don.tres" id="4_iut57"]
+[ext_resource type="Resource" uid="uid://dcqpp5j6fqg1j" path="res://Recursos/Teams/ThunderMoose/Mitchell.tres" id="5_s8wfc"]
+[ext_resource type="Resource" uid="uid://qvoif5vh0ooy" path="res://Recursos/Teams/ThunderMoose/Sarah.tres" id="6_6kjqk"]
+
+[resource]
+script = ExtResource("2_032yo")
+name = "Thunder Moose BC"
+id = 4
+cor = Color(1, 1, 0, 1)
+mainSquad = Array[ExtResource("1_vxa25")]([ExtResource("2_y4q2w"), ExtResource("3_8jt6f"), ExtResource("4_iut57"), ExtResource("5_s8wfc"), ExtResource("6_6kjqk")])
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

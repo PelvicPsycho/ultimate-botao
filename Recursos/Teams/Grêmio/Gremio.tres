@@ -2,11 +2,16 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_amvcu"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_li65g"]
+[ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="2_ujupw"]
+[ext_resource type="Resource" uid="uid://cx0geh5yxt68n" path="res://Recursos/Teams/Grêmio/Arthur.tres" id="3_q2tf6"]
+[ext_resource type="Resource" uid="uid://dju5oue5manqy" path="res://Recursos/Teams/Grêmio/Gustavo.tres" id="4_38nfy"]
+[ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Grêmio/Mec.tres" id="5_0r4cw"]
+[ext_resource type="Resource" uid="uid://cfee3l2teas0m" path="res://Recursos/Teams/Grêmio/Weverton.tres" id="6_k83jf"]
 
 [resource]
 script = ExtResource("2_li65g")
 name = "Grêmio"
-id = 1
-ranque = 6
-cor = Color(0, 0, 1, 1)
+id = 2
+cor = Color(0, 0.39215687, 1, 1)
+mainSquad = Array[ExtResource("1_amvcu")]([ExtResource("3_q2tf6"), ExtResource("4_38nfy"), ExtResource("2_ujupw"), ExtResource("5_0r4cw"), ExtResource("6_k83jf")])
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

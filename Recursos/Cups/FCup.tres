@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Cup" format=3 uid="uid://35pguhtldg0w"]
+
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="1_jismj"]
+[ext_resource type="Script" uid="uid://cxdpyurfwg3x" path="res://Recursos/Res_Cup.gd" id="2_h4ti3"]
+[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="3_38u24"]
+[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="4_vi0c3"]
+[ext_resource type="Resource" uid="uid://crhp74yqtvg25" path="res://Recursos/Teams/ThunderMoose/ThunderMosse.tres" id="5_vi0c3"]
+
+[resource]
+script = ExtResource("2_h4ti3")
+cupName = "Noobie Cup"
+cupRank = 6
+teamPool = Array[ExtResource("1_jismj")]([ExtResource("3_38u24"), ExtResource("4_vi0c3"), ExtResource("5_vi0c3")])
+metadata/_custom_type_script = "uid://cxdpyurfwg3x"

@@ -1,11 +1,9 @@
 [gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://4f1qna4c5ycp"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_o4eb2"]
-[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="2_ojrr8"]
 
 [resource]
 script = ExtResource("1_o4eb2")
 nome = "Alanpa"
 num_camisa = 10
-time = ExtResource("2_ojrr8")
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
