@@ -89,7 +89,16 @@ func _atualizar_placar() -> void:
 		#label_away.text = str(awayScore)
 	%MatchUI.placar_esq.text = str(homeScore)
 	%MatchUI.placar_dir.text = str(awayScore)
-
+func _on_peca_clicada(peca_alvo: Player):
+	var gerenciador = $HBoxContainerCARTAS
+	
+	if gerenciador.carta_selecionada != null:
+		# Aplica o buff usando a função que você criou no TeamPlayer
+		peca_alvo.status_atual.aplicar_buff(gerenciador.carta_selecionada)
+		
+		# Limpa a seleção para a carta não ser usada infinitamente
+		gerenciador.carta_selecionada = null
+		print("Buff aplicado!")
 func _on_lance_acabou() -> void: 
 	var alguma_peca_arrastada = false
 	var peca_arrastada
@@ -360,3 +369,18 @@ func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: 
 		timer.call_resetar_barra_lance()
 	
 	anunciador_ui.anuncio_encerrado.connect(descongelar, CONNECT_ONE_SHOT)
+
+
+func _on_player_clicked_piece(Piece: Player) -> void:
+	# Usando o nome único (%), o Godot encontra o nó onde quer que ele esteja na cena
+	var gerenciador = $%MatchUI/MarginContainer/Control/HBoxContainer
+	
+	if gerenciador and gerenciador.carta_selecionada != null:
+		var carta = gerenciador.carta_selecionada
+		Piece.status_atual.aplicar_buff(carta)
+		
+		# Limpa a carta selecionada
+		gerenciador.carta_selecionada = null
+		print("Buff aplicado em: ", Piece.playerInfo.nome)
+	else:
+		print("Erro: Gerenciador não encontrado ou nenhuma carta selecionada.")

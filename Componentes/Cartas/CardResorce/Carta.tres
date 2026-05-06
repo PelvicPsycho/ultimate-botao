@@ -10,5 +10,5 @@ custo_energia = 1
 arte = ExtResource("1_t748s")
 descricao = "Bola fica mais leve "
 tipo_alvo = 1
-magnitude = 2.0
+magnitude = 5
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

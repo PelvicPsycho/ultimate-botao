@@ -310,3 +310,5 @@ pause_menu = NodePath("../PauseMenu")
 [node name="MatchTimer" type="Node" parent="." unique_id=750440205]
 script = ExtResource("18_01kgc")
 tempo_maximo_lance = 15.0
+
+[connection signal="clickedPiece" from="HomeTeam/Player" to="." method="_on_player_clicked_piece"]

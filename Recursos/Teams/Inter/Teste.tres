@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://c1v435760eagr"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_5wb0m"]
+
+[resource]
+script = ExtResource("1_5wb0m")
+quantosSlotes = 3
+"força" = 5
+PA = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

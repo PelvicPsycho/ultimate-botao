@@ -3,6 +3,8 @@ extends Control
 @onready var grid := $"."
 var carta_visual_scene := preload("res://Componentes/Cartas/CartaVisual.tscn")
 var carta_selecionada: CardResource 
+
+var peca_futebol_alvo: Player 
 func _ready():
 	var lista_cartas := carregar_cartas()
 	for carta_resource in lista_cartas:
@@ -10,9 +12,12 @@ func _ready():
 		carta_ui.configurar(carta_resource)
 		grid.add_child(carta_ui)
 		carta_ui.carta_clicada.connect(selecionar_carta)
-func selecionar_carta(resource: CardResource):
-	carta_selecionada = resource
-	print("Carta selecionada para usar: ", resource.nome)
+func selecionar_carta(card_res: CardResource):
+	carta_selecionada = card_res
+	print("Carta selecionada: ", carta_selecionada.nome)
+	# Opcional: Mudar o cursor para indicar que tem uma carta "na mão"
+
+# Esta função será chamada quando uma peça for clicada
 func carregar_cartas() -> Array:
 	var lista: Array = []
 	var dir := DirAccess.open("res://Componentes/Cartas/CardResorce/")

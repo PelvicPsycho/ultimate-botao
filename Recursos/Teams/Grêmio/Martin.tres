@@ -8,4 +8,6 @@ script = ExtResource("1_68jq3")
 nome = "Martin"
 num_camisa = 22
 time = ExtResource("2_4ee8k")
+"força" = 3
+PA = 5
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

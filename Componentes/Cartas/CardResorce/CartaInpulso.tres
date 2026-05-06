@@ -9,5 +9,6 @@ nome = "Corre Peao"
 custo_energia = 4
 arte = ExtResource("1_8647a")
 descricao = "Peça corre mais rapido"
-magnitude = 3.0
+raridade = 1
+magnitude = 6
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

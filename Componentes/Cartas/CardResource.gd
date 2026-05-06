@@ -2,11 +2,13 @@ extends Resource
 class_name CardResource
 
 enum TipoEfeito {
-	IMPULSO,
-	TELEPORTE,
-	ESCUDO
+	FORCA,
+	PA
+	
 }
-
+enum Raridade{
+	NORMAL, INCOMUN, RARA
+}
 enum TipoAlvo {
 	PROPRIA_PECA,
 	BOLA,
@@ -19,4 +21,5 @@ enum TipoAlvo {
 @export var descricao: String = ""
 @export var tipo_efeito: TipoEfeito
 @export var tipo_alvo: TipoAlvo
-@export var magnitude: float = 0.0
+@export var raridade:Raridade
+@export var magnitude:int
