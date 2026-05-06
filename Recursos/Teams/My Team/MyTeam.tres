@@ -12,6 +12,7 @@
 script = ExtResource("2_nhk6y")
 name = "My Team"
 id = 1
+rank = 7
 cor = Color(0, 1, 0, 1)
 mainSquad = Array[ExtResource("1_kpwpf")]([ExtResource("2_ff251"), ExtResource("3_wkhsg"), ExtResource("4_1h5oc"), ExtResource("5_8a6f4"), ExtResource("6_ff251")])
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"
