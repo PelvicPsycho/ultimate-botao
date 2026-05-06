@@ -2,9 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="1_m4jb6"]
 [ext_resource type="Script" uid="uid://cxdpyurfwg3x" path="res://Recursos/Res_Cup.gd" id="2_fexla"]
+[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_tpcgr"]
+[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="4_8k0jk"]
+[ext_resource type="Resource" uid="uid://crhp74yqtvg25" path="res://Recursos/Teams/ThunderMoose/ThunderMosse.tres" id="5_v7y8g"]
 
 [resource]
 script = ExtResource("2_fexla")
 cupName = "City Cup"
 cupRank = 5
+teamPool = Array[ExtResource("1_m4jb6")]([ExtResource("3_tpcgr"), ExtResource("4_8k0jk"), ExtResource("5_v7y8g")])
 metadata/_custom_type_script = "uid://cxdpyurfwg3x"

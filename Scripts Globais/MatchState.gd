@@ -72,7 +72,7 @@ func _ready():
 func loadMatch():
 	homeTeam = GameState.myTeam
 	awayTeam = GameState.currentCompetitor
-	homeScore = 0
+	homeScore = 1
 	awayScore = 0
 	rallyCounter = 1
 	turnCounter = 0
@@ -327,7 +327,7 @@ func isCorrectSide(team:Team) -> bool:
 func endMatch(winner: String):
 	var resultCanvas = $ResultCanvas
 	await get_tree().create_timer(3.0, true).timeout
-	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore))
+	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), true if winner == homeTeam.name else false)
 
 func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
 	if congelar:

@@ -79,6 +79,6 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 32
 text = "Sair"
 
-[connection signal="button_up" from="Control/Panel/VBoxContainer/VBoxContainer2/Next" to="." method="_on_restart_button_up"]
+[connection signal="pressed" from="Control/Panel/VBoxContainer/VBoxContainer2/Next" to="." method="_on_next_pressed"]
 [connection signal="button_up" from="Control/Panel/VBoxContainer/VBoxContainer2/Restart" to="." method="_on_restart_button_up"]
 [connection signal="button_up" from="Control/Panel/VBoxContainer/VBoxContainer2/Quit" to="." method="_on_quit_button_up"]

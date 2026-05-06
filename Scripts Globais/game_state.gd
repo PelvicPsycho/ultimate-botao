@@ -44,12 +44,21 @@ func playCup(index: int):
 
 func nextCup():
 	cupsPlayed+=1
-	currentCup = cupList[cupsPlayed]
+	matchesPlayed = 0
+	if cupsPlayed < cupList.size():
+		currentCup = cupList[cupsPlayed]
+	else:
+		cupsPlayed = 0
 	pickCompetitors()
 
 func nextCompetitor():
 	matchesPlayed+=1
-	currentCompetitor = followingCompetitors[matchesPlayed]
+	if matchesPlayed < currentCup.numMatches:
+		currentCompetitor = followingCompetitors[matchesPlayed]
+		print("Playing now: ", myTeam.name, " Vs ", currentCompetitor.name)
+	else: 
+		print("É CAMPEÃO!")
+		nextCup()
 	saveGame()
 
 func pickCompetitors():
@@ -65,6 +74,8 @@ func pickCompetitors():
 	print("Following matches: ", followingCompetitors)
 
 func saveGame():
+	print("matches played: ", matchesPlayed)
+	print("current cup:", currentCup.cupName)
 	pass
 
 func loadGame():

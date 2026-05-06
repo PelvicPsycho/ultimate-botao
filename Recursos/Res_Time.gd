@@ -8,6 +8,7 @@ enum Rank {F,E,D,C,B,A,S,PLAYER}
 @export var id: int
 @export var rank: Rank
 @export var cor: Color
+@export var emblem: String
 
 @export_category("Elenco")
 @export var mainSquad: Array[TeamPlayer]
