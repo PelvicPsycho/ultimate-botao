@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://crhp74yqtvg25"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_h8qlo"]
+[ext_resource type="Resource" uid="uid://d03ps4nls5m0x" path="res://Recursos/Teams/ThunderDogs/Cindy.tres" id="2_ggt1h"]
+[ext_resource type="Texture2D" uid="uid://b0j6slt8hdfu4" path="res://Recursos/Teams/ThunderDogs/Graphics/ThunderDogs.png" id="2_husfx"]
+[ext_resource type="Resource" uid="uid://cjuyov33ojjhp" path="res://Recursos/Teams/ThunderDogs/Connor.tres" id="3_husfx"]
+[ext_resource type="Resource" uid="uid://wim88j4qoe7s" path="res://Recursos/Teams/ThunderDogs/Don.tres" id="4_5i08a"]
+[ext_resource type="Resource" uid="uid://dcqpp5j6fqg1j" path="res://Recursos/Teams/ThunderDogs/Mitchell.tres" id="5_ctmbm"]
+[ext_resource type="Resource" uid="uid://qvoif5vh0ooy" path="res://Recursos/Teams/ThunderDogs/Sarah.tres" id="6_2pli6"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="7_xc67t"]
+
+[resource]
+script = ExtResource("7_xc67t")
+name = "Thunder Dogs BC"
+id = 4
+cor = Color(0.9843137, 0.7372549, 0.015686275, 1)
+emblem = ExtResource("2_husfx")
+mainSquad = Array[ExtResource("1_h8qlo")]([ExtResource("2_ggt1h"), ExtResource("3_husfx"), ExtResource("4_5i08a"), ExtResource("5_ctmbm"), ExtResource("6_2pli6")])
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cxdpyurfwg3x" path="res://Recursos/Res_Cup.gd" id="2_h4ti3"]
 [ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="3_38u24"]
 [ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="4_vi0c3"]
-[ext_resource type="Resource" uid="uid://crhp74yqtvg25" path="res://Recursos/Teams/ThunderMoose/ThunderMosse.tres" id="5_vi0c3"]
+[ext_resource type="Resource" uid="uid://crhp74yqtvg25" path="res://Recursos/Teams/ThunderDogs/ThunderDogs.tres" id="5_vi0c3"]
 
 [resource]
 script = ExtResource("2_h4ti3")
