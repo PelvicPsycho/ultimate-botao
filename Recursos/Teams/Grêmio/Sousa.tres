@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://ds0rmfgd1dxbd"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_cnp7h"]
+[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_ww2yt"]
+
+[resource]
+script = ExtResource("1_cnp7h")
+nome = "Sousa"
+num_camisa = 2
+time = ExtResource("2_ww2yt")
+quantosSlotes = 2
+geral = 1
+"força" = 4
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

@@ -18,7 +18,7 @@ var awayPlayers: Array[Player]
 @export var vermelho_inactive : ShaderMaterial =preload("res://Componentes/PlayerGradientes/TimeVermelhoDesactive.tres")
 @export var azul_active : ShaderMaterial= preload("res://Componentes/PlayerGradientes/TimeAzul.tres")
 @export var azul_inactive : ShaderMaterial = preload("res://Componentes/PlayerGradientes/TimeAzulDesactive.tres")
-
+var carta_usada_no_turno:bool =false
 var currentTurn: turn
 var rallyCounter: int
 var turnCounter: int = 0
@@ -58,6 +58,8 @@ func _ready():
 			goal.changeColor(awayTeam.id)
 	for piece in allPieces:
 		piece.connect("clickedPiece", onClickedPiece)
+		piece.clickedPiece.connect(_on_player_clicked_piece)
+		
 		piece.connect("turnPlayed", onTurnPlayed)
 		if piece.team == homeTeam:
 			homePlayers.append(piece)
@@ -241,6 +243,7 @@ func changeTurn():
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
 	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + nome, 80, 1.5)
 	atualizar_cores_pecas()
+	carta_usada_no_turno = false
 
 # Chamado pelo gol_manager após a animação de gol.
 # Força o turno para o time vitima e limpa as flags de lance.
@@ -264,6 +267,7 @@ func forceTurn(target: turn) -> void:
 	timer.iniciar_lance(currentTurn)
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
 	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + nome, 80, 1.5)
+	carta_usada_no_turno = false
 
 # -------------REGRAS DA POSSE-----------------------------
 # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
@@ -374,13 +378,20 @@ func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: 
 func _on_player_clicked_piece(Piece: Player) -> void:
 	# Usando o nome único (%), o Godot encontra o nó onde quer que ele esteja na cena
 	var gerenciador = $%MatchUI/MarginContainer/Control/HBoxContainer
-	
+	if carta_usada_no_turno:
+		print("Você já usou uma carta este turno! Espere o próximo.")
+		return
 	if gerenciador and gerenciador.carta_selecionada != null:
+		# 1. Aplica o buff matemático no array do TeamPlayer
 		var carta = gerenciador.carta_selecionada
 		Piece.status_atual.aplicar_buff(carta)
+		carta_usada_no_turno = true
+		# 2. Remove o visual do Canvas
+		if is_instance_valid(gerenciador.nó_carta_visual):
+			gerenciador.nó_carta_visual.queue_free()
 		
-		# Limpa a carta selecionada
+		# 3. Limpa as referências no gerenciador
 		gerenciador.carta_selecionada = null
-		print("Buff aplicado em: ", Piece.playerInfo.nome)
-	else:
-		print("Erro: Gerenciador não encontrado ou nenhuma carta selecionada.")
+		gerenciador.nó_carta_visual = null
+		
+		print("Buff aplicado e carta removida da mão!")
