@@ -24,8 +24,5 @@ func _on_restart_button_up():
 	get_tree().reload_current_scene()
 
 func _on_next_pressed() -> void:
-	if GameState.matchesPlayed < GameState.followingCompetitors.size():
-		GameState.nextCompetitor()
-	else: 
-		GameState.nextCup()
+	GameState.nextCompetitor()
 	get_tree().reload_current_scene()
