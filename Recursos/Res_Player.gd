@@ -16,13 +16,11 @@ var slotsUpgrates:Array[CardResource]=[]
 @export var rank:Rank
 @export var disabilitado:bool
 func inicializar_slots():
+
+	
+	slotsUpgrates.clear() # Limpa para garantir
 	slotsUpgrates.resize(quantosSlotes)
-	
-func equipar_card(card: CardResource):
-	
-		slotsUpgrates.append(card)
-		
-		
+	slotsUpgrates.fill(null) # Preenche com null para podermos validar depois
 func recalcular_status():
 	# Exemplo: Reseta o geral para um valor base (ou você pode ter um geral_base)
 	# Aqui, vamos supor que as cartas somam ao valor atual
@@ -34,17 +32,22 @@ func recalcular_status():
 	
 func aplicar_buff(card: CardResource):
 	# Use o nome da classe do Enum para acessar os valores numéricos corretamente
-	match card.tipo_efeito:
-		CardResource.TipoEfeito.FORCA:
-			força += card.magnitude
-			PA-= card.custo_energia
-			slotsUpgrates.append(card)
-		CardResource.TipoEfeito.PA:
-			PA += card.magnitude
-			PA-= card.custo_energia
-			slotsUpgrates.append(card)
-		
+	var slot_livre = slotsUpgrates.find(null)
+	if slot_livre != -1:
+		match card.tipo_efeito:
+			CardResource.TipoEfeito.FORCA:
+				força += card.magnitude
+				PA-= card.custo_energia
+				
+			CardResource.TipoEfeito.PA:
+				PA += card.magnitude
+				PA-= card.custo_energia
+				
+			
+		slotsUpgrates[slot_livre] = card
+		print("Status atualizado! Força: ", força, " | PA: ", PA)
+		recalcular_status()
+		print("Slotes de cartas atualizados: ", slotsUpgrates)
+	else:
+		print("Falha: Todos os ", quantosSlotes, " slots estão ocupados!")
 	
-	print("Status atualizado! Força: ", força, " | PA: ", PA)
-	print("Slotes de cartas atualizados: ", slotsUpgrates)
-	recalcular_status()
