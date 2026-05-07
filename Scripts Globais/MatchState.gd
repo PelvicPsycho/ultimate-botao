@@ -382,15 +382,15 @@ func _on_player_clicked_piece(Piece: Player) -> void:
 		print("Você já usou uma carta este turno! Espere o próximo.")
 		return
 	if gerenciador and gerenciador.carta_selecionada != null:
-		# 1. Aplica o buff matemático no array do TeamPlayer
+		
 		var carta = gerenciador.carta_selecionada
 		Piece.status_atual.aplicar_buff(carta)
 		carta_usada_no_turno = true
-		# 2. Remove o visual do Canvas
+		
 		if is_instance_valid(gerenciador.nó_carta_visual):
 			gerenciador.nó_carta_visual.queue_free()
 		
-		# 3. Limpa as referências no gerenciador
+		
 		gerenciador.carta_selecionada = null
 		gerenciador.nó_carta_visual = null
 		
