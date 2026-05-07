@@ -11,4 +11,5 @@ arte = ExtResource("1_8647a")
 descricao = "Peça corre mais rapido"
 raridade = 1
 magnitude = 6
+custoSlotes = 1
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

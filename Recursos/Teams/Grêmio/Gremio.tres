@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_amvcu"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_li65g"]
+[ext_resource type="Material" uid="uid://blg57clw7lgpi" path="res://Componentes/PlayerGradientes/TimeAzul.tres" id="2_ujupw"]
+[ext_resource type="Material" uid="uid://x67w856wlle8" path="res://Componentes/PlayerGradientes/TimeAzulDesactive.tres" id="3_my0g1"]
 
 [resource]
 script = ExtResource("2_li65g")
@@ -9,4 +11,6 @@ name = "Grêmio"
 id = 1
 ranque = 6
 cor = Color(0, 0, 1, 1)
+materialAtivo = ExtResource("2_ujupw")
+materialInativo = ExtResource("3_my0g1")
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

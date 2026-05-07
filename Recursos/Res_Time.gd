@@ -11,3 +11,5 @@ enum Rank {F,E,D,C,B,A,S}
 
 @export_category("Elenco")
 @export var elenco: Array[TeamPlayer]
+@export var materialAtivo:ShaderMaterial
+@export var materialInativo:ShaderMaterial

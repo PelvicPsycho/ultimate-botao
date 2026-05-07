@@ -1,6 +1,6 @@
 extends Resource
 class_name TeamPlayer
-enum Rank{S,A,B,C,D}
+enum Rank{S,A,B,C,D,F}
 
 @export_category("Infos pessoais")
 @export var nome: String = ""
@@ -17,11 +17,12 @@ var slotsUpgrates:Array[CardResource]=[]
 @export var disabilitado:bool
 func inicializar_slots():
 	slotsUpgrates.resize(quantosSlotes)
-	slotsUpgrates.fill(null)
-func equipar_card(card: CardResource, index: int):
-	if index >= 0 and index < quantosSlotes:
-		slotsUpgrates[index] = card
-		recalcular_status()
+	
+func equipar_card(card: CardResource):
+	
+		slotsUpgrates.append(card)
+		
+		
 func recalcular_status():
 	# Exemplo: Reseta o geral para um valor base (ou você pode ter um geral_base)
 	# Aqui, vamos supor que as cartas somam ao valor atual
@@ -36,8 +37,14 @@ func aplicar_buff(card: CardResource):
 	match card.tipo_efeito:
 		CardResource.TipoEfeito.FORCA:
 			força += card.magnitude
+			PA-= card.custo_energia
+			slotsUpgrates.append(card)
 		CardResource.TipoEfeito.PA:
 			PA += card.magnitude
+			PA-= card.custo_energia
+			slotsUpgrates.append(card)
+		
 	
 	print("Status atualizado! Força: ", força, " | PA: ", PA)
+	print("Slotes de cartas atualizados: ", slotsUpgrates)
 	recalcular_status()

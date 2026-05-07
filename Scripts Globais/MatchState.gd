@@ -314,9 +314,9 @@ func atualizar_cores_pecas() -> void:
 
 		# aplicar material correspondente
 		if p.team == homeTeam:
-			p.aplicar_material(azul_active if pode else azul_inactive)
+			p.aplicar_material(p.team.materialAtivo if pode else p.team.materialInativo)
 		else:
-			p.aplicar_material(vermelho_active if pode else vermelho_inactive)
+			p.aplicar_material(p.team.materialAtivo if pode else p.team.materialInativo)
 
 		p.canPlay = pode
 func isCorrectSide(team:Team) -> bool:

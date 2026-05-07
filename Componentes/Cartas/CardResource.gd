@@ -23,3 +23,4 @@ enum TipoAlvo {
 @export var tipo_alvo: TipoAlvo
 @export var raridade:Raridade
 @export var magnitude:int
+@export var custoSlotes:int
