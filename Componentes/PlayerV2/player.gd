@@ -171,9 +171,15 @@ func _process(delta: float) -> void:
 			sin(t * 2.8) * shake_amplitude * 1.5
 		)
 
-func aplicar_material(mat: Material) -> void:
-	mesh.material_override = mat
+func definir_estado_visual(ativo: bool) -> void:
+	self.canPlay = ativo
+	
 
+	var material_alvo = team.materialAtivo if ativo else team.materialInativo
+	
+	if material_alvo:
+
+		mesh.material_override = material_alvo.duplicate()
 func _physics_process(delta: float) -> void:
 	var ids := spark_cooldowns.keys()
 	for id in ids:
@@ -351,10 +357,13 @@ func _atualizar_shake_puxar(intensidade: float) -> void:
 	shake_frequency = lerpf(shake_frequency_min, shake_frequency_max, intensidade)
 
 func _chutar_peca_puxar(posicao_final: Vector2) -> void:
+	
 	var vetor_arrasto_2d = posicao_inicial_toque - posicao_final
+	var multiplicador_forca = status_atual.força / 50
 	parar_shake()
 	parar_fumaça()
-	_aplicar_forca(vetor_arrasto_2d)
+	_aplicar_forca(vetor_arrasto_2d )
+	mass = 1 * multiplicador_forca
 
 func puxar_no_timeout():
 	if not is_dragging:
@@ -393,6 +402,7 @@ func _executar_tiro_empurrar() -> void:
 	var vetor_final_2d = vetor_direcao_empurrao * forca_acumulada_empurrao
 	_aplicar_forca(vetor_final_2d)
 
+
 func _processar_carregar(posicao_atual: Vector2) -> void:
 	if not carregando_modo3:
 		return
@@ -406,9 +416,11 @@ func _processar_carregar(posicao_atual: Vector2) -> void:
 
 	if distancia > raio_saida_pixels:
 		if direcao_atual_modo3 != Vector2.ZERO:
+			var multiplicador_forca = status_atual.força / 50.0	
 			var direcao_3d = Vector3(direcao_atual_modo3.x, 0, direcao_atual_modo3.y).normalized()
-			var vetor_forca_3d = direcao_3d * forca_carga_atual
+			var vetor_forca_3d = direcao_3d * forca_carga_atual * multiplicador_forca
 			apply_central_impulse(vetor_forca_3d)
+			
 			turnPlayed.emit()
 
 		parar_shake()
@@ -431,7 +443,12 @@ func _desenhar_mira(vetor_2d: Vector2) -> void:
 func _aplicar_forca(vetor_2d: Vector2) -> void:
 	if is_instance_valid(sfx_tensao_atual): # Para o som da tensão esticando
 		sfx_tensao_atual.stop()
+	var multiplicador_carta : float = float(status_atual.força) / 50.0
+	var vetor_com_bonus = vetor_2d * multiplicador_carta
 	var vetor_forca_3d = Vector3(vetor_2d.x, 0, vetor_2d.y) * forca_multiplicador
+	print("Vetor Original: ", vetor_2d)
+	print("Mult. Carta: ", multiplicador_carta)
+	print("Força Final 3D: ", vetor_forca_3d.length())
 	# Decide qual som tocar baseado na força e varia o pitch
 	var audio_tiro = audio_chute_normal
 	if vetor_forca_3d.length() >= forca_maxima: # >= e não só >
@@ -442,6 +459,7 @@ func _aplicar_forca(vetor_2d: Vector2) -> void:
 		vetor_forca_3d = vetor_forca_3d.normalized() * forca_maxima
 
 	apply_central_impulse(vetor_forca_3d)
+	mass = 1.0 * multiplicador_carta 
 	_cancelar_interacao_silenciosa() # Limpa as variáveis sem tocar o som de erro
 	turnPlayed.emit()
 
@@ -547,12 +565,9 @@ func _on_player_pressed(pos: Vector3):
 
 func _on_player_released(pos: Vector3):
 	zoom_in_signal.emit(pos)
-func receber_carta_buff(card: CardResource):
-	if status_atual:
-		status_atual.aplicar_buff(card)
-		
-		# IMPORTANTE: Se o buff muda a força física do chute, 
-		# você precisa atualizar as variáveis da peça também!
-		if card.tipo == "FORCA":
-			# Exemplo: Aumenta a força máxima de chute da peça no campo
-			forca_maxima += card.magnitude
+func atualizar_fisica_por_status():
+	# Aumentar a massa torna a peça mais difícil de ser empurrada por outros
+	mass = 1.0 + (status_atual.forca * 0.05) 
+	
+	# Se quiser que ela deslize mais ou menos no campo
+	physics_material_override.friction = clamp(1.0 - (status_atual.forca * 0.01), 0.1, 1.0)

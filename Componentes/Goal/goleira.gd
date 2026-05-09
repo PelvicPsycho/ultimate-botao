@@ -10,34 +10,15 @@ enum TeamSide {HOME, AWAY}
 
 signal gol(isHome: bool) #True = gol Home, False = gol Away (a principio)
 
-func changeColor(color: int):
-	material = ShaderMaterial.new()
+func changeColor(team_material: ShaderMaterial):
+	# 1. Duplicamos o material para que esta goleira tenha sua própria instância
+	# Isso evita que buffs aplicados em peças interfiram na goleira e vice-versa
+	var material_unico = team_material.duplicate()
 	
-	outline_material = ShaderMaterial.new()
-	mesh.material_override = material
-	outline_material.shader = load("res://shaders/outline_Complex.gdshader") as Shader
-	outline_material.set_shader_parameter("outline_size",0.002)
-	if color == 1:
-		trocar_shader("res://shaders/Goleira_Azul.gdshader")
-		
-		var specular := Color(0.0745, 0.0745, 0.0745, 0.5019)
-
-		material.set_shader_parameter("specular_color", specular)
-		var fresnel := Color(0.51,0.51,0.51,0.77)
-		material.set_shader_parameter("fresnel_color", fresnel)
-		material.set_shader_parameter("specular_strength", 0.1)
-		material.set_shader_parameter("fresnel_strength",0.77)
-	else:
-		trocar_shader("res://shaders/Goleira_Vermelha.gdshader")
-		material.set_shader_parameter("specular_color", Color.html("#13131380"))
-		material.set_shader_parameter("fresnel_color", Color.html("#003d354d"))
-		material.set_shader_parameter("specular_strength", 0.1)
-		material.set_shader_parameter("fresnel_strength",0.585)
+	# 2. Aplicamos o material único
+	mesh.material_override = material_unico
 	
-	material.next_pass = outline_material
-#	print("material override aplicado: ", mesh.material_override)
-#	print("shader final: ", material.shader)
-
+	# 3. Se precisar de Outline, configuramos aqui (apenas uma vez)
 func trocar_shader(path: String) -> void:
 	var shader := load(path) as Shader
 	material.shader = shader

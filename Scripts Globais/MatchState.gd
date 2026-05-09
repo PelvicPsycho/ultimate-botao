@@ -14,10 +14,7 @@ var homePlayers: Array[Player]
 @export var awayTeam: Team
 var awayScore: int
 var awayPlayers: Array[Player]
-@export var vermelho_active : ShaderMaterial = preload("res://Componentes/PlayerGradientes/TimeVermelho.tres")
-@export var vermelho_inactive : ShaderMaterial =preload("res://Componentes/PlayerGradientes/TimeVermelhoDesactive.tres")
-@export var azul_active : ShaderMaterial= preload("res://Componentes/PlayerGradientes/TimeAzul.tres")
-@export var azul_inactive : ShaderMaterial = preload("res://Componentes/PlayerGradientes/TimeAzulDesactive.tres")
+
 var carta_usada_no_turno:bool =false
 var currentTurn: turn
 var rallyCounter: int
@@ -52,10 +49,10 @@ func _ready():
 	var goals = get_tree().get_nodes_in_group("Goals")
 	for goal in goals:
 		goal.connect("gol", onGoal)
-		if goal.team == goal.TeamSide.HOME:
-			goal.changeColor(homeTeam.id)
-		else:
-			goal.changeColor(awayTeam.id)
+		var material_base = homeTeam.materialAtivo if goal.team == goal.TeamSide.HOME else awayTeam.materialAtivo
+		
+		# A goleira resolve a "xubagem" internamente com o duplicate()
+		goal.changeColor(material_base)
 	for piece in allPieces:
 		piece.connect("clickedPiece", onClickedPiece)
 		piece.clickedPiece.connect(_on_player_clicked_piece)
@@ -311,18 +308,14 @@ func decideTurn():
 	changeTurn() # Senão troca
 	
 func atualizar_cores_pecas() -> void:
-	var home_turn := (currentTurn == turn.HOME)
-
+	var e_turno_home := (currentTurn == turn.HOME)
+	
 	for p in allPieces:
-		var pode := (p.team == homeTeam) if home_turn else (p.team == awayTeam)
-
-		# aplicar material correspondente
-		if p.team == homeTeam:
-			p.aplicar_material(p.team.materialAtivo if pode else p.team.materialInativo)
-		else:
-			p.aplicar_material(p.team.materialAtivo if pode else p.team.materialInativo)
-
-		p.canPlay = pode
+		# O Manager apenas calcula o estado lógico
+		var deve_ativar = (p.team == homeTeam) if e_turno_home else (p.team == awayTeam)
+		
+		# O Manager avisa a peça, e ela se vira com o material
+		p.definir_estado_visual(deve_ativar)
 func isCorrectSide(team:Team) -> bool:
 	return (currentTurn == turn.HOME and team == homeTeam) or (currentTurn == turn.AWAY and team == awayTeam)
 
@@ -379,7 +372,7 @@ func _on_player_clicked_piece(Piece: Player) -> void:
 	# Usando o nome único (%), o Godot encontra o nó onde quer que ele esteja na cena
 	var gerenciador = $%MatchUI/MarginContainer/Control/HBoxContainer
 	if carta_usada_no_turno:
-		print("Você já usou uma carta este turno! Espere o próximo.")
+
 		return
 	if gerenciador and gerenciador.carta_selecionada != null:
 		

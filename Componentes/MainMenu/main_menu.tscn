@@ -18,7 +18,6 @@
 [ext_resource type="StyleBox" uid="uid://djm8vhwuuubf3" path="res://Recursos/2D_Art/Menu/SBT_RedMenu_Unpressed.tres" id="11_d3taj"]
 [ext_resource type="StyleBox" uid="uid://bgbohxvhj7j57" path="res://Recursos/2D_Art/Menu/SBT_RedMenu_Pressed.tres" id="12_2g6w5"]
 [ext_resource type="Texture2D" uid="uid://0gmslav3le38" path="res://Recursos/2D_Art/Menu/menu_laterais_2.png" id="12_x8yhw"]
-[ext_resource type="Script" uid="uid://b3008pymwpp85" path="res://Componentes/MainMenu/ControleCard.gd" id="19_anf8f"]
 [ext_resource type="PackedScene" uid="uid://cftckljesa8nt" path="res://Componentes/Cartas/CartaVisual.tscn" id="20_anf8f"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pguqj"]
@@ -241,11 +240,6 @@ offset_left = 390.0
 offset_top = 310.0
 offset_right = 390.0
 offset_bottom = 310.0
-
-[node name="HBoxContainerCARTAS" type="HBoxContainer" parent="GridContainer" unique_id=1060743035]
-layout_mode = 2
-theme_override_constants/separation = 10
-script = ExtResource("19_anf8f")
 
 [node name="Carta" parent="." unique_id=484579638 instance=ExtResource("20_anf8f")]
 layout_mode = 1
