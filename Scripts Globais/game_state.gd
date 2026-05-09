@@ -15,6 +15,7 @@ preload("res://Recursos/Cups/SCup.tres")]
 
 @onready var currentCompetitor: Team
 var followingCompetitors: Array[Team]
+var isFinal: bool = false
 
 func _ready() -> void:
 	var all_teams: Array[Team] = [myTeam]
@@ -55,9 +56,11 @@ func nextCompetitor():
 	matchesPlayed+=1
 	if matchesPlayed < currentCup.numMatches:
 		currentCompetitor = followingCompetitors[matchesPlayed]
+		if matchesPlayed == currentCup.numMatches-1:
+			isFinal = true
+			print("FINAL OF ", currentCup.cupName)
 		print("Playing now: ", myTeam.name, " Vs ", currentCompetitor.name)
 	else: 
-		print("É CAMPEÃO!")
 		nextCup()
 	saveGame()
 

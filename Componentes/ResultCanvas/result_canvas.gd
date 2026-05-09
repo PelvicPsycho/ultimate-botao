@@ -3,11 +3,16 @@ extends CanvasLayer
 #Nodos
 @onready var youWinLabel = $Control/Panel/VBoxContainer/VBoxContainer/YouWin
 @onready var scoreLabel = $Control/Panel/VBoxContainer/VBoxContainer/Placar
+@onready var championLabel = $"Control/Panel/VBoxContainer/VBoxContainer/Champion!"
 
 func _ready():
 	hide()
 
 func _show(winner: String,  score: String, playerWin: bool):
+	if GameState.isFinal and playerWin:
+		championLabel.show()  
+	else:
+		championLabel.hide()
 	youWinLabel.text = winner + " ganhou!"
 	scoreLabel.text = score
 	if !playerWin:
