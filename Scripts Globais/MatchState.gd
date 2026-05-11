@@ -298,7 +298,10 @@ func decideTurn():
 				if currentTurn == turn.HOME:
 					%MatchUI.colorir_turno(homeTeam,turnCounter)
 				else: %MatchUI.colorir_turno(awayTeam,turnCounter)
-				disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+				if turnCounter < 2:
+					disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+				else:
+					disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
 				return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
 		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:
 			#print("TOCOU MAIS DE 3 VEZES")
