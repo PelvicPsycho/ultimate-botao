@@ -1,6 +1,6 @@
 extends Node3D
 
-var todas_pecas: Array[Player] = []
+var todas_pecas: Array[PhysicsPlayer] = []
 var posicoes_iniciais_pecas: Dictionary = {}
 var posicao_inicial_bola: Vector3
 @export var tempo_anuncio_gol: float = 2
@@ -35,8 +35,8 @@ func _ready() -> void:
 	todas_pecas.clear() # Limpa por precaução
 	var nodes_players = get_tree().get_nodes_in_group("Players")
 	for node in nodes_players:
-		if node is Player:
-			todas_pecas.append(node as Player)
+		if node is PhysicsPlayer:
+			todas_pecas.append(node as PhysicsPlayer)
 	
 	# 1. Salvar as posições iniciais das peças
 	for peca in todas_pecas:
@@ -54,29 +54,30 @@ func anunciar_gol_e_resetar_campo(isHome: bool):
 	
 	#checa se foi falta o gol
 	if !match_state.foulFlag:
-		pass
 		# Dispara a UI
 		anunciadorui.mostrar_evento(tr("GOAL"), 120, tempo_anuncio_gol, match_state.homeTeam.cor if !isHome else match_state.awayTeam.cor)
 		SoundMaster.play_sfx(audio_fez_gol)
+	else:
+		# Dispara a UI
+		anunciadorui.mostrar_evento(tr("Foul GoaL"), 120, tempo_anuncio_gol, match_state.homeTeam.cor if !isHome else match_state.awayTeam.cor)
+	
 	# Delay de segundos (tempo_anuncio_gol)
 	get_tree().create_timer(tempo_anuncio_gol).timeout.connect(anunciar_gol_pt2.bind(isHome))
 
 
 func anunciar_gol_pt2(isHome):
-		# Reseta e esconde o Label
-		# Reposicionar as peças para as Transforms originais
+	# Reseta e esconde o Label
+	# Reposicionar as peças para as Transforms originais
 	for peca in todas_pecas:
 		peca.global_transform = posicoes_iniciais_pecas[peca]
 		# MUITO IMPORTANTE: Zerar velocidades para não continuarem deslizando/girando ao teleportar
-		peca.linear_velocity = Vector3.ZERO
-		peca.angular_velocity = Vector3.ZERO
+		peca.current_velocity = Vector3.ZERO
 		
 	# Reposicionar e limpar a bola
 	var balls = get_tree().get_nodes_in_group("Balls")
 	for ball in balls:
 		ball.global_position = posicao_inicial_bola
-		ball.linear_velocity = Vector3.ZERO
-		ball.angular_velocity = Vector3.ZERO
+		ball.current_velocity = Vector3.ZERO
 		ball.lastTouch = null # Evita carregar informações de posse para o novo lance 
 		
 	# Forçar o turno para quem tomou o gol

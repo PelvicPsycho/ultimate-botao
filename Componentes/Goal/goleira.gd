@@ -3,7 +3,7 @@ class_name Goal
 var material: ShaderMaterial
 var outline_material: ShaderMaterial
 enum TeamSide {HOME, AWAY}
-@onready var mesh = $Goleira/StaticBody3D/Goleira
+@onready var mesh = $Goleira/Goleira
 
 @export var team: TeamSide
 @export var expulsar_forca_base: float = 3.0
@@ -46,13 +46,13 @@ func trocar_shader(path: String) -> void:
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group('Balls'):
-		#print('gol de: ' + str(true if team == TeamSide.HOME else false))
 		gol.emit(true if team == TeamSide.HOME else false)
-#	elif body.is_in_group('Players'):
+	elif body.is_in_group('Players'):
+		print("Player entrou na goleira")
 		#var bodySpeed = body.linear_velocity.length()
 		#var bodyForce = expulsar_forca_base / (1.0 + bodySpeed)
 		#var direcao := (body.global_position - global_position).normalized()
-		#body.apply_central_impulse(direcao * bodyForce)
+		#body.Set_Current_Velocity(-body.current_velocity * 0.5)
 
 
 func _on_area_3d_quase_gol_body_entered(body: Node3D) -> void: #Quase gol

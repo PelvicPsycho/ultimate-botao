@@ -1,19 +1,16 @@
 extends Node
 
 enum turn {HOME, AWAY}
-enum ModoTiro { PUXAR, EMPURRAR, MODO_3 }
 
-var modo_atual = ModoTiro.PUXAR
-
-var allPieces: Array[Player]
-var selectedPiece: Player
+var allPieces: Array[PhysicsPlayer]
+var selectedPiece: PhysicsPlayer
 @export var anunciador_ui: CanvasLayer
 @export var homeTeam: Team
 var homeScore: int
-var homePlayers: Array[Player]
+var homePlayers: Array[PhysicsPlayer]
 @export var awayTeam: Team
 var awayScore: int
-var awayPlayers: Array[Player]
+var awayPlayers: Array[PhysicsPlayer]
 
 var currentTurn: turn
 var rallyCounter: int
@@ -37,14 +34,31 @@ var freeze_level: int = 0
 func _ready():
 	%MatchUI.UI_start(homeTeam,awayTeam)
 	selectFirstTurn()
+	
 	homeScore = 0
 	awayScore = 0
+	
 	rallyCounter = 1
 	turnCounter = 0
+	
 	foulFlag = false
 	goalFlag = false
+	
+	# Players pieces
 	var nodes = get_tree().get_nodes_in_group("Players")
 	allPieces.assign(nodes)
+	for piece in allPieces:
+		piece.connect("clickedPiece", onClickedPiece)
+		piece.connect("turnPlayed", onTurnPlayed)
+		
+		if piece.team == homeTeam:
+			homePlayers.append(piece)
+			piece.canPlay = (currentTurn == turn.HOME)
+		else:
+			awayPlayers.append(piece)
+			piece.canPlay = (currentTurn == turn.AWAY)
+	
+	# Goal objects
 	var goals = get_tree().get_nodes_in_group("Goals")
 	for goal in goals:
 		goal.connect("gol", onGoal)
@@ -52,16 +66,9 @@ func _ready():
 			goal.changeColor(homeTeam.id)
 		else:
 			goal.changeColor(awayTeam.id)
-	for piece in allPieces:
-		piece.connect("clickedPiece", onClickedPiece)
-		piece.connect("turnPlayed", onTurnPlayed)
-		if piece.team == homeTeam:
-			homePlayers.append(piece)
-			piece.canPlay = (currentTurn == turn.HOME)
-		else:
-			awayPlayers.append(piece)
-			piece.canPlay = (currentTurn == turn.AWAY)
+	
 	_atualizar_placar()
+	
 	timer.partida_acabou.connect(_on_partida_acabou)
 	timer.lance_acabou.connect(_on_lance_acabou)
 	
@@ -79,10 +86,8 @@ func _ready():
 	atualizar_cores_pecas()
 	
 func _atualizar_placar() -> void:
-	#if label_home:
-		#label_home.text = str(homeScore)
-	#if label_away:
-		#label_away.text = str(awayScore)
+	print("homeScore = ", homeScore)
+	print("awayScore = ", awayScore)
 	%MatchUI.placar_esq.text = str(homeScore)
 	%MatchUI.placar_dir.text = str(awayScore)
 
@@ -111,11 +116,12 @@ func _on_partida_acabou() -> void:
 
 func onGoal(isHome: bool):
 	goalFlag = true
+	
 	#checa infração de bola no gol de primeira
 	if rallyCounter == 1:
-		foulFlag=true
+		foulFlag = true
 		#return
-	rallyCounter=1
+	rallyCounter = 1
 	if isHome and !foulFlag:
 		awayScore += 1
 		if gol_de_ouro:
@@ -132,7 +138,7 @@ func onGoal(isHome: bool):
 			endMatch(awayTeam.name)
 	_atualizar_placar()
 
-func onClickedPiece(piece: Player):
+func onClickedPiece(piece: PhysicsPlayer):
 	selectedPiece = piece
 
 func printState():
@@ -181,23 +187,19 @@ func waitAllStopped() -> bool:
 		var todos_parados := true
 
 		for piece in allPieces:
-			if (
-				piece.linear_velocity.length() > LINEAR_THRESHOLD
-				or piece.angular_velocity.length() > ANGULAR_THRESHOLD
-				or not piece.sleeping
-			):
+			if  piece.current_velocity.length() > LINEAR_THRESHOLD:
 				todos_parados = false
 				break
 
-		if todos_parados:
-			for ball in balls:
-				if (
-					ball.linear_velocity.length() > LINEAR_THRESHOLD
-					or ball.angular_velocity.length() > ANGULAR_THRESHOLD
-					or not ball.sleeping
-				):
-					todos_parados = false
-					break
+		#if todos_parados:
+			#for ball in balls:
+				#if (
+					#ball.linear_velocity.length() > LINEAR_THRESHOLD
+					#or ball.angular_velocity.length() > ANGULAR_THRESHOLD
+					#or not ball.sleeping
+				#):
+					#todos_parados = false
+					#break
 
 		if todos_parados:
 			frames_estaveis += 1
@@ -268,7 +270,7 @@ func decideTurn():
 	for ball in balls:
 		var lastTouch = ball.lastTouch
 		if lastTouch != null:
-			rallyCounter+= 1
+			rallyCounter += 1
 			if isCorrectSide(lastTouch.team) and turnCounter < 2:
 				#print("Ultimo a tocar: ", lastTouch.team.name, "\nTurn Counter: ", turnCounter)
 				turnCounter+=1
@@ -297,8 +299,8 @@ func atualizar_cores_pecas() -> void:
 		var is_home_turn := (currentTurn == turn.HOME and piece.team == homeTeam)
 		var is_away_turn := (currentTurn == turn.AWAY and piece.team == awayTeam)
 		var pode_mexer := is_home_turn or is_away_turn
-
 		piece.set_piece_available(pode_mexer)
+
 func isCorrectSide(team:Team) -> bool:
 	return (currentTurn == turn.HOME and team == homeTeam) or (currentTurn == turn.AWAY and team == awayTeam)
 
@@ -325,7 +327,7 @@ func _descongelar_auto() -> void:
 		congelar_jogo(false)
 
 func _sincronizar_estado_congelamento() -> void:
-	var deve_congelar: bool= freeze_level > 0
+	var deve_congelar: bool = freeze_level > 0
 	if deve_congelar:
 		timer.pausar_lance()
 	else:
@@ -334,10 +336,10 @@ func _sincronizar_estado_congelamento() -> void:
 		piece.disabled = deve_congelar
 
 func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: Color = Color.WHITE):
-	#Trava as peças e o lance
+	# Trava as peças e o lance
 	congelar_jogo(true, tempo + 0.2)
 	
-	#Mostra o texto
+	# Mostra o texto
 	anunciador_ui.mostrar_evento(texto, tamanho, tempo, cor)
 	
 	# Usamos um callable local para garantir que CADA chamada desta função

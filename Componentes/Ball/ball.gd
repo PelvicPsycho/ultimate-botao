@@ -1,7 +1,7 @@
 extends RigidBody3D
 class_name Ball
 
-var lastTouch: Player
+var lastTouch: PhysicsPlayer
 
 # Se a bola parecer girar muito lento, diminua o valor. Se girar muito rápido, aumente.
 ##Só serve para a bola redonda
@@ -16,7 +16,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var maior_impulso := 0.0
 	for i in range(state.get_contact_count()):
 		var collider = state.get_contact_collider_object(i)
-		if collider is Player:
+		if collider is PhysicsPlayer:
 			var impulso = state.get_contact_impulse(i).length()
 			if impulso > maior_impulso:
 				maior_impulso = impulso
