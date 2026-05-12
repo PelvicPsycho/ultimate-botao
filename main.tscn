@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c8v85oqmwxdtp"]
 
-[ext_resource type="Script" uid="uid://bdb4c4vm44ka" path="res://Scripts Globais/main.gd" id="1_lquwl"]
+[ext_resource type="Script" uid="uid://bdb4c4vm44ka" path="res://Scripts/main.gd" id="1_lquwl"]
 [ext_resource type="PackedScene" uid="uid://d4nu7awvfje7u" path="res://Componentes/Goal/Goleira.tscn" id="2_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cfiyrhnqdww6q" path="res://Componentes/Ball/ball.tscn" id="4_5vw27"]
 [ext_resource type="Script" uid="uid://ca7o838h3ugpd" path="res://canvas_HUD.gd" id="5_kek77"]

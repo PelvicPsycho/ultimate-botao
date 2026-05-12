@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://b0qi7hvp2sbje"]
 
-[ext_resource type="Script" uid="uid://du1nsjujoug16" path="res://Scripts Globais/MatchState.gd" id="1_e3gwx"]
+[ext_resource type="Script" uid="uid://du1nsjujoug16" path="res://Scripts/MatchState.gd" id="1_e3gwx"]
 [ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_6xdkp"]
 [ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_w88vh"]
 [ext_resource type="Texture2D" uid="uid://dnbws6dmwvupf" path="res://Recursos/2D_Art/Campo2.png" id="4_oeav1"]
@@ -8,12 +8,12 @@
 [ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="6_whapd"]
 [ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="7_87pxs"]
 [ext_resource type="PackedScene" uid="uid://i0rr4lxax2lo" path="res://Componentes/Ball/ball_redonda.tscn" id="8_xk3gm"]
-[ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="9_hmjkk"]
+[ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts/gol_manager(temporario).gd" id="9_hmjkk"]
 [ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Componentes/PauseMenu/pause_menu.tscn" id="10_83xft"]
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="11_c1xj5"]
 [ext_resource type="Texture2D" uid="uid://bo3iftgkblwmo" path="res://ProgressBar/progress_track.png" id="12_4ijrv"]
 [ext_resource type="PackedScene" uid="uid://evedwlh2n1by" path="res://Temporarios/Scenes_testes/Goleira_escala3x.tscn" id="12_ahre0"]
-[ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="13_o4etl"]
+[ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts/MatchTimer.gd" id="13_o4etl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boc7w"]
 
