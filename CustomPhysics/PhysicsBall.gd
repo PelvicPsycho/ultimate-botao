@@ -11,15 +11,15 @@ var is_moving: bool
 
 func move_object(_delta: float) -> void:
 	var friction_value = lerpf(friction_min, friction_max, friction)
-	current_velocity += -current_velocity/2 * friction_value;
+	var new_velocity = current_velocity + (-current_velocity/2 * friction_value);
 	
-	current_velocity = Vector3(current_velocity.x, 0, current_velocity.z)
-	
+	Set_Current_Velocity(new_velocity)
+
 	if debug:
 		Draw3d.line(position, position + current_velocity, Color.BLUE, 0.05)
 	
 	if abs(current_velocity.x) < 0.1 && abs(current_velocity.z) < 0.1:
-		current_velocity = Vector3.ZERO
+		Set_Current_Velocity(Vector3.ZERO)
 		is_moving = false
 	else:
 		is_moving = true

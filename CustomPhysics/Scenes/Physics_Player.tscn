@@ -99,7 +99,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_iuvyt")
 
-[node name="PhysicsPLayer" type="CharacterBody3D" unique_id=490560338 node_paths=PackedStringArray("shapecast_physics_objects", "shapecast_walls") groups=["Players"]]
+[node name="PhysicsPLayer" type="CharacterBody3D" unique_id=490560338 node_paths=PackedStringArray("shapecast_physics_objects", "shapecast_walls", "raycast") groups=["Players"]]
 collision_layer = 2
 collision_mask = 3
 axis_lock_linear_y = true
@@ -117,6 +117,7 @@ audio_impacto_parede = ExtResource("9_03jyt")
 audio_impacto_trave = ExtResource("10_5l41f")
 shapecast_physics_objects = NodePath("ShapeCast3D - Objects")
 shapecast_walls = NodePath("ShapeCast3D - Walls")
+raycast = NodePath("RayCast3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=128220011]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03051758, 0)
@@ -163,6 +164,12 @@ transform = Transform3D(0.3, 0, 0, 0, 0.03, 0, 0, 0, 0.3, 0, 0, 0)
 shape = SubResource("CylinderShape3D_evecw")
 target_position = Vector3(0, 1, 0)
 max_results = 1
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=46042098]
+enabled = false
+target_position = Vector3(0, 0, 0)
+collision_mask = 3
+hit_from_inside = true
 
 [node name="Visual" type="Node3D" parent="." unique_id=905550840]
 

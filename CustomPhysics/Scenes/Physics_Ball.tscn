@@ -62,7 +62,7 @@ shader_parameter/fresnel_strength = 0.245
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 
-[node name="PhysicsBall" type="CharacterBody3D" unique_id=203176184 node_paths=PackedStringArray("shapecast_physics_objects", "shapecast_walls") groups=["Balls"]]
+[node name="PhysicsBall" type="CharacterBody3D" unique_id=203176184 node_paths=PackedStringArray("shapecast_physics_objects", "shapecast_walls", "raycast") groups=["Balls"]]
 collision_layer = 2
 collision_mask = 3
 axis_lock_linear_y = true
@@ -71,6 +71,7 @@ axis_lock_angular_z = true
 script = ExtResource("1_8qn64")
 shapecast_physics_objects = NodePath("ShapeCast3D - Objects")
 shapecast_walls = NodePath("ShapeCast3D - Walls")
+raycast = NodePath("RayCast3D")
 mass = 1.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1536410856]
@@ -95,3 +96,8 @@ transform = Transform3D(0.16, 0, 0, 0, 0.16, 0, 0, 0, 0.16, 0, 0, 0)
 shape = SubResource("CylinderShape3D_8qn64")
 target_position = Vector3(0, 0, 0)
 max_results = 1
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1410623980]
+target_position = Vector3(0, 0, 0)
+collision_mask = 3
+hit_from_inside = true

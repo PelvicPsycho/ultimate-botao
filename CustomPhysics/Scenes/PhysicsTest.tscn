@@ -1,0 +1,206 @@
+[gd_scene format=3 uid="uid://ce8na6xvn3awd"]
+
+[ext_resource type="Script" uid="uid://cb54dx5hx3eni" path="res://CustomPhysics/CollisionResolution.gd" id="1_8fmcv"]
+[ext_resource type="Script" uid="uid://dvg0h7e17ftol" path="res://camera_3d.gd" id="2_nuwhv"]
+[ext_resource type="ArrayMesh" uid="uid://28wtovxr043y" path="res://Recursos/3Dmodels/campo/campo largo/botao arena prot CAMPO LONGO CHAO.obj" id="3_epwq2"]
+[ext_resource type="Texture2D" uid="uid://ctli8bc2bqpih" path="res://Recursos/3Dmodels/campo/campo largo/textura-campo-2-longo_2k.png" id="4_up156"]
+[ext_resource type="ArrayMesh" uid="uid://cqicsfijsyx2h" path="res://Recursos/3Dmodels/campo/campo largo/botao arena prot CAMPO LONGO LATERAL.obj" id="5_22pcq"]
+[ext_resource type="PackedScene" uid="uid://h7buwd2wafre" path="res://CustomPhysics/Scenes/Physics_Player.tscn" id="6_b0ldl"]
+[ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="7_oxv0l"]
+[ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="8_4j4m3"]
+[ext_resource type="PackedScene" uid="uid://ce40025uifgne" path="res://CustomPhysics/Scenes/Physics_Ball.tscn" id="9_pyus8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gaj2a"]
+size = Vector3(9.380737, 0.024804689, 13.250488)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l7n58"]
+albedo_texture = ExtResource("4_up156")
+ao_light_affect = 1.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jr1j1"]
+friction = 0.0
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_21j5q"]
+data = PackedVector3Array(-1.5934, 0.3732, -1, -1.5934, 0, -1, -2, 0.3732, -0.59349996, -2, 0.3732, -0.59349996, -1.5934, 0, -1, -2, 0, -0.59349996, 2, 0.3732, 0.59349996, 2, 0, 0.59349996, 2, 0.3732, 0.3891, 2, 0.3732, 0.3891, 2, 0, 0.59349996, 2, 0, 0.3891, 2, 0.3732, -0.59349996, 2, 0, -0.59349996, 1.5934, 0.3732, -1, 1.5934, 0.3732, -1, 2, 0, -0.59349996, 1.5934, 0, -1, 2.4336998, 0.3732, 0.38799998, 2.4336998, 0, 0.38799998, 2.4336998, 0.3732, -0.38799998, 2.4336998, 0.3732, -0.38799998, 2.4336998, 0, 0.38799998, 2.4336998, 0, -0.38799998, 1.5934, 0.3732, 1, 1.5934, 0, 1, 2, 0.3732, 0.59349996, 2, 0.3732, 0.59349996, 1.5934, 0, 1, 2, 0, 0.59349996, 2.4336998, 0.3732, -0.38799998, 2.4336998, 0, -0.38799998, 2, 0.3732, -0.3891, 2, 0.3732, -0.3891, 2.4336998, 0, -0.38799998, 2, 0, -0.3891, -2, 0.3732, -0.59349996, -2, 0, -0.59349996, -2, 0.3732, -0.3891, -2, 0.3732, -0.3891, -2, 0, -0.59349996, -2, 0, -0.3891, 2, 0.3732, 0.3891, 2, 0, 0.3891, 2.4336998, 0.3732, 0.38799998, 2.4336998, 0.3732, 0.38799998, 2, 0, 0.3891, 2.4336998, 0, 0.38799998, -1.5934, 0.3732, 1, -1.5934, 0, 1, 1.5934, 0.3732, 1, 1.5934, 0.3732, 1, -1.5934, 0, 1, 1.5934, 0, 1, -2.4436998, 0.3732, -0.3891, -2.4436998, 0, -0.3891, -2.4436998, 0.3732, 0.3891, -2.4436998, 0.3732, 0.3891, -2.4436998, 0, -0.3891, -2.4436998, 0, 0.3891, 2, 0.3732, -0.3891, 2, 0, -0.3891, 2, 0.3732, -0.59349996, 2, 0.3732, -0.59349996, 2, 0, -0.3891, 2, 0, -0.59349996, -2.4436998, 0.3732, 0.3891, -2.4436998, 0, 0.3891, -2, 0.3732, 0.3891, -2, 0.3732, 0.3891, -2.4436998, 0, 0.3891, -2, 0, 0.3891, 1.5934, 0.3732, -1, 1.5934, 0, -1, -1.5934, 0.3732, -1, -1.5934, 0.3732, -1, 1.5934, 0, -1, -1.5934, 0, -1, -2, 0.3732, 0.59349996, -2, 0, 0.59349996, -1.5934, 0.3732, 1, -1.5934, 0.3732, 1, -2, 0, 0.59349996, -1.5934, 0, 1, -2, 0.3732, -0.3891, -2, 0, -0.3891, -2.4436998, 0.3732, -0.3891, -2.4436998, 0.3732, -0.3891, -2, 0, -0.3891, -2.4436998, 0, -0.3891, -2, 0.3732, 0.3891, -2, 0, 0.3891, -2, 0.3732, 0.59349996, -2, 0.3732, 0.59349996, -2, 0, 0.3891, -2, 0, 0.59349996, -2.3093998, 0, -0.7216, -1.7215999, 0, -1.3094, -2.3093998, 0.3732, -0.7216, -2.3093998, 0.3732, -0.7216, -1.7215999, 0, -1.3094, -1.7215999, 0.3732, -1.3094, 2.2371, 0, 0.6256, 2.3093998, 0, 0.7216, 2.2371, 0.3732, 0.6256, 2.2371, 0.3732, 0.6256, 2.3093998, 0, 0.7216, 2.3093998, 0.3732, 0.7216, 1.7215999, 0, -1.3094, 2.3093998, 0, -0.7216, 1.7215999, 0.3732, -1.3094, 1.7215999, 0.3732, -1.3094, 2.3093998, 0, -0.7216, 2.3093998, 0.3732, -0.7216, 2.6708999, 0, -0.6245, 2.6708999, 0, 0.6245, 2.6708999, 0.3732, -0.6245, 2.6708999, 0.3732, -0.6245, 2.6708999, 0, 0.6245, 2.6708999, 0.3732, 0.6245, 2.3093998, 0, 0.7216, 1.7215999, 0, 1.3094, 2.3093998, 0.3732, 0.7216, 2.3093998, 0.3732, 0.7216, 1.7215999, 0, 1.3094, 1.7215999, 0.3732, 1.3094, 2.2371, 0, -0.6256, 2.6708999, 0, -0.6245, 2.2371, 0.3732, -0.6256, 2.2371, 0.3732, -0.6256, 2.6708999, 0, -0.6245, 2.6708999, 0.3732, -0.6245, -2.2368, 0, -0.6259, -2.3093998, 0, -0.7216, -2.2368, 0.3732, -0.6259, -2.2368, 0.3732, -0.6259, -2.3093998, 0, -0.7216, -2.3093998, 0.3732, -0.7216, 2.6708999, 0, 0.6245, 2.2371, 0, 0.6256, 2.6708999, 0.3732, 0.6245, 2.6708999, 0.3732, 0.6245, 2.2371, 0, 0.6256, 2.2371, 0.3732, 0.6256, 1.7215999, 0, 1.3094, -1.7215999, 0, 1.3094, 1.7215999, 0.3732, 1.3094, 1.7215999, 0.3732, 1.3094, -1.7215999, 0, 1.3094, -1.7215999, 0.3732, 1.3094, -2.6805, 0, 0.6259, -2.6805, 0, -0.6259, -2.6805, 0.3732, 0.6259, -2.6805, 0.3732, 0.6259, -2.6805, 0, -0.6259, -2.6805, 0.3732, -0.6259, 2.3093998, 0, -0.7216, 2.2371, 0, -0.6256, 2.3093998, 0.3732, -0.7216, 2.3093998, 0.3732, -0.7216, 2.2371, 0, -0.6256, 2.2371, 0.3732, -0.6256, -2.2368, 0, 0.6259, -2.6805, 0, 0.6259, -2.2368, 0.3732, 0.6259, -2.2368, 0.3732, 0.6259, -2.6805, 0, 0.6259, -2.6805, 0.3732, 0.6259, -1.7215999, 0, -1.3094, 1.7215999, 0, -1.3094, -1.7215999, 0.3732, -1.3094, -1.7215999, 0.3732, -1.3094, 1.7215999, 0, -1.3094, 1.7215999, 0.3732, -1.3094, -1.7215999, 0, 1.3094, -2.3093998, 0, 0.7216, -1.7215999, 0.3732, 1.3094, -1.7215999, 0.3732, 1.3094, -2.3093998, 0, 0.7216, -2.3093998, 0.3732, 0.7216, -2.6805, 0, -0.6259, -2.2368, 0, -0.6259, -2.6805, 0.3732, -0.6259, -2.6805, 0.3732, -0.6259, -2.2368, 0, -0.6259, -2.2368, 0.3732, -0.6259, -2.3093998, 0, 0.7216, -2.2368, 0, 0.6259, -2.3093998, 0.3732, 0.7216, -2.3093998, 0.3732, 0.7216, -2.2368, 0, 0.6259, -2.2368, 0.3732, 0.6259, -2, 0.3732, 0.3891, -2, 0.3732, 0.59349996, -2.2368, 0.3732, 0.6259, -2.2368, 0.3732, 0.6259, -2, 0.3732, 0.59349996, -2.3093998, 0.3732, 0.7216, -2.6805, 0.3732, 0.6259, -2, 0.3732, 0.3891, -2.2368, 0.3732, 0.6259, -2, 0.3732, 0.59349996, -1.5934, 0.3732, 1, -2.3093998, 0.3732, 0.7216, -2.4436998, 0.3732, 0.3891, -2, 0.3732, 0.3891, -2.6805, 0.3732, 0.6259, -2.3093998, 0.3732, 0.7216, -1.5934, 0.3732, 1, -1.7215999, 0.3732, 1.3094, -2.6805, 0.3732, -0.6259, -2.4436998, 0.3732, 0.3891, -2.6805, 0.3732, 0.6259, -1.5934, 0.3732, 1, 1.5934, 0.3732, 1, -1.7215999, 0.3732, 1.3094, -2.4436998, 0.3732, -0.3891, -2.4436998, 0.3732, 0.3891, -2.6805, 0.3732, -0.6259, -1.7215999, 0.3732, 1.3094, 1.5934, 0.3732, 1, 1.7215999, 0.3732, 1.3094, -2.2368, 0.3732, -0.6259, -2.4436998, 0.3732, -0.3891, -2.6805, 0.3732, -0.6259, 1.5934, 0.3732, 1, 2, 0.3732, 0.59349996, 1.7215999, 0.3732, 1.3094, -2, 0.3732, -0.3891, -2.4436998, 0.3732, -0.3891, -2.2368, 0.3732, -0.6259, 1.7215999, 0.3732, 1.3094, 2, 0.3732, 0.59349996, 2.3093998, 0.3732, 0.7216, -2.3093998, 0.3732, -0.7216, -2, 0.3732, -0.3891, -2.2368, 0.3732, -0.6259, 2, 0.3732, 0.59349996, 2, 0.3732, 0.3891, 2.3093998, 0.3732, 0.7216, -2, 0.3732, -0.59349996, -2, 0.3732, -0.3891, -2.3093998, 0.3732, -0.7216, 2.3093998, 0.3732, 0.7216, 2, 0.3732, 0.3891, 2.2371, 0.3732, 0.6256, -1.7215999, 0.3732, -1.3094, -2, 0.3732, -0.59349996, -2.3093998, 0.3732, -0.7216, 2, 0.3732, 0.3891, 2.4336998, 0.3732, 0.38799998, 2.2371, 0.3732, 0.6256, -1.5934, 0.3732, -1, -2, 0.3732, -0.59349996, -1.7215999, 0.3732, -1.3094, 2.2371, 0.3732, 0.6256, 2.4336998, 0.3732, 0.38799998, 2.6708999, 0.3732, 0.6245, 1.7215999, 0.3732, -1.3094, -1.5934, 0.3732, -1, -1.7215999, 0.3732, -1.3094, 2.4336998, 0.3732, 0.38799998, 2.4336998, 0.3732, -0.38799998, 2.6708999, 0.3732, 0.6245, 1.5934, 0.3732, -1, -1.5934, 0.3732, -1, 1.7215999, 0.3732, -1.3094, 2.6708999, 0.3732, 0.6245, 2.4336998, 0.3732, -0.38799998, 2.6708999, 0.3732, -0.6245, 2.3093998, 0.3732, -0.7216, 1.5934, 0.3732, -1, 1.7215999, 0.3732, -1.3094, 2.4336998, 0.3732, -0.38799998, 2, 0.3732, -0.3891, 2.6708999, 0.3732, -0.6245, 2, 0.3732, -0.59349996, 1.5934, 0.3732, -1, 2.3093998, 0.3732, -0.7216, 2.6708999, 0.3732, -0.6245, 2, 0.3732, -0.3891, 2.2371, 0.3732, -0.6256, 2, 0.3732, -0.3891, 2, 0.3732, -0.59349996, 2.2371, 0.3732, -0.6256, 2.2371, 0.3732, -0.6256, 2, 0.3732, -0.59349996, 2.3093998, 0.3732, -0.7216, 2, 0, -0.3891, 2.4336998, 0, -0.38799998, 2.2371, 0, -0.6256, 2.2371, 0, -0.6256, 2.4336998, 0, -0.38799998, 2.6708999, 0, -0.6245, 2.3093998, 0, -0.7216, 2, 0, -0.3891, 2.2371, 0, -0.6256, 2.4336998, 0, -0.38799998, 2.4336998, 0, 0.38799998, 2.6708999, 0, -0.6245, 2, 0, -0.59349996, 2, 0, -0.3891, 2.3093998, 0, -0.7216, 2.6708999, 0, -0.6245, 2.4336998, 0, 0.38799998, 2.6708999, 0, 0.6245, 1.7215999, 0, -1.3094, 2, 0, -0.59349996, 2.3093998, 0, -0.7216, 2.4336998, 0, 0.38799998, 2, 0, 0.3891, 2.6708999, 0, 0.6245, 1.5934, 0, -1, 2, 0, -0.59349996, 1.7215999, 0, -1.3094, 2.6708999, 0, 0.6245, 2, 0, 0.3891, 2.2371, 0, 0.6256, -1.7215999, 0, -1.3094, 1.5934, 0, -1, 1.7215999, 0, -1.3094, 2, 0, 0.3891, 2, 0, 0.59349996, 2.2371, 0, 0.6256, -1.5934, 0, -1, 1.5934, 0, -1, -1.7215999, 0, -1.3094, 2.2371, 0, 0.6256, 2, 0, 0.59349996, 2.3093998, 0, 0.7216, -2.3093998, 0, -0.7216, -1.5934, 0, -1, -1.7215999, 0, -1.3094, 2, 0, 0.59349996, 1.5934, 0, 1, 2.3093998, 0, 0.7216, -2, 0, -0.59349996, -1.5934, 0, -1, -2.3093998, 0, -0.7216, 2.3093998, 0, 0.7216, 1.5934, 0, 1, 1.7215999, 0, 1.3094, -2.2368, 0, -0.6259, -2, 0, -0.59349996, -2.3093998, 0, -0.7216, 1.5934, 0, 1, -1.5934, 0, 1, 1.7215999, 0, 1.3094, -2, 0, -0.3891, -2, 0, -0.59349996, -2.2368, 0, -0.6259, 1.7215999, 0, 1.3094, -1.5934, 0, 1, -1.7215999, 0, 1.3094, -2.6805, 0, -0.6259, -2, 0, -0.3891, -2.2368, 0, -0.6259, -1.5934, 0, 1, -2, 0, 0.59349996, -1.7215999, 0, 1.3094, -2.4436998, 0, -0.3891, -2, 0, -0.3891, -2.6805, 0, -0.6259, -1.7215999, 0, 1.3094, -2, 0, 0.59349996, -2.3093998, 0, 0.7216, -2.6805, 0, 0.6259, -2.4436998, 0, -0.3891, -2.6805, 0, -0.6259, -2, 0, 0.59349996, -2, 0, 0.3891, -2.3093998, 0, 0.7216, -2.4436998, 0, 0.3891, -2.4436998, 0, -0.3891, -2.6805, 0, 0.6259, -2.3093998, 0, 0.7216, -2, 0, 0.3891, -2.2368, 0, 0.6259, -2, 0, 0.3891, -2.4436998, 0, 0.3891, -2.2368, 0, 0.6259, -2.2368, 0, 0.6259, -2.4436998, 0, 0.3891, -2.6805, 0, 0.6259)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8obyu"]
+albedo_color = Color(0.6484881, 0.6484881, 0.6484881, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8fmcv"]
+size = Vector3(4.163765, 1, 0.33447266)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nuwhv"]
+size = Vector3(1.1214414, 1, 0.33447266)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_epwq2"]
+size = Vector3(1.1282773, 1, 0.33447266)
+
+[node name="PhysicsTest" type="Node3D" unique_id=1789380528 node_paths=PackedStringArray("PhysicsObjects_List")]
+script = ExtResource("1_8fmcv")
+PhysicsObjects_List = [NodePath("Physic Objects/HomeTeam/PhysicsPLayer")]
+debug = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=770954129]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.36453, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=312529947]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 5.5, 0.116)
+keep_aspect = 0
+v_offset = 0.295
+current = true
+size = 8.0
+script = ExtResource("2_nuwhv")
+zoom_speed = 2.0
+min_zoom = Vector3(0, 5.5, 0.116)
+max_zoom = Vector3(0, 7, 0.116)
+
+[node name="Floor_StaticBody3D" type="StaticBody3D" parent="." unique_id=49689627]
+collision_layer = 4
+collision_mask = 0
+
+[node name="Floor_CollisionShape" type="CollisionShape3D" parent="Floor_StaticBody3D" unique_id=482476398]
+transform = Transform3D(-5.6824803e-08, 0, 1.3, 0, 1.3, 0, -1.3, 0, -5.6824803e-08, 0.009432305, -0.025162108, 0.0118708145)
+shape = SubResource("BoxShape3D_gaj2a")
+
+[node name="BotaoArenaProtCampoLongoChao" type="MeshInstance3D" parent="Floor_StaticBody3D" unique_id=350172258]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)
+mesh = ExtResource("3_epwq2")
+surface_material_override/0 = SubResource("StandardMaterial3D_l7n58")
+
+[node name="Pitch" type="StaticBody3D" parent="." unique_id=428277329]
+transform = Transform3D(-5.6824803e-08, 0, 1.3, 0, 1.3, 0, -1.3, 0, -5.6824803e-08, 0, 0, 0)
+visible = false
+collision_mask = 2
+physics_material_override = SubResource("PhysicsMaterial_jr1j1")
+
+[node name="LateraisColision" type="CollisionShape3D" parent="Pitch" unique_id=7464340]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_21j5q")
+
+[node name="BotaoArenaProtCampoLongoLateral" type="MeshInstance3D" parent="Pitch" unique_id=1336272675]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+mesh = ExtResource("5_22pcq")
+surface_material_override/0 = SubResource("StandardMaterial3D_8obyu")
+
+[node name="Physic Objects" type="Node" parent="." unique_id=214408031]
+script = ExtResource("1_8fmcv")
+
+[node name="HomeTeam" type="Node" parent="Physic Objects" unique_id=266356712]
+
+[node name="PhysicsPLayer" parent="Physic Objects/HomeTeam" unique_id=490560338 instance=ExtResource("6_b0ldl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.011581928, -1.1395247)
+debug = false
+playerInfo = ExtResource("7_oxv0l")
+
+[node name="AwayTeam" type="Node" parent="Physic Objects" unique_id=2030927746]
+
+[node name="PhysicsPLayer2" parent="Physic Objects/AwayTeam" unique_id=2099336521 instance=ExtResource("6_b0ldl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.011581928, 0)
+visible = false
+debug = false
+playerInfo = ExtResource("8_4j4m3")
+
+[node name="Balls" type="Node" parent="Physic Objects" unique_id=1520868271]
+
+[node name="PhysicsBall" parent="Physic Objects/Balls" unique_id=203176184 instance=ExtResource("9_pyus8")]
+visible = false
+friction = 0.2
+friction_max = 0.1
+
+[node name="New Pitch" type="Node" parent="." unique_id=222434407]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="New Pitch" unique_id=30026195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.46573)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="New Pitch/StaticBody3D" unique_id=2036058260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0031318665, 0, 0)
+shape = SubResource("BoxShape3D_8fmcv")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="New Pitch" unique_id=1391217083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.4648509)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="New Pitch/StaticBody3D2" unique_id=581224104]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0031318665, 0, 0)
+shape = SubResource("BoxShape3D_8fmcv")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="New Pitch" unique_id=1042434392]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3.347, 0, 0)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="New Pitch/StaticBody3D3" unique_id=1008523786]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029963732, 0, 0)
+shape = SubResource("BoxShape3D_nuwhv")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="New Pitch" unique_id=1021855282]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3.1095989, 0, 0.6658883)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="New Pitch/StaticBody3D5" unique_id=895129154]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007817268, 0, 0)
+shape = SubResource("BoxShape3D_epwq2")
+
+[node name="StaticBody3D9" type="StaticBody3D" parent="New Pitch" unique_id=42876335]
+transform = Transform3D(-0.7052284, 0, 0.70898014, 0, 1, 0, -0.70898014, 0, -0.7052284, -2.4341507, 0, 1.1662931)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="New Pitch/StaticBody3D9" unique_id=873680022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007817268, 0, 0)
+shape = SubResource("BoxShape3D_epwq2")
+
+[node name="StaticBody3D10" type="StaticBody3D" parent="New Pitch" unique_id=1076177521]
+transform = Transform3D(0.7087954, 0, 0.705414, 0, 1, 0, -0.705414, 0, 0.7087954, -2.4479895, 0, -1.1571944)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="New Pitch/StaticBody3D10" unique_id=988345710]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007817268, 0, 0)
+shape = SubResource("BoxShape3D_epwq2")
+
+[node name="StaticBody3D11" type="StaticBody3D" parent="New Pitch" unique_id=1546565662]
+transform = Transform3D(0.70509225, 0, -0.7091155, 0, 1, 0, 0.7091155, 0, 0.70509225, 2.4577794, 0, -1.1434791)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="New Pitch/StaticBody3D11" unique_id=1434344995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007817268, 0, 0)
+shape = SubResource("BoxShape3D_epwq2")
+
+[node name="StaticBody3D12" type="StaticBody3D" parent="New Pitch" unique_id=164156555]
+transform = Transform3D(-0.705958, 0, -0.70825356, 0, 1, 0, 0.70825356, 0, -0.705958, 2.4518278, 0, 1.1583946)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="New Pitch/StaticBody3D12" unique_id=1804467636]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007817268, 0, 0)
+shape = SubResource("BoxShape3D_epwq2")
+
+[node name="StaticBody3D6" type="StaticBody3D" parent="New Pitch" unique_id=713060740]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3.1095989, 0, -0.6559335)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="New Pitch/StaticBody3D6" unique_id=1713975249]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007817268, 0, 0)
+shape = SubResource("BoxShape3D_epwq2")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="New Pitch" unique_id=1806862057]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 3.325338, 0, 0.0066365264)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="New Pitch/StaticBody3D4" unique_id=331485013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029963732, 0, 0)
+shape = SubResource("BoxShape3D_nuwhv")
+
+[node name="StaticBody3D7" type="StaticBody3D" parent="New Pitch" unique_id=1461102053]
+transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 3.0879369, 0, -0.6592518)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="New Pitch/StaticBody3D7" unique_id=464419287]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007817268, 0, 0)
+shape = SubResource("BoxShape3D_epwq2")
+
+[node name="StaticBody3D8" type="StaticBody3D" parent="New Pitch" unique_id=1840676225]
+transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 3.0879369, 0, 0.66257)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="New Pitch/StaticBody3D8" unique_id=487750462]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007817268, 0, 0)
+shape = SubResource("BoxShape3D_epwq2")

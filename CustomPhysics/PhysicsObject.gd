@@ -3,6 +3,7 @@ class_name PhysicsObject
 
 @export var shapecast_physics_objects: ShapeCast3D
 @export var shapecast_walls: ShapeCast3D
+@export var raycast: RayCast3D
 
 #@export var acceleration: Vector3 = Vector3.ZERO
 @export var mass: float = 5

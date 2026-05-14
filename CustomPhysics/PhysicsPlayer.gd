@@ -66,9 +66,21 @@ func _process(delta: float) -> void:
 		effects_process()
 		shaking_process(delta)
 	
+	var look_direction = Vector3(current_velocity.x, 0, current_velocity.z).normalized()
+	if look_direction.length() > 0:
+		# Calculate angle on Y axis
+		var target_angle = atan2(look_direction.x, look_direction.z)
+		# Smoothly rotate
+		rotation.y = target_angle
+	
 	if debug:
+		# Forward look
+		Draw3d.line(position, position + transform.basis.z, Color.YELLOW, 0.01)
+		
 		if is_dragging:
+			# Drag input
 			Draw3d.line(position, position + -direcao_atual * distancia_atual, Color.RED, 0.01)
+
 
 func _physics_process(delta: float) -> void:
 	var ids := spark_cooldowns.keys()
@@ -107,8 +119,8 @@ func MouseDragging_Update():
 		forca_atual = forca_maxima
 
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
-	if !canPlay or disabled:
-		return
+	#if !canPlay or disabled:
+		#return
 	
 	# Evento - clique do mouse esquerdo
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -140,8 +152,8 @@ func _input(event: InputEvent) -> void:
 	if not is_dragging:
 		return
 
-	if !canPlay or disabled:
-		return
+	#if !canPlay or disabled:
+		#return
 
 	if event is InputEventMouseMotion or event is InputEventScreenDrag:
 		# emite que a peça foi clicada
@@ -214,8 +226,9 @@ func _executar_acao() -> void:
 	Shaking_Stop()
 	parar_fumaça()
 	
-	if debug:
-		Draw3d.line(position, position + direcao_atual, Color.BLACK, 5)
+	#if debug:
+		# Result of action
+		#Draw3d.line(position, position + current_velocity, Color.BLACK, 5)
 
 	# Para o som da tensão esticando
 	if is_instance_valid(sfx_tensao_atual): 
@@ -244,7 +257,8 @@ func move_object(_delta: float) -> void:
 	Set_Current_Velocity(new_velocity)
 
 	if debug:
-		Draw3d.line(position, position + current_velocity, Color.BLUE, 0.05)
+		# Velocity
+		Draw3d.line(position, position + current_velocity, Color.RED, 0.05)
 	
 	if abs(current_velocity.x) < 0.1 && abs(current_velocity.z) < 0.1:
 		Set_Current_Velocity(Vector3.ZERO)
@@ -257,6 +271,7 @@ func move_object(_delta: float) -> void:
 	
 	last_position = position
 	var newPos = position + (current_velocity * _delta)
+	Draw3d.line(last_position + Vector3(0, 0.1, 0), newPos + Vector3(0, 0.1, 0), Color.RED, 1)
 	position = newPos
 
 #endregion
