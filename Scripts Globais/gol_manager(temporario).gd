@@ -1,8 +1,8 @@
-extends Node3D
+extends Node
 
-var todas_pecas: Array[PhysicsPlayer] = []
+var todas_pecas: Array[PhysicsPlayer2D] = []
 var posicoes_iniciais_pecas: Dictionary = {}
-var posicao_inicial_bola: Vector3
+var posicao_inicial_bola: Vector2
 @export var tempo_anuncio_gol: float = 2
 # CanvasLayer e Label criados por código para não precisar alterar a cena manualmente
 var canvas_layer: CanvasLayer
@@ -71,13 +71,13 @@ func anunciar_gol_pt2(isHome):
 	for peca in todas_pecas:
 		peca.global_transform = posicoes_iniciais_pecas[peca]
 		# MUITO IMPORTANTE: Zerar velocidades para não continuarem deslizando/girando ao teleportar
-		peca.current_velocity = Vector3.ZERO
+		peca.current_velocity = Vector2.ZERO
 		
 	# Reposicionar e limpar a bola
 	var balls = get_tree().get_nodes_in_group("Balls")
 	for ball in balls:
 		ball.global_position = posicao_inicial_bola
-		ball.current_velocity = Vector3.ZERO
+		ball.current_velocity = Vector2.ZERO
 		ball.lastTouch = null # Evita carregar informações de posse para o novo lance 
 		
 	# Forçar o turno para quem tomou o gol

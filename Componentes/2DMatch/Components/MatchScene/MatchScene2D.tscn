@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://c8rwyrg74r0ec"]
+
+[ext_resource type="Script" uid="uid://cg1hdmqd27sns" path="res://Componentes/2DMatch/Components/MatchScene/match_scene_2d.gd" id="1_nc28g"]
+[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_8rcbb"]
+[ext_resource type="PackedScene" uid="uid://cmgl103lkwr8r" path="res://Componentes/2DMatch/Components/Pitch/Pitch.tscn" id="2_u2h3r"]
+[ext_resource type="Script" uid="uid://cakjkf8xii668" path="res://Componentes/2DMatch/Physics2D/CollisionResolution2D.gd" id="3_mdiny"]
+[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_quvbt"]
+[ext_resource type="PackedScene" uid="uid://cq0wl57lmdp3k" path="res://Componentes/2DMatch/Components/Player/Player2D.tscn" id="4_mrdvm"]
+[ext_resource type="PackedScene" uid="uid://b83wuowkuk58w" path="res://Componentes/2DMatch/Components/Ball/Ball2D.tscn" id="5_432vt"]
+[ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="5_dmcql"]
+[ext_resource type="Script" uid="uid://bsh77xacbgnf5" path="res://Scripts Globais/gol_manager(temporario).gd" id="6_ekyba"]
+[ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="6_ihoqn"]
+[ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="8_ihoqn"]
+[ext_resource type="PackedScene" uid="uid://b8ms3txou0nej" path="res://Componentes/MatchUI/match_ui.tscn" id="9_8rcbb"]
+[ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Componentes/PauseMenu/pause_menu.tscn" id="10_quvbt"]
+[ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="11_3lv5j"]
+[ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="12_mfagv"]
+
+[node name="MatchScene2d" type="Node2D" unique_id=505997757 node_paths=PackedStringArray("anunciador_ui")]
+script = ExtResource("1_nc28g")
+anunciador_ui = NodePath("AnunciadorUI")
+homeTeam = ExtResource("2_8rcbb")
+awayTeam = ExtResource("3_quvbt")
+
+[node name="Pitch" parent="." unique_id=603521134 instance=ExtResource("2_u2h3r")]
+
+[node name="Physic Objects" type="Node" parent="." unique_id=1051536453]
+script = ExtResource("3_mdiny")
+
+[node name="HomeTeam" type="Node" parent="Physic Objects" unique_id=344833047]
+
+[node name="Player2d" parent="Physic Objects/HomeTeam" unique_id=1542391535 instance=ExtResource("4_mrdvm")]
+position = Vector2(616, 540)
+playerInfo = ExtResource("5_dmcql")
+
+[node name="AwayTeam" type="Node" parent="Physic Objects" unique_id=503154718]
+
+[node name="Player2d" parent="Physic Objects/AwayTeam" unique_id=1463780591 instance=ExtResource("4_mrdvm")]
+position = Vector2(1298, 540)
+playerInfo = ExtResource("6_ihoqn")
+
+[node name="Balls" type="Node" parent="Physic Objects" unique_id=1886560739]
+
+[node name="Ball2d" parent="Physic Objects/Balls" unique_id=1925699982 instance=ExtResource("5_432vt")]
+position = Vector2(957, 538)
+
+[node name="MatchUI" parent="." unique_id=2001534732 instance=ExtResource("9_8rcbb")]
+unique_name_in_owner = true
+
+[node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("10_quvbt")]
+visible = false
+
+[node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("8_ihoqn")]
+visible = false
+
+[node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("11_3lv5j")]
+visible = false
+
+[node name="MatchTimer" type="Node" parent="." unique_id=828620498]
+script = ExtResource("12_mfagv")
+
+[node name="Gol_Manager" type="Node" parent="." unique_id=1633751253]
+script = ExtResource("6_ekyba")

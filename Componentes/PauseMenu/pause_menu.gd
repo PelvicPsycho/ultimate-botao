@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-var Pecas_Jogo: Array[PhysicsPlayer] = []
-var a_bola: PhysicsBall
+var Pecas_Jogo: Array[PhysicsPlayer2D] = []
+var a_bola: PhysicsBall2D
 
 @onready var recursos: Array[Padrao] = [
 	preload("res://Recursos/Padroes/PadraoVS.tres"),
@@ -96,7 +96,7 @@ func pegar_todas_pecas():
 	var nodes_pecas = get_tree().get_nodes_in_group("Players")
 	for node in nodes_pecas:
 		if node is PhysicsPlayer:
-			Pecas_Jogo.append(node as PhysicsPlayer)
+			Pecas_Jogo.append(node as PhysicsPlayer2D)
 
 func pegar_a_bola():
 	a_bola = get_tree().get_first_node_in_group("Balls")

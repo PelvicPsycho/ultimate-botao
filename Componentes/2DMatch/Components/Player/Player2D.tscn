@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cq0wl57lmdp3k"]
+
+[ext_resource type="Script" uid="uid://423hby3hbbf1" path="res://Componentes/2DMatch/Physics2D/PhysicsPlayer2D.gd" id="1_7t1st"]
+[ext_resource type="Texture2D" uid="uid://bucstdq05m5yu" path="res://Componentes/2DMatch/Graphics/peca base.png" id="2_gfd85"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_wiu3n"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="3_xu3wj"]
+
+[sub_resource type="Resource" id="Resource_qo5pw"]
+script = ExtResource("3_xu3wj")
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"
+
+[sub_resource type="Resource" id="Resource_4oty1"]
+script = ExtResource("2_wiu3n")
+time = SubResource("Resource_qo5pw")
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
+radius = 47.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_th6yb"]
+radius = 47.095646
+
+[node name="Player2d" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("shapecast_physics_objects", "shapecast_walls") groups=["Players"]]
+script = ExtResource("1_7t1st")
+playerInfo = SubResource("Resource_4oty1")
+shapecast_physics_objects = NodePath("ShapeCast2D - Objects")
+shapecast_walls = NodePath("ShapeCast2D - Walls")
+
+[node name="ShapeCast2D - Objects" type="ShapeCast2D" parent="." unique_id=1924576537]
+shape = SubResource("CircleShape2D_r8syo")
+target_position = Vector2(0, 0)
+max_results = 1
+collision_mask = 2
+
+[node name="ShapeCast2D - Walls" type="ShapeCast2D" parent="." unique_id=728845580]
+shape = SubResource("CircleShape2D_r8syo")
+target_position = Vector2(0, 0)
+max_results = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=566741673]
+shape = SubResource("CircleShape2D_th6yb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=523510040]
+texture = ExtResource("2_gfd85")

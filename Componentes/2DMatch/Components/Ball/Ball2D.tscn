@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://b83wuowkuk58w"]
+
+[ext_resource type="Script" uid="uid://b3grpai4bdx77" path="res://Componentes/2DMatch/Physics2D/PhysicsBall2D.gd" id="1_cihxk"]
+[ext_resource type="Texture2D" uid="uid://cjt68bfdv6rj7" path="res://Componentes/2DMatch/Graphics/bola.png" id="1_qaf7p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cihxk"]
+radius = 35.35534
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qaf7p"]
+radius = 36.0
+
+[node name="Ball2d" type="CharacterBody2D" unique_id=1925699982 groups=["Balls"]]
+script = ExtResource("1_cihxk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=511860556]
+shape = SubResource("CircleShape2D_cihxk")
+
+[node name="ShapeCast2D - Objects" type="ShapeCast2D" parent="." unique_id=1277373259]
+shape = SubResource("CircleShape2D_qaf7p")
+target_position = Vector2(0, 0)
+max_results = 1
+collision_mask = 2
+
+[node name="ShapeCast2D - Walls" type="ShapeCast2D" parent="." unique_id=1190861765]
+shape = SubResource("CircleShape2D_qaf7p")
+target_position = Vector2(0, 0)
+max_results = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1125551120]
+texture = ExtResource("1_qaf7p")
