@@ -92,7 +92,7 @@ var is_moving: bool
 
 # Atualiza as variaveis de direcao_atual, distancia_atual e forca_atual
 func MouseDragging_Update():
-	direcao_atual = posicao_inicial_toque_Mundo3D - posicao_final_toque_Mundo3D
+	direcao_atual = posicao_inicial_toque_Tela - posicao_final_toque_Tela
 	distancia_atual = direcao_atual.length()
 	
 	direcao_atual = direcao_atual.normalized()
@@ -106,35 +106,37 @@ func MouseDragging_Update():
 	if forca_atual > forca_maxima:
 		forca_atual = forca_maxima
 
-#func _on_input_event(camera: Node, event: InputEvent, event_position: Vector2, normal: Vector2, shape_idx: int) -> void:
-	#if !canPlay or disabled:
-		#return
-	#
-	## Evento - clique do mouse esquerdo
-	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		#if event.pressed:
-			#is_dragging = true
+func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
+	print("AAAAAAA")
+	
+	if !canPlay or disabled:
+		return
+	
+	# Evento - clique do mouse esquerdo
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			is_dragging = true
+			
+			## Toca o som de clique normal
+			#SoundMaster.play_sfx(audio_clique)
 			#
-			### Toca o som de clique normal
-			##SoundMaster.play_sfx(audio_clique)
-			##
-			### Toca tensao e salva a ref
-			##sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) 
-			#
-			## Emite um sinal que o player foi clicado
-			#_on_player_pressed(position)
-			#
-			## Zera variaveis
-			#direcao_atual = Vector2.ZERO
-			#
-			#Set_Current_Velocity(Vector2.ZERO)
-			#forca_atual = 0.0
-			#
-			## Guarda a posição global do player
-			#posicao_inicial_toque_Mundo3D = global_position
-			#
-			## Guarda a posição global do player transformada em posição de tela
-			#posicao_inicial_toque_Tela = camera.unproject_position(global_position)
+			## Toca tensao e salva a ref
+			#sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) 
+			
+			# Emite um sinal que o player foi clicado
+			_on_player_pressed(position)
+			
+			# Zera variaveis
+			direcao_atual = Vector2.ZERO
+			
+			Set_Current_Velocity(Vector2.ZERO)
+			forca_atual = 0.0
+			
+			# Guarda a posição global do player
+			posicao_inicial_toque_Mundo3D = global_position
+			
+			# Guarda a posição global do player transformada em posição de tela
+			posicao_inicial_toque_Tela = camera.unproject_position(global_position)
 
 func _input(event: InputEvent) -> void:
 	if not is_dragging:
@@ -185,6 +187,7 @@ func _cancelar_interacao_silenciosa() -> void:
 	#circulo_limite.visible = false
 
 func _on_mouse_entered() -> void:
+	print("here")
 	is_pointer_inside_piece = true
 
 func _on_mouse_exited() -> void:

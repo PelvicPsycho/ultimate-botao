@@ -37,6 +37,7 @@ playerInfo = ExtResource("5_dmcql")
 
 [node name="Player2d" parent="Physic Objects/AwayTeam" unique_id=1463780591 instance=ExtResource("4_mrdvm")]
 position = Vector2(1298, 540)
+collision_layer = 2
 playerInfo = ExtResource("6_ihoqn")
 
 [node name="Balls" type="Node" parent="Physic Objects" unique_id=1886560739]
