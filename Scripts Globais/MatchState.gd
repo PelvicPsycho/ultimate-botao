@@ -299,7 +299,6 @@ func atualizar_cores_pecas() -> void:
 	for p in allPieces:
 		var deve_ativar: bool = (p.team == homeTeam) if e_turno_home else (p.team == awayTeam)
 		p.definir_estado_visual(deve_ativar)
-
 func isCorrectSide(team: Team) -> bool:
 	return (currentTurn == turn.HOME and team == homeTeam) or (currentTurn == turn.AWAY and team == awayTeam)
 
@@ -307,7 +306,6 @@ func endMatch(winner: String) -> void:
 	var resultCanvas = $ResultCanvas
 	await get_tree().create_timer(3.0, true).timeout
 	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore))
-
 func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
 	if congelar:
 		freeze_level += 1
@@ -321,7 +319,6 @@ func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
 func _descongelar_auto() -> void:
 	if is_instance_valid(self) and is_inside_tree():
 		congelar_jogo(false)
-
 func _sincronizar_estado_congelamento() -> void:
 	var deve_congelar: bool = freeze_level > 0
 	if deve_congelar:
@@ -330,7 +327,6 @@ func _sincronizar_estado_congelamento() -> void:
 		timer.retomar_lance()
 	for piece in allPieces:
 		piece.disabled = deve_congelar
-
 func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: Color = Color.WHITE) -> void:
 	congelar_jogo(true, tempo + 0.2)
 	anunciador_ui.mostrar_evento(texto, tamanho, tempo, cor)
@@ -340,8 +336,16 @@ func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: 
 		timer.call_resetar_barra_lance()
 	
 	anunciador_ui.anuncio_encerrado.connect(descongelar, CONNECT_ONE_SHOT)
-
-
+func tentar_usar_carta(piece: Player, carta: CardResource) -> void:
+	if carta_usada_no_turno:
+		print("Já usou carta neste turno!")
+		return
+	if piece == null or carta == null:
+		print("Erro: peça ou carta inválida.")
+		return
+	piece.status_atual.aplicar_buff(carta)
+	carta_usada_no_turno = true
+	print("CARTA ATIVADA COM SUCESSO:", carta.resource_path)
 func _on_player_clicked_piece(Piece: Player) -> void:
 	if carta_usada_no_turno:
 		return

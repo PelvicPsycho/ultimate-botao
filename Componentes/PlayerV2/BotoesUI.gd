@@ -24,15 +24,17 @@ func definir_piece(p):
 		carta2 = null
 func definir_cartas(lista):
 	cartas = lista
-func _on_botao_1_pressed() -> void:
+func _on_botao_1_pressed():
 	if piece_alvo and carta1:
-		piece_alvo.status_atual.aplicar_buff(carta1)
+		var ms = get_tree().get_root().get_node("MatchScene")
+		ms.tentar_usar_carta(piece_alvo, carta1)
 	else:
 		print("Sem carta no slot 1")
 	visible = false
-func _on_botao_2_pressed() -> void:
+func _on_botao_2_pressed():
 	if piece_alvo and carta2:
-		piece_alvo.status_atual.aplicar_buff(carta2)
+		var ms = get_tree().get_root().get_node("MatchScene")
+		ms.tentar_usar_carta(piece_alvo, carta2)
 	else:
 		print("Sem carta no slot 2")
 	visible = false
