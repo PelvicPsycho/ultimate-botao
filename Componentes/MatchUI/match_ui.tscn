@@ -375,6 +375,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control" unique_id=1812000759]
+visible = false
 layout_mode = 0
 offset_left = 799.0
 offset_top = 773.0

@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bqayh01qvnmy8"]
+
+[ext_resource type="Script" uid="uid://d01hvcbmlhah3" path="res://player_slot.gd" id="1_yl0ii"]
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="2_g8hwq"]
+
+[node name="PlayerSlot" type="Control" unique_id=1142611952]
+clip_contents = true
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_yl0ii")
+
+[node name="Nome" type="Label" parent="." unique_id=836428191]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Seila"
+
+[node name="Slots" type="HBoxContainer" parent="." unique_id=701550415]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 22.0
+offset_right = 39.0
+offset_bottom = 62.0
+
+[node name="Icone" type="TextureRect" parent="." unique_id=1069473861]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 22.0
+offset_right = 127.0
+offset_bottom = 150.0
+scale = Vector2(0.2927292, 0.25824296)
+texture = ExtResource("2_g8hwq")
+
+[node name="Button" type="Button" parent="." unique_id=1687566370]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 56.000008
+offset_right = 6.0
+offset_bottom = 64.00001
+scale = Vector2(5.013613, 1.7515513)

@@ -1,0 +1,42 @@
+{
+	"players": [
+		{
+			"foto": "res://icon.svg",
+			"nome": "Douglas",
+			"slots": [
+				"res://Componentes/Cartas/CardResorce/Carta.tres"
+			]
+		},
+		{
+			"foto": "res://icon.svg",
+			"nome": "Martin",
+			"slots": [
+				"res://Componentes/Cartas/CardResorce/Carta.tres",
+				"res://Componentes/Cartas/CardResorce/CartaDefesa.tres",
+				"res://Componentes/Cartas/CardResorce/CartaDefesa.tres"
+			]
+		},
+		{
+			"foto": "res://icon.svg",
+			"nome": "seila",
+			"slots": [
+				"res://Componentes/Cartas/CardResorce/CartaInpulso.tres"
+			]
+		},
+		{
+			"foto": "res://icon.svg",
+			"nome": "Sousa",
+			"slots": [
+				"res://Componentes/Cartas/CardResorce/CartaDefesa.tres",
+				"res://Componentes/Cartas/CardResorce/Carta.tres"
+			]
+		},
+		{
+			"foto": "res://icon.svg",
+			"nome": "teste",
+			"slots": [
+				"res://Componentes/Cartas/CardResorce/CartaInpulso.tres"
+			]
+		}
+	]
+}

@@ -18,7 +18,6 @@
 [ext_resource type="StyleBox" uid="uid://djm8vhwuuubf3" path="res://Recursos/2D_Art/Menu/SBT_RedMenu_Unpressed.tres" id="11_d3taj"]
 [ext_resource type="StyleBox" uid="uid://bgbohxvhj7j57" path="res://Recursos/2D_Art/Menu/SBT_RedMenu_Pressed.tres" id="12_2g6w5"]
 [ext_resource type="Texture2D" uid="uid://0gmslav3le38" path="res://Recursos/2D_Art/Menu/menu_laterais_2.png" id="12_x8yhw"]
-[ext_resource type="PackedScene" uid="uid://cftckljesa8nt" path="res://Componentes/Cartas/CartaVisual.tscn" id="20_anf8f"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pguqj"]
 texture = ExtResource("9_pguqj")
@@ -241,14 +240,17 @@ offset_top = 310.0
 offset_right = 390.0
 offset_bottom = 310.0
 
-[node name="Carta" parent="." unique_id=484579638 instance=ExtResource("20_anf8f")]
-layout_mode = 1
-offset_left = -836.0
-offset_top = 51.0
-offset_right = 188.0
-offset_bottom = 1075.0
+[node name="Button" type="Button" parent="." unique_id=1129691270]
+layout_mode = 0
+offset_left = 123.99999
+offset_top = 922.00006
+offset_right = 222.0
+offset_bottom = 953.00006
+scale = Vector2(2.2399979, 2.6399953)
+text = "Delete save"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/TextureRect/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/TextureRect2/VBoxContainer2/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/TextureRect3/VBoxContainer3/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/TextureRect4/HBoxContainer2/TeamButton" to="." method="_on_team_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://d34j41onc0c6m"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_jsb7g"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_k6g8m"]
+[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_41ff5"]
+
+[resource]
+script = ExtResource("1_k6g8m")
+nome = "seila"
+num_camisa = 1
+time = ExtResource("2_41ff5")
+foto = ExtResource("1_jsb7g")
+quantosSlotes = 1
+forca = 3
+PA = 1
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

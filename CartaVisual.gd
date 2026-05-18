@@ -29,5 +29,8 @@ func configurar(resource: CardResource) -> void:
 	name_label.text = resource.nome
 	cost_label.text = str(resource.custo_energia)
 func _on_pressed() -> void:
-	
+	var ger = get_parent()
 	carta_clicada.emit(_resource_pendente)
+	print("CARTA CLICADA:", _resource_pendente.nome)
+	print("MEU PAI É:", get_parent().name)
+	ger.receber_carta_do_click(_resource_pendente)

@@ -9,6 +9,6 @@ nome = "Alanpa"
 num_camisa = 10
 time = ExtResource("2_ojrr8")
 quantosSlotes = 3
-"força" = 25
+forca = 20
 PA = 11
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

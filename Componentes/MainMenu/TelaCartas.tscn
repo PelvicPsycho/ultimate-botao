@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://d1pwl46go6esb"]
+
+[ext_resource type="Script" uid="uid://dkbdw1c1t0nc3" path="res://Componentes/MainMenu/tela_cartas.gd" id="1_erupe"]
+[ext_resource type="Script" uid="uid://b3008pymwpp85" path="res://Componentes/MainMenu/ControleCard.gd" id="2_erupe"]
+
+[node name="TelaCartas" type="Control" unique_id=1501763889]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("1_erupe")
+
+[node name="GerenciadorCartas" type="HBoxContainer" parent="." unique_id=1098669193]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 373.0
+offset_right = 69.0
+offset_bottom = 413.0
+script = ExtResource("2_erupe")
+
+[node name="ContainerDePecas" type="HBoxContainer" parent="." unique_id=1710373630]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 131
+
+[node name="Button" type="Button" parent="." unique_id=539235410]
+layout_mode = 0
+offset_left = 247.0
+offset_top = 326.0
+offset_right = 482.0
+offset_bottom = 366.0
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -22,7 +22,13 @@ var modo_atual: ModoTiro = ModoTiro.PUXAR
 @export var shake_frequency_max: float = 30.0
 @export var shake_duration_min: float = 0.05
 @export var shake_duration_max: float = 0.12
-var debug: bool = true
+@export_group("Tamanhos do Círculo Limite")
+@export var escala_circulo_fraco: float = 0.8
+@export var escala_circulo_normal: float = 1.0
+@export var escala_circulo_forte: float = 1.4
+@export var painel_cartas: Control = null
+@export var limite_forca_fraca: int = 15  # Abaixo disso = FRACO
+@export var limite_forca_forte: int = 30  # Acima disso = FORTE
 # Variáveis Gerais
 var is_dragging: bool = false
 var is_pointer_inside: bool = false #Mouse/dedo dentro da peça
@@ -44,13 +50,10 @@ var fresnel_color
 @onready var mira_pivot: Node3D = $MiraPivot
 @onready var circulo_limite: MeshInstance3D = $CirculoLimite
 @onready var visual_piece: Node3D = $Visual
-
+var input_bloqueado: bool = false
 var material_circulo: StandardMaterial3D
 var material: ShaderMaterial
-@export var vermelho_active : ShaderMaterial = preload("res://Componentes/PlayerGradientes/TimeVermelho.tres")
-@export var vermelho_inactive : ShaderMaterial =preload("res://Componentes/PlayerGradientes/TimeVermelhoDesactive.tres")
-@export var azul_active : ShaderMaterial= preload("res://Componentes/PlayerGradientes/TimeAzul.tres")
-@export var azul_inactive : ShaderMaterial = preload("res://Componentes/PlayerGradientes/TimeAzulDesactive.tres")
+
 var outline_material: ShaderMaterial
 var specular_strength
 var fresnel_strength
@@ -59,7 +62,8 @@ var spark_scene: PackedScene = preload("res://spark.tscn")
 var spark_particule: GPUParticles3D
 var smoke_particles: GPUParticles3D
 var rotacao_base_y: float = 0.0
-
+@export var escala_base_circulo: float = 1.0
+@export var multiplicador_tamanho_por_forca: float = 0.02
 @export var smoke_rotation_offset_deg: float = 0.0
 @export var smoke_cooldown: float = 1.0  # Cooldown in seconds to prevent spam
 @export var smoke_offset_distance: float = 1.0  # Distance from center to spawn smoke
@@ -110,7 +114,7 @@ var sfx_tensao_atual: AudioStreamPlayer
 @export var audio_impacto_bola: AudioStream
 @export var audio_impacto_parede: AudioStream
 @export var audio_impacto_trave: AudioStream
-
+@export var gerenciador_cartas: Control
 
 signal zoom_out_signal(pos)
 signal zoom_in_signal(pos)
@@ -120,8 +124,15 @@ func _ready() -> void:
 	circulo_limite.visible = false
 	if playerInfo:
 		# Cria uma cópia única para este jogador nesta partida
+		
 		status_atual = playerInfo.duplicate()
-		status_atual.inicializar_slots()
+		
+		
+		team = playerInfo.time
+		status_atual.status_mudou.connect(atualizar_fisica_por_status)
+		status_atual.status_mudou.connect(atualizar_peca_pelo_status)
+		atualizar_peca_pelo_status()
+		atualizar_fisica_por_status()
 	max_contacts_reported = 1
 	team = playerInfo.time
 	
@@ -188,12 +199,16 @@ func _physics_process(delta: float) -> void:
 			spark_cooldowns.erase(id)
 
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
+
 	if !canPlay or disabled:
 		return
+		
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
+			print("Peça clicada! Força atual: ", status_atual.forca)
 			clickedPiece.emit(self)
+			abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO
 			is_dragging = true
 			SoundMaster.play_sfx(audio_clique) #Toca o som de clique normal
 			sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) #Toca tensao e salva a ref
@@ -209,8 +224,10 @@ func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, n
 				tempo_inicio_carga = Time.get_ticks_msec()
 				direcao_atual_modo3 = Vector2.ZERO
 				forca_carga_atual = 0.0
-
+	if Input.is_action_just_pressed("ui_focus_next"): # tecla TAB por padrão
+		debug_status()
 func _input(event: InputEvent) -> void:
+
 	if not is_dragging:
 		return
 
@@ -359,11 +376,11 @@ func _atualizar_shake_puxar(intensidade: float) -> void:
 func _chutar_peca_puxar(posicao_final: Vector2) -> void:
 	
 	var vetor_arrasto_2d = posicao_inicial_toque - posicao_final
-	var multiplicador_forca = status_atual.força / 50
+	var multiplicador_forca = status_atual.forca / 50
 	parar_shake()
 	parar_fumaça()
 	_aplicar_forca(vetor_arrasto_2d )
-	mass = 1 * multiplicador_forca
+	
 
 func puxar_no_timeout():
 	if not is_dragging:
@@ -404,65 +421,74 @@ func _executar_tiro_empurrar() -> void:
 
 
 func _processar_carregar(posicao_atual: Vector2) -> void:
-	if not carregando_modo3:
-		return
-
+	if not carregando_modo3: return
 	var vetor_arrasto_2d = posicao_inicial_toque - posicao_atual
 
-	if vetor_arrasto_2d.length() > 5.0:
+	if vetor_arrasto_2d.length_squared() > 25.0:
 		direcao_atual_modo3 = vetor_arrasto_2d
 
 	var distancia = posicao_inicial_toque.distance_to(posicao_atual)
-
 	if distancia > raio_saida_pixels:
 		if direcao_atual_modo3 != Vector2.ZERO:
-			var multiplicador_forca = status_atual.força / 50.0	
+			var multiplicador_status: float = 1.0 + (float(status_atual.forca) / 50.0)
 			var direcao_3d = Vector3(direcao_atual_modo3.x, 0, direcao_atual_modo3.y).normalized()
-			var vetor_forca_3d = direcao_3d * forca_carga_atual * multiplicador_forca
+			var vetor_forca_3d = direcao_3d * forca_carga_atual * multiplicador_status * mass
 			apply_central_impulse(vetor_forca_3d)
-			
 			turnPlayed.emit()
 
 		parar_shake()
 		_cancelar_interacao()
 
 func _desenhar_mira(vetor_2d: Vector2) -> void:
-	var vetor_direcao_3d = Vector3(vetor_2d.x, 0, vetor_2d.y) * forca_multiplicador
+	var multiplicador_status: float = 1.0 + (float(status_atual.forca) / 50.0)
+	
+	# A mira cresce acompanhando o bônus e a massa
+	var vetor_direcao_3d = Vector3(vetor_2d.x, 0, vetor_2d.y) * forca_multiplicador * multiplicador_status * mass
 	var forca_visual = vetor_direcao_3d.length()
 
 	if forca_visual > 0.1:
 		mira_pivot.visible = true
-		var ponto_alvo = global_position + vetor_direcao_3d
-		mira_pivot.look_at(ponto_alvo, Vector3.UP)
-
-		var forca_travada = clamp(forca_visual, 0.1, forca_maxima)
-		mira_pivot.scale.z = remap(forca_travada, 0.1, forca_maxima, 0.1, tamanho_maximo_linha)
+		mira_pivot.look_at(global_position + vetor_direcao_3d, Vector3.UP)
+		var limite_max_atual = forca_maxima * multiplicador_status * mass
+		mira_pivot.scale.z = remap(clampf(forca_visual, 0.1, limite_max_atual), 0.1, limite_max_atual, 0.1, tamanho_maximo_linha)
 	else:
 		mira_pivot.visible = false
 
 func _aplicar_forca(vetor_2d: Vector2) -> void:
-	if is_instance_valid(sfx_tensao_atual): # Para o som da tensão esticando
-		sfx_tensao_atual.stop()
-	var multiplicador_carta : float = float(status_atual.força) / 50.0
-	var vetor_com_bonus = vetor_2d * multiplicador_carta
-	var vetor_forca_3d = Vector3(vetor_2d.x, 0, vetor_2d.y) * forca_multiplicador
-	print("Vetor Original: ", vetor_2d)
-	print("Mult. Carta: ", multiplicador_carta)
-	print("Força Final 3D: ", vetor_forca_3d.length())
-	# Decide qual som tocar baseado na força e varia o pitch
+	if is_instance_valid(sfx_tensao_atual): sfx_tensao_atual.stop()
+	
+	# MATEMÁTICA CORRIGIDA: 1.0 (Velocidade Normal) + Bônus da Força.
+	# Se a força for 10, o multiplicador é 1.2x. Se for 50, é 2.0x!
+	var multiplicador_status: float = 1.0 + (float(status_atual.forca) / 50.0)
+	
+	var vetor_forca_3d = Vector3(vetor_2d.x, 0, vetor_2d.y) * forca_multiplicador * multiplicador_status
+	var limite_max_atual = forca_maxima * multiplicador_status
+	
 	var audio_tiro = audio_chute_normal
-	if vetor_forca_3d.length() >= forca_maxima: # >= e não só >
+	# --- INÍCIO DO RAIO-X DO ARREMESSO ---
+	print("\n--- RAIO-X DO CHUTE ---")
+	print("Força Base da Peça: ", status_atual.forca)
+	print("Massa Atual: ", mass, " kg")
+	print("Vetor do Mouse (Arrasto): ", vetor_2d.length())
+	
+	var impulso_final = (vetor_forca_3d * mass).length()
+	print("-> IMPULSO FINAL APLICADO: ", impulso_final)
+	print("-----------------------\n")
+	# --- FIM DO RAIO-X ---
+	if vetor_forca_3d.length() >= limite_max_atual: 
 		audio_tiro = audio_chute_max
+		
 	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
 
-	if vetor_forca_3d.length() > forca_maxima:
-		vetor_forca_3d = vetor_forca_3d.normalized() * forca_maxima
+	if vetor_forca_3d.length() > limite_max_atual:
+		vetor_forca_3d = vetor_forca_3d.normalized() * limite_max_atual
 
-	apply_central_impulse(vetor_forca_3d)
-	mass = 1.0 * multiplicador_carta 
-	_cancelar_interacao_silenciosa() # Limpa as variáveis sem tocar o som de erro
+	# O Godot usa física real: Se a força aumenta a MASSA (peso), precisamos
+	# multiplicar o empurrão pela massa para uma peça pesada não ficar lerda.
+	apply_central_impulse(vetor_forca_3d * mass)
+	
+	_cancelar_interacao_silenciosa() 
 	turnPlayed.emit()
-
 # Função usada quando o jogador desiste da jogada (solta o mouse no centro)
 func _cancelar_interacao() -> void:
 	if is_instance_valid(sfx_tensao_atual):
@@ -566,8 +592,55 @@ func _on_player_pressed(pos: Vector3):
 func _on_player_released(pos: Vector3):
 	zoom_in_signal.emit(pos)
 func atualizar_fisica_por_status():
+	
 	# Aumentar a massa torna a peça mais difícil de ser empurrada por outros
 	mass = 1.0 + (status_atual.forca * 0.05) 
 	
 	# Se quiser que ela deslize mais ou menos no campo
 	physics_material_override.friction = clamp(1.0 - (status_atual.forca * 0.01), 0.1, 1.0)
+func atualizar_peca_pelo_status() -> void:
+	if not is_instance_valid(status_atual): return
+	
+	# --- FÍSICA ---
+	mass = 1.0 + (status_atual.forca * 0.05) 
+	if physics_material_override:
+		physics_material_override.friction = clampf(1.0 - (status_atual.forca * 0.01), 0.1, 1.0)
+		
+	# --- VISUAL DO CÍRCULO (SISTEMA DE 3 TAMANHOS) ---
+	if is_instance_valid(circulo_limite):
+		var nova_escala: float = escala_circulo_normal # Começa assumindo o tamanho Normal
+		
+		# Verifica em qual 'Degrau' de força o jogador está
+		if status_atual.forca < limite_forca_fraca:
+			nova_escala = escala_circulo_fraco
+		elif status_atual.forca >= limite_forca_forte:
+			nova_escala = escala_circulo_forte
+			
+		circulo_limite.scale = Vector3(nova_escala, nova_escala, nova_escala)
+		
+	# Atualiza a mira se estiver arrastando
+	if is_dragging:
+		_desenhar_mira(vetor_arrasto_atual)
+
+func debug_status():
+	print("STATUS DEBUG → ", playerInfo.nome)
+	print("  Força:", status_atual.forca)
+	print("  PA:", status_atual.PA)
+	print("  Slots:", status_atual.slotsUpgrates)
+	print("  Buffs Ativos:", status_atual.duracao_dos_buffs)
+func abrir_botoes_cartas():
+	
+	if painel_cartas == null:
+		return
+
+	var cam := get_viewport().get_camera_3d()
+	var pos_tela := cam.unproject_position(global_transform.origin)
+
+	# Ajuste fino da posição na tela
+	pos_tela.x += 40
+	pos_tela.y -= 20
+
+	painel_cartas.position = pos_tela
+	painel_cartas.visible = true
+	painel_cartas.definir_piece(self)
+	painel_cartas.definir_cartas(playerInfo.slotsUpgrates)

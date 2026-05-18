@@ -16,7 +16,7 @@ var time_away: Team #direita
 @export var pause_menu: CanvasLayer
 
 var current_turn_value: int = 0
-
+@onready var gerenciador_cartas = $MarginContainer/Control/HBoxContainer
 
 @export var label_tempo: Label
 @export var team_barra_Lance: TextureProgressBar
@@ -31,7 +31,17 @@ func UI_start(team_home, team_away) -> void:
 	nome_time_dir.text = team_away.name
 	time_home = team_home
 	time_away = team_away
-
+func obter_carta_selecionada() -> CardResource:
+	if gerenciador_cartas and gerenciador_cartas.carta_selecionada != null:
+		return gerenciador_cartas.carta_selecionada
+	return null
+func consumir_carta_selecionada() -> void:
+	if gerenciador_cartas:
+		if is_instance_valid(gerenciador_cartas.nó_carta_visual):
+			gerenciador_cartas.nó_carta_visual.queue_free()
+		
+		gerenciador_cartas.carta_selecionada = null
+		gerenciador_cartas.nó_carta_visual = null
 func colorir_turno(time_jogando, lances) -> void:
 	# A lateral continua com modulate, pois é inteira de uma cor só
 	lateral_quem_joga.modulate = time_jogando.cor

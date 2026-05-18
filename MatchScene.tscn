@@ -24,7 +24,10 @@
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="17_dlfdf"]
 [ext_resource type="Resource" uid="uid://ds0rmfgd1dxbd" path="res://Recursos/Teams/Grêmio/Sousa.tres" id="17_pk6wu"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="18_01kgc"]
+[ext_resource type="Resource" uid="uid://d34j41onc0c6m" path="res://Recursos/Teams/Grêmio/seila.tres" id="18_c3y8h"]
 [ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="19_5d46n"]
+[ext_resource type="Resource" uid="uid://bfg7ag2nhewyu" path="res://Recursos/Teams/Grêmio/teste.tres" id="19_lksl7"]
+[ext_resource type="Script" uid="uid://dbhpwrdxisfwb" path="res://Componentes/PlayerV2/BotoesUI.gd" id="26_dmcwy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pk6wu"]
 render_priority = 0
@@ -258,11 +261,11 @@ playerInfo = ExtResource("17_pk6wu")
 
 [node name="Player3" parent="HomeTeam" unique_id=1880878002 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.025860503, -0.77055645)
-playerInfo = ExtResource("11_vrny7")
+playerInfo = ExtResource("18_c3y8h")
 
 [node name="Player4" parent="HomeTeam" unique_id=1741078430 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1580931, 0.025860503, 0.84449697)
-playerInfo = ExtResource("11_vrny7")
+playerInfo = ExtResource("19_lksl7")
 
 [node name="Player5" parent="HomeTeam" unique_id=2128014667 instance=ExtResource("10_j6p3p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4427795, 0.025860503, 0)
@@ -304,6 +307,32 @@ match_state = NodePath("..")
 unique_name_in_owner = true
 pause_menu = NodePath("../PauseMenu")
 
+[node name="BotoesUI" type="Control" parent="MatchUI" unique_id=1917733706]
+layout_direction = 1
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("26_dmcwy")
+
+[node name="Botao1" type="Button" parent="MatchUI/BotoesUI" unique_id=234974333]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+scale = Vector2(10.32, 2.8400002)
+
+[node name="Botao2" type="Button" parent="MatchUI/BotoesUI" unique_id=68665312]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 29.0
+offset_right = 11.0
+offset_bottom = 37.0
+scale = Vector2(10.920001, 3.08)
+
 [node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("16_hual4")]
 
 [node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("17_dlfdf")]
@@ -312,4 +341,8 @@ pause_menu = NodePath("../PauseMenu")
 script = ExtResource("18_01kgc")
 tempo_maximo_lance = 15.0
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1040687550]
+
 [connection signal="clickedPiece" from="HomeTeam/Player" to="." method="_on_player_clicked_piece"]
+[connection signal="pressed" from="MatchUI/BotoesUI/Botao1" to="MatchUI/BotoesUI" method="_on_botao_1_pressed"]
+[connection signal="pressed" from="MatchUI/BotoesUI/Botao2" to="MatchUI/BotoesUI" method="_on_botao_2_pressed"]

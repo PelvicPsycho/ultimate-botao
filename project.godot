@@ -23,6 +23,8 @@ buses/default_bus_layout="uid://c56aaqws18h4h"
 [autoload]
 
 SoundMaster="*uid://bafr0ruromd8"
+SaveManager="*uid://bc7mlce8gwdan"
+GameState="*uid://bhiekk65e5qgp"
 
 [display]
 

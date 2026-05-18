@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dt2a08i6dyv7c"]
+
+[ext_resource type="Script" uid="uid://cxt4noe6o2hrt" path="res://peça.gd" id="1_q0dke"]
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="2_s80ut"]
+
+[node name="Peça" type="Control" unique_id=164411290]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q0dke")
+
+[node name="Foto" type="TextureRect" parent="." unique_id=1927430574]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 27.0
+offset_right = 43.0
+offset_bottom = 67.0
+texture = ExtResource("2_s80ut")
+
+[node name="Nome" type="Label" parent="." unique_id=293924822]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 159.0
+offset_right = 90.0
+offset_bottom = 182.0
+
+[node name="Slots" type="HBoxContainer" parent="." unique_id=955971417]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 10

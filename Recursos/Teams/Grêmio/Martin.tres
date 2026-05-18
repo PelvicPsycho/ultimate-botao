@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://vl5uhvjx0anj"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_68jq3"]
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_rcggq"]
 [ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_4ee8k"]
 
 [resource]
@@ -8,7 +9,8 @@ script = ExtResource("1_68jq3")
 nome = "Martin"
 num_camisa = 22
 time = ExtResource("2_4ee8k")
+foto = ExtResource("1_rcggq")
 quantosSlotes = 3
-"força" = 25
+forca = 25
 PA = 5
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
