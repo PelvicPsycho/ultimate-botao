@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="10_wegx5"]
 [ext_resource type="PackedScene" uid="uid://cftckljesa8nt" path="res://Componentes/Cartas/CartaVisual.tscn" id="13_3c3cq"]
 
-[node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "right_slots_indicator_hbox")]
+[node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "right_slots_indicator_hbox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,6 +29,7 @@ tab_pieces_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/Mar
 tab_cards_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer/TabCartas_Button")
 textura_aba_ativa = ExtResource("2_0maoc")
 textura_aba_inativa = ExtResource("9_cep57")
+btn_salvar_sair = NodePath("SAIRR_Button")
 inventory_list = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/ScrollContainer/InventoryList_VBoxContainer")
 central_nome_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/ItemName_Label")
 central_descricao_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/CardView_VBoxContainer/ItemDescription_RichTextLabel")
@@ -579,3 +580,10 @@ size_flags_vertical = 4
 texture_normal = ExtResource("7_3vc01")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="SAIRR_Button" type="Button" parent="." unique_id=920692340]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 50
+text = "SAIRR"

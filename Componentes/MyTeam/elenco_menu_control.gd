@@ -19,6 +19,9 @@ var inspecionando_carta_equipada: bool = false
 @export var textura_aba_ativa: Texture2D 
 @export var textura_aba_inativa: Texture2D
 
+@export_group("Menu Lateral - Ações")
+@export var btn_salvar_sair: Button
+
 @export_group("Janela Esquerda")
 @export var inventory_list: VBoxContainer 
 
@@ -53,8 +56,8 @@ var inspecionando_carta_equipada: bool = false
 
 @export_group("Janela Direita - Slots Visual")
 @export var right_slots_indicator_hbox: HBoxContainer
-@export var icone_slot_ocupado: Texture2D # Arraste a imagem do slot cheio
-@export var icone_slot_livre: Texture2D   # Arraste a imagem do slot vazio
+@export var icone_slot_ocupado: Texture2D
+@export var icone_slot_livre: Texture2D  
 
 @export_group("Cenas")
 @export var cena_item_inventario: PackedScene 
@@ -74,6 +77,9 @@ func _connect_signals() -> void:
 	tab_cards_btn.pressed.connect(func(): _switch_tab(CategoryTab.CARDS))
 	
 	center_action_btn.pressed.connect(_on_center_action_pressed)
+	
+	if btn_salvar_sair:
+		btn_salvar_sair.pressed.connect(_on_btn_salvar_sair_pressed)
 
 # --- LÓGICA DE NAVEGAÇÃO ---
 func _select_slot(slot_index: int) -> void:
@@ -92,40 +98,36 @@ func _select_slot(slot_index: int) -> void:
 			tween.tween_property(btn, "modulate", Color(0.7, 0.7, 0.7, 1.0), 0.15)
 			
 	_update_right_window()
-	InventarioGlobal.imprimir_status_do_time()
+	GameState.imprimir_status_do_time()
 	
-	# --- INTELIGÊNCIA DA JANELA CENTRAL ---
-	
+	# --- INTELIGÊNCIA DA JANELA CENTRAL (CORRIGIDA) ---
 	if item_em_inspecao is CardResource and inspecionando_carta_equipada:
-		# Se estava visualizando uma carta EQUIPADA na peça anterior (Janela Direita),
-		# limpa a janela central para evitar exibir dados da peça errada.
+		# Se era uma carta equipada no botão anterior, esvazia para evitar confusão visual
 		_clear_center_window()
 		
 	elif item_em_inspecao is CardResource and not inspecionando_carta_equipada:
-		# Se é uma carta do inventário, chama a inspeção de novo silenciosamente. 
-		# Como a peça no `current_slot` mudou, refaz a matemática e destrava/trava o botão de "Equipar".
+		# Se é uma carta solta do inventário, apenas atualiza a trava/mecanismo de Equipar
 		_inspecionar_item_na_janela_central(item_em_inspecao, false)
-		
 
 func _switch_tab(tab: CategoryTab) -> void:
 	current_tab = tab
 	
 	if current_tab == CategoryTab.PIECES:
-		# --- VISUAL: Peças Ativo, Cartas Inativo ---
+		# --- VISUAL ---
 		tab_pieces_btn.texture_normal = textura_aba_ativa
 		tab_cards_btn.texture_normal = textura_aba_inativa
 		
 		# --- LÓGICA ---
-		if InventarioGlobal.meu_time_titular:
-			_popular_lista(InventarioGlobal.meu_time_titular.elenco)
+		if GameState.jogadores.size() > 0:
+			_popular_lista(GameState.jogadores)
 			
 	elif current_tab == CategoryTab.CARDS:
-		# --- VISUAL: Cartas Ativo, Peças Inativo ---
+		# --- VISUAL ---
 		tab_pieces_btn.texture_normal = textura_aba_inativa
 		tab_cards_btn.texture_normal = textura_aba_ativa
 		
 		# --- LÓGICA ---
-		_popular_lista(InventarioGlobal.inventario_cartas)
+		_popular_lista(GameState.inventario_cartas)
 		
 	# Limpa a janela central sempre que trocar de aba
 	_clear_center_window()
@@ -141,13 +143,10 @@ func _popular_lista(lista_de_itens: Array) -> void:
 		var btn_item = cena_item_inventario.instantiate() as InventoryItemButton
 		inventory_list.add_child(btn_item)
 		
-		# Usa a nova função genérica
 		btn_item.setup_item(item) 
-		
-		# Conecta o clique enviando para a Janela Central
 		btn_item.pressed.connect(func(): _inspecionar_item_na_janela_central(item))
 
-# --- INSPEÇÃO NA JANELA CENTRAL ---#
+# --- INSPEÇÃO NA JANELA CENTRAL ---
 func _inspecionar_item_na_janela_central(item: Resource, is_equipped: bool = false):
 	item_em_inspecao = item
 	inspecionando_carta_equipada = is_equipped
@@ -163,7 +162,6 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped: bool = fal
 		center_card_view.visible = true
 		center_peca_view.visible = false
 		
-		# Esconde a textura da peça (e o label filho some junto)
 		if cw_button_texture:
 			cw_button_texture.visible = false 
 		
@@ -171,23 +169,23 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped: bool = fal
 		if item.arte:
 			central_arte_rect.texture = item.arte
 			
-		# Limpa e mostra APENAS O CUSTO da carta no HBox
+		# Limpa e mostra apenas o custo em slots da carta
 		for child in slots_que_ocupa_hbox.get_children():
 			child.queue_free()
 			
 		for i in range(item.custoSlotes):
 			var icone_slot = TextureRect.new()
-			icone_slot.texture = icone_de_slot_textura # A textura de "custo" que você definiu antes
+			icone_slot.texture = icone_de_slot_textura 
 			icone_slot.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			icone_slot.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 			icone_slot.custom_minimum_size = Vector2(25, 25)
 			slots_que_ocupa_hbox.add_child(icone_slot)
 			
-		# Lógica de Trava de Slots
+		# Lógica de Trava de Capacidade de Slots
 		if inspecionando_carta_equipada:
 			center_action_label.text = "Desequipar"
 		else:
-			var peca_atual = InventarioGlobal.meu_time_titular.elenco[current_slot - 1]
+			var peca_atual = GameState.jogadores[current_slot - 1]
 			var slots_usados = 0
 			for carta in peca_atual.slotsUpgrates:
 				if carta != null:
@@ -211,13 +209,15 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped: bool = fal
 		
 		if cw_button_texture:
 			cw_button_texture.visible = true
-			var index_no_time = InventarioGlobal.meu_time_titular.elenco.find(item)
+			var index_no_time = GameState.jogadores.find(item)
 			if index_no_time != -1:
 				cw_button_label.text = str(index_no_time + 1)
 			else:
 				cw_button_label.text = ""
 		
-		var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [item.força, item.PA, item.quantosSlotes]
+		# Exibe os status dinamicamente calculados
+		var status = _get_status_calculado(item)
+		var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, item.quantosSlotes]
 		center_peca_stats.text = texto_status
 		
 		for child in center_peca_grid.get_children():
@@ -236,7 +236,7 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped: bool = fal
 				slot_vazio.custom_minimum_size = Vector2(90, 110)
 				center_peca_grid.add_child(slot_vazio)
 				
-		# --- ATUALIZAÇÃO VISUAL E TEXTUAL DOS SLOTS (CENTRO) ---
+		# --- ATUALIZAÇÃO VISUAL DOS SLOTS DA PEÇA CENTRAL ---
 		if center_peca_slots_hbox:
 			for child in center_peca_slots_hbox.get_children():
 				child.queue_free()
@@ -246,7 +246,6 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped: bool = fal
 				if carta != null:
 					slots_usados += carta.custoSlotes
 					
-			# NOVO: Atualiza o texto do Label Central no formato "Slots (X/Y)"
 			if cw_contagem_slots_label:
 				cw_contagem_slots_label.text = "Slots (%d/%d)" % [slots_usados, item.quantosSlotes]
 					
@@ -266,27 +265,28 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped: bool = fal
 
 func _clear_center_window() -> void:
 	item_em_inspecao = null
-	inspecionando_carta_equipada = false #Reseta o estado
+	inspecionando_carta_equipada = false
 	central_nome_label.text = "Selecione um item"
 	central_descricao_label.text = ""
 	central_arte_rect.texture = null
-	center_action_label.text = "Ação" #Usa a referência do Label
+	center_action_label.text = "Ação" 
 	center_action_label.modulate = Color.WHITE
 	center_action_btn.disabled = true
 
 func _update_right_window() -> void:
-	if not InventarioGlobal.meu_time_titular: return
-	if current_slot < 1 or current_slot > InventarioGlobal.meu_time_titular.elenco.size(): return
+	if GameState.jogadores.size() == 0: return 
+	if current_slot < 1 or current_slot > GameState.jogadores.size(): return 
 
-	var peca_atual = InventarioGlobal.meu_time_titular.elenco[current_slot - 1]
+	var peca_atual = GameState.jogadores[current_slot - 1] 
 
 	if right_nome_label:
 		right_nome_label.text = peca_atual.nome
 		
-	var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [peca_atual.força, peca_atual.PA, peca_atual.quantosSlotes]
+	var status = _get_status_calculado(peca_atual)
+	var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, peca_atual.quantosSlotes]
 	right_window_stats.text = texto_status
 
-	# --- ATUALIZAÇÃO VISUAL E TEXTUAL DOS SLOTS (DIREITA) ---
+	# --- ATUALIZAÇÃO VISUAL DOS SLOTS DA PEÇA DIREITA ---
 	if right_slots_indicator_hbox:
 		for child in right_slots_indicator_hbox.get_children():
 			child.queue_free()
@@ -296,7 +296,6 @@ func _update_right_window() -> void:
 			if carta != null:
 				slots_usados += carta.custoSlotes
 				
-		# NOVO: Atualiza o texto do Label no formato "Slots (X/Y)"
 		if rw_contagem_slots_label:
 			rw_contagem_slots_label.text = "Slots (%d/%d)" % [slots_usados, peca_atual.quantosSlotes]
 				
@@ -312,7 +311,7 @@ func _update_right_window() -> void:
 			icone_bolinha.custom_minimum_size = Vector2(20, 20)
 			right_slots_indicator_hbox.add_child(icone_bolinha)
 
-	# 2. Atualizar Grid de Cartas Equipadas (Miniaturas)
+	# Atualizar Grid de Miniaturas Equipadas
 	for child in right_window_grid.get_children():
 		child.queue_free()
 
@@ -332,47 +331,63 @@ func _update_right_window() -> void:
 			slot_vazio.custom_minimum_size = Vector2(50, 70)
 			right_window_grid.add_child(slot_vazio)
 
-# --- AÇÃO DO BOTÃO CENTRAL (Equipar/Trocar/Desequipar) ---
+# --- AÇÃO DO BOTÃO CENTRAL ---
 func _on_center_action_pressed() -> void:
 	if item_em_inspecao == null: return
 	
-	var peca_titular_atual = InventarioGlobal.meu_time_titular.elenco[current_slot - 1]
+	var peca_titular_atual = GameState.jogadores[current_slot - 1]
 	
 	if item_em_inspecao is TeamPlayer:
 		print("Trocando peça do slot ", current_slot)
-		InventarioGlobal.meu_time_titular.elenco[current_slot - 1] = item_em_inspecao
-		_switch_tab(CategoryTab.PIECES) 
+		GameState.jogadores[current_slot - 1] = item_em_inspecao
+		_switch_tab(CategoryTab.PIECES)
 
 	elif item_em_inspecao is CardResource:
 		if inspecionando_carta_equipada:
 			print("Desequipando ", item_em_inspecao.nome)
 			_remover_buff_da_peca(peca_titular_atual, item_em_inspecao)
-			
-			# Se desequipamos, essa carta não está mais na peça, então ela "volta" a ser uma inspeção de inventário
 			inspecionando_carta_equipada = false 
 		else:
 			print("Tentando equipar ", item_em_inspecao.nome)
-			peca_titular_atual.aplicar_buff(item_em_inspecao)
+			if peca_titular_atual.slotsUpgrates.size() != peca_titular_atual.quantosSlotes:
+				peca_titular_atual.slotsUpgrates.resize(peca_titular_atual.quantosSlotes)
+				
+			var slot_livre = peca_titular_atual.slotsUpgrates.find(null)
+			if slot_livre != -1:
+				peca_titular_atual.slotsUpgrates[slot_livre] = item_em_inspecao
 		
 	_update_right_window()
-	
 	_inspecionar_item_na_janela_central(item_em_inspecao, inspecionando_carta_equipada)
 
-# Função auxiliar para retirar a carta e devolver os status
 func _remover_buff_da_peca(peca: TeamPlayer, carta: CardResource):
 	var index = peca.slotsUpgrates.find(carta)
-	
 	if index != -1:
-		peca.slotsUpgrates[index] = null # Libera o slot
+		peca.slotsUpgrates[index] = null
+		print("Carta desequipada com sucesso no menu.")
+
+func _on_btn_salvar_sair_pressed() -> void:
+	print("Salvando o time...")
+	SaveManager.save_game(GameState.jogadores)
+	
+	var menu = get_parent().get_node_or_null("MainMenu")
+	if menu:
+		menu.visible = true
 		
-		# Faz a matemática reversa baseada no enum que você tem no Res_Player
-		match carta.tipo_efeito:
-			CardResource.TipoEfeito.FORCA:
-				peca.força -= carta.magnitude
-				peca.PA += carta.custo_energia
-			CardResource.TipoEfeito.PA:
-				peca.PA -= carta.magnitude
-				peca.PA += carta.custo_energia
-				
-		peca.recalcular_status()
-		print("Status atualizado após desequipar! Força: ", peca.força, " | PA: ", peca.PA)
+	queue_free()
+
+# --- CALCULADORA DE STATUS DINÂMICO ---
+func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
+	var f_total = peca.força if "força" in peca else 50
+	var pa_total = peca.PA if "PA" in peca else 3
+	
+	for carta in peca.slotsUpgrates:
+		if carta != null:
+			match carta.tipo_efeito:
+				CardResource.TipoEfeito.FORCA:
+					f_total += carta.magnitude
+					pa_total -= carta.custo_energia
+				CardResource.TipoEfeito.PA:
+					pa_total += carta.magnitude
+					pa_total -= carta.custo_energia
+					
+	return {"forca": f_total, "pa": pa_total}
