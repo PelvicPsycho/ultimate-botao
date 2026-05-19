@@ -340,7 +340,15 @@ func _on_center_action_pressed() -> void:
 	if item_em_inspecao is TeamPlayer:
 		print("Trocando peça do slot ", current_slot)
 		GameState.jogadores[current_slot - 1] = item_em_inspecao
+		
+		# Atualiza a aba e limpa o centro
 		_switch_tab(CategoryTab.PIECES)
+		
+		# Atualiza a janela da direita para mostrar a peça nova que acabou de entrar
+		_update_right_window()
+		
+		# PARA A FUNÇÃO AQUI
+		return 
 
 	elif item_em_inspecao is CardResource:
 		if inspecionando_carta_equipada:
@@ -356,6 +364,7 @@ func _on_center_action_pressed() -> void:
 			if slot_livre != -1:
 				peca_titular_atual.slotsUpgrates[slot_livre] = item_em_inspecao
 		
+	# Só chega aqui se for uma Carta (que precisa atualizar os botões sem fechar a janela central)
 	_update_right_window()
 	_inspecionar_item_na_janela_central(item_em_inspecao, inspecionando_carta_equipada)
 

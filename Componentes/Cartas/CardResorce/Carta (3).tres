@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cviu5tfake1nh"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_054h3"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_b7ogq"]
+
+[resource]
+script = ExtResource("2_b7ogq")
+nome = "Bola leve"
+custo_energia = 1
+arte = ExtResource("1_054h3")
+descricao = "Bola fica mais leve "
+tipo_alvo = 1
+magnitude = 5
+metadata/_custom_type_script = "uid://dbejkveogu8jv"

@@ -37,10 +37,11 @@ func _carregar_da_pasta_padrao():
 			var caminho = pasta + f
 			var jogador = load(caminho)
 			if jogador is TeamPlayer and jogador.time and jogador.time.name == "Grêmio":
+				# PREPARAÇÃO: Ajusta o tamanho do array com base na capacidade da peça
+				jogador.slotsUpgrates.resize(jogador.quantosSlotes)
 				pecas.append(jogador)
 		f = dir.get_next()
 		
-	# Salva a lista carregada da pasta direto no Autoload
 	GameState.jogadores = pecas
 
 func _on_team_button_pressed() -> void:

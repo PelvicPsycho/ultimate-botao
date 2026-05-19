@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://7gnt7tjdpao3"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_qscwt"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_jhfyi"]
+
+[resource]
+script = ExtResource("2_jhfyi")
+nome = "Corre Peao"
+custo_energia = 4
+arte = ExtResource("1_qscwt")
+descricao = "Peça corre mais rapido"
+raridade = 1
+magnitude = 15
+custoSlotes = 1
+duracao = 2
+metadata/_custom_type_script = "uid://dbejkveogu8jv"

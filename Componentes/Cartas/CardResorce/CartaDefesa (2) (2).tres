@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cbq4dlnbsdl31"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_oq3x0"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_8km1v"]
+
+[resource]
+script = ExtResource("2_8km1v")
+nome = "Escudo"
+custo_energia = 1
+arte = ExtResource("1_oq3x0")
+descricao = "Previni Gol"
+tipo_efeito = 1
+raridade = 2
+magnitude = 10
+duracao = 2
+metadata/_custom_type_script = "uid://dbejkveogu8jv"

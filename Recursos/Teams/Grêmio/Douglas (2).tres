@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://ubaqld18mxg8"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_karrg"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_i7apw"]
+[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="3_rlo0r"]
+
+[resource]
+script = ExtResource("2_i7apw")
+nome = "Douglas2"
+num_camisa = 3
+time = ExtResource("3_rlo0r")
+foto = ExtResource("1_karrg")
+quantosSlotes = 1
+geral = 3
+forca = 10
+PA = 1
+rank = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
