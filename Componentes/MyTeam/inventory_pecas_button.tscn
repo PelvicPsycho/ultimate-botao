@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://orrq0vy3qa51"]
+
+[ext_resource type="Script" uid="uid://c8wvtxvkt6jow" path="res://Componentes/MyTeam/inventory_pecas_button.gd" id="1_s50es"]
+[ext_resource type="Texture2D" uid="uid://dukkotrku2ydb" path="res://Recursos/2D_Art/MyTeam/Rectangle 33_pecas.png" id="2_s50es"]
+[ext_resource type="Texture2D" uid="uid://2cnlefi2jtnx" path="res://Recursos/2D_Art/MyTeam/Rectangle 34_rankcarta.png" id="3_rdpgs"]
+[ext_resource type="Texture2D" uid="uid://47ugmokghauy" path="res://Recursos/2D_Art/MyTeam/Group 53_.png" id="4_qes8w"]
+
+[node name="PecasUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "foto_icone", "rank_label")]
+custom_minimum_size = Vector2(180, 180)
+offset_right = 120.0
+offset_bottom = 160.0
+script = ExtResource("1_s50es")
+nome_label = NodePath("Control/MarginContainer/ContainerLayout_VBoxContainer/Nome_Label")
+foto_icone = NodePath("Control/MarginContainer/ContainerLayout_VBoxContainer/ImagePlaceHolder_ColorRect")
+rank_label = NodePath("Control/Rank_TextureRect/Rank_Label")
+
+[node name="Control" type="Control" parent="." unique_id=859865856]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Fundo_TextureRect2" type="TextureRect" parent="Control" unique_id=1492646913]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("2_s50es")
+expand_mode = 1
+
+[node name="Rank_TextureRect" type="TextureRect" parent="Control" unique_id=1952571652]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("3_rdpgs")
+expand_mode = 1
+
+[node name="Rank_Label" type="Label" parent="Control/Rank_TextureRect" unique_id=1665693706]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.5
+offset_top = -21.0
+offset_right = 8.5
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "S"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1379569078]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 130.0
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ContainerLayout_VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1472640299]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 15
+
+[node name="ImagePlaceHolder_ColorRect" type="TextureRect" parent="Control/MarginContainer/ContainerLayout_VBoxContainer" unique_id=725166944]
+custom_minimum_size = Vector2(130, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("4_qes8w")
+expand_mode = 1
+
+[node name="Nome_Label" type="Label" parent="Control/MarginContainer/ContainerLayout_VBoxContainer" unique_id=264130752]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "NomeCArta"
+horizontal_alignment = 1
+autowrap_mode = 2

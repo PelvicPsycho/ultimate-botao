@@ -23,7 +23,7 @@ var inspecionando_carta_equipada: bool = false
 @export var btn_salvar_sair: Button
 
 @export_group("Janela Esquerda")
-@export var inventory_list: VBoxContainer 
+@export var inventory_list: GridContainer 
 
 @export_group("Janela Central")
 @export var central_nome_label: Label
@@ -53,6 +53,8 @@ var inspecionando_carta_equipada: bool = false
 @export var right_window_stats: RichTextLabel
 @export var right_window_grid: GridContainer
 @export var rw_contagem_slots_label: Label
+@export var rw_button_texture: TextureRect 
+@export var rw_button_label: Label 
 
 @export_group("Janela Direita - Slots Visual")
 @export var right_slots_indicator_hbox: HBoxContainer
@@ -60,7 +62,8 @@ var inspecionando_carta_equipada: bool = false
 @export var icone_slot_livre: Texture2D  
 
 @export_group("Cenas")
-@export var cena_item_inventario: PackedScene 
+@export var cena_item_carta: PackedScene
+@export var cena_item_peca: PackedScene
 
 func _ready() -> void:
 	_connect_signals()
@@ -117,20 +120,35 @@ func _switch_tab(tab: CategoryTab) -> void:
 		tab_pieces_btn.texture_normal = textura_aba_ativa
 		tab_cards_btn.texture_normal = textura_aba_inativa
 		
-		# --- LÓGICA ---
-		if GameState.jogadores.size() > 0:
-			_popular_lista(GameState.jogadores)
-			
+		# --- LÓGICA DE FILTRO (Mostra apenas reservas) ---
+		var num_slots = slot_buttons.size()
+		var pecas_livres = []
+		# Se a lista de jogadores for maior que o número de botões, pega os que sobraram
+		if GameState.jogadores.size() > num_slots:
+			pecas_livres = GameState.jogadores.slice(num_slots)
+		
+		inventory_list.columns = 2
+		_popular_lista(pecas_livres)
+		
 	elif current_tab == CategoryTab.CARDS:
 		# --- VISUAL ---
 		tab_pieces_btn.texture_normal = textura_aba_inativa
 		tab_cards_btn.texture_normal = textura_aba_ativa
 		
-		# --- LÓGICA ---
-		_popular_lista(GameState.inventario_cartas)
+		# --- LÓGICA DE FILTRO (Esconde cartas em uso) ---
+		var cartas_livres = GameState.inventario_cartas.duplicate()
+		
+		# Varre todas as peças para achar as cartas equipadas e tira elas da lista
+		for peca in GameState.jogadores:
+			for carta in peca.slotsUpgrates:
+				if carta != null:
+					cartas_livres.erase(carta)
+					
+		inventory_list.columns = 1
+		_popular_lista(cartas_livres)
 		
 	# Limpa a janela central sempre que trocar de aba
-	_clear_center_window()
+#	_clear_center_window()
 
 # --- FUNÇÃO UNIFICADA DE POPULAR LISTA ---
 func _popular_lista(lista_de_itens: Array) -> void:
@@ -140,12 +158,25 @@ func _popular_lista(lista_de_itens: Array) -> void:
 		
 	# 2. Instancia os novos itens
 	for item in lista_de_itens:
-		var btn_item = cena_item_inventario.instantiate() as InventoryItemButton
-		inventory_list.add_child(btn_item)
+		var btn_item = null
 		
-		btn_item.setup_item(item) 
-		btn_item.pressed.connect(func(): _inspecionar_item_na_janela_central(item))
-
+		# Decide qual cena usar baseado no tipo do item
+		if item is CardResource and cena_item_carta:
+			btn_item = cena_item_carta.instantiate()
+		elif item is TeamPlayer and cena_item_peca:
+			btn_item = cena_item_peca.instantiate()
+			
+		# Se a cena foi carregada com sucesso, configura e adiciona na tela
+		if btn_item:
+			inventory_list.add_child(btn_item)
+			
+			# Checa se o botão tem a função setup_item antes de chamar
+			if btn_item.has_method("setup_item"):
+				btn_item.setup_item(item) 
+			
+			# Conecta o clique enviando para a Janela Central
+			btn_item.pressed.connect(func(): _inspecionar_item_na_janela_central(item))
+			
 # --- INSPEÇÃO NA JANELA CENTRAL ---
 func _inspecionar_item_na_janela_central(item: Resource, is_equipped: bool = false):
 	item_em_inspecao = item
@@ -207,10 +238,12 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped: bool = fal
 		center_card_view.visible = false
 		center_peca_view.visible = true
 		
-		if cw_button_texture:
+		if cw_button_texture and cw_button_label:
 			cw_button_texture.visible = true
 			var index_no_time = GameState.jogadores.find(item)
-			if index_no_time != -1:
+			
+			# Só mostra o número se a peça for titular (estiver na quantidade de botões)
+			if index_no_time != -1 and index_no_time < slot_buttons.size():
 				cw_button_label.text = str(index_no_time + 1)
 			else:
 				cw_button_label.text = ""
@@ -282,6 +315,18 @@ func _update_right_window() -> void:
 	if right_nome_label:
 		right_nome_label.text = peca_atual.nome
 		
+	# --- NOVO: VISUALIZADOR DE NÚMERO (DIREITA) ---
+	if rw_button_texture and rw_button_label:
+		rw_button_texture.visible = true
+		var index_no_time = GameState.jogadores.find(peca_atual)
+		
+		# Só mostra o número se a peça estiver nos primeiros slots (Titulares)
+		if index_no_time != -1 and index_no_time < slot_buttons.size():
+			rw_button_label.text = str(index_no_time + 1)
+		else:
+			rw_button_label.text = " "
+			
+		
 	var status = _get_status_calculado(peca_atual)
 	var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, peca_atual.quantosSlotes]
 	right_window_stats.text = texto_status
@@ -339,15 +384,21 @@ func _on_center_action_pressed() -> void:
 	
 	if item_em_inspecao is TeamPlayer:
 		print("Trocando peça do slot ", current_slot)
-		GameState.jogadores[current_slot - 1] = item_em_inspecao
 		
-		# Atualiza a aba e limpa o centro
+		var index_velho = current_slot - 1
+		var index_novo = GameState.jogadores.find(item_em_inspecao)
+		
+		# Faz o SWAP (Troca de posições) no array para não perder a peça antiga
+		if index_novo != -1 and index_velho < GameState.jogadores.size():
+			var temp = GameState.jogadores[index_velho]
+			GameState.jogadores[index_velho] = GameState.jogadores[index_novo]
+			GameState.jogadores[index_novo] = temp
+			
+		# Atualiza a aba (o que faz a peça antiga voltar pra lista e a nova sumir)
 		_switch_tab(CategoryTab.PIECES)
-		
-		# Atualiza a janela da direita para mostrar a peça nova que acabou de entrar
 		_update_right_window()
-		
-		# PARA A FUNÇÃO AQUI
+		#Limpa a janela do meio
+		_clear_center_window()
 		return 
 
 	elif item_em_inspecao is CardResource:
@@ -364,9 +415,12 @@ func _on_center_action_pressed() -> void:
 			if slot_livre != -1:
 				peca_titular_atual.slotsUpgrates[slot_livre] = item_em_inspecao
 		
-	# Só chega aqui se for uma Carta (que precisa atualizar os botões sem fechar a janela central)
-	_update_right_window()
-	_inspecionar_item_na_janela_central(item_em_inspecao, inspecionando_carta_equipada)
+		# Recarrega a aba de cartas para a lista sumir com a equipada ou devolver a desequipada
+		_switch_tab(CategoryTab.CARDS)
+		_update_right_window()
+		#Limpa a janela do meio
+		_clear_center_window()
+		return
 
 func _remover_buff_da_peca(peca: TeamPlayer, carta: CardResource):
 	var index = peca.slotsUpgrates.find(carta)
@@ -386,17 +440,19 @@ func _on_btn_salvar_sair_pressed() -> void:
 
 # --- CALCULADORA DE STATUS DINÂMICO ---
 func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
-	var f_total = peca.força if "força" in peca else 50
+	# 1. Pega os valores base (seguro contra erros)
+	var f_total = peca.força if "força" in peca else 10
 	var pa_total = peca.PA if "PA" in peca else 3
 	
+	# 2. Varre as cartas equipadas e soma os bônus/penalidades
 	for carta in peca.slotsUpgrates:
 		if carta != null:
 			match carta.tipo_efeito:
 				CardResource.TipoEfeito.FORCA:
 					f_total += carta.magnitude
-					pa_total -= carta.custo_energia
 				CardResource.TipoEfeito.PA:
+					# Se quiser alterar o PA:
 					pa_total += carta.magnitude
-					pa_total -= carta.custo_energia
 					
+	# 3. Retorna os valores já mastigados para a interface usar
 	return {"forca": f_total, "pa": pa_total}

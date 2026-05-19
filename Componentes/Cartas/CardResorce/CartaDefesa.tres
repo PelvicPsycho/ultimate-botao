@@ -12,5 +12,6 @@ descricao = "Previni Gol"
 tipo_efeito = 1
 raridade = 2
 magnitude = 10
+custoSlotes = 1
 duracao = 2
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

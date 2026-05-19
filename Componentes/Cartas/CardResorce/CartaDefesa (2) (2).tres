@@ -5,12 +5,13 @@
 
 [resource]
 script = ExtResource("2_8km1v")
-nome = "Escudo"
+nome = "Escudo1"
 custo_energia = 1
 arte = ExtResource("1_oq3x0")
 descricao = "Previni Gol"
 tipo_efeito = 1
 raridade = 2
 magnitude = 10
+custoSlotes = 1
 duracao = 2
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

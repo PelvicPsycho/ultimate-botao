@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_l0owh")
-nome = "Corre Peao"
+nome = "Corre Peao2"
 custo_energia = 4
 arte = ExtResource("1_gxlqc")
 descricao = "Peça corre mais rapido"
