@@ -15,14 +15,16 @@ signal status_mudou
 @export var quantosSlotes: int
 @export var geral: int
 var slotsUpgrates: Array[CardResource] = []
-
+var turnos_congelamento_armazenado: int = 0
 # 2. SEM O CEDILHA (Obrigatório ser 'forca' para casar com o script do Player)
 @export var forca: int 
 @export var PA: int
 @export var rank: Rank
 @export var disabilitado: bool
-
+@export var turnos_preso:int
+var congelamento_ativo: bool = false
 var duracao_dos_buffs: Dictionary = {}
+var ultima_carta_usada: CardResource = null
 func _init():
 	slotsUpgrates.resize(quantosSlotes)
 func inicializar_slots() -> void:
@@ -40,13 +42,18 @@ func resetar_status(base_info: TeamPlayer) -> void:
 
 func aplicar_buff(card: CardResource) -> void:
 	# 1. A carta já está equipada: só ativa o efeito.
+	ultima_carta_usada = card
 	match card.tipo_efeito:
 		CardResource.TipoEfeito.FORCA:
 			forca += card.magnitude
 
 		CardResource.TipoEfeito.PA:
 			PA += card.magnitude
-
+		CardResource.TipoEfeito.Congelamento:
+			
+			congelamento_ativo = true
+			
+		
 	PA -= card.custo_energia
 	duracao_dos_buffs[card] = card.duracao
 	recalcular_status()

@@ -3,7 +3,9 @@ class_name CardResource
 
 enum TipoEfeito {
 	FORCA,
-	PA
+	PA,
+	Congelamento,
+	Empurrão
 	
 }
 enum Raridade{

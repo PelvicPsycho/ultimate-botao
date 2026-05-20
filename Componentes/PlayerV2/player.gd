@@ -199,7 +199,8 @@ func _physics_process(delta: float) -> void:
 			spark_cooldowns.erase(id)
 
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
-
+	if is_frozen():
+		return
 	if !canPlay or disabled:
 		return
 		
@@ -227,7 +228,8 @@ func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, n
 	if Input.is_action_just_pressed("ui_focus_next"): # tecla TAB por padrão
 		debug_status()
 func _input(event: InputEvent) -> void:
-
+	if is_frozen():
+		return
 	if not is_dragging:
 		return
 
@@ -455,6 +457,8 @@ func _desenhar_mira(vetor_2d: Vector2) -> void:
 		mira_pivot.visible = false
 
 func _aplicar_forca(vetor_2d: Vector2) -> void:
+	if is_frozen():
+		return
 	if is_instance_valid(sfx_tensao_atual): sfx_tensao_atual.stop()
 	
 	# MATEMÁTICA CORRIGIDA: 1.0 (Velocidade Normal) + Bônus da Força.
@@ -527,19 +531,42 @@ func ativar_spark_no_ponto_global(ponto_global: Vector3) -> void:
 
 	get_tree().current_scene.add_child(spark_instance)
 	spark_instance.global_position = ponto_global
-
+func is_frozen() -> bool:
+	return status_atual.disabilitado or status_atual.turnos_preso > 0
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var total := state.get_contact_count()
 	if total <= 0:
 		return
-
+		
 	for i in range(total):
 		var collider := state.get_contact_collider_object(i)
 		if collider == null:
 			continue
-
+	
 		if collider.name.to_lower() == "pitch":
 			continue
+		   # --- HABILIDADE STUN / CONGELAMENTO ---
+		if status_atual.congelamento_ativo:
+
+	# só congela peças (Player), ignora bola, parede etc
+			if collider is Player:
+
+		# aplica stun no ALVO (não no atacante)
+				collider.status_atual.turnos_preso = status_atual.ultima_carta_usada.duracao
+				collider.status_atual.disabilitado = true
+				collider.status_atual.status_mudou.emit()
+
+		# limpa estado do atacante
+				status_atual.congelamento_ativo = false
+
+				print("=== CONGELAMENTO ATIVADO ===")
+				print("Alvo:", collider.playerInfo.nome)
+				print("Turnos preso:", collider.status_atual.turnos_preso)
+
+		continue  # interrompe processamento desse contato
+				
+
+
 
 		var collider_id := collider.get_instance_id()
 		if spark_cooldowns.has(collider_id) and spark_cooldowns[collider_id] > 0.0:
