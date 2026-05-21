@@ -26,6 +26,7 @@ var congelamento_ativo: bool = false
 var duracao_dos_buffs: Dictionary = {}
 var ultima_carta_usada: CardResource = null
 var troca_posicao_ativa: bool = false
+var aumento_de_tamano:bool
 func _init():
 	slotsUpgrates.resize(quantosSlotes)
 func inicializar_slots() -> void:
@@ -40,7 +41,7 @@ func recalcular_status() -> void:
 func resetar_status(base_info: TeamPlayer) -> void:
 	self.forca = base_info.forca
 	self.PA = base_info.PA 
-
+	self.aumento_de_tamano = false
 func aplicar_buff(card: CardResource) -> void:
 	# 1. A carta já está equipada: só ativa o efeito.
 	ultima_carta_usada = card
@@ -51,13 +52,13 @@ func aplicar_buff(card: CardResource) -> void:
 		CardResource.TipoEfeito.PA:
 			PA += card.magnitude
 		CardResource.TipoEfeito.Congelamento:
-			
 			congelamento_ativo = true
 			
 		CardResource.TipoEfeito.TrocaLugar:
 			troca_posicao_ativa = true
 			
-			
+		CardResource.TipoEfeito.Grande:
+			aumento_de_tamano = true
 			
 		
 	PA -= card.custo_energia

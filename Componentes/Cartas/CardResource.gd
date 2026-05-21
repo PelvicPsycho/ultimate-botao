@@ -6,7 +6,8 @@ enum TipoEfeito {
 	PA,
 	Congelamento,
 	Empurrão,
-	TrocaLugar
+	TrocaLugar,
+	Grande
 }
 enum Raridade{
 	NORMAL, INCOMUN, RARA

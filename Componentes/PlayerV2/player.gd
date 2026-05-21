@@ -394,7 +394,6 @@ func _chutar_peca_puxar(posicao_final: Vector2) -> void:
 	parar_fumaça()
 	_aplicar_forca(vetor_arrasto_2d )
 	
-
 func puxar_no_timeout():
 	if not is_dragging:
 		return
@@ -406,18 +405,15 @@ func puxar_no_timeout():
 		parar_shake()
 		_cancelar_interacao()
 		turnPlayed.emit()
-
 func _processar_empurrao(posicao_atual: Vector2) -> void:
 	if not direcao_travada:
 		var distancia = posicao_inicial_toque.distance_to(posicao_atual)
-
 		if distancia > raio_saida_pixels:
 			direcao_travada = true
 			vetor_direcao_empurrao = (posicao_atual - posicao_inicial_toque).normalized()
 			tempo_trava_direcao = Time.get_ticks_msec()
 	else:
 		var tempo_decorrido = Time.get_ticks_msec() - tempo_trava_direcao
-
 		if tempo_decorrido <= 100:
 			var vetor_movimento = posicao_atual - posicao_inicial_toque
 			var forca_atual = vetor_movimento.dot(vetor_direcao_empurrao)
@@ -431,15 +427,11 @@ func _processar_empurrao(posicao_atual: Vector2) -> void:
 func _executar_tiro_empurrar() -> void:
 	var vetor_final_2d = vetor_direcao_empurrao * forca_acumulada_empurrao
 	_aplicar_forca(vetor_final_2d)
-
-
 func _processar_carregar(posicao_atual: Vector2) -> void:
 	if not carregando_modo3: return
 	var vetor_arrasto_2d = posicao_inicial_toque - posicao_atual
-
 	if vetor_arrasto_2d.length_squared() > 25.0:
 		direcao_atual_modo3 = vetor_arrasto_2d
-
 	var distancia = posicao_inicial_toque.distance_to(posicao_atual)
 	if distancia > raio_saida_pixels:
 		if direcao_atual_modo3 != Vector2.ZERO:
@@ -448,10 +440,8 @@ func _processar_carregar(posicao_atual: Vector2) -> void:
 			var vetor_forca_3d = direcao_3d * forca_carga_atual * multiplicador_status * mass
 			apply_central_impulse(vetor_forca_3d)
 			turnPlayed.emit()
-
 		parar_shake()
 		_cancelar_interacao()
-
 func _desenhar_mira(vetor_2d: Vector2) -> void:
 	var multiplicador_status: float = 1.0 + (float(status_atual.forca) / 50.0)
 	
@@ -466,14 +456,12 @@ func _desenhar_mira(vetor_2d: Vector2) -> void:
 		mira_pivot.scale.z = remap(clampf(forca_visual, 0.1, limite_max_atual), 0.1, limite_max_atual, 0.1, tamanho_maximo_linha)
 	else:
 		mira_pivot.visible = false
-
 func _aplicar_forca(vetor_2d: Vector2) -> void:
 	if is_frozen():
 		return
 	if is_instance_valid(sfx_tensao_atual): sfx_tensao_atual.stop()
 	
-	# MATEMÁTICA CORRIGIDA: 1.0 (Velocidade Normal) + Bônus da Força.
-	# Se a força for 10, o multiplicador é 1.2x. Se for 50, é 2.0x!
+
 	var multiplicador_status: float = 1.0 + (float(status_atual.forca) / 50.0)
 	
 	var vetor_forca_3d = Vector3(vetor_2d.x, 0, vetor_2d.y) * forca_multiplicador * multiplicador_status
@@ -494,12 +482,8 @@ func _aplicar_forca(vetor_2d: Vector2) -> void:
 		audio_tiro = audio_chute_max
 		
 	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
-
 	if vetor_forca_3d.length() > limite_max_atual:
 		vetor_forca_3d = vetor_forca_3d.normalized() * limite_max_atual
-
-	# O Godot usa física real: Se a força aumenta a MASSA (peso), precisamos
-	# multiplicar o empurrão pela massa para uma peça pesada não ficar lerda.
 	apply_central_impulse(vetor_forca_3d * mass)
 	
 	_cancelar_interacao_silenciosa() 
@@ -562,7 +546,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	
 		if collider.name.to_lower() == "pitch":
 			continue
-		   # --- HABILIDADE STUN / CONGELAMENTO ---
+		   
 		if status_atual.congelamento_ativo:
 
 	# só congela peças (Player), ignora bola, parede etc
@@ -638,18 +622,32 @@ func _on_player_released(pos: Vector3):
 func atualizar_fisica_por_status():
 	
 	# Aumentar a massa torna a peça mais difícil de ser empurrada por outros
-	mass = 1.0 + (status_atual.forca * 0.05) 
-	
+	var massa_base  = 1.0 + (status_atual.forca * 0.05) 
+	if status_atual.aumento_de_tamano:
+		mass = massa_base * 2.0   # dobra a massa
+	else:
+		mass = massa_base
 	# Se quiser que ela deslize mais ou menos no campo
 	physics_material_override.friction = clamp(1.0 - (status_atual.forca * 0.01), 0.1, 1.0)
 func atualizar_peca_pelo_status() -> void:
 	if not is_instance_valid(status_atual): return
 	
 	# --- FÍSICA ---
-	mass = 1.0 + (status_atual.forca * 0.05) 
-	if physics_material_override:
-		physics_material_override.friction = clampf(1.0 - (status_atual.forca * 0.01), 0.1, 1.0)
-		
+
+	if status_atual.aumento_de_tamano:
+	# aumenta o modelo real
+		if visual_piece:
+			visual_piece.scale = Vector3(1.5, 1.5, 1.5)	
+		var colisor = $CollisionShape3D
+		if colisor:
+			colisor.scale = Vector3(1.5, 1.5, 1.5)	
+	else:
+		if visual_piece:
+			visual_piece.scale = Vector3(1.0, 1.0, 1.0)
+
+		var colisor = $CollisionShape3D
+		if colisor:
+			colisor.scale = Vector3(1.0, 1.0, 1.0)
 	# --- VISUAL DO CÍRCULO (SISTEMA DE 3 TAMANHOS) ---
 	if is_instance_valid(circulo_limite):
 		var nova_escala: float = escala_circulo_normal # Começa assumindo o tamanho Normal
@@ -659,7 +657,7 @@ func atualizar_peca_pelo_status() -> void:
 			nova_escala = escala_circulo_fraco
 		elif status_atual.forca >= limite_forca_forte:
 			nova_escala = escala_circulo_forte
-			
+		
 		circulo_limite.scale = Vector3(nova_escala, nova_escala, nova_escala)
 		
 	# Atualiza a mira se estiver arrastando
