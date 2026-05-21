@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://c83fttwkeoyja"]
+
+[ext_resource type="PackedScene" uid="uid://cmgl103lkwr8r" path="res://Componentes/2DMatch/Components/Pitch/Pitch.tscn" id="1_f5csw"]
+[ext_resource type="Script" uid="uid://cakjkf8xii668" path="res://Componentes/2DMatch/Physics2D/CollisionResolution2D.gd" id="2_8qb28"]
+[ext_resource type="PackedScene" uid="uid://cq0wl57lmdp3k" path="res://Componentes/2DMatch/Components/Player/Player2D.tscn" id="3_6rqop"]
+[ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="4_qrj6x"]
+[ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="5_8n0c5"]
+[ext_resource type="PackedScene" uid="uid://b83wuowkuk58w" path="res://Componentes/2DMatch/Components/Ball/Ball2D.tscn" id="6_jf1un"]
+
+[node name="MatchScene2dPhysicsTest" type="Node2D" unique_id=607931073]
+
+[node name="Pitch" parent="." unique_id=603521134 instance=ExtResource("1_f5csw")]
+scale = Vector2(1, 0.87)
+
+[node name="Physic Objects" type="Node" parent="." unique_id=1707556434 node_paths=PackedStringArray("PhysicsObjects_List")]
+script = ExtResource("2_8qb28")
+PhysicsObjects_List = [NodePath("HomeTeam/Player2d"), NodePath("AwayTeam/Player2d"), NodePath("Balls/Ball2d")]
+
+[node name="HomeTeam" type="Node" parent="Physic Objects" unique_id=1353853959]
+
+[node name="Player2d" parent="Physic Objects/HomeTeam" unique_id=1542391535 instance=ExtResource("3_6rqop")]
+position = Vector2(616, 469)
+min_force = 10.0
+max_force = 1000.0
+playerInfo = ExtResource("4_qrj6x")
+
+[node name="AwayTeam" type="Node" parent="Physic Objects" unique_id=2042469543]
+
+[node name="Player2d" parent="Physic Objects/AwayTeam" unique_id=1444146607 instance=ExtResource("3_6rqop")]
+position = Vector2(1298, 469)
+min_force = 10.0
+max_force = 1000.0
+playerInfo = ExtResource("5_8n0c5")
+
+[node name="Balls" type="Node" parent="Physic Objects" unique_id=572129439]
+
+[node name="Ball2d" parent="Physic Objects/Balls" unique_id=1925699982 instance=ExtResource("6_jf1un")]
+position = Vector2(960, 469)

@@ -39,6 +39,7 @@ window/stretch/aspect="expand"
 Goals=""
 Players=""
 Balls=""
+PhysicsObjects=""
 
 [internationalization]
 
@@ -47,12 +48,13 @@ locale/test="pt_BR"
 
 [layer_names]
 
-2d_physics/layer_1="wall"
+2d_physics/layer_1="Walls"
 3d_physics/layer_1="Wall"
-2d_physics/layer_2="physics"
+2d_physics/layer_2="PhysicObjects"
 3d_physics/layer_2="Physics Objects"
-2d_physics/layer_3="ground"
+2d_physics/layer_3="Ground"
 3d_physics/layer_3="Ground"
+2d_physics/layer_4="Others"
 3d_physics/layer_4="Others"
 
 [physics]

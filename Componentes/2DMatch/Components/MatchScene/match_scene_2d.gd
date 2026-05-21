@@ -80,9 +80,9 @@ func _ready():
 	
 	timer.iniciar_partida()
 	timer.iniciar_lance(currentTurn)
-	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, Color.DARK_RED)
+	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 1, Color.DARK_RED)
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
-	get_tree().create_timer(2).timeout.connect(disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5), CONNECT_ONE_SHOT)
+	get_tree().create_timer(0.5).timeout.connect(disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5), CONNECT_ONE_SHOT)
 	atualizar_cores_pecas()
 	
 func _atualizar_placar() -> void:
@@ -151,13 +151,13 @@ func printState():
 	print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
 
 func onTurnPlayed() -> void:
-	congelar_jogo(true)
+	#congelar_jogo(true, 5)
 	#await get_tree().create_timer(1.0).timeout #FUTURAMENTE, ESPERAR AS PEÇAS PARAREM
-	var parado_corretamente = await waitAllStopped()
-	if not parado_corretamente or not is_inside_tree():
-		return
-#	printState()
-	congelar_jogo(false)
+	#var parado_corretamente = await waitAllStopped()
+	#if not parado_corretamente or not is_inside_tree():
+		#return
+	#printState()
+	#congelar_jogo(false, 1)
 	decideTurn()
 	timer.iniciar_lance(currentTurn)
 
@@ -279,7 +279,7 @@ func decideTurn():
 				if currentTurn == turn.HOME:
 					%MatchUI.colorir_turno(homeTeam,turnCounter)
 				else: %MatchUI.colorir_turno(awayTeam,turnCounter)
-				disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+				disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 1.5, Color.YELLOW)
 				return # Se o time do turno atual tiver tocado por ultimo na bola, mantem a posse
 		if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:
 			#print("TOCOU MAIS DE 3 VEZES")
@@ -338,7 +338,7 @@ func _sincronizar_estado_congelamento() -> void:
 func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: Color = Color.WHITE):
 	# Trava as peças e o lance
 	congelar_jogo(true, tempo + 0.2)
-	
+
 	# Mostra o texto
 	anunciador_ui.mostrar_evento(texto, tamanho, tempo, cor)
 	

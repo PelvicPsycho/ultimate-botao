@@ -34,7 +34,7 @@ var disabled: bool = false
 
 @onready var mesh = $Visual/MeshBody
 
-signal clickedPiece(Piece: PhysicsPlayer)
+signal clickedPiece(Piece: PhysicsPlayer2D)
 signal turnPlayed
 var base_rotation_y: float = 0.0
 

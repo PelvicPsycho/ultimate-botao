@@ -10,6 +10,7 @@ position = Vector2(960, 540)
 texture = ExtResource("1_4jlcv")
 
 [node name="Limits" type="StaticBody2D" parent="." unique_id=1520481869]
+collision_mask = 2
 
 [node name="TopWall" type="CollisionPolygon2D" parent="Limits" unique_id=1989422722]
 polygon = PackedVector2Array(243, 421, 243, 278, 423, 99, 1499, 99, 1677, 279, 1677, 421, 1714, 421, 1713, 263, 1512, 63, 407, 63, 206, 263, 207, 421)
@@ -20,12 +21,12 @@ scale = Vector2(-1, -1)
 polygon = PackedVector2Array(243, 421, 243, 278, 423, 99, 1499, 99, 1677, 279, 1677, 421, 1714, 421, 1713, 263, 1512, 63, 407, 63, 206, 263, 207, 421)
 
 [node name="HomeGoal" type="CollisionPolygon2D" parent="Limits" unique_id=1304808500]
-polygon = PackedVector2Array(243, 421, 126, 420, 126, 660, 243, 659, 243, 654, 131, 654, 131, 426, 243, 426)
+polygon = PackedVector2Array(243, 386, 90, 386, 90, 694, 243, 694, 243, 654, 131, 654, 131, 426, 243, 426)
 
-[node name="AwayGoal" type="CollisionPolygon2D" parent="Limits" unique_id=1245243672]
+[node name="AwayGoal" type="CollisionPolygon2D" parent="Limits" unique_id=191755524]
 position = Vector2(1920, 1080)
-scale = Vector2(-1, -1)
-polygon = PackedVector2Array(243, 421, 126, 420, 126, 660, 243, 659, 243, 654, 131, 654, 131, 426, 243, 426)
+rotation = 3.1415927
+polygon = PackedVector2Array(243, 386, 90, 386, 90, 694, 243, 694, 243, 654, 131, 654, 131, 426, 243, 426)
 
 [node name="HomeGoal" parent="." unique_id=1637700476 instance=ExtResource("2_sf8ja")]
 

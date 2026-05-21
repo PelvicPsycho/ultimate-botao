@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c8rwyrg74r0ec"]
 
-[ext_resource type="Script" uid="uid://cg1hdmqd27sns" path="res://Componentes/2DMatch/Components/MatchScene/match_scene_2d.gd" id="1_nc28g"]
+[ext_resource type="Script" uid="uid://cg1hdmqd27sns" path="res://Componentes/2DMatch/Components/MatchScene/match_scene_2D.gd" id="1_nc28g"]
 [ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="2_8rcbb"]
 [ext_resource type="PackedScene" uid="uid://cmgl103lkwr8r" path="res://Componentes/2DMatch/Components/Pitch/Pitch.tscn" id="2_u2h3r"]
 [ext_resource type="Script" uid="uid://cakjkf8xii668" path="res://Componentes/2DMatch/Physics2D/CollisionResolution2D.gd" id="3_mdiny"]
@@ -23,6 +23,8 @@ homeTeam = ExtResource("2_8rcbb")
 awayTeam = ExtResource("3_quvbt")
 
 [node name="Pitch" parent="." unique_id=603521134 instance=ExtResource("2_u2h3r")]
+position = Vector2(0, 121)
+scale = Vector2(1, 0.87)
 
 [node name="Physic Objects" type="Node" parent="." unique_id=1051536453]
 script = ExtResource("3_mdiny")
@@ -30,20 +32,48 @@ script = ExtResource("3_mdiny")
 [node name="HomeTeam" type="Node" parent="Physic Objects" unique_id=344833047]
 
 [node name="Player2d" parent="Physic Objects/HomeTeam" unique_id=1542391535 instance=ExtResource("4_mrdvm")]
-position = Vector2(616, 540)
+position = Vector2(767, 574)
+min_force = 10.0
+max_force = 1000.0
+playerInfo = ExtResource("5_dmcql")
+
+[node name="Player2d2" parent="Physic Objects/HomeTeam" unique_id=1140135375 instance=ExtResource("4_mrdvm")]
+position = Vector2(616, 388)
+min_force = 10.0
+max_force = 1000.0
+playerInfo = ExtResource("5_dmcql")
+
+[node name="Player2d3" parent="Physic Objects/HomeTeam" unique_id=2025737412 instance=ExtResource("4_mrdvm")]
+position = Vector2(623, 761)
+min_force = 10.0
+max_force = 1000.0
 playerInfo = ExtResource("5_dmcql")
 
 [node name="AwayTeam" type="Node" parent="Physic Objects" unique_id=503154718]
 
 [node name="Player2d" parent="Physic Objects/AwayTeam" unique_id=1463780591 instance=ExtResource("4_mrdvm")]
-position = Vector2(1298, 540)
-collision_layer = 2
+position = Vector2(1128, 586)
+min_force = 10.0
+max_force = 1000.0
+playerInfo = ExtResource("6_ihoqn")
+
+[node name="Player2d2" parent="Physic Objects/AwayTeam" unique_id=1610317571 instance=ExtResource("4_mrdvm")]
+position = Vector2(1300, 407)
+min_force = 10.0
+max_force = 1000.0
+playerInfo = ExtResource("6_ihoqn")
+
+[node name="Player2d3" parent="Physic Objects/AwayTeam" unique_id=1001746371 instance=ExtResource("4_mrdvm")]
+position = Vector2(1302, 765)
+min_force = 10.0
+max_force = 1000.0
 playerInfo = ExtResource("6_ihoqn")
 
 [node name="Balls" type="Node" parent="Physic Objects" unique_id=1886560739]
 
 [node name="Ball2d" parent="Physic Objects/Balls" unique_id=1925699982 instance=ExtResource("5_432vt")]
-position = Vector2(957, 538)
+position = Vector2(960, 581)
+mass = 1.0
 
 [node name="MatchUI" parent="." unique_id=2001534732 instance=ExtResource("9_8rcbb")]
 unique_name_in_owner = true
@@ -52,7 +82,6 @@ unique_name_in_owner = true
 visible = false
 
 [node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("8_ihoqn")]
-visible = false
 
 [node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("11_3lv5j")]
 visible = false

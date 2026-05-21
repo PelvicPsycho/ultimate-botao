@@ -8,7 +8,7 @@ size = Vector2(99, 225)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y2bt5"]
 size = Vector2(72.5, 37)
 
-[node name="Goal2d" type="Node2D" unique_id=1637700476]
+[node name="Goal2D" type="Node2D" unique_id=1637700476]
 
 [node name="Campo02Gordo" type="Sprite2D" parent="." unique_id=1187753447]
 visible = false
@@ -16,12 +16,16 @@ position = Vector2(960, 540)
 texture = ExtResource("1_yau48")
 
 [node name="GoalArea" type="Area2D" parent="." unique_id=209979040]
+collision_layer = 8
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalArea" unique_id=893226879]
 position = Vector2(182.5, 539.5)
 shape = SubResource("RectangleShape2D_iorkw")
 
 [node name="NearMissArea" type="Area2D" parent="." unique_id=989177745]
+collision_layer = 8
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NearMissArea" unique_id=1305831501]
 position = Vector2(279.75, 404)
