@@ -30,4 +30,16 @@ func _on_restart_button_up():
 
 func _on_next_pressed() -> void:
 	GameState.nextCompetitor()
+	pickReward()
 	get_tree().reload_current_scene()
+
+func pickReward():
+	var opposingTeam = GameState.currentCompetitor
+	var currentTeam = GameState.myTeam
+	var reward: TeamPlayer
+	while true:
+		reward = opposingTeam.mainSquad.pick_random()
+		if reward not in currentTeam.collectedSquad or reward not in currentTeam.mainSquad:
+			currentTeam.collectedSquad.append(reward)
+			print("VOCE GANHOU: ", reward)
+			return;

@@ -53,6 +53,7 @@ func nextCup():
 	pickCompetitors()
 
 func nextCompetitor():
+	print(GameState.myTeam.collectedSquad)
 	matchesPlayed+=1
 	if matchesPlayed < currentCup.numMatches:
 		currentCompetitor = followingCompetitors[matchesPlayed]
