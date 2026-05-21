@@ -7,7 +7,8 @@ enum TipoEfeito {
 	Congelamento,
 	Empurrão,
 	TrocaLugar,
-	Grande
+	Grande,
+	Pequeno
 }
 enum Raridade{
 	NORMAL, INCOMUN, RARA

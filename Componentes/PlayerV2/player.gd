@@ -627,6 +627,10 @@ func atualizar_fisica_por_status():
 		mass = massa_base * 2.0   # dobra a massa
 	else:
 		mass = massa_base
+	if status_atual.diminui_tamanho:
+		mass = massa_base * 0.5
+	else:
+		mass = massa_base
 	# Se quiser que ela deslize mais ou menos no campo
 	physics_material_override.friction = clamp(1.0 - (status_atual.forca * 0.01), 0.1, 1.0)
 func atualizar_peca_pelo_status() -> void:
@@ -637,27 +641,36 @@ func atualizar_peca_pelo_status() -> void:
 	if status_atual.aumento_de_tamano:
 	# aumenta o modelo real
 		if visual_piece:
-			visual_piece.scale = Vector3(1.5, 1.5, 1.5)	
+			visual_piece.scale = Vector3(1.5, 1.5, 1.5)
 		var colisor = $CollisionShape3D
 		if colisor:
 			colisor.scale = Vector3(1.5, 1.5, 1.5)	
 	else:
 		if visual_piece:
 			visual_piece.scale = Vector3(1.0, 1.0, 1.0)
-
+		var colisor = $CollisionShape3D
+		if colisor:
+			colisor.scale = Vector3(1.0, 1.0, 1.0)
+	if status_atual.diminui_de_tamano:
+		if visual_piece:
+			visual_piece.scale = Vector3(0.5, 0.5, 0.5)
+		var colisor = $CollisionShape3D
+		if colisor:
+			colisor.scale = Vector3(0.5, 0.5, 0.5)	
+	else:
+		if visual_piece:
+			visual_piece.scale = Vector3(1.0, 1.0, 1.0)
 		var colisor = $CollisionShape3D
 		if colisor:
 			colisor.scale = Vector3(1.0, 1.0, 1.0)
 	# --- VISUAL DO CÍRCULO (SISTEMA DE 3 TAMANHOS) ---
 	if is_instance_valid(circulo_limite):
 		var nova_escala: float = escala_circulo_normal # Começa assumindo o tamanho Normal
-		
 		# Verifica em qual 'Degrau' de força o jogador está
 		if status_atual.forca < limite_forca_fraca:
 			nova_escala = escala_circulo_fraco
 		elif status_atual.forca >= limite_forca_forte:
 			nova_escala = escala_circulo_forte
-		
 		circulo_limite.scale = Vector3(nova_escala, nova_escala, nova_escala)
 		
 	# Atualiza a mira se estiver arrastando
