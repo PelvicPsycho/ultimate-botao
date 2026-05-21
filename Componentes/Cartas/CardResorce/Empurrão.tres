@@ -1,7 +1,15 @@
 [gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://biyalmc7bcd3l"]
 
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_fk81x"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_sgwkw"]
 
 [resource]
 script = ExtResource("1_sgwkw")
+nome = "CartaEnpurradinhaAliada"
+custo_energia = 3
+arte = ExtResource("1_fk81x")
+tipo_efeito = 3
+magnitude = 2
+custoSlotes = 1
+duracao = 2
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

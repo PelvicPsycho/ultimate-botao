@@ -442,13 +442,14 @@ func _processar_carregar(posicao_atual: Vector2) -> void:
 			turnPlayed.emit()
 		parar_shake()
 		_cancelar_interacao()
+		
 func _desenhar_mira(vetor_2d: Vector2) -> void:
 	var multiplicador_status: float = 1.0 + (float(status_atual.forca) / 50.0)
 	
 	# A mira cresce acompanhando o bônus e a massa
 	var vetor_direcao_3d = Vector3(vetor_2d.x, 0, vetor_2d.y) * forca_multiplicador * multiplicador_status * mass
 	var forca_visual = vetor_direcao_3d.length()
-
+	
 	if forca_visual > 0.1:
 		mira_pivot.visible = true
 		mira_pivot.look_at(global_position + vetor_direcao_3d, Vector3.UP)
@@ -461,7 +462,6 @@ func _aplicar_forca(vetor_2d: Vector2) -> void:
 		return
 	if is_instance_valid(sfx_tensao_atual): sfx_tensao_atual.stop()
 	
-
 	var multiplicador_status: float = 1.0 + (float(status_atual.forca) / 50.0)
 	
 	var vetor_forca_3d = Vector3(vetor_2d.x, 0, vetor_2d.y) * forca_multiplicador * multiplicador_status
@@ -495,14 +495,12 @@ func _cancelar_interacao() -> void:
 		
 	SoundMaster.play_sfx(audio_cancelar)
 	_cancelar_interacao_silenciosa()
-
 func parar_shake() -> void:
 	shaking = false
 	shake_timer = 0.0
 	if visual_piece != null:
 		visual_piece.position = base_visual_position
 		visual_piece.rotation = base_visual_rotation
-
 func _cancelar_interacao_silenciosa() -> void:
 	_on_player_released(position)
 	is_dragging = false
@@ -510,20 +508,16 @@ func _cancelar_interacao_silenciosa() -> void:
 	carregando_modo3 = false
 	mira_pivot.visible = false
 	circulo_limite.visible = false
-
 func _on_mouse_entered() -> void:
 	is_pointer_inside = true
-
 func _on_mouse_exited() -> void:
 	is_pointer_inside = false
 func ativar_spark_no_ponto_global(ponto_global: Vector3) -> void:
 	if spark_scene == null:
 		return
-
 	var spark_instance := spark_scene.instantiate() as Node3D
 	if spark_instance == null:
 		return
-
 	get_tree().current_scene.add_child(spark_instance)
 	spark_instance.global_position = ponto_global
 func is_frozen() -> bool:
@@ -538,7 +532,8 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var total := state.get_contact_count()
 	if total <= 0:
 		return
-		
+	
+
 	for i in range(total):
 		var collider := state.get_contact_collider_object(i)
 		if collider == null:
@@ -546,7 +541,14 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	
 		if collider.name.to_lower() == "pitch":
 			continue
-		   
+		if status_atual.empurra_aliados_ativo:
+			if collider is Player and collider.team == self.team:
+				status_atual.empurra_aliados_ativo = false
+				var minha_vel = state.get_contact_local_velocity_at_position(i)
+				var vel_outro = state.get_contact_collider_velocity_at_position(i)
+				var impulso_base = (minha_vel - vel_outro)
+				var impulso_final = impulso_base * status_atual.empurra_aliados_multiplicador
+				collider.apply_central_impulse(impulso_final)   
 		if status_atual.congelamento_ativo:
 
 	# só congela peças (Player), ignora bola, parede etc
@@ -627,7 +629,7 @@ func atualizar_fisica_por_status():
 		mass = massa_base * 2.0   # dobra a massa
 	else:
 		mass = massa_base
-	if status_atual.diminui_tamanho:
+	if status_atual.diminui_de_tamano:
 		mass = massa_base * 0.5
 	else:
 		mass = massa_base
@@ -684,10 +686,8 @@ func debug_status():
 	print("  Slots:", status_atual.slotsUpgrates)
 	print("  Buffs Ativos:", status_atual.duracao_dos_buffs)
 func abrir_botoes_cartas():
-	
 	if painel_cartas == null:
 		return
-
 	var cam := get_viewport().get_camera_3d()
 	var pos_tela := cam.unproject_position(global_transform.origin)
 
