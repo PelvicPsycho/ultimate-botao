@@ -25,6 +25,7 @@ var turnos_congelamento_armazenado: int = 0
 var congelamento_ativo: bool = false
 var duracao_dos_buffs: Dictionary = {}
 var ultima_carta_usada: CardResource = null
+var troca_posicao_ativa: bool = false
 func _init():
 	slotsUpgrates.resize(quantosSlotes)
 func inicializar_slots() -> void:
@@ -52,6 +53,11 @@ func aplicar_buff(card: CardResource) -> void:
 		CardResource.TipoEfeito.Congelamento:
 			
 			congelamento_ativo = true
+			
+		CardResource.TipoEfeito.TrocaLugar:
+			troca_posicao_ativa = true
+			
+			
 			
 		
 	PA -= card.custo_energia

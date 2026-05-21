@@ -5,8 +5,8 @@ enum TipoEfeito {
 	FORCA,
 	PA,
 	Congelamento,
-	Empurrão
-	
+	Empurrão,
+	TrocaLugar
 }
 enum Raridade{
 	NORMAL, INCOMUN, RARA

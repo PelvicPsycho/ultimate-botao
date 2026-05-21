@@ -199,14 +199,25 @@ func _physics_process(delta: float) -> void:
 			spark_cooldowns.erase(id)
 
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		var player_que_quer_trocar = get_player_que_quer_trocar()
+		if player_que_quer_trocar:
+			player_que_quer_trocar.status_atual.troca_posicao_ativa = false
+			var temp = global_transform.origin
+			global_transform.origin = player_que_quer_trocar.global_transform.origin
+			player_que_quer_trocar.global_transform.origin = temp
+			return
 	if is_frozen():
 		return
+
+
 	if !canPlay or disabled:
 		return
-		
+
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
+			
 			print("Peça clicada! Força atual: ", status_atual.forca)
 			clickedPiece.emit(self)
 			abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO
@@ -533,6 +544,12 @@ func ativar_spark_no_ponto_global(ponto_global: Vector3) -> void:
 	spark_instance.global_position = ponto_global
 func is_frozen() -> bool:
 	return status_atual.disabilitado or status_atual.turnos_preso > 0
+func get_player_que_quer_trocar() -> Player:
+	var players = get_tree().get_nodes_in_group("Players")
+	for p in players:
+		if p != self and p.status_atual.troca_posicao_ativa and p.canPlay:
+			return p
+	return null
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var total := state.get_contact_count()
 	if total <= 0:

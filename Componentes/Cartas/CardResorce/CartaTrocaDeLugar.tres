@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cqbnt1i0kov4g"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_lysx1"]
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_vnqm6"]
+
+[resource]
+script = ExtResource("1_lysx1")
+nome = "Troca De Lugar"
+custo_energia = 4
+arte = ExtResource("1_vnqm6")
+descricao = "Troca De Lugar da sua peça com suas ou do adiversario"
+tipo_efeito = 4
+raridade = 1
+custoSlotes = 1
+duracao = 0
+metadata/_custom_type_script = "uid://dbejkveogu8jv"
