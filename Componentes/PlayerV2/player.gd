@@ -647,19 +647,14 @@ func atualizar_peca_pelo_status() -> void:
 		var colisor = $CollisionShape3D
 		if colisor:
 			colisor.scale = Vector3(1.5, 1.5, 1.5)	
-	else:
-		if visual_piece:
-			visual_piece.scale = Vector3(1.0, 1.0, 1.0)
-		var colisor = $CollisionShape3D
-		if colisor:
-			colisor.scale = Vector3(1.0, 1.0, 1.0)
+
 	if status_atual.diminui_de_tamano:
 		if visual_piece:
 			visual_piece.scale = Vector3(0.5, 0.5, 0.5)
 		var colisor = $CollisionShape3D
 		if colisor:
 			colisor.scale = Vector3(0.5, 0.5, 0.5)	
-	else:
+	if status_atual.diminui_de_tamano == false and status_atual.aumento_de_tamano== false:
 		if visual_piece:
 			visual_piece.scale = Vector3(1.0, 1.0, 1.0)
 		var colisor = $CollisionShape3D
