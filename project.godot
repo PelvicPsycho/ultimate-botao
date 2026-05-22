@@ -22,10 +22,10 @@ buses/default_bus_layout="uid://c56aaqws18h4h"
 
 [autoload]
 
-SoundMaster="*uid://bafr0ruromd8"
+Database="*uid://bpsfdxm30qovy"
 SaveManager="*uid://bc7mlce8gwdan"
 GameState="*uid://bhiekk65e5qgp"
-Database="*uid://bpsfdxm30qovy"
+SoundMaster="*uid://bafr0ruromd8"
 
 [display]
 
