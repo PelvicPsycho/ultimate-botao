@@ -1,7 +1,6 @@
 extends Control
 
 @onready var new_game_level: PackedScene = preload("res://MatchScene.tscn")
-
 const MyTeamScene := preload("res://Componentes/MyTeam/elenco_menu_control.tscn") 
 
 func _ready():
@@ -9,8 +8,8 @@ func _ready():
 	print("Total de jogadores salvos no GameState: ", GameState.jogadores.size())
 
 	if GameState.jogadores.size() == 0:
-		print("Nenhum save encontrado. Carregando arquivos originais da pasta...")
-		_carregar_da_pasta_padrao()
+		print("Nenhum save encontrado. Carregando time inicial (Grêmio) do Database...")
+		_carregar_time_inicial()
 	else:
 		print("✔ Jogadores carregados do save com sucesso!")
 		for j in GameState.jogadores:
@@ -21,34 +20,62 @@ func _ready():
 				else:
 					print("  - [Vazio]")
 
-func _carregar_da_pasta_padrao():
-	var pecas: Array = []
-	var pasta := "res://Recursos/Teams/Grêmio/"
+# Carrega cartas e pecas iniciais se não existe nenhum save
+func _carregar_time_inicial():
+	var pecas_iniciais: Array = []
 	
-	var dir := DirAccess.open(pasta)
-	if dir == null:
-		print("ERRO -> Pasta NAO encontrada!")
-		return
-
-	dir.list_dir_begin()
-	var f = dir.get_next()
-	while f != "":
-		if f.ends_with(".tres") or f.ends_with(".res"):
-			var caminho = pasta + f
-			var jogador = load(caminho)
-			if jogador is TeamPlayer and jogador.time and jogador.time.name == "Grêmio":
-				# PREPARAÇÃO: Ajusta o tamanho do array com base na capacidade da peça
-				jogador.slotsUpgrates.resize(jogador.quantosSlotes)
-				pecas.append(jogador)
-		f = dir.get_next()
+	# ==========================================
+	# 1. CARREGAR AS PEÇAS DO GRÊMIO
+	# ==========================================
+	for id_peca in Database.pecas_db:
+		var peca_original = Database.pecas_db[id_peca]
 		
-	GameState.jogadores = pecas
+		# Procura peças que tenham um Resource de Time equipado e que o nome seja "Grêmio"
+		if peca_original is TeamPlayer and peca_original.time and peca_original.time.name == "Grêmio":
+			
+			# Faz a cópia para não estragar o arquivo original
+			var jogador_copia = peca_original.duplicate(true)
+			jogador_copia.slotsUpgrates.resize(jogador_copia.quantosSlotes)
+			pecas_iniciais.append(jogador_copia)
+			
+			# Adiciona aos desbloqueados
+			if not GameState.pecas_desbloqueadas.has(jogador_copia.id_unico):
+				GameState.pecas_desbloqueadas.append(jogador_copia.id_unico)
+
+	if pecas_iniciais.size() == 0:
+		print("ERRO -> Nenhuma peça do Grêmio encontrada no Database!")
+	else:
+		GameState.jogadores = pecas_iniciais
+		print("✔ Time inicial (Grêmio) carregado com sucesso!")
+
+
+	# ==========================================
+	# 2. CARREGAR CARTAS INICIAIS
+	# ==========================================
+	# Coloque aqui os 'id_unico' exatos das cartas que o jogador começa
+	var ids_cartas_iniciais: Array[StringName] = [
+		"corre_peao_01", 
+		"corre_peao_02",
+		"defesa_escudo_01",
+		"defesa_escudo_02",
+		"bola_leve_01",
+		"bola_level_02"
+	]
+	
+	for id_carta in ids_cartas_iniciais:
+		# Checa se você não digitou o ID errado e se a carta existe no Database
+		if Database.cartas_db.has(id_carta):
+			if not GameState.cartas_desbloqueadas.has(id_carta):
+				GameState.cartas_desbloqueadas.append(id_carta)
+		else:
+			print("AVISO -> Carta inicial não encontrada no Database: ", id_carta)
+			
+	print("✔ Cartas iniciais adicionadas! Total: ", GameState.cartas_desbloqueadas.size())
 
 func _on_team_button_pressed() -> void:
 	# Instancia a cena nova e adiciona na tela
 	var tela = MyTeamScene.instantiate()
 	get_parent().add_child(tela)
-	
 	self.visible = false
 
 func _on_continue_button_pressed() -> void:

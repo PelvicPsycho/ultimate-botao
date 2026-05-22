@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("1_cnp7h")
+id_unico = &"sousa"
 nome = "Sousa"
 num_camisa = 2
 time = ExtResource("2_ww2yt")

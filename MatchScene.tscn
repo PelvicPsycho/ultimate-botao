@@ -160,9 +160,9 @@ albedo_color = Color(0.6484881, 0.6484881, 0.6484881, 1)
 
 [node name="MatchScene" type="Node3D" unique_id=92966225 node_paths=PackedStringArray("anunciador_ui")]
 script = ExtResource("1_xth2n")
-anunciador_ui = NodePath("AnunciadorUI")
 homeTeam = ExtResource("2_clyvb")
 awayTeam = ExtResource("3_mshaf")
+anunciador_ui = NodePath("AnunciadorUI")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=517725734]
 transform = Transform3D(1, 0, 0, 0, -0.1588991, 0.9872949, 0, -0.9872949, -0.1588991, 0, 15.36453, 0)

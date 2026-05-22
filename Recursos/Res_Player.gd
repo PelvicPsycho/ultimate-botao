@@ -7,6 +7,7 @@ enum Rank {S, A, B, C, D, F}
 signal status_mudou 
 
 @export_category("Infos pessoais")
+@export var id_unico: StringName #EX: "ronaldinho_gaucho_gremio"
 @export var nome: String = ""
 @export var num_camisa: int
 @export var time: Team

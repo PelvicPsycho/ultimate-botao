@@ -15,6 +15,7 @@ enum TipoAlvo {
 	ADVERSARIO
 }
 
+@export var id_unico: StringName # Ex: "carta_forca_menor_I"
 @export var nome: String = ""
 @export var custo_energia: int = 0
 @export var arte: Texture2D

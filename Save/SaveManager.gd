@@ -2,21 +2,20 @@ extends Node
 
 const SAVE_PATH := "user://savegame.json"
 
-# Salva o array de TeamPlayer no JSON
 func save_game(jogadores: Array) -> void:
 	var data: Dictionary = { "players": [] }
 
 	for p in jogadores:
 		var p_dict: Dictionary = {}
 		
-		# Salva o caminho da peça
-		p_dict["resource_path"] = p.resource_path 
+		# Salva o ID ÚNICO da peça, e não o caminho
+		p_dict["id_peca"] = p.id_unico 
 		
-		# Cria uma lista apenas com as cartas que realmente estão equipadas
 		var cartas_salvas := []
 		for carta in p.slotsUpgrates:
 			if carta != null:
-				cartas_salvas.append(carta.resource_path)
+				# Salva o ID ÚNICO da carta
+				cartas_salvas.append(carta.id_unico)
 
 		p_dict["cartas_equipadas"] = cartas_salvas
 		data["players"].append(p_dict)
@@ -27,7 +26,7 @@ func save_game(jogadores: Array) -> void:
 	file.close()
 	print("✔ Save criado com sucesso em:", SAVE_PATH)
 
-# Lê o JSON e reconstrói o array de TeamPlayer
+
 func load_game() -> Array:
 	if not FileAccess.file_exists(SAVE_PATH):
 		return []
@@ -43,32 +42,29 @@ func load_game() -> Array:
 	var lista_final: Array = []
 	
 	for entrada in parsed["players"]:
-		var path = entrada.get("resource_path", "")
+		var id_peca = entrada.get("id_peca", "")
 		
-		if path != "" and ResourceLoader.exists(path):
-			# 1. Carrega a peça original com valores iniciais
-			var tp = load(path).duplicate(true) 
-			
-			# 2. Prepara o array de slots com a capacidade base do arquivo .tres
+		# Busca a peça no Database usando o ID
+		var peca_original = Database.pecas_db.get(id_peca)
+		if peca_original:
+			var tp = peca_original.duplicate(true) 
 			tp.slotsUpgrates.clear()
 			tp.slotsUpgrates.resize(tp.quantosSlotes)
 
-			# 3. Puxa a lista de cartas do JSON e vai colocando nos primeiros espaços livres
 			var cartas_salvas: Array = entrada.get("cartas_equipadas", [])
 			var index_slot = 0
 			
-			for card_path in cartas_salvas:
-				if card_path != null and ResourceLoader.exists(card_path):
-					# Trava de segurança: só equipa se ainda houver espaço físico na peça
-					if index_slot < tp.quantosSlotes:
-						tp.slotsUpgrates[index_slot] = load(card_path)
-						index_slot += 1
+			for card_id in cartas_salvas:
+				# Busca a carta no Database usando o ID
+				var carta_real = Database.get_carta(card_id)
+				if carta_real != null and index_slot < tp.quantosSlotes:
+					tp.slotsUpgrates[index_slot] = carta_real
+					index_slot += 1
 
 			lista_final.append(tp)
 
 	return lista_final
 
-# Deleta o arquivo de save do disco
 func delete_save() -> bool:
 	if FileAccess.file_exists(SAVE_PATH):
 		var dir := DirAccess.open("user://")
