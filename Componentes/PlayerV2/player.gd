@@ -206,8 +206,6 @@ func _physics_process(delta: float) -> void:
 					var dist_norm = clamp(1.0 - (distancia / raio_circulo), 0.0, 1.0)
 					var intensidade = dist_norm * status_atual.atrai_bola_forca
 					ball.apply_central_force(dir * intensidade)
-			else:
-				status_atual.atrai_bola_ativo = false
 	var ids := spark_cooldowns.keys()
 	for id in ids:
 		spark_cooldowns[id] -= delta
