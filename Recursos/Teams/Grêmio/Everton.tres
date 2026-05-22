@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cx4df8vflck5b"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_4sctd"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_oysnk"]
+
+[resource]
+script = ExtResource("2_oysnk")
+id_unico = &"everton_gremio"
+nome = "Everton"
+num_camisa = 12
+foto = ExtResource("1_4sctd")
+quantosSlotes = 1
+forca = 15
+PA = 8
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

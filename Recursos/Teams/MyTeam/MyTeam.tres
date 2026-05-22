@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://br5rcbidbt114"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_n3tuv"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_2t8uq"]
+[ext_resource type="Resource" uid="uid://dc0ht3ihkwk3t" path="res://Recursos/Teams/MyTeam/Brogui.tres" id="2_hivfl"]
+[ext_resource type="Texture2D" uid="uid://dpimrabhk7x7c" path="res://Recursos/Teams/MyTeam/Graphics/MyTeam.png" id="2_iqaby"]
+[ext_resource type="Resource" uid="uid://nfpdil4vqo0k" path="res://Recursos/Teams/MyTeam/Giota.tres" id="3_iqaby"]
+[ext_resource type="Resource" uid="uid://daqsw61dp34rx" path="res://Recursos/Teams/MyTeam/Gugs.tres" id="4_iymq7"]
+[ext_resource type="Resource" uid="uid://dh33al2pwnleh" path="res://Recursos/Teams/MyTeam/Josue.tres" id="5_s2d8k"]
+[ext_resource type="Resource" uid="uid://c2usg0pshagw8" path="res://Recursos/Teams/MyTeam/Nigel.tres" id="6_75tbl"]
+[ext_resource type="Material" uid="uid://blg57clw7lgpi" path="res://Componentes/PlayerGradientes/TimeAzul.tres" id="7_bo60u"]
+[ext_resource type="Material" uid="uid://x67w856wlle8" path="res://Componentes/PlayerGradientes/TimeAzulDesactive.tres" id="8_q0ups"]
+
+[resource]
+script = ExtResource("2_2t8uq")
+name = "My Team"
+ranque = 7
+cor = Color(0, 1, 0, 1)
+emblem = ExtResource("2_iqaby")
+mainSquad = Array[ExtResource("1_n3tuv")]([ExtResource("2_hivfl"), ExtResource("3_iqaby"), ExtResource("4_iymq7"), ExtResource("5_s2d8k"), ExtResource("6_75tbl")])
+materialAtivo = ExtResource("7_bo60u")
+materialInativo = ExtResource("8_q0ups")
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

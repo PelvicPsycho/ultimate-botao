@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Cup" format=3 uid="uid://c166xifrxk81v"]
+
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="1_ymxas"]
+[ext_resource type="Script" uid="uid://fkgtqku055qw" path="res://Recursos/Res_Cup.gd" id="2_1gtjw"]
+[ext_resource type="Resource" uid="uid://b0p46wodrhjlf" path="res://Recursos/Teams/ThunderDogs/ThunderDogs.tres" id="2_mfypy"]
+[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_ohxvr"]
+[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="4_y61de"]
+
+[resource]
+script = ExtResource("2_1gtjw")
+cupName = "State Cup"
+cupRank = 3
+numMatches = 5
+teamPool = Array[ExtResource("1_ymxas")]([ExtResource("2_mfypy"), ExtResource("3_ohxvr"), ExtResource("4_y61de")])
+nextTeamPool = Array[ExtResource("1_ymxas")]([ExtResource("2_mfypy"), ExtResource("3_ohxvr"), ExtResource("4_y61de")])

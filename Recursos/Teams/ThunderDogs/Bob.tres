@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dybwytu8ubfup"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_qtrpr"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_q7api"]
+
+[resource]
+script = ExtResource("2_q7api")
+id_unico = &"bob_thunder_dogs"
+nome = "Bob"
+num_camisa = 8
+foto = ExtResource("1_qtrpr")
+quantosSlotes = 6
+forca = 18
+PA = 5
+rank = 5
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

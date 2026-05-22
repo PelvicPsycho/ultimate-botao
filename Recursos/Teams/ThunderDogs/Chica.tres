@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bg585u4x32id3"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_4pjey"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_y7yyd"]
+
+[resource]
+script = ExtResource("2_y7yyd")
+id_unico = &"chica_thunder_dogs"
+nome = "Chica"
+num_camisa = 6
+foto = ExtResource("1_4pjey")
+quantosSlotes = 3
+forca = 25
+PA = 2
+rank = 5
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

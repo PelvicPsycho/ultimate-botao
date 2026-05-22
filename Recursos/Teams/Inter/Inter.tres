@@ -1,15 +1,23 @@
 [gd_resource type="Resource" script_class="Team" format=3 uid="uid://cqnsye86fls8o"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_t7if8"]
+[ext_resource type="Texture2D" uid="uid://bspvf8n8v742y" path="res://Recursos/2D_Art/MatchUI/Sport_Club_Internacional_logopng.png" id="2_4vr7p"]
 [ext_resource type="Material" uid="uid://3fsnu7d2ec1g" path="res://Componentes/PlayerGradientes/TimeVermelho.tres" id="2_eb2mv"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_wdtrl"]
 [ext_resource type="Material" uid="uid://bhp38tmnccy3v" path="res://Componentes/PlayerGradientes/TimeVermelhoDesactive.tres" id="3_hk2ix"]
+[ext_resource type="Resource" uid="uid://4f1qna4c5ycp" path="res://Recursos/Teams/Inter/Alanpa.tres" id="3_hqtxk"]
+[ext_resource type="Resource" uid="uid://gmvgc073734t" path="res://Recursos/Teams/Inter/Ale.tres" id="4_nfeg7"]
+[ext_resource type="Resource" uid="uid://cu8iue5dls8dj" path="res://Recursos/Teams/Inter/Paula.tres" id="5_a3pbj"]
+[ext_resource type="Resource" uid="uid://gtnit36263q6" path="res://Recursos/Teams/Inter/Pezzo.tres" id="6_6bv8s"]
+[ext_resource type="Resource" uid="uid://5psd0fjxpu77" path="res://Recursos/Teams/Inter/Sergio.tres" id="7_02jpn"]
 
 [resource]
 script = ExtResource("2_wdtrl")
 name = "Inter"
 id = 2
 cor = Color(1, 0, 0, 1)
+emblem = ExtResource("2_4vr7p")
+mainSquad = Array[ExtResource("1_t7if8")]([ExtResource("3_hqtxk"), ExtResource("4_nfeg7"), ExtResource("5_a3pbj"), ExtResource("6_6bv8s"), ExtResource("7_02jpn")])
 materialAtivo = ExtResource("2_eb2mv")
 materialInativo = ExtResource("3_hk2ix")
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

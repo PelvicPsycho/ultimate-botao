@@ -43,7 +43,7 @@ func _criar_time_de_teste():
 		player.PA = 3
 		player.inicializar_slots()
 		
-		meu_time_titular.elenco.append(player)
+		meu_time_titular.mainSquad.append(player)
 
 func imprimir_status_do_time() -> void:
 	if not meu_time_titular:
@@ -54,8 +54,8 @@ func imprimir_status_do_time() -> void:
 	print("📊 DIAGNÓSTICO DO ELENCO: ", meu_time_titular.name.to_upper())
 	print("==================================================")
 	
-	for i in range(meu_time_titular.elenco.size()):
-		var player = meu_time_titular.elenco[i]
+	for i in range(meu_time_titular.mainSquad.size()):
+		var player = meu_time_titular.mainSquad[i]
 		
 		print("\n📍 Posição/Slot %d: %s (Camisa #%d)" % [i + 1, player.nome, player.num_camisa])
 		print("   ↳ Atributos -> Força: %d | PA: %d | Rank: %s" % [player.força, player.PA, TeamPlayer.Rank.keys()[player.rank]])

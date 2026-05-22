@@ -3,25 +3,24 @@ class_name TeamPlayer
 
 enum Rank {S, A, B, C, D, F}
 
-# 1. A PONTE DE COMUNICAÇÃO (Obrigatório estar aqui)
 signal status_mudou 
 
 @export_category("Infos pessoais")
 @export var id_unico: StringName #EX: "ronaldinho_gaucho_gremio"
 @export var nome: String = ""
 @export var num_camisa: int
-@export var time: Team
+var time: Team
 @export var foto: Texture2D
+
 @export_category("Habilidades")
 @export var quantosSlotes: int
 @export var geral: int
 var slotsUpgrates: Array[CardResource] = []
 var turnos_congelamento_armazenado: int = 0
-# 2. SEM O CEDILHA (Obrigatório ser 'forca' para casar com o script do Player)
 @export var forca: int 
 @export var PA: int
 @export var rank: Rank
-@export var disabilitado: bool
+@export var disabilitado: bool = false
 @export var turnos_preso:int
 var congelamento_ativo: bool = false
 var duracao_dos_buffs: Dictionary = {}
@@ -33,6 +32,7 @@ var empurra_aliados_ativo = true
 var empurra_aliados_multiplicador = 1.8 
 var atrai_bola_ativo = false
 var atrai_bola_forca = 1.0
+
 func _init():
 	slotsUpgrates.resize(quantosSlotes)
 func inicializar_slots() -> void:

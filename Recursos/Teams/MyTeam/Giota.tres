@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://nfpdil4vqo0k"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_au6cm"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_c2gw2"]
+
+[resource]
+script = ExtResource("2_c2gw2")
+id_unico = &"Gugs_MyTeam"
+nome = "Gugs"
+num_camisa = 3
+foto = ExtResource("1_au6cm")
+quantosSlotes = 8
+forca = 7
+PA = 6
+rank = 4
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

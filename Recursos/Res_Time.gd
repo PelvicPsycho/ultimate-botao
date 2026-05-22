@@ -1,15 +1,17 @@
 extends Resource
 class_name Team
 
-enum Rank {F,E,D,C,B,A,S}
+enum Rank {F,E,D,C,B,A,S,PLAYER}
 
 @export_category("Infos do time")
 @export var name: String = ""
 @export var id: int
 @export var ranque: Rank
 @export var cor: Color
+@export var emblem: Texture2D
 
 @export_category("Elenco")
-@export var elenco: Array[TeamPlayer]
+@export var mainSquad: Array[TeamPlayer]
+@export var collectedSquad: Array[TeamPlayer]
 @export var materialAtivo:ShaderMaterial
 @export var materialInativo:ShaderMaterial

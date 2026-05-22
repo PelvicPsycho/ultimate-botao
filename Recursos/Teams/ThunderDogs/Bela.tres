@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://olp66clv76gn"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_f0f2b"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_nl008"]
+
+[resource]
+script = ExtResource("2_nl008")
+id_unico = &"bela_thunder_dogs"
+nome = "Bela"
+num_camisa = 1
+foto = ExtResource("1_f0f2b")
+quantosSlotes = 10
+forca = 15
+PA = 5
+rank = 5
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

@@ -73,7 +73,7 @@ var smoke_threshold_reached: bool = false  # To ensure one spawn per threshold
 var smoke_instance_atual: Node3D = null
 
 var team: Team
-@export var playerInfo: TeamPlayer
+var playerInfo: TeamPlayer
 var status_atual: TeamPlayer
 var canPlay: bool
 var disabled: bool = false
@@ -122,21 +122,7 @@ signal zoom_in_signal(pos)
 func _ready() -> void:
 	mira_pivot.visible = false
 	circulo_limite.visible = false
-	if playerInfo:
-		# Cria uma cópia única para este jogador nesta partida
-		
-		status_atual = playerInfo.duplicate(true)
-		
-		
-		team = playerInfo.time
-		status_atual.status_mudou.connect(atualizar_fisica_por_status)
-		status_atual.status_mudou.connect(atualizar_peca_pelo_status)
-		atualizar_peca_pelo_status()
-		atualizar_fisica_por_status()
 	max_contacts_reported = 1
-	team = playerInfo.time
-	
-
 	material_circulo = StandardMaterial3D.new()
 	material_circulo.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	material_circulo.albedo_color = Color(1.0, 1.0, 1.0, 0.0)
@@ -151,6 +137,13 @@ func _ready() -> void:
 
 	base_visual_position = visual_piece.position
 	base_visual_rotation = visual_piece.rotation
+
+func loadPlayerInfo(plInfo):
+	status_atual = plInfo.duplicate(true)
+	status_atual.status_mudou.connect(atualizar_fisica_por_status)
+	status_atual.status_mudou.connect(atualizar_peca_pelo_status)
+	atualizar_peca_pelo_status()
+	atualizar_fisica_por_status()
 
 func _process(delta: float) -> void:
 	if modo_atual == ModoTiro.CARREGAR and carregando_modo3:
@@ -535,7 +528,8 @@ func ativar_spark_no_ponto_global(ponto_global: Vector3) -> void:
 	get_tree().current_scene.add_child(spark_instance)
 	spark_instance.global_position = ponto_global
 func is_frozen() -> bool:
-	return status_atual.disabilitado or status_atual.turnos_preso > 0
+	#return status_atual.disabilitado or status_atual.turnos_preso > 0
+	return false
 func get_player_que_quer_trocar() -> Player:
 	var players = get_tree().get_nodes_in_group("Players")
 	for p in players:
@@ -648,6 +642,7 @@ func atualizar_fisica_por_status():
 		mass = massa_base
 	# Se quiser que ela deslize mais ou menos no campo
 	physics_material_override.friction = clamp(1.0 - (status_atual.forca * 0.01), 0.1, 1.0)
+
 func atualizar_peca_pelo_status() -> void:
 	if not is_instance_valid(status_atual): return
 	

@@ -35,6 +35,15 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 0
 
+[node name="Champion!" type="Label" parent="Control/Panel/VBoxContainer/VBoxContainer" unique_id=1182823790]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "CHAMPION!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [node name="YouWin" type="Label" parent="Control/Panel/VBoxContainer/VBoxContainer" unique_id=1144186836]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
@@ -55,6 +64,14 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 32
 
+[node name="Next" type="Button" parent="Control/Panel/VBoxContainer/VBoxContainer2" unique_id=528103287]
+custom_minimum_size = Vector2(320, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "NEXT"
+
 [node name="Restart" type="Button" parent="Control/Panel/VBoxContainer/VBoxContainer2" unique_id=498569126]
 custom_minimum_size = Vector2(320, 80)
 layout_mode = 2
@@ -71,5 +88,6 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 32
 text = "Sair"
 
+[connection signal="pressed" from="Control/Panel/VBoxContainer/VBoxContainer2/Next" to="." method="_on_next_pressed"]
 [connection signal="button_up" from="Control/Panel/VBoxContainer/VBoxContainer2/Restart" to="." method="_on_restart_button_up"]
 [connection signal="button_up" from="Control/Panel/VBoxContainer/VBoxContainer2/Quit" to="." method="_on_quit_button_up"]

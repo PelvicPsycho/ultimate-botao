@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cu8iue5dls8dj"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_x28an"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_p7mr1"]
+
+[resource]
+script = ExtResource("2_p7mr1")
+id_unico = &"paula_inter"
+nome = "Paula"
+num_camisa = 1
+foto = ExtResource("1_x28an")
+quantosSlotes = 2
+forca = 25
+PA = 1
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

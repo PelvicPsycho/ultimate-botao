@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dehwfken68jt1"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_bjmar"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_kdh5x"]
+
+[resource]
+script = ExtResource("2_kdh5x")
+id_unico = &"emy_thunder_dogs"
+nome = "Emy"
+num_camisa = 9
+foto = ExtResource("1_bjmar")
+quantosSlotes = 5
+forca = 25
+PA = 3
+rank = 5
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

@@ -31,7 +31,7 @@ func _carregar_time_inicial():
 		var peca_original = Database.pecas_db[id_peca]
 		
 		# Procura peças que tenham um Resource de Time equipado e que o nome seja "Grêmio"
-		if peca_original is TeamPlayer and peca_original.time and peca_original.time.name == "Grêmio":
+		if peca_original is TeamPlayer and peca_original.time and peca_original.time.name == "My Team":
 			
 			# Faz a cópia para não estragar o arquivo original
 			var jogador_copia = peca_original.duplicate(true)
@@ -79,30 +79,17 @@ func _on_team_button_pressed() -> void:
 	self.visible = false
 
 func _on_continue_button_pressed() -> void:
-	favor_me_deletar()
+	pass
 
 func _on_new_game_button_pressed() -> void:
+	CupManager.newRun()
 	if new_game_level != null:
 		get_tree().change_scene_to_packed(new_game_level)
 	else:
-		favor_me_deletar()
+		pass
 
 func _on_settings_button_pressed() -> void:
-	favor_me_deletar()
-
-func favor_me_deletar():
-	var label = Label.new()
-	label.text = "Error 404"
-	var tamanho_fonte = randi_range(10, 64)
-	label.add_theme_font_size_override("font_size", tamanho_fonte)
-	add_child(label)
-	label.pivot_offset = label.size / 2.0
-	label.rotation = randf_range(0.0, TAU)
-
-	var tamanho_tela = get_viewport_rect().size
-	var pos_x = randf_range(0.0, tamanho_tela.x)
-	var pos_y = randf_range(0.0, tamanho_tela.y)
-	label.position = Vector2(pos_x, pos_y)
+	pass
 
 func _on_button_pressed() -> void:
 	SaveManager.delete_save()

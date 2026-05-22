@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cnv45fa1voitc"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_563ta"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_l44bl"]
+
+[resource]
+script = ExtResource("2_l44bl")
+id_unico = &"max_thunder_dogs"
+nome = "Max"
+num_camisa = 3
+foto = ExtResource("1_563ta")
+quantosSlotes = 2
+forca = 20
+PA = 5
+rank = 5
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

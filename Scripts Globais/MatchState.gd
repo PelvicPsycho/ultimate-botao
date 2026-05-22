@@ -8,12 +8,10 @@ var modo_atual: ModoTiro = ModoTiro.PUXAR
 var allPieces: Array[Player]
 var selectedPiece: Player
 @export var anunciador_ui: CanvasLayer
-@export var homeTeam: Team
+var homeTeam: Team
 var homeScore: int
-var homePlayers: Array[Player]
-@export var awayTeam: Team
+var awayTeam: Team
 var awayScore: int
-var awayPlayers: Array[Player]
 
 # Cache para otimização
 var allBalls: Array[Node]
@@ -38,14 +36,9 @@ var freeze_level: int = 0
 
 func _ready() -> void:
 	
+	loadMatch()
 	%MatchUI.UI_start(homeTeam, awayTeam)
 	selectFirstTurn()
-	homeScore = 0
-	awayScore = 0
-	rallyCounter = 1
-	turnCounter = 0
-	foulFlag = false
-	goalFlag = false
 	
 	allPieces.assign(get_tree().get_nodes_in_group("Players"))
 	allBalls = get_tree().get_nodes_in_group("Balls")
@@ -58,7 +51,7 @@ func _ready() -> void:
 		var material_base = homeTeam.materialAtivo if goal.team == goal.TeamSide.HOME else awayTeam.materialAtivo
 		goal.changeColor(material_base)
 		
-	var jogadores_salvos := GameState.jogadores
+	var jogadores_salvos: Array = GameState.jogadores
 
 	for piece in allPieces:
 		var info := -1
@@ -83,10 +76,8 @@ func _ready() -> void:
 
 	# DISTRIBUIÇÃO ENTRE EQUIPES
 		if piece.team == homeTeam:
-			homePlayers.append(piece)
 			piece.canPlay = (currentTurn == turn.HOME)
 		else:
-			awayPlayers.append(piece)
 			piece.canPlay = (currentTurn == turn.AWAY)
 	_atualizar_placar()
 	
@@ -104,6 +95,38 @@ func _ready() -> void:
 	get_tree().create_timer(2.0).timeout.connect(disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5), CONNECT_ONE_SHOT)
 	atualizar_cores_pecas()
 	
+func loadMatch():
+	homeTeam = CupManager.myTeam
+	awayTeam = CupManager.currentCompetitor
+	homeScore = 1
+	awayScore = 0
+	rallyCounter = 1
+	turnCounter = 0
+	foulFlag = false
+	goalFlag = false
+	assignPieces()
+
+func assignPieces():
+	var homePlayers: Array[TeamPlayer] = homeTeam.mainSquad
+	var awayPlayers: Array[TeamPlayer] = awayTeam.mainSquad
+	var homePieces = $HomeTeam.get_children()
+	var awayPieces = $AwayTeam.get_children()
+	for i in range(homePieces.size()):
+		var piece = homePieces[i]
+		var player = homePlayers[i]
+		piece.team = homeTeam
+		piece.playerInfo = player
+		piece.loadPlayerInfo(player)
+		#piece.atualizar_gradiente()
+
+	for i in range(awayPieces.size()):
+		var piece = awayPieces[i]
+		var player = awayPlayers[i]
+		piece.team = awayTeam
+		piece.playerInfo = player
+		piece.loadPlayerInfo(player)
+		#piece.atualizar_gradiente()
+
 func _atualizar_placar() -> void:
 	%MatchUI.placar_esq.text = str(homeScore)
 	%MatchUI.placar_dir.text = str(awayScore)
@@ -302,10 +325,11 @@ func atualizar_cores_pecas() -> void:
 func isCorrectSide(team: Team) -> bool:
 	return (currentTurn == turn.HOME and team == homeTeam) or (currentTurn == turn.AWAY and team == awayTeam)
 
-func endMatch(winner: String) -> void:
+func endMatch(winner: String):
 	var resultCanvas = $ResultCanvas
 	await get_tree().create_timer(3.0, true).timeout
-	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore))
+	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), true if winner == homeTeam.name else false)
+	
 func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
 	if congelar:
 		freeze_level += 1
@@ -336,6 +360,7 @@ func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: 
 		timer.call_resetar_barra_lance()
 	
 	anunciador_ui.anuncio_encerrado.connect(descongelar, CONNECT_ONE_SHOT)
+
 func tentar_usar_carta(piece: Player, carta: CardResource) -> void:
 	if carta_usada_no_turno:
 		print("Já usou carta neste turno!")
@@ -346,6 +371,7 @@ func tentar_usar_carta(piece: Player, carta: CardResource) -> void:
 	piece.status_atual.aplicar_buff(carta)
 	carta_usada_no_turno = true
 	print("CARTA ATIVADA COM SUCESSO:", carta.resource_path)
+
 func _on_player_clicked_piece(Piece: Player) -> void:
 	if carta_usada_no_turno:
 		return

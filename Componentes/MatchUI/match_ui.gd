@@ -22,6 +22,9 @@ var current_turn_value: int = 0
 @export var team_barra_Lance: TextureProgressBar
 @export var timer_background: TextureRect
 
+@onready var HomeEmblem = $MarginContainer/Control/EmblemaEsquerda/TextureRect
+@onready var AwayEmblem = $MarginContainer/Control/EmblemaDireita/TextureRect
+
 func UI_start(team_home, team_away) -> void:
 	lateral_time_esq.modulate = team_home.cor
 	lateral_time_dir.modulate = team_away.cor
@@ -31,6 +34,9 @@ func UI_start(team_home, team_away) -> void:
 	nome_time_dir.text = team_away.name
 	time_home = team_home
 	time_away = team_away
+	HomeEmblem.texture = team_home.emblem
+	AwayEmblem.texture = team_away.emblem
+
 func obter_carta_selecionada() -> CardResource:
 	if gerenciador_cartas and gerenciador_cartas.carta_selecionada != null:
 		return gerenciador_cartas.carta_selecionada
@@ -42,6 +48,7 @@ func consumir_carta_selecionada() -> void:
 		
 		gerenciador_cartas.carta_selecionada = null
 		gerenciador_cartas.nó_carta_visual = null
+
 func colorir_turno(time_jogando, lances) -> void:
 	# A lateral continua com modulate, pois é inteira de uma cor só
 	lateral_quem_joga.modulate = time_jogando.cor

@@ -26,6 +26,7 @@ Database="*uid://bpsfdxm30qovy"
 SaveManager="*uid://bc7mlce8gwdan"
 GameState="*uid://bhiekk65e5qgp"
 SoundMaster="*uid://bafr0ruromd8"
+CupManager="*uid://e8gnsu8ca5bi"
 
 [display]
 

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://daqsw61dp34rx"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_6yjcl"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_xmvrc"]
+
+[resource]
+script = ExtResource("2_xmvrc")
+id_unico = &"Giota_MyTeam"
+nome = "Giota"
+num_camisa = 5
+foto = ExtResource("1_6yjcl")
+quantosSlotes = 3
+forca = 5
+PA = 4
+rank = 4
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
