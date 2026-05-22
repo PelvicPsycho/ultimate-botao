@@ -35,6 +35,7 @@ func carregar_cartas() -> Array:
 			file = dir.get_next()
 
 	return lista
+	
 func _on_slot_clicado(slot_index: int, team_player: TeamPlayer):
 	print("GERENCIADOR RECEBEU O CLIQUE DO SLOT:", slot_index)
 	print("CARTA SELECIONADA:", carta_selecionada)
@@ -45,6 +46,7 @@ func _on_slot_clicado(slot_index: int, team_player: TeamPlayer):
 		carta_selecionada = null
 	else:
 		print("Nenhuma carta selecionada.")
+
 func receber_carta_do_click(card: CardResource):
 	carta_selecionada = card
 	print("CARTA SELECIONADA:", card.nome)

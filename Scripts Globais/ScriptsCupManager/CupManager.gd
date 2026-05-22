@@ -63,7 +63,7 @@ func nextCompetitor():
 		print("Playing now: ", myTeam.name, " Vs ", currentCompetitor.name)
 	else: 
 		nextCup()
-	saveGame()
+	#saveGame()
 
 func pickCompetitors():
 	var numCompetitors = currentCup.numMatches
@@ -87,5 +87,5 @@ func loadGame():
 
 func _notification(what):
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST:
-		saveGame()
+		#saveGame()
 		get_tree().quit()
