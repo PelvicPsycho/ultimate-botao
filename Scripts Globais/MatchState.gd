@@ -90,7 +90,7 @@ func _ready() -> void:
 	timer.iniciar_partida()
 	timer.iniciar_lance(currentTurn)
 	
-	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, Color.DARK_RED)
+	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, homeTeam.cor if currentTurn == turn.HOME else awayTeam.cor)
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
 	get_tree().create_timer(2.0).timeout.connect(disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5), CONNECT_ONE_SHOT)
 	atualizar_cores_pecas()
@@ -302,9 +302,13 @@ func decideTurn() -> void:
 				turnCounter += 1
 				ball.lastTouch = null
 				
-				var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-				%MatchUI.colorir_turno(active_team, turnCounter)
-				disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+				if currentTurn == turn.HOME:
+					%MatchUI.colorir_turno(homeTeam,turnCounter)
+				else: %MatchUI.colorir_turno(awayTeam,turnCounter)
+				if turnCounter < 2:
+					disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+				else:
+					disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
 				return 
 				
 			if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:
