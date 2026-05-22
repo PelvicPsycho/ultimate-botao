@@ -6,11 +6,12 @@
 
 [resource]
 script = ExtResource("1_k6g8m")
+id_unico = &"seila"
 nome = "seila"
 num_camisa = 1
 time = ExtResource("2_41ff5")
 foto = ExtResource("1_jsb7g")
-quantosSlotes = 1
+quantosSlotes = 3
 forca = 3
 PA = 1
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

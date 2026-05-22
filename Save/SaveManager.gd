@@ -2,56 +2,69 @@ extends Node
 
 const SAVE_PATH := "user://savegame.json"
 
-
 func save_game(jogadores: Array) -> void:
-	var data: Dictionary = {
-		"players": []
-	}
+	var data: Dictionary = { "players": [] }
 
 	for p in jogadores:
 		var p_dict: Dictionary = {}
-		p_dict["nome"] = p.nome
-		p_dict["foto"] = p.foto.resource_path
+		
+		# Salva o ID ÚNICO da peça, e não o caminho
+		p_dict["id_peca"] = p.id_unico 
+		
+		var cartas_salvas := []
+		for carta in p.slotsUpgrates:
+			if carta != null:
+				# Salva o ID ÚNICO da carta
+				cartas_salvas.append(carta.id_unico)
 
-		var slots := []
-		slots.resize(p.slotsUpgrates.size())
-
-		for i in p.slotsUpgrates.size():
-			var card = p.slotsUpgrates[i]
-			if card:
-				slots[i] = card.resource_path
-			else:
-				slots[i] = null
-
-		p_dict["slots"] = slots
-
+		p_dict["cartas_equipadas"] = cartas_salvas
 		data["players"].append(p_dict)
 
 	var text := JSON.stringify(data, "\t")
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	file.store_string(text)
 	file.close()
-
-	print("✔ Save criado em:", SAVE_PATH)
-
+	print("✔ Save criado com sucesso em:", SAVE_PATH)
 
 
-func load_game() -> Dictionary:
+func load_game() -> Array:
 	if not FileAccess.file_exists(SAVE_PATH):
-		print("⚠ Nenhum save encontrado")
-		return {}
+		return []
 
 	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
 	var text := file.get_as_text()
 	file.close()
 
-	var parsed :Dictionary= JSON.parse_string(text)
+	var parsed = JSON.parse_string(text)
+	if typeof(parsed) != TYPE_DICTIONARY or not parsed.has("players"):
+		return []
 
-	if parsed == null:
-		print("❌ JSON inválido")
-		return {}
+	var lista_final: Array = []
+	
+	for entrada in parsed["players"]:
+		var id_peca = entrada.get("id_peca", "")
+		
+		# Busca a peça no Database usando o ID
+		var peca_original = Database.pecas_db.get(id_peca)
+		if peca_original:
+			var tp = peca_original.duplicate(true) 
+			tp.slotsUpgrates.clear()
+			tp.slotsUpgrates.resize(tp.quantosSlotes)
 
-	return parsed
+			var cartas_salvas: Array = entrada.get("cartas_equipadas", [])
+			var index_slot = 0
+			
+			for card_id in cartas_salvas:
+				# Busca a carta no Database usando o ID
+				var carta_real = Database.get_carta(card_id)
+				if carta_real != null and index_slot < tp.quantosSlotes:
+					tp.slotsUpgrates[index_slot] = carta_real
+					index_slot += 1
+
+			lista_final.append(tp)
+
+	return lista_final
+
 func delete_save() -> bool:
 	if FileAccess.file_exists(SAVE_PATH):
 		var dir := DirAccess.open("user://")

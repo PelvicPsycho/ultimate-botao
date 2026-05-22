@@ -6,11 +6,12 @@
 
 [resource]
 script = ExtResource("1_cnp7h")
+id_unico = &"sousa"
 nome = "Sousa"
 num_camisa = 2
 time = ExtResource("2_ww2yt")
 foto = ExtResource("1_c60g6")
-quantosSlotes = 2
+quantosSlotes = 4
 geral = 1
 forca = 25
 PA = 2

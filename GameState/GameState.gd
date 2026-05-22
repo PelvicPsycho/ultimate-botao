@@ -1,130 +1,38 @@
 extends Node
 
-const SAVE_PATH := "user://savegame.json"
-
 var jogadores: Array = []
 
+# Guardam apenas os nomes (IDs) do que o jogador conquistou
+var cartas_desbloqueadas: Array[StringName] = []
+var pecas_desbloqueadas: Array[StringName] = []
 
 func _ready():
-	jogadores = load_game()
+	# Puxa o save
+	jogadores = SaveManager.load_game()
 
-
-
-##############################################
-# SALVAR JOGADORES → JSON EM user://
-##############################################
-func save_game(jogadores_lista: Array) -> void:
-	var data: Dictionary = {
-		"players": []
-	}
-
-	for p in jogadores_lista:
-		var p_dict: Dictionary = {}
-		p_dict["nome"] = p.nome
-
-		# caminho da foto
-		p_dict["foto"] = p.foto.resource_path if p.foto else null
-
-		# slots
-		var slots := []
-		slots.resize(p.slotsUpgrates.size())
-
-		for i in p.slotsUpgrates.size():
-			var card_resource = p.slotsUpgrates[i]
-			slots[i] = card_resource.resource_path if card_resource else null
-
-		p_dict["slots"] = slots
-		data["players"].append(p_dict)
-
-	var text := JSON.stringify(data, "\t")
-
-	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	file.store_string(text)
-	file.close()
-
-	print("✔ Save criado em:", SAVE_PATH)
-
-
-
-##############################################
-# CARREGAR JSON → RETORNAR DICTIONARY
-##############################################
-func load_json_raw() -> Dictionary:
-	if not FileAccess.file_exists(SAVE_PATH):
-		print("⚠ Nenhum save encontrado em user://")
-		return {}
-
-	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
-	var text := file.get_as_text()
-	file.close()
-
-	var parsed :Dictionary= JSON.parse_string(text)
-
-	if typeof(parsed) != TYPE_DICTIONARY:
-		print("❌ JSON inválido")
-		return {}
-
-	return parsed
-
-
-
-##############################################
-# CONVERTER JSON → TeamPlayer
-##############################################
-func converter_para_teamplayers(parsed: Dictionary) -> Array[TeamPlayer]:
-	var lista_final: Array[TeamPlayer] = []
-
-	if not parsed.has("players"):
-		return lista_final
-
-	for entrada in parsed["players"]:
-		var tp := TeamPlayer.new()
-
-		tp.nome = entrada.get("nome", "Sem Nome")
-
-		# carregar foto
-		if entrada.has("foto") and entrada["foto"] != null:
-			tp.foto = load(entrada["foto"])
-
-		# carregar slots
-		var slots_json: Array = entrada.get("slots", [])
-		tp.quantosSlotes = slots_json.size()
-		tp.slotsUpgrates.resize(tp.quantosSlotes)
-
-		for i in tp.quantosSlotes:
-			var path = slots_json[i]
-			if path != null:
-				tp.slotsUpgrates[i] = load(path)
+func imprimir_status_do_time() -> void:
+	print("\n==================================================")
+	print("📊 DIAGNÓSTICO DO ELENCO ATUAL")
+	print("==================================================")
+	for i in range(jogadores.size()):
+		var player = jogadores[i]
+		var f_atual = player.força if "força" in player else 50
+		var pa_atual = player.PA if "PA" in player else 3
+		
+		print("\n📍 Slot %d: %s" % [i + 1, player.nome])
+		print("   ↳ Força: %d | PA: %d" % [f_atual, pa_atual])
+		
+		for s in range(player.slotsUpgrates.size()):
+			var carta = player.slotsUpgrates[s]
+			if carta != null:
+				print("     [%d] 🃏 %s" % [s + 1, carta.nome])
 			else:
-				tp.slotsUpgrates[i] = null
+				print("     [%d] 🔲 [Vazio]" % [s + 1])
+	print("==================================================\n")
 
-		lista_final.append(tp)
-
-	return lista_final
-
-
-
-##############################################
-# CARREGAR SAVEGAME → RETORNAR TeamPlayers
-##############################################
-func load_game() -> Array[TeamPlayer]:
-	var raw := load_json_raw()
-
-	if raw.size() == 0:
-		return []
-
-	return converter_para_teamplayers(raw)
-
-
-
-##############################################
-# DELETAR SAVE
-##############################################
-func delete_save() -> bool:
-	if FileAccess.file_exists(SAVE_PATH):
-		var dir := DirAccess.open("user://")
-		if dir:
-			var err := dir.remove_absolute(SAVE_PATH)
-			return err == OK
-
-	return false
+#Funcao para soltar as cartas de uma peca numa fusao ou aposta e as cartas nao bugarem
+func preparar_peca_para_fusao(peca: TeamPlayer): 
+	for i in range(peca.slotsUpgrates.size()):
+		if peca.slotsUpgrates[i] != null:
+			print("Carta devolvida ao inventário: ", peca.slotsUpgrates[i].nome)
+			peca.slotsUpgrates[i] = null
