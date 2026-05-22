@@ -234,11 +234,16 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_x8yhw")
 text = "MY_TEAM"
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1035422724]
-layout_mode = 0
-offset_left = 390.0
-offset_top = 310.0
-offset_right = 390.0
-offset_bottom = 310.0
+layout_mode = 1
+offset_left = 62.0
+offset_top = 786.0
+offset_right = 394.0
+offset_bottom = 836.0
+
+[node name="AddCartasButton" type="Button" parent="GridContainer" unique_id=43346591]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Adicionar todas cartas"
 
 [node name="Button" type="Button" parent="." unique_id=1129691270]
 layout_mode = 0
@@ -253,4 +258,5 @@ text = "Delete save"
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/TextureRect2/VBoxContainer2/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/TextureRect3/VBoxContainer3/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/TextureRect4/HBoxContainer2/TeamButton" to="." method="_on_team_button_pressed"]
+[connection signal="pressed" from="GridContainer/AddCartasButton" to="." method="_on_add_cartas_button_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

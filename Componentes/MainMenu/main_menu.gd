@@ -106,3 +106,17 @@ func favor_me_deletar():
 
 func _on_button_pressed() -> void:
 	SaveManager.delete_save()
+
+
+func _on_add_cartas_button_pressed() -> void:
+	
+	# Garante que o Database já terminou de carregar os arquivos
+	if Database.cartas_db.size() == 0:
+		print("Erro: O Database de cartas está vazio ou não foi carregado ainda.")
+		return
+		
+	# Varre todos os IDs únicos que existem cadastrados no jogo
+	for id_carta in Database.cartas_db.keys():
+		# Só adiciona se o jogador já não tiver ela (evita duplicados)
+		if not GameState.cartas_desbloqueadas.has(id_carta):
+			GameState.cartas_desbloqueadas.append(id_carta)
