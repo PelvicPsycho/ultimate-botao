@@ -125,7 +125,7 @@ func _ready() -> void:
 	if playerInfo:
 		# Cria uma cópia única para este jogador nesta partida
 		
-		status_atual = playerInfo.duplicate()
+		status_atual = playerInfo.duplicate(true)
 		
 		
 		team = playerInfo.time
@@ -192,6 +192,22 @@ func definir_estado_visual(ativo: bool) -> void:
 
 		mesh.material_override = material_alvo.duplicate()
 func _physics_process(delta: float) -> void:
+	if status_atual.atrai_bola_ativo == true:
+		var balls = get_tree().get_nodes_in_group("Balls")
+		for ball in balls:
+			if not ball is RigidBody3D:
+				continue
+			var distancia = (ball.global_position - self.global_position).length()
+			var raio_circulo = circulo_limite.scale.x 
+			if distancia >= 0.4:
+
+				if distancia <= raio_circulo and distancia > 0:
+					var dir = (self.global_position - ball.global_position).normalized()
+					var dist_norm = clamp(1.0 - (distancia / raio_circulo), 0.0, 1.0)
+					var intensidade = dist_norm * status_atual.atrai_bola_forca
+					ball.apply_central_force(dir * intensidade)
+			else:
+				status_atual.atrai_bola_ativo = false
 	var ids := spark_cooldowns.keys()
 	for id in ids:
 		spark_cooldowns[id] -= delta
@@ -550,7 +566,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 				var impulso_final = impulso_base * status_atual.empurra_aliados_multiplicador
 				collider.apply_central_impulse(impulso_final)   
 		if status_atual.congelamento_ativo:
-
+	
 	# só congela peças (Player), ignora bola, parede etc
 			if collider is Player:
 
@@ -568,7 +584,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 
 		continue  # interrompe processamento desse contato
 				
-
 
 
 		var collider_id := collider.get_instance_id()

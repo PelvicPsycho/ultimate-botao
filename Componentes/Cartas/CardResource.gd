@@ -8,7 +8,8 @@ enum TipoEfeito {
 	Empurrão,
 	TrocaLugar,
 	Grande,
-	Pequeno
+	Pequeno,
+	Atrasao
 }
 enum Raridade{
 	NORMAL, INCOMUN, RARA

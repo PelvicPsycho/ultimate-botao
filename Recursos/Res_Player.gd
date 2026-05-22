@@ -30,6 +30,8 @@ var aumento_de_tamano:bool = false
 var diminui_de_tamano:bool =false
 var empurra_aliados_ativo = true
 var empurra_aliados_multiplicador = 1.8 
+var atrai_bola_ativo = false
+var atrai_bola_forca = 1.0
 func _init():
 	slotsUpgrates.resize(quantosSlotes)
 func inicializar_slots() -> void:
@@ -46,6 +48,7 @@ func resetar_status(base_info: TeamPlayer) -> void:
 	self.PA = base_info.PA 
 	self.aumento_de_tamano = false
 	self.diminui_de_tamano = false
+	self.atrai_bola_ativo =false
 func aplicar_buff(card: CardResource) -> void:
 	# 1. A carta já está equipada: só ativa o efeito.
 	ultima_carta_usada = card
@@ -68,15 +71,16 @@ func aplicar_buff(card: CardResource) -> void:
 		CardResource.TipoEfeito.Empurrão:
 			empurra_aliados_ativo = true
 			empurra_aliados_multiplicador = card.magnitude
-		
+		CardResource.TipoEfeito.Atrasao:
+			atrai_bola_ativo = true
+			atrai_bola_forca = card.magnitude
+			
 	PA -= card.custo_energia
 	duracao_dos_buffs[card] = card.duracao
 	recalcular_status()
 	status_mudou.emit()
-
 	print("--- CARTA ATIVADA! ---")
 	print("Nova Força: ", forca, " | PA: ", PA)
-
 func processar_passagem_de_turno(base_info: TeamPlayer) -> void:
 	processar_expiracao_de_buffs(base_info)
 
