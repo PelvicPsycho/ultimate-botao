@@ -455,7 +455,13 @@ func _on_btn_salvar_sair_pressed() -> void:
 	CupManager.myTeam.mainSquad.clear()
 	for i in range(num_titulares):
 		CupManager.myTeam.mainSquad.append(GameState.jogadores[i])
-	print("✔ mainSquad sincronizado com %d jogadores" % num_titulares)
+	
+	# Preenche o collectedSquad com as peças restantes (reservas)
+	CupManager.myTeam.collectedSquad.clear()
+	for i in range(num_titulares, GameState.jogadores.size()):
+		CupManager.myTeam.collectedSquad.append(GameState.jogadores[i])
+		
+#	print("✔ mainSquad: %d titulares | collectedSquad: %d reservas" % [num_titulares, CupManager.myTeam.collectedSquad.size()])
 	
 	var menu = get_parent().get_node_or_null("MainMenu")
 	if menu:
