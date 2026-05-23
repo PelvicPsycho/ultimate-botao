@@ -449,6 +449,14 @@ func _on_btn_salvar_sair_pressed() -> void:
 	print("Salvando o time...")
 	SaveManager.save_game(GameState.jogadores)
 	
+	# Sincroniza as primeiras N peças do GameState com o mainSquad do time
+	# para que o MatchState carregue o elenco correto na partida
+	var num_titulares = mini(slot_buttons.size(), GameState.jogadores.size())
+	CupManager.myTeam.mainSquad.clear()
+	for i in range(num_titulares):
+		CupManager.myTeam.mainSquad.append(GameState.jogadores[i])
+	print("✔ mainSquad sincronizado com %d jogadores" % num_titulares)
+	
 	var menu = get_parent().get_node_or_null("MainMenu")
 	if menu:
 		menu.visible = true

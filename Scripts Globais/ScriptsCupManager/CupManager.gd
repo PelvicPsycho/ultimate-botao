@@ -31,6 +31,17 @@ func _ready() -> void:
 			player.time = team
 		for player in team.collectedSquad:
 			player.time = team
+	
+	# Sincroniza o mainSquad do time do jogador com o save carregado
+	_sync_main_squad_from_gamestate()
+
+func _sync_main_squad_from_gamestate() -> void:
+	if GameState.jogadores.is_empty():
+		return
+	var num_titulares = mini(myTeam.mainSquad.size(), GameState.jogadores.size())
+	for i in range(num_titulares):
+		myTeam.mainSquad[i] = GameState.jogadores[i]
+	print("✔ mainSquad inicial sincronizado com %d jogadores do save" % num_titulares)
 
 func newRun():
 	matchesPlayed = 0
