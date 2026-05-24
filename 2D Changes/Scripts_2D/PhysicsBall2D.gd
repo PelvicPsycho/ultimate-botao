@@ -25,7 +25,7 @@ func move_object(_delta: float) -> void:
 	
 	#print("Ball Velocity = ", current_velocity.length())
 	
-	if abs(current_velocity.x) < 0.1 && abs(current_velocity.y) < 0.1:
+	if abs(current_velocity.x) < 10 && abs(current_velocity.y) < 10:
 		Set_Current_Velocity(Vector2.ZERO)
 		is_moving = false
 	else:
