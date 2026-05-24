@@ -171,6 +171,7 @@ max_zoom = Vector3(0, 7, 0.116)
 
 [node name="Outiline" type="MeshInstance3D" parent="Camera3D" unique_id=2027248125]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 7.450581e-09, -0.15860558)
+visible = false
 mesh = SubResource("PlaneMesh_dmcwy")
 
 [node name="Pitch" type="StaticBody3D" parent="." unique_id=371043304]

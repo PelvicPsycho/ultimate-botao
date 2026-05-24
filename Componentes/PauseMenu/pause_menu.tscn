@@ -142,7 +142,10 @@ custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 1
-value = 30.0
+min_value = 100.0
+max_value = 5000.0
+step = 100.0
+value = 1000.0
 
 [node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer2" unique_id=1783659343]
 layout_mode = 2
@@ -196,7 +199,8 @@ layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 1
 max_value = 1.0
-step = 0.05
+step = 0.001
+value = 0.98
 
 [node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer4" unique_id=431249687]
 layout_mode = 2
@@ -473,7 +477,8 @@ layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 1
 max_value = 1.0
-step = 0.1
+step = 0.01
+value = 0.96
 
 [node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer7" unique_id=493979765]
 layout_mode = 2
@@ -557,7 +562,7 @@ size_flags_horizontal = 2
 size_flags_vertical = 1
 max_value = 5.0
 step = 0.1
-value = 0.5
+value = 1.0
 
 [node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer9" unique_id=1621555224]
 layout_mode = 2

@@ -5,8 +5,8 @@ enum ModoTiro { PUXAR, EMPURRAR, MODO_3 }
 
 var modo_atual: ModoTiro = ModoTiro.PUXAR
 
-var allPieces: Array[Player]
-var selectedPiece: Player
+var allPieces: Array[PhysicsPlayer2D]
+var selectedPiece: PhysicsPlayer2D
 @export var anunciador_ui: CanvasLayer
 var homeTeam: Team
 var homeScore: int
@@ -28,7 +28,7 @@ var jogadores: Array = []
 @export var audio_perdeu_turno: AudioStream
 
 @onready var timer = $MatchTimer
-@onready var painel_cartas :=$MatchUI/BotoesUI
+@onready var painel_cartas := $MatchUI/BotoesUI
 var gol_de_ouro: bool = false
 
 # Contador de congelamento. Só descongela quando chegar a zero.
@@ -48,8 +48,8 @@ func _ready() -> void:
 	for goal in goals:
 		# Sintaxe Godot 4 para Sinais
 		goal.gol.connect(onGoal)
-		var material_base = homeTeam.materialAtivo if goal.team == goal.TeamSide.HOME else awayTeam.materialAtivo
-		goal.changeColor(material_base)
+		#var material_base = homeTeam.materialAtivo if goal.team == goal.TeamSide.HOME else awayTeam.materialAtivo
+		#goal.changeColor(material_base)
 		
 	var jogadores_salvos: Array = GameState.jogadores
 
@@ -64,9 +64,9 @@ func _ready() -> void:
 		if info != -1:
 			piece.playerInfo.slotsUpgrates = jogadores_salvos[info].slotsUpgrates.duplicate()
 
-			print("Cartas carregadas para ", piece.playerInfo.nome)
-			for c in piece.playerInfo.slotsUpgrates:
-				print("  - ", (c.resource_path if c else "Vazio"))
+			#print("Cartas carregadas para ", piece.playerInfo.nome)
+			#for c in piece.playerInfo.slotsUpgrates:
+				#print("  - ", (c.resource_path if c else "Vazio"))
 
 	# CONEXÕES PADRÃO
 		if not piece.clickedPiece.is_connected(_on_player_clicked_piece):
@@ -109,8 +109,8 @@ func loadMatch():
 func assignPieces():
 	var homePlayers: Array[TeamPlayer] = homeTeam.mainSquad
 	var awayPlayers: Array[TeamPlayer] = awayTeam.mainSquad
-	var homePieces = $HomeTeam.get_children()
-	var awayPieces = $AwayTeam.get_children()
+	var homePieces = $PhysicsObjects_Group/HomeTeam.get_children()
+	var awayPieces = $PhysicsObjects_Group/AwayTeam.get_children()
 	for i in range(homePieces.size()):
 		var piece = homePieces[i]
 		var player = homePlayers[i]
@@ -133,7 +133,7 @@ func _atualizar_placar() -> void:
 
 func _on_lance_acabou() -> void: 
 	var alguma_peca_arrastada: bool = false
-	var peca_arrastada: Player = null
+	var peca_arrastada: PhysicsPlayer2D = null
 	
 	for piece in allPieces:
 		if piece.is_dragging:
@@ -164,7 +164,7 @@ func onGoal(isHome: bool) -> void:
 	goalFlag = true
 	if rallyCounter == 1:
 		foulFlag = true
-		
+	
 	rallyCounter = 1
 	if isHome and not foulFlag:
 		awayScore += 1
@@ -179,17 +179,19 @@ func onGoal(isHome: bool) -> void:
 		
 	_atualizar_placar()
 
-func onClickedPiece(piece: Player) -> void:
+func onClickedPiece(piece: PhysicsPlayer2D) -> void:
 	selectedPiece = piece
 	piece.abrir_botoes_cartas()
+	
 func printState() -> void:
-	print("turnCounter: ", turnCounter)
-	print("rallyCounter: ", rallyCounter)
-	print("goalFlag: ", goalFlag)
-	print("foulFlag: ", foulFlag)
-	print("homeScore: ", homeScore)
-	print("awayScore: ", awayScore)
-	print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
+	#print("turnCounter: ", turnCounter)
+	#print("rallyCounter: ", rallyCounter)
+	#print("goalFlag: ", goalFlag)
+	#print("foulFlag: ", foulFlag)
+	#print("homeScore: ", homeScore)
+	#print("awayScore: ", awayScore)
+	#print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
+	pass
 
 func onTurnPlayed() -> void:
 	congelar_jogo(true)
@@ -224,9 +226,7 @@ func waitAllStopped() -> bool:
 
 		for piece in allPieces:
 			if (
-				piece.linear_velocity.length_squared() > LINEAR_THRESHOLD_SQ
-				or piece.angular_velocity.length_squared() > ANGULAR_THRESHOLD_SQ
-				or not piece.sleeping
+				piece.current_velocity.length_squared() > LINEAR_THRESHOLD_SQ
 			):
 				todos_parados = false
 				break
@@ -234,9 +234,7 @@ func waitAllStopped() -> bool:
 		if todos_parados:
 			for ball in allBalls:
 				if (
-					ball.linear_velocity.length_squared() > LINEAR_THRESHOLD_SQ
-					or ball.angular_velocity.length_squared() > ANGULAR_THRESHOLD_SQ
-					or not ball.sleeping
+					ball.current_velocity.length_squared() > LINEAR_THRESHOLD_SQ
 				):
 					todos_parados = false
 					break
@@ -259,7 +257,7 @@ func selectFirstTurn() -> void:
 func changeTurn() -> void:
 	for piece in allPieces:
 		if (currentTurn == turn.HOME and piece.team == homeTeam) or (currentTurn == turn.AWAY and piece.team == awayTeam):
-			piece.status_atual.processar_expiracao_de_buffs(piece.playerInfo)
+			piece.playerInfo_atual.processar_expiracao_de_buffs(piece.playerInfo)
 	currentTurn = turn.AWAY if currentTurn == turn.HOME else turn.HOME
 	for piece in allPieces:
 		piece.canPlay = (currentTurn == turn.HOME) if piece.team == homeTeam else (currentTurn == turn.AWAY)
@@ -278,8 +276,8 @@ func forceTurn(target: turn) -> void:
 	atualizar_cores_pecas()
 	
 	for piece in allPieces:
-		if piece.status_atual:
-			piece.status_atual.processar_passagem_de_turno(piece.playerInfo)
+		if piece.playerInfo_atual:
+			piece.playerInfo_atual.processar_passagem_de_turno(piece.playerInfo)
 		piece.canPlay = (currentTurn == turn.HOME) if piece.team == homeTeam else (currentTurn == turn.AWAY)
 			
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
@@ -326,6 +324,7 @@ func atualizar_cores_pecas() -> void:
 	for p in allPieces:
 		var deve_ativar: bool = (p.team == homeTeam) if e_turno_home else (p.team == awayTeam)
 		p.definir_estado_visual(deve_ativar)
+		
 func isCorrectSide(team: Team) -> bool:
 	return (currentTurn == turn.HOME and team == homeTeam) or (currentTurn == turn.AWAY and team == awayTeam)
 
@@ -365,25 +364,27 @@ func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: 
 	
 	anunciador_ui.anuncio_encerrado.connect(descongelar, CONNECT_ONE_SHOT)
 
-func tentar_usar_carta(piece: Player, carta: CardResource) -> void:
+func tentar_usar_carta(piece: PhysicsPlayer2D, carta: CardResource) -> void:
 	if carta_usada_no_turno:
-		print("Já usou carta neste turno!")
+		#print("Já usou carta neste turno!")
 		return
 	if piece == null or carta == null:
 		print("Erro: peça ou carta inválida.")
 		return
-	piece.status_atual.aplicar_buff(carta)
+	piece.playerInfo_atual.aplicar_buff(carta)
 	carta_usada_no_turno = true
-	print("CARTA ATIVADA COM SUCESSO:", carta.resource_path)
+	#print("CARTA ATIVADA COM SUCESSO:", carta.resource_path)
 
-func _on_player_clicked_piece(Piece: Player) -> void:
+func _on_player_clicked_piece(Piece: PhysicsPlayer2D) -> void:
 	if carta_usada_no_turno:
 		return
 		
 	var carta = %MatchUI.obter_carta_selecionada()
 	
+	
 	if carta != null:
-		Piece.status_atual.aplicar_buff(carta)
+		print("è diferente de null")
+		Piece.playerInfo_atual.aplicar_buff(carta)
 		carta_usada_no_turno = true
 		%MatchUI.consumir_carta_selecionada()
-		print("Buff aplicado e carta removida da mão!")
+		#print("Buff aplicado e carta removida da mão!")

@@ -65,11 +65,11 @@ func newRun():
 	matchesPlayed = 0
 	playCup(0)
 	currentCompetitor = followingCompetitors[0]
-	print("Playing now: ", myTeam.name, " Vs ", currentCompetitor.name)
+	#print("Playing now: ", myTeam.name, " Vs ", currentCompetitor.name)
 
 func playCup(index: int):
 	currentCup = cupList[index]
-	print("Playing cup: ", currentCup)
+	#print("Playing cup: ", currentCup)
 	pickCompetitors()
 
 func nextCup():
@@ -88,8 +88,8 @@ func nextCompetitor():
 		currentCompetitor = followingCompetitors[matchesPlayed]
 		if matchesPlayed == currentCup.numMatches-1:
 			isFinal = true
-			print("FINAL OF ", currentCup.cupName)
-		print("Playing now: ", myTeam.name, " Vs ", currentCompetitor.name)
+			#print("FINAL OF ", currentCup.cupName)
+		#print("Playing now: ", myTeam.name, " Vs ", currentCompetitor.name)
 	else: 
 		nextCup()
 	#saveGame()
@@ -104,11 +104,11 @@ func pickCompetitors():
 			break
 		if team != myTeam:
 			followingCompetitors.append(team)
-	print("Following matches: ", followingCompetitors)
+	#print("Following matches: ", followingCompetitors)
 
 func saveGame():
-	print("matches played: ", matchesPlayed)
-	print("current cup:", currentCup.cupName)
+	#print("matches played: ", matchesPlayed)
+	#print("current cup:", currentCup.cupName)
 	pass
 
 func loadGame():

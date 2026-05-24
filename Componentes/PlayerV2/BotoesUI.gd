@@ -1,6 +1,6 @@
 extends Control
 
-var piece_alvo: Player
+var piece_alvo: PhysicsPlayer2D
 var carta1: CardResource
 var carta2: CardResource
 var cartas: Array = []

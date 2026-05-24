@@ -1,9 +1,10 @@
 extends CanvasLayer
 
-var Pecas_Jogo: Array[Player] = []
-var a_bola: Ball
+var Pecas_Jogo: Array[PhysicsPlayer2D] = []
+var a_bola: PhysicsBall2D
 
 @onready var recursos: Array[Padrao] = [
+	preload("res://Recursos/Padroes/Padrao_Pavin_Fisica2D.tres"),
 	preload("res://Recursos/Padroes/PadraoVS.tres"),
 	preload("res://Recursos/Padroes/Padrao.tres"),
 	preload("res://Recursos/Padroes/PadraoIgor.tres"),
@@ -104,38 +105,43 @@ func pegar_a_bola():
 func _on_forca_multiplicador_value_changed(value: float) -> void:
 	var labelValor = %ForcaMultiplicador.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.forca_multiplicador = value
+	#for peca in Pecas_Jogo:
+		#peca.forca_multiplicador = value
+	#print("forca_multiplicador - Not Updated to the physics 2D")
 
 func _on_forca_maxima_value_changed(value: float) -> void:
 	var labelValor = %ForcaMaxima.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
+	print("forca maxima value = ", value)
 	for peca in Pecas_Jogo:
-		peca.forca_maxima = value
+		peca.max_force = value
 
 func _on_distancia_raio_value_changed(value: float) -> void:
 	var labelValor = %DistanciaRaio.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.raio_saida_pixels = value
+	#for peca in Pecas_Jogo:
+		#peca.raio_saida_pixels = value
+	#print("distancia_raio - Not Updated to the physics 2D")
 
 func _on_friccao_value_changed(value: float) -> void:
 	var labelValor = %Friccao.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
 	for peca in Pecas_Jogo:
-		peca.physics_material_override.friction = value
+		peca.friction = value
 
 func _on_bounce_value_changed(value: float) -> void:
 	var labelValor = %Bounce.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.physics_material_override.bounce = value
+	#for peca in Pecas_Jogo:
+		#peca.physics_material_override.bounce = value
+	#print("player bounce - Not Updated to the physics 2D")
 
 func _on_linear_damp_value_changed(value: float) -> void:
 	var labelValor = %LinearDamp.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.linear_damp = value
+	#for peca in Pecas_Jogo:
+		#peca.linear_damp = value
+	#print("linear_damp player - Not Updated to the physics 2D")
 
 func _on_peso_bola_value_changed(value: float) -> void:
 	var labelValor = %PesoBola.get_parent().get_node("ValorSlider")
@@ -145,17 +151,19 @@ func _on_peso_bola_value_changed(value: float) -> void:
 func _on_bounce_bola_value_changed(value: float) -> void:
 	var labelValor = %BounceBola.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	a_bola.physics_material_override.bounce = value
+	#a_bola.physics_material_override.bounce = value
+	#print("bounce_bola - Not Updated to the physics 2D")
 
 func _on_linear_damp_bola_value_changed(value: float) -> void:
 	var labelValor = %LinearDampBola.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	a_bola.linear_damp = value
+	#a_bola.linear_damp = value
+	#print("linear_damp_bola - Not Updated to the physics 2D")
 
 func _on_friccao_bola_value_changed(value: float) -> void:
 	var labelValor = %FriccaoBola.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	a_bola.physics_material_override.friction = value
+	a_bola.friction = value
 
 func _on_shakedown_amp_min_value_changed(value):
 	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10/ShakedownAmpMin"
@@ -315,14 +323,15 @@ func _on_save_button_pressed():
 	var novo_padrao = Padrao.new()
 	novo_padrao.name = "Custom " + str(custom_count + 1)
 	
-	if Pecas_Jogo.size() > 0:
-		var peca = Pecas_Jogo[0]
-		novo_padrao.forca_multiplicador = peca.forca_multiplicador
-		novo_padrao.forca_maxima = peca.forca_maxima
-		novo_padrao.distancia_raio_visual = peca.raio_saida_pixels
-		novo_padrao.friccao_jogador = peca.physics_material_override.friction
-		novo_padrao.bounce_jogador = peca.physics_material_override.bounce
-		novo_padrao.linear_damp_jogador = peca.linear_damp
+	#if Pecas_Jogo.size() > 0:
+	for peca in Pecas_Jogo:
+		#var peca = Pecas_Jogo[0]
+		#novo_padrao.forca_multiplicador = peca.forca_multiplicador
+		novo_padrao.forca_maxima = peca.max_force
+		#novo_padrao.distancia_raio_visual = peca.raio_saida_pixels
+		novo_padrao.friccao_jogador = peca.friction
+		#novo_padrao.bounce_jogador = peca.physics_material_override.bounce
+		#novo_padrao.linear_damp_jogador = peca.linear_damp
 		novo_padrao.shake_amplitude_min = peca.shake_amplitude_min
 		novo_padrao.shake_amplitude_max = peca.shake_amplitude_max
 		novo_padrao.shake_frequency_min = peca.shake_frequency_min
@@ -332,10 +341,10 @@ func _on_save_button_pressed():
 		novo_padrao.line_max = peca.tamanho_maximo_linha
 	
 	if a_bola:
-		novo_padrao.friccao_bola = a_bola.physics_material_override.friction
-		novo_padrao.bounce_bola = a_bola.physics_material_override.bounce
+		novo_padrao.friccao_bola = a_bola.friction
+		#novo_padrao.bounce_bola = a_bola.physics_material_override.bounce
 		novo_padrao.peso_bola = a_bola.mass
-		novo_padrao.linear_damp_bola = a_bola.linear_damp
+		#novo_padrao.linear_damp_bola = a_bola.linear_damp
 	
 	dados.append({
 		"name": novo_padrao.name,

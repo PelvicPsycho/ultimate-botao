@@ -1,24 +1,26 @@
 extends Control
 
-@onready var new_game_level: PackedScene = preload("res://MatchScene.tscn")
+#@onready var new_game_level: PackedScene = preload("res://MatchScene.tscn")
+@onready var new_game_level_2D: PackedScene = preload("res://2D Changes/2D_Scenes/MatchScene2D.tscn")
 const MyTeamScene := preload("res://Componentes/MyTeam/elenco_menu_control.tscn") 
 
 func _ready():
-	print("=== CONFIGURAÇÕES CARREGADAS ===")
-	print("Total de jogadores salvos no GameState: ", GameState.jogadores.size())
-
-	if GameState.jogadores.size() == 0:
-		print("Nenhum save encontrado. Carregando time inicial (Grêmio) do Database...")
-		_carregar_time_inicial()
-	else:
-		print("✔ Jogadores carregados do save com sucesso!")
-		for j in GameState.jogadores:
-			print("\nJogador: ", j.nome)
-			for s in j.slotsUpgrates:
-				if s:
-					print("  - ", s.nome)
-				else:
-					print("  - [Vazio]")
+	#print("=== CONFIGURAÇÕES CARREGADAS ===")
+	#print("Total de jogadores salvos no GameState: ", GameState.jogadores.size())
+#
+	#if GameState.jogadores.size() == 0:
+		#print("Nenhum save encontrado. Carregando time inicial (Grêmio) do Database...")
+		#_carregar_time_inicial()
+	#else:
+		#print("✔ Jogadores carregados do save com sucesso!")
+		#for j in GameState.jogadores:
+			#print("\nJogador: ", j.nome)
+			#for s in j.slotsUpgrates:
+				#if s:
+					#print("  - ", s.nome)
+				#else:
+					#print("  - [Vazio]")
+	pass
 
 # Carrega cartas e pecas iniciais se não existe nenhum save
 func _carregar_time_inicial():
@@ -46,7 +48,7 @@ func _carregar_time_inicial():
 		print("ERRO -> Nenhuma peça do Grêmio encontrada no Database!")
 	else:
 		GameState.jogadores = pecas_iniciais
-		print("✔ Time inicial (Grêmio) carregado com sucesso!")
+		#print("✔ Time inicial (Grêmio) carregado com sucesso!")
 
 
 	# ==========================================
@@ -70,7 +72,7 @@ func _carregar_time_inicial():
 		else:
 			print("AVISO -> Carta inicial não encontrada no Database: ", id_carta)
 			
-	print("✔ Cartas iniciais adicionadas! Total: ", GameState.cartas_desbloqueadas.size())
+	#print("✔ Cartas iniciais adicionadas! Total: ", GameState.cartas_desbloqueadas.size())
 
 func _on_team_button_pressed() -> void:
 	# Instancia a cena nova e adiciona na tela
@@ -83,8 +85,8 @@ func _on_continue_button_pressed() -> void:
 
 func _on_new_game_button_pressed() -> void:
 	CupManager.newRun()
-	if new_game_level != null:
-		get_tree().change_scene_to_packed(new_game_level)
+	if new_game_level_2D != null:
+		get_tree().change_scene_to_packed(new_game_level_2D)
 	else:
 		pass
 
