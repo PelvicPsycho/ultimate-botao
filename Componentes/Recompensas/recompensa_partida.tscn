@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://du7wtyw4lyas6" path="res://Componentes/Recompensas/Rectangle 40_recompensaup.png" id="6_co4fe"]
 [ext_resource type="Texture2D" uid="uid://cl2tgl8bovq38" path="res://Componentes/Recompensas/Rectangle 39_recompensadown.png" id="7_w73gl"]
 
-[node name="RecompensaPartida_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("insp_nome_label", "insp_rank_label", "insp_stats_label", "insp_slots_hbox", "container_opcoes", "btn_aceitar")]
+[node name="RecompensaPartida_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("insp_nome_label", "insp_rank_label", "insp_arte_rect", "container_opcoes", "btn_aceitar")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,8 +22,7 @@ grow_vertical = 2
 script = ExtResource("1_u85iu")
 insp_nome_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/ItemName_Label")
 insp_rank_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/PecaTexture_TextureRect/PecaRank_Label")
-insp_stats_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/HBoxContainer/PecaRank_Label")
-insp_slots_hbox = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer")
+insp_arte_rect = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/PecaTexture_TextureRect")
 container_opcoes = NodePath("Panel/VBoxContainer/MarginContainer2/Opcoes_HBoxContainer")
 btn_aceitar = NodePath("Panel/VBoxContainer/MarginContainer/AceitarButton_Button")
 cena_botao_peca = ExtResource("2_ml02d")

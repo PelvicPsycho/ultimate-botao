@@ -15,39 +15,42 @@ extends Control
 var peca_selecionada: TeamPlayer = null
 var time_derrotado: Team = null
 
-# --- REFERÊNCIAS DE NÓS ---
-@export_group("Janela de Inspeção")
-@export var insp_nome_label: Label
-@export var insp_rank_label: Label
-@export var insp_arte_rect: TextureRect
-@export var insp_stats_label: Label
-@export var insp_slots_hbox: HBoxContainer
-@export var icone_slot_livre: Texture2D # Reutilize os mesmos ícones do menu
+# --- REFERÊNCIAS DE NÓS (Mapeadas para a sua imagem) ---
+@export_group("Janela de Inspeção - Esquerda")
+@export var insp_nome_label: Label         # Arraste o ItemName_Label
+@export var insp_rank_label: Label         # Arraste o PecaRank_Label
+@export var insp_arte_rect: TextureRect    # Arraste o PecaTexture_TextureRect
+
+@export_group("Janela de Inspeção - Direita")
+@export var contagem_slots_label: Label    # Arraste o ContagemSlots_Label
+@export var slots_indicator_hbox: HBoxContainer # Arraste o SlotsIndicator_HBoxContainer
+@export var equipped_cards_grid: GridContainer  # Arraste o EquippedCards_GridContainer
+@export var pontos_acao_label: Label       # Arraste o PontosdeAcao_Label
+
+@export_group("Ícones")
+@export var icone_slot_livre: Texture2D
+@export var icone_slot_ocupado: Texture2D
 
 @export_group("Opções e Ações")
-@export var container_opcoes: HBoxContainer
-@export var btn_aceitar: TextureButton
+@export var container_opcoes: HBoxContainer # Arraste o Opcoes_HBoxContainer
+@export var btn_aceitar: Button             # Arraste o AceitarButton_Button
 
 @export_group("Cenas")
-@export var cena_botao_peca: PackedScene # Arraste a mesma cena que usamos no menu de elenco
+@export var cena_botao_peca: PackedScene    # Sua cena do botão
 
 func _ready() -> void:
-	# Esconde e reseta a interface inicial
 	_limpar_inspecao()
 	btn_aceitar.disabled = true
 	btn_aceitar.pressed.connect(_on_btn_aceitar_pressed)
 
-# --- FUNÇÃO PRINCIPAL PARA INICIAR A TELA ---
-# O MatchScene deve chamar isso e passar CupManager.currentCompetitor quando a partida acabar
 func iniciar_tela_de_recompensa(time_inimigo: Team) -> void:
 	time_derrotado = time_inimigo
 	self.visible = true
 	
-	# Limpa qualquer botão antigo
 	for child in container_opcoes.get_children():
 		child.queue_free()
 		
-	# Cria os 5 botões baseado no time titular do adversário
+	# Cria os botões das peças do inimigo
 	for peca_inimiga in time_derrotado.mainSquad:
 		if peca_inimiga != null:
 			_criar_botao_de_opcao(peca_inimiga)
@@ -58,92 +61,105 @@ func _criar_botao_de_opcao(peca: TeamPlayer) -> void:
 	var btn_item = cena_botao_peca.instantiate()
 	container_opcoes.add_child(btn_item)
 	
+	# Guarda o ID na memória do botão para facilitar a trava visual depois
+	btn_item.set_meta("id_peca", peca.id_unico) 
+	
 	if btn_item.has_method("setup_item"):
 		btn_item.setup_item(peca)
 		
-	# --- TRAVA DE PEÇAS REPETIDAS ---
 	var ja_possui = GameState.pecas_desbloqueadas.has(peca.id_unico)
 	
 	if ja_possui:
-		# Deixa o botão cinza e bloqueia clique se o jogador já tiver essa peça
-		btn_item.modulate = Color(0.3, 0.3, 0.3, 1.0)
+		btn_item.modulate = Color(0.3, 0.3, 0.3, 1.0) # Escurece as repetidas
 		btn_item.disabled = true
 	else:
 		btn_item.modulate = Color.WHITE
-		# Quando clicar no botão, inspeciona essa peça
 		btn_item.pressed.connect(func(): _selecionar_peca(peca, btn_item))
 
 func _selecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 	peca_selecionada = peca
 	
-	# --- ATUALIZA A JANELA CENTRAL (INSPEÇÃO) ---
+	# 1. Atualiza Esquerda (Nome, Arte, Rank)
 	insp_nome_label.text = peca.nome
 	insp_rank_label.text = "Rank " + str(TeamPlayer.Rank.keys()[peca.rank])
 	if peca.foto:
 		insp_arte_rect.texture = peca.foto
 		
-	# Puxa o status base (sem buffs de cartas do inimigo)
-	insp_stats_label.text = "Pontos de Ação • %d AP\nForça Base • %d" % [peca.PA, peca.forca]
+	pontos_acao_label.text = "%d AP" % peca.PA
 	
-	# Atualiza bolinhas de slots
-	if insp_slots_hbox:
-		for child in insp_slots_hbox.get_children():
+	# 2. Limpa e Atualiza a Grid de Cartas Equipadas (A Mágica Acontece Aqui)
+	for child in equipped_cards_grid.get_children():
+		child.queue_free()
+
+	var slots_usados = 0
+	
+	for carta in peca.slotsUpgrates:
+		if carta != null:
+			slots_usados += carta.custoSlotes
+			
+			var icone_carta = TextureRect.new()
+			icone_carta.texture = carta.arte
+			icone_carta.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			icone_carta.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			icone_carta.custom_minimum_size = Vector2(40, 60) # Ajuste o tamanho para caber no seu layout
+			equipped_cards_grid.add_child(icone_carta)
+			
+	# 3. Atualiza os Slots (Textos e Bolinhas)
+	if contagem_slots_label:
+		contagem_slots_label.text = "Slots (%d/%d)" % [slots_usados, peca.quantosSlotes]
+
+	if slots_indicator_hbox:
+		for child in slots_indicator_hbox.get_children():
 			child.queue_free()
+			
 		for i in range(peca.quantosSlotes):
-			var icone = TextureRect.new()
-			icone.texture = icone_slot_livre
-			icone.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			icone.custom_minimum_size = Vector2(20, 20)
-			insp_slots_hbox.add_child(icone)
+			var icone_bolinha = TextureRect.new()
+			icone_bolinha.texture = icone_slot_ocupado if i < slots_usados else icone_slot_livre
+			icone_bolinha.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			icone_bolinha.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			icone_bolinha.custom_minimum_size = Vector2(15, 15)
+			slots_indicator_hbox.add_child(icone_bolinha)
 
-	# --- FEEDBACK VISUAL DO BOTÃO SELECIONADO ---
-	# Tira o contorno/brilho de todos os botões e bota só no clicado
+	# 4. Feedback Visual de Seleção no contêiner de baixo
 	for child in container_opcoes.get_children():
-		child.modulate = Color.WHITE if not GameState.pecas_desbloqueadas.has(child.item_resource.id_unico) else Color(0.3, 0.3, 0.3, 1.0)
+		var id = child.get_meta("id_peca")
+		child.modulate = Color.WHITE if not GameState.pecas_desbloqueadas.has(id) else Color(0.3, 0.3, 0.3, 1.0)
 	
-	# Destaque visual no botão selecionado (ex: deixa mais brilhante ou pinta de verde)
-	botao_clicado.modulate = Color(0.5, 1.0, 0.5, 1.0) # Tom esverdeado para mostrar seleção
-
-	# Libera o botão de aceitar
+	botao_clicado.modulate = Color(0.5, 1.0, 0.5, 1.0) # Fica verdinho para mostrar que selecionou
 	btn_aceitar.disabled = false
 
 func _on_btn_aceitar_pressed() -> void:
 	if peca_selecionada == null: return
 	
-	print("🎁 Recompensa resgatada: ", peca_selecionada.nome)
-	
-	# 1. Duplica a peça para não afetar o banco de dados original (Muito Importante!)
+	# 1. Duplica a peça para o banco de dados original do time inimigo não ser afetado
 	var nova_peca = peca_selecionada.duplicate(true)
+	nova_peca.time = CupManager.myTeam # Veste a camisa do seu time
 	
-	# 2. Reseta a peça (limpa as cartas que o adversário estava usando)
-	nova_peca.slotsUpgrates.clear()
-	nova_peca.slotsUpgrates.resize(nova_peca.quantosSlotes)
-	#Altera o time da peca para ser o myTeam, nao sei se vamos querer assim ainda
-	nova_peca.time = CupManager.myTeam # Transfere a camisa para o seu time
-	
-	# 3. Adiciona à mochila do jogador no GameState
+	# 2. Adiciona a peça ao inventário
 	GameState.jogadores.append(nova_peca)
 	GameState.pecas_desbloqueadas.append(nova_peca.id_unico)
 	
-	# 4. Salva o jogo imediatamente para não perder a recompensa
+	# 3. Dá ao jogador as cartas que estavam equipadas na peça inimiga!
+	for carta in nova_peca.slotsUpgrates:
+		if carta != null:
+			# Checa se o jogador já não tem essa carta (para itens únicos)
+			if not GameState.cartas_desbloqueadas.has(carta.id_unico):
+				GameState.cartas_desbloqueadas.append(carta.id_unico)
+	
+	# 4. Salva e prossegue
 	SaveManager.save_game(GameState.jogadores)
-	
-	# 5. Avisa o CupManager para prosseguir para a próxima partida/fase
 	CupManager.nextCompetitor()
-	
-	# Fecha essa tela (ou avança de cena)
 	queue_free()
 
 func _limpar_inspecao() -> void:
 	peca_selecionada = null
 	insp_nome_label.text = "Selecione uma Peça"
 	insp_rank_label.text = ""
-	insp_stats_label.text = ""
-#	insp_arte_rect.texture = null
-	if insp_slots_hbox:
-		for child in insp_slots_hbox.get_children():
+	pontos_acao_label.text = ""
+	insp_arte_rect.texture = null
+	if slots_indicator_hbox:
+		for child in slots_indicator_hbox.get_children():
 			child.queue_free()
-
-
-func _on_teste_button_pressed() -> void:
-	iniciar_tela_de_recompensa(CupManager.myTeam)
+	if equipped_cards_grid:
+		for child in equipped_cards_grid.get_children():
+			child.queue_free()
