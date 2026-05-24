@@ -127,7 +127,6 @@ scale = Vector2(4, 1.128)
 [node name="MatchTimer" type="Node" parent="." unique_id=296019755]
 script = ExtResource("8_j0mnx")
 tempo_maximo_lance = 15.0
-tempo_maximo_partida = 10.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=229047291]
 

@@ -71,6 +71,8 @@ func loadPlayerInfo(plInfo):
 	atualizar_fisica_por_status()
 	
 	Update_Values_With_StatusAtual()
+
+	sprite2D_body.self_modulate = team.cor
 	
 	#if debug:
 		#print("Start friction = ", friction)
