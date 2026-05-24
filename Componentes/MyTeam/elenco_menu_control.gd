@@ -403,7 +403,7 @@ func _on_center_action_pressed() -> void:
 	var peca_titular_atual = GameState.jogadores[current_slot - 1]
 	
 	if item_em_inspecao is TeamPlayer:
-		print("Trocando peça do slot ", current_slot)
+		#print("Trocando peça do slot ", current_slot)
 		
 		# Faz o SWAP das posições no array de jogadores
 		var index_velho = current_slot - 1
@@ -421,11 +421,11 @@ func _on_center_action_pressed() -> void:
 
 	elif item_em_inspecao is CardResource:
 		if inspecionando_carta_equipada:
-			print("Desequipando ", item_em_inspecao.nome)
+			#print("Desequipando ", item_em_inspecao.nome)
 			_remover_buff_da_peca(peca_titular_atual, item_em_inspecao)
 			inspecionando_carta_equipada = false 
 		else:
-			print("Tentando equipar ", item_em_inspecao.nome)
+			#print("Tentando equipar ", item_em_inspecao.nome)
 			if peca_titular_atual.slotsUpgrates.size() != peca_titular_atual.quantosSlotes:
 				peca_titular_atual.slotsUpgrates.resize(peca_titular_atual.quantosSlotes)
 				
@@ -443,10 +443,10 @@ func _remover_buff_da_peca(peca: TeamPlayer, carta: CardResource):
 	var index = peca.slotsUpgrates.find(carta)
 	if index != -1:
 		peca.slotsUpgrates[index] = null
-		print("Carta desequipada com sucesso no menu.")
+		#print("Carta desequipada com sucesso no menu.")
 
 func _on_btn_salvar_sair_pressed() -> void:
-	print("Salvando o time...")
+	#print("Salvando o time...")
 	SaveManager.save_game(GameState.jogadores)
 	
 	# Sincroniza as primeiras N peças do GameState com o mainSquad do time

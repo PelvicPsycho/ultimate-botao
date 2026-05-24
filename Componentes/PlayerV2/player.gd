@@ -178,12 +178,11 @@ func _process(delta: float) -> void:
 func definir_estado_visual(ativo: bool) -> void:
 	self.canPlay = ativo
 	
-
 	var material_alvo = team.materialAtivo if ativo else team.materialInativo
 	
 	if material_alvo:
-
 		mesh.material_override = material_alvo.duplicate()
+
 func _physics_process(delta: float) -> void:
 	if status_atual.atrai_bola_ativo == true:
 		var balls = get_tree().get_nodes_in_group("Balls")
@@ -216,11 +215,9 @@ func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, n
 			return
 	if is_frozen():
 		return
-
-
+		
 	if !canPlay or disabled:
 		return
-
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
@@ -243,8 +240,10 @@ func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, n
 				tempo_inicio_carga = Time.get_ticks_msec()
 				direcao_atual_modo3 = Vector2.ZERO
 				forca_carga_atual = 0.0
+	
 	if Input.is_action_just_pressed("ui_focus_next"): # tecla TAB por padrão
 		debug_status()
+		
 func _input(event: InputEvent) -> void:
 	if is_frozen():
 		return
@@ -318,6 +317,7 @@ func _atualizar_mira_puxar(posicao_atual: Vector2) -> void:
 		circulo_limite.visible = false
 		parar_shake()
 		smoke_threshold_reached = false
+
 func atualizar_fumaça_limite(porcentagem_forca: float, vetor_arrasto_2d: Vector2) -> void:
 	if porcentagem_forca >= 1.0:
 		if smoke_instance_atual == null:
@@ -325,6 +325,7 @@ func atualizar_fumaça_limite(porcentagem_forca: float, vetor_arrasto_2d: Vector
 
 	else:
 		parar_fumaça()
+
 func spawn_smoke_limite(vetor_arrasto_2d: Vector2) -> void:
 	if smoke_scene == null:
 		return
@@ -342,9 +343,6 @@ func spawn_smoke_limite(vetor_arrasto_2d: Vector2) -> void:
 
 	mira_pivot.add_child(smoke_instance_atual)
 
-
-
-
 	# usa a rotação inicial da peça, não a rotação física atual
 	var basis_base := Basis(Vector3.UP, base_rotation_y)
 	var offset_local := direcao_oposta_local * smoke_offset_distance * 0.2
@@ -361,6 +359,7 @@ func spawn_smoke_limite(vetor_arrasto_2d: Vector2) -> void:
 	if particles:
 		
 		particles.emitting = true
+
 func parar_fumaça() -> void:
 	if smoke_instance_atual == null:
 		return
@@ -412,6 +411,7 @@ func puxar_no_timeout():
 		parar_shake()
 		_cancelar_interacao()
 		turnPlayed.emit()
+		
 func _processar_empurrao(posicao_atual: Vector2) -> void:
 	if not direcao_travada:
 		var distancia = posicao_inicial_toque.distance_to(posicao_atual)
@@ -434,6 +434,7 @@ func _processar_empurrao(posicao_atual: Vector2) -> void:
 func _executar_tiro_empurrar() -> void:
 	var vetor_final_2d = vetor_direcao_empurrao * forca_acumulada_empurrao
 	_aplicar_forca(vetor_final_2d)
+
 func _processar_carregar(posicao_atual: Vector2) -> void:
 	if not carregando_modo3: return
 	var vetor_arrasto_2d = posicao_inicial_toque - posicao_atual
@@ -464,6 +465,7 @@ func _desenhar_mira(vetor_2d: Vector2) -> void:
 		mira_pivot.scale.z = remap(clampf(forca_visual, 0.1, limite_max_atual), 0.1, limite_max_atual, 0.1, tamanho_maximo_linha)
 	else:
 		mira_pivot.visible = false
+
 func _aplicar_forca(vetor_2d: Vector2) -> void:
 	if is_frozen():
 		return
@@ -495,6 +497,7 @@ func _aplicar_forca(vetor_2d: Vector2) -> void:
 	
 	_cancelar_interacao_silenciosa() 
 	turnPlayed.emit()
+
 # Função usada quando o jogador desiste da jogada (solta o mouse no centro)
 func _cancelar_interacao() -> void:
 	if is_instance_valid(sfx_tensao_atual):
@@ -502,12 +505,14 @@ func _cancelar_interacao() -> void:
 		
 	SoundMaster.play_sfx(audio_cancelar)
 	_cancelar_interacao_silenciosa()
+
 func parar_shake() -> void:
 	shaking = false
 	shake_timer = 0.0
 	if visual_piece != null:
 		visual_piece.position = base_visual_position
 		visual_piece.rotation = base_visual_rotation
+
 func _cancelar_interacao_silenciosa() -> void:
 	_on_player_released(position)
 	is_dragging = false
@@ -515,10 +520,13 @@ func _cancelar_interacao_silenciosa() -> void:
 	carregando_modo3 = false
 	mira_pivot.visible = false
 	circulo_limite.visible = false
+
 func _on_mouse_entered() -> void:
 	is_pointer_inside = true
+
 func _on_mouse_exited() -> void:
 	is_pointer_inside = false
+
 func ativar_spark_no_ponto_global(ponto_global: Vector3) -> void:
 	if spark_scene == null:
 		return
@@ -527,15 +535,18 @@ func ativar_spark_no_ponto_global(ponto_global: Vector3) -> void:
 		return
 	get_tree().current_scene.add_child(spark_instance)
 	spark_instance.global_position = ponto_global
+
 func is_frozen() -> bool:
 	#return status_atual.disabilitado or status_atual.turnos_preso > 0
 	return false
+
 func get_player_que_quer_trocar() -> Player:
 	var players = get_tree().get_nodes_in_group("Players")
 	for p in players:
 		if p != self and p.status_atual.troca_posicao_ativa and p.canPlay:
 			return p
 	return null
+
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var total := state.get_contact_count()
 	if total <= 0:
@@ -628,6 +639,7 @@ func _on_player_pressed(pos: Vector3):
 
 func _on_player_released(pos: Vector3):
 	zoom_in_signal.emit(pos)
+
 func atualizar_fisica_por_status():
 	
 	# Aumentar a massa torna a peça mais difícil de ser empurrada por outros
@@ -688,16 +700,18 @@ func debug_status():
 	print("  PA:", status_atual.PA)
 	print("  Slots:", status_atual.slotsUpgrates)
 	print("  Buffs Ativos:", status_atual.duracao_dos_buffs)
+
 func abrir_botoes_cartas():
 	if painel_cartas == null:
 		return
+	
 	var cam := get_viewport().get_camera_3d()
 	var pos_tela := cam.unproject_position(global_transform.origin)
-
+	
 	# Ajuste fino da posição na tela
 	pos_tela.x += 40
 	pos_tela.y -= 20
-
+	
 	painel_cartas.position = pos_tela
 	painel_cartas.visible = true
 	painel_cartas.definir_piece(self)

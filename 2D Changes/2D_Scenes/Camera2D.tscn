@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://blaeti31fcy1e"]
+
+[ext_resource type="Script" uid="uid://cq4lq5hmscra6" path="res://2D Changes/Scripts_2D/Camera2D.gd" id="1_7xvf1"]
+
+[node name="Camera2d" type="Camera2D" unique_id=476279433]
+script = ExtResource("1_7xvf1")
+zoom_speed = 5.0

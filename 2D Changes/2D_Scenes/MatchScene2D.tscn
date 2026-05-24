@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://ducssxljboa1n"]
+
+[ext_resource type="Script" uid="uid://du1nsjujoug16" path="res://Scripts Globais/MatchState.gd" id="1_iur2g"]
+[ext_resource type="PackedScene" uid="uid://blaeti31fcy1e" path="res://2D Changes/2D_Scenes/Camera2D.tscn" id="2_pg7ls"]
+[ext_resource type="PackedScene" uid="uid://cmgl103lkwr8r" path="res://2D Changes/2D_Scenes/Pitch2D.tscn" id="3_7288k"]
+[ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="3_r4ru6"]
+[ext_resource type="Script" uid="uid://c3jx1lb0wr1pg" path="res://2D Changes/Scripts_2D/CollisionResolution2D.gd" id="4_3wcxh"]
+[ext_resource type="PackedScene" uid="uid://b8ms3txou0nej" path="res://Componentes/MatchUI/match_ui.tscn" id="4_cdikc"]
+[ext_resource type="PackedScene" uid="uid://bjuey2wm1ffql" path="res://2D Changes/2D_Scenes/Player2D.tscn" id="5_mnhma"]
+[ext_resource type="Script" uid="uid://buw3b8c0hrlfb" path="res://2D Changes/Scripts_2D/Gol_Manager_2D.gd" id="5_p2q2m"]
+[ext_resource type="Script" uid="uid://dbhpwrdxisfwb" path="res://Componentes/PlayerV2/BotoesUI.gd" id="5_vl6br"]
+[ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Grêmio/Mec.tres" id="6_7y1rs"]
+[ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Componentes/PauseMenu/pause_menu.tscn" id="6_gbtg2"]
+[ext_resource type="PackedScene" uid="uid://v5srrfq0w6hn" path="res://2D Changes/2D_Scenes/Ball2D.tscn" id="6_m0edv"]
+[ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="7_6p5wb"]
+[ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="8_j0mnx"]
+
+[node name="MatchScene2d" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("anunciador_ui")]
+script = ExtResource("1_iur2g")
+anunciador_ui = NodePath("AnunciadorUI")
+
+[node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("2_pg7ls")]
+position = Vector2(960, 540)
+
+[node name="Pitch" parent="." unique_id=603521134 instance=ExtResource("3_7288k")]
+
+[node name="PhysicsObjects_Group" type="Node2D" parent="." unique_id=12833940]
+script = ExtResource("4_3wcxh")
+
+[node name="HomeTeam" type="Node2D" parent="PhysicsObjects_Group" unique_id=2082446946]
+
+[node name="HomeTeam_P1" parent="PhysicsObjects_Group/HomeTeam" unique_id=1542391535 instance=ExtResource("5_mnhma")]
+position = Vector2(728, 286)
+debug = false
+
+[node name="HomeTeam_P2" parent="PhysicsObjects_Group/HomeTeam" unique_id=990928524 instance=ExtResource("5_mnhma")]
+position = Vector2(561, 540)
+
+[node name="HomeTeam_P3" parent="PhysicsObjects_Group/HomeTeam" unique_id=838132576 instance=ExtResource("5_mnhma")]
+position = Vector2(728, 786)
+debug = false
+
+[node name="HomeTeam_P4" parent="PhysicsObjects_Group/HomeTeam" unique_id=587159052 instance=ExtResource("5_mnhma")]
+position = Vector2(728, 540)
+debug = false
+
+[node name="HomeTeam_P5" parent="PhysicsObjects_Group/HomeTeam" unique_id=535361106 instance=ExtResource("5_mnhma")]
+position = Vector2(390, 540)
+debug = false
+
+[node name="AwayTeam" type="Node2D" parent="PhysicsObjects_Group" unique_id=1460559231]
+
+[node name="AwayTeam_P1" parent="PhysicsObjects_Group/AwayTeam" unique_id=469839092 instance=ExtResource("5_mnhma")]
+position = Vector2(1409, 540)
+debug = false
+playerInfo = ExtResource("6_7y1rs")
+
+[node name="AwayTeam_P2" parent="PhysicsObjects_Group/AwayTeam" unique_id=25673446 instance=ExtResource("5_mnhma")]
+position = Vector2(1409, 286)
+debug = false
+playerInfo = ExtResource("6_7y1rs")
+
+[node name="AwayTeam_P3" parent="PhysicsObjects_Group/AwayTeam" unique_id=1075169366 instance=ExtResource("5_mnhma")]
+position = Vector2(1409, 786)
+debug = false
+playerInfo = ExtResource("6_7y1rs")
+
+[node name="AwayTeam_P4" parent="PhysicsObjects_Group/AwayTeam" unique_id=92848485 instance=ExtResource("5_mnhma")]
+position = Vector2(1205, 540)
+playerInfo = ExtResource("6_7y1rs")
+
+[node name="AwayTeam_P5" parent="PhysicsObjects_Group/AwayTeam" unique_id=2146689794 instance=ExtResource("5_mnhma")]
+position = Vector2(1598, 540)
+debug = false
+playerInfo = ExtResource("6_7y1rs")
+
+[node name="Balls" type="Node2D" parent="PhysicsObjects_Group" unique_id=1788694925]
+
+[node name="Ball2d" parent="PhysicsObjects_Group/Balls" unique_id=1925699982 instance=ExtResource("6_m0edv")]
+position = Vector2(960, 540)
+
+[node name="Gol_Manager(Temporario)" type="Node2D" parent="." unique_id=632171838 node_paths=PackedStringArray("anunciadorui", "match_state")]
+script = ExtResource("5_p2q2m")
+anunciadorui = NodePath("../AnunciadorUI")
+match_state = NodePath("..")
+
+[node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("3_r4ru6")]
+
+[node name="MatchUI" parent="." unique_id=2001534732 node_paths=PackedStringArray("pause_menu") instance=ExtResource("4_cdikc")]
+unique_name_in_owner = true
+pause_menu = NodePath("../PauseMenu")
+
+[node name="BotoesUI" type="Control" parent="MatchUI" unique_id=1008199846]
+layout_direction = 1
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 245.0
+offset_right = 245.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_vl6br")
+
+[node name="Botao1" type="Button" parent="MatchUI/BotoesUI" unique_id=1668803606]
+top_level = true
+layout_mode = 0
+offset_right = 41.0
+offset_bottom = 31.0
+scale = Vector2(4, 1.296)
+text = "asss"
+
+[node name="Botao2" type="Button" parent="MatchUI/BotoesUI" unique_id=2034239450]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 29.0
+offset_right = 11.0
+offset_bottom = 37.0
+scale = Vector2(4, 1.128)
+
+[node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("6_gbtg2")]
+
+[node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("7_6p5wb")]
+
+[node name="MatchTimer" type="Node" parent="." unique_id=296019755]
+script = ExtResource("8_j0mnx")
+tempo_maximo_lance = 15.0
+tempo_maximo_partida = 10.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=229047291]
+
+[connection signal="pressed" from="MatchUI/BotoesUI/Botao1" to="MatchUI/BotoesUI" method="_on_botao_1_pressed"]
+[connection signal="pressed" from="MatchUI/BotoesUI/Botao2" to="MatchUI/BotoesUI" method="_on_botao_2_pressed"]

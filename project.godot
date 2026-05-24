@@ -42,11 +42,19 @@ window/stretch/aspect="expand"
 Goals=""
 Players=""
 Balls=""
+PhysicsObjects=""
 
 [internationalization]
 
 locale/translations=PackedStringArray("res://Locales/translations.pt_BR.translation", "res://Locales/translations.en.translation")
 locale/test="pt_BR"
+
+[layer_names]
+
+2d_physics/layer_1="Walls"
+2d_physics/layer_2="PhysicsObjects"
+2d_physics/layer_3="Ground"
+2d_physics/layer_4="Others"
 
 [physics]
 
