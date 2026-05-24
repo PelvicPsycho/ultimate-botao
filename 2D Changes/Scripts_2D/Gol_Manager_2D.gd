@@ -34,8 +34,8 @@ func _ready() -> void:
 	todas_pecas.clear() # Limpa por precaução
 	var nodes_players = get_tree().get_nodes_in_group("Players")
 	for node in nodes_players:
-		if node is Player:
-			todas_pecas.append(node as Player)
+		if node is PhysicsPlayer2D:
+			todas_pecas.append(node as PhysicsPlayer2D)
 	
 	# 1. Salvar as posições iniciais das peças
 	for peca in todas_pecas:
