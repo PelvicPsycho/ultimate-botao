@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bnxuxd842ff3f"]
 
 [ext_resource type="Script" uid="uid://kg61sq2ilqb" path="res://2D Changes/Scripts_2D/Goal2D.gd" id="1_2khpa"]
+[ext_resource type="PackedScene" uid="uid://pwbv5pt3tysb" path="res://2D Changes/Components/Particles/GoalExplosion/GoalExplosion.tscn" id="2_5wrtv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iorkw"]
 size = Vector2(99, 225)
@@ -30,6 +31,9 @@ shape = SubResource("RectangleShape2D_y2bt5")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="NearMissArea" unique_id=1111317881]
 position = Vector2(279.75, 676)
 shape = SubResource("RectangleShape2D_y2bt5")
+
+[node name="GoalExplosion" parent="." unique_id=998256435 instance=ExtResource("2_5wrtv")]
+position = Vector2(183, 540)
 
 [connection signal="body_entered" from="GoalArea" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="NearMissArea" to="." method="_on_area_2d_quase_gol_body_entered"]

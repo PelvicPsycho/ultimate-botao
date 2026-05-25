@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://pwbv5pt3tysb"]
+
+[ext_resource type="Script" uid="uid://ywm6jdv7ym5n" path="res://2D Changes/Components/Particles/GoalExplosion/goal_explosion.gd" id="1_44x76"]
+
+[sub_resource type="Curve" id="Curve_aonxx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5009055), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_44x76"]
+offsets = PackedFloat32Array(0, 0.067510545, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.914557, 0.914557, 0.914557, 1, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_fyivs"]
+offsets = PackedFloat32Array(0, 0.056962024, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.7035865, 0.7035865, 0.7035865, 1, 1, 1, 1, 1)
+
+[node name="GoalExplosion" type="Node2D" unique_id=998256435]
+script = ExtResource("1_44x76")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1861775420]
+emitting = false
+amount = 60
+one_shot = true
+explosiveness = 0.9
+spread = 90.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 1000.0
+scale_amount_min = 8.0
+scale_amount_max = 64.0
+scale_amount_curve = SubResource("Curve_aonxx")
+color_ramp = SubResource("Gradient_44x76")
+color_initial_ramp = SubResource("Gradient_fyivs")
