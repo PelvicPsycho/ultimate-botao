@@ -12,6 +12,8 @@
 [ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Grêmio/Mec.tres" id="6_7y1rs"]
 [ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Componentes/PauseMenu/pause_menu.tscn" id="6_gbtg2"]
 [ext_resource type="PackedScene" uid="uid://v5srrfq0w6hn" path="res://2D Changes/2D_Scenes/Ball2D.tscn" id="6_m0edv"]
+[ext_resource type="Resource" uid="uid://daqsw61dp34rx" path="res://Recursos/Teams/MyTeam/Gugs.tres" id="6_q7h6m"]
+[ext_resource type="Resource" uid="uid://cjyd6bkt7lcc6" path="res://Recursos/Teams/MyTeam/Carlinhos.tres" id="6_s6wlo"]
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="7_6p5wb"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="8_j0mnx"]
 
@@ -39,10 +41,12 @@ position = Vector2(561, 540)
 [node name="HomeTeam_P3" parent="PhysicsObjects_Group/HomeTeam" unique_id=838132576 instance=ExtResource("5_mnhma")]
 position = Vector2(728, 786)
 debug = false
+playerInfo = ExtResource("6_q7h6m")
 
 [node name="HomeTeam_P4" parent="PhysicsObjects_Group/HomeTeam" unique_id=587159052 instance=ExtResource("5_mnhma")]
 position = Vector2(728, 540)
 debug = false
+playerInfo = ExtResource("6_s6wlo")
 
 [node name="HomeTeam_P5" parent="PhysicsObjects_Group/HomeTeam" unique_id=535361106 instance=ExtResource("5_mnhma")]
 position = Vector2(390, 540)
@@ -91,6 +95,7 @@ unique_name_in_owner = true
 pause_menu = NodePath("../PauseMenu")
 
 [node name="BotoesUI" type="Control" parent="MatchUI" unique_id=1008199846]
+z_index = 2
 layout_direction = 1
 layout_mode = 3
 anchors_preset = 8
@@ -98,8 +103,6 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 245.0
-offset_right = 245.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_vl6br")
@@ -110,7 +113,6 @@ layout_mode = 0
 offset_right = 41.0
 offset_bottom = 31.0
 scale = Vector2(4, 1.296)
-text = "asss"
 
 [node name="Botao2" type="Button" parent="MatchUI/BotoesUI" unique_id=2034239450]
 layout_mode = 0

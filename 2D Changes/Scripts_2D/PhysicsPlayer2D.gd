@@ -9,7 +9,8 @@ var current_force: float = 0.0
 var lerp_current_force: float = 0.0
 var current_distance: float = 0
 @export var max_distance: float = 1
-
+signal carta_clicada(carta)
+var dono: PhysicsPlayer2D
 var team: Team
 @export var playerInfo: TeamPlayer
 var playerInfo_atual: TeamPlayer
@@ -33,7 +34,7 @@ signal zoom_in_signal(pos)
 @export var audio_cancelar: AudioStream
 # Variável para rastrear o som contínuo da puxada
 var sfx_tensao_atual: AudioStreamPlayer
-
+@onready var menu_radial := $MenuRadial
 @export_group("Sons de Colisão")
 @export var audio_impacto_peca: AudioStream
 @export var audio_impacto_bola: AudioStream
@@ -172,7 +173,7 @@ func _process(delta: float) -> void:
 		sprite2D_body.position = base_visual_position + offset
 
 
-
+	
 func definir_estado_visual(ativo: bool) -> void:
 	self.canPlay = ativo
 	
@@ -215,14 +216,32 @@ func Mouse_Dragging_Update():
 
 func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		var player_que_quer_trocar = get_player_que_quer_trocar()
-		if player_que_quer_trocar:
-			player_que_quer_trocar.playerInfo_atual.troca_posicao_ativa = false
-			var temp = global_transform.origin
-			global_transform.origin = player_que_quer_trocar.global_transform.origin
-			player_que_quer_trocar.global_transform.origin = temp
-			return
 	
+		var player_que_quer_trocar = get_player_que_quer_trocar()
+
+		if player_que_quer_trocar:
+			print("------ TROCA ------")
+			print("ANTES SELF:", global_position)
+			print("ANTES ALVO:", player_que_quer_trocar.global_position)
+			
+			var alvo := get_player_que_quer_trocar()
+			current_velocity = Vector2.ZERO
+			alvo.current_velocity = Vector2.ZERO
+			player_que_quer_trocar.playerInfo_atual.troca_posicao_ativa = false
+			var temp = global_position
+			
+			global_position = player_que_quer_trocar.global_position
+			
+			player_que_quer_trocar.global_position = temp
+			
+			print("DEPOIS SELF:", global_position)
+			print("DEPOIS ALVO:", player_que_quer_trocar.global_position)
+			print("--------------------")
+			await get_tree().process_frame
+
+			print("VISUAL SELF:", sprite2D_body.global_position)
+			print("NODE SELF:", global_position)
+			return
 	if is_frozen():
 		return
 	
@@ -284,7 +303,7 @@ func _input(event: InputEvent) -> void:
 
 	var is_mouse_release = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed
 	var is_touch_release = event is InputEventScreenTouch and not event.pressed
-
+	print('Pos peca  ', global_position,)
 	if is_mouse_release or is_touch_release:
 		# Se soltou o dedo e ele estava FORA da peça, executa jogada!
 		if not is_pointer_inside_piece:
@@ -337,6 +356,8 @@ func puxar_no_timeout():
 
 #region Movement
 func Execute_Action() -> void:
+	if menu_radial and menu_radial.is_open:
+		menu_radial.fechar()
 	if is_frozen():
 		return
 	
@@ -575,10 +596,12 @@ func is_frozen() -> bool:
 	#return status_atual.disabilitado or status_atual.turnos_preso > 0
 	return false
 
-func get_player_que_quer_trocar() -> Player:
+func get_player_que_quer_trocar() -> PhysicsPlayer2D:
 	var players = get_tree().get_nodes_in_group("Players")
+	
 	for p in players:
 		if p != self and p.playerInfo_atual.troca_posicao_ativa and p.canPlay:
+			print('Pos peca  ', global_position,)
 			return p
 	return null
 
@@ -669,9 +692,17 @@ func get_player_que_quer_trocar() -> Player:
 #
 		#spark_cooldowns[collider_id] = 0.2
 		#break
+func _on_carta_do_radial(carta):
+	print("CARTA CLICADA -> ", carta.nome)
 
+	var ms = get_tree().root.get_node("MatchScene2d")
+	ms.tentar_usar_carta(self, carta)
 
+	# fechar radial no Player
+	menu_radial.fechar()
 
+	# opcional: marcar que jogou o turno
+	turnPlayed.emit()
 func debug_status():
 	print("STATUS DEBUG → ", playerInfo.nome)
 	print("  Força:", playerInfo_atual.forca)
@@ -680,16 +711,15 @@ func debug_status():
 	print("  Buffs Ativos:", playerInfo_atual.duracao_dos_buffs)
 
 func abrir_botoes_cartas():
-	if painel_cartas == null:
+	if not menu_radial:
 		return
+	var cartas = []
+	for c in playerInfo_atual.slotsUpgrates:
+		if c != null:
+			cartas.append(c)
+	menu_radial.definir_cartas(cartas)
+	if not menu_radial.carta_clicada.is_connected(_on_carta_do_radial):
+		menu_radial.carta_clicada.connect(_on_carta_do_radial)
+	menu_radial.abrir()
 	
-	var pos_tela: Vector2 = global_position
-	# Ajuste fino da posição na tela
-	pos_tela.x += 40
-	pos_tela.y -= 20
-
-	painel_cartas.position = pos_tela
-	painel_cartas.visible = true
-	painel_cartas.definir_piece(self)
-	painel_cartas.definir_cartas(playerInfo.slotsUpgrates)
 #endregion

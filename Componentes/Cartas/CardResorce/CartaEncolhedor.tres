@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_0d516")
+id_unico = &"Encolhedora"
 nome = "CartaEncolhedora"
 custo_energia = 4
 arte = ExtResource("1_xpjp8")
