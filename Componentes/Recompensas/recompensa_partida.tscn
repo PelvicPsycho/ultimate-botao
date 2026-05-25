@@ -1,0 +1,342 @@
+[gd_scene format=3 uid="uid://605wdjor2lt6"]
+
+[ext_resource type="Texture2D" uid="uid://c2l1n5xvmq5ab" path="res://Componentes/Recompensas/recompensapartida.png" id="1_1v55f"]
+[ext_resource type="Script" uid="uid://b3chomo5j6b1u" path="res://Componentes/Recompensas/recompensa_partida.gd" id="1_u85iu"]
+[ext_resource type="PackedScene" uid="uid://orrq0vy3qa51" path="res://Componentes/MyTeam/inventory_pecas_button.tscn" id="2_ml02d"]
+[ext_resource type="Texture2D" uid="uid://47ugmokghauy" path="res://Recursos/2D_Art/MyTeam/Group 53_.png" id="2_u85iu"]
+[ext_resource type="Texture2D" uid="uid://o5omjcf51pl3" path="res://Recursos/2D_Art/MyTeam/Shape with text.png" id="3_g3cx5"]
+[ext_resource type="Texture2D" uid="uid://cgxabsu4cebmy" path="res://Componentes/Recompensas/Rectangle 15.png" id="3_uacbv"]
+[ext_resource type="Texture2D" uid="uid://b3uly4nf1rasq" path="res://Componentes/Recompensas/Rectangle 41.png" id="4_2ldjs"]
+[ext_resource type="Texture2D" uid="uid://7pb1a7h83erj" path="res://Recursos/2D_Art/MyTeam/Group 4_.png" id="4_uacbv"]
+[ext_resource type="Texture2D" uid="uid://df74ljpsfulw8" path="res://Componentes/Recompensas/Rectangle 25.png" id="5_ml02d"]
+[ext_resource type="Texture2D" uid="uid://du7wtyw4lyas6" path="res://Componentes/Recompensas/Rectangle 40_recompensaup.png" id="6_co4fe"]
+[ext_resource type="Texture2D" uid="uid://cl2tgl8bovq38" path="res://Componentes/Recompensas/Rectangle 39_recompensadown.png" id="7_w73gl"]
+
+[node name="RecompensaPartida_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("insp_nome_label", "insp_rank_label", "insp_arte_rect", "container_opcoes", "btn_aceitar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u85iu")
+insp_nome_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/ItemName_Label")
+insp_rank_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/PecaTexture_TextureRect/PecaRank_Label")
+insp_arte_rect = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/PecaTexture_TextureRect")
+container_opcoes = NodePath("Panel/VBoxContainer/MarginContainer2/Opcoes_HBoxContainer")
+btn_aceitar = NodePath("Panel/VBoxContainer/MarginContainer/AceitarButton_Button")
+cena_botao_peca = ExtResource("2_ml02d")
+
+[node name="Fundo_ColorRect" type="ColorRect" parent="." unique_id=1726548301]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="ReferenciaTextureRect" type="TextureRect" parent="." unique_id=1759695984]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1v55f")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="." unique_id=349477802]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fundos_Control" type="Control" parent="Panel" unique_id=1748616519]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FundoAmarelo_TextureRect" type="TextureRect" parent="Panel/Fundos_Control" unique_id=1399954122]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -563.0
+offset_top = -378.0
+offset_right = 563.0
+offset_bottom = 449.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_uacbv")
+expand_mode = 1
+
+[node name="FundoAzul1_TextureRect" type="TextureRect" parent="Panel/Fundos_Control" unique_id=1259446102]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -545.0
+offset_top = -365.0
+offset_right = 547.0
+offset_bottom = 435.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_2ldjs")
+expand_mode = 1
+
+[node name="TopoAmarelo_TextureRect" type="TextureRect" parent="Panel/Fundos_Control" unique_id=1763956717]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -461.0
+offset_top = -436.0
+offset_right = 484.0
+offset_bottom = -289.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_ml02d")
+expand_mode = 1
+
+[node name="FundoAzul2_TextureRect" type="TextureRect" parent="Panel/Fundos_Control" unique_id=1246599220]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -484.0
+offset_top = -285.0
+offset_right = 487.0
+offset_bottom = 111.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_co4fe")
+expand_mode = 1
+
+[node name="FundoAzul3_TextureRect" type="TextureRect" parent="Panel/Fundos_Control" unique_id=542233099]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -485.0
+offset_top = 150.0
+offset_right = 487.0
+offset_bottom = 350.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w73gl")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1771992178]
+custom_minimum_size = Vector2(0, 850)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -377.0
+offset_right = 148.0
+offset_bottom = 377.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Titulo_Label" type="Label" parent="Panel/VBoxContainer" unique_id=328656398]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 65
+text = "Escolha sua recompensa"
+
+[node name="Inspecao_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=220846082]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer" unique_id=1089659363]
+custom_minimum_size = Vector2(1100, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer" unique_id=107255297]
+layout_mode = 2
+
+[node name="Esquerda_VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer" unique_id=1747641047]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+theme_override_constants/separation = 8
+
+[node name="ItemName_Label" type="Label" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer" unique_id=1893985537]
+custom_minimum_size = Vector2(380, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "Peça Xandao"
+horizontal_alignment = 1
+
+[node name="PecaTexture_TextureRect" type="TextureRect" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer" unique_id=919147315]
+z_index = 1
+custom_minimum_size = Vector2(190, 130)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_u85iu")
+expand_mode = 1
+
+[node name="PecaRank_Label" type="Label" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/PecaTexture_TextureRect" unique_id=706919507]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.5
+offset_top = -40.0
+offset_right = 14.5
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 80
+text = "C"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer" unique_id=1133440059]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/HBoxContainer" unique_id=1194078372]
+custom_minimum_size = Vector2(100, 80)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1184357430]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Rank"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1202026695]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "RP: 7"
+horizontal_alignment = 2
+
+[node name="PecaRank_Label" type="Label" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/HBoxContainer" unique_id=998535190]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 120
+text = "C"
+
+[node name="Direita_VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer" unique_id=673608388]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="ContagemSlots_Label" type="Label" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=702110813]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Slots (0/0)"
+
+[node name="SlotsIndicator_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1192494353]
+layout_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=1840318810]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture = ExtResource("3_g3cx5")
+expand_mode = 1
+
+[node name="Cartas_Label" type="Label" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=92075946]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Cartas"
+
+[node name="EquippedCards_GridContainer" type="GridContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1178925908]
+custom_minimum_size = Vector2(50, 120)
+layout_mode = 2
+columns = 4
+
+[node name="PontosAcao_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1383214861]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/PontosAcao_HBoxContainer" unique_id=1791325102]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Pontos de Ação - "
+
+[node name="PontosdeAcao_Label" type="Label" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/PontosAcao_HBoxContainer" unique_id=1121614287]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "2 AP"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer" unique_id=545648063]
+layout_mode = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 20
+
+[node name="Opcoes_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2" unique_id=191582257]
+custom_minimum_size = Vector2(50, 200)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer" unique_id=1486056273]
+layout_mode = 2
+theme_override_constants/margin_bottom = -60
+
+[node name="AceitarButton_Button" type="TextureButton" parent="Panel/VBoxContainer/MarginContainer" unique_id=2038117802]
+custom_minimum_size = Vector2(400, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("4_uacbv")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Aceitar_Label" type="Label" parent="Panel/VBoxContainer/MarginContainer/AceitarButton_Button" unique_id=1262420197]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -11.5
+offset_right = 30.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 55
+text = "Aceitar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TESTE_Button" type="Button" parent="." unique_id=444642369]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 30
+text = "BOTAO TESTE ADD MYTEAM"
+
+[connection signal="pressed" from="TESTE_Button" to="." method="_on_teste_button_pressed"]
