@@ -19,10 +19,11 @@ script = ExtResource("1_44x76")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1861775420]
 emitting = false
-amount = 60
+amount = 160
 one_shot = true
-explosiveness = 0.9
-spread = 90.0
+explosiveness = 0.8
+emission_shape = 3
+emission_rect_extents = Vector2(1, 80)
 gravity = Vector2(0, 0)
 initial_velocity_min = 100.0
 initial_velocity_max = 1000.0
