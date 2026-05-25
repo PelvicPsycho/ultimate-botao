@@ -6,7 +6,12 @@ extends CanvasLayer
 @onready var championLabel = $"Control/Panel/VBoxContainer/VBoxContainer/Champion!"
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	hide()
+
+func _set_match_paused(value: bool) -> void:
+	if get_tree() != null:
+		get_tree().paused = value
 
 func _show(winner: String,  score: String, playerWin: bool):
 	if CupManager.isFinal and playerWin:
@@ -20,15 +25,19 @@ func _show(winner: String,  score: String, playerWin: bool):
 		
 	else:
 		$Control/Panel/VBoxContainer/VBoxContainer2/Next.show()
+	_set_match_paused(true)
 	show()
 
 func _on_quit_button_up():
+	_set_match_paused(false)
 	get_tree().quit()
 
 func _on_restart_button_up():
+	_set_match_paused(false)
 	get_tree().reload_current_scene()
 
 func _on_next_pressed() -> void:
+	_set_match_paused(false)
 	CupManager.nextCompetitor()
 	#pickReward()
 	get_tree().reload_current_scene()

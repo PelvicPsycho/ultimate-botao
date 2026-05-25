@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://d31uxg5j02m38" path="res://Recursos/2D_Art/Menu/bola.png" id="2_8yq7v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cihxk"]
-radius = 35.35534
+radius = 22.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qaf7p"]
-radius = 36.0
+radius = 22.0
 
 [node name="Ball2d" type="CharacterBody2D" unique_id=1925699982 node_paths=PackedStringArray("shapecast_physics_objects", "shapecast_walls") groups=["Balls", "PhysicsObjects"]]
 collision_layer = 2
@@ -31,5 +31,5 @@ target_position = Vector2(0, 0)
 max_results = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1125551120]
-scale = Vector2(0.29, 0.29)
+scale = Vector2(0.16, 0.16)
 texture = ExtResource("2_8yq7v")
