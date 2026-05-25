@@ -73,6 +73,7 @@ func playCup(index: int):
 	pickCompetitors()
 
 func nextCup():
+	isFinal = false
 	cupsPlayed+=1
 	matchesPlayed = 0
 	if cupsPlayed < cupList.size():
