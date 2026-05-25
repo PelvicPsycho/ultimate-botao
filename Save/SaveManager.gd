@@ -2,10 +2,11 @@ extends Node
 
 const SAVE_PATH := "user://savegame.json"
 
-func save_game(jogadores: Array) -> void:
+func save_game() -> void:
 	var data: Dictionary = { "players": [] }
 
-	for p in jogadores:
+	# Agora ele puxa direto do Autoload GameState
+	for p in GameState.jogadores:
 		var p_dict: Dictionary = {}
 		
 		# Salva o ID ÚNICO da peça, e não o caminho
@@ -69,7 +70,7 @@ func delete_save() -> bool:
 	if FileAccess.file_exists(SAVE_PATH):
 		var dir := DirAccess.open("user://")
 		if dir:
-			var err := dir.remove_absolute(SAVE_PATH)
+			var err := dir.remove(SAVE_PATH)
 			return err == OK
 		return false
 	return false

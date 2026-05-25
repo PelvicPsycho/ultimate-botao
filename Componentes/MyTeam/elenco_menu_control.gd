@@ -447,7 +447,7 @@ func _remover_buff_da_peca(peca: TeamPlayer, carta: CardResource):
 
 func _on_btn_salvar_sair_pressed() -> void:
 	#print("Salvando o time...")
-	SaveManager.save_game(GameState.jogadores)
+	SaveManager.save_game()
 	
 	# Sincroniza as primeiras N peças do GameState com o mainSquad do time
 	# para que o MatchState carregue o elenco correto na partida

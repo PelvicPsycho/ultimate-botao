@@ -8,9 +8,9 @@ func _ready():
 	#print("=== CONFIGURAÇÕES CARREGADAS ===")
 	#print("Total de jogadores salvos no GameState: ", GameState.jogadores.size())
 #
-	#if GameState.jogadores.size() == 0:
-		#print("Nenhum save encontrado. Carregando time inicial (Grêmio) do Database...")
-		#_carregar_time_inicial()
+	if GameState.jogadores.size() == 0:
+		print("Nenhum save encontrado. Carregando time inicial (My Team) do Database...")
+		_carregar_time_inicial()
 	#else:
 		#print("✔ Jogadores carregados do save com sucesso!")
 		#for j in GameState.jogadores:
@@ -61,7 +61,7 @@ func _carregar_time_inicial():
 		"defesa_escudo_01",
 		"defesa_escudo_02",
 		"bola_leve_01",
-		"bola_level_02"
+		"bola_leve_02"
 	]
 	
 	for id_carta in ids_cartas_iniciais:
@@ -73,6 +73,8 @@ func _carregar_time_inicial():
 			print("AVISO -> Carta inicial não encontrada no Database: ", id_carta)
 			
 	#print("✔ Cartas iniciais adicionadas! Total: ", GameState.cartas_desbloqueadas.size())
+	
+	SaveManager.save_game()
 
 func _on_team_button_pressed() -> void:
 	# Instancia a cena nova e adiciona na tela

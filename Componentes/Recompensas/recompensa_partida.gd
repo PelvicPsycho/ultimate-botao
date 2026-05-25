@@ -147,7 +147,7 @@ func _on_btn_aceitar_pressed() -> void:
 				GameState.cartas_desbloqueadas.append(carta.id_unico)
 	
 	# 4. Salva e prossegue
-	SaveManager.save_game(GameState.jogadores)
+	SaveManager.save_game()
 	CupManager.nextCompetitor()
 	queue_free()
 

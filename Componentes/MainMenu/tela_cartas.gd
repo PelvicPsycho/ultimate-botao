@@ -25,7 +25,7 @@ func _on_slot_clicado(slot_index, team_player):
 
 
 func _on_button_pressed() -> void:
-	SaveManager.save_game(GameState.jogadores)
+	SaveManager.save_game()
 
 	# volta ao menu
 	var menu = get_parent().get_node("MainMenu")
