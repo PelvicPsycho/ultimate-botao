@@ -1,15 +1,8 @@
 extends Control
 
-## No script MatchScene.gd
-#
-#@export var cena_recompensa: PackedScene
-#
-#func _jogador_venceu_partida():
-	#var tela_rec = cena_recompensa.instantiate()
-	#add_child(tela_rec)
-	#
-	## Pega o time adversário que o CupManager está gerenciando agora
-	#tela_rec.iniciar_tela_de_recompensa(CupManager.currentCompetitor)
+## Sinal emitido quando o jogador coleta a recompensa e a tela vai fechar.
+## O MatchState aguarda (await) este sinal para avançar o torneio e resetar a partida.
+signal recompensa_coletada
 
 # --- VARIÁVEIS DE ESTADO ---
 var peca_selecionada: TeamPlayer = null
@@ -40,6 +33,7 @@ var time_derrotado: Team = null
 @export var cena_carta_pequena: PackedScene 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	_limpar_inspecao()
 	btn_aceitar.disabled = true
 	btn_aceitar.pressed.connect(_on_btn_aceitar_pressed)
@@ -180,7 +174,10 @@ func _on_btn_aceitar_pressed() -> void:
 				GameState.cartas_desbloqueadas.append(carta.id_unico)
 	
 	SaveManager.save_game()
-	CupManager.nextCompetitor()
+	# Avisa o MatchState que a recompensa foi coletada.
+	# O MatchState agora é responsável por despausar, chamar
+	# CupManager.nextCompetitor() e resetar a partida na mesma cena.
+	recompensa_coletada.emit()
 	queue_free()
 
 func _limpar_inspecao() -> void:

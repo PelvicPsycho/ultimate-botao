@@ -1,5 +1,8 @@
 extends Control
 
+## Sinal emitido quando o jogador coleta o pacote do torneio e a tela vai fechar.
+signal recompensa_coletada
+
 # --- VARIÁVEIS DE ESTADO (O PACOTE) ---
 var pacote_pecas: Array[TeamPlayer] = []
 var pacote_cartas: Array[CardResource] = []
@@ -38,6 +41,7 @@ var pacote_cartas: Array[CardResource] = []
 @export var cena_carta_pequena: PackedScene
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	inspecao_peca_hbox.visible = false
 	inspecao_carta_hbox.visible = false
 	btn_aceitar.pressed.connect(_on_btn_aceitar_pressed)
@@ -229,7 +233,8 @@ func _on_btn_aceitar_pressed() -> void:
 	# 3. Salva o progresso
 	SaveManager.save_game()
 	
-	# 4. Continua o jogo / Volta pro menu
+	# 4. Avisa que a recompensa foi coletada e volta ao menu principal
+	recompensa_coletada.emit()
 	# Ex: get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 	queue_free()
 

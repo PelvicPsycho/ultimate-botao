@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="14_7o35e"]
 
 [node name="RecompensaTorneio_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("inspecao_peca_hbox", "inspecao_carta_hbox", "peca_nome_label", "peca_rank_label", "peca_ap_label", "peca_slots_count_label", "peca_slots_indicator", "peca_equipped_grid", "carta_nome_label", "carta_descricao_label", "carta_slots_indicator", "container_opcoes", "btn_aceitar")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -26,6 +26,9 @@ var jogadores: Array = []
 @export_group("Sons do Árbitro")
 @export var audio_mudou_turno: AudioStream
 @export var audio_perdeu_turno: AudioStream
+@export_group("Telas de Recompensa")
+@export var cena_recompensa_partida: PackedScene
+@export var cena_recompensa_torneio: PackedScene
 
 @onready var timer = $MatchTimer
 @onready var painel_cartas := $MatchUI/BotoesUI
@@ -330,9 +333,125 @@ func isCorrectSide(team: Team) -> bool:
 
 func endMatch(winner: String):
 	var resultCanvas = $ResultCanvas
-	await get_tree().create_timer(3.0, true).timeout
-	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), true if winner == homeTeam.name else false)
+	var jogador_venceu := winner == homeTeam.name
 	
+	await get_tree().create_timer(3.0, true).timeout
+	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), jogador_venceu)
+	
+	# Se o jogador perdeu, o ResultCanvas já esconde o botão Next.
+	# O jogador decide se sai ou reinicia pelos botões do próprio ResultCanvas.
+	if not jogador_venceu:
+		return
+	
+	# ── Jogador venceu ──
+	# Aguarda um pouco para ele ver o placar, depois esconde e abre a recompensa.
+	await get_tree().create_timer(3.0, true).timeout
+	resultCanvas.visible = false
+	
+	if CupManager.isFinal:
+		# Final do torneio → recompensa de torneio, depois volta ao menu
+		if cena_recompensa_torneio:
+			var tela_torneio = cena_recompensa_torneio.instantiate()
+			%MatchUI.add_child(tela_torneio)
+			tela_torneio.iniciar_tela_de_torneio(CupManager.currentCup)
+			await tela_torneio.recompensa_coletada
+			# Despausa e volta ao menu principal
+			if get_tree():
+				get_tree().paused = false
+			get_tree().change_scene_to_file("res://Componentes/MainMenu/main_menu.tscn")
+	else:
+		# Partida normal → recompensa de partida, depois reseta na mesma cena
+		if cena_recompensa_partida:
+			var tela_partida = cena_recompensa_partida.instantiate()
+			%MatchUI.add_child(tela_partida)
+			tela_partida.iniciar_tela_de_recompensa(awayTeam)
+			await tela_partida.recompensa_coletada
+			# Despausa, avança o torneio e reseta a partida
+			if get_tree():
+				get_tree().paused = false
+			resetar_partida_na_mesma_cena()
+
+## Reinicia a partida na mesma cena 3D para o próximo competidor.
+## Faz o mesmo que _on_next_pressed() do ResultCanvas, mas sem recarregar a cena.
+func resetar_partida_na_mesma_cena() -> void:
+	# 1. Avança o CupManager para o próximo competidor
+	CupManager.nextCompetitor()
+	
+	# Se nextCompetitor chamou nextCup() internamente, currentCompetitor pode
+	# estar desatualizado. Corrige apontando para o primeiro da nova lista.
+	if CupManager.followingCompetitors.size() > 0:
+		var encontrado := false
+		for comp in CupManager.followingCompetitors:
+			if comp == CupManager.currentCompetitor:
+				encontrado = true
+				break
+		if not encontrado:
+			CupManager.currentCompetitor = CupManager.followingCompetitors[0]
+	
+	# 2. Sincroniza o time do jogador com o GameState (cartas, novos jogadores)
+	if CupManager.has_method("_sync_main_squad_from_gamestate"):
+		CupManager._sync_main_squad_from_gamestate()
+	
+	# 3. Descongela o jogo completamente
+	freeze_level = 0
+	timer.retomar_lance()
+	_sincronizar_estado_congelamento()
+	
+	# 4. Recarrega os dados da partida (homeTeam, awayTeam, scores, peças etc.)
+	loadMatch()
+	
+	# 5. Inicializa a UI da partida para o novo adversário
+	%MatchUI.UI_start(homeTeam, awayTeam)
+	
+	# 6. Sorteia quem começa e reseta flags
+	selectFirstTurn()
+	gol_de_ouro = false
+	carta_usada_no_turno = false
+	
+	# 7. Reseta todas as bolas para o estado inicial
+	for ball in allBalls:
+		if is_instance_valid(ball):
+			ball.velocity = Vector2.ZERO
+			if ball.has_method("reset"):
+				ball.reset()
+	
+	# 8. Sincroniza as cartas equipadas nas peças a partir do GameState
+	var jogadores_salvos: Array = GameState.jogadores
+	for piece in allPieces:
+		var idx := -1
+		for i in jogadores_salvos.size():
+			if jogadores_salvos[i].nome == piece.playerInfo.nome:
+				idx = i
+				break
+		if idx != -1:
+			piece.playerInfo.slotsUpgrates = jogadores_salvos[idx].slotsUpgrates.duplicate()
+	
+	# 9. Define quem pode jogar no turno inicial
+	for piece in allPieces:
+		if piece.team == homeTeam:
+			piece.canPlay = (currentTurn == turn.HOME)
+		else:
+			piece.canPlay = (currentTurn == turn.AWAY)
+	
+	# 10. Atualiza placar visual
+	_atualizar_placar()
+	
+	# 11. Reinicia os timers da partida e do lance
+	timer.iniciar_partida()
+	timer.iniciar_lance(currentTurn)
+	
+	# 12. UI: cores do turno, estado visual das peças e anúncio de início
+	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
+	%MatchUI.colorir_turno(active_team, turnCounter)
+	atualizar_cores_pecas()
+	
+	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, homeTeam.cor if currentTurn == turn.HOME else awayTeam.cor)
+	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
+	get_tree().create_timer(2.0).timeout.connect(
+		disparar_anuncio_com_pausa.bind(tr("TURN_OF") + "\n" + nome, 80, 1.5),
+		CONNECT_ONE_SHOT
+	)
+
 func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
 	if congelar:
 		freeze_level += 1

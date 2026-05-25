@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://cl2tgl8bovq38" path="res://Componentes/Recompensas/Rectangle 39_recompensadown.png" id="7_w73gl"]
 
 [node name="RecompensaPartida_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("insp_nome_label", "insp_rank_label", "insp_arte_rect", "contagem_slots_label", "slots_indicator_hbox", "equipped_cards_grid", "pontos_acao_label", "container_opcoes", "btn_aceitar")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
