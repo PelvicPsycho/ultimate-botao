@@ -2,52 +2,13 @@ extends Node
 
 var jogadores: Array = []
 
-# Guardam apenas os nomes (IDs) do que o jogador conquistou
+# Guardam apenas os IDs do que o jogador conquistou.
+# Restaurados diretamente pelo SaveManager.load_game().
 var cartas_desbloqueadas: Array[StringName] = []
 var pecas_desbloqueadas: Array[StringName] = []
 
 func _ready():
-	_restaurar_estado_completo_do_save()
-
-## Restaura jogadores, cartas e peças desbloqueadas a partir do arquivo de save.
-func _restaurar_estado_completo_do_save() -> void:
-	const SAVE_PATH := "user://savegame.json"
-
 	jogadores = SaveManager.load_game()
-
-	if not FileAccess.file_exists(SAVE_PATH):
-		return
-
-	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
-	var text := file.get_as_text()
-	file.close()
-
-	var parsed = JSON.parse_string(text)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		return
-
-	# Restaura cartas desbloqueadas
-	cartas_desbloqueadas.clear()
-	if parsed.has("cartas_desbloqueadas"):
-		for id_str in parsed["cartas_desbloqueadas"]:
-			cartas_desbloqueadas.append(StringName(str(id_str)))
-
-	# Restaura peças desbloqueadas
-	pecas_desbloqueadas.clear()
-	if parsed.has("pecas_desbloqueadas"):
-		for id_str in parsed["pecas_desbloqueadas"]:
-			pecas_desbloqueadas.append(StringName(str(id_str)))
-
-	# Fallback para saves antigos (sem os arrays de desbloqueio):
-	# reconstrói a partir dos jogadores carregados.
-	if cartas_desbloqueadas.is_empty() and pecas_desbloqueadas.is_empty():
-		for peca in jogadores:
-			if peca != null:
-				if not pecas_desbloqueadas.has(peca.id_unico):
-					pecas_desbloqueadas.append(peca.id_unico)
-				for carta in peca.slotsUpgrates:
-					if carta != null and not cartas_desbloqueadas.has(carta.id_unico):
-						cartas_desbloqueadas.append(carta.id_unico)
 
 func imprimir_status_do_time() -> void:
 	print("\n==================================================")

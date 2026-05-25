@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b3uly4nf1rasq" path="res://Componentes/Recompensas/Rectangle 41.png" id="4_2ldjs"]
 [ext_resource type="Texture2D" uid="uid://7pb1a7h83erj" path="res://Recursos/2D_Art/MyTeam/Group 4_.png" id="4_uacbv"]
 [ext_resource type="Texture2D" uid="uid://df74ljpsfulw8" path="res://Componentes/Recompensas/Rectangle 25.png" id="5_ml02d"]
-[ext_resource type="PackedScene" uid="uid://b4k0lbivyha1a" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="5_w73gl"]
+[ext_resource type="PackedScene" uid="uid://d0h3cghqr1iun" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="5_w73gl"]
 [ext_resource type="Texture2D" uid="uid://du7wtyw4lyas6" path="res://Componentes/Recompensas/Rectangle 40_recompensaup.png" id="6_co4fe"]
 [ext_resource type="Texture2D" uid="uid://cl2tgl8bovq38" path="res://Componentes/Recompensas/Rectangle 39_recompensadown.png" id="7_w73gl"]
 

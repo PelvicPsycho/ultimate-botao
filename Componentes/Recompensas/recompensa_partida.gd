@@ -33,7 +33,7 @@ var time_derrotado: Team = null
 @export var cena_carta_pequena: PackedScene 
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+#	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	_limpar_inspecao()
 	btn_aceitar.disabled = true
 	btn_aceitar.pressed.connect(_on_btn_aceitar_pressed)
@@ -113,6 +113,20 @@ func _selecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 				if btn_carta is BaseButton:
 					btn_carta.disabled = true
 				btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
+				
+	# --- NOVIDADE: DESENHA OS SLOTS VAZIOS NO INVENTÁRIO DO ELENCO ADVERSÁRIO ---
+	var slots_livres = peca.quantosSlotes - slots_usados
+	for i in range(slots_livres):
+		var slot_vazio = ColorRect.new()
+		slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5) # Cinza escuro semi-transparente
+		slot_vazio.custom_minimum_size = Vector2(40, 60) # Ajuste para as dimensões de sua carta
+		
+		# Mantém o alinhamento centralizado nas células do grid
+		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		
+		equipped_cards_grid.add_child(slot_vazio)
+	# --------------------------------------------------------------------------
 			
 	# 3. Atualiza os Slots (Textos e Bolinhas)
 	if contagem_slots_label:

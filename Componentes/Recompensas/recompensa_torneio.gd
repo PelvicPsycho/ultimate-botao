@@ -41,7 +41,7 @@ var pacote_cartas: Array[CardResource] = []
 @export var cena_carta_pequena: PackedScene
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+#	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	inspecao_peca_hbox.visible = false
 	inspecao_carta_hbox.visible = false
 	btn_aceitar.pressed.connect(_on_btn_aceitar_pressed)
@@ -239,11 +239,13 @@ func _on_btn_aceitar_pressed() -> void:
 	queue_free()
 
 func _on_teste_button_pressed() -> void:
+	print("teste button 01")
 	iniciar_tela_de_torneio(null)
 	pass
 
 
 func _on_teste_button_2_pressed() -> void:
+	print ("teste button 02")
 	# 1. Carrega as peças físicas e suas cartas equipadas do save
 	GameState.jogadores = SaveManager.load_game()
 	

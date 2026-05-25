@@ -50,6 +50,23 @@ func load_game() -> Array:
 	if typeof(parsed) != TYPE_DICTIONARY or not parsed.has("players"):
 		return []
 
+	# ── Restaura cartas e peças desbloqueadas ──
+	GameState.cartas_desbloqueadas.clear()
+	if parsed.has("cartas_desbloqueadas"):
+		for id_str in parsed["cartas_desbloqueadas"]:
+			GameState.cartas_desbloqueadas.append(StringName(str(id_str)))
+
+	GameState.pecas_desbloqueadas.clear()
+	if parsed.has("pecas_desbloqueadas"):
+		for id_str in parsed["pecas_desbloqueadas"]:
+			GameState.pecas_desbloqueadas.append(StringName(str(id_str)))
+
+	# Fallback para saves antigos: reconstrói a partir dos jogadores
+	if GameState.cartas_desbloqueadas.is_empty() and GameState.pecas_desbloqueadas.is_empty():
+		# Será preenchido abaixo enquanto monta a lista de jogadores
+		pass
+
+	# ── Restaura jogadores ──
 	var lista_final: Array = []
 	
 	for entrada in parsed["players"]:
@@ -73,6 +90,17 @@ func load_game() -> Array:
 					index_slot += 1
 
 			lista_final.append(tp)
+
+	# Fallback: se os arrays de desbloqueio ficaram vazios (save antigo),
+	# reconstrói a partir dos jogadores recém-carregados.
+	if GameState.cartas_desbloqueadas.is_empty() and GameState.pecas_desbloqueadas.is_empty():
+		for peca in lista_final:
+			if peca != null:
+				if not GameState.pecas_desbloqueadas.has(peca.id_unico):
+					GameState.pecas_desbloqueadas.append(peca.id_unico)
+				for carta in peca.slotsUpgrates:
+					if carta != null and not GameState.cartas_desbloqueadas.has(carta.id_unico):
+						GameState.cartas_desbloqueadas.append(carta.id_unico)
 
 	return lista_final
 
