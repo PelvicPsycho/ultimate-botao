@@ -14,7 +14,7 @@ var dono: PhysicsPlayer2D
 var team: Team
 @export var playerInfo: TeamPlayer
 var playerInfo_atual: TeamPlayer
-
+static var last_piece_with_radial: PhysicsPlayer2D = null
 var canPlay: bool
 var disabled: bool = false
 
@@ -252,8 +252,9 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			print("Peça clicada! level_force: ", playerInfo_atual.level_force)
+
 			clickedPiece.emit(self)
-			
+
 			abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO
 			
 			is_dragging = true
@@ -711,8 +712,10 @@ func debug_status():
 	print("  Buffs Ativos:", playerInfo_atual.duracao_dos_buffs)
 
 func abrir_botoes_cartas():
-	if not menu_radial:
-		return
+	if PhysicsPlayer2D.last_piece_with_radial != null:
+		if PhysicsPlayer2D.last_piece_with_radial != self:
+			if PhysicsPlayer2D.last_piece_with_radial.menu_radial.is_open:
+				PhysicsPlayer2D.last_piece_with_radial.menu_radial.fechar()
 	var cartas = []
 	for c in playerInfo_atual.slotsUpgrates:
 		if c != null:
@@ -721,5 +724,5 @@ func abrir_botoes_cartas():
 	if not menu_radial.carta_clicada.is_connected(_on_carta_do_radial):
 		menu_radial.carta_clicada.connect(_on_carta_do_radial)
 	menu_radial.abrir()
-	
+	PhysicsPlayer2D.last_piece_with_radial = self
 #endregion
