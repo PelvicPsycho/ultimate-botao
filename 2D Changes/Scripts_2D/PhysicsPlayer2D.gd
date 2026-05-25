@@ -222,27 +222,17 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 		var player_que_quer_trocar = get_player_que_quer_trocar()
 
 		if player_que_quer_trocar:
-			print("------ TROCA ------")
-			print("ANTES SELF:", global_position)
-			print("ANTES ALVO:", player_que_quer_trocar.global_position)
-			
-			var alvo := get_player_que_quer_trocar()
+			var alvo: PhysicsPlayer2D = player_que_quer_trocar
+			var pos_self: Vector2 = global_position
+			var pos_alvo: Vector2 = alvo.global_position
 			current_velocity = Vector2.ZERO
 			alvo.current_velocity = Vector2.ZERO
-			player_que_quer_trocar.playerInfo_atual.troca_posicao_ativa = false
-			var temp = global_position
-			
-			global_position = player_que_quer_trocar.global_position
-			
-			player_que_quer_trocar.global_position = temp
-			
-			print("DEPOIS SELF:", global_position)
-			print("DEPOIS ALVO:", player_que_quer_trocar.global_position)
-			print("--------------------")
+			alvo.playerInfo_atual.troca_posicao_ativa = false
+			global_position = Vector2(5000, 5000)
+			alvo.global_position = Vector2(6000, 6000)
 			await get_tree().process_frame
-
-			print("VISUAL SELF:", sprite2D_body.global_position)
-			print("NODE SELF:", global_position)
+			global_position = pos_alvo
+			alvo.global_position = pos_self
 			return
 	if is_frozen():
 		return
