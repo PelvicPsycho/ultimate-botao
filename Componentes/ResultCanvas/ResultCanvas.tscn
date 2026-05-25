@@ -44,10 +44,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="CupLabel" type="Label" parent="Control/Panel/VBoxContainer/VBoxContainer" unique_id=2137323574]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 54
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [node name="YouWin" type="Label" parent="Control/Panel/VBoxContainer/VBoxContainer" unique_id=1144186836]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
-theme_override_font_sizes/font_size = 52
+theme_override_font_sizes/font_size = 54
 text = "Gremio Ganhou!"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -55,7 +63,7 @@ autowrap_mode = 3
 
 [node name="Placar" type="Label" parent="Control/Panel/VBoxContainer/VBoxContainer" unique_id=1447273056]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 46
 text = "0x0"
 horizontal_alignment = 1
 vertical_alignment = 1

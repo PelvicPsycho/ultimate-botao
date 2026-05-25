@@ -407,9 +407,11 @@ func start_Effects() -> void:
 #endregion
 
 #region Lines
+@export_group("Aim line")
 @export var aim_line2D: Line2D
 @export var drag_line2D: Line2D
 @export var velocity_line2D: Line2D
+@export var aimLineMultiplier: float = 1
 
 # Aim --------------------------
 func Start_Aim() -> void:
@@ -422,7 +424,7 @@ func Draw_Aim() -> void:
 		
 		var initial_point = aim_line2D.to_local(global_position)
 		
-		var final_point = aim_line2D.to_local(global_position + current_direction * (current_force / 10))
+		var final_point = aim_line2D.to_local(global_position + current_direction * (current_force * aimLineMultiplier))
 		
 		aim_line2D.set_point_position(0, initial_point)
 		aim_line2D.set_point_position(1, final_point)

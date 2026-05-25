@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var youWinLabel = $Control/Panel/VBoxContainer/VBoxContainer/YouWin
 @onready var scoreLabel = $Control/Panel/VBoxContainer/VBoxContainer/Placar
 @onready var championLabel = $"Control/Panel/VBoxContainer/VBoxContainer/Champion!"
+@onready var cupLabel = $Control/Panel/VBoxContainer/VBoxContainer/CupLabel
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
@@ -18,6 +19,7 @@ func _show(winner: String,  score: String, playerWin: bool):
 		championLabel.show()  
 	else:
 		championLabel.hide()
+	cupLabel.text = CupManager.currentCup.cupName
 	youWinLabel.text = winner + " ganhou!"
 	scoreLabel.text = score
 	if !playerWin:
