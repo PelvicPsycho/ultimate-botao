@@ -63,6 +63,7 @@ func _ready() -> void:
 
 		if info != -1:
 			piece.playerInfo.slotsUpgrates = jogadores_salvos[info].slotsUpgrates.duplicate()
+			piece.playerInfo_atual.slotsUpgrates = jogadores_salvos[info].slotsUpgrates.duplicate()
 
 			#print("Cartas carregadas para ", piece.playerInfo.nome)
 			#for c in piece.playerInfo.slotsUpgrates:
