@@ -38,6 +38,8 @@ func definir_cartas(cartas: Array) -> void:
 		var btn = $ButtonModel.duplicate()
 		btn.visible = true
 		btn.scale = button_scale
+		var col = btn.get_node("CollisionShape2D")
+		col.disabled = false  
 		add_child(btn)
 		var label = btn.get_node("Label")
 		label.text = carta.nome

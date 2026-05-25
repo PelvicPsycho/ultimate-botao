@@ -126,17 +126,17 @@ func atualizar_peca_pelo_status() -> void:
 	CollisionShape2D_object.scale = Vector2(1.0, 1.0)
 	ShapeCast2D_Objects.scale = Vector2(1.0, 1.0)
 	ShapeCast2D_Walls.scale = Vector2(1.0, 1.0)
-	
+	sprite2D_body.scale = Vector2(1.0,1.0)
 	if playerInfo_atual.aumento_de_tamano:
 		CollisionShape2D_object.scale = Vector2(1.5, 1.5)
 		ShapeCast2D_Objects.scale = Vector2(1.5, 1.5)
 		ShapeCast2D_Walls.scale = Vector2(1.5, 1.5)
-	
+		sprite2D_body.scale = Vector2(1.5,1.5)
 	if playerInfo_atual.diminui_de_tamano:
 		CollisionShape2D_object.scale = Vector2(0.5, 0.5)
 		ShapeCast2D_Objects.scale = Vector2(0.5, 0.5)
 		ShapeCast2D_Walls.scale = Vector2(0.5, 0.5)
-	
+		sprite2D_body.scale = Vector2(0.5,0.5)
 	# --- VISUAL DO CÍRCULO ---
 	if is_instance_valid(sprite2D_circulo_limite):
 		var nova_escala: float = playerInfo_atual.escala_maxima_circulo_normal
