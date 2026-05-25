@@ -3,9 +3,13 @@ extends Node
 const SAVE_PATH := "user://savegame.json"
 
 func save_game() -> void:
-	var data: Dictionary = { "players": [] }
+	var data: Dictionary = {
+		"players": [],
+		"cartas_desbloqueadas": [],
+		"pecas_desbloqueadas": []
+	}
 
-	# Agora ele puxa direto do Autoload GameState
+	# Salva os jogadores (peças) e suas cartas equipadas
 	for p in GameState.jogadores:
 		var p_dict: Dictionary = {}
 		
@@ -20,6 +24,12 @@ func save_game() -> void:
 
 		p_dict["cartas_equipadas"] = cartas_salvas
 		data["players"].append(p_dict)
+
+	# Salva os IDs de cartas e peças desbloqueadas (inventário do jogador)
+	for carta_id in GameState.cartas_desbloqueadas:
+		data["cartas_desbloqueadas"].append(str(carta_id))
+	for peca_id in GameState.pecas_desbloqueadas:
+		data["pecas_desbloqueadas"].append(str(peca_id))
 
 	var text := JSON.stringify(data, "\t")
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
