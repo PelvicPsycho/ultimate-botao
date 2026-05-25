@@ -275,14 +275,12 @@ func _input(event: InputEvent) -> void:
 		# emite que a peça foi clicada
 		clickedPiece.emit(self)
 		
-		update_dragging_effects(event.position)
-		
 		_on_player_pressed(position)
 		
-		# pega a posição do mause na tela
+		# pega a posição do mouse na tela e atualiza força/distância antes dos efeitos visuais
 		posicao_final_toque_Tela = get_global_mouse_position()
-		
 		Mouse_Dragging_Update()
+		update_dragging_effects(event.position)
 
 	var is_mouse_release = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed
 	var is_touch_release = event is InputEventScreenTouch and not event.pressed
@@ -299,6 +297,7 @@ func _input(event: InputEvent) -> void:
 func _cancelar_interacao() -> void:
 	if is_instance_valid(sfx_tensao_atual):
 		sfx_tensao_atual.stop()
+	parar_shake()
 		
 	SoundMaster.play_sfx(audio_cancelar)
 	
@@ -499,7 +498,8 @@ func update_dragging_effects(posicao_atual: Vector2) -> void:
 	if not is_pointer_inside_piece:
 		sprite2D_circulo_limite.visible = true
 
-		var porcentagem_forca = clamp(current_force / playerInfo_atual.basic_max_force, 0.0, 1.0)
+		# Intensidade baseada na puxada real (com limite máximo em max_distance)
+		var porcentagem_forca = clamp(current_distance / max_distance, 0.0, 1.0)
 		#Checa se o som existe e altera o pitch baseado na força (de 0.8x a 1.8x)
 		if is_instance_valid(sfx_tensao_atual): 
 			if not sfx_tensao_atual.playing:
@@ -523,52 +523,39 @@ func update_dragging_effects(posicao_atual: Vector2) -> void:
 
 #region Shake Effect
 # Shake state
-var shake_update_timer: float = 0.0
 var color
 var Specular_color
-@export var shake_update_interval: float = 0.3
 var shake_intensity_target: float = 0.0
 var shake_intensity_current: float = 0.0
 var shaking: bool = false
 var shake_timer: float = 0.0
-var shake_duration: float = 0.0
 var shake_amplitude: float = 0.0
 var shake_frequency: float = 0.0
 var cooldown_timer: float = 0.0
 var cooldown_duration: float = 0.1  # Cooldown curto para evitar disparos repetidos
 var base_visual_position: Vector2 = Vector2.ZERO
 
-@export var shake_amplitude_min: float = 0.001
-@export var shake_amplitude_max: float = 0.01
-@export var shake_frequency_min: float = 1
-@export var shake_frequency_max: float = 30.0
-@export var shake_duration_min: float = 0.05
-@export var shake_duration_max: float = 0.12
+@export var shake_amplitude_min: float = 0.8
+@export var shake_amplitude_max: float = 4.0
+@export var shake_frequency_min: float = 4.0
+@export var shake_frequency_max: float = 32.0
 
 func _atualizar_shake_puxar(intensidade: float) -> void:
 	if sprite2D_body == null:
 		return
 
-	shake_intensity_target = intensidade
+	shake_intensity_target = clamp(intensidade, 0.0, 1.0)
+	shake_intensity_current = move_toward(shake_intensity_current, shake_intensity_target, 0.2)
+
+	shake_amplitude = lerpf(shake_amplitude_min, shake_amplitude_max, shake_intensity_current)
+	shake_frequency = lerpf(shake_frequency_min, shake_frequency_max, shake_intensity_current)
 	shaking = true
-
-	shake_update_timer += get_process_delta_time()
-
-	if shake_update_timer < shake_update_interval:
-		return
-
-	shake_update_timer = 0.0
-
-	if not shaking:
-		shake_timer = 0.0
-		shake_duration = lerpf(shake_duration_min, shake_duration_max, intensidade)
-
-	shake_amplitude = lerpf(shake_amplitude_min, shake_amplitude_max, intensidade)
-	shake_frequency = lerpf(shake_frequency_min, shake_frequency_max, intensidade)
 	
 func parar_shake() -> void:
 	shaking = false
 	shake_timer = 0.0
+	shake_intensity_target = 0.0
+	shake_intensity_current = 0.0
 	if sprite2D_body != null:
 		sprite2D_body.position = base_visual_position
 #endregion
