@@ -695,14 +695,9 @@ func get_player_que_quer_trocar() -> PhysicsPlayer2D:
 		#break
 func _on_carta_do_radial(carta):
 	print("CARTA CLICADA -> ", carta.nome)
-
 	var ms = get_tree().root.get_node("MatchScene2d")
 	ms.tentar_usar_carta(self, carta)
-
-	# fechar radial no Player
 	menu_radial.fechar()
-
-	# opcional: marcar que jogou o turno
 	turnPlayed.emit()
 func debug_status():
 	print("STATUS DEBUG → ", playerInfo.nome)
