@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_0d516")
-nome = "CartaEncolhedora"
+id_unico = &"encolher_01"
+nome = "Carta Encolhedora"
 custo_energia = 4
 arte = ExtResource("1_xpjp8")
 descricao = "Deixa pequeno "

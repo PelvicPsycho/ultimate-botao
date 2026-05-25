@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_sgwkw")
-nome = "CartaEnpurradinhaAliada"
+id_unico = &"empurrao_aliado_01"
+nome = "Carta Empurradinha Aliada"
 custo_energia = 3
 arte = ExtResource("1_fk81x")
 tipo_efeito = 3

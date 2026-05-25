@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_tw6ds")
+id_unico = &"atracao_01"
 nome = "Atração"
 custo_energia = 2
 arte = ExtResource("1_1rmqj")

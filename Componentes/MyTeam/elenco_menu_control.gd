@@ -65,6 +65,7 @@ var inspecionando_carta_equipada: bool = false
 @export_group("Cenas")
 @export var cena_item_carta: PackedScene
 @export var cena_item_peca: PackedScene
+@export var cena_carta_pequena: PackedScene
 
 
 # --- INICIALIZAÇÃO ---
@@ -380,18 +381,22 @@ func _update_right_window() -> void:
 
 	for carta in peca_atual.slotsUpgrates:
 		if carta != null:
-			var icone_btn = TextureButton.new()
-			icone_btn.texture_normal = carta.arte
-			icone_btn.ignore_texture_size = true
-			icone_btn.stretch_mode = TextureButton.STRETCH_SCALE
-			icone_btn.custom_minimum_size = Vector2(50, 70)
-			icone_btn.mouse_filter = Control.MOUSE_FILTER_STOP
-			icone_btn.pressed.connect(func(): _inspecionar_item_na_janela_central(carta, true))
-			right_window_grid.add_child(icone_btn)
+			if cena_carta_pequena:
+				var btn_carta = cena_carta_pequena.instantiate()
+				right_window_grid.add_child(btn_carta)
+				
+				# Configura os dados da carta
+				if btn_carta.has_method("setup_item"):
+					btn_carta.setup_item(carta)
+				
+				# Conecta o clique para que, ao clicar na miniatura da direita, 
+				# ela seja inspecionada na janela central com a flag de equipada ativada
+				btn_carta.pressed.connect(func(): _inspecionar_item_na_janela_central(carta, true))
 		else:
+			# Mantém o comportamento do slot cinza vazio caso não tenha carta equipada
 			var slot_vazio = ColorRect.new()
 			slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5)
-			slot_vazio.custom_minimum_size = Vector2(50, 70)
+			slot_vazio.custom_minimum_size = Vector2(50, 70) # Ajuste este tamanho se quiser casar com o seu layout quadrado
 			right_window_grid.add_child(slot_vazio)
 
 

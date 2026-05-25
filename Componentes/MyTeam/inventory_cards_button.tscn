@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://b4k0lbivyha1a"]
+[gd_scene format=3 uid="uid://d3ckt5m6bhi5e"]
 
 [ext_resource type="Script" uid="uid://ljmvhexims2q" path="res://Componentes/MyTeam/inventory_cards_button.gd" id="1_gfv3x"]
 [ext_resource type="Texture2D" uid="uid://v6d1xe484tcc" path="res://Recursos/2D_Art/MyTeam/Rectangle 34.png" id="3_7wxhq"]

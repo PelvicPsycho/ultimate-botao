@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_fid8b")
+id_unico = &"congelar_01"
 nome = "Congelamento"
 custo_energia = 5
 tipo_efeito = 2

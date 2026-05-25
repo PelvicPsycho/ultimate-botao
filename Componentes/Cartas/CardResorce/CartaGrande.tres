@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_g7ju4")
-nome = "CartaAlmentoDeTamanho"
+id_unico = &"aumentar_01"
+nome = "Carta Aumento De Tamanho"
 custo_energia = 2
 arte = ExtResource("1_lonpo")
 tipo_efeito = 5
