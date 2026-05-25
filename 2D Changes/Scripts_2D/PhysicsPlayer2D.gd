@@ -698,10 +698,10 @@ func _on_carta_do_radial(carta):
 	var ms = get_tree().root.get_node("MatchScene2d")
 	ms.tentar_usar_carta(self, carta)
 	menu_radial.fechar()
-	turnPlayed.emit()
+	
 func debug_status():
 	print("STATUS DEBUG → ", playerInfo.nome)
-	print("  Força:", playerInfo_atual.forca)
+	print("  Força:", playerInfo_atual.level_force)
 	print("  PA:", playerInfo_atual.PA)
 	print("  Slots:", playerInfo_atual.slotsUpgrates)
 	print("  Buffs Ativos:", playerInfo_atual.duracao_dos_buffs)
