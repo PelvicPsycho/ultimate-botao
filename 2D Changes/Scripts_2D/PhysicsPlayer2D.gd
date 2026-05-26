@@ -123,22 +123,22 @@ func atualizar_peca_pelo_status() -> void:
 	if CollisionShape2D_object == null:
 		print("Erro - Colisor Nulo")
 		return
-	
+
 	# --- VISUAL DA PEÇA ---
-	CollisionShape2D_object.scale = Vector2(1.0, 1.0)
-	ShapeCast2D_Objects.scale = Vector2(1.0, 1.0)
-	ShapeCast2D_Walls.scale = Vector2(1.0, 1.0)
-	sprite2D_body.scale = Vector2(1.0,1.0)
+	var target_scale: Vector2
 	if playerInfo_atual.aumento_de_tamano:
-		CollisionShape2D_object.scale = Vector2(1.5, 1.5)
-		ShapeCast2D_Objects.scale = Vector2(1.5, 1.5)
-		ShapeCast2D_Walls.scale = Vector2(1.5, 1.5)
-		sprite2D_body.scale = Vector2(1.5,1.5)
-	if playerInfo_atual.diminui_de_tamano:
-		CollisionShape2D_object.scale = Vector2(0.5, 0.5)
-		ShapeCast2D_Objects.scale = Vector2(0.5, 0.5)
-		ShapeCast2D_Walls.scale = Vector2(0.5, 0.5)
-		sprite2D_body.scale = Vector2(0.5,0.5)
+		target_scale = Vector2(2, 2)
+	elif playerInfo_atual.diminui_de_tamano:
+		target_scale = Vector2(0.5, 0.5)
+	else:
+		target_scale = Vector2.ONE
+	var tween = create_tween().set_parallel(true)
+	tween.set_trans(Tween.TRANS_SPRING)
+	tween.tween_property(CollisionShape2D_object, "scale", target_scale, 0.5)
+	tween.tween_property(ShapeCast2D_Objects, "scale", target_scale, 0.5)
+	tween.tween_property(ShapeCast2D_Walls, "scale", target_scale, 0.5)
+	tween.tween_property(sprite2D_body, "scale", target_scale, 0.5)
+	
 	# --- VISUAL DO CÍRCULO ---
 	if is_instance_valid(sprite2D_circulo_limite):
 		var nova_escala: float = playerInfo_atual.escala_maxima_circulo_normal

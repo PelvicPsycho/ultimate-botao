@@ -28,7 +28,6 @@ var jogadores: Array = []
 @export var audio_perdeu_turno: AudioStream
 
 @onready var timer = $MatchTimer
-@onready var painel_cartas := $MatchUI/BotoesUI
 var gol_de_ouro: bool = false
 
 # Contador de congelamento. Só descongela quando chegar a zero.
@@ -42,8 +41,8 @@ func _ready() -> void:
 	
 	allPieces.assign(get_tree().get_nodes_in_group("Players"))
 	allBalls = get_tree().get_nodes_in_group("Balls")
-	for piece in allPieces:
-		piece.painel_cartas = painel_cartas
+	
+		
 	var goals = get_tree().get_nodes_in_group("Goals")
 	for goal in goals:
 		# Sintaxe Godot 4 para Sinais
