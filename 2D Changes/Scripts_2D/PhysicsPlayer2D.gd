@@ -220,7 +220,6 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 	
 		var player_que_quer_trocar = get_player_que_quer_trocar()
-
 		if player_que_quer_trocar:
 			var alvo: PhysicsPlayer2D = player_que_quer_trocar
 			var pos_self: Vector2 = global_position
@@ -228,11 +227,22 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 			current_velocity = Vector2.ZERO
 			alvo.current_velocity = Vector2.ZERO
 			alvo.playerInfo_atual.troca_posicao_ativa = false
-			global_position = Vector2(5000, 5000)
-			alvo.global_position = Vector2(6000, 6000)
-			await get_tree().process_frame
-			global_position = pos_alvo
-			alvo.global_position = pos_self
+			
+			
+			var tw = create_tween().set_parallel(true)
+			tw.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+			var tempo = 0.4
+			
+			
+			tw.tween_property(self, "global_position", pos_alvo, tempo)
+			tw.tween_property(alvo, "global_position", pos_self, tempo)
+			
+			
+			if sprite2D_body and alvo.sprite2D_body:
+				tw.tween_property(sprite2D_body, "scale", Vector2(1.2, 1.2), tempo / 2.0)
+				tw.tween_property(alvo.sprite2D_body, "scale", Vector2(1.2, 1.2), tempo / 2.0)
+				tw.chain().tween_property(sprite2D_body, "scale", Vector2.ONE, tempo / 2.0)
+				tw.tween_property(alvo.sprite2D_body, "scale", Vector2.ONE, tempo / 2.0)
 			return
 	if is_frozen():
 		return
