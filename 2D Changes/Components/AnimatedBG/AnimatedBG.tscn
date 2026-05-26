@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dsl2qmaeehsxq"]
+
+[ext_resource type="Shader" uid="uid://b43hwl80y7u83" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.gdshader" id="1_6b77n"]
+[ext_resource type="Texture2D" uid="uid://ctclnfs71m01d" path="res://Recursos/2D_Art/MyTeam/fundo 01.png" id="2_naqua"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fmb8l"]
+shader = ExtResource("1_6b77n")
+shader_parameter/speedMult = 0.1
+
+[node name="AnimatedBg" type="Control" unique_id=28414625]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=792784418]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_fmb8l")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_naqua")
+stretch_mode = 1
