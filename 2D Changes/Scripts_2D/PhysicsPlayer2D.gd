@@ -17,7 +17,7 @@ var playerInfo_atual: TeamPlayer
 static var last_piece_with_radial: PhysicsPlayer2D = null
 var canPlay: bool
 var disabled: bool = false
-
+var congelado: bool = false
 @onready var impactParticles = preload("res://2D Changes/Components/Particles/ImpactParticles/ImpactParticles.tscn")
 @export var intervalo_minimo_particula_impacto_ms: int = 80
 var ultimo_tempo_particula_impacto_ms: int = -99999
@@ -163,8 +163,10 @@ func atualizar_peca_pelo_status() -> void:
 	tween.tween_property(ShapeCast2D_Objects, "scale", target_scale, 0.5)
 	tween.tween_property(ShapeCast2D_Walls, "scale", target_scale, 0.5)
 	tween.tween_property(sprite2D_body, "scale", target_scale, 0.5)
-	
-	# --- VISUAL DO CÍRCULO ---
+	if playerInfo_atual.turnos_congelamento_armazenado > 0 or playerInfo_atual.disabilitado:
+		sprite2D_body.self_modulate = Color(0.5, 0.8, 1.0) # Azul gelo
+	else:
+		sprite2D_body.self_modulate = team.cor # Volta ao normal
 	if is_instance_valid(sprite2D_circulo_limite):
 		var nova_escala: float = playerInfo_atual.escala_maxima_circulo_normal
 		
@@ -472,15 +474,20 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 
 	if not (object_collided is PhysicsPlayer2D):
 		return
-
+	
 	# Evita efeito duplicado no mesmo impacto (um por par de jogadores).
 	if get_instance_id() > object_collided.get_instance_id():
 		return
+	if playerInfo_atual and playerInfo_atual.congelamento_ativo:
+		if object_collided.has_method("aplicar_congelamento"):
+			object_collided.aplicar_congelamento(playerInfo_atual.poder_congelar_turnos)
+			playerInfo_atual.congelamento_ativo = false
+				
 
 	var agora_ms := Time.get_ticks_msec()
 	if agora_ms - ultimo_tempo_particula_impacto_ms < intervalo_minimo_particula_impacto_ms:
 		return
-
+	
 	ultimo_tempo_particula_impacto_ms = agora_ms
 	_instanciar_particula_impacto(collision_position)
 
@@ -757,8 +764,10 @@ func _animar_buff_forca() -> void:
 		buff_tween.tween_property(sprite2D_body, "self_modulate", cor_brilho, 0.3).set_trans(Tween.TRANS_SINE)
 		buff_tween.tween_property(sprite2D_body, "self_modulate", team.cor, 0.3).set_trans(Tween.TRANS_SINE)
 func is_frozen() -> bool:
-	#return status_atual.disabilitado or status_atual.turnos_preso > 0
+	if playerInfo_atual:
+		return playerInfo_atual.disabilitado or playerInfo_atual.turnos_congelamento_armazenado > 0
 	return false
+	
 
 func get_player_que_quer_trocar() -> PhysicsPlayer2D:
 	var players = get_tree().get_nodes_in_group("Players")
@@ -861,7 +870,22 @@ func _on_carta_do_radial(carta):
 	var ms = get_tree().root.get_node("MatchScene2d")
 	ms.tentar_usar_carta(self, carta)
 	menu_radial.fechar()
-	
+func aplicar_congelamento(turnos: int) -> void:
+	print("Peça congelada por ", turnos, " turnos!")
+	current_velocity = Vector2.ZERO
+	Set_Current_Velocity(Vector2.ZERO)
+
+	if playerInfo_atual:
+		playerInfo_atual.turnos_congelamento_armazenado = turnos
+		playerInfo_atual.disabilitado = true
+		playerInfo_atual.status_mudou.emit()
+
+	if is_instance_valid(sprite2D_body):
+		sprite2D_body.self_modulate = Color(0.5, 0.8, 1.0)
+
+
+# ==========================================
+
 func debug_status():
 	print("STATUS DEBUG → ", playerInfo.nome)
 	print("  Força:", playerInfo_atual.level_force)

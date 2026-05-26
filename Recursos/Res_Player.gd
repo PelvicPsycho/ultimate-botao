@@ -24,7 +24,7 @@ var time: Team
 @export var geral: int
 var slotsUpgrates: Array[CardResource] = []
 var turnos_congelamento_armazenado: int = 0
-
+var poder_congelar_turnos: int = 0	
 @export_subgroup("Força")
 @export var current_min_force: float = 100.0
 @export var current_max_force: float = 1000.0
@@ -71,6 +71,7 @@ func recalcular_status() -> void:
 	for card in slotsUpgrates:
 		if card != null:
 			bonus_geral += card.magnitude 
+			
 
 func resetar_status(base_info: TeamPlayer) -> void:
 	self.level_force = base_info.level_force
@@ -80,6 +81,7 @@ func resetar_status(base_info: TeamPlayer) -> void:
 	self.atrai_bola_ativo = false
 	self.troca_posicao_ativa = false
 	self.congelamento_ativo = false
+	self.turnos_preso = 0
 func aplicar_buff(card: CardResource) -> void:
 	# 1. A carta já está equipada: só ativa o efeito.
 	ultima_carta_usada = card
@@ -91,7 +93,7 @@ func aplicar_buff(card: CardResource) -> void:
 			PA += card.magnitude
 		CardResource.TipoEfeito.Congelamento:
 			congelamento_ativo = true
-			
+			poder_congelar_turnos = card.magnitude
 		CardResource.TipoEfeito.TrocaLugar:
 			troca_posicao_ativa = true
 			
@@ -117,6 +119,11 @@ func processar_passagem_de_turno(base_info: TeamPlayer) -> void:
 	processar_expiracao_de_buffs(base_info)
 
 func processar_expiracao_de_buffs(base_info: TeamPlayer) -> void:
+	if turnos_congelamento_armazenado > 0:
+		turnos_congelamento_armazenado -= 1
+		if turnos_congelamento_armazenado <= 0:
+			disabilitado = false
+			status_mudou.emit() 
 	var cartas_para_remover: Array[CardResource] = []
 	
 	for card in duracao_dos_buffs:
