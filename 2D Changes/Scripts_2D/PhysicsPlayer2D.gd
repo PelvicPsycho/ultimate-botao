@@ -39,6 +39,7 @@ signal turnPlayed
 
 signal zoom_out_signal(pos)
 signal zoom_in_signal(pos)
+signal zoom_drag_signal(pos, intensidade)
 
 #region Sound variables
 #Variáveis de sons
@@ -251,6 +252,7 @@ func Mouse_Dragging_Update():
 	lerp_current_force = current_distance / max_distance
 	current_force = lerpf(playerInfo_atual.get_min_force(), playerInfo_atual.get_max_force(), lerp_current_force)
 	_atualizar_deformacao_arrasto()
+	zoom_drag_signal.emit(global_position, lerp_current_force)
 	
 	var current_circulo_scale = lerpf(0.1, playerInfo_atual.escala_maxima_circulo_atual, lerp_current_force)
 	sprite2D_circulo_limite.scale = Vector2(current_circulo_scale, current_circulo_scale)
