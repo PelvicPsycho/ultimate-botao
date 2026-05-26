@@ -7,9 +7,9 @@ var allGoals
 
 @export var zoom_normal: Vector2 = Vector2.ONE
 @export var zoom_arrasto_maximo: Vector2 = Vector2(0.78, 0.78)
-@export var goal_shake_duration: float = 0.45
-@export var goal_shake_amplitude: float = 18.0
-@export var goal_shake_frequency: float = 24.0
+@export var goal_shake_duration: float = 3.0
+@export var goal_shake_amplitude: float = 36.0
+@export var goal_shake_frequency: float = 48.0
 
 var target_zoom: Vector2 = Vector2.ONE
 var shake_active: bool = false
