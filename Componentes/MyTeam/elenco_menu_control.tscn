@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://o5omjcf51pl3" path="res://Recursos/2D_Art/MyTeam/Shape with text.png" id="2_1feu8"]
 [ext_resource type="PackedScene" uid="uid://d3ckt5m6bhi5e" path="res://Componentes/MyTeam/inventory_cards_button.tscn" id="2_mjelh"]
 [ext_resource type="Texture2D" uid="uid://d2f4o6btxl3tp" path="res://Recursos/2D_Art/MyTeam/Shape with text_1.png" id="3_i1aih"]
-[ext_resource type="Texture2D" uid="uid://6tlfv8erfjdy" path="res://Recursos/2D_Art/MyTeam/base.png" id="3_qwvos"]
 [ext_resource type="Texture2D" uid="uid://crifmj85cln87" path="res://Recursos/2D_Art/MyTeam/Rectangle 16.png" id="4_x3s7i"]
 [ext_resource type="Texture2D" uid="uid://47ugmokghauy" path="res://Recursos/2D_Art/MyTeam/Group 53_.png" id="5_x3s7i"]
 [ext_resource type="Texture2D" uid="uid://7pb1a7h83erj" path="res://Recursos/2D_Art/MyTeam/Group 4_.png" id="6_3vc01"]
@@ -15,9 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="9_2ysy5"]
 [ext_resource type="Texture2D" uid="uid://sb143gchnnfr" path="res://Recursos/2D_Art/MyTeam/Group 57.png" id="9_cep57"]
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="10_wegx5"]
-[ext_resource type="PackedScene" uid="uid://b4k0lbivyha1a" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="13_2ysy5"]
+[ext_resource type="PackedScene" uid="uid://d0h3cghqr1iun" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="13_2ysy5"]
 
-[node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox")]
+[node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "az_filter_btn", "rank_filter_btn", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,6 +30,8 @@ tab_cards_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/Marg
 textura_aba_ativa = ExtResource("2_0maoc")
 textura_aba_inativa = ExtResource("9_cep57")
 btn_salvar_sair = NodePath("SAIRR_Button")
+az_filter_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer/AZFilter_Button")
+rank_filter_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer/RankFilter_Button")
 inventory_list = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/ScrollContainer/InventoryList_GridContainer")
 central_nome_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer/CW-ItemName_Label")
 central_descricao_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/CardView_VBoxContainer/ItemDescription_RichTextLabel")
@@ -62,16 +63,6 @@ cena_carta_pequena = ExtResource("13_2ysy5")
 
 [node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("9_2ysy5")]
 layout_mode = 0
-
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1657175474]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_qwvos")
 
 [node name="MainMargin_MarginContainer" type="MarginContainer" parent="." unique_id=259902652]
 layout_mode = 1
