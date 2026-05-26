@@ -1,9 +1,9 @@
 extends Node2D
 signal carta_clicada(carta)
 @export var radius: float = 50
-@export var angular_start: float = 0.0  # em graus, 0 = direita
+@export var angular_start: float = 0.0  
 @export var open_duration: float = 0.2
-@export var button_scale := Vector2(2,2)
+@export var button_scale := Vector2(0.5,0.5)
 var buttons: Array[Area2D] = []
 var labels: Array[Label] = []
 var is_open: bool = false
@@ -54,10 +54,8 @@ func definir_cartas(cartas: Array) -> void:
 				emit_signal("carta_clicada", carta)
 				fechar()
 		)
-		# === DETECTAR HOVER ===
 		btn.mouse_entered.connect(func(): _animar_hover_botao(btn, true))
 		btn.mouse_exited.connect(func(): _animar_hover_botao(btn, false))
-	
 		buttons.append(btn)
 func _on_button_input(_v, event, _s, index, carta):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -94,8 +92,6 @@ func _animar_hover_botao(btn: Area2D, entrando: bool) -> void:
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT)
 	if entrando:
-	
 		tween.tween_property(btn, "scale", button_scale * 1.2, 0.2)
 	else:
-		# Volta pro tamanho base
 		tween.tween_property(btn, "scale", button_scale, 0.2)
