@@ -18,6 +18,10 @@ static var last_piece_with_radial: PhysicsPlayer2D = null
 var canPlay: bool
 var disabled: bool = false
 
+@onready var impactParticles = preload("res://2D Changes/Components/Particles/ImpactParticles/ImpactParticles.tscn")
+@export var intervalo_minimo_particula_impacto_ms: int = 80
+var ultimo_tempo_particula_impacto_ms: int = -99999
+
 @export_group("Tracing settings")
 @export var maxLenght: int = 15
 @onready var tracer2D = $Line2D_Trace
@@ -453,6 +457,61 @@ var last_PhysicObject_collision_position: Vector2
 func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collided: PhysicsObject2D) -> void:
 	last_PhysicObject_collided = object_collided
 	last_PhysicObject_collision_position = collision_position
+
+	if not (object_collided is PhysicsPlayer2D):
+		return
+
+	# Evita efeito duplicado no mesmo impacto (um por par de jogadores).
+	if get_instance_id() > object_collided.get_instance_id():
+		return
+
+	var agora_ms := Time.get_ticks_msec()
+	if agora_ms - ultimo_tempo_particula_impacto_ms < intervalo_minimo_particula_impacto_ms:
+		return
+
+	ultimo_tempo_particula_impacto_ms = agora_ms
+	_instanciar_particula_impacto(collision_position)
+
+func _instanciar_particula_impacto(posicao_colisao: Vector2) -> void:
+	if impactParticles == null:
+		return
+
+	var nova_particula = impactParticles.instantiate()
+	if nova_particula == null:
+		return
+
+	var parent_node: Node = get_tree().current_scene
+	if parent_node == null:
+		parent_node = get_tree().root
+	parent_node.add_child(nova_particula)
+
+	if nova_particula is Node2D:
+		nova_particula.global_position = posicao_colisao
+
+	if nova_particula is GPUParticles2D:
+		var gpu := nova_particula as GPUParticles2D
+		gpu.restart()
+		gpu.emitting = true
+		if gpu.has_signal("finished"):
+			gpu.finished.connect(gpu.queue_free, CONNECT_ONE_SHOT)
+		else:
+			var tempo_gpu = max(gpu.lifetime, 0.05)
+			get_tree().create_timer(tempo_gpu).timeout.connect(gpu.queue_free, CONNECT_ONE_SHOT)
+		return
+
+	if nova_particula is CPUParticles2D:
+		var cpu := nova_particula as CPUParticles2D
+		cpu.restart()
+		cpu.emitting = true
+		if cpu.has_signal("finished"):
+			cpu.finished.connect(cpu.queue_free, CONNECT_ONE_SHOT)
+		else:
+			var tempo_cpu = max(cpu.lifetime, 0.05)
+			get_tree().create_timer(tempo_cpu).timeout.connect(cpu.queue_free, CONNECT_ONE_SHOT)
+		return
+
+	# Fallback para cenas que não forem de partícula.
+	get_tree().create_timer(0.6).timeout.connect(nova_particula.queue_free, CONNECT_ONE_SHOT)
 #endregion
 
 #region Others
