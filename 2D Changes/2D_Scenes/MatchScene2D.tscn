@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="3_r4ru6"]
 [ext_resource type="Script" uid="uid://c3jx1lb0wr1pg" path="res://2D Changes/Scripts_2D/CollisionResolution2D.gd" id="4_3wcxh"]
 [ext_resource type="PackedScene" uid="uid://b8ms3txou0nej" path="res://Componentes/MatchUI/match_ui.tscn" id="4_cdikc"]
+[ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="4_iej8s"]
 [ext_resource type="PackedScene" uid="uid://bjuey2wm1ffql" path="res://2D Changes/2D_Scenes/Player2D.tscn" id="5_mnhma"]
 [ext_resource type="Script" uid="uid://buw3b8c0hrlfb" path="res://2D Changes/Scripts_2D/Gol_Manager_2D.gd" id="5_p2q2m"]
 [ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Grêmio/Mec.tres" id="6_7y1rs"]
@@ -23,6 +24,8 @@ script = ExtResource("1_iur2g")
 anunciador_ui = NodePath("AnunciadorUI")
 cena_recompensa_partida = ExtResource("2_q7h6m")
 cena_recompensa_torneio = ExtResource("3_pnfph")
+
+[node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("4_iej8s")]
 
 [node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("2_pg7ls")]
 position = Vector2(960, 540)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://giq0hrttkfn2"]
 
 [ext_resource type="Script" uid="uid://bmjj3xhlnenji" path="res://Componentes/MainMenu/main_menu.gd" id="1_u175k"]
+[ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="2_g1t36"]
 [ext_resource type="Texture2D" uid="uid://loc0kilifcub" path="res://Recursos/2D_Art/Menu/Background.png" id="2_x8yhw"]
 [ext_resource type="Material" uid="uid://ct74cpg7q434k" path="res://Recursos/2D_Art/Menu/LabelMenuShader.tres" id="3_2g6w5"]
 [ext_resource type="Texture2D" uid="uid://d31uxg5j02m38" path="res://Recursos/2D_Art/Menu/bola.png" id="3_bga17"]
@@ -51,6 +52,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="AnimatedBg" parent="MarginContainer" unique_id=28414625 instance=ExtResource("2_g1t36")]
+visible = false
+layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer" unique_id=1789091008]
 layout_mode = 2
