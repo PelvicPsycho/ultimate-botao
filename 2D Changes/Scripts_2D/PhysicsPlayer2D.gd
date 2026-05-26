@@ -42,6 +42,7 @@ var sfx_tensao_atual: AudioStreamPlayer
 @export var audio_impacto_bola: AudioStream
 @export var audio_impacto_parede: AudioStream
 @export var audio_impacto_trave: AudioStream
+var buff_tween: Tween
 #endregion
 
 func _ready() -> void:
@@ -148,13 +149,14 @@ func atualizar_peca_pelo_status() -> void:
 		# Verifica em qual 'Degrau' de força o jogador está
 		if playerInfo_atual.level_force < playerInfo_atual.level_force_weak:
 			nova_escala = playerInfo_atual.escala_maxima_circulo_fraco
+			
 		elif playerInfo_atual.level_force >= playerInfo_atual.level_force_strong:
 			nova_escala = playerInfo_atual.escala_maxima_circulo_forte
-		
+		_animar_buff_forca()
 		playerInfo_atual.escala_maxima_circulo_atual = nova_escala
 		
 		sprite2D_circulo_limite.scale = Vector2(nova_escala, nova_escala)
-
+	
 func Update_Values_With_StatusAtual() -> void:
 	mass = playerInfo_atual.basic_mass
 	friction = playerInfo_atual.basic_friction
@@ -590,7 +592,18 @@ func parar_shake() -> void:
 	if sprite2D_body != null:
 		sprite2D_body.position = base_visual_position
 #endregion
-
+func _animar_buff_forca() -> void:
+	if buff_tween and buff_tween.is_valid():
+		buff_tween.kill()
+		
+	if is_instance_valid(sprite2D_body):
+		sprite2D_body.self_modulate = team.cor
+		
+	if playerInfo_atual.level_force >= playerInfo_atual.level_force_strong:
+		buff_tween = create_tween().set_loops()
+		var cor_brilho = team.cor.lerp(Color.WHITE, 0.8)
+		buff_tween.tween_property(sprite2D_body, "self_modulate", cor_brilho, 0.3).set_trans(Tween.TRANS_SINE)
+		buff_tween.tween_property(sprite2D_body, "self_modulate", team.cor, 0.3).set_trans(Tween.TRANS_SINE)
 func is_frozen() -> bool:
 	#return status_atual.disabilitado or status_atual.turnos_preso > 0
 	return false
