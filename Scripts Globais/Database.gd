@@ -5,7 +5,7 @@ var cartas_db: Dictionary = {}
 var pecas_db: Dictionary = {}
 
 func _ready() -> void:
-	print("Carregando Banco de Dados Global...")
+	#print("Carregando Banco de Dados Global...")
 	_carregar_db_cartas("res://Componentes/Cartas/CardResorce/")
 	_carregar_db_pecas("res://Recursos/Teams/") #Busca apenas nas SUBPastas de Teams
 
@@ -24,7 +24,7 @@ func _carregar_db_cartas(pasta: String) -> void:
 					cartas_db[recurso.id_unico] = recurso
 			file = dir.get_next()
 			
-	print("Database de Cartas carregado: ", cartas_db.size(), " cartas encontradas.")
+	#print("Database de Cartas carregado: ", cartas_db.size(), " cartas encontradas.")
 
 func get_carta(id: StringName) -> CardResource:
 	return cartas_db.get(id, null)

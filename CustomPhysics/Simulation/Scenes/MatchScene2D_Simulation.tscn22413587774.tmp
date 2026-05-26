@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://bcpa7jrwf5kpi"]
+
+[ext_resource type="PackedScene" uid="uid://blaeti31fcy1e" path="res://2D Changes/2D_Scenes/Camera2D.tscn" id="2_ubw5w"]
+[ext_resource type="PackedScene" uid="uid://cmgl103lkwr8r" path="res://2D Changes/2D_Scenes/Pitch2D.tscn" id="3_p8yoh"]
+[ext_resource type="Script" uid="uid://cr0tkogxufbx8" path="res://CustomPhysics/Simulation/Scripts/CollisionResolution2D_Simulation.gd" id="4_8rsni"]
+[ext_resource type="PackedScene" uid="uid://bfekqxt737l61" path="res://CustomPhysics/Simulation/Scenes/Pitch2D_Simulation.tscn" id="4_sajkj"]
+[ext_resource type="PackedScene" uid="uid://dcb2hgssfu30v" path="res://CustomPhysics/Simulation/Scenes/Player2D_Simulation.tscn" id="5_8rsni"]
+[ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Grêmio/Mec.tres" id="7_nq2uw"]
+[ext_resource type="PackedScene" uid="uid://4oj2bntndkk" path="res://CustomPhysics/Simulation/Scenes/Ball2D_Simulation.tscn" id="7_uc82p"]
+
+[node name="MatchScene2d" type="Node2D" unique_id=1014255883]
+
+[node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("2_ubw5w")]
+position = Vector2(960, 540)
+
+[node name="Pitch" parent="." unique_id=603521134 instance=ExtResource("3_p8yoh")]
+
+[node name="PhysicsObjects_Group" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("Sim_Controller")]
+script = ExtResource("4_8rsni")
+Sim_Controller = NodePath("../Pitch_Simulation")
+
+[node name="HomeTeam" type="Node2D" parent="PhysicsObjects_Group" unique_id=2082446946]
+
+[node name="HomeTeam_P1" parent="PhysicsObjects_Group/HomeTeam" unique_id=1542391535 instance=ExtResource("5_8rsni")]
+position = Vector2(620, 293)
+
+[node name="HomeTeam_P2" parent="PhysicsObjects_Group/HomeTeam" unique_id=136231552 instance=ExtResource("5_8rsni")]
+position = Vector2(783, 547)
+
+[node name="HomeTeam_P3" parent="PhysicsObjects_Group/HomeTeam" unique_id=1716692016 instance=ExtResource("5_8rsni")]
+position = Vector2(449, 540)
+
+[node name="HomeTeam_P4" parent="PhysicsObjects_Group/HomeTeam" unique_id=1510176653 instance=ExtResource("5_8rsni")]
+position = Vector2(607, 802)
+
+[node name="HomeTeam_P5" parent="PhysicsObjects_Group/HomeTeam" unique_id=1244274174 instance=ExtResource("5_8rsni")]
+position = Vector2(615, 555)
+
+[node name="AwayTeam" type="Node2D" parent="PhysicsObjects_Group" unique_id=1460559231]
+
+[node name="AwayTeam_P1" parent="PhysicsObjects_Group/AwayTeam" unique_id=1139956745 instance=ExtResource("5_8rsni")]
+position = Vector2(1170, 291)
+playerInfo = ExtResource("7_nq2uw")
+
+[node name="AwayTeam_P2" parent="PhysicsObjects_Group/AwayTeam" unique_id=1222234019 instance=ExtResource("5_8rsni")]
+position = Vector2(1157, 563)
+playerInfo = ExtResource("7_nq2uw")
+
+[node name="AwayTeam_P3" parent="PhysicsObjects_Group/AwayTeam" unique_id=628596640 instance=ExtResource("5_8rsni")]
+position = Vector2(1178, 817)
+playerInfo = ExtResource("7_nq2uw")
+
+[node name="AwayTeam_P4" parent="PhysicsObjects_Group/AwayTeam" unique_id=274756024 instance=ExtResource("5_8rsni")]
+position = Vector2(1520, 555)
+playerInfo = ExtResource("7_nq2uw")
+
+[node name="AwayTeam_P5" parent="PhysicsObjects_Group/AwayTeam" unique_id=697110697 instance=ExtResource("5_8rsni")]
+position = Vector2(1346, 542)
+playerInfo = ExtResource("7_nq2uw")
+
+[node name="Balls" type="Node2D" parent="PhysicsObjects_Group" unique_id=1788694925]
+
+[node name="Ball2d" parent="PhysicsObjects_Group/Balls" unique_id=1925699982 instance=ExtResource("7_uc82p")]
+
+[node name="Pitch_Simulation" parent="." unique_id=805343219 node_paths=PackedStringArray("CollisionResolution2D") instance=ExtResource("4_sajkj")]
+CollisionResolution2D = NodePath("../PhysicsObjects_Group")

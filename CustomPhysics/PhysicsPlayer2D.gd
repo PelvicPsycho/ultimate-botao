@@ -234,7 +234,7 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 	# Evento - clique do mouse esquerdo
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			print("Peça clicada! level_force: ", playerInfo_atual.level_force)
+			#print("Peça clicada! level_force: ", playerInfo_atual.level_force)
 			clickedPiece.emit(self)
 			
 			abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO

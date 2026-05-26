@@ -1,13 +1,12 @@
-[gd_scene format=3 uid="uid://cmgl103lkwr8r"]
+[gd_scene format=3 uid="uid://d00baytaa6ni1"]
 
-[ext_resource type="Texture2D" uid="uid://r5xlw51feyua" path="res://2D Changes/Others_2D/campo 02 gordo.png" id="1_bp3cd"]
-[ext_resource type="PackedScene" uid="uid://bnxuxd842ff3f" path="res://2D Changes/2D_Scenes/Goal2D.tscn" id="2_g6iqt"]
+[ext_resource type="Texture2D" uid="uid://r5xlw51feyua" path="res://2D Changes/Others_2D/campo 02 gordo.png" id="1_4frna"]
 
 [node name="Pitch2D" type="Node2D" unique_id=603521134]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=181346696]
 position = Vector2(960, 540)
-texture = ExtResource("1_bp3cd")
+texture = ExtResource("1_4frna")
 
 [node name="Limits" type="StaticBody2D" parent="." unique_id=1520481869]
 collision_mask = 2
@@ -27,10 +26,3 @@ polygon = PackedVector2Array(243, 386, 90, 386, 90, 694, 243, 694, 243, 654, 131
 position = Vector2(1920, 1080)
 rotation = 3.1415927
 polygon = PackedVector2Array(243, 386, 90, 386, 90, 694, 243, 694, 243, 654, 131, 654, 131, 426, 243, 426)
-
-[node name="HomeGoal_2D" parent="." unique_id=1637700476 instance=ExtResource("2_g6iqt")]
-
-[node name="AwayGoal_2D" parent="." unique_id=628271092 instance=ExtResource("2_g6iqt")]
-position = Vector2(1920, 1080)
-rotation = 3.1415927
-team = 1

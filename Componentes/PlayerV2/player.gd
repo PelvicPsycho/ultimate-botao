@@ -222,7 +222,7 @@ func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, n
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			
-			print("Peça clicada! Força atual: ", status_atual.forca)
+			#print("Peça clicada! Força atual: ", status_atual.forca)
 			clickedPiece.emit(self)
 			abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO
 			is_dragging = true

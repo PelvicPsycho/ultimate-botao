@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bjjqexpwn81d5"]
+
+[ext_resource type="Script" uid="uid://sy64yn8brgoj" path="res://CustomPhysics/Simulation/Scripts/PhysicsPlayer2D_Simulation_NoVisuals.gd" id="1_1cjny"]
+[ext_resource type="Resource" uid="uid://gmvgc073734t" path="res://Recursos/Teams/Inter/Ale.tres" id="2_0lttp"]
+[ext_resource type="Texture2D" uid="uid://ben3uk3cuad15" path="res://Recursos/2D_Art/Menu/peca base.png" id="13_0tcoh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_th6yb"]
+radius = 47.095646
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
+radius = 47.0
+
+[node name="Player2D_Simulation_NoVisuals" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("sprite2D_body", "velocity_line2D", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
+collision_layer = 32
+collision_mask = 48
+script = ExtResource("1_1cjny")
+sprite2D_body = NodePath("sprite2D_body")
+max_distance = 300.0
+playerInfo = ExtResource("2_0lttp")
+velocity_line2D = NodePath("Line2D_Velocity")
+shapecast_physics_objects = NodePath("ShapeCast2D_Objects")
+shapecast_walls = NodePath("ShapeCast2D_Walls")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=566741673]
+shape = SubResource("CircleShape2D_th6yb")
+
+[node name="ShapeCast2D_Objects" type="ShapeCast2D" parent="." unique_id=1924576537]
+shape = SubResource("CircleShape2D_r8syo")
+target_position = Vector2(0, 0)
+max_results = 1
+collision_mask = 32
+
+[node name="ShapeCast2D_Walls" type="ShapeCast2D" parent="." unique_id=728845580]
+shape = SubResource("CircleShape2D_r8syo")
+target_position = Vector2(0, 0)
+max_results = 1
+collision_mask = 16
+
+[node name="Line2D_Velocity" type="Line2D" parent="." unique_id=29239771]
+default_color = Color(0, 0.16470589, 0.654902, 1)
+
+[node name="sprite2D_body" type="Sprite2D" parent="." unique_id=523510040]
+texture = ExtResource("13_0tcoh")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

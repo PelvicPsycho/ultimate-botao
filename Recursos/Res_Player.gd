@@ -15,6 +15,7 @@ var time: Team
 @export_group("Basic Attributes")
 @export var basic_min_force: float = 100.0
 @export var basic_max_force: float = 1000.0
+@export var basic_force_level: int = 0
 @export var basic_mass: float = 5.0
 @export var basic_friction: float = 0.98
 @export var basic_scale: float = 1

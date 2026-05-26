@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://v5srrfq0w6hn"]
+[gd_scene format=3 uid="uid://cxtdd5tho7gst"]
 
-[ext_resource type="Script" uid="uid://d3gq2odluc0qf" path="res://CustomPhysics/PhysicsBall2D.gd" id="1_qdjjt"]
-[ext_resource type="Texture2D" uid="uid://d31uxg5j02m38" path="res://Recursos/2D_Art/Menu/bola.png" id="2_8yq7v"]
+[ext_resource type="Script" uid="uid://c13on0xl0n2ll" path="res://CustomPhysics/Simulation/Scripts/PhysicsBall2D_Simulation_NoVisuals.gd" id="1_6kucc"]
+[ext_resource type="Texture2D" uid="uid://bhta1l4ahtw1i" path="res://Recursos/2D_Art/MatchUI/Ativo 3.png" id="2_6kucc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cihxk"]
 radius = 22.0
@@ -9,10 +9,13 @@ radius = 22.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_qaf7p"]
 radius = 22.0
 
-[node name="Ball2d" type="CharacterBody2D" unique_id=1925699982 node_paths=PackedStringArray("shapecast_physics_objects", "shapecast_walls") groups=["Balls", "PhysicsObjects"]]
-collision_layer = 2
-collision_mask = 8
-script = ExtResource("1_qdjjt")
+[node name="Ball2D_Simulation_NoVisuals" type="CharacterBody2D" unique_id=1925699982 node_paths=PackedStringArray("shapecast_physics_objects", "shapecast_walls") groups=["Balls", "PhysicsObjects"]]
+modulate = Color(0.24840033, 0.24840012, 0.24840015, 0.5882353)
+light_mask = 0
+visibility_layer = 0
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_6kucc")
 shapecast_physics_objects = NodePath("ShapeCast2D - Objects")
 shapecast_walls = NodePath("ShapeCast2D - Walls")
 
@@ -23,13 +26,14 @@ shape = SubResource("CircleShape2D_cihxk")
 shape = SubResource("CircleShape2D_qaf7p")
 target_position = Vector2(0, 0)
 max_results = 1
-collision_mask = 2
+collision_mask = 32
 
 [node name="ShapeCast2D - Walls" type="ShapeCast2D" parent="." unique_id=1190861765]
 shape = SubResource("CircleShape2D_qaf7p")
 target_position = Vector2(0, 0)
 max_results = 1
+collision_mask = 16
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1125551120]
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("2_8yq7v")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_6kucc")

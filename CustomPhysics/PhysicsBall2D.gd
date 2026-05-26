@@ -11,9 +11,9 @@ var lastTouch: PhysicsPlayer2D
 @export var basic_friction: float = 0.98
 @export var basic_scale: float = 1
 
-func _ready() -> void:
-	print("Mass = ", mass)
-	print("friction = ", friction)
+#func _ready() -> void:
+	#print("Mass = ", mass)
+	#print("friction = ", friction)
 
 #region Movement
 
