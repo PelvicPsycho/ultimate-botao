@@ -1,9 +1,8 @@
 extends PhysicsObject2D
-class_name PhysicsPlayer2D_Simulation
-
-@export var debug: bool = true
+class_name PhysicsPlayer2D
 
 var index: int
+@export var debug: bool = true
 
 # Runtime Variables
 var current_direction: Vector2 = Vector2.ZERO
@@ -19,7 +18,7 @@ var playerInfo_atual: TeamPlayer
 var canPlay: bool
 var disabled: bool = false
 
-signal clickedPiece(Piece: PhysicsPlayer2D_Simulation)
+signal clickedPiece(Piece: PhysicsPlayer2D)
 signal turnPlayed
 
 signal zoom_out_signal(pos)
@@ -46,7 +45,6 @@ var sfx_tensao_atual: AudioStreamPlayer
 #endregion
 
 func _ready() -> void:
-	team = playerInfo.time
 	is_pointer_inside_piece = false
 	
 	mouse_entered.connect(_on_mouse_entered)
@@ -61,8 +59,6 @@ func _ready() -> void:
 	
 	base_visual_position = sprite2D_body.position
 	
-	loadPlayerInfo(playerInfo)
-	
 	start_Effects()
 	
 	Start_Aim()
@@ -72,6 +68,7 @@ func _ready() -> void:
 	loadPlayerInfo(playerInfo)
 
 func loadPlayerInfo(plInfo):
+	team = playerInfo.time
 	playerInfo_atual = plInfo.duplicate(true)
 	playerInfo_atual.status_mudou.connect(atualizar_fisica_por_status)
 	playerInfo_atual.status_mudou.connect(atualizar_peca_pelo_status)
@@ -233,45 +230,46 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 			#player_que_quer_trocar.global_transform.origin = temp
 			#return
 	
-	#if is_frozen():
-		#return
-	#
+	if is_frozen():
+		return
+	
 	#if !canPlay or disabled:
 		#return
 	
 	# Evento - clique do mouse esquerdo
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			#print("Peça clicada! level_force: ", playerInfo_atual.level_force)
-			clickedPiece.emit(self)
+			Execute_Action()
 			
-			abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO
-			
-			is_dragging = true
-			
-			SoundMaster.play_sfx(audio_clique) #Toca o som de clique normal
-			sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) #Toca tensao e salva a ref
-			
-			# Emite um sinal que o player foi clicado
-			_on_player_pressed(position)
-			
-			# Zera variaveis
-			current_direction = Vector2.ZERO
-			
-			Set_Current_Velocity(Vector2.ZERO)
-			current_force = 0.0
-			
-			direcao_travada = false
-			
-			# Guarda a posição global do player
-			posicao_inicial_toque_Tela = global_position
-		
-		if Input.is_action_just_pressed("ui_focus_next"): # tecla TAB por padrão
-			debug_status()
+			#clickedPiece.emit(self)
+			#
+			#abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO
+			#
+			#is_dragging = true
+			#
+			#SoundMaster.play_sfx(audio_clique) #Toca o som de clique normal
+			#sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) #Toca tensao e salva a ref
+			#
+			## Emite um sinal que o player foi clicado
+			#_on_player_pressed(position)
+			#
+			## Zera variaveis
+			#current_direction = Vector2.ZERO
+			#
+			#Set_Current_Velocity(Vector2.ZERO)
+			#current_force = 0.0
+			#
+			#direcao_travada = false
+			#
+			## Guarda a posição global do player
+			#posicao_inicial_toque_Tela = global_position
+		#
+		#if Input.is_action_just_pressed("ui_focus_next"): # tecla TAB por padrão
+			#debug_status()
 
 func _input(event: InputEvent) -> void:
-	#if is_frozen():
-		#return
+	if is_frozen():
+		return
 		
 	if not is_dragging:
 		return
@@ -346,32 +344,51 @@ func puxar_no_timeout():
 
 #region Movement
 func Execute_Action() -> void:
-	if is_frozen():
-		return
+	#if is_frozen():
+		#return
 	
-	if is_instance_valid(sfx_tensao_atual): 
-		sfx_tensao_atual.stop()
+	#if is_instance_valid(sfx_tensao_atual): 
+		#sfx_tensao_atual.stop()
+	#
+	#var audio_tiro = audio_chute_normal
+	#if lerp_current_force >= 1: 
+		#audio_tiro = audio_chute_max
+		#
+	#SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
 	
-	var audio_tiro = audio_chute_normal
-	if lerp_current_force >= 1: 
-		audio_tiro = audio_chute_max
-		
-	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
+	lerp_current_force = 1
+	current_force = lerpf(playerInfo_atual.get_min_force(), playerInfo_atual.get_max_force(), lerp_current_force)
+	
+	current_direction = Vector2(0, 1)
 	
 	var new_velocity = current_direction * current_force
 	Set_Current_Velocity(new_velocity)
 	
 	ActionExecuted.emit(index, new_velocity)
-	print("Action Executed")
 	
 	#print("max_force = ", playerInfo_atual.get_max_force())
 	#print("current_force = ", current_force)
 	#print("current_velocity = ", current_velocity)
 	#print("friction = ", friction)
 	
-	_cancelar_interacao()
-	turnPlayed.emit()
 
+	#
+	#_cancelar_interacao()
+	#turnPlayed.emit()
+
+#func move_object(_delta: float) -> void:
+	#var new_velocity = current_velocity * friction;
+	#Set_Current_Velocity(new_velocity)
+	#
+	#if abs(current_velocity.x) < 10 && abs(current_velocity.y) < 10:
+		#Set_Current_Velocity(Vector2.ZERO)
+		#is_moving = false
+	#else:
+		#is_moving = true
+	#
+	##last_position = position
+	##var newPos = position + (current_velocity * _delta)
+	##position = newPos
 #endregion
 
 #region collisions
@@ -564,6 +581,103 @@ func parar_shake() -> void:
 func is_frozen() -> bool:
 	#return status_atual.disabilitado or status_atual.turnos_preso > 0
 	return false
+
+#func get_player_que_quer_trocar() -> Player:
+	#var players = get_tree().get_nodes_in_group("Players")
+	#for p in players:
+		#if p != self and p.playerInfo_atual.troca_posicao_ativa and p.canPlay:
+			#return p
+	#return null
+
+# ainda tenho que ver o que utilizo dessa função
+#func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	#var total := state.get_contact_count()
+	#if total <= 0:
+		#return
+	#
+#
+	#for i in range(total):
+		#var collider := state.get_contact_collider_object(i)
+		#if collider == null:
+			#continue
+	#
+		#if collider.name.to_lower() == "pitch":
+			#continue
+		#if status_atual.empurra_aliados_ativo:
+			#if collider is Player and collider.team == self.team:
+				#status_atual.empurra_aliados_ativo = false
+				#var minha_vel = state.get_contact_local_velocity_at_position(i)
+				#var vel_outro = state.get_contact_collider_velocity_at_position(i)
+				#var impulso_base = (minha_vel - vel_outro)
+				#var impulso_final = impulso_base * status_atual.empurra_aliados_multiplicador
+				#collider.apply_central_impulse(impulso_final)   
+		#if status_atual.congelamento_ativo:
+	#
+	## só congela peças (Player), ignora bola, parede etc
+			#if collider is Player:
+#
+		## aplica stun no ALVO (não no atacante)
+				#collider.status_atual.turnos_preso = status_atual.ultima_carta_usada.duracao
+				#collider.status_atual.disabilitado = true
+				#collider.status_atual.status_mudou.emit()
+#
+		## limpa estado do atacante
+				#status_atual.congelamento_ativo = false
+#
+				#print("=== CONGELAMENTO ATIVADO ===")
+				#print("Alvo:", collider.playerInfo.nome)
+				#print("Turnos preso:", collider.status_atual.turnos_preso)
+#
+		#continue  # interrompe processamento desse contato
+				#
+#
+#
+		#var collider_id := collider.get_instance_id()
+		#if spark_cooldowns.has(collider_id) and spark_cooldowns[collider_id] > 0.0:
+			#continue
+		#
+		##Som
+		#if collider is Player:
+			#if collider.spark_cooldowns.has(get_instance_id()) and collider.spark_cooldowns[get_instance_id()] > 0.0:
+				#continue # Ele acordou e já tocou, então eu fico quieto.
+#
+		##(Velocidade Relativa)
+		## Calcula exatamente o quão rápido um bateu de frente com o outro, ignorando o peso
+		#var minha_vel = state.get_contact_local_velocity_at_position(i)
+		#var vel_outro = state.get_contact_collider_velocity_at_position(i)
+		#var forca_impacto = (minha_vel - vel_outro).length()
+#
+		## Ignora esbarrões lentos. Como agora é velocidade pura, .5 ou 1.0 é um bom limite
+		#if forca_impacto > 0.2: 
+			#var audio_escolhido: AudioStream = null
+			#
+			#if collider is Player:
+				#audio_escolhido = audio_impacto_peca
+			#elif collider is Ball or collider.is_in_group("Balls"):
+				#audio_escolhido = audio_impacto_bola
+			#elif collider is Goal or collider.is_in_group("GoleiraHitSom"):
+				#audio_escolhido = audio_impacto_trave
+			#else:
+				#audio_escolhido = audio_impacto_parede
+				#
+			#if audio_escolhido != null:
+				## Matemática do Volume baseada na Velocidade.
+				#var forca_relativa = clamp(forca_impacto / 5.0, 0.0, 1.0) 
+				#var volume_dinamico = lerp(-5.0, 2.0, forca_relativa)
+				#
+				#var pitch_dinamico = randf_range(0.85, 1.15)
+##				print("Batida de forca: ", forca_impacto, " | Arquivo: ", audio_escolhido, " | Volume dB: ", volume_dinamico)
+				#SoundMaster.play_sfx(audio_escolhido, pitch_dinamico, volume_dinamico)
+#
+		#var ponto_global := state.get_contact_collider_position(i)
+##		print("colidiu com:", collider.name, " em:", ponto_global)
+#
+		#ativar_spark_no_ponto_global(ponto_global)
+#
+		#spark_cooldowns[collider_id] = 0.2
+		#break
+
+
 
 func debug_status():
 	print("STATUS DEBUG → ", playerInfo.nome)

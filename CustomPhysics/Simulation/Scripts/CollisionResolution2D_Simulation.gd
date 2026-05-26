@@ -13,7 +13,7 @@ var object_B: PhysicsObject2D
 func _ready() -> void:
 	var nodes = get_tree().get_nodes_in_group("PhysicsObjects")
 	PhysicsObjects_List.assign(nodes)
-	print("number of players = ", PhysicsObjects_List.size())
+	#print("number of players = ", PhysicsObjects_List.size())
 	
 	var count = 0
 	for object in PhysicsObjects_List:
@@ -23,7 +23,9 @@ func _ready() -> void:
 	Sim_Controller.create_objects_copy()
 	Sim_Controller.connect_signal()
 
+
 func _physics_process(delta: float) -> void:
+	#last_pos = PhysicsObjects_List[0].global_position
 	#
 	# verify physic objects collisions
 	collision_physics_object_resolution()
@@ -39,6 +41,15 @@ func _physics_process(delta: float) -> void:
 	collision_wall_resolution()
 	#
 	
+	for j in range(PhysicsObjects_List.size()):
+		PhysicsObjects_List[j].shapecast_physics_objects.force_update_transform()
+		PhysicsObjects_List[j].shapecast_physics_objects.force_shapecast_update()
+
+	
+	#print("---------- Original ----------")
+	#print("Object_1 ", PhysicsObjects_List[0].name," Velocity = ", PhysicsObjects_List[0].current_velocity)
+	#print("Object_2 ", PhysicsObjects_List[1].name," Velocity = ", PhysicsObjects_List[1].current_velocity)
+	#print("----------")
 
 #region Physics Objects Collisions
 func collision_physics_object_resolution() -> void:
@@ -50,27 +61,45 @@ func collision_physics_object_resolution() -> void:
 				handle_physics_objects_collision(object_A, object_B)
 
 func has_collision_physics_object(object_1: PhysicsObject2D, object_2: PhysicsObject2D) -> bool:
-	object_1.shapecast_physics_objects.force_update_transform()
-	object_1.shapecast_physics_objects.force_shapecast_update()
+	var circle_shape_object_1: CircleShape2D = object_1.shapecast_physics_objects.shape as CircleShape2D
+	var radius_object_1: float = circle_shape_object_1.radius
 	
-	if object_1.shapecast_physics_objects.is_colliding():
-		for i in object_1.shapecast_physics_objects.get_collision_count():
-			var collider = object_1.shapecast_physics_objects.get_collider(i)
-			if collider == object_2:
-				object_1.Set_Last_PhysicObject_Collision(object_1.shapecast_physics_objects.get_collision_point(i), object_2)
-				object_2.Set_Last_PhysicObject_Collision(object_1.shapecast_physics_objects.get_collision_point(i), object_1)
-				return true
+	var circle_shape_object_2: CircleShape2D = object_2.shapecast_physics_objects.shape as CircleShape2D
+	var radius_object_2: float = circle_shape_object_2.radius
+
+	var line_of_impact = object_2.global_position - object_1.global_position
+	var distance = line_of_impact.length()
+	
+	var overlap = distance - (radius_object_1 + radius_object_2)
+	#print("Overlap = ", overlap)
+	
+	if overlap <= 0:
+		print("Estao dentro um do outro")
+		return true
 	else:
-		object_1.last_position_without_collision = object_1.global_position
-		
-	return false
+		return false
+	#object_1.shapecast_physics_objects.force_update_transform()
+	#object_1.shapecast_physics_objects.force_shapecast_update()
+	#
+	#if object_1.shapecast_physics_objects.is_colliding():
+		#for i in object_1.shapecast_physics_objects.get_collision_count():
+			#var collider = object_1.shapecast_physics_objects.get_collider(i)
+			#if collider == object_2:
+				##object_1.Set_Last_PhysicObject_Collision(object_1.shapecast_physics_objects.get_collision_point(i), object_2)
+				##object_2.Set_Last_PhysicObject_Collision(object_1.shapecast_physics_objects.get_collision_point(i), object_1)
+#
+				#return true
+	#else:
+		#object_1.last_position_without_collision = object_1.global_position
+		#
+	#return false
 
 func handle_physics_objects_collision(object_1: PhysicsObject2D, object_2: PhysicsObject2D) -> void:
 	var sum_masses = object_1.mass + object_2.mass
 	var line_of_impact = object_2.position - object_1.position
 	var distance = line_of_impact.length()
 	var velocity_Diff = object_2.current_velocity - object_1.current_velocity
-	
+
 	# Handle Objects Overlap
 	handle_physics_objects_inside_each_other(object_1, object_2, distance, line_of_impact)
 	
@@ -91,20 +120,25 @@ func handle_physics_objects_collision(object_1: PhysicsObject2D, object_2: Physi
 	var velocity_change_object_2 = line_of_impact * (num_object_2 / den)
 	object_2.current_velocity += velocity_change_object_2
 	
-	print("---------- Original ----------")
-	print("Object_1 ", object_1.name," Velocity = ", object_1.current_velocity)
-	print("Object_2 ", object_2.name," Velocity = ", object_2.current_velocity)
+	print("---------- Original Colision ----------")
+	print("Object_1 ", PhysicsObjects_List[0].name," New Velocity = ", PhysicsObjects_List[0].current_velocity)
+	print("Object_2 ", PhysicsObjects_List[1].name," New Velocity = ", PhysicsObjects_List[1].current_velocity)
 	print("----------")
 
 func handle_physics_objects_inside_each_other(object_1: PhysicsObject2D, object_2: PhysicsObject2D, distance: float, line_of_impact: Vector2) -> void:
 	var circle_shape_object_1: CircleShape2D = object_1.shapecast_physics_objects.shape as CircleShape2D
 	var radius_object_1: float = circle_shape_object_1.radius
 	
+	
 	var circle_shape_object_2: CircleShape2D = object_2.shapecast_physics_objects.shape as CircleShape2D
 	var radius_object_2: float = circle_shape_object_2.radius
 	
 	var overlap = distance - (radius_object_1 + radius_object_2)
 	overlap = abs(overlap)
+	
+	#print("Object_1 radius ", radius_object_1)
+	#print("Object_2 radius ", radius_object_2)
+	#print("overlap ", overlap)
 
 	line_of_impact = line_of_impact.normalized()
 	
@@ -168,7 +202,10 @@ func movement_update(_delta: float) -> void:
 		# chama função do object que atualiza sua Velocity
 		var new_velocity = PhysicsObjects_List[i].current_velocity * PhysicsObjects_List[i].friction;
 		
-		if abs(PhysicsObjects_List[i].current_velocity.x) < 10 && abs(PhysicsObjects_List[i].current_velocity.y) < 10:
+		var vel_x = abs(PhysicsObjects_List[i].current_velocity.x)
+		var vel_y = abs(PhysicsObjects_List[i].current_velocity.y)
+		
+		if vel_x < 10 && vel_y < 10:
 			PhysicsObjects_List[i].Set_Current_Velocity(Vector2.ZERO)
 			PhysicsObjects_List[i].is_moving = false
 		else:
@@ -176,7 +213,8 @@ func movement_update(_delta: float) -> void:
 			PhysicsObjects_List[i].is_moving = true
 		
 		if PhysicsObjects_List[i].is_moving:
-			#print("Object Name = ", PhysicsObjects_List[i].name)
+			#if i == 0:
+				#print("new_velocity = ", new_velocity)
 			
 			global_Collision_Check_count = 0
 			# Acha a proxima posição do objeto
@@ -184,10 +222,15 @@ func movement_update(_delta: float) -> void:
 			# - Caso tenha alguma colisão no meio do caminho, retorna a posição dessa colisão
 			#var new_Pos = verify_collision_between_objects_on_movement_line_BooleanSearch(PhysicsObjects_List[i], 2.0, _delta)
 			
-			var new_Pos = verify_collision_between_objects_on_movement_line_LinearSearch(PhysicsObjects_List[i], 10.0, _delta)
 			
+			
+			var new_Pos = PhysicsObjects_List[i].global_position + (PhysicsObjects_List[i].current_velocity * _delta) #verify_collision_between_objects_on_movement_line_LinearSearch(PhysicsObjects_List[i], 10.0, _delta)
 			# Atualiza a posição do objeto
 			PhysicsObjects_List[i].global_position = new_Pos
+			
+			#if i == 0:
+				#print("new_position = ", PhysicsObjects_List[i].global_position)
+			
 			#print("global_Collision_Check_count = ", global_Collision_Check_count)
 			#print("Final -----------------------")
 
@@ -221,7 +264,7 @@ func verify_collision_between_objects_on_movement_line_LinearSearch(object_1: Ph
 		object_1.global_position = current_Pos
 		
 		# atualizo as informações do shapecast
-		object_1.shapecast_physics_objects.force_update_transform()
+		#object_1.shapecast_physics_objects.force_update_transform()
 		object_1.shapecast_physics_objects.force_shapecast_update()
 		object_1.shapecast_walls.force_shapecast_update()
 		
@@ -261,7 +304,7 @@ func verify_collision_between_objects_on_movement_line_BooleanSearch(object_1: P
 	
 	# verifico se aconteceu alguma colisão na posição final
 	object_1.global_position = final_Pos
-	object_1.shapecast_physics_objects.force_update_transform()
+	#object_1.shapecast_physics_objects.force_update_transform()
 	object_1.shapecast_physics_objects.force_shapecast_update()
 	object_1.shapecast_walls.force_shapecast_update()
 
@@ -298,7 +341,7 @@ func verify_collision_between_objects_on_movement_line_recursive(object_1: Physi
 	object_1.global_position = current_Pos
 	
 	# atualizo as informações do shapecast
-	object_1.shapecast_physics_objects.force_update_transform()
+	#object_1.shapecast_physics_objects.force_update_transform()
 	object_1.shapecast_physics_objects.force_shapecast_update()
 	object_1.shapecast_walls.force_shapecast_update()
 	
@@ -367,7 +410,7 @@ func verify_collision_between_objects_on_movement_line_after_collision_found(obj
 		object_1.global_position = current_Pos
 		
 		# atualizo as informações do shapecast
-		object_1.shapecast_physics_objects.force_update_transform()
+		#object_1.shapecast_physics_objects.force_update_transform()
 		object_1.shapecast_physics_objects.force_shapecast_update()
 		object_1.shapecast_walls.force_shapecast_update()
 		

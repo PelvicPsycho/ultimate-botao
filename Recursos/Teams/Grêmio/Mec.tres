@@ -10,7 +10,6 @@ nome = "Mec"
 num_camisa = 10
 foto = ExtResource("1_1g1kv")
 basic_max_force = 1500.0
-basic_friction = 0.975
 quantosSlotes = 10
 PA = 6
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

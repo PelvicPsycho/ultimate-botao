@@ -1,7 +1,17 @@
 [gd_scene format=3 uid="uid://bjjqexpwn81d5"]
 
-[ext_resource type="Script" uid="uid://sy64yn8brgoj" path="res://CustomPhysics/Simulation/Scripts/PhysicsPlayer2D_Simulation_NoVisuals.gd" id="1_1cjny"]
+[ext_resource type="Script" uid="uid://dfrcen05okior" path="res://CustomPhysics/Simulation/Scripts/PhysicsPlayer2D_Simulation.gd" id="1_amxfy"]
 [ext_resource type="Resource" uid="uid://gmvgc073734t" path="res://Recursos/Teams/Inter/Ale.tres" id="2_0lttp"]
+[ext_resource type="AudioStream" uid="uid://dophc5rewn0on" path="res://Recursos/SFXs/ClicouNaPeca_544883__ashboy34__smallgranitedry.wav" id="3_0lttp"]
+[ext_resource type="AudioStream" uid="uid://b8x46eek4pke2" path="res://Recursos/SFXs/SomDePuxarAPeca_freesound_community-wind-up3-89578.wav" id="4_poykw"]
+[ext_resource type="AudioStream" uid="uid://b30b1yxsrtvue" path="res://Recursos/SFXs/ChutouAPeca_freesound_community-soccer-ball-kick-37625.wav" id="5_rco1q"]
+[ext_resource type="AudioStream" uid="uid://bqpkt6r0ypfx8" path="res://Recursos/SFXs/ChutouAPeca_ribhavagrawal-woosh-230554.wav" id="6_jgvda"]
+[ext_resource type="AudioStream" uid="uid://8wor35bd1myu" path="res://Recursos/SFXs/CancelouAJogada_drop_003.wav" id="7_18vyh"]
+[ext_resource type="AudioStream" uid="uid://dv1awxb4wsu8x" path="res://Recursos/SFXs/BateuEmOutraPeca_freesound_community-clack-85854.wav" id="8_73xc4"]
+[ext_resource type="AudioStream" uid="uid://d4fx3ptn8m03m" path="res://Recursos/SFXs/BateuNaBola_footstep_carpet_003.wav" id="9_n0wms"]
+[ext_resource type="AudioStream" uid="uid://clc333t0ptaed" path="res://Recursos/SFXs/BateuNaParede_footstep_wood_003.wav" id="10_ix6gi"]
+[ext_resource type="AudioStream" uid="uid://c7i8wt5kqjjw6" path="res://Recursos/SFXs/BateuNaTrave_406490__anthousai__hit-metallic-basketball-hoop-pipe-01.wav" id="11_wmvxp"]
+[ext_resource type="Texture2D" uid="uid://dd2an5o41fxro" path="res://2D Changes/Others_2D/Ground Effect Bubble.png" id="12_6x1t6"]
 [ext_resource type="Texture2D" uid="uid://ben3uk3cuad15" path="res://Recursos/2D_Art/Menu/peca base.png" id="13_0tcoh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_th6yb"]
@@ -10,13 +20,26 @@ radius = 47.095646
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
 radius = 47.0
 
-[node name="Player2D_Simulation_NoVisuals" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("sprite2D_body", "velocity_line2D", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
+[node name="Player2D_Simulation_NoVisual" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
+modulate = Color(1, 1, 1, 0.39215687)
 collision_layer = 32
 collision_mask = 48
-script = ExtResource("1_1cjny")
-sprite2D_body = NodePath("sprite2D_body")
+script = ExtResource("1_amxfy")
 max_distance = 300.0
 playerInfo = ExtResource("2_0lttp")
+audio_clique = ExtResource("3_0lttp")
+audio_tensao = ExtResource("4_poykw")
+audio_chute_normal = ExtResource("5_rco1q")
+audio_chute_max = ExtResource("6_jgvda")
+audio_cancelar = ExtResource("7_18vyh")
+audio_impacto_peca = ExtResource("8_73xc4")
+audio_impacto_bola = ExtResource("9_n0wms")
+audio_impacto_parede = ExtResource("10_ix6gi")
+audio_impacto_trave = ExtResource("11_wmvxp")
+sprite2D_body = NodePath("sprite2D_body")
+sprite2D_circulo_limite = NodePath("Sprite2D_CirculoLimite")
+aim_line2D = NodePath("Line2D_Aim")
+drag_line2D = NodePath("Line2D_Drag")
 velocity_line2D = NodePath("Line2D_Velocity")
 shapecast_physics_objects = NodePath("ShapeCast2D_Objects")
 shapecast_walls = NodePath("ShapeCast2D_Walls")
@@ -36,8 +59,18 @@ target_position = Vector2(0, 0)
 max_results = 1
 collision_mask = 16
 
+[node name="Line2D_Aim" type="Line2D" parent="." unique_id=700380071]
+
+[node name="Line2D_Drag" type="Line2D" parent="." unique_id=1403667517]
+default_color = Color(0.54509807, 0, 0, 0.74509805)
+
 [node name="Line2D_Velocity" type="Line2D" parent="." unique_id=29239771]
 default_color = Color(0, 0.16470589, 0.654902, 1)
+
+[node name="Sprite2D_CirculoLimite" type="Sprite2D" parent="." unique_id=1504443643]
+visible = false
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("12_6x1t6")
 
 [node name="sprite2D_body" type="Sprite2D" parent="." unique_id=523510040]
 texture = ExtResource("13_0tcoh")
