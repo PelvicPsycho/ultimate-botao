@@ -229,7 +229,8 @@ var posicao_final_toque_Tela: Vector2 = Vector2.ZERO
 func Mouse_Dragging_Update():
 	current_direction = posicao_inicial_toque_Tela - posicao_final_toque_Tela
 	current_distance = current_direction.length()
-	
+	if current_distance > 2.0 and menu_radial and menu_radial.is_open:
+		menu_radial.fechar()
 	if current_distance > max_distance:
 		current_distance = max_distance
 	
@@ -281,15 +282,11 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 				tw.tween_property(alvo.sprite2D_body, "scale", escala_base_alvo, tempo / 2.0)
 				
 			tw.chain().tween_callback(func():
-				# Traz os corpos físicos para o destino final
+				
 				global_position = pos_alvo
 				alvo.global_position = pos_self
-				
-				# Prende as imagens de volta aos corpos
 				sprite2D_body.top_level = false
 				alvo.sprite2D_body.top_level = false
-				
-				# Reseta a posição interna das imagens para centralizar no corpo
 				sprite2D_body.position = base_visual_position
 				alvo.sprite2D_body.position = alvo.base_visual_position
 			)
@@ -772,6 +769,7 @@ func abrir_botoes_cartas():
 	menu_radial.definir_cartas(cartas)
 	if not menu_radial.carta_clicada.is_connected(_on_carta_do_radial):
 		menu_radial.carta_clicada.connect(_on_carta_do_radial)
+	menu_radial.scale = Vector2(1.5, 1.5)
 	menu_radial.abrir()
 	PhysicsPlayer2D.last_piece_with_radial = self
 #endregion
