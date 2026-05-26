@@ -26,6 +26,9 @@ var jogadores: Array = []
 @export_group("Sons do Árbitro")
 @export var audio_mudou_turno: AudioStream
 @export var audio_perdeu_turno: AudioStream
+@export_group("Telas de Recompensa")
+@export var cena_recompensa_partida: PackedScene
+@export var cena_recompensa_torneio: PackedScene
 
 @onready var timer = $MatchTimer
 var gol_de_ouro: bool = false
@@ -43,12 +46,11 @@ func _ready() -> void:
 	allBalls = get_tree().get_nodes_in_group("Balls")
 	
 		
+	
+		
 	var goals = get_tree().get_nodes_in_group("Goals")
 	for goal in goals:
-		# Sintaxe Godot 4 para Sinais
 		goal.gol.connect(onGoal)
-		#var material_base = homeTeam.materialAtivo if goal.team == goal.TeamSide.HOME else awayTeam.materialAtivo
-		#goal.changeColor(material_base)
 		
 	var jogadores_salvos: Array = GameState.jogadores
 
@@ -117,7 +119,6 @@ func assignPieces():
 		piece.team = homeTeam
 		piece.playerInfo = player
 		piece.loadPlayerInfo(player)
-		#piece.atualizar_gradiente()
 
 	for i in range(awayPieces.size()):
 		var piece = awayPieces[i]
@@ -125,7 +126,6 @@ func assignPieces():
 		piece.team = awayTeam
 		piece.playerInfo = player
 		piece.loadPlayerInfo(player)
-		#piece.atualizar_gradiente()
 
 func _atualizar_placar() -> void:
 	%MatchUI.placar_esq.text = str(homeScore)
@@ -145,8 +145,6 @@ func _on_lance_acabou() -> void:
 		timer.lance_rodando = true
 		peca_arrastada.puxar_no_timeout()
 		
-		# Se a peça estava sendo arrastada muito fraca, ela apenas solta (não chuta).
-		# Então forçamos a troca de turno para o jogo não travar esperando o waitAllStopped.
 		if peca_arrastada.vetor_arrasto_atual.length_squared() <= 25.0:
 			changeTurn()
 	else:
@@ -184,13 +182,6 @@ func onClickedPiece(piece: PhysicsPlayer2D) -> void:
 	piece.abrir_botoes_cartas()
 	
 func printState() -> void:
-	#print("turnCounter: ", turnCounter)
-	#print("rallyCounter: ", rallyCounter)
-	#print("goalFlag: ", goalFlag)
-	#print("foulFlag: ", foulFlag)
-	#print("homeScore: ", homeScore)
-	#print("awayScore: ", awayScore)
-	#print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
 	pass
 
 func onTurnPlayed() -> void:
@@ -328,11 +319,37 @@ func atualizar_cores_pecas() -> void:
 func isCorrectSide(team: Team) -> bool:
 	return (currentTurn == turn.HOME and team == homeTeam) or (currentTurn == turn.AWAY and team == awayTeam)
 
+## Mostra a recompensa primeiro. Após coletar, abre o result_canvas
+## para o jogador decidir o próximo passo (botão Next).
 func endMatch(winner: String):
 	var resultCanvas = $ResultCanvas
-	await get_tree().create_timer(3.0, true).timeout
-	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), true if winner == homeTeam.name else false)
+	var jogador_venceu := winner == homeTeam.name
 	
+	if not jogador_venceu:
+		await get_tree().create_timer(3.0, true).timeout
+		resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), false)
+		return
+	
+	# ── Jogador venceu: recompensa primeiro ──
+	if CupManager.isFinal:
+		if cena_recompensa_torneio:
+			var tela = cena_recompensa_torneio.instantiate()
+			tela.anchors_preset = Control.PRESET_FULL_RECT
+			%MatchUI.add_child(tela)
+			tela.iniciar_tela_de_torneio(CupManager.currentCup)
+			await tela.recompensa_coletada
+	else:
+		if cena_recompensa_partida:
+			var tela = cena_recompensa_partida.instantiate()
+			tela.anchors_preset = Control.PRESET_FULL_RECT
+			%MatchUI.add_child(tela)
+			tela.iniciar_tela_de_recompensa(awayTeam)
+			await tela.recompensa_coletada
+	
+	# ── Depois da recompensa, abre o result_canvas ──
+	
+	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), true)
+
 func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
 	if congelar:
 		freeze_level += 1
@@ -366,14 +383,12 @@ func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: 
 
 func tentar_usar_carta(piece: PhysicsPlayer2D, carta: CardResource) -> void:
 	if carta_usada_no_turno:
-		#print("Já usou carta neste turno!")
 		return
 	if piece == null or carta == null:
 		print("Erro: peça ou carta inválida.")
 		return
 	piece.playerInfo_atual.aplicar_buff(carta)
 	carta_usada_no_turno = true
-	#print("CARTA ATIVADA COM SUCESSO:", carta.resource_path)
 
 func _on_player_clicked_piece(Piece: PhysicsPlayer2D) -> void:
 	if carta_usada_no_turno:
@@ -381,10 +396,8 @@ func _on_player_clicked_piece(Piece: PhysicsPlayer2D) -> void:
 		
 	var carta = %MatchUI.obter_carta_selecionada()
 	
-	
 	if carta != null:
 		print("è diferente de null")
 		Piece.playerInfo_atual.aplicar_buff(carta)
 		carta_usada_no_turno = true
 		%MatchUI.consumir_carta_selecionada()
-		#print("Buff aplicado e carta removida da mão!")

@@ -2,52 +2,56 @@ extends Node
 
 var jogadores: Array = []
 
-# Guardam apenas os nomes (IDs) do que o jogador conquistou
-var cartas_desbloqueadas: Array[StringName] = []
-var pecas_desbloqueadas: Array[StringName] = []
+## Estoque de cartas e peças: { id_unico : quantidade }
+## Peças com 0 cartas equipadas são empilháveis (stack).
+## Peças modificadas (com cartas) vivem em jogadores (fora do stack).
+var cartas_desbloqueadas: Dictionary = {}
+var pecas_desbloqueadas: Dictionary = {}
 
 func _ready():
-	_restaurar_estado_completo_do_save()
-
-## Restaura jogadores, cartas e peças desbloqueadas a partir do arquivo de save.
-func _restaurar_estado_completo_do_save() -> void:
-	const SAVE_PATH := "user://savegame.json"
-
 	jogadores = SaveManager.load_game()
 
-	if not FileAccess.file_exists(SAVE_PATH):
-		return
+# ── Helpers para Peças ──
 
-	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
-	var text := file.get_as_text()
-	file.close()
+func adicionar_peca(id: StringName, qtd: int = 1) -> void:
+	pecas_desbloqueadas[id] = pecas_desbloqueadas.get(id, 0) + qtd
 
-	var parsed = JSON.parse_string(text)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		return
+func remover_peca(id: StringName, qtd: int = 1) -> bool:
+	var atual: int = pecas_desbloqueadas.get(id, 0)
+	if atual < qtd:
+		return false
+	if atual == qtd:
+		pecas_desbloqueadas.erase(id)
+	else:
+		pecas_desbloqueadas[id] = atual - qtd
+	return true
 
-	# Restaura cartas desbloqueadas
-	cartas_desbloqueadas.clear()
-	if parsed.has("cartas_desbloqueadas"):
-		for id_str in parsed["cartas_desbloqueadas"]:
-			cartas_desbloqueadas.append(StringName(str(id_str)))
+func tem_peca(id: StringName) -> bool:
+	return pecas_desbloqueadas.get(id, 0) > 0
 
-	# Restaura peças desbloqueadas
-	pecas_desbloqueadas.clear()
-	if parsed.has("pecas_desbloqueadas"):
-		for id_str in parsed["pecas_desbloqueadas"]:
-			pecas_desbloqueadas.append(StringName(str(id_str)))
+func quantas_pecas(id: StringName) -> int:
+	return pecas_desbloqueadas.get(id, 0)
 
-	# Fallback para saves antigos (sem os arrays de desbloqueio):
-	# reconstrói a partir dos jogadores carregados.
-	if cartas_desbloqueadas.is_empty() and pecas_desbloqueadas.is_empty():
-		for peca in jogadores:
-			if peca != null:
-				if not pecas_desbloqueadas.has(peca.id_unico):
-					pecas_desbloqueadas.append(peca.id_unico)
-				for carta in peca.slotsUpgrates:
-					if carta != null and not cartas_desbloqueadas.has(carta.id_unico):
-						cartas_desbloqueadas.append(carta.id_unico)
+# ── Helpers para Cartas ──
+
+func adicionar_carta(id: StringName, qtd: int = 1) -> void:
+	cartas_desbloqueadas[id] = cartas_desbloqueadas.get(id, 0) + qtd
+
+func remover_carta(id: StringName, qtd: int = 1) -> bool:
+	var atual: int = cartas_desbloqueadas.get(id, 0)
+	if atual < qtd:
+		return false
+	if atual == qtd:
+		cartas_desbloqueadas.erase(id)
+	else:
+		cartas_desbloqueadas[id] = atual - qtd
+	return true
+
+func tem_carta(id: StringName) -> bool:
+	return cartas_desbloqueadas.get(id, 0) > 0
+
+func quantas_cartas(id: StringName) -> int:
+	return cartas_desbloqueadas.get(id, 0)
 
 func imprimir_status_do_time() -> void:
 	print("\n==================================================")

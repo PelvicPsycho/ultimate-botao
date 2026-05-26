@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://b4k0lbivyha1a"]
+[gd_scene format=3 uid="uid://d0h3cghqr1iun"]
 
 [ext_resource type="Script" uid="uid://ljmvhexims2q" path="res://Componentes/MyTeam/inventory_cards_button.gd" id="1_gfv3x"]
 [ext_resource type="Texture2D" uid="uid://bcl5m6igrrme" path="res://Componentes/Recompensas/Rectangle 25_.png" id="2_qoayl"]
 [ext_resource type="Texture2D" uid="uid://v6d1xe484tcc" path="res://Recursos/2D_Art/MyTeam/Rectangle 34.png" id="3_7wxhq"]
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="3_qoayl"]
 
-[node name="CartaUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "imagem_icone")]
+[node name="CartaUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "imagem_icone", "quantidade_label")]
 custom_minimum_size = Vector2(120, 120)
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +17,7 @@ grow_vertical = 2
 script = ExtResource("1_gfv3x")
 nome_label = NodePath("Control/MarginContainer2/VBoxContainer/Nome_Label")
 imagem_icone = NodePath("Control/MarginContainer2/VBoxContainer/ImagePlaceHolder_ColorRect")
+quantidade_label = NodePath("Control/Quantidade_Label")
 
 [node name="Control" type="Control" parent="." unique_id=1118418332]
 custom_minimum_size = Vector2(120, 120)
@@ -81,3 +82,18 @@ theme_override_font_sizes/font_size = 14
 text = "Nome das cartas aqui"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="Quantidade_Label" type="Label" parent="Control" unique_id=244145336]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "99"
+horizontal_alignment = 1

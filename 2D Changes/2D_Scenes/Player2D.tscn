@@ -16,6 +16,13 @@
 [ext_resource type="Script" uid="uid://c7dpm24duc7i" path="res://2D Changes/2D_Scenes/MenuRadial.gd" id="14_xkhmx"]
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="15_fl8l5"]
 
+[sub_resource type="Curve" id="Curve_fl8l5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_fl8l5"]
+offsets = PackedFloat32Array(0, 0.096463025)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_th6yb"]
 radius = 47.095646
 
@@ -55,6 +62,16 @@ default_color = Color(0.54509807, 0, 0, 0.74509805)
 
 [node name="Line2D_Velocity" type="Line2D" parent="." unique_id=29239771]
 default_color = Color(0, 0.16470589, 0.654902, 1)
+
+[node name="Line2D_Trace" type="Line2D" parent="." unique_id=875272383]
+show_behind_parent = true
+top_level = true
+width = 8.0
+width_curve = SubResource("Curve_fl8l5")
+gradient = SubResource("Gradient_fl8l5")
+texture_mode = 1
+round_precision = 16
+antialiased = true
 
 [node name="Sprite2D_CirculoLimite" type="Sprite2D" parent="." unique_id=1504443643]
 scale = Vector2(0.01, 0.01)

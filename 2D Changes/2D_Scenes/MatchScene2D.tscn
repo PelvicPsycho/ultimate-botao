@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://du1nsjujoug16" path="res://Scripts Globais/MatchState.gd" id="1_iur2g"]
 [ext_resource type="PackedScene" uid="uid://blaeti31fcy1e" path="res://2D Changes/2D_Scenes/Camera2D.tscn" id="2_pg7ls"]
-[ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="2_q7h6m"]
+[ext_resource type="PackedScene" uid="uid://605wdjor2lt6" path="res://Componentes/Recompensas/recompensa_partida.tscn" id="2_q7h6m"]
 [ext_resource type="PackedScene" uid="uid://cmgl103lkwr8r" path="res://2D Changes/2D_Scenes/Pitch2D.tscn" id="3_7288k"]
+[ext_resource type="PackedScene" uid="uid://byarw1jr857h3" path="res://Componentes/Recompensas/recompensa_torneio.tscn" id="3_pnfph"]
 [ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="3_r4ru6"]
 [ext_resource type="Script" uid="uid://c3jx1lb0wr1pg" path="res://2D Changes/Scripts_2D/CollisionResolution2D.gd" id="4_3wcxh"]
 [ext_resource type="PackedScene" uid="uid://b8ms3txou0nej" path="res://Componentes/MatchUI/match_ui.tscn" id="4_cdikc"]
@@ -20,12 +21,8 @@
 [node name="MatchScene2d" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("anunciador_ui")]
 script = ExtResource("1_iur2g")
 anunciador_ui = NodePath("AnunciadorUI")
-
-[node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("2_q7h6m")]
-
-[node name="MatchTimer" type="Node" parent="." unique_id=296019755]
-script = ExtResource("8_j0mnx")
-tempo_maximo_lance = 15.0
+cena_recompensa_partida = ExtResource("2_q7h6m")
+cena_recompensa_torneio = ExtResource("3_pnfph")
 
 [node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("2_pg7ls")]
 position = Vector2(960, 540)

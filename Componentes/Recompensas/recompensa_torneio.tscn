@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d2f4o6btxl3tp" path="res://Recursos/2D_Art/MyTeam/Shape with text_1.png" id="2_o0py0"]
 [ext_resource type="Texture2D" uid="uid://o5omjcf51pl3" path="res://Recursos/2D_Art/MyTeam/Shape with text.png" id="3_7o35e"]
 [ext_resource type="PackedScene" uid="uid://orrq0vy3qa51" path="res://Componentes/MyTeam/inventory_pecas_button.tscn" id="4_hrvxq"]
-[ext_resource type="PackedScene" uid="uid://b4k0lbivyha1a" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="5_l5le2"]
+[ext_resource type="PackedScene" uid="uid://d0h3cghqr1iun" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="5_7o35e"]
 [ext_resource type="Texture2D" uid="uid://c2l1n5xvmq5ab" path="res://Componentes/Recompensas/recompensapartida.png" id="6_utayo"]
 [ext_resource type="Texture2D" uid="uid://cgxabsu4cebmy" path="res://Componentes/Recompensas/Rectangle 15.png" id="7_tsond"]
 [ext_resource type="Texture2D" uid="uid://b3uly4nf1rasq" path="res://Componentes/Recompensas/Rectangle 41.png" id="8_5gm8o"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="14_7o35e"]
 
 [node name="RecompensaTorneio_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("inspecao_peca_hbox", "inspecao_carta_hbox", "peca_nome_label", "peca_rank_label", "peca_ap_label", "peca_slots_count_label", "peca_slots_indicator", "peca_equipped_grid", "carta_nome_label", "carta_descricao_label", "carta_slots_indicator", "container_opcoes", "btn_aceitar")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,7 +41,7 @@ icone_slot_ocupado = ExtResource("3_7o35e")
 container_opcoes = NodePath("Panel/VBoxContainer/MarginContainer2/Opcoes_HBoxContainer")
 btn_aceitar = NodePath("Panel/VBoxContainer/MarginContainer/AceitarButton_Button")
 cena_botao_peca = ExtResource("4_hrvxq")
-cena_carta_pequena = ExtResource("5_l5le2")
+cena_carta_pequena = ExtResource("5_7o35e")
 
 [node name="Fundo_ColorRect" type="ColorRect" parent="." unique_id=1726548301]
 layout_mode = 1
@@ -52,6 +53,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.8)
 
 [node name="ReferenciaTextureRect" type="TextureRect" parent="." unique_id=1759695984]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

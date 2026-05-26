@@ -81,6 +81,7 @@ func nextCup():
 	else:
 		cupsPlayed = 0
 	pickCompetitors()
+	currentCompetitor = followingCompetitors[0]
 
 func nextCompetitor():
 	print(CupManager.myTeam.collectedSquad)
