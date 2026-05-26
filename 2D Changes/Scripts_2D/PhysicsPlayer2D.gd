@@ -240,16 +240,43 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 			current_velocity = Vector2.ZERO
 			alvo.current_velocity = Vector2.ZERO
 			alvo.playerInfo_atual.troca_posicao_ativa = false
+			sprite2D_body.top_level = true
+			alvo.sprite2D_body.top_level = true
+		
+			sprite2D_body.global_position = pos_self
+			alvo.sprite2D_body.global_position = pos_alvo
+		
+			global_position = Vector2(5000, 5000)
+			alvo.global_position = Vector2(6000, 6000)
 			var tw = create_tween().set_parallel(true)
 			tw.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 			var tempo = 0.4
-			tw.tween_property(self, "global_position", pos_alvo, tempo)
-			tw.tween_property(alvo, "global_position", pos_self, tempo)
+			
+			tw.tween_property(sprite2D_body, "global_position", pos_alvo, tempo)
+			tw.tween_property(alvo.sprite2D_body, "global_position", pos_self, tempo)
+			
 			if sprite2D_body and alvo.sprite2D_body:
-				tw.tween_property(sprite2D_body, "scale", Vector2(1.2, 1.2), tempo / 2.0)
-				tw.tween_property(alvo.sprite2D_body, "scale", Vector2(1.2, 1.2), tempo / 2.0)
-				tw.chain().tween_property(sprite2D_body, "scale", Vector2.ONE, tempo / 2.0)
-				tw.tween_property(alvo.sprite2D_body, "scale", Vector2.ONE, tempo / 2.0)
+				var escala_base_self = sprite2D_body.scale
+				var escala_base_alvo = alvo.sprite2D_body.scale
+				
+				tw.tween_property(sprite2D_body, "scale", escala_base_self * 1.2, tempo / 2.0)
+				tw.tween_property(alvo.sprite2D_body, "scale", escala_base_alvo * 1.2, tempo / 2.0)
+				tw.chain().tween_property(sprite2D_body, "scale", escala_base_self, tempo / 2.0)
+				tw.tween_property(alvo.sprite2D_body, "scale", escala_base_alvo, tempo / 2.0)
+				
+			tw.chain().tween_callback(func():
+				# Traz os corpos físicos para o destino final
+				global_position = pos_alvo
+				alvo.global_position = pos_self
+				
+				# Prende as imagens de volta aos corpos
+				sprite2D_body.top_level = false
+				alvo.sprite2D_body.top_level = false
+				
+				# Reseta a posição interna das imagens para centralizar no corpo
+				sprite2D_body.position = base_visual_position
+				alvo.sprite2D_body.position = alvo.base_visual_position
+			)
 			return
 	if is_frozen():
 		return
