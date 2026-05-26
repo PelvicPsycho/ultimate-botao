@@ -23,7 +23,7 @@ gravity = Vector3(0, 0, 0)
 damping_min = 10.0
 damping_max = 50.000004
 scale_min = 10.0
-scale_max = 20.0
+scale_max = 15.0
 scale_curve = SubResource("CurveTexture_wx70d")
 color = Color(1, 1, 0.53333336, 1)
 color_initial_ramp = SubResource("GradientTexture1D_1ludj")
@@ -31,7 +31,7 @@ color_initial_ramp = SubResource("GradientTexture1D_1ludj")
 [node name="ImpactParticles" type="GPUParticles2D" unique_id=1472129754]
 emitting = false
 amount = 30
-lifetime = 0.5
+lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_ary3w")
