@@ -164,13 +164,11 @@ func atualizar_peca_pelo_status() -> void:
 	tween.tween_property(ShapeCast2D_Walls, "scale", target_scale, 0.5)
 	tween.tween_property(sprite2D_body, "scale", target_scale, 0.5)
 	if playerInfo_atual.turnos_congelamento_armazenado > 0 or playerInfo_atual.disabilitado:
-		sprite2D_body.self_modulate = Color(0.5, 0.8, 1.0) # Azul gelo
+		sprite2D_body.self_modulate = Color(0.5, 0.8, 1.0) 
 	else:
 		sprite2D_body.self_modulate = team.cor # Volta ao normal
 	if is_instance_valid(sprite2D_circulo_limite):
 		var nova_escala: float = playerInfo_atual.escala_maxima_circulo_normal
-		
-		# Verifica em qual 'Degrau' de força o jogador está
 		if playerInfo_atual.level_force < playerInfo_atual.level_force_weak:
 			nova_escala = playerInfo_atual.escala_maxima_circulo_fraco
 			
@@ -211,12 +209,12 @@ func _process(delta: float) -> void:
 			tracer2D.remove_point(0)
 
 func _animar_hover(entrando: bool) -> void:
-	# Kill the existing tween if any
+	
 	if canPlay:
 		if hover_tween and hover_tween.is_valid():
 			hover_tween.kill()
 		
-		# Create a new tween
+	
 		hover_tween = create_tween()
 		var target_scale: Vector2 = hover_scale if entrando else original_scale
 		var duration: float = 0.2
@@ -224,10 +222,7 @@ func _animar_hover(entrando: bool) -> void:
 func definir_estado_visual(ativo: bool) -> void:
 	self.canPlay = ativo
 	
-	#var material_alvo = team.materialAtivo if ativo else team.materialInativo
-	
-	#if material_alvo:
-		#mesh.material_override = material_alvo.duplicate()
+
 
 #region Input
 var is_dragging: bool = false
@@ -475,7 +470,6 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 	if not (object_collided is PhysicsPlayer2D):
 		return
 	
-	# Evita efeito duplicado no mesmo impacto (um por par de jogadores).
 	if get_instance_id() > object_collided.get_instance_id():
 		return
 	if playerInfo_atual and playerInfo_atual.congelamento_ativo:
@@ -874,18 +868,13 @@ func aplicar_congelamento(turnos: int) -> void:
 	print("Peça congelada por ", turnos, " turnos!")
 	current_velocity = Vector2.ZERO
 	Set_Current_Velocity(Vector2.ZERO)
-
 	if playerInfo_atual:
 		playerInfo_atual.turnos_congelamento_armazenado = turnos
 		playerInfo_atual.disabilitado = true
 		playerInfo_atual.status_mudou.emit()
-
 	if is_instance_valid(sprite2D_body):
 		sprite2D_body.self_modulate = Color(0.5, 0.8, 1.0)
-
-
-# ==========================================
-
+		
 func debug_status():
 	print("STATUS DEBUG → ", playerInfo.nome)
 	print("  Força:", playerInfo_atual.level_force)
