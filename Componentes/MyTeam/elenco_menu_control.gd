@@ -4,11 +4,14 @@ class_name ElencoMenuManager
 enum CategoryTab { PIECES, CARDS }
 
 # --- VARIÁVEIS DE ESTADO ---
-# Controlam o que está selecionado no momento
 var current_slot: int = 1
 var current_tab: CategoryTab = CategoryTab.PIECES
 var item_em_inspecao: Resource = null 
 var inspecionando_carta_equipada: bool = false
+
+var az_ascending := true
+var rank_ascending := true
+var sort_mode := 0  # 0 = ordem original, 1 = A-Z, 2 = Rank
 
 # --- REFERÊNCIAS DE NÓS (INSPETOR) ---
 @export_group("Navegação Superior")
@@ -22,6 +25,10 @@ var inspecionando_carta_equipada: bool = false
 
 @export_group("Menu Lateral - Ações")
 @export var btn_salvar_sair: Button
+
+@export_group("Filtros")
+@export var az_filter_btn: Button
+@export var rank_filter_btn: Button
 
 @export_group("Janela Esquerda")
 @export var inventory_list: GridContainer 
@@ -71,20 +78,22 @@ var inspecionando_carta_equipada: bool = false
 # --- INICIALIZAÇÃO ---
 func _ready() -> void:
 	_connect_signals()
-	# Define o estado padrão ao abrir o menu
 	_select_slot(1)
 	_switch_tab(CategoryTab.PIECES)
 
 func _connect_signals() -> void:
-	# Conecta os botões do topo (1 a N)
 	for i in range(slot_buttons.size()):
 		var btn = slot_buttons[i]
 		btn.pressed.connect(func(): _select_slot(i + 1))
 		
-	# Conecta botões laterais e de ação
 	tab_pieces_btn.pressed.connect(func(): _switch_tab(CategoryTab.PIECES))
 	tab_cards_btn.pressed.connect(func(): _switch_tab(CategoryTab.CARDS))
 	center_action_btn.pressed.connect(_on_center_action_pressed)
+	
+	if az_filter_btn:
+		az_filter_btn.pressed.connect(_on_az_filter_pressed)
+	if rank_filter_btn:
+		rank_filter_btn.pressed.connect(_on_rank_filter_pressed)
 	
 	if btn_salvar_sair:
 		btn_salvar_sair.pressed.connect(_on_btn_salvar_sair_pressed)
@@ -92,7 +101,6 @@ func _connect_signals() -> void:
 
 # --- NAVEGAÇÃO E ABAS ---
 func _select_slot(slot_index: int) -> void:
-	# Atualiza o slot ativo e anima os botões superiores
 	current_slot = slot_index
 	
 	var tween = create_tween().set_parallel(true)
@@ -110,26 +118,31 @@ func _select_slot(slot_index: int) -> void:
 	_update_right_window()
 	GameState.imprimir_status_do_time()
 	
-	# Ajusta a janela central para não confundir cartas entre slots diferentes
 	if item_em_inspecao is CardResource and inspecionando_carta_equipada:
 		_clear_center_window()
 	elif item_em_inspecao is CardResource and not inspecionando_carta_equipada:
 		_inspecionar_item_na_janela_central(item_em_inspecao, false)
 
 func _switch_tab(tab: CategoryTab) -> void:
-	# Troca entre inventário de peças reservas e cartas
 	current_tab = tab
 	
 	if current_tab == CategoryTab.PIECES:
 		tab_pieces_btn.texture_normal = textura_aba_ativa
 		tab_cards_btn.texture_normal = textura_aba_inativa
 		
-		# Filtra para exibir apenas peças que não estão nos slots titulares
 		var num_slots = slot_buttons.size()
-		var pecas_livres = []
+		var pecas_livres: Array = []
+		
 		if GameState.jogadores.size() > num_slots:
 			pecas_livres = GameState.jogadores.slice(num_slots)
 		
+		for peca_id in GameState.pecas_desbloqueadas:
+			if GameState.pecas_desbloqueadas[peca_id] > 0:
+				var peca_ref = Database.pecas_db.get(peca_id)
+				if peca_ref:
+					pecas_livres.append(peca_ref)
+		
+		_apply_sort(pecas_livres)
 		inventory_list.columns = 2
 		_popular_lista(pecas_livres)
 		
@@ -139,14 +152,12 @@ func _switch_tab(tab: CategoryTab) -> void:
 		
 		inventory_list.columns = 1
 		
-		# Carrega os recursos físicos das cartas usando os IDs do GameState
 		var todas_as_cartas = []
-		for id_carta in GameState.cartas_desbloqueadas:
+		for id_carta in GameState.cartas_desbloqueadas.keys():
 			var carta_real = Database.get_carta(id_carta)
 			if carta_real != null:
 				todas_as_cartas.append(carta_real)
 		
-		# Rastreia quais cartas já estão equipadas em alguma peça
 		var status_de_uso_das_cartas: Dictionary = {} 
 		for peca in GameState.jogadores:
 			for carta in peca.slotsUpgrates:
@@ -156,12 +167,61 @@ func _switch_tab(tab: CategoryTab) -> void:
 					else:
 						status_de_uso_das_cartas[carta.id_unico] = [peca.nome]
 		
+		_apply_sort(todas_as_cartas)
 		_popular_lista_de_cartas(todas_as_cartas, status_de_uso_das_cartas)
+
+
+# --- FILTROS DE ORDENAÇÃO ---
+func _on_az_filter_pressed() -> void:
+	if sort_mode == 1:
+		az_ascending = not az_ascending
+	else:
+		sort_mode = 1
+		az_ascending = true
+	_switch_tab(current_tab)
+
+func _on_rank_filter_pressed() -> void:
+	if sort_mode == 2:
+		rank_ascending = not rank_ascending
+	else:
+		sort_mode = 2
+		rank_ascending = true
+	_switch_tab(current_tab)
+
+func _apply_sort(array: Array) -> void:
+	match sort_mode:
+		1: _sort_by_name(array)
+		2: _sort_by_rank(array)
+
+func _sort_by_name(array: Array) -> void:
+	array.sort_custom(func(a, b):
+		var na := ""
+		var nb := ""
+		if a is TeamPlayer: na = a.nome
+		elif a is CardResource: na = a.nome
+		if b is TeamPlayer: nb = b.nome
+		elif b is CardResource: nb = b.nome
+		return na.to_lower() < nb.to_lower() if az_ascending else na.to_lower() > nb.to_lower()
+	)
+
+func _sort_by_rank(array: Array) -> void:
+	array.sort_custom(func(a, b):
+		var ra := _rank_value(a)
+		var rb := _rank_value(b)
+		return ra < rb if rank_ascending else ra > rb
+	)
+
+## Menor = melhor: S=0 → F=5 (peças), RARA=0 → NORMAL=2 (cartas).
+func _rank_value(item: Resource) -> int:
+	if item is TeamPlayer:
+		return item.rank  # enum: S=0, A=1, B=2, C=3, D=4, F=5
+	elif item is CardResource:
+		return 2 - item.raridade  # RARA=0, INCOMUM=1, NORMAL=2
+	return 99
 
 
 # --- POPULANDO LISTAS (JANELA ESQUERDA) ---
 func _popular_lista_de_cartas(lista_de_cartas: Array, status_de_uso: Dictionary) -> void:
-	# Função específica para cartas (aplica a trava visual)
 	for child in inventory_list.get_children():
 		child.queue_free()
 		
@@ -175,18 +235,11 @@ func _popular_lista_de_cartas(lista_de_cartas: Array, status_de_uso: Dictionary)
 			var nome_do_usuario = usuarios[0] if esta_em_uso else ""
 			
 			if btn_item.has_method("setup_item"):
-				btn_item.setup_item(carta)
-				
-			# Escurece a carta se ela já estiver em uso
-			if esta_em_uso:
-				btn_item.modulate = Color(0.5, 0.5, 0.5, 1.0) 
-			else:
-				btn_item.modulate = Color(1.0, 1.0, 1.0, 1.0)
+				btn_item.setup_item(carta, GameState.quantas_cartas(carta.id_unico))
 			
 			btn_item.pressed.connect(func(): _inspecionar_item_na_janela_central(carta, false, esta_em_uso, nome_do_usuario))
 
 func _popular_lista(lista_de_itens: Array) -> void:
-	# Função genérica para peças reservas
 	for child in inventory_list.get_children():
 		child.queue_free()
 		
@@ -201,14 +254,19 @@ func _popular_lista(lista_de_itens: Array) -> void:
 		if btn_item:
 			inventory_list.add_child(btn_item)
 			if btn_item.has_method("setup_item"):
-				btn_item.setup_item(item) 
+				var qtd := 0
+				if item is TeamPlayer:
+					if not GameState.jogadores.has(item):
+						qtd = GameState.quantas_pecas(item.id_unico)
+				elif item is CardResource:
+					qtd = GameState.quantas_cartas(item.id_unico)
+				btn_item.setup_item(item, qtd)
 			
 			btn_item.pressed.connect(func(): _inspecionar_item_na_janela_central(item))
 			
 
 # --- INSPEÇÃO E VISUALIZAÇÃO ---
-func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool = false, esta_em_outro_jogador: bool = false, nome_do_outro_jogador: String = ""):
-	# Atualiza a janela do meio com os dados do item clicado
+func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool = false, _esta_em_outro_jogador: bool = false, _nome_do_outro_jogador: String = ""):
 	item_em_inspecao = item
 	inspecionando_carta_equipada = is_equipped_here
 	
@@ -217,7 +275,6 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 	central_nome_label.text = item.nome
 	
 	if item is CardResource:
-		# Configura a interface para exibir uma CARTA
 		center_card_view.visible = true
 		center_peca_view.visible = false
 		
@@ -228,7 +285,6 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 		if item.arte:
 			central_arte_rect.texture = item.arte
 			
-		# Desenha os ícones de custo de slot da carta
 		for child in slots_que_ocupa_hbox.get_children():
 			child.queue_free()
 		for i in range(item.custoSlotes):
@@ -239,35 +295,34 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 			icone_slot.custom_minimum_size = Vector2(25, 25)
 			slots_que_ocupa_hbox.add_child(icone_slot)
 			
-		# Define o comportamento do botão central (Equipar / Desequipar / Bloqueado)
 		if inspecionando_carta_equipada:
 			center_action_btn.disabled = false
 			center_action_label.text = "Desequipar"
 			center_action_label.modulate = Color.WHITE
-		elif esta_em_outro_jogador:
-			center_action_btn.disabled = true
-			center_action_label.text = "Equipado em:\n" + nome_do_outro_jogador
-			center_action_label.modulate = Color.YELLOW
 		else:
-			var peca_atual = GameState.jogadores[current_slot - 1]
-			var slots_usados = 0
-			for carta in peca_atual.slotsUpgrates:
-				if carta != null:
-					slots_usados += carta.custoSlotes
-					
-			var slots_livres = peca_atual.quantosSlotes - slots_usados
-			
-			if item.custoSlotes > slots_livres:
+			if not GameState.tem_carta(item.id_unico):
 				center_action_btn.disabled = true
-				center_action_label.text = "Sem Slots"
+				center_action_label.text = "Indisponível"
 				center_action_label.modulate = Color.RED
 			else:
-				center_action_btn.disabled = false
-				center_action_label.text = "Equipar"
-				center_action_label.modulate = Color.WHITE
+				var peca_atual = GameState.jogadores[current_slot - 1]
+				var slots_usados = 0
+				for carta in peca_atual.slotsUpgrates:
+					if carta != null:
+						slots_usados += carta.custoSlotes
+						
+				var slots_livres = peca_atual.quantosSlotes - slots_usados
+				
+				if item.custoSlotes > slots_livres:
+					center_action_btn.disabled = true
+					center_action_label.text = "Sem Slots"
+					center_action_label.modulate = Color.RED
+				else:
+					center_action_btn.disabled = false
+					center_action_label.text = "Equipar"
+					center_action_label.modulate = Color.WHITE
 				
 	elif item is TeamPlayer:
-		# Configura a interface para exibir uma PEÇA
 		center_card_view.visible = false
 		center_peca_view.visible = true
 		
@@ -284,7 +339,6 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 		var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, item.quantosSlotes]
 		center_peca_stats.text = texto_status
 		
-		# Monta a grid de miniaturas das cartas equipadas nesta peça
 		for child in center_peca_grid.get_children():
 			child.queue_free()
 		for carta in item.slotsUpgrates:
@@ -300,7 +354,6 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 				slot_vazio.custom_minimum_size = Vector2(90, 110)
 				center_peca_grid.add_child(slot_vazio)
 				
-		# Desenha as bolinhas de slots livres/ocupados
 		if center_peca_slots_hbox:
 			for child in center_peca_slots_hbox.get_children():
 				child.queue_free()
@@ -324,7 +377,6 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 		center_action_label.text = "Trocar"
 
 func _clear_center_window() -> void:
-	# Esvazia a janela central para evitar informações fantasmas
 	item_em_inspecao = null
 	inspecionando_carta_equipada = false
 	central_nome_label.text = "Selecione um item"
@@ -335,7 +387,6 @@ func _clear_center_window() -> void:
 	center_action_btn.disabled = true
 
 func _update_right_window() -> void:
-	# Atualiza o painel da direita com os dados do titular selecionado no topo
 	if GameState.jogadores.size() == 0: return 
 	if current_slot < 1 or current_slot > GameState.jogadores.size(): return 
 
@@ -354,7 +405,6 @@ func _update_right_window() -> void:
 	var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, peca_atual.quantosSlotes]
 	right_window_stats.text = texto_status
 
-	# Desenha as bolinhas de slots na janela direita
 	if right_slots_indicator_hbox:
 		for child in right_slots_indicator_hbox.get_children():
 			child.queue_free()
@@ -375,7 +425,6 @@ func _update_right_window() -> void:
 			icone_bolinha.custom_minimum_size = Vector2(20, 20)
 			right_slots_indicator_hbox.add_child(icone_bolinha)
 
-	# Atualiza os botões clicáveis das cartas equipadas
 	for child in right_window_grid.get_children():
 		child.queue_free()
 
@@ -385,40 +434,45 @@ func _update_right_window() -> void:
 				var btn_carta = cena_carta_pequena.instantiate()
 				right_window_grid.add_child(btn_carta)
 				
-				# Configura os dados da carta
 				if btn_carta.has_method("setup_item"):
 					btn_carta.setup_item(carta)
 				
-				# Conecta o clique para que, ao clicar na miniatura da direita, 
-				# ela seja inspecionada na janela central com a flag de equipada ativada
 				btn_carta.pressed.connect(func(): _inspecionar_item_na_janela_central(carta, true))
 		else:
-			# Mantém o comportamento do slot cinza vazio caso não tenha carta equipada
 			var slot_vazio = ColorRect.new()
 			slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5)
-			slot_vazio.custom_minimum_size = Vector2(50, 70) # Ajuste este tamanho se quiser casar com o seu layout quadrado
+			slot_vazio.custom_minimum_size = Vector2(50, 70)
 			right_window_grid.add_child(slot_vazio)
 
 
 # --- SISTEMA DE AÇÕES ---
 func _on_center_action_pressed() -> void:
-	# Executa a ação baseada no item inspecionado (Trocar Peça / Equipar Carta / Desequipar Carta)
 	if item_em_inspecao == null: return
 	
 	var peca_titular_atual = GameState.jogadores[current_slot - 1]
 	
 	if item_em_inspecao is TeamPlayer:
-		#print("Trocando peça do slot ", current_slot)
+		var peca_entrando = item_em_inspecao
+		var peca_saindo = peca_titular_atual
+		var index_no_array = GameState.jogadores.find(peca_entrando)
 		
-		# Faz o SWAP das posições no array de jogadores
-		var index_velho = current_slot - 1
-		var index_novo = GameState.jogadores.find(item_em_inspecao)
-		
-		if index_novo != -1 and index_velho < GameState.jogadores.size():
-			var temp = GameState.jogadores[index_velho]
-			GameState.jogadores[index_velho] = GameState.jogadores[index_novo]
-			GameState.jogadores[index_novo] = temp
+		if index_no_array != -1:
+			GameState.jogadores[current_slot - 1] = peca_entrando
+			GameState.jogadores[index_no_array] = peca_saindo
+		else:
+			var original = Database.pecas_db.get(peca_entrando.id_unico)
+			if original == null:
+				return
+			var nova_peca = original.duplicate(true)
+			nova_peca.slotsUpgrates.clear()
+			nova_peca.slotsUpgrates.resize(nova_peca.quantosSlotes)
+			nova_peca.time = CupManager.myTeam
 			
+			GameState.jogadores[current_slot - 1] = nova_peca
+			GameState.remover_peca(peca_entrando.id_unico)
+		
+		_enviar_peca_para_banco(peca_saindo)
+		
 		_switch_tab(CategoryTab.PIECES)
 		_update_right_window()
 		_clear_center_window()
@@ -426,47 +480,59 @@ func _on_center_action_pressed() -> void:
 
 	elif item_em_inspecao is CardResource:
 		if inspecionando_carta_equipada:
-			#print("Desequipando ", item_em_inspecao.nome)
 			_remover_buff_da_peca(peca_titular_atual, item_em_inspecao)
+			GameState.adicionar_carta(item_em_inspecao.id_unico)
 			inspecionando_carta_equipada = false 
 		else:
-			#print("Tentando equipar ", item_em_inspecao.nome)
+			if not GameState.tem_carta(item_em_inspecao.id_unico):
+				return
 			if peca_titular_atual.slotsUpgrates.size() != peca_titular_atual.quantosSlotes:
 				peca_titular_atual.slotsUpgrates.resize(peca_titular_atual.quantosSlotes)
 				
 			var slot_livre = peca_titular_atual.slotsUpgrates.find(null)
 			if slot_livre != -1:
 				peca_titular_atual.slotsUpgrates[slot_livre] = item_em_inspecao
+				GameState.remover_carta(item_em_inspecao.id_unico)
 		
 		_switch_tab(CategoryTab.CARDS)
 		_update_right_window()
 		_clear_center_window()
 		return
 
+
+func _enviar_peca_para_banco(peca: TeamPlayer) -> void:
+	var tem_cartas := false
+	for c in peca.slotsUpgrates:
+		if c != null:
+			tem_cartas = true
+			break
+	
+	if tem_cartas:
+		if not GameState.jogadores.has(peca):
+			GameState.jogadores.append(peca)
+	else:
+		GameState.adicionar_peca(peca.id_unico)
+		var idx = GameState.jogadores.find(peca)
+		if idx != -1:
+			GameState.jogadores.remove_at(idx)
+
+
 func _remover_buff_da_peca(peca: TeamPlayer, carta: CardResource):
-	# Limpa o slot específico desequipando a carta
 	var index = peca.slotsUpgrates.find(carta)
 	if index != -1:
 		peca.slotsUpgrates[index] = null
-		#print("Carta desequipada com sucesso no menu.")
 
 func _on_btn_salvar_sair_pressed() -> void:
-	#print("Salvando o time...")
 	SaveManager.save_game()
 	
-	# Sincroniza as primeiras N peças do GameState com o mainSquad do time
-	# para que o MatchState carregue o elenco correto na partida
 	var num_titulares = mini(slot_buttons.size(), GameState.jogadores.size())
 	CupManager.myTeam.mainSquad.clear()
 	for i in range(num_titulares):
 		CupManager.myTeam.mainSquad.append(GameState.jogadores[i])
 	
-	# Preenche o collectedSquad com as peças restantes (reservas)
 	CupManager.myTeam.collectedSquad.clear()
 	for i in range(num_titulares, GameState.jogadores.size()):
 		CupManager.myTeam.collectedSquad.append(GameState.jogadores[i])
-		
-#	print("✔ mainSquad: %d titulares | collectedSquad: %d reservas" % [num_titulares, CupManager.myTeam.collectedSquad.size()])
 	
 	var menu = get_parent().get_node_or_null("MainMenu")
 	if menu:
@@ -477,7 +543,6 @@ func _on_btn_salvar_sair_pressed() -> void:
 
 # --- UTILIDADES ---
 func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
-	# Calcula os atributos finais somando base + cartas equipadas
 	var f_total = peca.forca if "forca" in peca else 10
 	var pa_total = peca.PA if "PA" in peca else 3
 	

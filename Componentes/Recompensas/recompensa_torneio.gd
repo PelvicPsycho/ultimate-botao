@@ -1,5 +1,8 @@
 extends Control
 
+## Sinal emitido quando o jogador coleta o pacote do torneio e a tela vai fechar.
+signal recompensa_coletada
+
 # --- VARIÁVEIS DE ESTADO (O PACOTE) ---
 var pacote_pecas: Array[TeamPlayer] = []
 var pacote_cartas: Array[CardResource] = []
@@ -210,35 +213,26 @@ func _destacar_botao(botao_clicado: Control) -> void:
 func _on_btn_aceitar_pressed() -> void:
 	print("🏆 Resgatando Pacote do Torneio!")
 	
-	# 1. Adiciona as Peças e suas respectivas cartas internas
+	# Peças sorteadas (sempre sem cartas) → incrementa stack
 	for peca in pacote_pecas:
-		GameState.jogadores.append(peca)
-		if not GameState.pecas_desbloqueadas.has(peca.id_unico):
-			GameState.pecas_desbloqueadas.append(peca.id_unico)
-			
-		# Coleta as cartas equipadas na peça sorteada para a mochila do jogador
-		for carta in peca.slotsUpgrates:
-			if carta != null and not GameState.cartas_desbloqueadas.has(carta.id_unico):
-				GameState.cartas_desbloqueadas.append(carta.id_unico)
-			
-	# 2. Adiciona as 4 Cartas avulsas normais do pacote
-	for carta in pacote_cartas:
-		if not GameState.cartas_desbloqueadas.has(carta.id_unico):
-			GameState.cartas_desbloqueadas.append(carta.id_unico)
-			
-	# 3. Salva o progresso
-	SaveManager.save_game()
+		GameState.adicionar_peca(peca.id_unico)
 	
-	# 4. Continua o jogo / Volta pro menu
-	# Ex: get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
+	# Cartas sorteadas → incrementa stack
+	for carta in pacote_cartas:
+		GameState.adicionar_carta(carta.id_unico)
+	
+	SaveManager.save_game()
+	recompensa_coletada.emit()
 	queue_free()
 
 func _on_teste_button_pressed() -> void:
+	print("teste button 01")
 	iniciar_tela_de_torneio(null)
 	pass
 
 
 func _on_teste_button_2_pressed() -> void:
+	print ("teste button 02")
 	# 1. Carrega as peças físicas e suas cartas equipadas do save
 	GameState.jogadores = SaveManager.load_game()
 	
@@ -249,14 +243,10 @@ func _on_teste_button_2_pressed() -> void:
 	# 3. Sincroniza a lista de IDs (Tanto de Peças quanto de Cartas!)
 	for peca in GameState.jogadores:
 		if peca != null:
-			# Registra a peça na lista de bloqueio/desbloqueio
-			if not GameState.pecas_desbloqueadas.has(peca.id_unico):
-				GameState.pecas_desbloqueadas.append(peca.id_unico)
-				
-			# Varre a peça e registra as cartas que vieram nela!
+			GameState.adicionar_peca(peca.id_unico)
 			for carta in peca.slotsUpgrates:
-				if carta != null and not GameState.cartas_desbloqueadas.has(carta.id_unico):
-					GameState.cartas_desbloqueadas.append(carta.id_unico)
+				if carta != null:
+					GameState.adicionar_carta(carta.id_unico)
 					
 	# Força o CupManager a ler o GameState de novo para aplicar as cartas no myTeam
 	if CupManager.has_method("_sync_main_squad_from_gamestate"):
