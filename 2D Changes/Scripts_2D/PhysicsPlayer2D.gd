@@ -17,7 +17,9 @@ var playerInfo_atual: TeamPlayer
 static var last_piece_with_radial: PhysicsPlayer2D = null
 var canPlay: bool
 var disabled: bool = false
-
+var hover_tween: Tween
+var original_scale: Vector2 = Vector2(1, 1)
+var hover_scale: Vector2 = Vector2(1.2, 1.2)
 signal clickedPiece(Piece: PhysicsPlayer2D)
 signal turnPlayed
 
@@ -175,7 +177,17 @@ func _process(delta: float) -> void:
 		sprite2D_body.position = base_visual_position + offset
 
 
-	
+func _animar_hover(entrando: bool) -> void:
+	# Kill the existing tween if any
+	if canPlay:
+		if hover_tween and hover_tween.is_valid():
+			hover_tween.kill()
+		
+		# Create a new tween
+		hover_tween = create_tween()
+		var target_scale: Vector2 = hover_scale if entrando else original_scale
+		var duration: float = 0.2
+		hover_tween.tween_property(self, "scale", target_scale, duration).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)	
 func definir_estado_visual(ativo: bool) -> void:
 	self.canPlay = ativo
 	
@@ -218,7 +230,6 @@ func Mouse_Dragging_Update():
 
 func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-	
 		var player_que_quer_trocar = get_player_que_quer_trocar()
 		if player_que_quer_trocar:
 			var alvo: PhysicsPlayer2D = player_que_quer_trocar
@@ -227,17 +238,11 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 			current_velocity = Vector2.ZERO
 			alvo.current_velocity = Vector2.ZERO
 			alvo.playerInfo_atual.troca_posicao_ativa = false
-			
-			
 			var tw = create_tween().set_parallel(true)
 			tw.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 			var tempo = 0.4
-			
-			
 			tw.tween_property(self, "global_position", pos_alvo, tempo)
 			tw.tween_property(alvo, "global_position", pos_self, tempo)
-			
-			
 			if sprite2D_body and alvo.sprite2D_body:
 				tw.tween_property(sprite2D_body, "scale", Vector2(1.2, 1.2), tempo / 2.0)
 				tw.tween_property(alvo.sprite2D_body, "scale", Vector2(1.2, 1.2), tempo / 2.0)
@@ -332,9 +337,11 @@ func _cancelar_interacao() -> void:
 
 func _on_mouse_entered() -> void:
 	is_pointer_inside_piece = true
+	_animar_hover(true)
 
 func _on_mouse_exited() -> void:
 	is_pointer_inside_piece = false
+	_animar_hover(false)
 
 func _on_player_pressed(pos: Vector2):
 	zoom_out_signal.emit(pos)
