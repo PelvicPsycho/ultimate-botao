@@ -41,7 +41,6 @@ var pacote_cartas: Array[CardResource] = []
 @export var cena_carta_pequena: PackedScene
 
 func _ready() -> void:
-#	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	inspecao_peca_hbox.visible = false
 	inspecao_carta_hbox.visible = false
 	btn_aceitar.pressed.connect(_on_btn_aceitar_pressed)
@@ -214,26 +213,16 @@ func _destacar_botao(botao_clicado: Control) -> void:
 func _on_btn_aceitar_pressed() -> void:
 	print("🏆 Resgatando Pacote do Torneio!")
 	
-	# 1. Adiciona as Peças e suas respectivas cartas internas
+	# Peças sorteadas (sempre sem cartas) → incrementa stack
 	for peca in pacote_pecas:
-		GameState.jogadores.append(peca)
 		GameState.adicionar_peca(peca.id_unico)
-			
-		# Coleta as cartas equipadas na peça sorteada para a mochila do jogador
-		for carta in peca.slotsUpgrates:
-			if carta != null:
-				GameState.adicionar_carta(carta.id_unico)
-			
-	# 2. Adiciona as 4 Cartas avulsas normais do pacote
+	
+	# Cartas sorteadas → incrementa stack
 	for carta in pacote_cartas:
 		GameState.adicionar_carta(carta.id_unico)
-			
-	# 3. Salva o progresso
-	SaveManager.save_game()
 	
-	# 4. Avisa que a recompensa foi coletada e volta ao menu principal
+	SaveManager.save_game()
 	recompensa_coletada.emit()
-	# Ex: get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 	queue_free()
 
 func _on_teste_button_pressed() -> void:

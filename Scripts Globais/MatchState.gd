@@ -38,20 +38,45 @@ var gol_de_ouro: bool = false
 var freeze_level: int = 0
 
 func _ready() -> void:
-	# ── Configuração única (só roda na primeira carga da cena) ──
+	
+	loadMatch()
+	%MatchUI.UI_start(homeTeam, awayTeam)
+	selectFirstTurn()
+	
 	allPieces.assign(get_tree().get_nodes_in_group("Players"))
 	allBalls = get_tree().get_nodes_in_group("Balls")
-	for piece in allPieces:
-		piece.painel_cartas = painel_cartas
 	
+		
 	var goals = get_tree().get_nodes_in_group("Goals")
 	for goal in goals:
 		goal.gol.connect(onGoal)
-	
+		
+	var jogadores_salvos: Array = GameState.jogadores
+
 	for piece in allPieces:
+		var info := -1
+		for i in jogadores_salvos.size():
+			var j = jogadores_salvos[i]
+			if j.nome == piece.playerInfo.nome:
+				info = i
+				break
+
+		if info != -1:
+			piece.playerInfo.slotsUpgrates = jogadores_salvos[info].slotsUpgrates.duplicate()
+			piece.playerInfo_atual.slotsUpgrates = jogadores_salvos[info].slotsUpgrates.duplicate()
+
+	# CONEXÕES PADRÃO
 		if not piece.clickedPiece.is_connected(_on_player_clicked_piece):
 			piece.clickedPiece.connect(_on_player_clicked_piece)
+
 		piece.turnPlayed.connect(onTurnPlayed)
+
+	# DISTRIBUIÇÃO ENTRE EQUIPES
+		if piece.team == homeTeam:
+			piece.canPlay = (currentTurn == turn.HOME)
+		else:
+			piece.canPlay = (currentTurn == turn.AWAY)
+	_atualizar_placar()
 	
 	timer.partida_acabou.connect(_on_partida_acabou)
 	timer.lance_acabou.connect(_on_lance_acabou)
@@ -59,8 +84,14 @@ func _ready() -> void:
 	timer._atualizar_barra_lance.connect(%MatchUI._atualizar_barra_lance)
 	timer.resetar_barra_lance.connect(%MatchUI.resetar_barra_lance)
 	
-	# ── Inicia a primeira partida ──
-	_iniciar_partida()
+	timer.iniciar_partida()
+	timer.iniciar_lance(currentTurn)
+	
+	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, homeTeam.cor if currentTurn == turn.HOME else awayTeam.cor)
+	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
+	get_tree().create_timer(2.0).timeout.connect(disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5), CONNECT_ONE_SHOT)
+	atualizar_cores_pecas()
+	
 func loadMatch():
 	homeTeam = CupManager.myTeam
 	awayTeam = CupManager.currentCompetitor
@@ -83,7 +114,6 @@ func assignPieces():
 		piece.team = homeTeam
 		piece.playerInfo = player
 		piece.loadPlayerInfo(player)
-		#piece.atualizar_gradiente()
 
 	for i in range(awayPieces.size()):
 		var piece = awayPieces[i]
@@ -91,47 +121,6 @@ func assignPieces():
 		piece.team = awayTeam
 		piece.playerInfo = player
 		piece.loadPlayerInfo(player)
-		#piece.atualizar_gradiente()
-
-## Inicia (ou reinicia) uma partida com os dados atuais de homeTeam/awayTeam.
-## Chamada tanto pelo _ready() quanto pelo resetar_partida_na_mesma_cena().
-func _iniciar_partida() -> void:
-	loadMatch()
-	%MatchUI.UI_start(homeTeam, awayTeam)
-	selectFirstTurn()
-	
-	# Sincroniza cartas equipadas do GameState nas peças
-	var jogadores_salvos: Array = GameState.jogadores
-	for piece in allPieces:
-		var info := -1
-		for i in jogadores_salvos.size():
-			if jogadores_salvos[i].nome == piece.playerInfo.nome:
-				info = i
-				break
-		if info != -1:
-			piece.playerInfo.slotsUpgrates = jogadores_salvos[info].slotsUpgrates.duplicate()
-	
-	# Define quem pode jogar no turno inicial
-	for piece in allPieces:
-		if piece.team == homeTeam:
-			piece.canPlay = (currentTurn == turn.HOME)
-		else:
-			piece.canPlay = (currentTurn == turn.AWAY)
-	
-	_atualizar_placar()
-	timer.iniciar_partida()
-	timer.iniciar_lance(currentTurn)
-	
-	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-	%MatchUI.colorir_turno(active_team, turnCounter)
-	atualizar_cores_pecas()
-	
-	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, homeTeam.cor if currentTurn == turn.HOME else awayTeam.cor)
-	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
-	get_tree().create_timer(2.0).timeout.connect(
-		disparar_anuncio_com_pausa.bind(tr("TURN_OF") + "\n" + nome, 80, 1.5),
-		CONNECT_ONE_SHOT
-	)
 
 func _atualizar_placar() -> void:
 	%MatchUI.placar_esq.text = str(homeScore)
@@ -151,8 +140,6 @@ func _on_lance_acabou() -> void:
 		timer.lance_rodando = true
 		peca_arrastada.puxar_no_timeout()
 		
-		# Se a peça estava sendo arrastada muito fraca, ela apenas solta (não chuta).
-		# Então forçamos a troca de turno para o jogo não travar esperando o waitAllStopped.
 		if peca_arrastada.vetor_arrasto_atual.length_squared() <= 25.0:
 			changeTurn()
 	else:
@@ -190,13 +177,6 @@ func onClickedPiece(piece: PhysicsPlayer2D) -> void:
 	piece.abrir_botoes_cartas()
 	
 func printState() -> void:
-	#print("turnCounter: ", turnCounter)
-	#print("rallyCounter: ", rallyCounter)
-	#print("goalFlag: ", goalFlag)
-	#print("foulFlag: ", foulFlag)
-	#print("homeScore: ", homeScore)
-	#print("awayScore: ", awayScore)
-	#print("current turn is ", homeTeam.name if currentTurn == turn.HOME else awayTeam.name)
 	pass
 
 func onTurnPlayed() -> void:
@@ -334,68 +314,36 @@ func atualizar_cores_pecas() -> void:
 func isCorrectSide(team: Team) -> bool:
 	return (currentTurn == turn.HOME and team == homeTeam) or (currentTurn == turn.AWAY and team == awayTeam)
 
+## Mostra a recompensa primeiro. Após coletar, abre o result_canvas
+## para o jogador decidir o próximo passo (botão Next).
 func endMatch(winner: String):
 	var resultCanvas = $ResultCanvas
 	var jogador_venceu := winner == homeTeam.name
 	
-	await get_tree().create_timer(3.0, true).timeout
-	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), jogador_venceu)
-	
-	# Se o jogador perdeu, o ResultCanvas já esconde o botão Next.
-	# O jogador decide se sai ou reinicia pelos botões do próprio ResultCanvas.
 	if not jogador_venceu:
+		await get_tree().create_timer(3.0, true).timeout
+		resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), false)
 		return
 	
-	# ── Jogador venceu ──
-	# Aguarda um pouco para ele ver o placar, depois esconde e abre a recompensa.
-	await get_tree().create_timer(3.0, true).timeout
-	resultCanvas.visible = false
-	
+	# ── Jogador venceu: recompensa primeiro ──
 	if CupManager.isFinal:
-		# Final do torneio → recompensa de torneio, depois volta ao menu
 		if cena_recompensa_torneio:
-			var tela_torneio = cena_recompensa_torneio.instantiate()
-			%MatchUI.add_child(tela_torneio)
-			tela_torneio.iniciar_tela_de_torneio(CupManager.currentCup)
-			await tela_torneio.recompensa_coletada
-			# Despausa e volta ao menu principal
-			if get_tree():
-				get_tree().paused = false
-			get_tree().change_scene_to_file("res://Componentes/MainMenu/main_menu.tscn")
+			var tela = cena_recompensa_torneio.instantiate()
+			tela.anchors_preset = Control.PRESET_FULL_RECT
+			%MatchUI.add_child(tela)
+			tela.iniciar_tela_de_torneio(CupManager.currentCup)
+			await tela.recompensa_coletada
 	else:
-		# Partida normal → recompensa de partida, depois reseta na mesma cena
 		if cena_recompensa_partida:
-			var tela_partida = cena_recompensa_partida.instantiate()
-			%MatchUI.add_child(tela_partida)
-			tela_partida.iniciar_tela_de_recompensa(awayTeam)
-			await tela_partida.recompensa_coletada
-			# Despausa, avança o torneio e reseta a partida
-			if get_tree():
-				get_tree().paused = false
-			resetar_partida_na_mesma_cena()
-
-## Reinicia a partida na mesma cena para o próximo competidor.
-## Equivale ao que _on_next_pressed() do ResultCanvas fazia, mas sem reload.
-func resetar_partida_na_mesma_cena() -> void:
-	CupManager.nextCompetitor()
+			var tela = cena_recompensa_partida.instantiate()
+			tela.anchors_preset = Control.PRESET_FULL_RECT
+			%MatchUI.add_child(tela)
+			tela.iniciar_tela_de_recompensa(awayTeam)
+			await tela.recompensa_coletada
 	
-	if CupManager.has_method("_sync_main_squad_from_gamestate"):
-		CupManager._sync_main_squad_from_gamestate()
+	# ── Depois da recompensa, abre o result_canvas ──
 	
-	# Descongela e reseta as bolas (a _iniciar_partida cuida do resto)
-	freeze_level = 0
-	timer.retomar_lance()
-	_sincronizar_estado_congelamento()
-	
-	for ball in allBalls:
-		if is_instance_valid(ball):
-			ball.velocity = Vector2.ZERO
-			if ball.has_method("reset"):
-				ball.reset()
-	
-	gol_de_ouro = false
-	carta_usada_no_turno = false
-	_iniciar_partida()
+	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), true)
 
 func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
 	if congelar:
@@ -430,14 +378,12 @@ func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: 
 
 func tentar_usar_carta(piece: PhysicsPlayer2D, carta: CardResource) -> void:
 	if carta_usada_no_turno:
-		#print("Já usou carta neste turno!")
 		return
 	if piece == null or carta == null:
 		print("Erro: peça ou carta inválida.")
 		return
 	piece.playerInfo_atual.aplicar_buff(carta)
 	carta_usada_no_turno = true
-	#print("CARTA ATIVADA COM SUCESSO:", carta.resource_path)
 
 func _on_player_clicked_piece(Piece: PhysicsPlayer2D) -> void:
 	if carta_usada_no_turno:
@@ -445,10 +391,8 @@ func _on_player_clicked_piece(Piece: PhysicsPlayer2D) -> void:
 		
 	var carta = %MatchUI.obter_carta_selecionada()
 	
-	
 	if carta != null:
 		print("è diferente de null")
 		Piece.playerInfo_atual.aplicar_buff(carta)
 		carta_usada_no_turno = true
 		%MatchUI.consumir_carta_selecionada()
-		#print("Buff aplicado e carta removida da mão!")

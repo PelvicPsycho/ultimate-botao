@@ -33,7 +33,6 @@ var time_derrotado: Team = null
 @export var cena_carta_pequena: PackedScene 
 
 func _ready() -> void:
-#	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	_limpar_inspecao()
 	btn_aceitar.disabled = true
 	btn_aceitar.pressed.connect(_on_btn_aceitar_pressed)
@@ -153,42 +152,44 @@ func _selecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 	botao_clicado.modulate = Color(0.5, 1.0, 0.5, 1.0) 
 	
 	# --- INTELIGÊNCIA DO BOTÃO DE AÇÃO ---
-	var selecionou_repetida = GameState.tem_peca(peca.id_unico)
+#	var selecionou_repetida = GameState.tem_peca(peca.id_unico)
 	var label_do_botao = btn_aceitar.get_node_or_null("Aceitar_Label")
 	
 	if label_do_botao:
-		if selecionou_repetida:
-			label_do_botao.text = "Pegar Cartas"
-		else:
-			label_do_botao.text = "Aceitar"
+	#	if selecionou_repetida:
+	#		label_do_botao.text = "Pegar Cartas"
+	#	else:
+		label_do_botao.text = "Aceitar"
 			
 	btn_aceitar.disabled = false
 
 func _on_btn_aceitar_pressed() -> void:
 	if peca_selecionada == null: return
 	
-	if not GameState.tem_peca(peca_selecionada.id_unico):
-		print("🎁 Recompensa: Peça Inédita + Cartas!")
-		var nova_peca = peca_selecionada.duplicate(true)
-		nova_peca.time = CupManager.myTeam 
-		
+	var peca = peca_selecionada
+	var tem_cartas := false
+	for c in peca.slotsUpgrates:
+		if c != null:
+			tem_cartas = true
+			break
+	
+	if tem_cartas:
+		# Peça modificada → guarda individualmente no banco
+		print("🎁 Recompensa: Peça com Cartas!")
+		var nova_peca = peca.duplicate(true)
+		nova_peca.time = CupManager.myTeam
 		GameState.jogadores.append(nova_peca)
-		GameState.adicionar_peca(nova_peca.id_unico)
-		
-		for carta in nova_peca.slotsUpgrates:
-			if carta != null:
-				GameState.adicionar_carta(carta.id_unico)
-				
 	else:
-		print("🃏 Recompensa: Peça Repetida! Pegando apenas as cartas.")
-		for carta in peca_selecionada.slotsUpgrates:
-			if carta != null:
-				GameState.adicionar_carta(carta.id_unico)
+		# Peça limpa → incrementa o stack
+		print("🎁 Recompensa: +1 Peça para o stack!")
+		GameState.adicionar_peca(peca.id_unico)
+	
+	# Cartas que vieram na peça → incrementa stack de cartas
+	for carta in peca.slotsUpgrates:
+		if carta != null:
+			GameState.adicionar_carta(carta.id_unico)
 	
 	SaveManager.save_game()
-	# Avisa o MatchState que a recompensa foi coletada.
-	# O MatchState agora é responsável por despausar, chamar
-	# CupManager.nextCompetitor() e resetar a partida na mesma cena.
 	recompensa_coletada.emit()
 	queue_free()
 
