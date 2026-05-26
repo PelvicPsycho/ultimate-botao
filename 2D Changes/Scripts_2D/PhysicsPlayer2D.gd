@@ -29,6 +29,10 @@ var ultimo_tempo_particula_impacto_ms: int = -99999
 var hover_tween: Tween
 var original_scale: Vector2 = Vector2(1, 1)
 var hover_scale: Vector2 = Vector2(1.2, 1.2)
+var deform_tween: Tween
+var base_visual_rotation: float = 0.0
+
+@export var drag_rotation_offset_degrees: float = 0.0
 
 signal clickedPiece(Piece: PhysicsPlayer2D)
 signal turnPlayed
@@ -70,6 +74,9 @@ func _ready() -> void:
 		return
 	
 	base_visual_position = sprite2D_body.position
+	original_scale = scale
+	base_visual_scale = sprite2D_body.scale
+	base_visual_rotation = sprite2D_body.rotation
 	
 	start_Effects()
 	
@@ -148,6 +155,7 @@ func atualizar_peca_pelo_status() -> void:
 		target_scale = Vector2(0.5, 0.5)
 	else:
 		target_scale = Vector2.ONE
+	base_visual_scale = target_scale
 	var tween = create_tween().set_parallel(true)
 	tween.set_trans(Tween.TRANS_SPRING)
 	tween.tween_property(CollisionShape2D_object, "scale", target_scale, 0.5)
@@ -242,6 +250,7 @@ func Mouse_Dragging_Update():
 	
 	lerp_current_force = current_distance / max_distance
 	current_force = lerpf(playerInfo_atual.get_min_force(), playerInfo_atual.get_max_force(), lerp_current_force)
+	_atualizar_deformacao_arrasto()
 	
 	var current_circulo_scale = lerpf(0.1, playerInfo_atual.escala_maxima_circulo_atual, lerp_current_force)
 	sprite2D_circulo_limite.scale = Vector2(current_circulo_scale, current_circulo_scale)
@@ -369,6 +378,7 @@ func _cancelar_interacao() -> void:
 	if is_instance_valid(sfx_tensao_atual):
 		sfx_tensao_atual.stop()
 	parar_shake()
+	_retomar_formato_normal()
 		
 	SoundMaster.play_sfx(audio_cancelar)
 	
@@ -627,6 +637,9 @@ var direcao_travada: bool = false
 
 #region Circulo Limite
 func update_dragging_effects(posicao_atual: Vector2) -> void:
+	if is_dragging:
+		_atualizar_deformacao_arrasto()
+
 	if not is_pointer_inside_piece:
 		sprite2D_circulo_limite.visible = true
 
@@ -666,6 +679,7 @@ var shake_frequency: float = 0.0
 var cooldown_timer: float = 0.0
 var cooldown_duration: float = 0.1  # Cooldown curto para evitar disparos repetidos
 var base_visual_position: Vector2 = Vector2.ZERO
+var base_visual_scale: Vector2 = Vector2.ONE
 
 @export var shake_amplitude_min: float = 0.8
 @export var shake_amplitude_max: float = 4.0
@@ -690,6 +704,43 @@ func parar_shake() -> void:
 	shake_intensity_current = 0.0
 	if sprite2D_body != null:
 		sprite2D_body.position = base_visual_position
+		sprite2D_body.rotation = base_visual_rotation
+
+func _atualizar_deformacao_arrasto() -> void:
+	if sprite2D_body == null:
+		return
+
+	if not is_dragging or not canPlay or disabled:
+		return
+
+	var intensidade = clamp(current_distance / max_distance, 0.0, 1.0)
+	var alonga = 1.0 + (intensidade * 0.18)
+	var comprime = 1.0 - (intensidade * 0.12)
+	var direcao_arrasto := posicao_final_toque_Tela - posicao_inicial_toque_Tela
+	if direcao_arrasto.length_squared() > 0.0001:
+		var angulo_arrasto := direcao_arrasto.angle()
+		sprite2D_body.rotation = base_visual_rotation + angulo_arrasto + deg_to_rad(drag_rotation_offset_degrees)
+
+	if deform_tween and deform_tween.is_valid():
+		deform_tween.kill()
+
+	sprite2D_body.scale = Vector2(
+		base_visual_scale.x * alonga,
+		base_visual_scale.y * comprime
+	)
+
+func _retomar_formato_normal() -> void:
+	if sprite2D_body == null:
+		return
+
+	if deform_tween and deform_tween.is_valid():
+		deform_tween.kill()
+
+	deform_tween = create_tween()
+	deform_tween.set_trans(Tween.TRANS_ELASTIC)
+	deform_tween.set_ease(Tween.EASE_OUT)
+	deform_tween.tween_property(sprite2D_body, "scale", base_visual_scale, 0.25)
+	deform_tween.parallel().tween_property(sprite2D_body, "rotation", base_visual_rotation, 0.25)
 #endregion
 func _animar_buff_forca() -> void:
 	if buff_tween and buff_tween.is_valid():
