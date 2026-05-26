@@ -12,12 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://cg5tfjwokdeir" path="res://Recursos/2D_Art/MyTeam/Rectangle 25.png" id="6_mit26"]
 [ext_resource type="PackedScene" uid="uid://orrq0vy3qa51" path="res://Componentes/MyTeam/inventory_pecas_button.tscn" id="7_3c3cq"]
 [ext_resource type="Texture2D" uid="uid://c6bv7feyo2bx8" path="res://Recursos/2D_Art/MyTeam/Ellipse 25.png" id="7_3vc01"]
-[ext_resource type="PackedScene" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="8_2ysy5"]
+[ext_resource type="PackedScene" uid="uid://d0h3cghqr1iun" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="8_2ysy5"]
 [ext_resource type="Texture2D" uid="uid://sb143gchnnfr" path="res://Recursos/2D_Art/MyTeam/Group 57.png" id="9_cep57"]
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="10_wegx5"]
 [ext_resource type="PackedScene" uid="uid://d3ckt5m6bhi5e" path="res://Componentes/MyTeam/inventory_cards_button.tscn" id="13_2ysy5"]
 
-[node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox")]
+[node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "az_filter_btn", "rank_filter_btn", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,6 +31,8 @@ tab_cards_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/Marg
 textura_aba_ativa = ExtResource("2_0maoc")
 textura_aba_inativa = ExtResource("9_cep57")
 btn_salvar_sair = NodePath("SAIRR_Button")
+az_filter_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer/AZFilter_Button")
+rank_filter_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer/RankFilter_Button")
 inventory_list = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/ScrollContainer/InventoryList_GridContainer")
 central_nome_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer/CW-ItemName_Label")
 central_descricao_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/CardView_VBoxContainer/ItemDescription_RichTextLabel")

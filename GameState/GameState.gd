@@ -2,13 +2,56 @@ extends Node
 
 var jogadores: Array = []
 
-# Guardam apenas os IDs do que o jogador conquistou.
-# Restaurados diretamente pelo SaveManager.load_game().
-var cartas_desbloqueadas: Array[StringName] = []
-var pecas_desbloqueadas: Array[StringName] = []
+## Estoque de cartas e peças: { id_unico : quantidade }
+## Peças com 0 cartas equipadas são empilháveis (stack).
+## Peças modificadas (com cartas) vivem em jogadores (fora do stack).
+var cartas_desbloqueadas: Dictionary = {}
+var pecas_desbloqueadas: Dictionary = {}
 
 func _ready():
 	jogadores = SaveManager.load_game()
+
+# ── Helpers para Peças ──
+
+func adicionar_peca(id: StringName, qtd: int = 1) -> void:
+	pecas_desbloqueadas[id] = pecas_desbloqueadas.get(id, 0) + qtd
+
+func remover_peca(id: StringName, qtd: int = 1) -> bool:
+	var atual: int = pecas_desbloqueadas.get(id, 0)
+	if atual < qtd:
+		return false
+	if atual == qtd:
+		pecas_desbloqueadas.erase(id)
+	else:
+		pecas_desbloqueadas[id] = atual - qtd
+	return true
+
+func tem_peca(id: StringName) -> bool:
+	return pecas_desbloqueadas.get(id, 0) > 0
+
+func quantas_pecas(id: StringName) -> int:
+	return pecas_desbloqueadas.get(id, 0)
+
+# ── Helpers para Cartas ──
+
+func adicionar_carta(id: StringName, qtd: int = 1) -> void:
+	cartas_desbloqueadas[id] = cartas_desbloqueadas.get(id, 0) + qtd
+
+func remover_carta(id: StringName, qtd: int = 1) -> bool:
+	var atual: int = cartas_desbloqueadas.get(id, 0)
+	if atual < qtd:
+		return false
+	if atual == qtd:
+		cartas_desbloqueadas.erase(id)
+	else:
+		cartas_desbloqueadas[id] = atual - qtd
+	return true
+
+func tem_carta(id: StringName) -> bool:
+	return cartas_desbloqueadas.get(id, 0) > 0
+
+func quantas_cartas(id: StringName) -> int:
+	return cartas_desbloqueadas.get(id, 0)
 
 func imprimir_status_do_time() -> void:
 	print("\n==================================================")

@@ -47,6 +47,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.8)
 
 [node name="ReferenciaTextureRect" type="TextureRect" parent="." unique_id=1759695984]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

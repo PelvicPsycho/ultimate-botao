@@ -217,18 +217,16 @@ func _on_btn_aceitar_pressed() -> void:
 	# 1. Adiciona as Peças e suas respectivas cartas internas
 	for peca in pacote_pecas:
 		GameState.jogadores.append(peca)
-		if not GameState.pecas_desbloqueadas.has(peca.id_unico):
-			GameState.pecas_desbloqueadas.append(peca.id_unico)
+		GameState.adicionar_peca(peca.id_unico)
 			
 		# Coleta as cartas equipadas na peça sorteada para a mochila do jogador
 		for carta in peca.slotsUpgrates:
-			if carta != null and not GameState.cartas_desbloqueadas.has(carta.id_unico):
-				GameState.cartas_desbloqueadas.append(carta.id_unico)
+			if carta != null:
+				GameState.adicionar_carta(carta.id_unico)
 			
 	# 2. Adiciona as 4 Cartas avulsas normais do pacote
 	for carta in pacote_cartas:
-		if not GameState.cartas_desbloqueadas.has(carta.id_unico):
-			GameState.cartas_desbloqueadas.append(carta.id_unico)
+		GameState.adicionar_carta(carta.id_unico)
 			
 	# 3. Salva o progresso
 	SaveManager.save_game()
@@ -256,14 +254,10 @@ func _on_teste_button_2_pressed() -> void:
 	# 3. Sincroniza a lista de IDs (Tanto de Peças quanto de Cartas!)
 	for peca in GameState.jogadores:
 		if peca != null:
-			# Registra a peça na lista de bloqueio/desbloqueio
-			if not GameState.pecas_desbloqueadas.has(peca.id_unico):
-				GameState.pecas_desbloqueadas.append(peca.id_unico)
-				
-			# Varre a peça e registra as cartas que vieram nela!
+			GameState.adicionar_peca(peca.id_unico)
 			for carta in peca.slotsUpgrates:
-				if carta != null and not GameState.cartas_desbloqueadas.has(carta.id_unico):
-					GameState.cartas_desbloqueadas.append(carta.id_unico)
+				if carta != null:
+					GameState.adicionar_carta(carta.id_unico)
 					
 	# Força o CupManager a ler o GameState de novo para aplicar as cartas no myTeam
 	if CupManager.has_method("_sync_main_squad_from_gamestate"):

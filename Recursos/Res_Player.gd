@@ -73,12 +73,13 @@ func recalcular_status() -> void:
 			bonus_geral += card.magnitude 
 
 func resetar_status(base_info: TeamPlayer) -> void:
-	self.forca = base_info.forca
+	self.level_force = base_info.level_force
 	self.PA = base_info.PA 
 	self.aumento_de_tamano = false
 	self.diminui_de_tamano = false
 	self.atrai_bola_ativo = false
-
+	self.troca_posicao_ativa = false
+	self.congelamento_ativo = false
 func aplicar_buff(card: CardResource) -> void:
 	# 1. A carta já está equipada: só ativa o efeito.
 	ultima_carta_usada = card

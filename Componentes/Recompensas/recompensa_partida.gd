@@ -73,7 +73,7 @@ func _criar_botao_de_opcao(peca: TeamPlayer) -> Control:
 	if btn_item.has_method("setup_item"):
 		btn_item.setup_item(peca)
 		
-	var ja_possui = GameState.pecas_desbloqueadas.has(peca.id_unico)
+	var ja_possui = GameState.tem_peca(peca.id_unico)
 	
 	if ja_possui:
 		btn_item.modulate = Color(0.6, 0.6, 0.6, 1.0) 
@@ -147,13 +147,13 @@ func _selecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 	# 4. Feedback Visual de Seleção na lista inferior
 	for child in container_opcoes.get_children():
 		var id = child.get_meta("id_peca")
-		var peca_na_lista_repetida = GameState.pecas_desbloqueadas.has(id)
+		var peca_na_lista_repetida = GameState.tem_peca(id)
 		child.modulate = Color(0.6, 0.6, 0.6, 1.0) if peca_na_lista_repetida else Color.WHITE
 	
 	botao_clicado.modulate = Color(0.5, 1.0, 0.5, 1.0) 
 	
 	# --- INTELIGÊNCIA DO BOTÃO DE AÇÃO ---
-	var selecionou_repetida = GameState.pecas_desbloqueadas.has(peca.id_unico)
+	var selecionou_repetida = GameState.tem_peca(peca.id_unico)
 	var label_do_botao = btn_aceitar.get_node_or_null("Aceitar_Label")
 	
 	if label_do_botao:
@@ -167,25 +167,23 @@ func _selecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 func _on_btn_aceitar_pressed() -> void:
 	if peca_selecionada == null: return
 	
-	var ja_possui = GameState.pecas_desbloqueadas.has(peca_selecionada.id_unico)
-	
-	if not ja_possui:
+	if not GameState.tem_peca(peca_selecionada.id_unico):
 		print("🎁 Recompensa: Peça Inédita + Cartas!")
 		var nova_peca = peca_selecionada.duplicate(true)
 		nova_peca.time = CupManager.myTeam 
 		
 		GameState.jogadores.append(nova_peca)
-		GameState.pecas_desbloqueadas.append(nova_peca.id_unico)
+		GameState.adicionar_peca(nova_peca.id_unico)
 		
 		for carta in nova_peca.slotsUpgrates:
-			if carta != null and not GameState.cartas_desbloqueadas.has(carta.id_unico):
-				GameState.cartas_desbloqueadas.append(carta.id_unico)
+			if carta != null:
+				GameState.adicionar_carta(carta.id_unico)
 				
 	else:
 		print("🃏 Recompensa: Peça Repetida! Pegando apenas as cartas.")
 		for carta in peca_selecionada.slotsUpgrates:
-			if carta != null and not GameState.cartas_desbloqueadas.has(carta.id_unico):
-				GameState.cartas_desbloqueadas.append(carta.id_unico)
+			if carta != null:
+				GameState.adicionar_carta(carta.id_unico)
 	
 	SaveManager.save_game()
 	# Avisa o MatchState que a recompensa foi coletada.
@@ -221,7 +219,7 @@ func _on_teste_button_2_pressed() -> void:
 	# 2. O ELO PERDIDO: Sincroniza a lista de IDs desbloqueados!
 	GameState.pecas_desbloqueadas.clear()
 	for peca in GameState.jogadores:
-		if peca != null and not GameState.pecas_desbloqueadas.has(peca.id_unico):
-			GameState.pecas_desbloqueadas.append(peca.id_unico)
+		if peca != null:
+			GameState.adicionar_peca(peca.id_unico)
 			
-	print("Save carregado! Você possui ", GameState.pecas_desbloqueadas.size(), " peças.")
+	print("Save carregado! Você possui ", GameState.pecas_desbloqueadas.size(), " tipos de peças.")

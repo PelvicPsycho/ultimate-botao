@@ -41,8 +41,7 @@ func _carregar_time_inicial():
 			pecas_iniciais.append(jogador_copia)
 			
 			# Adiciona aos desbloqueados
-			if not GameState.pecas_desbloqueadas.has(jogador_copia.id_unico):
-				GameState.pecas_desbloqueadas.append(jogador_copia.id_unico)
+			GameState.adicionar_peca(jogador_copia.id_unico)
 
 	if pecas_iniciais.size() == 0:
 		print("ERRO -> Nenhuma peça do Grêmio encontrada no Database!")
@@ -65,10 +64,8 @@ func _carregar_time_inicial():
 	]
 	
 	for id_carta in ids_cartas_iniciais:
-		# Checa se você não digitou o ID errado e se a carta existe no Database
 		if Database.cartas_db.has(id_carta):
-			if not GameState.cartas_desbloqueadas.has(id_carta):
-				GameState.cartas_desbloqueadas.append(id_carta)
+			GameState.adicionar_carta(id_carta)
 		else:
 			print("AVISO -> Carta inicial não encontrada no Database: ", id_carta)
 			
@@ -108,6 +105,24 @@ func _on_add_cartas_button_pressed() -> void:
 		
 	# Varre todos os IDs únicos que existem cadastrados no jogo
 	for id_carta in Database.cartas_db.keys():
-		# Só adiciona se o jogador já não tiver ela (evita duplicados)
-		if not GameState.cartas_desbloqueadas.has(id_carta):
-			GameState.cartas_desbloqueadas.append(id_carta)
+		GameState.adicionar_carta(id_carta)
+	
+	
+	var pecas_iniciais: Array = []
+	
+	# ==========================================
+	# 1. CARREGAR AS PEÇAS DO GRÊMIO
+	# ==========================================
+	for id_peca in Database.pecas_db:
+		var peca_original = Database.pecas_db[id_peca]
+		
+		# Procura peças que tenham um Resource de Time equipado e que o nome seja "Grêmio"
+		if peca_original is TeamPlayer and peca_original.time and peca_original.time.name == "My Team":
+			
+			# Faz a cópia para não estragar o arquivo original
+			var jogador_copia = peca_original.duplicate(true)
+			jogador_copia.slotsUpgrates.resize(jogador_copia.quantosSlotes)
+			pecas_iniciais.append(jogador_copia)
+			
+			# Adiciona aos desbloqueados
+			GameState.adicionar_peca(jogador_copia.id_unico)
