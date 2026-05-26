@@ -17,9 +17,15 @@ var playerInfo_atual: TeamPlayer
 static var last_piece_with_radial: PhysicsPlayer2D = null
 var canPlay: bool
 var disabled: bool = false
+
+@export_group("Tracing settings")
+@export var maxLenght: int = 15
+@onready var tracer2D = $Line2D_Trace
+
 var hover_tween: Tween
 var original_scale: Vector2 = Vector2(1, 1)
 var hover_scale: Vector2 = Vector2(1.2, 1.2)
+
 signal clickedPiece(Piece: PhysicsPlayer2D)
 signal turnPlayed
 
@@ -66,6 +72,8 @@ func _ready() -> void:
 	Start_Aim()
 	Start_Dragging_Line()
 	Start_Velocity_Line()
+	
+	tracer2D.clear_points()
 
 func loadPlayerInfo(plInfo):
 	playerInfo_atual = plInfo.duplicate(true)
@@ -77,6 +85,7 @@ func loadPlayerInfo(plInfo):
 	Update_Values_With_StatusAtual()
 
 	sprite2D_body.self_modulate = team.cor
+	tracer2D.self_modulate = team.cor
 	
 	#if debug:
 		#print("Start friction = ", friction)
@@ -177,7 +186,14 @@ func _process(delta: float) -> void:
 		)
 
 		sprite2D_body.position = base_visual_position + offset
-
+	
+	if current_force > 0.0:
+		tracer2D.add_point(self.global_position)
+		if tracer2D.get_point_count() > maxLenght:
+			tracer2D.remove_point(0)
+	else:
+		if tracer2D.get_point_count() > 0:
+			tracer2D.remove_point(0)
 
 func _animar_hover(entrando: bool) -> void:
 	# Kill the existing tween if any
