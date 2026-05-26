@@ -14,7 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://clc333t0ptaed" path="res://Recursos/SFXs/BateuNaParede_footstep_wood_003.wav" id="10_fl8l5"]
 [ext_resource type="AudioStream" uid="uid://c7i8wt5kqjjw6" path="res://Recursos/SFXs/BateuNaTrave_406490__anthousai__hit-metallic-basketball-hoop-pipe-01.wav" id="11_gwudw"]
 [ext_resource type="Script" uid="uid://c7dpm24duc7i" path="res://2D Changes/2D_Scenes/MenuRadial.gd" id="14_xkhmx"]
-[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="15_fl8l5"]
+[ext_resource type="Texture2D" uid="uid://b70rbmif2lwgc" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816120457-removebg-preview.png" id="15_fl8l5"]
 
 [sub_resource type="Curve" id="Curve_fl8l5"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -30,6 +30,7 @@ radius = 47.095646
 radius = 47.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gwudw"]
+radius = 28.0
 
 [node name="Player2d" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
 collision_layer = 2
