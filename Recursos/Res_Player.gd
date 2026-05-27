@@ -31,7 +31,7 @@ var poder_congelar_turnos: int = 0
 @export var level_force: int # nivel de força da peça (0 a 10)
 @export var level_force_weak: int = 3  # Abaixo deste valor = FRACO
 @export var level_force_strong: int = 7  # Acima deste valor = FORTE
-
+var bonus_passivos: Dictionary = {}
 @export_subgroup("Outros")
 @export var PA: int
 @export var rank: Rank
@@ -119,6 +119,31 @@ func aplicar_buff(card: CardResource) -> void:
 		print("--- CARTA ATIVADA! ---")
 		print("Nova Força: ", level_force, " | PA: ", PA)
 
+func aplicar_passivas() -> void:
+	# Primeiro limpa os bônus antigos
+	_remover_passivas()
+	
+	for card in slotsUpgrates:
+		if card == null:
+			continue
+		if not card.is_passiva:
+			continue
+		
+		match card.tipo_efeito:
+			CardResource.TipoEfeito.Aumentar_Pa_Maximo:
+				PA += card.magnitude
+				bonus_passivos[card] = {"tipo": "PA", "valor": card.magnitude}
+				
+		print("Passiva ativada: ", card.nome, " | ", card.tipo_efeito)
+func _remover_passivas() -> void:
+	for card in bonus_passivos:
+		var info = bonus_passivos[card]
+		match info["tipo"]:
+			"PA":
+				PA -= info["valor"]
+			"FORCA":
+				level_force -= info["valor"]
+	bonus_passivos.clear()
 func processar_passagem_de_turno(base_info: TeamPlayer) -> void:
 	processar_expiracao_de_buffs(base_info)
 

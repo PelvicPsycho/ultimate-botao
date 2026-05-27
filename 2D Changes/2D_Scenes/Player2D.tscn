@@ -66,6 +66,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 48
 text = "s"
+vertical_alignment = 1
 
 [node name="Line2D_Aim" type="Line2D" parent="." unique_id=700380071]
 
@@ -118,6 +119,7 @@ scale = Vector2(0.15625, 0.15625)
 texture = ExtResource("15_fl8l5")
 
 [node name="Label" type="Label" parent="MenuRadial/ButtonModel" unique_id=1437262646]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 

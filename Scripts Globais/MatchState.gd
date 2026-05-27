@@ -69,7 +69,8 @@ func _ready() -> void:
 			#print("Cartas carregadas para ", piece.playerInfo.nome)
 			#for c in piece.playerInfo.slotsUpgrates:
 				#print("  - ", (c.resource_path if c else "Vazio"))
-
+		
+			piece.playerInfo_atual.aplicar_passivas()
 	# CONEXÕES PADRÃO
 		if not piece.clickedPiece.is_connected(_on_player_clicked_piece):
 			piece.clickedPiece.connect(_on_player_clicked_piece)

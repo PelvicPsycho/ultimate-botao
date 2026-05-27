@@ -969,8 +969,11 @@ func abrir_botoes_cartas():
 			if PhysicsPlayer2D.last_piece_with_radial.menu_radial.is_open:
 				PhysicsPlayer2D.last_piece_with_radial.menu_radial.fechar()
 	var cartas = []
+	
 	for c in playerInfo_atual.slotsUpgrates:
 		if c != null:
+			if c.is_passiva:
+				continue 
 			cartas.append(c)
 	menu_radial.definir_cartas(cartas, playerInfo_atual.PA)
 	if not menu_radial.carta_clicada.is_connected(_on_carta_do_radial):

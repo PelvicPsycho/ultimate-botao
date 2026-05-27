@@ -3,7 +3,7 @@ signal carta_clicada(carta)
 @export var radius: float = 50
 @export var angular_start: float = 0.0  
 @export var open_duration: float = 0.2
-@export var button_scale := Vector2(0.5,0.5)
+@export var button_scale := Vector2(1.3,1.3)
 var buttons: Array[Area2D] = []
 var labels: Array[Label] = []
 var is_open: bool = false
