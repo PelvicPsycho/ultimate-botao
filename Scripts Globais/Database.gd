@@ -40,15 +40,22 @@ func _carregar_db_pecas(pasta: String) -> void:
 		
 		while file != "":
 			if dir.current_is_dir():
-				# Ignora os atalhos de sistema "." (pasta atual) e ".." (pasta anterior)
+				# Ignora os atalhos de sistema "." e ".."
 				if file != "." and file != "..":
-					# A MÁGICA: A função chama a ela mesma para entrar na subpasta!
 					_carregar_db_pecas(pasta + file + "/")
 			else:
-				# Se não é pasta, é arquivo. Segue a vida normalmente.
 				if file.ends_with(".tres") or file.ends_with(".res"):
 					var recurso = load(pasta + file)
+					
+					# --- TRAVA DE SEGURANÇA ---
+					# Garante que só vamos tentar ler e alterar se o arquivo for uma Peça!
 					if recurso is TeamPlayer:
+						
+						# Preenche a mochila com "nulls" baseado no limite da peça na memória RAM
+						if recurso.slotsUpgrates.size() != recurso.quantosSlotes:
+							recurso.slotsUpgrates.resize(recurso.quantosSlotes)
+							
+						# Salva no Banco de Dados
 						pecas_db[recurso.id_unico] = recurso
 						
 			file = dir.get_next()
