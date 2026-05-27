@@ -9,6 +9,8 @@
 custom_minimum_size = Vector2(180, 180)
 offset_right = 120.0
 offset_bottom = 160.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_s50es")
 nome_label = NodePath("Control/MarginContainer/ContainerLayout_VBoxContainer/Nome_Label")
 foto_icone = NodePath("Control/MarginContainer/ContainerLayout_VBoxContainer/ImagePlaceHolder_ColorRect")

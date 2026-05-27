@@ -41,7 +41,7 @@ center_action_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContaine
 center_card_view = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/CardView_VBoxContainer")
 center_peca_view = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PecaView_VBoxContainer")
 center_peca_stats = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PecaView_VBoxContainer/CENTERStatsLabel_RichTextLabel")
-center_peca_grid = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PecaView_VBoxContainer/CENTEREquippedCards_GridContainer")
+center_peca_grid = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PecaView_VBoxContainer/Isolate_Control/CENTEREquippedCards_GridContainer")
 cw_button_texture = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer/CW-ButtonTexture_TextureRect")
 cw_button_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer/CW-ButtonTexture_TextureRect/CW-ButtonLabel_Label")
 center_peca_slots_hbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PecaView_VBoxContainer/CENTERSlotsIndicator_HBoxContainer")
@@ -50,7 +50,7 @@ slots_que_ocupa_hbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContain
 icone_de_slot_textura = ExtResource("2_1feu8")
 right_nome_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/PieceNameTitle_Label")
 right_window_stats = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/StatsLabel_RichTextLabel")
-right_window_grid = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/EquippedCards_GridContainer")
+right_window_grid = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control/EquippedCards_GridContainer")
 rw_contagem_slots_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW_ContagemSlots_Label")
 rw_button_texture = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/RW-ButtonTexture_TextureRect")
 rw_button_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/RW-ButtonTexture_TextureRect/RW-ButtonLabel_Label")
@@ -425,22 +425,34 @@ text = "Slots (0/0)"
 layout_mode = 2
 
 [node name="TextureRect3" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PecaView_VBoxContainer/CENTERSlotsIndicator_HBoxContainer" unique_id=1824194504]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 texture = ExtResource("2_1feu8")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=148654219]
 layout_mode = 2
 text = "Cartas"
 
-[node name="CENTEREquippedCards_GridContainer" type="GridContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=8902318]
-custom_minimum_size = Vector2(50, 220)
-layout_mode = 2
-columns = 4
-
 [node name="CENTERStatsLabel_RichTextLabel" type="RichTextLabel" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=824658106]
 layout_mode = 2
 text = "Stats Label Rich Text"
 fit_content = true
+
+[node name="Isolate_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=1856557192]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CENTEREquippedCards_GridContainer" type="GridContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PecaView_VBoxContainer/Isolate_Control" unique_id=8902318]
+custom_minimum_size = Vector2(50, 220)
+layout_mode = 0
+offset_right = 403.0
+offset_bottom = 220.0
+columns = 4
+
+[node name="CartaUI_Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PecaView_VBoxContainer/Isolate_Control/CENTEREquippedCards_GridContainer" unique_id=870524898 instance=ExtResource("13_2ysy5")]
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1638042819]
 layout_mode = 2
@@ -480,7 +492,7 @@ layout_mode = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_bottom = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer" unique_id=1865697515]
 layout_mode = 2
@@ -532,21 +544,33 @@ text = "Slots (0/0)"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=1399368133]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 texture = ExtResource("2_1feu8")
-
-[node name="EquippedCards_GridContainer" type="GridContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1729462547]
-layout_mode = 2
-columns = 5
-
-[node name="CartaUI_Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/EquippedCards_GridContainer" unique_id=1971850068 instance=ExtResource("13_2ysy5")]
-layout_mode = 2
+expand_mode = 1
 
 [node name="StatsLabel_RichTextLabel" type="RichTextLabel" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=309406376]
 layout_mode = 2
 mouse_filter = 2
-text = "Stats Label"
+text = "Forca
+PA
+Slots"
 fit_content = true
+
+[node name="Isolate_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1096506412]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EquippedCards_GridContainer" type="GridContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control" unique_id=1729462547]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 403.0
+offset_bottom = 124.0
+columns = 5
+
+[node name="CartaUI_Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control/EquippedCards_GridContainer" unique_id=1971850068 instance=ExtResource("13_2ysy5")]
+layout_mode = 2
 
 [node name="BottomNav_PanelContainer" type="PanelContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer" unique_id=1686804855]
 layout_mode = 2

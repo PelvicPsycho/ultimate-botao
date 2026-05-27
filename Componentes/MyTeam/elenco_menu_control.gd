@@ -339,20 +339,42 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 		var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, item.quantosSlotes]
 		center_peca_stats.text = texto_status
 		
+# --- INÍCIO DA ATUALIZAÇÃO DO GRID CENTRAL ---
 		for child in center_peca_grid.get_children():
 			child.queue_free()
+			
+		# Tamanho fixo que você definiu para o centro
+		var tamanho_carta_centro = Vector2(96, 116)
+			
 		for carta in item.slotsUpgrates:
 			if carta != null:
 				var icone = TextureRect.new()
 				icone.texture = carta.arte
 				icone.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-				icone.custom_minimum_size = Vector2(96, 116)
+				icone.custom_minimum_size = tamanho_carta_centro
 				center_peca_grid.add_child(icone)
 			else:
 				var slot_vazio = ColorRect.new()
 				slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5)
-				slot_vazio.custom_minimum_size = Vector2(90, 110)
+				slot_vazio.custom_minimum_size = tamanho_carta_centro
+				slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+				slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 				center_peca_grid.add_child(slot_vazio)
+				
+		# 3. Matemática da Escala para a janela central
+		var espaco_colunas_centro = center_peca_grid.get_theme_constant("h_separation")
+		var colunas_centro = center_peca_grid.columns if center_peca_grid.columns > 0 else 3
+		var largura_necessaria_centro = (tamanho_carta_centro.x * colunas_centro) + (espaco_colunas_centro * (colunas_centro - 1))
+		
+		var pai_grid_centro = center_peca_grid.get_parent()
+		var espaco_max_centro = pai_grid_centro.custom_minimum_size.x
+		if espaco_max_centro == 0: espaco_max_centro = pai_grid_centro.size.x
+		
+		if largura_necessaria_centro > espaco_max_centro and espaco_max_centro > 0:
+			var escala = espaco_max_centro / largura_necessaria_centro
+			center_peca_grid.scale = Vector2(escala, escala)
+		else:
+			center_peca_grid.scale = Vector2(1, 1)
 				
 		if center_peca_slots_hbox:
 			for child in center_peca_slots_hbox.get_children():
@@ -425,24 +447,49 @@ func _update_right_window() -> void:
 			icone_bolinha.custom_minimum_size = Vector2(20, 20)
 			right_slots_indicator_hbox.add_child(icone_bolinha)
 
+# --- INÍCIO DA ATUALIZAÇÃO DO GRID DIREITO ---
 	for child in right_window_grid.get_children():
 		child.queue_free()
 
+	# 1. Lê dinamicamente o tamanho real da sua cena de carta
+	var tamanho_carta_dir = Vector2(50, 70) # Tamanho de segurança
+	if cena_carta_pequena:
+		var btn_fantasma = cena_carta_pequena.instantiate()
+		if btn_fantasma is Control and btn_fantasma.custom_minimum_size != Vector2.ZERO:
+			tamanho_carta_dir = btn_fantasma.custom_minimum_size
+		btn_fantasma.queue_free()
+
+	# 2. Desenha as cartas equipadas e os slots vazios
 	for carta in peca_atual.slotsUpgrates:
 		if carta != null:
 			if cena_carta_pequena:
 				var btn_carta = cena_carta_pequena.instantiate()
 				right_window_grid.add_child(btn_carta)
-				
 				if btn_carta.has_method("setup_item"):
 					btn_carta.setup_item(carta)
-				
 				btn_carta.pressed.connect(func(): _inspecionar_item_na_janela_central(carta, true))
 		else:
 			var slot_vazio = ColorRect.new()
 			slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5)
-			slot_vazio.custom_minimum_size = Vector2(50, 70)
+			slot_vazio.custom_minimum_size = tamanho_carta_dir
+			slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+			slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 			right_window_grid.add_child(slot_vazio)
+
+	# 3. Matemática da Escala para não empurrar a UI
+	var espaco_colunas_dir = right_window_grid.get_theme_constant("h_separation")
+	var colunas_dir = right_window_grid.columns if right_window_grid.columns > 0 else 3
+	var largura_necessaria_dir = (tamanho_carta_dir.x * colunas_dir) + (espaco_colunas_dir * (colunas_dir - 1))
+	
+	var pai_grid_dir = right_window_grid.get_parent()
+	var espaco_max_dir = pai_grid_dir.custom_minimum_size.x
+	if espaco_max_dir == 0: espaco_max_dir = pai_grid_dir.size.x
+	
+	if largura_necessaria_dir > espaco_max_dir and espaco_max_dir > 0:
+		var escala = espaco_max_dir / largura_necessaria_dir
+		right_window_grid.scale = Vector2(escala, escala)
+	else:
+		right_window_grid.scale = Vector2(1, 1)
 
 
 # --- SISTEMA DE AÇÕES ---
