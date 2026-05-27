@@ -25,6 +25,8 @@ signal turnPlayed
 signal zoom_out_signal(pos)
 signal zoom_in_signal(pos)
 
+@export var Object_Radius: Node2D
+
 #region Sound variables
 #Variáveis de sons
 @export_group("Sons de Interação")
@@ -59,15 +61,11 @@ func _ready() -> void:
 	
 	base_visual_position = sprite2D_body.position
 	
+	radius = (global_position - Object_Radius.global_position).length()
+	
 	loadPlayerInfo(playerInfo)
 	
 	start_Effects()
-	
-	Start_Aim()
-	Start_Dragging_Line()
-	Start_Velocity_Line()
-	
-	loadPlayerInfo(playerInfo)
 
 func loadPlayerInfo(plInfo):
 	playerInfo_atual = plInfo.duplicate(true)
@@ -163,10 +161,6 @@ func Update_Values_With_StatusAtual() -> void:
 	friction = playerInfo_atual.basic_friction
 
 func _process(delta: float) -> void:
-	Draw_Aim()
-	Draw_Dragging_Line()
-	Draw_Velocity_Line()
-
 	if shaking and sprite2D_body != null:
 		shake_timer += delta
 
@@ -307,10 +301,6 @@ func _cancelar_interacao() -> void:
 		
 	SoundMaster.play_sfx(audio_cancelar)
 	
-	Reset_Aim_Line()
-	Reset_Dragging_Line()
-	Reset_Velocity_Line()
-	
 	_on_player_released(position)
 	is_dragging = false
 	direcao_travada = false
@@ -411,84 +401,6 @@ func start_Effects() -> void:
 	sprite2D_body.self_modulate = playerInfo.time.cor
 #endregion
 
-#region Lines
-@export_group("Aim line")
-@export var aim_line2D: Line2D
-@export var drag_line2D: Line2D
-@export var velocity_line2D: Line2D
-@export var aimLineMultiplier: float = 1
-
-# Aim --------------------------
-func Start_Aim() -> void:
-	aim_line2D.add_point(Vector2.ZERO)
-	aim_line2D.add_point(Vector2.ZERO)
-
-func Draw_Aim() -> void:
-	if is_dragging and !is_pointer_inside_piece:
-		aim_line2D.visible = true
-		
-		var initial_point = aim_line2D.to_local(global_position)
-		
-		var final_point = aim_line2D.to_local(global_position + current_direction * (current_force * aimLineMultiplier))
-		
-		aim_line2D.set_point_position(0, initial_point)
-		aim_line2D.set_point_position(1, final_point)
-	else:
-		aim_line2D.visible = false
-
-func Reset_Aim_Line() -> void:
-	aim_line2D.set_point_position(0, Vector2.ZERO)
-	aim_line2D.set_point_position(1, Vector2.ZERO)
-	
-# Drag --------------------------
-func Start_Dragging_Line() -> void:
-	drag_line2D.add_point(Vector2.ZERO)
-	drag_line2D.add_point(Vector2.ZERO)
-	
-
-func Reset_Dragging_Line() -> void:
-	drag_line2D.set_point_position(0, Vector2.ZERO)
-	drag_line2D.set_point_position(1, Vector2.ZERO)
-
-func Draw_Dragging_Line() -> void:
-	if is_dragging:
-		drag_line2D.visible = true
-		
-		var direction = (posicao_final_toque_Tela - global_position).normalized() * current_distance
-		
-		var initial_point = drag_line2D.to_local(global_position)
-		
-		var final_point = drag_line2D.to_local(global_position + direction)
-		
-		drag_line2D.set_point_position(0, initial_point)
-		drag_line2D.set_point_position(1, final_point)
-	else:
-		drag_line2D.visible = false
-
-# Velocity --------------------------
-func Start_Velocity_Line() -> void:
-	velocity_line2D.add_point(Vector2.ZERO)
-	velocity_line2D.add_point(Vector2.ZERO)
-	
-
-func Reset_Velocity_Line() -> void:
-	velocity_line2D.set_point_position(0, Vector2.ZERO)
-	velocity_line2D.set_point_position(1, Vector2.ZERO)
-
-func Draw_Velocity_Line() -> void:
-	if is_moving:
-		velocity_line2D.visible = true
-		
-		var initial_point = velocity_line2D.to_local(global_position)
-		
-		var final_point = velocity_line2D.to_local(global_position + current_velocity )
-		
-		velocity_line2D.set_point_position(0, initial_point)
-		velocity_line2D.set_point_position(1, final_point)
-	else:
-		velocity_line2D.visible = false
-		
-#endregion
 
 #region Merge
 

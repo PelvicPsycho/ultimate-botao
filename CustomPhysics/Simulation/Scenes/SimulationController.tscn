@@ -1,17 +1,13 @@
-[gd_scene format=3 uid="uid://d00baytaa6ni1"]
+[gd_scene format=3 uid="uid://d1fa24kg7rqw0"]
 
-[ext_resource type="Texture2D" uid="uid://r5xlw51feyua" path="res://2D Changes/Others_2D/campo 02 gordo.png" id="1_4frna"]
-[ext_resource type="PackedScene" uid="uid://djvt35mqbc8jy" path="res://CustomPhysics/Simulation/Scenes/Goal2D_Simulation.tscn" id="2_6502i"]
+[ext_resource type="Script" uid="uid://cy64qy6cfjars" path="res://CustomPhysics/Simulation/Scripts/SimulationController.gd" id="1_qx1qi"]
 
-[node name="Pitch2D" type="Node2D" unique_id=603521134]
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=181346696]
-modulate = Color(1, 1, 1, 0)
-position = Vector2(960, 540)
-texture = ExtResource("1_4frna")
+[node name="SimulationController" type="Node2D" unique_id=603521134]
+script = ExtResource("1_qx1qi")
 
 [node name="Limits" type="StaticBody2D" parent="." unique_id=1520481869]
-collision_mask = 2
+collision_layer = 16
+collision_mask = 32
 
 [node name="TopWall" type="CollisionPolygon2D" parent="Limits" unique_id=1989422722]
 polygon = PackedVector2Array(243, 421, 243, 278, 423, 99, 1499, 99, 1677, 279, 1677, 421, 1714, 421, 1713, 263, 1512, 63, 407, 63, 206, 263, 207, 421)
@@ -28,10 +24,3 @@ polygon = PackedVector2Array(243, 386, 90, 386, 90, 694, 243, 694, 243, 654, 131
 position = Vector2(1920, 1080)
 rotation = 3.1415927
 polygon = PackedVector2Array(243, 386, 90, 386, 90, 694, 243, 694, 243, 654, 131, 654, 131, 426, 243, 426)
-
-[node name="Goal2D_Simulation_Home" parent="." unique_id=1637700476 instance=ExtResource("2_6502i")]
-
-[node name="Goal2D_Simulation_Away" parent="." unique_id=369227303 instance=ExtResource("2_6502i")]
-position = Vector2(1920, 1080)
-rotation = 3.1415927
-team = 1

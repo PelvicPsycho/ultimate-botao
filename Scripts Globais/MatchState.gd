@@ -116,7 +116,7 @@ func assignPieces():
 		var player = homePlayers[i]
 		piece.team = homeTeam
 		piece.playerInfo = player
-		piece.loadPlayerInfo(player)
+		piece.loadPlayerInfo(player, piece.team)
 		#piece.atualizar_gradiente()
 
 	for i in range(awayPieces.size()):
@@ -124,7 +124,7 @@ func assignPieces():
 		var player = awayPlayers[i]
 		piece.team = awayTeam
 		piece.playerInfo = player
-		piece.loadPlayerInfo(player)
+		piece.loadPlayerInfo(player, piece.team)
 		#piece.atualizar_gradiente()
 
 func _atualizar_placar() -> void:

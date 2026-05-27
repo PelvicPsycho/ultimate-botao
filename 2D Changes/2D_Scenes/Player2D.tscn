@@ -20,13 +20,14 @@ radius = 47.095646
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
 radius = 47.0
 
-[node name="Player2d" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
+[node name="Player2d" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("Object_Radius", "sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
 collision_layer = 2
 collision_mask = 3
 input_pickable = true
 script = ExtResource("1_yglll")
 max_distance = 300.0
 playerInfo = ExtResource("2_b4028")
+Object_Radius = NodePath("Object_Calculate_Radius")
 audio_clique = ExtResource("3_4wfki")
 audio_tensao = ExtResource("4_85i0u")
 audio_chute_normal = ExtResource("5_c16pp")
@@ -44,6 +45,23 @@ velocity_line2D = NodePath("Line2D_Velocity")
 shapecast_physics_objects = NodePath("ShapeCast2D_Objects")
 shapecast_walls = NodePath("ShapeCast2D_Walls")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=566741673]
+shape = SubResource("CircleShape2D_th6yb")
+
+[node name="ShapeCast2D_Objects" type="ShapeCast2D" parent="." unique_id=1924576537]
+shape = SubResource("CircleShape2D_r8syo")
+target_position = Vector2(0, 0)
+max_results = 1
+collision_mask = 2
+
+[node name="ShapeCast2D_Walls" type="ShapeCast2D" parent="." unique_id=728845580]
+shape = SubResource("CircleShape2D_r8syo")
+target_position = Vector2(0, 0)
+max_results = 1
+
+[node name="Object_Calculate_Radius" type="Node2D" parent="." unique_id=734918523]
+position = Vector2(47, 0)
+
 [node name="Line2D_Aim" type="Line2D" parent="." unique_id=700380071]
 
 [node name="Line2D_Drag" type="Line2D" parent="." unique_id=1403667517]
@@ -58,19 +76,5 @@ texture = ExtResource("3_wpyri")
 
 [node name="sprite2D_body" type="Sprite2D" parent="." unique_id=523510040]
 texture = ExtResource("3_tmkik")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=566741673]
-shape = SubResource("CircleShape2D_th6yb")
-
-[node name="ShapeCast2D_Objects" type="ShapeCast2D" parent="." unique_id=1924576537]
-shape = SubResource("CircleShape2D_r8syo")
-target_position = Vector2(0, 0)
-max_results = 1
-collision_mask = 2
-
-[node name="ShapeCast2D_Walls" type="ShapeCast2D" parent="." unique_id=728845580]
-shape = SubResource("CircleShape2D_r8syo")
-target_position = Vector2(0, 0)
-max_results = 1
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -13,9 +13,10 @@ var index: int
 @export var basic_friction: float = 0.98
 @export var basic_scale: float = 1
 
-#func _ready() -> void:
-	#print("Mass = ", mass)
-	#print("friction = ", friction)
+@export var Object_Radius: Node2D
+
+func _ready() -> void:
+	radius = (global_position - Object_Radius.global_position).length()
 
 
 #region collisions

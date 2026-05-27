@@ -3,6 +3,8 @@ class_name PhysicsBall2D
 
 var lastTouch: PhysicsPlayer2D
 
+var index: int
+
 @export var debug: bool = true
 
 @export var basic_min_force: float = 100.0
@@ -11,9 +13,10 @@ var lastTouch: PhysicsPlayer2D
 @export var basic_friction: float = 0.98
 @export var basic_scale: float = 1
 
-#func _ready() -> void:
-	#print("Mass = ", mass)
-	#print("friction = ", friction)
+@export var Object_Radius: Node2D
+
+func _ready() -> void:
+	radius = (global_position - Object_Radius.global_position).length()
 
 #region Movement
 

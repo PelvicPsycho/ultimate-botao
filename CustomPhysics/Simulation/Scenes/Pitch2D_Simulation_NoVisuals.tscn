@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bfekqxt737l61"]
 
-[ext_resource type="Script" uid="uid://cy64qy6cfjars" path="res://CustomPhysics/Simulation/Scripts/SimulationController.gd" id="1_6502i"]
+[ext_resource type="Script" uid="uid://b6hqoqedfd1ij" path="res://CustomPhysics/Simulation/Scripts/SimulationController_Test.gd" id="1_bhjla"]
 
-[node name="Pitch" type="Node2D" unique_id=603521134]
-script = ExtResource("1_6502i")
+[node name="Pitch2D_Simulation_NoVisuals" type="Node2D" unique_id=603521134]
+script = ExtResource("1_bhjla")
 
 [node name="Limits" type="StaticBody2D" parent="." unique_id=1520481869]
 collision_layer = 16

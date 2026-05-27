@@ -1,6 +1,9 @@
 extends Node
+class_name CollisionResolution2D
 
-@export var PhysicsObjects_List: Array[PhysicsObject2D]
+var PhysicsObjects_List: Array[PhysicsObject2D]
+
+@export var Sim_Controller: SimulationController
 
 var object_A: PhysicsObject2D
 var object_B: PhysicsObject2D
@@ -10,7 +13,14 @@ var object_B: PhysicsObject2D
 func _ready() -> void:
 	var nodes = get_tree().get_nodes_in_group("PhysicsObjects")
 	PhysicsObjects_List.assign(nodes)
-	print("number of players = ", PhysicsObjects_List.size())
+	
+	var count = 0
+	for object in PhysicsObjects_List:
+		object.index = count
+		count += 1
+	if Sim_Controller != null:
+		Sim_Controller.create_objects_copy()
+		Sim_Controller.connect_signal()
 
 func _physics_process(delta: float) -> void:
 	#

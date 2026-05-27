@@ -20,13 +20,15 @@ radius = 47.095646
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
 radius = 47.0
 
-[node name="Player2D_Simulation_NoVisual" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
+[node name="Player2D_Simulation_NoVisual" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("Object_Radius", "sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
 modulate = Color(1, 1, 1, 0.39215687)
 collision_layer = 32
 collision_mask = 48
 script = ExtResource("1_amxfy")
+debug = false
 max_distance = 300.0
 playerInfo = ExtResource("2_0lttp")
+Object_Radius = NodePath("Object_Calculate_Radius")
 audio_clique = ExtResource("3_0lttp")
 audio_tensao = ExtResource("4_poykw")
 audio_chute_normal = ExtResource("5_rco1q")
@@ -46,6 +48,9 @@ shapecast_walls = NodePath("ShapeCast2D_Walls")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=566741673]
 shape = SubResource("CircleShape2D_th6yb")
+
+[node name="Object_Calculate_Radius" type="Node2D" parent="." unique_id=198983994]
+position = Vector2(47, 0)
 
 [node name="ShapeCast2D_Objects" type="ShapeCast2D" parent="." unique_id=1924576537]
 shape = SubResource("CircleShape2D_r8syo")

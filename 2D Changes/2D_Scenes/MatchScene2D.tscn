@@ -22,7 +22,7 @@ anunciador_ui = NodePath("AnunciadorUI")
 [node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("2_pg7ls")]
 position = Vector2(960, 540)
 
-[node name="Pitch" parent="." unique_id=603521134 instance=ExtResource("3_7288k")]
+[node name="Pitch2D" parent="." unique_id=603521134 instance=ExtResource("3_7288k")]
 
 [node name="PhysicsObjects_Group" type="Node2D" parent="." unique_id=12833940]
 script = ExtResource("4_3wcxh")
@@ -85,9 +85,11 @@ anunciadorui = NodePath("../AnunciadorUI")
 match_state = NodePath("..")
 
 [node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("3_r4ru6")]
+visible = false
 
 [node name="MatchUI" parent="." unique_id=2001534732 node_paths=PackedStringArray("pause_menu") instance=ExtResource("4_cdikc")]
 unique_name_in_owner = true
+visible = false
 pause_menu = NodePath("../PauseMenu")
 
 [node name="BotoesUI" type="Control" parent="MatchUI" unique_id=1008199846]
@@ -121,8 +123,10 @@ offset_bottom = 37.0
 scale = Vector2(4, 1.128)
 
 [node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("6_gbtg2")]
+visible = false
 
 [node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("7_6p5wb")]
+visible = false
 
 [node name="MatchTimer" type="Node" parent="." unique_id=296019755]
 script = ExtResource("8_j0mnx")
@@ -130,6 +134,7 @@ tempo_maximo_lance = 15.0
 tempo_maximo_partida = 10.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=229047291]
+visible = false
 
 [connection signal="pressed" from="MatchUI/BotoesUI/Botao1" to="MatchUI/BotoesUI" method="_on_botao_1_pressed"]
 [connection signal="pressed" from="MatchUI/BotoesUI/Botao2" to="MatchUI/BotoesUI" method="_on_botao_2_pressed"]

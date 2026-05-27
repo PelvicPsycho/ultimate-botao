@@ -3,7 +3,14 @@ class_name PhysicsBall2D_Simulation_NoVisuals
 
 var lastTouch: PhysicsPlayer2D_Simulation_NoVisuals
 
+@export var shapecast_goals: ShapeCast2D
+
+var index: int
+
 @export var debug: bool = true
+
+enum TeamSide {HOME, AWAY}
+@export var teamSide: TeamSide
 
 @export var basic_min_force: float = 100.0
 @export var basic_max_force: float = 1000.0
@@ -11,11 +18,10 @@ var lastTouch: PhysicsPlayer2D_Simulation_NoVisuals
 @export var basic_friction: float = 0.98
 @export var basic_scale: float = 1
 
-#func _ready() -> void:
-	#print("Mass = ", mass)
-	#print("friction = ", friction)
+@export var Object_Radius: Node2D
 
-
+func _ready() -> void:
+	radius = (global_position - Object_Radius.global_position).length()
 
 
 #region collisions

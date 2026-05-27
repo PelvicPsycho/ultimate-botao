@@ -9,15 +9,19 @@ radius = 22.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_qaf7p"]
 radius = 22.0
 
-[node name="Ball2d" type="CharacterBody2D" unique_id=1925699982 node_paths=PackedStringArray("shapecast_physics_objects", "shapecast_walls") groups=["Balls", "PhysicsObjects"]]
+[node name="Ball2d" type="CharacterBody2D" unique_id=1925699982 node_paths=PackedStringArray("Object_Radius", "shapecast_physics_objects", "shapecast_walls") groups=["Balls", "PhysicsObjects"]]
 collision_layer = 2
 collision_mask = 8
 script = ExtResource("1_qdjjt")
+Object_Radius = NodePath("Object_Calculate_Radius")
 shapecast_physics_objects = NodePath("ShapeCast2D - Objects")
 shapecast_walls = NodePath("ShapeCast2D - Walls")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=511860556]
 shape = SubResource("CircleShape2D_cihxk")
+
+[node name="Object_Calculate_Radius" type="Node2D" parent="." unique_id=2076912385]
+position = Vector2(47, 0)
 
 [node name="ShapeCast2D - Objects" type="ShapeCast2D" parent="." unique_id=1277373259]
 shape = SubResource("CircleShape2D_qaf7p")

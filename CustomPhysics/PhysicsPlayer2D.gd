@@ -1,6 +1,8 @@
 extends PhysicsObject2D
 class_name PhysicsPlayer2D
 
+var index: int
+
 @export var debug: bool = true
 
 # Runtime Variables
@@ -13,6 +15,7 @@ var current_distance: float = 0
 var team: Team
 @export var playerInfo: TeamPlayer
 var playerInfo_atual: TeamPlayer
+var team_atual: Team
 
 var canPlay: bool
 var disabled: bool = false
@@ -22,6 +25,10 @@ signal turnPlayed
 
 signal zoom_out_signal(pos)
 signal zoom_in_signal(pos)
+
+signal ActionExecuted(index, velocity)
+
+@export var Object_Radius: Node2D
 
 #region Sound variables
 #Variáveis de sons
@@ -42,7 +49,6 @@ var sfx_tensao_atual: AudioStreamPlayer
 #endregion
 
 func _ready() -> void:
-	team = playerInfo.time
 	is_pointer_inside_piece = false
 	
 	mouse_entered.connect(_on_mouse_entered)
@@ -57,27 +63,28 @@ func _ready() -> void:
 	
 	base_visual_position = sprite2D_body.position
 	
+	radius = (global_position - Object_Radius.global_position).length()
+	
 	start_Effects()
 	
 	Start_Aim()
 	Start_Dragging_Line()
 	Start_Velocity_Line()
+	
+	#loadPlayerInfo(playerInfo, playerInfo.time)
 
-func loadPlayerInfo(plInfo):
+func loadPlayerInfo(plInfo, teamInfo):
 	playerInfo_atual = plInfo.duplicate(true)
+	team_atual = teamInfo
+
 	playerInfo_atual.status_mudou.connect(atualizar_fisica_por_status)
 	playerInfo_atual.status_mudou.connect(atualizar_peca_pelo_status)
 	atualizar_peca_pelo_status()
 	atualizar_fisica_por_status()
 	
 	Update_Values_With_StatusAtual()
-
-	sprite2D_body.self_modulate = team.cor
 	
-	#if debug:
-		#print("Start friction = ", friction)
-		#print("Start mass = ", mass)
-
+	sprite2D_body.self_modulate = team_atual.cor
 
 func atualizar_fisica_por_status():
 	# MASS
@@ -109,7 +116,6 @@ func atualizar_fisica_por_status():
 	
 	if friction >= 1:
 		friction = 0.99
-
 
 func atualizar_peca_pelo_status() -> void:
 	if not is_instance_valid(playerInfo_atual): 
@@ -173,15 +179,8 @@ func _process(delta: float) -> void:
 
 		sprite2D_body.position = base_visual_position + offset
 
-
-
 func definir_estado_visual(ativo: bool) -> void:
 	self.canPlay = ativo
-	
-	#var material_alvo = team.materialAtivo if ativo else team.materialInativo
-	
-	#if material_alvo:
-		#mesh.material_override = material_alvo.duplicate()
 
 #region Input
 var is_dragging: bool = false
@@ -190,9 +189,6 @@ var is_pointer_inside_piece: bool = false #Mouse/dedo dentro da peça
 var posicao_atual_toque_Tela: Vector2 = Vector2.ZERO
 var posicao_inicial_toque_Tela: Vector2 = Vector2.ZERO
 var posicao_final_toque_Tela: Vector2 = Vector2.ZERO
-
-#var posicao_inicial_toque_Mundo3D: Vector2 = Vector2.ZERO
-#var posicao_final_toque_Mundo3D: Vector2 = Vector2.ZERO
 
 # Atualiza as variaveis de direcao_atual, distancia_atual e forca_atual
 func Mouse_Dragging_Update():
@@ -234,7 +230,6 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 	# Evento - clique do mouse esquerdo
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			#print("Peça clicada! level_force: ", playerInfo_atual.level_force)
 			clickedPiece.emit(self)
 			
 			abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO
@@ -352,10 +347,7 @@ func Execute_Action() -> void:
 	
 	Set_Current_Velocity(current_direction * current_force)
 	
-	#print("max_force = ", playerInfo_atual.get_max_force())
-	#print("current_force = ", current_force)
-	#print("current_velocity = ", current_velocity)
-	#print("friction = ", friction)
+	ActionExecuted.emit(index, current_velocity)
 	
 	_cancelar_interacao()
 	turnPlayed.emit()

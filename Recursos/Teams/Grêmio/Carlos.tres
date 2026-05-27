@@ -10,6 +10,5 @@ nome = "Carlos"
 num_camisa = 95
 foto = ExtResource("1_v0lv2")
 quantosSlotes = 3
-forca = 25
 PA = 5
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

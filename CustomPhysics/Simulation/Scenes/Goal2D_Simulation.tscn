@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://djvt35mqbc8jy"]
+
+[ext_resource type="Script" uid="uid://ngnn4ytuhqg5" path="res://CustomPhysics/Simulation/Scripts/Goal2D_Simulation.gd" id="1_2hev7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iorkw"]
+size = Vector2(99, 225)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2bt5"]
+size = Vector2(72.5, 37)
+
+[node name="Goal2D" type="Node2D" unique_id=1637700476 groups=["Goals"]]
+script = ExtResource("1_2hev7")
+
+[node name="GoalArea" type="Area2D" parent="." unique_id=209979040]
+collision_layer = 4096
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalArea" unique_id=893226879]
+position = Vector2(182.5, 539.5)
+shape = SubResource("RectangleShape2D_iorkw")
+
+[node name="NearMissArea" type="Area2D" parent="." unique_id=989177745]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NearMissArea" unique_id=1305831501]
+position = Vector2(279.75, 404)
+shape = SubResource("RectangleShape2D_y2bt5")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="NearMissArea" unique_id=1111317881]
+position = Vector2(279.75, 676)
+shape = SubResource("RectangleShape2D_y2bt5")
+
+[connection signal="body_entered" from="GoalArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="NearMissArea" to="." method="_on_area_2d_quase_gol_body_entered"]

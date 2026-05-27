@@ -1,8 +1,11 @@
 extends PhysicsObject2D
-class_name PhysicsPlayer2D
+class_name PhysicsPlayer2D_Simulation
 
 var index: int
 @export var debug: bool = true
+
+enum TeamSide {HOME, AWAY}
+@export var teamSide: TeamSide
 
 # Runtime Variables
 var current_direction: Vector2 = Vector2.ZERO
@@ -24,7 +27,9 @@ signal turnPlayed
 signal zoom_out_signal(pos)
 signal zoom_in_signal(pos)
 
-signal ActionExecuted(index, velocity)
+signal ActionExecuted(index, velocity, teamSide)
+
+@export var Object_Radius: Node2D
 
 #region Sound variables
 #Variáveis de sons
@@ -59,6 +64,8 @@ func _ready() -> void:
 	
 	base_visual_position = sprite2D_body.position
 	
+	radius = (global_position - Object_Radius.global_position).length()
+	
 	start_Effects()
 	
 	Start_Aim()
@@ -76,13 +83,8 @@ func loadPlayerInfo(plInfo):
 	atualizar_fisica_por_status()
 	
 	Update_Values_With_StatusAtual()
-
-	sprite2D_body.self_modulate = team.cor
 	
-	#if debug:
-		#print("Start friction = ", friction)
-		#print("Start mass = ", mass)
-
+	sprite2D_body.self_modulate = team.cor
 
 func atualizar_fisica_por_status():
 	# MASS
@@ -114,7 +116,6 @@ func atualizar_fisica_por_status():
 	
 	if friction >= 1:
 		friction = 0.99
-
 
 func atualizar_peca_pelo_status() -> void:
 	if not is_instance_valid(playerInfo_atual): 
@@ -178,15 +179,8 @@ func _process(delta: float) -> void:
 
 		sprite2D_body.position = base_visual_position + offset
 
-
-
 func definir_estado_visual(ativo: bool) -> void:
 	self.canPlay = ativo
-	
-	#var material_alvo = team.materialAtivo if ativo else team.materialInativo
-	
-	#if material_alvo:
-		#mesh.material_override = material_alvo.duplicate()
 
 #region Input
 var is_dragging: bool = false
@@ -239,33 +233,31 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 	# Evento - clique do mouse esquerdo
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			Execute_Action()
+			clickedPiece.emit(self)
 			
-			#clickedPiece.emit(self)
-			#
-			#abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO
-			#
-			#is_dragging = true
-			#
-			#SoundMaster.play_sfx(audio_clique) #Toca o som de clique normal
-			#sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) #Toca tensao e salva a ref
-			#
-			## Emite um sinal que o player foi clicado
-			#_on_player_pressed(position)
-			#
-			## Zera variaveis
-			#current_direction = Vector2.ZERO
-			#
-			#Set_Current_Velocity(Vector2.ZERO)
-			#current_force = 0.0
-			#
-			#direcao_travada = false
-			#
-			## Guarda a posição global do player
-			#posicao_inicial_toque_Tela = global_position
-		#
-		#if Input.is_action_just_pressed("ui_focus_next"): # tecla TAB por padrão
-			#debug_status()
+			abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO
+			
+			is_dragging = true
+			
+			SoundMaster.play_sfx(audio_clique) #Toca o som de clique normal
+			sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) #Toca tensao e salva a ref
+			
+			# Emite um sinal que o player foi clicado
+			_on_player_pressed(position)
+			
+			# Zera variaveis
+			current_direction = Vector2.ZERO
+			
+			Set_Current_Velocity(Vector2.ZERO)
+			current_force = 0.0
+			
+			direcao_travada = false
+			
+			# Guarda a posição global do player
+			posicao_inicial_toque_Tela = global_position
+		
+		if Input.is_action_just_pressed("ui_focus_next"): # tecla TAB por padrão
+			debug_status()
 
 func _input(event: InputEvent) -> void:
 	if is_frozen():
@@ -344,37 +336,24 @@ func puxar_no_timeout():
 
 #region Movement
 func Execute_Action() -> void:
-	#if is_frozen():
-		#return
+	if is_frozen():
+		return
 	
-	#if is_instance_valid(sfx_tensao_atual): 
-		#sfx_tensao_atual.stop()
-	#
-	#var audio_tiro = audio_chute_normal
-	#if lerp_current_force >= 1: 
-		#audio_tiro = audio_chute_max
-		#
-	#SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
+	if is_instance_valid(sfx_tensao_atual): 
+		sfx_tensao_atual.stop()
 	
-	lerp_current_force = 1
-	current_force = lerpf(playerInfo_atual.get_min_force(), playerInfo_atual.get_max_force(), lerp_current_force)
+	var audio_tiro = audio_chute_normal
+	if lerp_current_force >= 1: 
+		audio_tiro = audio_chute_max
+		
+	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
 	
-	current_direction = Vector2(0, 1)
+	Set_Current_Velocity(current_direction * current_force)
 	
-	var new_velocity = current_direction * current_force
-	Set_Current_Velocity(new_velocity)
+	ActionExecuted.emit(index, current_velocity, teamSide)
 	
-	ActionExecuted.emit(index, new_velocity)
-	
-	#print("max_force = ", playerInfo_atual.get_max_force())
-	#print("current_force = ", current_force)
-	#print("current_velocity = ", current_velocity)
-	#print("friction = ", friction)
-	
-
-	#
-	#_cancelar_interacao()
-	#turnPlayed.emit()
+	_cancelar_interacao()
+	turnPlayed.emit()
 
 #func move_object(_delta: float) -> void:
 	#var new_velocity = current_velocity * friction;
@@ -439,8 +418,10 @@ func Draw_Aim() -> void:
 		aim_line2D.visible = true
 		
 		var initial_point = aim_line2D.to_local(global_position)
+		#print("initial_point = ", initial_point)
 		
 		var final_point = aim_line2D.to_local(global_position + current_direction * (current_force * aimLineMultiplier))
+		#print("final_point = ", final_point)
 		
 		aim_line2D.set_point_position(0, initial_point)
 		aim_line2D.set_point_position(1, final_point)

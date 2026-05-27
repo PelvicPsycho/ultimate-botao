@@ -10,6 +10,8 @@ class_name PhysicsObject2D
 #@export var friction_min: float = 0.01
 #@export var friction_max: float = 0.2
 
+var radius: float
+
 var is_moving: bool
 
 # Runtime Variables

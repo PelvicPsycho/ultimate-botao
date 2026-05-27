@@ -1,7 +1,7 @@
 extends Node2D
 class_name SimulationController
 
-@export var CollisionResolution2D: CollisionResolution2D_Simulation
+@export var ColResolution2D: CollisionResolution2D
 
 var player_object = preload("res://CustomPhysics/Simulation/Scenes/Player2D_Simulation_NoVisuals.tscn")
 var ball_object = preload("res://CustomPhysics/Simulation/Scenes/Ball2D_Simulation_NoVisuals.tscn")
@@ -12,17 +12,14 @@ func _ready() -> void:
 	pass
 
 func update_objects_positions_and_variables() -> void:
-	for i in CollisionResolution2D.PhysicsObjects_List.size():
-		PhysicsObjects_List[i].global_position = CollisionResolution2D.PhysicsObjects_List[i].global_position
-		PhysicsObjects_List[i].mass = CollisionResolution2D.PhysicsObjects_List[i].mass
-		
-		print("Mass = ", PhysicsObjects_List[i].mass)
-		
-		PhysicsObjects_List[i].friction = CollisionResolution2D.PhysicsObjects_List[i].friction
-		PhysicsObjects_List[i].current_velocity = CollisionResolution2D.PhysicsObjects_List[i].current_velocity
+	for i in ColResolution2D.PhysicsObjects_List.size():
+		PhysicsObjects_List[i].global_position = ColResolution2D.PhysicsObjects_List[i].global_position
+		PhysicsObjects_List[i].mass = ColResolution2D.PhysicsObjects_List[i].mass
+		PhysicsObjects_List[i].friction = ColResolution2D.PhysicsObjects_List[i].friction
+
 
 func create_objects_copy() -> void:
-	for object in CollisionResolution2D.PhysicsObjects_List:
+	for object in ColResolution2D.PhysicsObjects_List:
 		if object.is_in_group("Players"):
 			var instance = player_object.instantiate()
 			instance.global_position = object.global_position
@@ -49,13 +46,13 @@ func create_objects_copy() -> void:
 			PhysicsObjects_List.append(instance)
 
 func connect_signal() -> void:
-	for object in CollisionResolution2D.PhysicsObjects_List:
+	for object in ColResolution2D.PhysicsObjects_List:
 		if object.is_in_group("Players"):
 			object.connect("ActionExecuted", Replicate_Action)
 
 func Replicate_Action(index: int, velocity: Vector2):
 	print("Iniciou a simulação")
-	#PhysicsObjects_List[index].current_velocity = velocity
+	PhysicsObjects_List[index].current_velocity = velocity
 	
 	Execute_Physic_Simulation_Run(0.016667, 1500)
 	
@@ -69,7 +66,6 @@ var object_B: PhysicsObject2D
 func Execute_Physic_Simulation_Run(_delta: float, num_max_steps: int) -> void:
 	# garante que todos os objetos estão no lugar que deveriam e com as variaveis corretas
 	update_objects_positions_and_variables()
-	
 	
 	for i in range(PhysicsObjects_List.size()):
 		PhysicsObjects_List[i].is_moving = false
@@ -101,11 +97,7 @@ func Execute_Physic_Simulation_Run(_delta: float, num_max_steps: int) -> void:
 		if all_stopped == true:
 			print("All objects stopped ------ Simulation Finalized")
 			break
-		
-		#print("---------- Simulation ----------")
-		#print("Object_1 ", PhysicsObjects_List[0].name," Velocity = ", PhysicsObjects_List[0].current_velocity)
-		#print("Object_2 ", PhysicsObjects_List[1].name," Velocity = ", PhysicsObjects_List[1].current_velocity)
-		#print("----------")
+
 		#if i % 100 == 0:
 		print("Step ", i)
 	
@@ -121,20 +113,15 @@ func collision_physics_object_resolution() -> void:
 				handle_physics_objects_collision(object_A, object_B)
 
 func has_collision_physics_object(object_1: PhysicsObject2D, object_2: PhysicsObject2D) -> bool:
-	var circle_shape_object_1: CircleShape2D = object_1.shapecast_physics_objects.shape as CircleShape2D
-	var radius_object_1: float = circle_shape_object_1.radius
-	
-	var circle_shape_object_2: CircleShape2D = object_2.shapecast_physics_objects.shape as CircleShape2D
-	var radius_object_2: float = circle_shape_object_2.radius
-
 	var line_of_impact = object_2.global_position - object_1.global_position
 	var distance = line_of_impact.length()
 	
-	var overlap = distance - (radius_object_1 + radius_object_2)
+	var overlap = distance - (object_1.radius + object_2.radius)
+
 	#print("Overlap = ", overlap)
 	
 	if overlap <= 0:
-		print("Estao dentro um do outro")
+		#print("Estao dentro um do outro")
 		return true
 	else:
 		return false
@@ -180,24 +167,18 @@ func handle_physics_objects_collision(object_1: PhysicsObject2D, object_2: Physi
 		var velocity_change_object_2 = line_of_impact * (num_object_2 / den)
 		object_2.current_velocity += velocity_change_object_2
 		
-		print("---------- Simulation Colision ----------")
-		print("Object_1 ", object_1.name," New Velocity = ", object_1.current_velocity)
-		print("Object_2 ", object_2.name," New Velocity = ", object_2.current_velocity)
-		print("----------")
+		#print("---------- Simulation Colision ----------")
+		#print("Object_1 ", object_1.name," New Velocity = ", object_1.current_velocity)
+		#print("Object_2 ", object_2.name," New Velocity = ", object_2.current_velocity)
+		#print("----------")
 
 
 func handle_physics_objects_inside_each_other(object_1: PhysicsObject2D, object_2: PhysicsObject2D, distance: float, line_of_impact: Vector2) -> bool:
-	var circle_shape_object_1: CircleShape2D = object_1.shapecast_physics_objects.shape as CircleShape2D
-	var radius_object_1: float = circle_shape_object_1.radius
-	
-	var circle_shape_object_2: CircleShape2D = object_2.shapecast_physics_objects.shape as CircleShape2D
-	var radius_object_2: float = circle_shape_object_2.radius
-	
-	var overlap = distance - (radius_object_1 + radius_object_2)
+	var overlap = distance - (object_1.radius + object_2.radius)
 	#print("Overlap = ", overlap)
 	
 	if overlap <= 0:
-		print("Estao dentro um do outro")
+		#print("Estao dentro um do outro")
 		overlap = abs(overlap)
 
 		line_of_impact = line_of_impact.normalized()
@@ -207,7 +188,7 @@ func handle_physics_objects_inside_each_other(object_1: PhysicsObject2D, object_
 
 		return true
 	else:
-		print("Não Estao dentro um do outro")
+		#print("Não Estao dentro um do outro")
 		return false
 		
 
@@ -244,10 +225,7 @@ func handle_physics_objects_inside_wall(object_1: PhysicsObject2D) -> void:
 	var line_of_impact = collision_point - object_1.global_position
 	var distance_from_impact = line_of_impact.length()
 	
-	var circle_shape_object_1: CircleShape2D = object_1.shapecast_physics_objects.shape as CircleShape2D
-	var radius_object_1: float = circle_shape_object_1.radius
-	
-	var overlap = distance_from_impact - radius_object_1
+	var overlap = distance_from_impact - object_1.radius
 	overlap = abs(overlap)
 	
 	line_of_impact = line_of_impact.normalized()
