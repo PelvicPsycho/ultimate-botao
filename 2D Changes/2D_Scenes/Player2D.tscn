@@ -13,8 +13,14 @@
 [ext_resource type="AudioStream" uid="uid://d4fx3ptn8m03m" path="res://Recursos/SFXs/BateuNaBola_footstep_carpet_003.wav" id="9_xkhmx"]
 [ext_resource type="AudioStream" uid="uid://clc333t0ptaed" path="res://Recursos/SFXs/BateuNaParede_footstep_wood_003.wav" id="10_fl8l5"]
 [ext_resource type="AudioStream" uid="uid://c7i8wt5kqjjw6" path="res://Recursos/SFXs/BateuNaTrave_406490__anthousai__hit-metallic-basketball-hoop-pipe-01.wav" id="11_gwudw"]
+[ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="12_gwudw"]
 [ext_resource type="Script" uid="uid://c7dpm24duc7i" path="res://2D Changes/2D_Scenes/MenuRadial.gd" id="14_xkhmx"]
 [ext_resource type="Texture2D" uid="uid://b70rbmif2lwgc" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816120457-removebg-preview.png" id="15_fl8l5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pol8b"]
+font = ExtResource("12_gwudw")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Curve" id="Curve_fl8l5"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -24,10 +30,10 @@ point_count = 2
 offsets = PackedFloat32Array(0, 0.096463025)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_th6yb"]
-radius = 47.095646
+radius = 35.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
-radius = 47.0
+radius = 35.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gwudw"]
 radius = 28.0
@@ -58,15 +64,22 @@ shapecast_walls = NodePath("ShapeCast2D_Walls")
 
 [node name="LabelPA" type="Label" parent="." unique_id=204624804]
 z_index = 1
-offset_left = -13.0
-offset_top = -38.0
-offset_right = 27.0
-offset_bottom = 29.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.5
+offset_top = -9.5
+offset_right = 4.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 48
 text = "s"
-vertical_alignment = 1
+label_settings = SubResource("LabelSettings_pol8b")
 
 [node name="Line2D_Aim" type="Line2D" parent="." unique_id=700380071]
 
@@ -90,9 +103,6 @@ antialiased = true
 scale = Vector2(0.01, 0.01)
 texture = ExtResource("3_wpyri")
 
-[node name="sprite2D_body" type="Sprite2D" parent="." unique_id=523510040]
-texture = ExtResource("3_tmkik")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=566741673]
 shape = SubResource("CircleShape2D_th6yb")
 
@@ -106,6 +116,10 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_r8syo")
 target_position = Vector2(0, 0)
 max_results = 1
+
+[node name="sprite2D_body" type="Sprite2D" parent="." unique_id=523510040]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_tmkik")
 
 [node name="MenuRadial" type="Node2D" parent="." unique_id=1971170759]
 z_index = 6
