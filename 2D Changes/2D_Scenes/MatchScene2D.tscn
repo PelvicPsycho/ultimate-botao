@@ -38,56 +38,56 @@ script = ExtResource("4_3wcxh")
 [node name="HomeTeam" type="Node2D" parent="PhysicsObjects_Group" unique_id=2082446946]
 
 [node name="HomeTeam_P1" parent="PhysicsObjects_Group/HomeTeam" unique_id=1542391535 instance=ExtResource("5_mnhma")]
-position = Vector2(728, 286)
+position = Vector2(728, 372)
 debug = false
 
 [node name="HomeTeam_P2" parent="PhysicsObjects_Group/HomeTeam" unique_id=990928524 instance=ExtResource("5_mnhma")]
-position = Vector2(561, 540)
+position = Vector2(561, 626)
 
 [node name="HomeTeam_P3" parent="PhysicsObjects_Group/HomeTeam" unique_id=838132576 instance=ExtResource("5_mnhma")]
-position = Vector2(728, 786)
+position = Vector2(728, 872)
 debug = false
 playerInfo = ExtResource("6_q7h6m")
 
 [node name="HomeTeam_P4" parent="PhysicsObjects_Group/HomeTeam" unique_id=587159052 instance=ExtResource("5_mnhma")]
-position = Vector2(728, 540)
+position = Vector2(728, 626)
 debug = false
 playerInfo = ExtResource("6_s6wlo")
 
 [node name="HomeTeam_P5" parent="PhysicsObjects_Group/HomeTeam" unique_id=535361106 instance=ExtResource("5_mnhma")]
-position = Vector2(390, 540)
+position = Vector2(390, 626)
 debug = false
 
 [node name="AwayTeam" type="Node2D" parent="PhysicsObjects_Group" unique_id=1460559231]
 
 [node name="AwayTeam_P1" parent="PhysicsObjects_Group/AwayTeam" unique_id=469839092 instance=ExtResource("5_mnhma")]
-position = Vector2(1409, 540)
+position = Vector2(1409, 628)
 debug = false
 playerInfo = ExtResource("6_7y1rs")
 
 [node name="AwayTeam_P2" parent="PhysicsObjects_Group/AwayTeam" unique_id=25673446 instance=ExtResource("5_mnhma")]
-position = Vector2(1409, 286)
+position = Vector2(1409, 374)
 debug = false
 playerInfo = ExtResource("6_7y1rs")
 
 [node name="AwayTeam_P3" parent="PhysicsObjects_Group/AwayTeam" unique_id=1075169366 instance=ExtResource("5_mnhma")]
-position = Vector2(1409, 786)
+position = Vector2(1409, 874)
 debug = false
 playerInfo = ExtResource("6_7y1rs")
 
 [node name="AwayTeam_P4" parent="PhysicsObjects_Group/AwayTeam" unique_id=92848485 instance=ExtResource("5_mnhma")]
-position = Vector2(1205, 540)
+position = Vector2(1205, 628)
 playerInfo = ExtResource("6_7y1rs")
 
 [node name="AwayTeam_P5" parent="PhysicsObjects_Group/AwayTeam" unique_id=2146689794 instance=ExtResource("5_mnhma")]
-position = Vector2(1598, 540)
+position = Vector2(1598, 628)
 debug = false
 playerInfo = ExtResource("6_7y1rs")
 
 [node name="Balls" type="Node2D" parent="PhysicsObjects_Group" unique_id=1788694925]
 
 [node name="Ball2d" parent="PhysicsObjects_Group/Balls" unique_id=1925699982 instance=ExtResource("6_m0edv")]
-position = Vector2(960, 540)
+position = Vector2(960, 628)
 
 [node name="Gol_Manager(Temporario)" type="Node2D" parent="." unique_id=632171838 node_paths=PackedStringArray("anunciadorui", "match_state")]
 script = ExtResource("5_p2q2m")
@@ -96,9 +96,8 @@ match_state = NodePath("..")
 
 [node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("3_r4ru6")]
 
-[node name="MatchUI" parent="." unique_id=2001534732 node_paths=PackedStringArray("pause_menu") instance=ExtResource("4_cdikc")]
+[node name="MatchUI" parent="." unique_id=2001534732 instance=ExtResource("4_cdikc")]
 unique_name_in_owner = true
-pause_menu = NodePath("../PauseMenu")
 
 [node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("6_gbtg2")]
 

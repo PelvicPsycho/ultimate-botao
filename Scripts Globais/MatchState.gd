@@ -86,8 +86,8 @@ func _ready() -> void:
 	timer.partida_acabou.connect(_on_partida_acabou)
 	timer.lance_acabou.connect(_on_lance_acabou)
 	timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)
-	timer._atualizar_barra_lance.connect(%MatchUI._atualizar_barra_lance)
-	timer.resetar_barra_lance.connect(%MatchUI.resetar_barra_lance)
+	#timer._atualizar_barra_lance.connect(%MatchUI._atualizar_barra_lance)
+	#timer.resetar_barra_lance.connect(%MatchUI.resetar_barra_lance)
 	
 	timer.iniciar_partida()
 	timer.iniciar_lance(currentTurn)
@@ -128,8 +128,7 @@ func assignPieces():
 		piece.loadPlayerInfo(player)
 
 func _atualizar_placar() -> void:
-	%MatchUI.placar_esq.text = str(homeScore)
-	%MatchUI.placar_dir.text = str(awayScore)
+	%MatchUI.atualizar_placar(homeScore, awayScore)
 
 func _on_lance_acabou() -> void: 
 	var alguma_peca_arrastada: bool = false
@@ -399,10 +398,10 @@ func _on_player_clicked_piece(Piece: PhysicsPlayer2D) -> void:
 	if carta_usada_no_turno:
 		return
 		
-	var carta = %MatchUI.obter_carta_selecionada()
-	
-	if carta != null:
-		print("è diferente de null")
-		Piece.playerInfo_atual.aplicar_buff(carta)
-		carta_usada_no_turno = true
-		%MatchUI.consumir_carta_selecionada()
+	#var carta = %MatchUI.obter_carta_selecionada()
+	#
+	#if carta != null:
+		#print("è diferente de null")
+		#Piece.playerInfo_atual.aplicar_buff(carta)
+		#carta_usada_no_turno = true
+		#%MatchUI.consumir_carta_selecionada()

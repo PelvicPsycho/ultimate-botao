@@ -29,8 +29,7 @@ var ultimo_tempo_particula_impacto_ms: int = -99999
 @onready var tracer2D = $Line2D_Trace
 
 var hover_tween: Tween
-var original_scale: Vector2 = Vector2(1, 1)
-var hover_scale: Vector2 = Vector2(1.2, 1.2)
+@export var hover_scale_multiplier: float = 1.2
 var deform_tween: Tween
 var base_visual_rotation: float = 0.0
 
@@ -77,8 +76,8 @@ func _ready() -> void:
 		return
 	
 	base_visual_position = sprite2D_body.position
-	original_scale = scale
-	base_visual_scale = sprite2D_body.scale
+	default_visual_scale = sprite2D_body.scale
+	base_visual_scale = default_visual_scale
 	base_visual_rotation = sprite2D_body.rotation
 	
 	start_Effects()
@@ -151,13 +150,14 @@ func atualizar_peca_pelo_status() -> void:
 		return
 
 	# --- VISUAL DA PEÇA ---
-	var target_scale: Vector2
+	# Usa a escala base do Inspector como tamanho normal da peça.
+	var scale_multiplier: float = 1.0
 	if playerInfo_atual.aumento_de_tamano:
-		target_scale = Vector2(2, 2)
+		scale_multiplier = 2.0
 	elif playerInfo_atual.diminui_de_tamano:
-		target_scale = Vector2(0.5, 0.5)
-	else:
-		target_scale = Vector2.ONE
+		scale_multiplier = 0.5
+
+	var target_scale: Vector2 = default_visual_scale * scale_multiplier
 	base_visual_scale = target_scale
 	var tween = create_tween().set_parallel(true)
 	tween.set_trans(Tween.TRANS_SPRING)
@@ -224,9 +224,10 @@ func _animar_hover(entrando: bool) -> void:
 		
 	
 		hover_tween = create_tween()
-		var target_scale: Vector2 = hover_scale if entrando else original_scale
+		var target_scale: Vector2 = base_visual_scale * hover_scale_multiplier if entrando else base_visual_scale
 		var duration: float = 0.2
-		hover_tween.tween_property(self, "scale", target_scale, duration).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)	
+		hover_tween.tween_property(sprite2D_body, "scale", target_scale, duration).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)	
+
 func definir_estado_visual(ativo: bool) -> void:
 	self.canPlay = ativo
 	
@@ -699,6 +700,7 @@ var cooldown_timer: float = 0.0
 var cooldown_duration: float = 0.1  # Cooldown curto para evitar disparos repetidos
 var base_visual_position: Vector2 = Vector2.ZERO
 var base_visual_scale: Vector2 = Vector2.ONE
+var default_visual_scale: Vector2 = Vector2.ONE
 
 @export var shake_amplitude_min: float = 0.8
 @export var shake_amplitude_max: float = 4.0
