@@ -17,6 +17,10 @@ var sort_mode := 0  # 0 = ordem original, 1 = A-Z, 2 = Rank
 @export_group("Navegação Superior")
 @export var slot_buttons: Array[TextureButton]
 
+@export_group("Texturas dos Slots (Topo)")
+@export var textura_slot_selecionado: Texture2D
+@export var textura_slot_inativo: Texture2D
+
 @export_group("Menu Lateral")
 @export var tab_pieces_btn: TextureButton
 @export var tab_cards_btn: TextureButton
@@ -43,6 +47,10 @@ var sort_mode := 0  # 0 = ordem original, 1 = A-Z, 2 = Rank
 @export_group("Janela Central - Visual")
 @export var center_card_view: VBoxContainer
 @export var center_peca_view: VBoxContainer
+
+@export_group("Janela Central - Visibilidade")
+@export var center_pai_margincontainer: MarginContainer 
+@export var center_plainmsg_vbox: VBoxContainer
 
 @export_group("Janela Central - Elementos da Peça")
 @export var center_peca_stats: RichTextLabel
@@ -80,6 +88,7 @@ func _ready() -> void:
 	_connect_signals()
 	_select_slot(1)
 	_switch_tab(CategoryTab.PIECES)
+	_clear_center_window()
 
 func _connect_signals() -> void:
 	for i in range(slot_buttons.size()):
@@ -109,11 +118,22 @@ func _select_slot(slot_index: int) -> void:
 		btn.pivot_offset = btn.size / 2.0
 		
 		if (i + 1) == current_slot:
+			# Animação para o botão selecionado (aumenta)
 			tween.tween_property(btn, "scale", Vector2(1.2, 1.2), 0.15).set_trans(Tween.TRANS_SINE)
 			tween.tween_property(btn, "modulate", Color.WHITE, 0.15)
+			
+			# Aplica a textura do botão ativo (Ex: O Azul)
+			if textura_slot_selecionado:
+				btn.texture_normal = textura_slot_selecionado
+				
 		else:
+			# Animação para os botões inativos (tamanho normal)
 			tween.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.15).set_trans(Tween.TRANS_SINE)
-			tween.tween_property(btn, "modulate", Color(0.7, 0.7, 0.7, 1.0), 0.15)
+			tween.tween_property(btn, "modulate", Color.WHITE, 0.15)
+			
+			# Aplica a textura do botão inativo (Ex: O Vermelho)
+			if textura_slot_inativo:
+				btn.texture_normal = textura_slot_inativo
 			
 	_update_right_window()
 	GameState.imprimir_status_do_time()
@@ -267,6 +287,8 @@ func _popular_lista(lista_de_itens: Array) -> void:
 
 # --- INSPEÇÃO E VISUALIZAÇÃO ---
 func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool = false, _esta_em_outro_jogador: bool = false, _nome_do_outro_jogador: String = ""):
+	if center_pai_margincontainer: center_pai_margincontainer.visible = true
+	if center_plainmsg_vbox: center_plainmsg_vbox.visible = false
 	item_em_inspecao = item
 	inspecionando_carta_equipada = is_equipped_here
 	
@@ -339,20 +361,32 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 		var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, item.quantosSlotes]
 		center_peca_stats.text = texto_status
 		
-# --- INÍCIO DA ATUALIZAÇÃO DO GRID CENTRAL ---
+# --- ATUALIZAÇÃO DO GRID CENTRAL PARA USAR A CENA DE CARTA ---
 		for child in center_peca_grid.get_children():
 			child.queue_free()
 			
-		# Tamanho fixo que você definiu para o centro
-		var tamanho_carta_centro = Vector2(96, 116)
+		# 1. Lê dinamicamente o tamanho real da sua cena de carta pequena
+		var tamanho_carta_centro = Vector2(50, 70) # Tamanho padrão de segurança
+		if cena_carta_pequena:
+			var btn_fantasma = cena_carta_pequena.instantiate()
+			if btn_fantasma is Control and btn_fantasma.custom_minimum_size != Vector2.ZERO:
+				tamanho_carta_centro = btn_fantasma.custom_minimum_size
+			btn_fantasma.queue_free()
 			
+		# 2. Popula o grid com o componente real de carta ou slot vazio
 		for carta in item.slotsUpgrates:
 			if carta != null:
-				var icone = TextureRect.new()
-				icone.texture = carta.arte
-				icone.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-				icone.custom_minimum_size = tamanho_carta_centro
-				center_peca_grid.add_child(icone)
+				if cena_carta_pequena:
+					var btn_carta = cena_carta_pequena.instantiate()
+					center_peca_grid.add_child(btn_carta)
+					
+					if btn_carta.has_method("setup_item"):
+						btn_carta.setup_item(carta)
+						
+					# Como é apenas exibição visual no centro, deixamos o botão "surdo"
+					if btn_carta is BaseButton:
+						btn_carta.disabled = true
+					btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			else:
 				var slot_vazio = ColorRect.new()
 				slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5)
@@ -361,7 +395,7 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 				slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 				center_peca_grid.add_child(slot_vazio)
 				
-		# 3. Matemática da Escala para a janela central
+		# 3. Matemática da Escala para a janela central (baseada no tamanho real do componente)
 		var espaco_colunas_centro = center_peca_grid.get_theme_constant("h_separation")
 		var colunas_centro = center_peca_grid.columns if center_peca_grid.columns > 0 else 3
 		var largura_necessaria_centro = (tamanho_carta_centro.x * colunas_centro) + (espaco_colunas_centro * (colunas_centro - 1))
@@ -375,6 +409,7 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 			center_peca_grid.scale = Vector2(escala, escala)
 		else:
 			center_peca_grid.scale = Vector2(1, 1)
+		# --- FIM DA ATUALIZAÇÃO DO GRID CENTRAL ---
 				
 		if center_peca_slots_hbox:
 			for child in center_peca_slots_hbox.get_children():
@@ -401,9 +436,16 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 func _clear_center_window() -> void:
 	item_em_inspecao = null
 	inspecionando_carta_equipada = false
-	central_nome_label.text = "Selecione um item"
+	
+	# Troca a visibilidade
+	if center_pai_margincontainer: center_pai_margincontainer.visible = false
+	if center_plainmsg_vbox: center_plainmsg_vbox.visible = true
+	
+	# Limpa os dados residuais
+	central_nome_label.text = "" 
 	central_descricao_label.text = ""
-	central_arte_rect.texture = null
+	if central_arte_rect: central_arte_rect.texture = null
+	
 	center_action_label.text = "Ação" 
 	center_action_label.modulate = Color.WHITE
 	center_action_btn.disabled = true
