@@ -15,7 +15,7 @@ var awayScore: int
 
 # Cache para otimização
 var allBalls: Array[Node]
-
+var efeitos_visuais_ativos: Dictionary = {}
 var carta_usada_no_turno: bool = false
 var currentTurn: turn
 var rallyCounter: int = 1
@@ -387,7 +387,12 @@ func tentar_usar_carta(piece: PhysicsPlayer2D, carta: CardResource) -> void:
 	if piece == null or carta == null:
 		print("Erro: peça ou carta inválida.")
 		return
+	if piece.playerInfo_atual.PA < carta.custo_energia:
+		print("PA insuficiente! Precisa de ", carta.custo_energia, " PA, mas tem apenas ", piece.playerInfo_atual.PA)
+		return
+	
 	piece.playerInfo_atual.aplicar_buff(carta)
+	piece.animar_efeito_por_carta(carta) 
 	carta_usada_no_turno = true
 
 func _on_player_clicked_piece(Piece: PhysicsPlayer2D) -> void:

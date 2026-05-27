@@ -11,6 +11,8 @@ var current_distance: float = 0
 @export var max_distance: float = 1
 signal carta_clicada(carta)
 var dono: PhysicsPlayer2D
+var efeitos_visuais_ativos: Dictionary = {}
+
 var team: Team
 @export var playerInfo: TeamPlayer
 var playerInfo_atual: TeamPlayer
@@ -163,6 +165,8 @@ func atualizar_peca_pelo_status() -> void:
 	tween.tween_property(ShapeCast2D_Objects, "scale", target_scale, 0.5)
 	tween.tween_property(ShapeCast2D_Walls, "scale", target_scale, 0.5)
 	tween.tween_property(sprite2D_body, "scale", target_scale, 0.5)
+	if playerInfo_atual.duracao_dos_buffs.is_empty():
+		limpar_todos_efeitos_visuais()
 	if playerInfo_atual.turnos_congelamento_armazenado > 0 or playerInfo_atual.disabilitado:
 		sprite2D_body.self_modulate = Color(0.5, 0.8, 1.0) 
 	else:
@@ -184,6 +188,10 @@ func Update_Values_With_StatusAtual() -> void:
 	friction = playerInfo_atual.basic_friction
 
 func _process(delta: float) -> void:
+	var label = get_node_or_null("LabelPA")
+	
+	if label and playerInfo_atual:
+		label.text = str(playerInfo_atual.PA)
 	Draw_Aim()
 	Draw_Dragging_Line()
 	Draw_Velocity_Line()
@@ -477,7 +485,15 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 			object_collided.aplicar_congelamento(playerInfo_atual.poder_congelar_turnos)
 			playerInfo_atual.congelamento_ativo = false
 				
-
+	if playerInfo_atual and playerInfo_atual.empurra_aliados_ativo:
+		# Verifica se quem bateu é do MESMO TIME (aliado)
+		if object_collided.team == self.team:
+			if object_collided.has_method("aplicar_empurrao"):
+				# Passa a velocidade atual para dar o boost
+				
+				object_collided.aplicar_empurrao(self.current_velocity)
+				# Gasta o poder após usar
+				playerInfo_atual.empurra_aliados_ativo = false	
 	var agora_ms := Time.get_ticks_msec()
 	if agora_ms - ultimo_tempo_particula_impacto_ms < intervalo_minimo_particula_impacto_ms:
 		return
@@ -761,8 +777,69 @@ func is_frozen() -> bool:
 	if playerInfo_atual:
 		return playerInfo_atual.disabilitado or playerInfo_atual.turnos_congelamento_armazenado > 0
 	return false
-	
+# Inicia um piscar contínuo na cor do efeito
+func adicionar_efeito_visual(tipo: int, cor: Color) -> void:
+	efeitos_visuais_ativos[tipo] = cor
+	atualizar_piscar_multi()
 
+func remover_efeito_visual(tipo: int) -> void:
+	efeitos_visuais_ativos.erase(tipo)
+	atualizar_piscar_multi()
+
+func limpar_todos_efeitos_visuais() -> void:
+	efeitos_visuais_ativos.clear()
+	atualizar_piscar_multi()
+
+func atualizar_piscar_multi() -> void:
+	# Mata o tween antigo
+	if buff_tween and buff_tween.is_valid():
+		buff_tween.kill()
+		buff_tween = null
+	
+	# Se não tem nenhum efeito ativo, volta à cor normal
+	if efeitos_visuais_ativos.is_empty():
+		if is_instance_valid(sprite2D_body):
+			sprite2D_body.self_modulate = team.cor
+		return
+	
+	# Pega todas as cores ativas
+	var cores: Array[Color] = []
+	for cor in efeitos_visuais_ativos.values():
+		cores.append(cor)
+	
+	# Cria um tween que cicla entre todas as cores + volta ao normal
+	var tw = create_tween().set_loops()
+	for cor in cores:
+		tw.tween_property(sprite2D_body, "self_modulate", cor, 0.15)
+		tw.tween_property(sprite2D_body, "self_modulate", team.cor, 0.15)
+	buff_tween = tw
+func animar_efeito_por_carta(card: CardResource) -> void:
+	match card.tipo_efeito:
+		CardResource.TipoEfeito.FORCA:
+			adicionar_efeito_visual(card.tipo_efeito, Color(1.0, 0.5, 0.2))
+		CardResource.TipoEfeito.PA:
+			adicionar_efeito_visual(card.tipo_efeito, Color(0.3, 0.6, 1.0))
+		CardResource.TipoEfeito.Congelamento:
+			adicionar_efeito_visual(card.tipo_efeito, Color(0.5, 0.8, 1.0))
+		CardResource.TipoEfeito.TrocaLugar:
+			adicionar_efeito_visual(card.tipo_efeito, Color(0.7, 0.3, 1.0))
+		CardResource.TipoEfeito.Grande:
+			adicionar_efeito_visual(card.tipo_efeito, Color(0.3, 1.0, 0.5))
+		CardResource.TipoEfeito.Pequeno:
+			adicionar_efeito_visual(card.tipo_efeito, Color(1.0, 0.9, 0.3))
+		CardResource.TipoEfeito.Empurrão:
+			adicionar_efeito_visual(card.tipo_efeito, Color(1.0, 0.7, 0.1))
+		CardResource.TipoEfeito.Atrasao:
+			adicionar_efeito_visual(card.tipo_efeito, Color(0.6, 0.4, 0.9))
+func aplicar_empurrao(velocidade_aliado: Vector2) -> void:
+	var impulso = velocidade_aliado * 4
+	Set_Current_Velocity(current_velocity + impulso)
+	
+	if buff_tween and buff_tween.is_valid():
+		buff_tween.kill()
+	var tw = create_tween().set_parallel(true)
+	tw.tween_property(sprite2D_body, "self_modulate", Color.YELLOW, 0.3)
+	tw.tween_property(sprite2D_body, "self_modulate", team.cor, 0.3)
 func get_player_que_quer_trocar() -> PhysicsPlayer2D:
 	var players = get_tree().get_nodes_in_group("Players")
 	
@@ -883,6 +960,10 @@ func debug_status():
 	print("  Buffs Ativos:", playerInfo_atual.duracao_dos_buffs)
 
 func abrir_botoes_cartas():
+	var ms = get_tree().root.get_node("MatchScene2d")
+	if ms and ms.carta_usada_no_turno:
+		print("Já usou carta neste turno, não vai abrir o radial.")
+		return
 	if PhysicsPlayer2D.last_piece_with_radial != null:
 		if PhysicsPlayer2D.last_piece_with_radial != self:
 			if PhysicsPlayer2D.last_piece_with_radial.menu_radial.is_open:
@@ -891,7 +972,7 @@ func abrir_botoes_cartas():
 	for c in playerInfo_atual.slotsUpgrates:
 		if c != null:
 			cartas.append(c)
-	menu_radial.definir_cartas(cartas)
+	menu_radial.definir_cartas(cartas, playerInfo_atual.PA)
 	if not menu_radial.carta_clicada.is_connected(_on_carta_do_radial):
 		menu_radial.carta_clicada.connect(_on_carta_do_radial)
 	menu_radial.scale = Vector2(1.5, 1.5)

@@ -56,6 +56,17 @@ velocity_line2D = NodePath("Line2D_Velocity")
 shapecast_physics_objects = NodePath("ShapeCast2D_Objects")
 shapecast_walls = NodePath("ShapeCast2D_Walls")
 
+[node name="LabelPA" type="Label" parent="." unique_id=204624804]
+z_index = 1
+offset_left = -13.0
+offset_top = -38.0
+offset_right = 27.0
+offset_bottom = 29.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 48
+text = "s"
+
 [node name="Line2D_Aim" type="Line2D" parent="." unique_id=700380071]
 
 [node name="Line2D_Drag" type="Line2D" parent="." unique_id=1403667517]

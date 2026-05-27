@@ -106,6 +106,8 @@ pause_menu = NodePath("../PauseMenu")
 
 [node name="MatchTimer" type="Node" parent="." unique_id=1351562667]
 script = ExtResource("8_j0mnx")
-tempo_maximo_partida = 10.0
+
+[node name="MatchTimer2" type="Node" parent="." unique_id=1024035209]
+script = ExtResource("8_j0mnx")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=229047291]
