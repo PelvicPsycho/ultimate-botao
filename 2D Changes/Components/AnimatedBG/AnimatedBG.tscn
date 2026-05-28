@@ -1,22 +1,58 @@
 [gd_scene format=3 uid="uid://dsl2qmaeehsxq"]
 
-[ext_resource type="Shader" uid="uid://b43hwl80y7u83" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.gdshader" id="1_6b77n"]
-[ext_resource type="Texture2D" uid="uid://ctclnfs71m01d" path="res://Recursos/2D_Art/MyTeam/fundo 01.png" id="2_naqua"]
+[ext_resource type="Shader" uid="uid://d2mr4iq1jf0mb" path="res://2D Changes/Components/AnimatedBG/fundo_scroll.gdshader" id="1_6b77n"]
+[ext_resource type="Texture2D" uid="uid://begouwdbb6n8r" path="res://2D Changes/Components/AnimatedBG/fondo teste 1_Prancheta 1.png" id="2_naqua"]
+
+[sub_resource type="Gradient" id="Gradient_fmb8l"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_404ek"]
+noise_type = 4
+seed = 7
+frequency = 0.0069
+fractal_weighted_strength = 0.38
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_138kc"]
+noise = SubResource("FastNoiseLite_404ek")
+color_ramp = SubResource("Gradient_fmb8l")
+seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fmb8l"]
 shader = ExtResource("1_6b77n")
-shader_parameter/speedMult = 0.1
+shader_parameter/scroll_speed = 0.05
+shader_parameter/angle_degrees = 45.0
+shader_parameter/repeat_x = 13.0
+shader_parameter/repeat_y = 13.0
+shader_parameter/tint = Color(1, 1, 1, 0.23921569)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_138kc")
+shader_parameter/warp_strength = 0.00999999977648
+shader_parameter/warp_scale = 1.0
+shader_parameter/warp_speed = 0.1
+shader_parameter/enable_bitcrush = true
+shader_parameter/pixel_size = 246.0
+shader_parameter/color_depth = 8
+shader_parameter/crush_warp = false
+shader_parameter/enable_dithering = true
+shader_parameter/dither_strength = 0.97999997809504
 
 [node name="AnimatedBg" type="Control" unique_id=28414625]
 layout_mode = 3
 anchors_preset = 0
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1088536959]
+layout_mode = 0
+offset_left = -781.0
+offset_top = -573.0
+offset_right = 3658.0
+offset_bottom = 1978.0
+color = Color(0.13725491, 0.22745098, 0.29803923, 1)
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=792784418]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_fmb8l")
 layout_mode = 0
-offset_left = -300.0
-offset_right = 3540.0
-offset_bottom = 2160.0
+offset_left = -779.0
+offset_top = -569.0
+offset_right = 3677.0
+offset_bottom = 1956.0
 texture = ExtResource("2_naqua")
-stretch_mode = 1
+stretch_mode = 6
