@@ -5,12 +5,25 @@
 [ext_resource type="Texture2D" uid="uid://2cnlefi2jtnx" path="res://Recursos/2D_Art/MyTeam/Rectangle 34_rankcarta.png" id="3_rdpgs"]
 [ext_resource type="Texture2D" uid="uid://47ugmokghauy" path="res://Recursos/2D_Art/MyTeam/Group 53_.png" id="4_qes8w"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s50es"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 5
+
 [node name="PecasUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "foto_icone", "rank_label", "quantidade_label")]
 custom_minimum_size = Vector2(180, 180)
 offset_right = 120.0
 offset_bottom = 160.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_s50es")
 script = ExtResource("1_s50es")
 nome_label = NodePath("Control/MarginContainer/ContainerLayout_VBoxContainer/Nome_Label")
 foto_icone = NodePath("Control/MarginContainer/ContainerLayout_VBoxContainer/ImagePlaceHolder_ColorRect")
@@ -44,6 +57,7 @@ offset_left = -21.0
 offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 18
 text = "99"
 horizontal_alignment = 1
@@ -69,6 +83,7 @@ offset_right = 8.5
 offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 30
 text = "S"
 
@@ -104,6 +119,7 @@ expand_mode = 1
 [node name="Nome_Label" type="Label" parent="Control/MarginContainer/ContainerLayout_VBoxContainer" unique_id=264130752]
 custom_minimum_size = Vector2(120, 50)
 layout_mode = 2
+theme_override_constants/outline_size = 4
 text = "Nome da Peca Super Longo"
 horizontal_alignment = 1
 autowrap_mode = 2

@@ -31,8 +31,8 @@ var sort_mode := 0  # 0 = ordem original, 1 = A-Z, 2 = Rank
 @export var btn_salvar_sair: Button
 
 @export_group("Filtros")
-@export var az_filter_btn: Button
-@export var rank_filter_btn: Button
+@export var az_filter_btn: TextureButton
+@export var rank_filter_btn: TextureButton
 
 @export_group("Janela Esquerda")
 @export var inventory_list: GridContainer 
@@ -89,6 +89,7 @@ func _ready() -> void:
 	_select_slot(1)
 	_switch_tab(CategoryTab.PIECES)
 	_clear_center_window()
+	_atualizar_visuais_dos_filtros()
 
 func _connect_signals() -> void:
 	for i in range(slot_buttons.size()):
@@ -193,20 +194,52 @@ func _switch_tab(tab: CategoryTab) -> void:
 
 # --- FILTROS DE ORDENAÇÃO ---
 func _on_az_filter_pressed() -> void:
-	if sort_mode == 1:
-		az_ascending = not az_ascending
-	else:
+	if sort_mode != 1:
+		# 1º Clique: Ativa A-Z (Crescente)
 		sort_mode = 1
 		az_ascending = true
+	elif az_ascending == true:
+		# 2º Clique: Inverte para Z-A (Decrescente)
+		az_ascending = false
+	else:
+		# 3º Clique: Desliga o filtro e volta à ordem original do save
+		sort_mode = 0
+		az_ascending = true # Reseta para a próxima vez
+		
+	_atualizar_visuais_dos_filtros()
 	_switch_tab(current_tab)
 
 func _on_rank_filter_pressed() -> void:
-	if sort_mode == 2:
-		rank_ascending = not rank_ascending
-	else:
+	if sort_mode != 2:
+		# 1º Clique: Ativa Rank (Melhor pro Pior)
 		sort_mode = 2
 		rank_ascending = true
+	elif rank_ascending == true:
+		# 2º Clique: Inverte para Rank (Pior pro Melhor)
+		rank_ascending = false
+	else:
+		# 3º Clique: Desliga o filtro
+		sort_mode = 0
+		rank_ascending = true # Reseta para a próxima vez
+		
+	_atualizar_visuais_dos_filtros()
 	_switch_tab(current_tab)
+
+func _atualizar_visuais_dos_filtros() -> void:
+	# 1. Reseta os dois botões para a cor original (branco puro / sem filtro)
+	if az_filter_btn: az_filter_btn.modulate = Color.WHITE
+	if rank_filter_btn: rank_filter_btn.modulate = Color.WHITE
+	
+	# 2. Define as cores dos estados (você pode alterar esses valores depois)
+	var cor_estado_1 = Color(0.5, 1.0, 0.5)  # Verde Claro (Crescente)
+	var cor_estado_2 = Color(1.0, 0.6, 0.2)  # Laranja (Decrescente)
+	
+	# 3. Pinta apenas o botão que está ativo
+	if sort_mode == 1 and az_filter_btn:
+		az_filter_btn.modulate = cor_estado_1 if az_ascending else cor_estado_2
+		
+	elif sort_mode == 2 and rank_filter_btn:
+		rank_filter_btn.modulate = cor_estado_1 if rank_ascending else cor_estado_2
 
 func _apply_sort(array: Array) -> void:
 	match sort_mode:

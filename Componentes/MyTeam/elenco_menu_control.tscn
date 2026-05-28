@@ -12,7 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://orrq0vy3qa51" path="res://Componentes/MyTeam/inventory_pecas_button.tscn" id="7_3c3cq"]
 [ext_resource type="Texture2D" uid="uid://sb143gchnnfr" path="res://Recursos/2D_Art/MyTeam/Group 57.png" id="9_cep57"]
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="10_wegx5"]
+[ext_resource type="Texture2D" uid="uid://b7i7lscx1xobo" path="res://Recursos/2D_Art/MyTeam/Rectangle 23.png" id="13_0maoc"]
 [ext_resource type="PackedScene" uid="uid://d0h3cghqr1iun" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="13_2ysy5"]
+[ext_resource type="Texture2D" uid="uid://dnafvuhag1c13" path="res://Recursos/2D_Art/MyTeam/Rectangle 24.png" id="13_3c3cq"]
 
 [node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "az_filter_btn", "rank_filter_btn", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_pai_margincontainer", "center_plainmsg_vbox", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox")]
 layout_mode = 3
@@ -116,6 +118,7 @@ offset_right = 14.5
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 50
 text = "1"
 horizontal_alignment = 1
@@ -144,6 +147,7 @@ offset_right = 14.5
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 50
 text = "2"
 horizontal_alignment = 1
@@ -172,6 +176,7 @@ offset_right = 14.5
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 50
 text = "3"
 horizontal_alignment = 1
@@ -200,6 +205,7 @@ offset_right = 14.5
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 50
 text = "4"
 horizontal_alignment = 1
@@ -228,6 +234,7 @@ offset_right = 14.5
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 50
 text = "5"
 horizontal_alignment = 1
@@ -309,20 +316,82 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="RankFilter_Button" type="Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer" unique_id=1136201643]
+[node name="RankFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer" unique_id=1856155120]
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
+texture_normal = ExtResource("13_3c3cq")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+
+[node name="Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer/RankFilter_Button" unique_id=2077872903]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 text = "Rank"
 
-[node name="AZFilter_Button" type="Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer" unique_id=214415009]
+[node name="AZFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer" unique_id=866524000]
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
+texture_normal = ExtResource("13_0maoc")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label2" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer/AZFilter_Button" unique_id=765010231]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 text = "A-Z"
 
-[node name="TypeFilter_Button" type="Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer" unique_id=25094386]
+[node name="TypeFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer" unique_id=1879588817]
+visible = false
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
+texture_normal = ExtResource("13_3c3cq")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label3" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer/TypeFilter_Button" unique_id=2055535907]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
-text = "Type"
+text = "Tipo"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer" unique_id=609357060]
 layout_mode = 2
@@ -370,6 +439,7 @@ layout_mode = 2
 
 [node name="CW-ItemName_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer" unique_id=1025454950]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 text = "ItemName"
 
@@ -395,6 +465,7 @@ offset_right = 14.5
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 50
 text = "Label"
 horizontal_alignment = 1
@@ -413,6 +484,7 @@ expand_mode = 1
 [node name="ItemDescription_RichTextLabel" type="RichTextLabel" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer" unique_id=383872329]
 custom_minimum_size = Vector2(300, 10)
 layout_mode = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
 text = "ItemDescription"
@@ -434,6 +506,7 @@ theme_override_constants/separation = 20
 
 [node name="CW_ContagemSlots_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=1756251348]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 text = "Slots (0/0)"
 
 [node name="CENTERSlotsIndicator_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=649715996]
@@ -447,10 +520,12 @@ expand_mode = 1
 
 [node name="Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=148654219]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 text = "Cartas"
 
 [node name="CENTERStatsLabel_RichTextLabel" type="RichTextLabel" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=824658106]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 text = "Stats Label Rich Text"
 fit_content = true
 
@@ -487,12 +562,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -11.5
-offset_right = 30.0
-offset_bottom = 11.5
+offset_left = -65.5
+offset_top = -23.5
+offset_right = 65.5
+offset_bottom = 25.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 35
 text = "Equipar"
 
@@ -524,6 +600,7 @@ expand_mode = 1
 [node name="Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/PlainMSG_VBoxContainer" unique_id=1283336788]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 40
 text = "Selecione uma peça ou carta para inspecionar"
 horizontal_alignment = 1
@@ -550,12 +627,14 @@ layout_mode = 2
 [node name="PieceNameTitle_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer" unique_id=309090189]
 layout_mode = 2
 mouse_filter = 1
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 text = "PieceName Label"
 
 [node name="RW-ItemName_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer" unique_id=167573881]
 visible = false
 layout_mode = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 text = "ItemName"
 
@@ -575,12 +654,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -14.5
-offset_top = -40.0
-offset_right = 14.5
-offset_bottom = 29.0
+offset_left = -65.0
+offset_top = -39.0
+offset_right = 65.0
+offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 50
 text = "Label"
 horizontal_alignment = 1
@@ -588,6 +668,7 @@ vertical_alignment = 1
 
 [node name="RW_ContagemSlots_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1029797107]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 text = "Slots (0/0)"
 
 [node name="SlotsIndicator_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1841438748]
@@ -602,6 +683,7 @@ expand_mode = 1
 [node name="StatsLabel_RichTextLabel" type="RichTextLabel" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=309406376]
 layout_mode = 2
 mouse_filter = 2
+theme_override_constants/outline_size = 5
 text = "Forca
 PA
 Slots"
