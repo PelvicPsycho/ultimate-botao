@@ -10,6 +10,8 @@ extends CanvasLayer
 ## Arraste o nó Control raiz do seu Menu de Configurações aqui
 @export var tela_config: Control
 
+var tela_atual: Control = null
+
 # Configurações de "Gamefeel"
 const SCALE_CLICK_FACTOR = 0.85
 const CLICK_TIME = 0.05
@@ -63,18 +65,41 @@ func _on_button_up(button: TextureButton):
 
 # Função central que esconde o que não importa e mostra o alvo
 func _alternar_telas(tela_alvo: Control) -> void:
-	# 1. Esconde tudo por precaução
+	# 1. Verifica se estamos SAINDO do Menu Elenco para ir para outra tela
+	if tela_atual == tela_elenco and tela_alvo != tela_elenco:
+		_sincronizar_elenco()
+	
+	# 2. Esconde tudo
 	if tela_elenco: tela_elenco.hide()
 	if tela_torneios: tela_torneios.hide()
 	if tela_config: tela_config.hide()
 	
-	# 2. Mostra apenas a tela que o botão mandou
+	# 3. Mostra apenas a tela que o botão mandou e atualiza o rastreador
 	if tela_alvo:
 		tela_alvo.show()
-		
-	# 3. Salva o jogo sempre que ocorrer essa transição
+		tela_atual = tela_alvo
+
+
+# --- A SUBSCRIÇÃO DA SUA FUNÇÃO DE SAVE/SYNC ---
+func _sincronizar_elenco() -> void:
 	SaveManager.save_game()
-	print("Jogo salvo na transição para a aba: ", tela_alvo.name if tela_alvo else "Vazia")
+	
+	# Pega a quantidade de slots direto da tela de elenco (ou usa 3 como segurança)
+	var tamanho_slots = 3
+	if tela_elenco and "slot_buttons" in tela_elenco:
+		tamanho_slots = tela_elenco.slot_buttons.size()
+		
+	var num_titulares = mini(tamanho_slots, GameState.jogadores.size())
+	
+	CupManager.myTeam.mainSquad.clear()
+	for i in range(num_titulares):
+		CupManager.myTeam.mainSquad.append(GameState.jogadores[i])
+		
+	CupManager.myTeam.collectedSquad.clear()
+	for i in range(num_titulares, GameState.jogadores.size()):
+		CupManager.myTeam.collectedSquad.append(GameState.jogadores[i])
+		
+	print("✔ Alterações no elenco salvas e sincronizadas com o CupManager!")
 
 # Função auxiliar para retornar botões não selecionados ao padrão
 func _animate_to_normal(button: TextureButton):

@@ -73,6 +73,7 @@ func _carregar_time_inicial():
 	SaveManager.save_game()
 
 func _on_button_pressed() -> void:
+	print("Deletou o save")
 	SaveManager.delete_save()
 
 
