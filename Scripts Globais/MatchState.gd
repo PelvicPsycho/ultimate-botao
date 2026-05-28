@@ -104,7 +104,7 @@ func _ready() -> void:
 func loadMatch():
 	homeTeam = CupManager.myTeam
 	awayTeam = CupManager.currentCompetitor
-	homeScore = 1
+	homeScore = 0
 	awayScore = 0
 	rallyCounter = 1
 	turnCounter = 0
@@ -147,9 +147,9 @@ func _on_lance_acabou() -> void:
 	if alguma_peca_arrastada and peca_arrastada != null:
 		timer.lance_rodando = true
 		peca_arrastada.puxar_no_timeout()
-		
-		if peca_arrastada.vetor_arrasto_atual.length_squared() <= 25.0:
-			changeTurn()
+		#
+		#if peca_arrastada.vetor_arrasto_atual.length_squared() <= 25.0:
+			#changeTurn()
 	else:
 		changeTurn()
 
