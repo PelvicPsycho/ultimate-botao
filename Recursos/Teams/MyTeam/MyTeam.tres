@@ -16,7 +16,7 @@
 script = ExtResource("2_2t8uq")
 name = "My Team"
 ranque = 7
-cor = Color(0, 1, 0, 1)
+cor = Color(0.2901961, 0.6509804, 0.42745098, 1)
 emblem = ExtResource("2_iqaby")
 mainSquad = Array[ExtResource("1_n3tuv")]([ExtResource("2_hivfl"), ExtResource("3_iqaby"), ExtResource("4_iymq7"), ExtResource("5_s2d8k"), ExtResource("6_75tbl")])
 collectedSquad = Array[ExtResource("1_n3tuv")]([ExtResource("2_iymq7")])

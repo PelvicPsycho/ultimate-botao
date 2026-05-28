@@ -29,6 +29,16 @@ extends CanvasLayer
 
 var homeTeam: Team
 var awayTeam: Team
+var estado_shots_home: Array[bool] = []
+var estado_shots_away: Array[bool] = []
+var ultimo_time_posse: int = -1
+
+@export var escala_painel_ativo: Vector2 = Vector2(1.0, 1.0)
+@export var escala_painel_inativo: Vector2 = Vector2(0.75, 0.75)
+@export var duracao_animacao_posse: float = 0.22
+
+func _ready() -> void:
+	_inicializar_estado_lances()
 
 func UI_start(homeTeam: Team, awayTeam: Team):
 	
@@ -91,36 +101,101 @@ func colorir_turno(activeTeam: Team, turnCounter: int):
 	timerPanel.add_theme_stylebox_override("panel", style)
 	
 	timeLabel.label_settings.font_color = activeTeam.cor
+	_animar_paineis_posse(activeTeam)
 	
 	if activeTeam == homeTeam:
 		# Pinta o time Esquerdo
 		for i in range(shotsDotsHomeLst.size()):
+			var ativo_home := i <= turnCounter - 1
 			if i <= turnCounter-1:
 				shotsDotsHomeLst[i].set_instance_shader_parameter("cor_da_bolinha", Color("#ececec"))
 				shotsDotsHomeLst[i].set_instance_shader_parameter("espessura_contorno", 2.0)
 			else:
 				shotsDotsHomeLst[i].set_instance_shader_parameter("cor_da_bolinha", activeTeam.cor)
 				shotsDotsHomeLst[i].set_instance_shader_parameter("espessura_contorno", 0.0)
+			_animar_bolinha_se_mudou(shotsDotsHomeLst[i], estado_shots_home, i, ativo_home)
 				
 		# Esconde o time Direito
-		for bolinha in shotsDotsAwayLst:
+		for i in range(shotsDotsAwayLst.size()):
+			var bolinha = shotsDotsAwayLst[i]
 			bolinha.set_instance_shader_parameter("cor_da_bolinha", Color("#ececec"))
 			bolinha.set_instance_shader_parameter("espessura_contorno", 0.0)
+			_animar_bolinha_se_mudou(bolinha, estado_shots_away, i, false)
 			
 	else:
 		# Pinta o time Direito
 		for i in range(shotsDotsAwayLst.size()):
+			var ativo_away := i <= turnCounter - 1
 			if i <= turnCounter-1:
 				shotsDotsAwayLst[i].set_instance_shader_parameter("cor_da_bolinha", Color("#ececec"))
 				shotsDotsAwayLst[i].set_instance_shader_parameter("espessura_contorno", 2.0)
 			else:
 				shotsDotsAwayLst[i].set_instance_shader_parameter("cor_da_bolinha", activeTeam.cor)
 				shotsDotsAwayLst[i].set_instance_shader_parameter("espessura_contorno", 0.0)
+			_animar_bolinha_se_mudou(shotsDotsAwayLst[i], estado_shots_away, i, ativo_away)
 				
 		# Esconde o time Esquerdo
-		for bolinha in shotsDotsHomeLst:
+		for i in range(shotsDotsHomeLst.size()):
+			var bolinha = shotsDotsHomeLst[i]
 			bolinha.set_instance_shader_parameter("cor_da_bolinha", Color("#ececec"))
 			bolinha.set_instance_shader_parameter("espessura_contorno", 0.0)
+			_animar_bolinha_se_mudou(bolinha, estado_shots_home, i, false)
+
+func _inicializar_estado_lances() -> void:
+	estado_shots_home.resize(shotsDotsHomeLst.size())
+	estado_shots_away.resize(shotsDotsAwayLst.size())
+	for i in range(estado_shots_home.size()):
+		estado_shots_home[i] = false
+	for i in range(estado_shots_away.size()):
+		estado_shots_away[i] = false
+	for bolinha in shotsDotsHomeLst:
+		bolinha.pivot_offset = bolinha.size * 0.5
+	for bolinha in shotsDotsAwayLst:
+		bolinha.pivot_offset = bolinha.size * 0.5
+
+func _animar_bolinha_se_mudou(bolinha: TextureRect, estado: Array[bool], idx: int, ativo: bool) -> void:
+	if idx >= estado.size():
+		return
+
+	if estado[idx] == ativo:
+		return
+
+	estado[idx] = ativo
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_BACK)
+	tween.set_ease(Tween.EASE_OUT)
+
+	if ativo:
+		bolinha.scale = Vector2(0.65, 0.65)
+		tween.tween_property(bolinha, "scale", Vector2.ONE, 0.5)
+	else:
+		tween.tween_property(bolinha, "scale", Vector2(0.65, 0.65), 0.5)
+		tween.tween_property(bolinha, "scale", Vector2.ONE, 0.5)
+
+func _animar_paineis_posse(activeTeam: Team) -> void:
+	var posse_atual := 0 if activeTeam == homeTeam else 1
+	if ultimo_time_posse == posse_atual:
+		return
+
+	ultimo_time_posse = posse_atual
+	shotsPanelHome.pivot_offset = shotsPanelHome.size * 0.5
+	shotsPanelAway.pivot_offset = shotsPanelAway.size * 0.5
+
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_parallel(true)
+
+	if posse_atual == 0:
+		tween.tween_property(shotsPanelHome, "scale", escala_painel_ativo, duracao_animacao_posse)
+		tween.tween_property(shotsPanelAway, "scale", escala_painel_inativo, duracao_animacao_posse)
+		tween.tween_property(shotsPanelHome, "modulate", Color(1.0, 1.0, 1.0, 1.0), duracao_animacao_posse)
+		tween.tween_property(shotsPanelAway, "modulate", Color(1.0, 1.0, 1.0, 0.5), duracao_animacao_posse)
+	else:
+		tween.tween_property(shotsPanelHome, "scale", escala_painel_inativo, duracao_animacao_posse)
+		tween.tween_property(shotsPanelAway, "scale", escala_painel_ativo, duracao_animacao_posse)
+		tween.tween_property(shotsPanelAway, "modulate", Color(1.0, 1.0, 1.0, 1.0), duracao_animacao_posse)
+		tween.tween_property(shotsPanelHome, "modulate", Color(1.0, 1.0, 1.0, 0.5), duracao_animacao_posse)
 
 func _atualizar_label_partida(time: float) -> void:
 	progressBar.value = time
