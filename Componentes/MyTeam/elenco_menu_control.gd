@@ -303,7 +303,8 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 		if cw_button_texture:
 			cw_button_texture.visible = false 
 		
-		central_descricao_label.text = item.descricao
+		central_descricao_label.text = _gerar_texto_detalhado_carta(item)
+		
 		if item.arte:
 			central_arte_rect.texture = item.arte
 			
@@ -326,6 +327,7 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 				center_action_btn.disabled = true
 				center_action_label.text = "Indisponível"
 				center_action_label.modulate = Color.RED
+				
 			else:
 				var peca_atual = GameState.jogadores[current_slot - 1]
 				var slots_usados = 0
@@ -335,10 +337,26 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 						
 				var slots_livres = peca_atual.quantosSlotes - slots_usados
 				
+				# --- VALIDAÇÃO DE PA COM O SEU CARD RESOURCE ---
+				var status_peca = _get_status_calculado(peca_atual)
+				var pa_disponivel = status_peca.pa
+				
+				# Lê o custo real de energia da carta que está no seu script
+				var custo_ativacao_carta = item.custo_energia if "custo_energia" in item else 0
+				
+				# 1. Verifica se tem slot livre na mochila
 				if item.custoSlotes > slots_livres:
 					center_action_btn.disabled = true
 					center_action_label.text = "Sem Slots"
 					center_action_label.modulate = Color.RED
+					
+				# 2. Verifica se a peça tem PA base suficiente para usar a carta ativa
+				elif custo_ativacao_carta > pa_disponivel:
+					center_action_btn.disabled = true
+					center_action_label.text = "PA Insuficiente"
+					center_action_label.modulate = Color(1.0, 0.5, 0.0) # Laranja
+					
+				# 3. Tudo certo, libera o botão para equipar
 				else:
 					center_action_btn.disabled = false
 					center_action_label.text = "Equipar"
@@ -644,3 +662,40 @@ func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
 					pa_total += carta.magnitude
 					
 	return {"forca": f_total, "pa": pa_total}
+
+func _gerar_texto_detalhado_carta(carta: CardResource) -> String:
+	# 1. A descrição original em itálico
+	var texto = "[i]\"" + carta.descricao + "\"[/i]\n\n"
+	
+	# 2. Tipo da Carta (Passiva ou Ativa) e Custo de PA
+	if carta.is_passiva:
+		texto += "[b]Tipo:[/b] Passiva\n"
+	else:
+		texto += "[b]Tipo:[/b] Ativa [color=orange](Custo: %d PA)[/color]\n" % carta.custo_energia
+		
+	# 3. Raridade com Cores
+	var nome_raridade = CardResource.Raridade.keys()[carta.raridade].capitalize()
+	var cor_raridade = "white"
+	match carta.raridade:
+		CardResource.Raridade.NORMAL: cor_raridade = "gray"
+		CardResource.Raridade.INCOMUN: cor_raridade = "green"
+		CardResource.Raridade.RARA: cor_raridade = "gold"
+	texto += "[b]Raridade:[/b] [color=%s]%s[/color]\n" % [cor_raridade, nome_raridade]
+	
+	# 4. Efeito e Magnitude (Usa o capitalize para tirar o "_" do enum e deixar bonito)
+	var nome_efeito = CardResource.TipoEfeito.keys()[carta.tipo_efeito].capitalize()
+	texto += "[b]Efeito:[/b] %s" % nome_efeito
+	if carta.magnitude > 0:
+		texto += " [color=cyan](Magnitude: %d)[/color]\n" % carta.magnitude
+	else:
+		texto += "\n"
+		
+	# 5. Alvo
+	var nome_alvo = CardResource.TipoAlvo.keys()[carta.tipo_alvo].capitalize()
+	texto += "[b]Alvo:[/b] %s\n" % nome_alvo
+	
+	# 6. Duração (só exibe se for maior que 0)
+	if carta.duracao > 0:
+		texto += "[b]Duração:[/b] %d turno(s)" % carta.duracao
+		
+	return texto
