@@ -191,7 +191,7 @@ func _process(delta: float) -> void:
 	var label = get_node_or_null("LabelPA")
 	
 	if label and playerInfo_atual:
-		label.text = str(playerInfo_atual.PA)
+		label.text = str(playerInfo_atual.num_camisa)
 	Draw_Aim()
 	Draw_Dragging_Line()
 	Draw_Velocity_Line()
@@ -981,6 +981,7 @@ func abrir_botoes_cartas():
 	if not menu_radial.carta_clicada.is_connected(_on_carta_do_radial):
 		menu_radial.carta_clicada.connect(_on_carta_do_radial)
 	menu_radial.scale = Vector2(1.5, 1.5)
+	menu_radial.definir_pa(playerInfo_atual.PA, 8)  # ← NOVO
 	menu_radial.abrir()
 	PhysicsPlayer2D.last_piece_with_radial = self
 #endregion

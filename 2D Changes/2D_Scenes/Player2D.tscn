@@ -16,6 +16,8 @@
 [ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="12_gwudw"]
 [ext_resource type="Script" uid="uid://c7dpm24duc7i" path="res://2D Changes/2D_Scenes/MenuRadial.gd" id="14_xkhmx"]
 [ext_resource type="Texture2D" uid="uid://b70rbmif2lwgc" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816120457-removebg-preview.png" id="15_fl8l5"]
+[ext_resource type="Texture2D" uid="uid://o5omjcf51pl3" path="res://Recursos/2D_Art/MyTeam/Shape with text.png" id="16_v8rn7"]
+[ext_resource type="Texture2D" uid="uid://d2f4o6btxl3tp" path="res://Recursos/2D_Art/MyTeam/Shape with text_1.png" id="17_o5120"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pol8b"]
 font = ExtResource("12_gwudw")
@@ -124,12 +126,15 @@ texture = ExtResource("3_tmkik")
 [node name="MenuRadial" type="Node2D" parent="." unique_id=1971170759]
 z_index = 6
 script = ExtResource("14_xkhmx")
+pa_cheia_texture = ExtResource("16_v8rn7")
+pa_vazia_texture = ExtResource("17_o5120")
 
 [node name="ButtonModel" type="Area2D" parent="MenuRadial" unique_id=899964867]
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="MenuRadial/ButtonModel" unique_id=1889376337]
-scale = Vector2(0.15625, 0.15625)
+position = Vector2(-2.765626, -4.2656255)
+scale = Vector2(0.134125, 0.122125)
 texture = ExtResource("15_fl8l5")
 
 [node name="Label" type="Label" parent="MenuRadial/ButtonModel" unique_id=1437262646]
