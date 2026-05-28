@@ -42,7 +42,7 @@ func definir_cartas(cartas: Array, pa_atual: int = 999) -> void:
 	
 	var total = cartas.size()
 	var posicoes_laterais = int(ceil((total - 1) / 2.0))
-	var step = deg_to_rad(28.0)  # ângulo fixo entre botões adjacentes
+	var step = deg_to_rad(28.0)  
 	for i in range(total):
 		var carta = cartas[i]
 		var btn = $ButtonModel.duplicate()
@@ -65,10 +65,25 @@ func definir_cartas(cartas: Array, pa_atual: int = 999) -> void:
 				sprite.texture = carta.Arte
 		
 		var pode_usar = pa_atual >= carta.custo_energia
-		if not pode_usar:
-			btn.modulate = Color(0.35, 0.35, 0.35, 0.6)
-			btn.scale = button_scale * 0.85
+
+# ── Aplica shader em TODOS os botões ──
+		var material = ShaderMaterial.new()
+		material.shader = preload("res://2D Changes/Shader_2d/outline2d.gdshader")
+
+		if pode_usar:
+			var sprite2d = btn.get_node("Sprite2D")
+			material.set_shader_parameter("outline_color", Color(1, 1, 1, 0.8))
+			material.set_shader_parameter("outline_size", 3.0)
+			material.set_shader_parameter("dim_amount", 0.0)
+			sprite2d.material = material
+			btn.modulate = Color.WHITE
 		else:
+			btn.scale = button_scale * 0.85
+			var sprite2d = btn.get_node("Sprite2D")
+			material.set_shader_parameter("outline_color", Color(0.3, 0.3, 0.3, 0.5))
+			material.set_shader_parameter("outline_size", 3.0)
+			material.set_shader_parameter("dim_amount", 0.55)  #
+			sprite2d.material = material
 			btn.modulate = Color.WHITE
 		
 		var pos = _calcular_posicao_semicirculo(i, step)
@@ -86,8 +101,8 @@ func definir_cartas(cartas: Array, pa_atual: int = 999) -> void:
 		print("total: ", total, " | max_mag: ",  posicoes_laterais , " | step: ", step, " | radius: ", radius)
 func _calcular_posicao_semicirculo(indice: int, step: float) -> Vector2:
 	var angulo_central = -PI / 2.0
-	var raio_x = radius * raio_x_multiplier  # mais largo na horizontal
-	var raio_y = radius * raio_y_multiplier   # menos alto na vertical
+	var raio_x = radius * raio_x_multiplier  
+	var raio_y = radius * raio_y_multiplier   
 	
 	if indice == 0:
 		return Vector2(cos(angulo_central) * raio_x, sin(angulo_central) * raio_y)
@@ -165,9 +180,26 @@ func _destroy_buttons() -> void:
 func _animar_hover_botao(btn: Area2D, entrando: bool) -> void:
 	if not is_open:
 		return
+	var sprite = btn.get_node("Sprite2D")
+	var material = sprite.material as ShaderMaterial
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT)
 	if entrando:
 		tween.tween_property(btn, "scale", button_scale * 1.2, 0.2)
+		if material:
+			tween.parallel().tween_method(
+				func(c): material.set_shader_parameter("outline_color", c),
+				Color(1, 1, 1, 0.8),
+				Color(0, 0, 1, 1.0),
+				0.2
+			)
 	else:
 		tween.tween_property(btn, "scale", button_scale, 0.2)
+		if material:
+			var cor_normal = Color(1, 1, 1, 0.8)
+			tween.parallel().tween_method(
+				func(c): material.set_shader_parameter("outline_color", c),
+				Color(0, 0, 1, 1.0),
+				cor_normal,
+				0.2
+			)
