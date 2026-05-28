@@ -24,12 +24,14 @@ func abrir() -> void:
 		return
 	is_open = true
 	show()
+	_animar_entrada_pa()   
 	_open_animation()
 
 func fechar() -> void:
 	if not is_open:
 		return
 	is_open = false
+	_animar_saida_pa() 
 	_close_animation()
 
 func definir_cartas(cartas: Array, pa_atual: int = 999) -> void:
@@ -126,7 +128,7 @@ func _criar_grid_pa() -> void:
 		
 		var icone = Sprite2D.new()
 		icone.texture = pa_cheia_texture
-		icone.scale = Vector2(0.1, 0.1)
+		icone.scale = Vector2.ZERO
 		
 		var x_offset = (col - (cols - 1) / 2.0) * spacing.x
 		var y_offset = row * spacing.y
@@ -136,7 +138,25 @@ func _criar_grid_pa() -> void:
 		_pa_icons.append(icone)
 	
 	_atualizar_pa()
-
+	_animar_entrada_pa()
+func _animar_entrada_pa() -> void:
+	for i in range(_pa_icons.size()):
+		var icone = _pa_icons[i]
+		icone.scale = Vector2.ZERO
+		var escala_alvo = Vector2(0.1, 0.1)
+		var tween = create_tween()
+		tween.tween_interval(i * 0.03)
+		tween.tween_property(icone, "scale", escala_alvo, 0.2)\
+			.set_trans(Tween.TRANS_BACK)\
+			.set_ease(Tween.EASE_OUT)
+func _animar_saida_pa() -> void:
+	for i in range(_pa_icons.size()):
+		var icone = _pa_icons[i]
+		var tween = create_tween()
+		tween.tween_interval(i * 0.02)
+		tween.tween_property(icone, "scale", Vector2.ZERO, 0.1)\
+			.set_trans(Tween.TRANS_BACK)\
+			.set_ease(Tween.EASE_IN)
 func definir_pa(pa_atual: int, pa_maximo: int) -> void:
 	_pa_atual = pa_atual
 	max_pa = pa_maximo
