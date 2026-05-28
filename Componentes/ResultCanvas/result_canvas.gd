@@ -5,6 +5,8 @@ extends CanvasLayer
 @onready var scoreLabel = $Control/Panel/VBoxContainer/VBoxContainer/Placar
 @onready var championLabel = $"Control/Panel/VBoxContainer/VBoxContainer/Champion!"
 @onready var cupLabel = $Control/Panel/VBoxContainer/VBoxContainer/CupLabel
+@export var NextBtn: Button
+@export var QuitBtn: Button
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
@@ -16,7 +18,9 @@ func _set_match_paused(value: bool) -> void:
 
 func _show(winner: String,  score: String, playerWin: bool):
 	if CupManager.isFinal and playerWin:
-		championLabel.show()  
+		championLabel.show()
+		QuitBtn.visible = false
+		NextBtn.text = "Retornar"
 	else:
 		championLabel.hide()
 	cupLabel.text = CupManager.currentCup.cupName
@@ -40,9 +44,14 @@ func _on_restart_button_up():
 
 func _on_next_pressed() -> void:
 	_set_match_paused(false)
-	CupManager.nextCompetitor()
-	#pickReward()
-	get_tree().reload_current_scene()
+	if CupManager.isFinal:
+
+		# Aqui vai acabar o torneio. Tem que avisar que ganhou esse cup e voltar para o menu
+		get_tree().change_scene_to_file("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn")
+	else:
+		CupManager.nextCompetitor()
+		get_tree().reload_current_scene()
+
 
 func pickReward():
 	var opposingTeam = CupManager.currentCompetitor
