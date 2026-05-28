@@ -191,7 +191,7 @@ func _process(delta: float) -> void:
 	var label = get_node_or_null("LabelPA")
 	
 	if label and playerInfo_atual:
-		label.text = str(playerInfo_atual.PA)
+		label.text = str(playerInfo_atual.num_camisa)
 	Draw_Aim()
 	Draw_Dragging_Line()
 	Draw_Velocity_Line()
@@ -350,6 +350,9 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 			debug_status()
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if menu_radial and menu_radial.is_open:
+			call_deferred("_verificar_clique_fora_radial")
 	if is_frozen():
 		return
 		
@@ -398,7 +401,18 @@ func _cancelar_interacao() -> void:
 	is_dragging = false
 	direcao_travada = false
 	sprite2D_circulo_limite.visible = false
-
+func _verificar_clique_fora_radial() -> void:
+	if not menu_radial or not menu_radial.is_open:
+		return
+	for btn in menu_radial.buttons:
+		var shape = btn.get_node("CollisionShape2D")
+		if shape and shape.shape is CircleShape2D:
+			var raio = shape.shape.radius * max(btn.scale.x, btn.scale.y)
+			var centro = btn.global_position
+			var mouse_pos = get_global_mouse_position()
+			if centro.distance_squared_to(mouse_pos) < raio * raio:
+				return  # clicou em cima de um botão → não fecha
+	menu_radial.fechar()
 func _on_mouse_entered() -> void:
 	is_pointer_inside_piece = true
 	_animar_hover(true)
@@ -981,6 +995,7 @@ func abrir_botoes_cartas():
 	if not menu_radial.carta_clicada.is_connected(_on_carta_do_radial):
 		menu_radial.carta_clicada.connect(_on_carta_do_radial)
 	menu_radial.scale = Vector2(1.5, 1.5)
+	menu_radial.definir_pa(playerInfo_atual.PA, 8)  # ← NOVO
 	menu_radial.abrir()
 	PhysicsPlayer2D.last_piece_with_radial = self
 #endregion
