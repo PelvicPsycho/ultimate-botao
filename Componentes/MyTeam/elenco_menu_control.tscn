@@ -428,6 +428,7 @@ texture = ExtResource("2_1feu8")
 expand_mode = 1
 
 [node name="PecaView_VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=905191053]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 20
 

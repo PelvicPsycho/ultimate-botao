@@ -674,13 +674,13 @@ func _gerar_texto_detalhado_carta(carta: CardResource) -> String:
 		texto += "[b]Tipo:[/b] Ativa [color=orange](Custo: %d PA)[/color]\n" % carta.custo_energia
 		
 	# 3. Raridade com Cores
-	var nome_raridade = CardResource.Raridade.keys()[carta.raridade].capitalize()
-	var cor_raridade = "white"
-	match carta.raridade:
-		CardResource.Raridade.NORMAL: cor_raridade = "gray"
-		CardResource.Raridade.INCOMUN: cor_raridade = "green"
-		CardResource.Raridade.RARA: cor_raridade = "gold"
-	texto += "[b]Raridade:[/b] [color=%s]%s[/color]\n" % [cor_raridade, nome_raridade]
+	#var nome_raridade = CardResource.Raridade.keys()[carta.raridade].capitalize()
+	#var cor_raridade = "white"
+	#match carta.raridade:
+		#CardResource.Raridade.NORMAL: cor_raridade = "gray"
+		#CardResource.Raridade.INCOMUN: cor_raridade = "green"
+		#CardResource.Raridade.RARA: cor_raridade = "gold"
+	#texto += "[b]Raridade:[/b] [color=%s]%s[/color]\n" % [cor_raridade, nome_raridade]
 	
 	# 4. Efeito e Magnitude (Usa o capitalize para tirar o "_" do enum e deixar bonito)
 	var nome_efeito = CardResource.TipoEfeito.keys()[carta.tipo_efeito].capitalize()

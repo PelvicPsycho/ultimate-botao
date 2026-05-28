@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cgsamk8f0iwca" path="res://Recursos/2D_Art/MyTeam/Rectangle 33.png" id="3_hadsi"]
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="3_qoayl"]
 
-[node name="CartaUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "imagem_icone", "quantidade_label")]
+[node name="CartaUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "imagem_icone", "quantidade_label", "textura_raridade")]
 custom_minimum_size = Vector2(440, 80)
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +18,7 @@ script = ExtResource("1_gfv3x")
 nome_label = NodePath("Control/MarginContainer/MarginContainer/HBoxContainer/Nome_Label")
 imagem_icone = NodePath("Control/MarginContainer/MarginContainer/HBoxContainer/ImagePlaceHolder_ColorRect")
 quantidade_label = NodePath("Control/MarginContainer/TextureRect/Quantidade_Label")
+textura_raridade = NodePath("Control/MarginContainer/Raridade_TextureRect")
 
 [node name="Control" type="Control" parent="." unique_id=1118418332]
 anchors_preset = 0
@@ -60,7 +61,7 @@ grow_vertical = 0
 text = "99"
 horizontal_alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="Control/MarginContainer" unique_id=567763977]
+[node name="Raridade_TextureRect" type="TextureRect" parent="Control/MarginContainer" unique_id=567763977]
 custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 size_flags_horizontal = 8
