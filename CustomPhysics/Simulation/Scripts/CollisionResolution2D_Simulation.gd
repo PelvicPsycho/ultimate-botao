@@ -5,6 +5,8 @@ var PhysicsObjects_List: Array[PhysicsObject2D]
 
 @export var Sim_Controller: SimulationController_Test
 
+@export var Sim_Test: Simulation_Test
+
 var object_A: PhysicsObject2D
 var object_B: PhysicsObject2D
 
@@ -13,7 +15,6 @@ var object_B: PhysicsObject2D
 func _ready() -> void:
 	var nodes = get_tree().get_nodes_in_group("PhysicsObjects")
 	PhysicsObjects_List.assign(nodes)
-	#print("number of players = ", PhysicsObjects_List.size())
 	
 	var count = 0
 	for object in PhysicsObjects_List:
@@ -22,20 +23,16 @@ func _ready() -> void:
 	
 	Sim_Controller.create_objects_copy()
 	Sim_Controller.connect_signal()
-
+	
+	Sim_Test.SetPieceLists()
 
 func _physics_process(delta: float) -> void:
-	#last_pos = PhysicsObjects_List[0].global_position
 	#
 	# verify physic objects collisions
 	collision_physics_object_resolution()
 	#
-	
-	#
 	# update the movemente of all physic objects
 	movement_update(0.016667)
-	#
-
 	#
 	# verify walls collisions
 	collision_wall_resolution()
@@ -44,12 +41,9 @@ func _physics_process(delta: float) -> void:
 	for j in range(PhysicsObjects_List.size()):
 		PhysicsObjects_List[j].shapecast_physics_objects.force_update_transform()
 		PhysicsObjects_List[j].shapecast_physics_objects.force_shapecast_update()
-
 	
-	#print("---------- Original ----------")
-	#print("Object_1 ", PhysicsObjects_List[0].name," Velocity = ", PhysicsObjects_List[0].current_velocity)
-	#print("Object_2 ", PhysicsObjects_List[1].name," Velocity = ", PhysicsObjects_List[1].current_velocity)
-	#print("----------")
+
+
 
 #region Physics Objects Collisions
 func collision_physics_object_resolution() -> void:

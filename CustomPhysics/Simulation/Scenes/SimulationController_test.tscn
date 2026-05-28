@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://bfekqxt737l61"]
 
 [ext_resource type="Script" uid="uid://b6hqoqedfd1ij" path="res://CustomPhysics/Simulation/Scripts/SimulationController_Test.gd" id="1_bhjla"]
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="2_cgoir"]
 
-[node name="Pitch2D_Simulation_NoVisuals" type="Node2D" unique_id=603521134]
+[node name="SimulationController_test" type="Node2D" unique_id=603521134 node_paths=PackedStringArray("sprite_test")]
 script = ExtResource("1_bhjla")
+sprite_test = NodePath("Sprite2D")
 
 [node name="Limits" type="StaticBody2D" parent="." unique_id=1520481869]
 collision_layer = 16
@@ -24,3 +26,7 @@ polygon = PackedVector2Array(243, 386, 90, 386, 90, 694, 243, 694, 243, 654, 131
 position = Vector2(1920, 1080)
 rotation = 3.1415927
 polygon = PackedVector2Array(243, 386, 90, 386, 90, 694, 243, 694, 243, 654, 131, 654, 131, 426, 243, 426)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1140136539]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_cgoir")

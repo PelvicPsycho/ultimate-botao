@@ -8,72 +8,73 @@
 [ext_resource type="Resource" uid="uid://dtf6mnb3qm5bl" path="res://Recursos/Teams/Grêmio/Carlos.tres" id="6_6pxpv"]
 [ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Grêmio/Mec.tres" id="6_7cieb"]
 [ext_resource type="Resource" uid="uid://gtnit36263q6" path="res://Recursos/Teams/Inter/Pezzo.tres" id="7_2ckp0"]
-[ext_resource type="PackedScene" uid="uid://bfekqxt737l61" path="res://CustomPhysics/Simulation/Scenes/Pitch2D_Simulation_NoVisuals.tscn" id="7_7cieb"]
+[ext_resource type="PackedScene" uid="uid://bfekqxt737l61" path="res://CustomPhysics/Simulation/Scenes/SimulationController_test.tscn" id="7_7cieb"]
 [ext_resource type="PackedScene" uid="uid://4oj2bntndkk" path="res://CustomPhysics/Simulation/Scenes/Ball2D_Simulation.tscn" id="9_m7juq"]
 
-[node name="MatchScene2d" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("original_solver", "simulation_solver")]
+[node name="MatchScene2d" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller", "simulation_controller")]
 script = ExtResource("1_2ckp0")
-original_solver = NodePath("PhysicsObjects_Group")
-simulation_solver = NodePath("Pitch_Simulation")
+physics_controller = NodePath("PhysicsObjects_Group")
+simulation_controller = NodePath("SimulationController_test")
 
 [node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("2_ubw5w")]
 position = Vector2(960, 540)
 
 [node name="Pitch2D" parent="." unique_id=603521134 instance=ExtResource("4_sajkj")]
 
-[node name="PhysicsObjects_Group" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("Sim_Controller")]
+[node name="PhysicsObjects_Group" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("Sim_Controller", "Sim_Test")]
 script = ExtResource("4_8rsni")
-Sim_Controller = NodePath("../Pitch_Simulation")
+Sim_Controller = NodePath("../SimulationController_test")
+Sim_Test = NodePath("..")
 
 [node name="HomeTeam" type="Node2D" parent="PhysicsObjects_Group" unique_id=2082446946]
 
 [node name="HomeTeam_P1" parent="PhysicsObjects_Group/HomeTeam" unique_id=1542391535 instance=ExtResource("5_8rsni")]
-position = Vector2(613, 335)
+position = Vector2(808, 540)
 debug = false
 
 [node name="HomeTeam_P4" parent="PhysicsObjects_Group/HomeTeam" unique_id=1536523149 instance=ExtResource("5_8rsni")]
-position = Vector2(469, 260)
+position = Vector2(497, 309)
 debug = false
 
 [node name="HomeTeam_P5" parent="PhysicsObjects_Group/HomeTeam" unique_id=1284902391 instance=ExtResource("5_8rsni")]
-position = Vector2(450, 733)
+position = Vector2(497, 786)
 debug = false
 
 [node name="HomeTeam_P2" parent="PhysicsObjects_Group/HomeTeam" unique_id=2044290024 instance=ExtResource("5_8rsni")]
-position = Vector2(1290, 710)
+position = Vector2(808, 786)
 debug = false
 
 [node name="HomeTeam_P3" parent="PhysicsObjects_Group/HomeTeam" unique_id=791618851 instance=ExtResource("5_8rsni")]
-position = Vector2(1200, 339)
+position = Vector2(808, 309)
 debug = false
 
 [node name="AwayTeam" type="Node2D" parent="PhysicsObjects_Group" unique_id=1460559231]
 
 [node name="HomeTeam_P2_Big" parent="PhysicsObjects_Group/AwayTeam" unique_id=1478158311 instance=ExtResource("5_8rsni")]
-position = Vector2(863, 540)
+position = Vector2(1245, 540)
 scale = Vector2(2, 2)
 teamSide = 1
 playerInfo = ExtResource("6_6pxpv")
 
 [node name="HomeTeam_P3" parent="PhysicsObjects_Group/AwayTeam" unique_id=477311908 instance=ExtResource("5_8rsni")]
-position = Vector2(1515, 407)
+position = Vector2(1411, 270)
 teamSide = 1
 playerInfo = ExtResource("6_7cieb")
 
 [node name="HomeTeam_P4" parent="PhysicsObjects_Group/AwayTeam" unique_id=213789201 instance=ExtResource("5_8rsni")]
-position = Vector2(690, 808)
+position = Vector2(1411, 818)
 teamSide = 1
 playerInfo = ExtResource("6_7cieb")
 
 [node name="HomeTeam_P5-Mini" parent="PhysicsObjects_Group/AwayTeam" unique_id=758780113 instance=ExtResource("5_8rsni")]
-position = Vector2(1379, 298.00003)
+position = Vector2(1077, 270)
 scale = Vector2(0.4, 0.4)
 teamSide = 1
 playerInfo = ExtResource("7_2ckp0")
 mass = 2.0
 
 [node name="HomeTeam_P5-Mini2" parent="PhysicsObjects_Group/AwayTeam" unique_id=105091409 instance=ExtResource("5_8rsni")]
-position = Vector2(1441, 808)
+position = Vector2(1077, 818)
 scale = Vector2(0.4, 0.4)
 teamSide = 1
 playerInfo = ExtResource("7_2ckp0")
@@ -82,9 +83,12 @@ mass = 2.0
 [node name="Balls" type="Node2D" parent="PhysicsObjects_Group" unique_id=1788694925]
 
 [node name="Ball2D_Simulation" parent="PhysicsObjects_Group/Balls" unique_id=1925699982 instance=ExtResource("9_m7juq")]
-position = Vector2(1314, 540)
+position = Vector2(1476, 538)
 mass = 2.0
 friction = 0.985
 
-[node name="Pitch_Simulation" parent="." unique_id=805343219 node_paths=PackedStringArray("CollisionResolution2D") instance=ExtResource("7_7cieb")]
-CollisionResolution2D = NodePath("../PhysicsObjects_Group")
+[node name="SimulationController_test" parent="." unique_id=805343219 node_paths=PackedStringArray("ColResolution2D") instance=ExtResource("7_7cieb")]
+ColResolution2D = NodePath("../PhysicsObjects_Group")
+run_num_max_steps = 1000
+max_force_steps = 2
+rotation_steps = 30

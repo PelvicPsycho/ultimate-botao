@@ -6,7 +6,6 @@
 [node name="Pitch2D" type="Node2D" unique_id=603521134]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=181346696]
-modulate = Color(1, 1, 1, 0)
 position = Vector2(960, 540)
 texture = ExtResource("1_4frna")
 

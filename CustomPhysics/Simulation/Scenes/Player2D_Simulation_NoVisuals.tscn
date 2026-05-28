@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bjjqexpwn81d5"]
 
-[ext_resource type="Script" uid="uid://dfrcen05okior" path="res://CustomPhysics/Simulation/Scripts/PhysicsPlayer2D_Simulation.gd" id="1_amxfy"]
+[ext_resource type="Script" uid="uid://sy64yn8brgoj" path="res://CustomPhysics/Simulation/Scripts/PhysicsPlayer2D_Simulation_NoVisuals.gd" id="1_amxfy"]
 [ext_resource type="Resource" uid="uid://gmvgc073734t" path="res://Recursos/Teams/Inter/Ale.tres" id="2_0lttp"]
 [ext_resource type="AudioStream" uid="uid://dophc5rewn0on" path="res://Recursos/SFXs/ClicouNaPeca_544883__ashboy34__smallgranitedry.wav" id="3_0lttp"]
 [ext_resource type="AudioStream" uid="uid://b8x46eek4pke2" path="res://Recursos/SFXs/SomDePuxarAPeca_freesound_community-wind-up3-89578.wav" id="4_poykw"]
@@ -20,7 +20,7 @@ radius = 47.095646
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
 radius = 47.0
 
-[node name="Player2D_Simulation_NoVisual" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("Object_Radius", "sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
+[node name="Player2D_Simulation_NoVisual" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("Object_Radius", "sprite2D_body", "sprite2D_circulo_limite", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
 modulate = Color(1, 1, 1, 0.39215687)
 collision_layer = 32
 collision_mask = 48
@@ -40,9 +40,6 @@ audio_impacto_parede = ExtResource("10_ix6gi")
 audio_impacto_trave = ExtResource("11_wmvxp")
 sprite2D_body = NodePath("sprite2D_body")
 sprite2D_circulo_limite = NodePath("Sprite2D_CirculoLimite")
-aim_line2D = NodePath("Line2D_Aim")
-drag_line2D = NodePath("Line2D_Drag")
-velocity_line2D = NodePath("Line2D_Velocity")
 shapecast_physics_objects = NodePath("ShapeCast2D_Objects")
 shapecast_walls = NodePath("ShapeCast2D_Walls")
 

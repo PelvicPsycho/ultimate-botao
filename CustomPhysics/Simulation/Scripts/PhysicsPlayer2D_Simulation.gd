@@ -355,6 +355,31 @@ func Execute_Action() -> void:
 	_cancelar_interacao()
 	turnPlayed.emit()
 
+func Execute_Action_parameters(direction: Vector2, force_lerp: float) -> void:
+	if is_frozen():
+		return
+	
+	lerp_current_force = force_lerp
+	current_direction = direction
+	
+	if is_instance_valid(sfx_tensao_atual): 
+		sfx_tensao_atual.stop()
+	
+	var audio_tiro = audio_chute_normal
+	if lerp_current_force >= 1: 
+		audio_tiro = audio_chute_max
+		
+	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
+	
+	current_force = lerpf(playerInfo_atual.get_min_force(), playerInfo_atual.get_max_force(), lerp_current_force)
+	
+	Set_Current_Velocity(current_direction * current_force)
+	
+	ActionExecuted.emit(index, current_velocity, teamSide)
+	
+	_cancelar_interacao()
+	turnPlayed.emit()
+
 #func move_object(_delta: float) -> void:
 	#var new_velocity = current_velocity * friction;
 	#Set_Current_Velocity(new_velocity)

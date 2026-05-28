@@ -1,25 +1,46 @@
 extends Node2D
 class_name SimulationController_Test
 
-@export var CollisionResolution2D: CollisionResolution2D_Simulation
+@export var ColResolution2D: CollisionResolution2D_Simulation
 
 var player_object = preload("res://CustomPhysics/Simulation/Scenes/Player2D_Simulation_NoVisuals.tscn")
 var ball_object = preload("res://CustomPhysics/Simulation/Scenes/Ball2D_Simulation_NoVisuals.tscn")
 
 var PhysicsObjects_List: Array[PhysicsObject2D]
 
+var object_A: PhysicsObject2D
+var object_B: PhysicsObject2D
+
+@export var debug: bool
+
+var ball_entered_goal: bool
+var ball_entered_enemy_goal: bool
+
+
+@export var run_num_max_steps: int
+
+@export var max_force_steps: int
+
 func _ready() -> void:
 	pass
 
-func update_objects_positions_and_variables() -> void:
-	for i in CollisionResolution2D.PhysicsObjects_List.size():
-		PhysicsObjects_List[i].global_position = CollisionResolution2D.PhysicsObjects_List[i].global_position
-		PhysicsObjects_List[i].mass = CollisionResolution2D.PhysicsObjects_List[i].mass
-		PhysicsObjects_List[i].friction = CollisionResolution2D.PhysicsObjects_List[i].friction
+func _process(delta: float) -> void:
+	pass
 
+
+func call_get_all_best_plays_rotation(_piece_index: int, _teamSide: int) -> void:
+	print("pieceTeam = ", _piece_index)
+	print("piece_index = ", _teamSide)
+	get_all_best_plays_rotation(rotation_steps, _teamSide, _piece_index)
+
+func update_objects_positions_and_variables() -> void:
+	for i in ColResolution2D.PhysicsObjects_List.size():
+		PhysicsObjects_List[i].global_position = ColResolution2D.PhysicsObjects_List[i].global_position
+		PhysicsObjects_List[i].mass = ColResolution2D.PhysicsObjects_List[i].mass
+		PhysicsObjects_List[i].friction = ColResolution2D.PhysicsObjects_List[i].friction
 
 func create_objects_copy() -> void:
-	for object in CollisionResolution2D.PhysicsObjects_List:
+	for object in ColResolution2D.PhysicsObjects_List:
 		if object.is_in_group("Players"):
 			var instance = player_object.instantiate()
 			instance.global_position = object.global_position
@@ -46,27 +67,16 @@ func create_objects_copy() -> void:
 			PhysicsObjects_List.append(instance)
 
 func connect_signal() -> void:
-	for object in CollisionResolution2D.PhysicsObjects_List:
+	for object in ColResolution2D.PhysicsObjects_List:
 		if object.is_in_group("Players"):
 			object.connect("ActionExecuted", Replicate_Action)
 
 func Replicate_Action(index: int, velocity: Vector2, teamSide: int):
-	#print("Iniciou a simulação")
-	PhysicsObjects_List[index].current_velocity = velocity
-	
-	Execute_Physic_Simulation_Run(0.016667, 1500, teamSide)
-	
-	#print("Terminou a simulação")
+	Execute_Physic_Simulation_Run(0.016667, index, velocity, teamSide)
 
-var object_A: PhysicsObject2D
-var object_B: PhysicsObject2D
-
-@export var debug: bool
-
-var ball_entered_goal: bool
-var ball_entered_enemy_goal: bool
-
-func Execute_Physic_Simulation_Run(_delta: float, num_max_steps: int, teamSide: int) -> void:
+func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity: Vector2, play_teamSide: int) -> void:
+	PhysicsObjects_List[play_index].current_velocity = play_velocity
+		
 	# garante que todos os objetos estão no lugar que deveriam e com as variaveis corretas
 	update_objects_positions_and_variables()
 	
@@ -77,16 +87,14 @@ func Execute_Physic_Simulation_Run(_delta: float, num_max_steps: int, teamSide: 
 	ball_entered_enemy_goal = false
 	
 	print("Simulation Started -------------------------------------")
-	print("Team side = ", teamSide)
-	for i in range(num_max_steps + 1):
+	#print("Team side = ", play_teamSide)
+	for i in range(run_num_max_steps + 1):
 		#
 		# verify physic objects collisions
 		collision_physics_object_resolution()
 		#
-		#
 		# update the movemente of all physic objects
 		movement_update(0.016667)
-		#
 		#
 		# verify walls collisions
 		collision_wall_resolution()
@@ -96,7 +104,6 @@ func Execute_Physic_Simulation_Run(_delta: float, num_max_steps: int, teamSide: 
 			PhysicsObjects_List[j].shapecast_physics_objects.force_update_transform()
 			PhysicsObjects_List[j].shapecast_physics_objects.force_shapecast_update()
 		
-		
 		for object in PhysicsObjects_List:
 			if object.is_in_group("Balls"):
 				object.shapecast_goals.force_shapecast_update()
@@ -104,7 +111,7 @@ func Execute_Physic_Simulation_Run(_delta: float, num_max_steps: int, teamSide: 
 					var collider = object.shapecast_goals.get_collider(0)
 					var collider_parent_node = collider.get_parent()
 					
-					if collider_parent_node.team == teamSide:
+					if collider_parent_node.team == play_teamSide:
 						ball_entered_goal = true
 					else:
 						ball_entered_enemy_goal = true
@@ -118,8 +125,8 @@ func Execute_Physic_Simulation_Run(_delta: float, num_max_steps: int, teamSide: 
 			#print("All objects stopped ------ Simulation Finalized")
 			break
 
-		if i % 100 == 0:
-			print("Step ", i)
+		#if i % 100 == 0:
+			#print("Step ", i)
 	
 	if ball_entered_goal == true:
 		print("Ball Entered Goal")
@@ -132,6 +139,97 @@ func Execute_Physic_Simulation_Run(_delta: float, num_max_steps: int, teamSide: 
 		print("Ball Not Entered Enemy Goal")
 		
 	print("Simulation Ended -------------------------------------")
+
+#region IA
+@export var rotation_steps: int
+
+class Play:
+	var player_index: int
+	var direction: Vector2
+	var force_lerp: float
+
+var good_plays: Array[Play]
+var medium_plays: Array[Play]
+var bad_plays: Array[Play]
+
+@export var sprite_test: Sprite2D
+
+func get_all_best_plays_rotation(_rotation_steps: int, play_teamSide: int, play_index: int) -> void:
+	good_plays.clear()
+	medium_plays.clear()
+	bad_plays.clear()
+	
+	var my_vector = Vector2(1, 0)
+	
+	if _rotation_steps == 0:
+		_rotation_steps = 1
+	
+	var num_plays = round(360 / _rotation_steps) 
+	var step = round(360 / num_plays)
+	print("num_plays = ", num_plays)
+	print("step = ", step)
+	
+	#var las_pos = PhysicsObjects_List[play_index].global_position
+	
+	for k in range(1, max_force_steps + 1):
+		var force_lerp = float(k) / float(max_force_steps)
+		print("force_lerp = ", force_lerp)
+		var force = lerpf(PhysicsObjects_List[play_index].playerInfo_atual.get_min_force(), 
+					PhysicsObjects_List[play_index].playerInfo_atual.get_max_force(), 
+					force_lerp)
+		print("force = ", force)
+		
+		for i in range(num_plays):
+			var angle = i * step
+			print(i, " rotation = ", angle)
+			var rotated_vector = my_vector.rotated(deg_to_rad(angle))
+			#sprite_test.global_position = Vector2(500, 500) + (rotated_vector * 50)
+			print("rotated_vector = ", rotated_vector)
+			var velocity = rotated_vector * force
+			
+			Execute_Physic_Simulation_Run(0.016667, play_index, velocity, play_teamSide)
+			
+			if ball_entered_goal == true:
+				var last_play = Play.new()
+				last_play.player_index = play_index
+				last_play.direction = rotated_vector
+				last_play.force_lerp = force_lerp
+				good_plays.append(last_play)
+			elif ball_entered_enemy_goal == true:
+				var last_play = Play.new()
+				last_play.player_index = play_index
+				last_play.direction = rotated_vector
+				last_play.force_lerp = force_lerp
+				bad_plays.append(last_play)
+			else:
+				var last_play = Play.new()
+				last_play.player_index = play_index
+				last_play.direction = rotated_vector
+				last_play.force_lerp = force_lerp
+				medium_plays.append(last_play)
+			#sprite_test.global_position = las_pos + velocity * 0.5
+			
+			print("play simulated")
+		
+		print("step concluded")
+	
+	print("Good plays = ", good_plays.size())
+	print("Medium plays = ", medium_plays.size())
+	print("bad plays = ", bad_plays.size())
+	
+	if good_plays.size() > 0:
+		var num = randi() % good_plays.size()
+		ColResolution2D.PhysicsObjects_List[play_index].Execute_Action_parameters(good_plays[num].direction, good_plays[num].force_lerp)
+	elif medium_plays.size() > 0:
+		var num = randi() % medium_plays.size()
+		ColResolution2D.PhysicsObjects_List[play_index].Execute_Action_parameters(medium_plays[num].direction, medium_plays[num].force_lerp)
+	elif bad_plays.size() > 0:
+		var num = randi() % bad_plays.size()
+		ColResolution2D.PhysicsObjects_List[play_index].Execute_Action_parameters(bad_plays[num].direction, bad_plays[num].force_lerp)
+	else:
+		print("No Play available")
+
+#endregion
 
 #region Physics Objects Collisions
 func collision_physics_object_resolution() -> void:
@@ -202,7 +300,6 @@ func handle_physics_objects_collision(object_1: PhysicsObject2D, object_2: Physi
 		#print("Object_2 ", object_2.name," New Velocity = ", object_2.current_velocity)
 		#print("----------")
 
-
 func handle_physics_objects_inside_each_other(object_1: PhysicsObject2D, object_2: PhysicsObject2D, distance: float, line_of_impact: Vector2) -> bool:
 	var overlap = distance - (object_1.radius + object_2.radius)
 	#print("Overlap = ", overlap)
@@ -220,7 +317,6 @@ func handle_physics_objects_inside_each_other(object_1: PhysicsObject2D, object_
 	else:
 		#print("Não Estao dentro um do outro")
 		return false
-		
 
 #endregion
 
@@ -293,8 +389,6 @@ func movement_update(_delta: float) -> void:
 			# Atualiza a posição do objeto
 			PhysicsObjects_List[i].global_position = new_Pos
 
-
-
 # Faz verificações de colisões entre a posição atual do objeto e a sua próxima posição (posição depois de se mover no proximo frame)
 # "subdivisionsNumber" é a quantidade de verifições
 # Usa a lógica de uma busca linear
@@ -341,7 +435,6 @@ func verify_collision_between_objects_on_movement_line_LinearSearch(object_1: Ph
 	object_1.global_position = inicial_Pos
 	
 	return result_Pos
-
 
 # Faz verificações de colisões entre a posição atual do objeto e a sua próxima posição (posição depois de se mover no proximo frame)
 # "subdivisionsNumber" é a quantidade de verifições

@@ -1,9 +1,11 @@
 extends PhysicsObject2D
 class_name PhysicsPlayer2D_Simulation_NoVisuals
 
+var index: int
 @export var debug: bool = true
 
-var index: int
+enum TeamSide {HOME, AWAY}
+@export var teamSide: TeamSide
 
 # Runtime Variables
 var current_direction: Vector2 = Vector2.ZERO
@@ -26,6 +28,7 @@ signal zoom_out_signal(pos)
 signal zoom_in_signal(pos)
 
 @export var Object_Radius: Node2D
+
 
 #region Sound variables
 #Variáveis de sons
@@ -67,7 +70,9 @@ func _ready() -> void:
 	
 	start_Effects()
 
+	
 func loadPlayerInfo(plInfo):
+	team = playerInfo.time
 	playerInfo_atual = plInfo.duplicate(true)
 	playerInfo_atual.status_mudou.connect(atualizar_fisica_por_status)
 	playerInfo_atual.status_mudou.connect(atualizar_peca_pelo_status)
@@ -75,12 +80,8 @@ func loadPlayerInfo(plInfo):
 	atualizar_fisica_por_status()
 	
 	Update_Values_With_StatusAtual()
-
-	sprite2D_body.self_modulate = team.cor
 	
-	#if debug:
-		#print("Start friction = ", friction)
-		#print("Start mass = ", mass)
+	sprite2D_body.self_modulate = team.cor
 
 
 func atualizar_fisica_por_status():
