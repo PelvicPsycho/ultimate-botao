@@ -2,18 +2,33 @@
 
 [ext_resource type="Texture2D" uid="uid://dvsgbkba0q0lu" path="res://Recursos/2D_Art/TabMenu/Group 146.png" id="1_5t5h4"]
 [ext_resource type="Texture2D" uid="uid://dsc5jb1xxcs0w" path="res://Recursos/2D_Art/TabMenu/referencia.png" id="1_bjpjv"]
-[ext_resource type="Script" uid="uid://dshaarm3s3a52" path="res://Componentes/TabButtons/area_carrossel.gd" id="1_g33fi"]
+[ext_resource type="Script" uid="uid://dshaarm3s3a52" path="res://Componentes/TabButtons/MenuTorneio.gd" id="1_qvm3y"]
 [ext_resource type="PackedScene" uid="uid://cebbe7ms7qi0u" path="res://Componentes/TabButtons/card_torneio.tscn" id="2_toabo"]
+[ext_resource type="Texture2D" uid="uid://brci17iyugq4w" path="res://Recursos/2D_Art/TabMenu/Modo_de_isolamento_.png" id="4_fw3fr"]
+[ext_resource type="Texture2D" uid="uid://da5mchfqgk6n6" path="res://Recursos/2D_Art/TabMenu/Modo_de_isolamento.png" id="5_qc12b"]
+[ext_resource type="Texture2D" uid="uid://dihi22bj1mhmd" path="res://Recursos/2D_Art/TabMenu/Group.png" id="6_hnlvg"]
 
-[node name="MenuTorneio_Control" type="Control" unique_id=1762329946]
+[node name="MenuTorneio_Control" type="Control" unique_id=1762329946 node_paths=PackedStringArray("area_carrossel", "seta_esquerda", "seta_direita")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_qvm3y")
+cena_card_torneio = ExtResource("2_toabo")
+area_carrossel = NodePath("VBoxContainer/MarginContainer/AreaCarrossel_Control")
+seta_esquerda = NodePath("VBoxContainer/MarginContainer/Botoes_Control/SetaEsquerda_TextureButton")
+seta_direita = NodePath("VBoxContainer/MarginContainer/Botoes_Control/SetaDireita_TextureButton")
+espacamento_primeiros_vizinhos = 400.0
+espacamento_demais_cartas = 320.0
+escala_central_x = 0.7
+escala_central_y = 0.7
+escala_lateral_x = 0.4
+escala_lateral_y = 0.4
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=449441331]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,24 +49,59 @@ grow_vertical = 2
 custom_minimum_size = Vector2(50, 200)
 layout_mode = 2
 
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/Banner_Control" unique_id=1211793940]
+layout_mode = 0
+offset_left = -46.0
+offset_right = 1954.0
+offset_bottom = 200.0
+texture = ExtResource("4_fw3fr")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Banner_Control" unique_id=543740339]
+layout_mode = 0
+offset_left = -46.0
+offset_right = 1954.0
+offset_bottom = 160.0
+texture = ExtResource("5_qc12b")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/Banner_Control" unique_id=1036012777]
+layout_mode = 0
+offset_left = 591.0
+offset_top = 24.0
+offset_right = 2391.0
+offset_bottom = 94.0
+texture = ExtResource("6_hnlvg")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/Banner_Control" unique_id=379123461]
+layout_mode = 0
+offset_left = -1520.895
+offset_top = 24.0
+offset_right = 279.10498
+offset_bottom = 94.0
+texture = ExtResource("6_hnlvg")
+expand_mode = 1
+flip_h = true
+flip_v = true
+
+[node name="Label" type="Label" parent="VBoxContainer/Banner_Control" unique_id=1709785657]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 14.0
+offset_right = 565.0
+offset_bottom = 97.0
+theme_override_font_sizes/font_size = 60
+text = "TORNEIO"
+
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1731912505]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_bottom = 200
 
-[node name="AreaCarrossel_Control" type="Control" parent="VBoxContainer/MarginContainer" unique_id=1886665737 node_paths=PackedStringArray("seta_esquerda", "seta_direita")]
+[node name="AreaCarrossel_Control" type="Control" parent="VBoxContainer/MarginContainer" unique_id=1886665737]
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("1_g33fi")
-cena_card_torneio = ExtResource("2_toabo")
-seta_esquerda = NodePath("../Botoes_Control/SetaEsquerda_TextureButton")
-seta_direita = NodePath("../Botoes_Control/SetaDireita_TextureButton")
-espacamento_primeiros_vizinhos = 400.0
-espacamento_demais_cartas = 320.0
-escala_central_x = 0.7
-escala_central_y = 0.7
-escala_lateral_x = 0.4
-escala_lateral_y = 0.4
 
 [node name="CardTorneio_MarginContainer" parent="VBoxContainer/MarginContainer/AreaCarrossel_Control" unique_id=1939318514 instance=ExtResource("2_toabo")]
 layout_mode = 0
@@ -63,6 +113,7 @@ scale = Vector2(0.7, 0.7)
 
 [node name="Botoes_Control" type="Control" parent="VBoxContainer/MarginContainer" unique_id=243813227]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="SetaEsquerda_TextureButton" type="TextureButton" parent="VBoxContainer/MarginContainer/Botoes_Control" unique_id=1817918000]
 z_index = 10

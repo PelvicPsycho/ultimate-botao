@@ -97,3 +97,5 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 30
 text = "ACEITAR"
 horizontal_alignment = 1
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TextureButton" to="." method="_on_texture_button_pressed"]

@@ -7,6 +7,7 @@ var jogadores: Array = []
 ## Peças modificadas (com cartas) vivem em jogadores (fora do stack).
 var cartas_desbloqueadas: Dictionary = {}
 var pecas_desbloqueadas: Dictionary = {}
+var ultimo_torneio_jogado: String = ""
 
 func _ready():
 	jogadores = SaveManager.load_game()

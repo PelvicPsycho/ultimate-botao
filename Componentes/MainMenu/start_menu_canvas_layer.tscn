@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dtgflpono35aw"]
+
+[ext_resource type="Script" uid="uid://3v4oy7df44ef" path="res://Componentes/MainMenu/start_menu_canvas_layer.gd" id="1_372uq"]
+[ext_resource type="Texture2D" uid="uid://c8mrjyko1e46n" path="res://Recursos/2D_Art/Menu/telas 7.png" id="2_gulj1"]
+
+[node name="StartMenu_CanvasLayer" type="CanvasLayer" unique_id=140501578]
+script = ExtResource("1_372uq")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2023151895]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_gulj1")
+expand_mode = 1
+
+[node name="Startbutton" type="Button" parent="TextureRect" unique_id=937542176]
+visibility_layer = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="." unique_id=971272928]
+offset_left = 189.0
+offset_top = 823.0
+offset_right = 286.0
+offset_bottom = 854.0
+theme_override_font_sizes/font_size = 50
+text = "Save delete"
+
+[connection signal="pressed" from="TextureRect/Startbutton" to="." method="_on_startbutton_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

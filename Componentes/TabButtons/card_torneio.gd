@@ -21,3 +21,11 @@ func definir_foco(ativo: bool):
 	# Essa função continua igual, controlando o botão verde
 	botao_aceitar.visible = ativo
 	botao_aceitar.disabled = !ativo
+
+
+func _on_texture_button_pressed() -> void:
+	# 1. Manda o CupManager preparar tudo e salvar o jogo
+	CupManager.iniciar_torneio_selecionado(cup_data)
+	
+	# 2. A UI só se preocupa em mudar de tela
+	get_tree().change_scene_to_file("res://2D Changes/2D_Scenes/MatchScene2D.tscn")

@@ -1,0 +1,217 @@
+[gd_scene format=3 uid="uid://xk1olpyb3y2w"]
+
+[ext_resource type="Script" uid="uid://hq56qc1w8exg" path="res://Componentes/TabButtons/configuracoes_control.gd" id="1_kqcqm"]
+[ext_resource type="AudioStream" uid="uid://br61fcdfiuwpy" path="res://Sons/quase-gol.wav" id="2_wc0ug"]
+[ext_resource type="Texture2D" uid="uid://brci17iyugq4w" path="res://Recursos/2D_Art/TabMenu/Modo_de_isolamento_.png" id="3_3bofs"]
+[ext_resource type="Texture2D" uid="uid://da5mchfqgk6n6" path="res://Recursos/2D_Art/TabMenu/Modo_de_isolamento.png" id="4_g7qru"]
+[ext_resource type="Texture2D" uid="uid://dihi22bj1mhmd" path="res://Recursos/2D_Art/TabMenu/Group.png" id="5_m7w78"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wc0ug"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.09803922, 0.44705883, 0.60784316, 0.5882353)
+border_width_left = 6
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+corner_detail = 6
+shadow_size = 12
+shadow_offset = Vector2(-5, 5)
+
+[node name="Configuracoes_Control" type="Control" unique_id=506933663 node_paths=PackedStringArray("MasterSoundSlider", "BGMSlider", "SFXSlider", "Checkbox")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kqcqm")
+soundQuaseGol = ExtResource("2_wc0ug")
+MasterSoundSlider = NodePath("OptionsContainer/Control/FlowContainer/MasterSoundSlider")
+BGMSlider = NodePath("OptionsContainer/Control/FlowContainer/BGMSlider")
+SFXSlider = NodePath("OptionsContainer/Control/FlowContainer/SFXSlider")
+Checkbox = NodePath("OptionsContainer/Control/FlowContainer/CheckBox")
+
+[node name="Banner_Control" type="Control" parent="." unique_id=2034304194]
+custom_minimum_size = Vector2(50, 200)
+anchors_preset = 0
+offset_right = 50.0
+offset_bottom = 200.0
+
+[node name="TextureRect2" type="TextureRect" parent="Banner_Control" unique_id=1427477341]
+layout_mode = 0
+offset_left = -46.0
+offset_right = 1954.0
+offset_bottom = 200.0
+texture = ExtResource("3_3bofs")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Banner_Control" unique_id=1540302817]
+layout_mode = 0
+offset_left = -46.0
+offset_right = 1954.0
+offset_bottom = 160.0
+texture = ExtResource("4_g7qru")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="Banner_Control" unique_id=1370161430]
+layout_mode = 0
+offset_left = 823.0
+offset_top = 24.0
+offset_right = 2623.0
+offset_bottom = 94.0
+texture = ExtResource("5_m7w78")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="Banner_Control" unique_id=398047111]
+layout_mode = 0
+offset_left = -1520.895
+offset_top = 24.0
+offset_right = 279.10498
+offset_bottom = 94.0
+texture = ExtResource("5_m7w78")
+expand_mode = 1
+flip_h = true
+flip_v = true
+
+[node name="Label" type="Label" parent="Banner_Control" unique_id=802026129]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 14.0
+offset_right = 565.0
+offset_bottom = 97.0
+theme_override_font_sizes/font_size = 60
+text = "CONFIGURAÇÕES"
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=153066735]
+custom_minimum_size = Vector2(700, 700)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -320.0
+offset_right = 350.0
+offset_bottom = 380.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wc0ug")
+
+[node name="OptionsContainer" type="MarginContainer" parent="." unique_id=226955194]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 46.0
+offset_top = 12.0
+offset_right = 128.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.3, 1.3)
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="OptionsContainer" unique_id=1036957519]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="FlowContainer" type="FlowContainer" parent="OptionsContainer/Control" unique_id=645327230]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -90.5
+offset_right = 125.0
+offset_bottom = 57.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/v_separation = 50
+
+[node name="MasterSoundSlider" type="HSlider" parent="OptionsContainer/Control/FlowContainer" unique_id=917444647]
+z_index = 3
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+step = 0.05
+value = 100.0
+tick_count = 5
+ticks_on_borders = true
+
+[node name="BGMSlider" type="HSlider" parent="OptionsContainer/Control/FlowContainer" unique_id=375094740]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+step = 0.05
+value = 50.0
+tick_count = 5
+ticks_on_borders = true
+
+[node name="SFXSlider" type="HSlider" parent="OptionsContainer/Control/FlowContainer" unique_id=210285136]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+step = 0.05
+value = 100.0
+tick_count = 5
+ticks_on_borders = true
+
+[node name="CheckBox" type="CheckBox" parent="OptionsContainer/Control/FlowContainer" unique_id=926066339]
+layout_mode = 2
+
+[node name="VLabelsContainer" type="VBoxContainer" parent="OptionsContainer/Control" unique_id=67269063]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -299.5
+offset_top = -94.5
+offset_right = -217.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 41
+
+[node name="Label" type="Label" parent="OptionsContainer/Control/VLabelsContainer" unique_id=1940499091]
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 20
+text = "Master:"
+
+[node name="Label2" type="Label" parent="OptionsContainer/Control/VLabelsContainer" unique_id=642092030]
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 20
+text = "Music:"
+
+[node name="Label3" type="Label" parent="OptionsContainer/Control/VLabelsContainer" unique_id=2058517074]
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 20
+text = "SFX:"
+
+[node name="Label4" type="Label" parent="OptionsContainer/Control/VLabelsContainer" unique_id=1120702435]
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 20
+text = "Mute:"
+
+[connection signal="value_changed" from="OptionsContainer/Control/FlowContainer/MasterSoundSlider" to="." method="_on_master_sound_slider_value_changed"]
+[connection signal="value_changed" from="OptionsContainer/Control/FlowContainer/BGMSlider" to="." method="_on_bgm_slider_value_changed"]
+[connection signal="drag_ended" from="OptionsContainer/Control/FlowContainer/SFXSlider" to="." method="_on_sfx_slider_drag_ended"]
+[connection signal="value_changed" from="OptionsContainer/Control/FlowContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="toggled" from="OptionsContainer/Control/FlowContainer/CheckBox" to="." method="_on_check_box_toggled"]

@@ -6,7 +6,14 @@ func save_game() -> void:
 	var data: Dictionary = {
 		"players": [],
 		"cartas_desbloqueadas": {},
-		"pecas_desbloqueadas": {}
+		"pecas_desbloqueadas": {},
+		"ultimo_torneio_jogado": GameState.ultimo_torneio_jogado,
+		"config_audio": {
+			"master": SoundMaster.volume_master,
+			"bgm": SoundMaster.volume_BGM,
+			"sfx": SoundMaster.volume_SFX,
+			"mutado": AudioServer.is_bus_mute(AudioServer.get_bus_index("Master"))
+			}
 	}
 
 	# Salva os jogadores (peças) e suas cartas equipadas
@@ -49,7 +56,28 @@ func load_game() -> Array:
 	var parsed = JSON.parse_string(text)
 	if typeof(parsed) != TYPE_DICTIONARY or not parsed.has("players"):
 		return []
-
+	
+	if parsed.has("config_audio"):
+		var configs = parsed["config_audio"]
+		
+		# Restaura os valores nas variáveis do SoundMaster (usando os padrões 100/50 caso o save seja antigo e não tenha a chave)
+		SoundMaster.volume_master = configs.get("master", 100.0)
+		SoundMaster.volume_BGM = configs.get("bgm", 50.0)
+		SoundMaster.volume_SFX = configs.get("sfx", 100.0)
+		
+		# Aplica os volumes físicos no AudioServer (convertendo de 0-100 para 0.0-1.0 linear)
+		var master_bus = AudioServer.get_bus_index("Master")
+		var bgm_bus = AudioServer.get_bus_index("BGM")
+		
+		AudioServer.set_bus_volume_linear(master_bus, SoundMaster.volume_master / 100.0)
+		AudioServer.set_bus_volume_linear(bgm_bus, SoundMaster.volume_BGM / 100.0)
+		SoundMaster.set_sfx_volume(SoundMaster.volume_SFX / 100.0)
+		
+		# Restaura o estado do checkbox de Mute
+		var esta_mutado = configs.get("mutado", false)
+		AudioServer.set_bus_mute(master_bus, esta_mutado)
+	
+	GameState.ultimo_torneio_jogado = parsed.get("ultimo_torneio_jogado", "")
 	# ── Restaura cartas desbloqueadas (formato novo: dict, antigo: array) ──
 	GameState.cartas_desbloqueadas.clear()
 	if parsed.has("cartas_desbloqueadas"):

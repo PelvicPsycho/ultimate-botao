@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://47ugmokghauy" path="res://Recursos/2D_Art/MyTeam/Group 53_.png" id="5_x3s7i"]
 [ext_resource type="Texture2D" uid="uid://7pb1a7h83erj" path="res://Recursos/2D_Art/MyTeam/Group 4_.png" id="6_3vc01"]
 [ext_resource type="PackedScene" uid="uid://orrq0vy3qa51" path="res://Componentes/MyTeam/inventory_pecas_button.tscn" id="7_3c3cq"]
-[ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="9_2ysy5"]
 [ext_resource type="Texture2D" uid="uid://sb143gchnnfr" path="res://Recursos/2D_Art/MyTeam/Group 57.png" id="9_cep57"]
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="10_wegx5"]
 [ext_resource type="PackedScene" uid="uid://d0h3cghqr1iun" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="13_2ysy5"]
@@ -63,9 +62,6 @@ icone_slot_livre = ExtResource("3_i1aih")
 cena_item_carta = ExtResource("2_mjelh")
 cena_item_peca = ExtResource("7_3c3cq")
 cena_carta_pequena = ExtResource("13_2ysy5")
-
-[node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("9_2ysy5")]
-layout_mode = 0
 
 [node name="MainMargin_MarginContainer" type="MarginContainer" parent="." unique_id=259902652]
 layout_mode = 1
@@ -618,6 +614,7 @@ custom_minimum_size = Vector2(800, 85)
 layout_mode = 2
 
 [node name="SAIRR_Button" type="Button" parent="." unique_id=920692340]
+visible = false
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0

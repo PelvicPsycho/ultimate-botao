@@ -61,7 +61,7 @@ func _sync_main_squad_from_gamestate() -> void:
 		#for i in range(myTeam.collectedSquad.size()):
 			#print("  %d. %s" % [i + 1, myTeam.collectedSquad[i].nome])
 
-func newRun():
+func newRun(): #PARA DELETAR
 	matchesPlayed = 0
 	playCup(0)
 	currentCompetitor = followingCompetitors[0]
@@ -120,3 +120,23 @@ func _notification(what):
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST:
 		#saveGame()
 		get_tree().quit()
+
+# Nova função para iniciar o torneio escolhido pelo jogador
+func iniciar_torneio_selecionado(cup_escolhido: Cup) -> void:
+	# 1. Descobre qual é o índice (0 a 6) da copa escolhida na sua lista oficial
+	var index = cupList.find(cup_escolhido)
+	if index == -1:
+		printerr("Erro: O torneio selecionado não existe na cupList do CupManager!")
+		return
+
+	# 2. Configura a nova Run usando a lógica que você já tinha
+	matchesPlayed = 0
+	playCup(index)
+	currentCompetitor = followingCompetitors[0]
+	isFinal = false
+	
+	print("Iniciando torneio: ", currentCup.cupName, " | Primeira partida: ", myTeam.name, " VS ", currentCompetitor.name)
+
+	# 3. DELEGAÇÃO: Atualiza a memória global e salva o jogo aqui!
+	GameState.ultimo_torneio_jogado = currentCup.cupName
+	SaveManager.save_game()

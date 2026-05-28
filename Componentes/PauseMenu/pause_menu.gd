@@ -90,7 +90,7 @@ func _on_button__recomecar_pressed() -> void:
 	get_tree().reload_current_scene()
 
 func _on_button__menu_inicial_pressed() -> void:
-	get_tree().change_scene_to_file("res://Componentes/MainMenu/main_menu.tscn")
+	get_tree().change_scene_to_file("res://Componentes/MainMenu/start_menu_canvas_layer.tscn")
 
 func pegar_todas_pecas():
 	Pecas_Jogo.clear()

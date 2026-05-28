@@ -1,0 +1,80 @@
+extends CanvasLayer
+
+#@onready var new_game_level: PackedScene = preload("res://MatchScene.tscn")
+const TabMenu := preload("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn") 
+
+func _ready():
+	#print("=== CONFIGURAÇÕES CARREGADAS ===")
+	#print("Total de jogadores salvos no GameState: ", GameState.jogadores.size())
+#
+	if GameState.jogadores.size() == 0:
+		print("Nenhum save encontrado. Carregando time inicial (My Team) do Database...")
+		_carregar_time_inicial()
+	#else:
+		#print("✔ Jogadores carregados do save com sucesso!")
+		#for j in GameState.jogadores:
+			#print("\nJogador: ", j.nome)
+			#for s in j.slotsUpgrates:
+				#if s:
+					#print("  - ", s.nome)
+				#else:
+					#print("  - [Vazio]")
+	pass
+
+# Carrega cartas e pecas iniciais se não existe nenhum save
+func _carregar_time_inicial():
+	var pecas_iniciais: Array = []
+	
+	# ==========================================
+	# 1. CARREGAR AS PEÇAS DO GRÊMIO
+	# ==========================================
+	for id_peca in Database.pecas_db:
+		var peca_original = Database.pecas_db[id_peca]
+		
+		# Procura peças que tenham um Resource de Time equipado e que o nome seja "Grêmio"
+		if peca_original is TeamPlayer and peca_original.time and peca_original.time.name == "My Team":
+			
+			# Faz a cópia para não estragar o arquivo original
+			var jogador_copia = peca_original.duplicate(true)
+			jogador_copia.slotsUpgrates.resize(jogador_copia.quantosSlotes)
+			pecas_iniciais.append(jogador_copia)
+			
+			# Adiciona aos desbloqueados
+			GameState.adicionar_peca(jogador_copia.id_unico)
+
+	if pecas_iniciais.size() == 0:
+		print("ERRO -> Nenhuma peça do Grêmio encontrada no Database!")
+	else:
+		GameState.jogadores = pecas_iniciais
+		#print("✔ Time inicial (Grêmio) carregado com sucesso!")
+
+
+	# ==========================================
+	# 2. CARREGAR CARTAS INICIAIS
+	# ==========================================
+	# Coloque aqui os 'id_unico' exatos das cartas que o jogador começa
+	var ids_cartas_iniciais: Array[StringName] = [
+		"corre_peao_01", 
+		"corre_peao_02",
+		"defesa_escudo_01",
+		"defesa_escudo_02",
+		"bola_leve_01",
+		"bola_leve_02"
+	]
+	
+	for id_carta in ids_cartas_iniciais:
+		if Database.cartas_db.has(id_carta):
+			GameState.adicionar_carta(id_carta)
+		else:
+			print("AVISO -> Carta inicial não encontrada no Database: ", id_carta)
+			
+	#print("✔ Cartas iniciais adicionadas! Total: ", GameState.cartas_desbloqueadas.size())
+	
+	SaveManager.save_game()
+
+func _on_button_pressed() -> void:
+	SaveManager.delete_save()
+
+
+func _on_startbutton_pressed() -> void:
+	get_tree().change_scene_to_packed(TabMenu)
