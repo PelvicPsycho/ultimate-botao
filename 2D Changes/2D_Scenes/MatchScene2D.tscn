@@ -19,6 +19,9 @@
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="7_6p5wb"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="8_j0mnx"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iej8s"]
+size = Vector2(215, 269)
+
 [node name="MatchScene2d" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("anunciador_ui")]
 script = ExtResource("1_iur2g")
 anunciador_ui = NodePath("AnunciadorUI")
@@ -26,6 +29,10 @@ cena_recompensa_partida = ExtResource("2_q7h6m")
 cena_recompensa_torneio = ExtResource("3_pnfph")
 
 [node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("4_iej8s")]
+offset_left = -685.0
+offset_top = -343.0
+offset_right = -685.0
+offset_bottom = -343.0
 
 [node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("2_pg7ls")]
 position = Vector2(960, 540)
@@ -94,6 +101,24 @@ script = ExtResource("5_p2q2m")
 anunciadorui = NodePath("../AnunciadorUI")
 match_state = NodePath("..")
 
+[node name="AreaHome" type="Area2D" parent="." unique_id=1861784472]
+position = Vector2(283, 629)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaHome" unique_id=422259460]
+position = Vector2(54.5, 2.5)
+shape = SubResource("RectangleShape2D_iej8s")
+
+[node name="AreaAway" type="Area2D" parent="." unique_id=282501590]
+position = Vector2(1525, 629)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaAway" unique_id=54370429]
+position = Vector2(54.5, 2.5)
+shape = SubResource("RectangleShape2D_iej8s")
+
 [node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("3_r4ru6")]
 
 [node name="MatchUI" parent="." unique_id=2001534732 instance=ExtResource("4_cdikc")]
@@ -107,3 +132,6 @@ unique_name_in_owner = true
 script = ExtResource("8_j0mnx")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=229047291]
+
+[connection signal="body_entered" from="AreaHome" to="Camera2D" method="_on_area_home_body_entered"]
+[connection signal="body_entered" from="AreaAway" to="Camera2D" method="_on_area_away_body_entered"]

@@ -10,11 +10,18 @@ var allGoals
 @export var goal_shake_duration: float = 3.0
 @export var goal_shake_amplitude: float = 36.0
 @export var goal_shake_frequency: float = 48.0
+@export var zoom_bola_foco: Vector2 = Vector2(2.0, 2.0)
+@export var bola_track_speed: float = 5.0
+@export var bola_min_velocidade: float = 30.0
 
 var target_zoom: Vector2 = Vector2.ONE
 var shake_active: bool = false
 var shake_timer: float = 0.0
 var shake_duration_atual: float = 0.0
+
+var tracking_bola: bool = false
+var bola_rastreada = null
+var posicao_original: Vector2
 
 func _ready():
 	# Get all playable pieces
@@ -37,6 +44,12 @@ func _ready():
 		
 func _process(delta: float) -> void:
 	zoom = zoom.lerp(target_zoom, clamp(zoom_speed * delta, 0.0, 1.0))
+
+	if tracking_bola:
+		if is_instance_valid(bola_rastreada) and bola_rastreada.current_velocity.length() >= bola_min_velocidade:
+			global_position = global_position.lerp(bola_rastreada.global_position, clamp(bola_track_speed * delta, 0.0, 1.0))
+		else:
+			_parar_rastreamento()
 
 	if shake_active:
 		shake_timer += delta
@@ -64,9 +77,32 @@ func UpdateDragZoom(pos: Vector2, intensidade: float) -> void:
 	target_zoom = zoom_normal.lerp(zoom_arrasto_maximo, clamp(intensidade, 0.0, 1.0))
 
 func _on_goal_scored(_is_home: bool) -> void:
+	_parar_rastreamento()
 	IniciarGoalShake(goal_shake_duration)
 
 func IniciarGoalShake(duracao: float = -1.0) -> void:
 	shake_active = true
 	shake_timer = 0.0
 	shake_duration_atual = goal_shake_duration if duracao <= 0.0 else duracao
+
+func _iniciar_rastreamento(bola) -> void:
+	bola_rastreada = bola
+	tracking_bola = true
+	posicao_original = global_position
+	target_zoom = zoom_bola_foco
+
+func _parar_rastreamento() -> void:
+	if not tracking_bola:
+		return
+	tracking_bola = false
+	bola_rastreada = null
+	target_zoom = zoom_normal
+	global_position = posicao_original
+
+func _on_area_home_body_entered(body):
+	if body is PhysicsBall2D and body.current_velocity.length() >= bola_min_velocidade:
+		_iniciar_rastreamento(body)
+
+func _on_area_away_body_entered(body):
+	if body is PhysicsBall2D and body.current_velocity.length() >= bola_min_velocidade:
+		_iniciar_rastreamento(body)
