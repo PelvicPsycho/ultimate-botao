@@ -3,7 +3,7 @@ signal carta_clicada(carta)
 @export var radius: float = 50
 @export var angular_start: float = 0.0  
 @export var open_duration: float = 0.2
-@export var button_scale := Vector2(0.5,0.5)
+@export var button_scale := Vector2(1.3,1.3)
 var buttons: Array[Area2D] = []
 var labels: Array[Label] = []
 var is_open: bool = false
@@ -20,7 +20,7 @@ func fechar() -> void:
 		return
 	is_open = false
 	_close_animation()
-func definir_cartas(cartas: Array) -> void:
+func definir_cartas(cartas: Array, pa_atual: int = 999) -> void:
 	_destroy_buttons()
 	if cartas.is_empty():
 		return
@@ -43,7 +43,10 @@ func definir_cartas(cartas: Array) -> void:
 				sprite.texture = carta.arte
 			elif "Arte" in carta and carta.Arte != null:
 				sprite.texture = carta.Arte
-		
+		var pode_usar = pa_atual >= carta.custo_energia
+		if not pode_usar:
+			btn.modulate = Color(0.35, 0.35, 0.35, 0.6)
+			btn.scale = button_scale * 0.85
 		var ang = deg_to_rad(angular_start + i * angle_step)
 		btn.position = Vector2(cos(ang), sin(ang)) * radius
 		var collider = btn.get_node("CollisionShape2D")

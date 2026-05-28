@@ -15,7 +15,7 @@ var awayScore: int
 
 # Cache para otimização
 var allBalls: Array[Node]
-
+var efeitos_visuais_ativos: Dictionary = {}
 var carta_usada_no_turno: bool = false
 var currentTurn: turn
 var rallyCounter: int = 1
@@ -69,7 +69,8 @@ func _ready() -> void:
 			#print("Cartas carregadas para ", piece.playerInfo.nome)
 			#for c in piece.playerInfo.slotsUpgrates:
 				#print("  - ", (c.resource_path if c else "Vazio"))
-
+		
+			piece.playerInfo_atual.aplicar_passivas()
 	# CONEXÕES PADRÃO
 		if not piece.clickedPiece.is_connected(_on_player_clicked_piece):
 			piece.clickedPiece.connect(_on_player_clicked_piece)
@@ -86,8 +87,8 @@ func _ready() -> void:
 	timer.partida_acabou.connect(_on_partida_acabou)
 	timer.lance_acabou.connect(_on_lance_acabou)
 	timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)
-	timer._atualizar_barra_lance.connect(%MatchUI._atualizar_barra_lance)
-	timer.resetar_barra_lance.connect(%MatchUI.resetar_barra_lance)
+	#timer._atualizar_barra_lance.connect(%MatchUI._atualizar_barra_lance)
+	#timer.resetar_barra_lance.connect(%MatchUI.resetar_barra_lance)
 	
 	timer.iniciar_partida()
 	timer.iniciar_lance(currentTurn)
@@ -128,8 +129,7 @@ func assignPieces():
 		piece.loadPlayerInfo(player)
 
 func _atualizar_placar() -> void:
-	%MatchUI.placar_esq.text = str(homeScore)
-	%MatchUI.placar_dir.text = str(awayScore)
+	%MatchUI.atualizar_placar(homeScore, awayScore)
 
 func _on_lance_acabou() -> void: 
 	var alguma_peca_arrastada: bool = false
@@ -387,17 +387,22 @@ func tentar_usar_carta(piece: PhysicsPlayer2D, carta: CardResource) -> void:
 	if piece == null or carta == null:
 		print("Erro: peça ou carta inválida.")
 		return
+	if piece.playerInfo_atual.PA < carta.custo_energia:
+		print("PA insuficiente! Precisa de ", carta.custo_energia, " PA, mas tem apenas ", piece.playerInfo_atual.PA)
+		return
+	
 	piece.playerInfo_atual.aplicar_buff(carta)
+	piece.animar_efeito_por_carta(carta) 
 	carta_usada_no_turno = true
 
 func _on_player_clicked_piece(Piece: PhysicsPlayer2D) -> void:
 	if carta_usada_no_turno:
 		return
 		
-	var carta = %MatchUI.obter_carta_selecionada()
-	
-	if carta != null:
-		print("è diferente de null")
-		Piece.playerInfo_atual.aplicar_buff(carta)
-		carta_usada_no_turno = true
-		%MatchUI.consumir_carta_selecionada()
+	#var carta = %MatchUI.obter_carta_selecionada()
+	#
+	#if carta != null:
+		#print("è diferente de null")
+		#Piece.playerInfo_atual.aplicar_buff(carta)
+		#carta_usada_no_turno = true
+		#%MatchUI.consumir_carta_selecionada()

@@ -9,7 +9,8 @@ enum TipoEfeito {
 	TrocaLugar,
 	Grande,
 	Pequeno,
-	Atrasao
+	Atrasao,
+	Aumentar_Pa_Maximo,
 }
 enum Raridade{
 	NORMAL, INCOMUN, RARA
@@ -31,3 +32,4 @@ enum TipoAlvo {
 @export var magnitude:int
 @export var custoSlotes:int
 @export var duracao: int = 1
+@export var is_passiva: bool = false

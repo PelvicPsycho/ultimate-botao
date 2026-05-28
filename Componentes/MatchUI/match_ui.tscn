@@ -1,42 +1,118 @@
 [gd_scene format=3 uid="uid://b8ms3txou0nej"]
 
-[ext_resource type="Texture2D" uid="uid://kp7n3sa20mtc" path="res://Recursos/2D_Art/MatchUI/Match_Top_Centro.png" id="1_vlj2w"]
-[ext_resource type="Script" uid="uid://bvs51n3r0rlqh" path="res://Componentes/MatchUI/match_ui.gd" id="1_xrqu3"]
-[ext_resource type="Texture2D" uid="uid://gt8p1pyxnfsa" path="res://Recursos/2D_Art/MatchUI/Match_Top_Esquerda.png" id="2_dudno"]
-[ext_resource type="Texture2D" uid="uid://bmcwg8lrpf3yo" path="res://Recursos/2D_Art/MatchUI/Match_Top_Direita.png" id="3_daawi"]
-[ext_resource type="Texture2D" uid="uid://b8s7pwbqhd00g" path="res://Recursos/2D_Art/MatchUI/Foto Esquerda.png" id="4_dxqk6"]
+[ext_resource type="Script" uid="uid://lajotldv5xxr" path="res://Componentes/MatchUI/match_ui2.gd" id="1_yfw0a"]
+[ext_resource type="Texture2D" uid="uid://bq5ebrgitptm0" path="res://junk/Untitled.png" id="2_xrqu3"]
 [ext_resource type="FontFile" uid="uid://b8f7dj4qbp66f" path="res://Recursos/Fontes/Baloo2-Bold.ttf" id="5_1jthf"]
 [ext_resource type="Texture2D" uid="uid://cvj7rqqmgx45x" path="res://Recursos/2D_Art/MatchUI/Gremio_logo.png" id="6_hdx5a"]
-[ext_resource type="Texture2D" uid="uid://v6k6v7jkujx7" path="res://Recursos/2D_Art/MatchUI/foto Direita.png" id="6_jt1jy"]
-[ext_resource type="Texture2D" uid="uid://bwkt165o4vcqd" path="res://Recursos/2D_Art/MatchUI/Match_Placar_Center.png" id="6_ufigq"]
 [ext_resource type="Texture2D" uid="uid://bhta1l4ahtw1i" path="res://Recursos/2D_Art/MatchUI/Ativo 3.png" id="6_yfw0a"]
 [ext_resource type="Texture2D" uid="uid://cmn4f0tk60yt0" path="res://Recursos/2D_Art/MatchUI/Ativo 2.png" id="7_jt1jy"]
-[ext_resource type="Texture2D" uid="uid://cyjkc7wtca4g" path="res://Recursos/2D_Art/MatchUI/Match_Placar_Right.png" id="7_yfw0a"]
-[ext_resource type="Texture2D" uid="uid://cp1vdwceha0d1" path="res://Recursos/2D_Art/MatchUI/Match_Placar_Left.png" id="8_jt1jy"]
+[ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="7_xrqu3"]
 [ext_resource type="Material" uid="uid://0bn2sn5jr6hp" path="res://shaders/Lances_Bolinha.tres" id="8_ky2rs"]
 [ext_resource type="Texture2D" uid="uid://jriomq0tn3ni" path="res://Recursos/2D_Art/MatchUI/Ativo 1.png" id="8_xrqu3"]
 [ext_resource type="Texture2D" uid="uid://bspvf8n8v742y" path="res://Recursos/2D_Art/MatchUI/Sport_Club_Internacional_logopng.png" id="9_gww17"]
+[ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="13_xrqu3"]
 [ext_resource type="Texture2D" uid="uid://cqsce67mxbkpw" path="res://Recursos/2D_Art/MatchUI/pause.png" id="14_vxabe"]
-[ext_resource type="Texture2D" uid="uid://cx0vwdmnaue5m" path="res://Recursos/2D_Art/MatchUI/formato timer partida - White.png" id="16_eukvx"]
-[ext_resource type="Texture2D" uid="uid://bo3iftgkblwmo" path="res://ProgressBar/progress_track.png" id="16_rbbqf"]
 [ext_resource type="Script" uid="uid://b3008pymwpp85" path="res://Componentes/MainMenu/ControleCard.gd" id="20_gww17"]
 
-[node name="MatchUI" type="CanvasLayer" unique_id=2001534732 node_paths=PackedStringArray("placar_esq", "placar_dir", "nome_time_esq", "nome_time_dir", "lateral_quem_joga", "lateral_time_esq", "lateral_time_dir", "cor_placar_esq", "cor_placar_dir", "lances_esq", "lances_dir", "label_tempo", "team_barra_Lance", "timer_background")]
-script = ExtResource("1_xrqu3")
-placar_esq = NodePath("MarginContainer/Control/ControlPlacar/Placar_Esquerda")
-placar_dir = NodePath("MarginContainer/Control/ControlPlacar/Placar_Direita")
-nome_time_esq = NodePath("MarginContainer/Control/Nome_Time_Esquerda")
-nome_time_dir = NodePath("MarginContainer/Control/Nome_Time_Direita")
-lateral_quem_joga = NodePath("MarginContainer/LateraisQuemJoga")
-lateral_time_esq = NodePath("MarginContainer/LateraisTimeEsquerda")
-lateral_time_dir = NodePath("MarginContainer/LateraisTimeDireita")
-cor_placar_esq = NodePath("MarginContainer/Control/ControlPlacar/MatchPlacarEsquerda")
-cor_placar_dir = NodePath("MarginContainer/Control/ControlPlacar/MatchPlacarDireita")
-lances_esq = [NodePath("MarginContainer/Control/HBox_LancesEsquerda/Lance1"), NodePath("MarginContainer/Control/HBox_LancesEsquerda/Lance2"), NodePath("MarginContainer/Control/HBox_LancesEsquerda/Lance3")]
-lances_dir = [NodePath("MarginContainer/Control/HBox_LancesDireita/Lance1"), NodePath("MarginContainer/Control/HBox_LancesDireita/Lance2"), NodePath("MarginContainer/Control/HBox_LancesDireita/Lance3")]
-label_tempo = NodePath("MarginContainer/Control/Label_Tempo")
-team_barra_Lance = NodePath("MarginContainer/Control/TextureProgressBar_Lance")
-timer_background = NodePath("MarginContainer/Control/TextureRect")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yfw0a"]
+bg_color = Color(0.9254902, 0.9254902, 0.9254902, 1)
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_bottom_right = 94
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jt1jy"]
+bg_color = Color(0.9254902, 0.9254902, 0.9254902, 1)
+border_width_left = 4
+border_width_bottom = 4
+corner_radius_bottom_left = 94
+expand_margin_left = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrqu3"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ky2rs"]
+bg_color = Color(0, 0, 0, 0.49803922)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rbbqf"]
+bg_color = Color(0.9254902, 0.9254902, 0.9254902, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_vxabe"]
+font = ExtResource("7_xrqu3")
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eukvx"]
+bg_color = Color(0.9254902, 0.9254902, 0.9254902, 1)
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_xrqu3"]
+font = ExtResource("7_xrqu3")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_snsmq"]
+bg_color = Color(0, 0, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hdx5a"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_rbbqf"]
+font = ExtResource("7_xrqu3")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxabe"]
+bg_color = Color(0.9254902, 0.9254902, 0.9254902, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_jt1jy"]
+font = ExtResource("13_xrqu3")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_ky2rs"]
+font = ExtResource("13_xrqu3")
+font_size = 24
+
+[node name="MatchUI" type="CanvasLayer" unique_id=2001534732]
+script = ExtResource("1_yfw0a")
+
+[node name="Untitled" type="Sprite2D" parent="." unique_id=220589213]
+visible = false
+position = Vector2(961.75, 542.12506)
+scale = Vector2(0.49291968, 0.49233413)
+texture = ExtResource("2_xrqu3")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=519582948]
 anchors_preset = 15
@@ -45,292 +121,62 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LateraisQuemJoga" type="TextureRect" parent="MarginContainer" unique_id=922603446]
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("1_vlj2w")
-expand_mode = 1
-
-[node name="LateraisTimeEsquerda" type="TextureRect" parent="MarginContainer" unique_id=584838740]
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("2_dudno")
-expand_mode = 1
-
-[node name="LateraisTimeDireita" type="TextureRect" parent="MarginContainer" unique_id=1743698421]
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("3_daawi")
-expand_mode = 1
-
 [node name="Control" type="Control" parent="MarginContainer" unique_id=299534550]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="EmblemaEsquerda" type="TextureRect" parent="MarginContainer/Control" unique_id=817500125]
+[node name="EmblemaHome" type="Panel" parent="MarginContainer/Control" unique_id=187398632]
 layout_mode = 1
-offset_right = 220.0
-offset_bottom = 240.0
-mouse_filter = 2
-texture = ExtResource("4_dxqk6")
+offset_right = 243.0
+offset_bottom = 243.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yfw0a")
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaEsquerda" unique_id=339068560]
-layout_mode = 0
-offset_right = 207.0
-offset_bottom = 218.0
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaHome" unique_id=339068560]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.5
+offset_top = -109.0
+offset_right = 103.5
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("6_hdx5a")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Nome_Time_Esquerda" type="Label" parent="MarginContainer/Control" unique_id=70203208]
-layout_mode = 1
-offset_left = 237.0
-offset_top = 41.0
-offset_right = 742.0
-offset_bottom = 116.0
-size_flags_vertical = 0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_y = 3
-theme_override_constants/outline_size = 3
-theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/font = ExtResource("5_1jthf")
-theme_override_font_sizes/font_size = 46
-text = "Nome_do_Time"
-
-[node name="EmblemaDireita" type="TextureRect" parent="MarginContainer/Control" unique_id=1555983376]
+[node name="EmblemaAway" type="Panel" parent="MarginContainer/Control" unique_id=2019306394]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -220.0
-offset_bottom = 240.0
+offset_left = -243.0
+offset_bottom = 243.0
 grow_horizontal = 0
-mouse_filter = 2
-texture = ExtResource("6_jt1jy")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jt1jy")
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaDireita" unique_id=655243240]
-layout_mode = 0
-offset_left = 13.0
-offset_top = 2.0
-offset_right = 213.0
-offset_bottom = 225.0
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaAway" unique_id=1288555093]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.5
+offset_top = -109.0
+offset_right = 103.5
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("9_gww17")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Nome_Time_Direita" type="Label" parent="MarginContainer/Control" unique_id=544421197]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -729.0
-offset_top = 37.0
-offset_right = -241.0
-offset_bottom = 112.0
-grow_horizontal = 0
-size_flags_vertical = 0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_y = 3
-theme_override_constants/outline_size = 3
-theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/font = ExtResource("5_1jthf")
-theme_override_font_sizes/font_size = 46
-text = "Nome_do_Time"
-horizontal_alignment = 2
-
-[node name="HBox_LancesEsquerda" type="HBoxContainer" parent="MarginContainer/Control" unique_id=687401235]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.263
-anchor_top = 0.13100001
-anchor_right = 0.39800003
-anchor_bottom = 0.17600001
-offset_left = 0.039978027
-offset_top = -0.480011
-offset_right = -0.16003418
-offset_bottom = -0.08001709
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 20
-
-[node name="Lances" type="Label" parent="MarginContainer/Control/HBox_LancesEsquerda" unique_id=372591886]
-auto_translate_mode = 1
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_y = 3
-theme_override_constants/outline_size = 3
-theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/font = ExtResource("5_1jthf")
-theme_override_font_sizes/font_size = 30
-text = "SHOTS"
-
-[node name="Lance1" type="TextureRect" parent="MarginContainer/Control/HBox_LancesEsquerda" unique_id=899273125]
-material = ExtResource("8_ky2rs")
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("6_yfw0a")
-
-[node name="Lance2" type="TextureRect" parent="MarginContainer/Control/HBox_LancesEsquerda" unique_id=1564477149]
-material = ExtResource("8_ky2rs")
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("7_jt1jy")
-
-[node name="Lance3" type="TextureRect" parent="MarginContainer/Control/HBox_LancesEsquerda" unique_id=1890631645]
-material = ExtResource("8_ky2rs")
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("8_xrqu3")
-
-[node name="HBox_LancesDireita" type="HBoxContainer" parent="MarginContainer/Control" unique_id=329278285]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.59900004
-anchor_top = 0.12900001
-anchor_right = 0.734
-anchor_bottom = 0.17400001
-offset_left = -0.080078125
-offset_top = -0.32000732
-offset_right = -0.2800293
-offset_bottom = 0.07998657
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 20
-
-[node name="Lance3" type="TextureRect" parent="MarginContainer/Control/HBox_LancesDireita" unique_id=1021428770]
-material = ExtResource("8_ky2rs")
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("8_xrqu3")
-
-[node name="Lance2" type="TextureRect" parent="MarginContainer/Control/HBox_LancesDireita" unique_id=247050383]
-material = ExtResource("8_ky2rs")
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("7_jt1jy")
-
-[node name="Lance1" type="TextureRect" parent="MarginContainer/Control/HBox_LancesDireita" unique_id=914985060]
-material = ExtResource("8_ky2rs")
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("6_yfw0a")
-
-[node name="Lances" type="Label" parent="MarginContainer/Control/HBox_LancesDireita" unique_id=1014897963]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_y = 3
-theme_override_constants/outline_size = 3
-theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/font = ExtResource("5_1jthf")
-theme_override_font_sizes/font_size = 30
-text = "SHOTS"
-
-[node name="ControlPlacar" type="Control" parent="MarginContainer/Control" unique_id=148619865]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="MatchPlacarCentro" type="TextureRect" parent="MarginContainer/Control/ControlPlacar" unique_id=57570315]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -197.0
-offset_right = 197.0
-offset_bottom = 196.0
-grow_horizontal = 2
-mouse_filter = 2
-texture = ExtResource("6_ufigq")
-
-[node name="MatchPlacarDireita" type="TextureRect" parent="MarginContainer/Control/ControlPlacar" unique_id=1631741334]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -197.0
-offset_right = 197.0
-offset_bottom = 196.0
-grow_horizontal = 2
-mouse_filter = 2
-texture = ExtResource("7_yfw0a")
-
-[node name="MatchPlacarEsquerda" type="TextureRect" parent="MarginContainer/Control/ControlPlacar" unique_id=1132614875]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -197.0
-offset_right = 197.0
-offset_bottom = 196.0
-grow_horizontal = 2
-mouse_filter = 2
-texture = ExtResource("8_jt1jy")
-
-[node name="Placar_Esquerda" type="Label" parent="MarginContainer/Control/ControlPlacar" unique_id=1268883545]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -97.0
-offset_top = 44.0
-offset_right = -54.0
-offset_bottom = 160.0
-grow_horizontal = 2
-size_flags_horizontal = 4
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_y = 3
-theme_override_constants/outline_size = 3
-theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/font = ExtResource("5_1jthf")
-theme_override_font_sizes/font_size = 72
-text = "0"
-
-[node name="Placar_Direita" type="Label" parent="MarginContainer/Control/ControlPlacar" unique_id=1068222214]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 50.0
-offset_top = 42.0
-offset_right = 93.0
-offset_bottom = 158.0
-grow_horizontal = 2
-size_flags_horizontal = 4
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_y = 3
-theme_override_constants/outline_size = 3
-theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/font = ExtResource("5_1jthf")
-theme_override_font_sizes/font_size = 72
-text = "0"
-
 [node name="BotaoPause" type="TextureButton" parent="MarginContainer/Control" unique_id=1379902925]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -344,36 +190,6 @@ texture_normal = ExtResource("14_vxabe")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control" unique_id=186011459]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.39200002
-anchor_top = 0.915
-anchor_right = 0.60800004
-anchor_bottom = 1.001
-offset_left = -0.64001465
-offset_top = -0.2000122
-offset_right = 0.6398926
-offset_bottom = -0.080078125
-texture = ExtResource("16_eukvx")
-expand_mode = 1
-
-[node name="Label_Tempo" type="Label" parent="MarginContainer/Control" unique_id=1312493592]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.39200002
-anchor_top = 0.91400003
-anchor_right = 0.60800004
-anchor_bottom = 0.95600003
-offset_left = -0.64001465
-offset_top = -0.12005615
-offset_right = 0.6398926
-offset_bottom = -0.47998047
-theme_override_font_sizes/font_size = 24
-text = "02:30"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control" unique_id=1812000759]
 visible = false
 layout_mode = 0
@@ -383,23 +199,244 @@ offset_right = 839.0
 offset_bottom = 813.0
 script = ExtResource("20_gww17")
 
-[node name="TextureProgressBar_Lance" type="TextureProgressBar" parent="MarginContainer/Control" unique_id=1892061700]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control" unique_id=1418294573]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.39200002
-anchor_top = 0.93000007
-anchor_right = 0.60800004
-anchor_bottom = 1.0
-offset_left = -0.64001465
-offset_top = 8.551392
-offset_right = 1524.831
-offset_bottom = 956.9514
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -273.0
+offset_right = 278.0
+offset_bottom = 146.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
+
+[node name="TimerBar" type="Panel" parent="MarginContainer/Control/VBoxContainer" unique_id=1360506475]
+custom_minimum_size = Vector2(544, 69)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_xrqu3")
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/Control/VBoxContainer/TimerBar" unique_id=1556547862]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -13.5
+offset_right = 256.0
+offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.21389647, 0.06645368)
-max_value = 10.0
-value = 10.0
-nine_patch_stretch = true
-texture_progress = ExtResource("16_rbbqf")
+theme_override_styles/background = SubResource("StyleBoxFlat_ky2rs")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rbbqf")
+max_value = 150.0
+show_percentage = false
+
+[node name="TimeLabel" type="Label" parent="MarginContainer/Control/VBoxContainer/TimerBar/ProgressBar" unique_id=936039720]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "TIME"
+label_settings = SubResource("LabelSettings_vxabe")
+
+[node name="ScorePanel" type="Panel" parent="MarginContainer/Control/VBoxContainer" unique_id=839782283]
+custom_minimum_size = Vector2(148, 74)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_eukvx")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/VBoxContainer/ScorePanel" unique_id=1309089070]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer" unique_id=580662986]
+layout_mode = 2
+
+[node name="ScoreHome" type="Label" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer" unique_id=1470866717]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "0"
+label_settings = SubResource("LabelSettings_xrqu3")
+
+[node name="Control" type="Control" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer" unique_id=1195993823]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer" unique_id=2107609989]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=961779938]
+custom_minimum_size = Vector2(8, 24)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_snsmq")
+
+[node name="Panel2" type="Panel" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1064332771]
+custom_minimum_size = Vector2(8, 24)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hdx5a")
+
+[node name="Control2" type="Control" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer" unique_id=1445441490]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScoreAway" type="Label" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer" unique_id=944053184]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "0"
+label_settings = SubResource("LabelSettings_rbbqf")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control" unique_id=1738534711]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Panel_LancesHome" type="Panel" parent="MarginContainer/Control/MarginContainer" unique_id=118295296]
+custom_minimum_size = Vector2(99, 216.16998)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_vxabe")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/MarginContainer/Panel_LancesHome" unique_id=1632757913]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 16
+
+[node name="HBox_LancesEsquerda" type="VBoxContainer" parent="MarginContainer/Control/MarginContainer/Panel_LancesHome/MarginContainer" unique_id=1831329656]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="Lance3" type="TextureRect" parent="MarginContainer/Control/MarginContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda" unique_id=1890631645]
+material = ExtResource("8_ky2rs")
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("8_xrqu3")
+
+[node name="Lance2" type="TextureRect" parent="MarginContainer/Control/MarginContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda" unique_id=1564477149]
+material = ExtResource("8_ky2rs")
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("7_jt1jy")
+
+[node name="Lance1" type="TextureRect" parent="MarginContainer/Control/MarginContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda" unique_id=899273125]
+material = ExtResource("8_ky2rs")
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("6_yfw0a")
+
+[node name="Lances" type="Label" parent="MarginContainer/Control/MarginContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda" unique_id=372591886]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("5_1jthf")
+theme_override_font_sizes/font_size = 24
+text = "SHOTS"
+label_settings = SubResource("LabelSettings_jt1jy")
+
+[node name="Panel_LancesAway" type="Panel" parent="MarginContainer/Control/MarginContainer" unique_id=183941244]
+custom_minimum_size = Vector2(99, 216.16998)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_vxabe")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/MarginContainer/Panel_LancesAway" unique_id=1765148251]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 16
+
+[node name="HBox_LancesDireita" type="VBoxContainer" parent="MarginContainer/Control/MarginContainer/Panel_LancesAway/MarginContainer" unique_id=1245846588]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="Lance3" type="TextureRect" parent="MarginContainer/Control/MarginContainer/Panel_LancesAway/MarginContainer/HBox_LancesDireita" unique_id=1157691462]
+material = ExtResource("8_ky2rs")
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("8_xrqu3")
+
+[node name="Lance2" type="TextureRect" parent="MarginContainer/Control/MarginContainer/Panel_LancesAway/MarginContainer/HBox_LancesDireita" unique_id=626500361]
+material = ExtResource("8_ky2rs")
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("7_jt1jy")
+
+[node name="Lance1" type="TextureRect" parent="MarginContainer/Control/MarginContainer/Panel_LancesAway/MarginContainer/HBox_LancesDireita" unique_id=1108948456]
+material = ExtResource("8_ky2rs")
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("6_yfw0a")
+
+[node name="Lances" type="Label" parent="MarginContainer/Control/MarginContainer/Panel_LancesAway/MarginContainer/HBox_LancesDireita" unique_id=106873786]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.48235294)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("5_1jthf")
+theme_override_font_sizes/font_size = 24
+text = "SHOTS"
+label_settings = SubResource("LabelSettings_ky2rs")
 
 [connection signal="pressed" from="MarginContainer/Control/BotaoPause" to="." method="_on_botao_pause_pressed"]

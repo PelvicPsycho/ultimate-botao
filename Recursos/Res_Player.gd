@@ -31,7 +31,7 @@ var poder_congelar_turnos: int = 0
 @export var level_force: int # nivel de força da peça (0 a 10)
 @export var level_force_weak: int = 3  # Abaixo deste valor = FRACO
 @export var level_force_strong: int = 7  # Acima deste valor = FORTE
-
+var bonus_passivos: Dictionary = {}
 @export_subgroup("Outros")
 @export var PA: int
 @export var rank: Rank
@@ -46,7 +46,7 @@ var aumento_de_tamano:bool = false
 var diminui_de_tamano:bool = false
 var more_friction:bool = false
 var less_friction:bool = false
-var empurra_aliados_ativo = true
+var empurra_aliados_ativo = false
 var empurra_aliados_multiplicador = 1.8 
 var atrai_bola_ativo = false
 var atrai_bola_forca = 1.0
@@ -75,7 +75,7 @@ func recalcular_status() -> void:
 
 func resetar_status(base_info: TeamPlayer) -> void:
 	self.level_force = base_info.level_force
-	self.PA = base_info.PA 
+	
 	self.aumento_de_tamano = false
 	self.diminui_de_tamano = false
 	self.atrai_bola_ativo = false
@@ -84,37 +84,66 @@ func resetar_status(base_info: TeamPlayer) -> void:
 	self.turnos_preso = 0
 func aplicar_buff(card: CardResource) -> void:
 	# 1. A carta já está equipada: só ativa o efeito.
-	ultima_carta_usada = card
-	match card.tipo_efeito:
-		CardResource.TipoEfeito.FORCA:
-			level_force += card.magnitude
+	if PA < card.custo_energia:
+		print("PA insuficiente! Custa ", card.magnitude, " PA, tem apenas ", PA)
+		return
+	else:
+		ultima_carta_usada = card
+		match card.tipo_efeito:
+			CardResource.TipoEfeito.FORCA:
+				level_force += card.magnitude
 
-		CardResource.TipoEfeito.PA:
-			PA += card.magnitude
-		CardResource.TipoEfeito.Congelamento:
-			congelamento_ativo = true
-			poder_congelar_turnos = card.magnitude
-		CardResource.TipoEfeito.TrocaLugar:
-			troca_posicao_ativa = true
-			
-		CardResource.TipoEfeito.Grande:
-			aumento_de_tamano = true
-		CardResource.TipoEfeito.Pequeno:
-			diminui_de_tamano = true
-		CardResource.TipoEfeito.Empurrão:
-			empurra_aliados_ativo = true
-			empurra_aliados_multiplicador = card.magnitude
-		CardResource.TipoEfeito.Atrasao:
-			atrai_bola_ativo = true
-			atrai_bola_forca = card.magnitude
-			
-	PA -= card.custo_energia
-	duracao_dos_buffs[card] = card.duracao
-	recalcular_status()
-	status_mudou.emit()
-	print("--- CARTA ATIVADA! ---")
-	print("Nova Força: ", level_force, " | PA: ", PA)
+			CardResource.TipoEfeito.PA:
+				PA += card.magnitude
+			CardResource.TipoEfeito.Congelamento:
+				congelamento_ativo = true
+				poder_congelar_turnos = card.magnitude
+			CardResource.TipoEfeito.TrocaLugar:
+				troca_posicao_ativa = true
+				
+			CardResource.TipoEfeito.Grande:
+				aumento_de_tamano = true
+			CardResource.TipoEfeito.Pequeno:
+				diminui_de_tamano = true
+			CardResource.TipoEfeito.Empurrão:
+				empurra_aliados_ativo = true
+				empurra_aliados_multiplicador = card.magnitude
+			CardResource.TipoEfeito.Atrasao:
+				atrai_bola_ativo = true
+				atrai_bola_forca = card.magnitude
+				
+		PA -= card.custo_energia
+		duracao_dos_buffs[card] = card.duracao
+		recalcular_status()
+		status_mudou.emit()
+		print("--- CARTA ATIVADA! ---")
+		print("Nova Força: ", level_force, " | PA: ", PA)
 
+func aplicar_passivas() -> void:
+	# Primeiro limpa os bônus antigos
+	_remover_passivas()
+	
+	for card in slotsUpgrates:
+		if card == null:
+			continue
+		if not card.is_passiva:
+			continue
+		
+		match card.tipo_efeito:
+			CardResource.TipoEfeito.Aumentar_Pa_Maximo:
+				PA += card.magnitude
+				bonus_passivos[card] = {"tipo": "PA", "valor": card.magnitude}
+				
+		print("Passiva ativada: ", card.nome, " | ", card.tipo_efeito)
+func _remover_passivas() -> void:
+	for card in bonus_passivos:
+		var info = bonus_passivos[card]
+		match info["tipo"]:
+			"PA":
+				PA -= info["valor"]
+			"FORCA":
+				level_force -= info["valor"]
+	bonus_passivos.clear()
 func processar_passagem_de_turno(base_info: TeamPlayer) -> void:
 	processar_expiracao_de_buffs(base_info)
 
@@ -123,9 +152,9 @@ func processar_expiracao_de_buffs(base_info: TeamPlayer) -> void:
 		turnos_congelamento_armazenado -= 1
 		if turnos_congelamento_armazenado <= 0:
 			disabilitado = false
-			status_mudou.emit() 
+			status_mudou.emit()
+			
 	var cartas_para_remover: Array[CardResource] = []
-	
 	for card in duracao_dos_buffs:
 		duracao_dos_buffs[card] -= 1
 		if duracao_dos_buffs[card] <= 0:
@@ -139,8 +168,6 @@ func processar_expiracao_de_buffs(base_info: TeamPlayer) -> void:
 		resetar_status(base_info)
 		for card_ativo in duracao_dos_buffs:
 			_reaplicar_silencioso(card_ativo)
-			
-		# Avisa a peça que o buff acabou (círculo volta ao normal)
 		status_mudou.emit()
 
 func _limpar_slot_da_carta(card: CardResource) -> void:
