@@ -36,9 +36,12 @@ var gol_de_ouro: bool = false
 # Contador de congelamento. Só descongela quando chegar a zero.
 var freeze_level: int = 0
 
+@export var audio_murmurio_fundo: AudioStream
+
 func _ready() -> void:
 	
 	loadMatch()
+	SoundMaster.play_bgm(audio_murmurio_fundo, "loop")
 	%MatchUI.UI_start(homeTeam, awayTeam)
 	selectFirstTurn()
 	

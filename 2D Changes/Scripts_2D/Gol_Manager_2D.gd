@@ -10,6 +10,7 @@ var label_gol: Label
 @export var anunciadorui: CanvasLayer
 @export var match_state: Node2D
 
+@export var audio_fez_gol: AudioStream
 # Variável para referenciar o seu MatchState (assumindo que ele seja um Autoload ou esteja na cena)
 #@onready var match_state = $".."
 
@@ -59,6 +60,7 @@ func anunciar_gol_e_resetar_campo(isHome: bool):
 	if !match_state.foulFlag:
 		print("Dispara a UI")
 		# Dispara a UI
+		SoundMaster.play_sfx(audio_fez_gol)
 		anunciadorui.mostrar_evento(tr("GOAL"), 120, tempo_anuncio_gol, match_state.homeTeam.cor if !isHome else match_state.awayTeam.cor)
 		
 	# Delay de segundos (tempo_anuncio_gol)

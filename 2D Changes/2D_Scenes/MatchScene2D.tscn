@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://byarw1jr857h3" path="res://Componentes/Recompensas/recompensa_torneio.tscn" id="3_pnfph"]
 [ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="3_r4ru6"]
 [ext_resource type="Script" uid="uid://c3jx1lb0wr1pg" path="res://2D Changes/Scripts_2D/CollisionResolution2D.gd" id="4_3wcxh"]
+[ext_resource type="AudioStream" uid="uid://bc64cn1hhr7ym" path="res://Recursos/SFXs/fundo-estadio_loop.wav" id="4_5a5ja"]
 [ext_resource type="PackedScene" uid="uid://b8ms3txou0nej" path="res://Componentes/MatchUI/match_ui.tscn" id="4_cdikc"]
 [ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="4_iej8s"]
 [ext_resource type="PackedScene" uid="uid://bjuey2wm1ffql" path="res://2D Changes/2D_Scenes/Player2D.tscn" id="5_mnhma"]
@@ -18,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://cjyd6bkt7lcc6" path="res://Recursos/Teams/MyTeam/Carlinhos.tres" id="6_s6wlo"]
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="7_6p5wb"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="8_j0mnx"]
+[ext_resource type="AudioStream" uid="uid://cjmj3m8i68a7r" path="res://Recursos/SFXs/gol_5s_fadeout.wav" id="15_ukqcm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iej8s"]
 size = Vector2(215, 269)
@@ -27,6 +29,7 @@ script = ExtResource("1_iur2g")
 anunciador_ui = NodePath("AnunciadorUI")
 cena_recompensa_partida = ExtResource("2_q7h6m")
 cena_recompensa_torneio = ExtResource("3_pnfph")
+audio_murmurio_fundo = ExtResource("4_5a5ja")
 
 [node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("4_iej8s")]
 offset_left = -685.0
@@ -100,6 +103,7 @@ position = Vector2(960, 628)
 script = ExtResource("5_p2q2m")
 anunciadorui = NodePath("../AnunciadorUI")
 match_state = NodePath("..")
+audio_fez_gol = ExtResource("15_ukqcm")
 
 [node name="AreaHome" type="Area2D" parent="." unique_id=1861784472]
 position = Vector2(283, 629)
