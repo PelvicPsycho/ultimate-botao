@@ -9,9 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://crifmj85cln87" path="res://Recursos/2D_Art/MyTeam/Rectangle 16.png" id="4_x3s7i"]
 [ext_resource type="Texture2D" uid="uid://47ugmokghauy" path="res://Recursos/2D_Art/MyTeam/Group 53_.png" id="5_x3s7i"]
 [ext_resource type="Texture2D" uid="uid://7pb1a7h83erj" path="res://Recursos/2D_Art/MyTeam/Group 4_.png" id="6_3vc01"]
-[ext_resource type="Texture2D" uid="uid://cg5tfjwokdeir" path="res://Recursos/2D_Art/MyTeam/Rectangle 25.png" id="6_mit26"]
 [ext_resource type="PackedScene" uid="uid://orrq0vy3qa51" path="res://Componentes/MyTeam/inventory_pecas_button.tscn" id="7_3c3cq"]
-[ext_resource type="Texture2D" uid="uid://c6bv7feyo2bx8" path="res://Recursos/2D_Art/MyTeam/Ellipse 25.png" id="7_3vc01"]
 [ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="9_2ysy5"]
 [ext_resource type="Texture2D" uid="uid://sb143gchnnfr" path="res://Recursos/2D_Art/MyTeam/Group 57.png" id="9_cep57"]
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="10_wegx5"]
@@ -615,69 +613,9 @@ columns = 5
 [node name="CartaUI_Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control/EquippedCards_GridContainer" unique_id=1971850068 instance=ExtResource("13_2ysy5")]
 layout_mode = 2
 
-[node name="BottomNav_PanelContainer" type="PanelContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer" unique_id=1686804855]
+[node name="EspacoVazio_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer" unique_id=1551192291]
+custom_minimum_size = Vector2(800, 85)
 layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="TextureRect2" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/BottomNav_PanelContainer" unique_id=304043474]
-custom_minimum_size = Vector2(880, 85)
-layout_mode = 2
-texture = ExtResource("6_mit26")
-expand_mode = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/BottomNav_PanelContainer" unique_id=541043959]
-layout_mode = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = -50
-theme_override_constants/margin_right = 100
-
-[node name="BottomNav_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/BottomNav_PanelContainer/MarginContainer" unique_id=2059103734]
-layout_mode = 2
-
-[node name="Button1" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1899296658]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-texture_normal = ExtResource("7_3vc01")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Button2" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=141051344]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-texture_normal = ExtResource("7_3vc01")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Button3" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=70071356]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-texture_normal = ExtResource("7_3vc01")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Button4" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1888896913]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-texture_normal = ExtResource("7_3vc01")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Button5" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=257694397]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-texture_normal = ExtResource("7_3vc01")
-ignore_texture_size = true
-stretch_mode = 0
 
 [node name="SAIRR_Button" type="Button" parent="." unique_id=920692340]
 layout_mode = 0

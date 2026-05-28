@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://b3cpd23vgrn51"]
+
+[ext_resource type="Texture2D" uid="uid://dvsgbkba0q0lu" path="res://Recursos/2D_Art/TabMenu/Group 146.png" id="1_5t5h4"]
+[ext_resource type="Texture2D" uid="uid://dsc5jb1xxcs0w" path="res://Recursos/2D_Art/TabMenu/referencia.png" id="1_bjpjv"]
+[ext_resource type="Script" uid="uid://dshaarm3s3a52" path="res://Componentes/TabButtons/area_carrossel.gd" id="1_g33fi"]
+[ext_resource type="PackedScene" uid="uid://cebbe7ms7qi0u" path="res://Componentes/TabButtons/card_torneio.tscn" id="2_toabo"]
+
+[node name="MenuTorneio_Control" type="Control" unique_id=1762329946]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=449441331]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_bjpjv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1567519097]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Banner_Control" type="Control" parent="VBoxContainer" unique_id=1078551146]
+custom_minimum_size = Vector2(50, 200)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1731912505]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = 200
+
+[node name="AreaCarrossel_Control" type="Control" parent="VBoxContainer/MarginContainer" unique_id=1886665737 node_paths=PackedStringArray("seta_esquerda", "seta_direita")]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("1_g33fi")
+cena_card_torneio = ExtResource("2_toabo")
+seta_esquerda = NodePath("../Botoes_Control/SetaEsquerda_TextureButton")
+seta_direita = NodePath("../Botoes_Control/SetaDireita_TextureButton")
+espacamento_primeiros_vizinhos = 400.0
+espacamento_demais_cartas = 320.0
+escala_central_x = 0.7
+escala_central_y = 0.7
+escala_lateral_x = 0.4
+escala_lateral_y = 0.4
+
+[node name="CardTorneio_MarginContainer" parent="VBoxContainer/MarginContainer/AreaCarrossel_Control" unique_id=1939318514 instance=ExtResource("2_toabo")]
+layout_mode = 0
+offset_left = 749.0
+offset_top = 54.999992
+offset_right = 1349.0
+offset_bottom = 837.0
+scale = Vector2(0.7, 0.7)
+
+[node name="Botoes_Control" type="Control" parent="VBoxContainer/MarginContainer" unique_id=243813227]
+layout_mode = 2
+
+[node name="SetaEsquerda_TextureButton" type="TextureButton" parent="VBoxContainer/MarginContainer/Botoes_Control" unique_id=1817918000]
+z_index = 10
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.0
+offset_top = 172.0
+offset_right = -215.0
+offset_bottom = 272.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("1_5t5h4")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="SetaDireita_TextureButton" type="TextureButton" parent="VBoxContainer/MarginContainer/Botoes_Control" unique_id=1030709316]
+z_index = 10
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 214.0
+offset_top = 172.0
+offset_right = 314.0
+offset_bottom = 272.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("1_5t5h4")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true

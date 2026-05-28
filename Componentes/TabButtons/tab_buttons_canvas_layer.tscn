@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://dyr5pren1d7yi"]
+
+[ext_resource type="Script" uid="uid://bntwm2o1n6bbo" path="res://Componentes/TabButtons/tab_buttons.gd" id="1_lhvel"]
+[ext_resource type="Texture2D" uid="uid://cg5tfjwokdeir" path="res://Recursos/2D_Art/MyTeam/Rectangle 25.png" id="1_p72sh"]
+[ext_resource type="Texture2D" uid="uid://c6bv7feyo2bx8" path="res://Recursos/2D_Art/MyTeam/Ellipse 25.png" id="2_lhvel"]
+[ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="2_yjeje"]
+[ext_resource type="PackedScene" uid="uid://d0bgo77x0u5d7" path="res://Componentes/MyTeam/elenco_menu_control.tscn" id="3_i8k4o"]
+
+[node name="TabButtons_CanvasLayer" type="CanvasLayer" unique_id=64088362 node_paths=PackedStringArray("bottom_nav")]
+script = ExtResource("1_lhvel")
+bottom_nav = NodePath("BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer")
+
+[node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("2_yjeje")]
+
+[node name="RaizSubcenas_Control" type="Control" parent="." unique_id=687438782]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ElencoMenu_Control" parent="RaizSubcenas_Control" unique_id=1758982721 instance=ExtResource("3_i8k4o")]
+layout_mode = 1
+
+[node name="BottomNav_PanelContainer" type="MarginContainer" parent="." unique_id=1934059837]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -440.0
+offset_top = -85.0
+offset_right = 440.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="BottomNav_PanelContainer" unique_id=334217313]
+custom_minimum_size = Vector2(880, 85)
+layout_mode = 2
+texture = ExtResource("1_p72sh")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="BottomNav_PanelContainer" unique_id=1147368197]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = -50
+theme_override_constants/margin_right = 100
+
+[node name="BottomNav_HBoxContainer" type="HBoxContainer" parent="BottomNav_PanelContainer/MarginContainer" unique_id=1031078305]
+layout_mode = 2
+
+[node name="MyTeam_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1387735422]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("2_lhvel")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Torneio_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1874214184]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("2_lhvel")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Configurações_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1360778727]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("2_lhvel")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton4" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=904572006]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("2_lhvel")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton5" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1004607767]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("2_lhvel")
+ignore_texture_size = true
+stretch_mode = 0
