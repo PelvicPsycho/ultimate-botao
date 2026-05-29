@@ -4,11 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://begouwdbb6n8r" path="res://2D Changes/Components/AnimatedBG/fondo teste 1_Prancheta 1.png" id="2_naqua"]
 
 [sub_resource type="Gradient" id="Gradient_fmb8l"]
+offsets = PackedFloat32Array(0, 0.9787371)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_404ek"]
-noise_type = 4
+noise_type = 2
 seed = 7
-frequency = 0.0069
+frequency = 0.0051
 fractal_weighted_strength = 0.38
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_138kc"]
@@ -18,15 +19,15 @@ seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fmb8l"]
 shader = ExtResource("1_6b77n")
-shader_parameter/scroll_speed = 0.05
+shader_parameter/scroll_speed = 0.438000020805
 shader_parameter/angle_degrees = 45.0
 shader_parameter/repeat_x = 13.0
 shader_parameter/repeat_y = 13.0
 shader_parameter/tint = Color(0.5936789, 0.5936789, 0.5936789, 0.37254903)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_138kc")
-shader_parameter/warp_strength = 0.03999999910592
-shader_parameter/warp_scale = 0.70000001043084
-shader_parameter/warp_speed = 0.1
+shader_parameter/warp_strength = 0.17999999597664
+shader_parameter/warp_scale = 0.40000000596048
+shader_parameter/warp_speed = 0.0
 shader_parameter/enable_bitcrush = true
 shader_parameter/pixel_size = 254.0
 shader_parameter/color_depth = 8
