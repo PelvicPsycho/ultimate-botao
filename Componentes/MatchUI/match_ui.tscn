@@ -231,7 +231,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_ky2rs")
 theme_override_styles/fill = SubResource("StyleBoxFlat_rbbqf")
-max_value = 150.0
+max_value = 90.0
 show_percentage = false
 
 [node name="TimeLabel" type="Label" parent="MarginContainer/Control/VBoxContainer/TimerBar/ProgressBar" unique_id=936039720]

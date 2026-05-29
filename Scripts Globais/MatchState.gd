@@ -48,9 +48,6 @@ func _ready() -> void:
 	allPieces.assign(get_tree().get_nodes_in_group("Players"))
 	allBalls = get_tree().get_nodes_in_group("Balls")
 	
-		
-	
-		
 	var goals = get_tree().get_nodes_in_group("Goals")
 	for goal in goals:
 		goal.gol.connect(onGoal)
@@ -88,13 +85,8 @@ func _ready() -> void:
 	_atualizar_placar()
 	
 	timer.partida_acabou.connect(_on_partida_acabou)
-	timer.lance_acabou.connect(_on_lance_acabou)
-	timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)
-	#timer._atualizar_barra_lance.connect(%MatchUI._atualizar_barra_lance)
-	#timer.resetar_barra_lance.connect(%MatchUI.resetar_barra_lance)
-	
+	timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)	
 	timer.iniciar_partida()
-	timer.iniciar_lance(currentTurn)
 	
 	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, homeTeam.cor if currentTurn == turn.HOME else awayTeam.cor)
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
@@ -134,28 +126,10 @@ func assignPieces():
 func _atualizar_placar() -> void:
 	%MatchUI.atualizar_placar(homeScore, awayScore)
 
-func _on_lance_acabou() -> void: 
-	var alguma_peca_arrastada: bool = false
-	var peca_arrastada: PhysicsPlayer2D = null
-	
-	for piece in allPieces:
-		if piece.is_dragging:
-			alguma_peca_arrastada = true
-			peca_arrastada = piece
-			break
-			
-	if alguma_peca_arrastada and peca_arrastada != null:
-		timer.lance_rodando = true
-		peca_arrastada.puxar_no_timeout()
-		#
-		#if peca_arrastada.vetor_arrasto_atual.length_squared() <= 25.0:
-			#changeTurn()
-	else:
-		changeTurn()
-
 func _on_partida_acabou() -> void:
 	timer.parar_tudo()
 	if homeScore == awayScore:
+		disparar_anuncio_com_pausa(tr("GOLDEN_GOAL"), 80, 1.5, Color.YELLOW)
 		gol_de_ouro = true
 	else:
 		var vencedor = homeTeam.name if homeScore > awayScore else awayTeam.name
@@ -183,19 +157,17 @@ func onGoal(isHome: bool) -> void:
 func onClickedPiece(piece: PhysicsPlayer2D) -> void:
 	selectedPiece = piece
 	piece.abrir_botoes_cartas()
-	
-func printState() -> void:
-	pass
 
 func onTurnPlayed() -> void:
 	congelar_jogo(true)
+	timer.rodando_lance()
 	var parado_corretamente: bool = await waitAllStopped()
 	if not parado_corretamente or not is_inside_tree():
 		return
 		
 	congelar_jogo(false)
+	timer.acabando_lance()
 	decideTurn()
-	timer.iniciar_lance(currentTurn)
 
 func waitAllStopped() -> bool:
 	const LINEAR_THRESHOLD_SQ: float = 0.0001
@@ -240,9 +212,6 @@ func waitAllStopped() -> bool:
 
 	return true
 
-func _on_timer_timeout() -> void:
-	get_tree().reload_current_scene()
-
 func selectFirstTurn() -> void:
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
@@ -276,7 +245,6 @@ func forceTurn(target: turn) -> void:
 			
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
 	%MatchUI.colorir_turno(active_team, turnCounter)
-	timer.iniciar_lance(currentTurn)
 	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
 	carta_usada_no_turno = false
 
@@ -368,10 +336,6 @@ func _descongelar_auto() -> void:
 		congelar_jogo(false)
 func _sincronizar_estado_congelamento() -> void:
 	var deve_congelar: bool = freeze_level > 0
-	if deve_congelar:
-		timer.pausar_lance()
-	else:
-		timer.retomar_lance()
 	for piece in allPieces:
 		piece.disabled = deve_congelar
 func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: Color = Color.WHITE) -> void:
@@ -380,7 +344,6 @@ func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: 
 	
 	var descongelar = func():
 		congelar_jogo(false)
-		timer.call_resetar_barra_lance()
 	
 	anunciador_ui.anuncio_encerrado.connect(descongelar, CONNECT_ONE_SHOT)
 
