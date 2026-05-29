@@ -16,6 +16,18 @@
 [ext_resource type="PackedScene" uid="uid://d0h3cghqr1iun" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="13_2ysy5"]
 [ext_resource type="Texture2D" uid="uid://dnafvuhag1c13" path="res://Recursos/2D_Art/MyTeam/Rectangle 24.png" id="13_3c3cq"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3c3cq"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "az_filter_btn", "rank_filter_btn", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_pai_margincontainer", "center_plainmsg_vbox", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox")]
 layout_mode = 3
 anchors_preset = 15
@@ -79,6 +91,7 @@ layout_mode = 2
 [node name="TopNav_PanelContainer" type="PanelContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer" unique_id=1815210115]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_3c3cq")
 
 [node name="TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer" unique_id=1586980118]
 custom_minimum_size = Vector2(880, 100)

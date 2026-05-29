@@ -39,37 +39,62 @@ Checkbox = NodePath("OptionsContainer/Control/FlowContainer/CheckBox")
 
 [node name="Banner_Control" type="Control" parent="." unique_id=2034304194]
 custom_minimum_size = Vector2(50, 200)
-anchors_preset = 0
-offset_right = 50.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_top = 0.0
 offset_bottom = 200.0
+grow_horizontal = 2
 
 [node name="TextureRect2" type="TextureRect" parent="Banner_Control" unique_id=1427477341]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -46.0
-offset_right = 1954.0
-offset_bottom = 200.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_3bofs")
 expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="Banner_Control" unique_id=1540302817]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -46.0
-offset_right = 1954.0
-offset_bottom = 160.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("4_g7qru")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="Banner_Control" unique_id=1370161430]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
 offset_left = 823.0
 offset_top = 24.0
-offset_right = 2623.0
+offset_right = 0.0
 offset_bottom = 94.0
+grow_horizontal = 2
 texture = ExtResource("5_m7w78")
 expand_mode = 1
 
 [node name="TextureRect4" type="TextureRect" parent="Banner_Control" unique_id=398047111]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = -1520.895
 offset_top = 24.0
 offset_right = 279.10498
@@ -80,11 +105,18 @@ flip_h = true
 flip_v = true
 
 [node name="Label" type="Label" parent="Banner_Control" unique_id=802026129]
-layout_mode = 0
-offset_left = 300.0
-offset_top = 14.0
-offset_right = 565.0
-offset_bottom = 97.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.5
+offset_top = -41.5
+offset_right = 132.5
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 60
 text = "CONFIGURAÇÕES"
 

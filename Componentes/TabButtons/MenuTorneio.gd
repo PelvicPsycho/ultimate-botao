@@ -65,6 +65,9 @@ func _ready():
 		indice_atual = index_encontrado
 		
 	_atualizar_carrossel(false)
+	
+	# Reage ao redimensionamento da janela para reposicionar os cards
+	area_carrossel.resized.connect(_on_area_carrossel_resized)
 
 
 func _carregar_cups_da_pasta() -> Array[Cup]:
@@ -99,6 +102,12 @@ func _on_seta_direita_pressed():
 	if indice_atual < cartas.size() - 1:
 		indice_atual += 1
 		_atualizar_carrossel(true)
+
+
+func _on_area_carrossel_resized():
+	# Recalcula posições dos cards quando a janela é redimensionada
+	if cartas.size() > 0:
+		_atualizar_carrossel(false)
 
 
 func _atualizar_carrossel(animado: bool):
