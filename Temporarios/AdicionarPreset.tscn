@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bmibeshifsq4s"]
+
+[ext_resource type="Script" uid="uid://djljl45usfxlo" path="res://Temporarios/adicionar_preset.gd" id="1_fvje2"]
+[ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="2_abnyy"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="3_a6ixd"]
+[ext_resource type="Resource" uid="uid://cq1j88bdgrf6d" path="res://Componentes/Cartas/CardResorce/Carta.tres" id="4_w8w5m"]
+[ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="5_qjtpi"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="6_m4asg"]
+
+[node name="AddPreset_Button" type="Button" unique_id=1518291067]
+offset_right = 145.0
+offset_bottom = 31.0
+theme_override_font_sizes/font_size = 50
+text = "Adicionar Preset"
+script = ExtResource("1_fvje2")
+peca_slot_1 = ExtResource("2_abnyy")
+peca_slot_2 = ExtResource("2_abnyy")
+peca_slot_3 = ExtResource("2_abnyy")
+peca_slot_4 = ExtResource("2_abnyy")
+peca_slot_5 = ExtResource("2_abnyy")
+cartas_1 = Array[ExtResource("3_a6ixd")]([ExtResource("4_w8w5m"), ExtResource("5_qjtpi"), ExtResource("6_m4asg")])
+cartas_2 = Array[ExtResource("3_a6ixd")]([ExtResource("4_w8w5m"), ExtResource("5_qjtpi"), ExtResource("6_m4asg")])
+cartas_3 = Array[ExtResource("3_a6ixd")]([ExtResource("4_w8w5m"), ExtResource("5_qjtpi"), ExtResource("6_m4asg")])
+cartas_4 = Array[ExtResource("3_a6ixd")]([ExtResource("4_w8w5m"), ExtResource("5_qjtpi"), ExtResource("6_m4asg")])
+cartas_5 = Array[ExtResource("3_a6ixd")]([ExtResource("4_w8w5m"), ExtResource("5_qjtpi"), ExtResource("6_m4asg")])

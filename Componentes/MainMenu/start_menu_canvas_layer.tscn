@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://3v4oy7df44ef" path="res://Componentes/MainMenu/start_menu_canvas_layer.gd" id="1_372uq"]
 [ext_resource type="Texture2D" uid="uid://c8mrjyko1e46n" path="res://Recursos/2D_Art/Menu/telas 7.png" id="2_gulj1"]
+[ext_resource type="PackedScene" uid="uid://bmibeshifsq4s" path="res://Temporarios/AdicionarPreset.tscn" id="3_gulj1"]
 
 [node name="StartMenu_CanvasLayer" type="CanvasLayer" unique_id=140501578]
 script = ExtResource("1_372uq")
@@ -31,6 +32,12 @@ offset_right = 286.0
 offset_bottom = 854.0
 theme_override_font_sizes/font_size = 50
 text = "Save delete"
+
+[node name="AddPreset_Button" parent="." unique_id=1518291067 instance=ExtResource("3_gulj1")]
+offset_left = 226.0
+offset_top = 647.0
+offset_right = 631.0
+offset_bottom = 724.0
 
 [connection signal="pressed" from="TextureRect/Startbutton" to="." method="_on_startbutton_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
