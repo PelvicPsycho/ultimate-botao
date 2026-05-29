@@ -26,12 +26,19 @@ var ultimo_tempo_particula_impacto_ms: int = -99999
 
 @export_group("Tracing settings")
 @export var maxLenght: int = 15
+@export var tracer_speed_threshold: float = 18.0
+@export var tracer_width_min: float = 3.0
+@export var tracer_width_max: float = 10.0
+@export var velocity_lag_distance: float = 7.0
+@export var velocity_scale_boost: float = 0.08
 @onready var tracer2D = $Line2D_Trace
+var base_tracer_width: float = 8.0
 
 var hover_tween: Tween
 @export var hover_scale_multiplier: float = 1.2
 var deform_tween: Tween
 var base_visual_rotation: float = 0.0
+var shake_visual_offset: Vector2 = Vector2.ZERO
 
 @export var drag_rotation_offset_degrees: float = 0.0
 
@@ -87,6 +94,7 @@ func _ready() -> void:
 	Start_Velocity_Line()
 	
 	tracer2D.clear_points()
+	base_tracer_width = tracer2D.width
 
 func loadPlayerInfo(plInfo):
 	playerInfo_atual = plInfo.duplicate(true)
@@ -206,15 +214,11 @@ func _process(delta: float) -> void:
 			cos(t * 1.9) * shake_amplitude
 		)
 
-		sprite2D_body.position = base_visual_position + offset
-	
-	if current_force > 0.0:
-		tracer2D.add_point(self.global_position)
-		if tracer2D.get_point_count() > maxLenght:
-			tracer2D.remove_point(0)
+		shake_visual_offset = offset
 	else:
-		if tracer2D.get_point_count() > 0:
-			tracer2D.remove_point(0)
+		shake_visual_offset = Vector2.ZERO
+
+	_update_velocity_feedback(delta)
 
 func _animar_hover(entrando: bool) -> void:
 	
@@ -224,7 +228,7 @@ func _animar_hover(entrando: bool) -> void:
 		
 	
 		hover_tween = create_tween()
-		var target_scale: Vector2 = base_visual_scale * hover_scale_multiplier if entrando else base_visual_scale
+		var target_scale: Vector2 = _get_rest_visual_scale(entrando)
 		var duration: float = 0.2
 		hover_tween.tween_property(sprite2D_body, "scale", target_scale, duration).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)	
 
@@ -659,6 +663,59 @@ func Draw_Velocity_Line() -> void:
 		
 #endregion
 
+func _get_velocity_visual_intensity() -> float:
+	var speed: float = current_velocity.length()
+	if speed <= tracer_speed_threshold:
+		return 0.0
+
+	var configured_max_speed: float = playerInfo_atual.get_max_force() if playerInfo_atual != null else tracer_speed_threshold * 2.0
+	var max_speed: float = max(configured_max_speed, tracer_speed_threshold + 1.0)
+	return clamp(inverse_lerp(tracer_speed_threshold, max_speed, speed), 0.0, 1.0)
+
+func _get_rest_visual_scale(hovering: bool = is_pointer_inside_piece) -> Vector2:
+	if hovering and canPlay:
+		return base_visual_scale * hover_scale_multiplier
+	return base_visual_scale
+
+func _update_velocity_feedback(delta: float) -> void:
+	if tracer2D == null or sprite2D_body == null:
+		return
+
+	var intensity: float = _get_velocity_visual_intensity()
+	var tracer_target_length: int = maxLenght
+	var tracer_color: Color = team.cor if team != null else Color.WHITE
+
+	if intensity > 0.0 and is_moving:
+		tracer2D.add_point(global_position)
+		tracer_target_length = maxi(4, roundi(lerpf(4.0, float(maxLenght), intensity)))
+	else:
+		if tracer2D.get_point_count() > 0:
+			tracer2D.remove_point(0)
+
+	while tracer2D.get_point_count() > tracer_target_length:
+		tracer2D.remove_point(0)
+
+	tracer2D.width = lerpf(tracer_width_min, max(tracer_width_max, base_tracer_width), intensity)
+	tracer2D.self_modulate = Color(tracer_color.r, tracer_color.g, tracer_color.b, lerpf(0.12, 0.9, intensity))
+
+	if is_dragging:
+		sprite2D_body.position = base_visual_position + shake_visual_offset
+		return
+
+	if deform_tween and deform_tween.is_valid() and intensity > 0.0:
+		deform_tween.kill()
+
+	var rest_scale := _get_rest_visual_scale()
+	var target_scale := rest_scale * (1.0 + (velocity_scale_boost * intensity))
+	var target_position := base_visual_position + shake_visual_offset
+
+	if intensity > 0.0 and current_velocity.length_squared() > 0.0001:
+		target_position += -current_velocity.normalized() * velocity_lag_distance * intensity
+
+	sprite2D_body.position = sprite2D_body.position.lerp(target_position, clamp(delta * 14.0, 0.0, 1.0))
+	sprite2D_body.scale = sprite2D_body.scale.lerp(target_scale, clamp(delta * 10.0, 0.0, 1.0))
+	sprite2D_body.rotation = lerp_angle(sprite2D_body.rotation, base_visual_rotation, clamp(delta * 12.0, 0.0, 1.0))
+
 #region Merge
 
 
@@ -737,6 +794,7 @@ func parar_shake() -> void:
 	shake_timer = 0.0
 	shake_intensity_target = 0.0
 	shake_intensity_current = 0.0
+	shake_visual_offset = Vector2.ZERO
 	if sprite2D_body != null:
 		sprite2D_body.position = base_visual_position
 		sprite2D_body.rotation = base_visual_rotation
@@ -774,8 +832,9 @@ func _retomar_formato_normal() -> void:
 	deform_tween = create_tween()
 	deform_tween.set_trans(Tween.TRANS_ELASTIC)
 	deform_tween.set_ease(Tween.EASE_OUT)
-	deform_tween.tween_property(sprite2D_body, "scale", base_visual_scale, 0.25)
+	deform_tween.tween_property(sprite2D_body, "scale", _get_rest_visual_scale(), 0.25)
 	deform_tween.parallel().tween_property(sprite2D_body, "rotation", base_visual_rotation, 0.25)
+	
 #endregion
 func _animar_buff_forca() -> void:
 	if buff_tween and buff_tween.is_valid():

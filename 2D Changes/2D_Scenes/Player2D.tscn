@@ -47,6 +47,7 @@ input_pickable = true
 script = ExtResource("1_yglll")
 max_distance = 300.0
 playerInfo = ExtResource("2_b4028")
+velocity_lag_distance = 10.0
 audio_clique = ExtResource("3_4wfki")
 audio_tensao = ExtResource("4_85i0u")
 audio_chute_normal = ExtResource("5_c16pp")
