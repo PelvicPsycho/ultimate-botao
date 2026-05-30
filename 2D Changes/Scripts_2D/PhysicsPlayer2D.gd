@@ -3,6 +3,16 @@ class_name PhysicsPlayer2D
 
 @export var debug: bool = true
 
+#region Simulation Needed Variables
+var index: int
+enum TeamSide {HOME, AWAY}
+@export var teamSide: TeamSide
+var radius: float
+@export var Object_Radius: Node2D
+
+signal ActionExecuted(index, velocity, teamSide)
+#endregion
+
 # Runtime Variables
 var current_direction: Vector2 = Vector2.ZERO
 var current_force: float = 0.0
@@ -81,6 +91,8 @@ func _ready() -> void:
 	if sprite2D_body == null:
 		push_error("sprite2D_body é nulo")
 		return
+	
+	radius = (global_position - Object_Radius.global_position).length()
 	
 	base_visual_position = sprite2D_body.position
 	default_visual_scale = sprite2D_body.scale
@@ -273,6 +285,9 @@ func Mouse_Dragging_Update():
 	#print("current_force = ", current_force)
 
 func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
+	if teamSide == TeamSide.AWAY:
+		return
+		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		var player_que_quer_trocar = get_player_que_quer_trocar()
 		if player_que_quer_trocar:
@@ -354,6 +369,9 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 			debug_status()
 
 func _input(event: InputEvent) -> void:
+	if teamSide == TeamSide.AWAY:
+		return
+		
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if menu_radial and menu_radial.is_open:
 			call_deferred("_verificar_clique_fora_radial")
@@ -364,6 +382,7 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if !canPlay or disabled:
+		print("disabled")
 		return
 
 	if event is InputEventMouseMotion or event is InputEventScreenDrag:
@@ -379,7 +398,7 @@ func _input(event: InputEvent) -> void:
 
 	var is_mouse_release = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed
 	var is_touch_release = event is InputEventScreenTouch and not event.pressed
-	print('Pos peca  ', global_position,)
+	#print('Pos peca  ', global_position,)
 	if is_mouse_release or is_touch_release:
 		# Se soltou o dedo e ele estava FORA da peça, executa jogada!
 		if not is_pointer_inside_piece:
@@ -405,6 +424,7 @@ func _cancelar_interacao() -> void:
 	is_dragging = false
 	direcao_travada = false
 	sprite2D_circulo_limite.visible = false
+
 func _verificar_clique_fora_radial() -> void:
 	if not menu_radial or not menu_radial.is_open:
 		return
@@ -417,6 +437,7 @@ func _verificar_clique_fora_radial() -> void:
 			if centro.distance_squared_to(mouse_pos) < raio * raio:
 				return  # clicou em cima de um botão → não fecha
 	menu_radial.fechar()
+
 func _on_mouse_entered() -> void:
 	is_pointer_inside_piece = true
 	_animar_hover(true)
@@ -447,6 +468,7 @@ func puxar_no_timeout():
 
 #region Movement
 func Execute_Action() -> void:
+	print("Entered to execute action ---------------")
 	if menu_radial and menu_radial.is_open:
 		menu_radial.fechar()
 	if is_frozen():
@@ -461,29 +483,41 @@ func Execute_Action() -> void:
 		
 	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
 	
+	print("Action Executed ---------------")
 	Set_Current_Velocity(current_direction * current_force)
 	
-	#print("max_force = ", playerInfo_atual.get_max_force())
-	#print("current_force = ", current_force)
-	#print("current_velocity = ", current_velocity)
-	#print("friction = ", friction)
+	ActionExecuted.emit(index, current_velocity, teamSide)
 	
 	_cancelar_interacao()
 	turnPlayed.emit()
 
-func move_object(_delta: float) -> void:
-	var new_velocity = current_velocity * friction;
-	Set_Current_Velocity(new_velocity)
+func Execute_Action_parameters(direction: Vector2, force_lerp: float) -> void:
+	if menu_radial and menu_radial.is_open:
+		menu_radial.fechar()
+	if is_frozen():
+		return
 	
-	if abs(current_velocity.x) < 10 && abs(current_velocity.y) < 10:
-		Set_Current_Velocity(Vector2.ZERO)
-		is_moving = false
-	else:
-		is_moving = true
+	lerp_current_force = force_lerp
+	current_direction = direction
 	
-	#last_position = position
-	#var newPos = position + (current_velocity * _delta)
-	#position = newPos
+	if is_instance_valid(sfx_tensao_atual): 
+		sfx_tensao_atual.stop()
+	
+	var audio_tiro = audio_chute_normal
+	if lerp_current_force >= 1: 
+		audio_tiro = audio_chute_max
+		
+	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
+	
+	current_force = lerpf(playerInfo_atual.get_min_force(), playerInfo_atual.get_max_force(), lerp_current_force)
+	
+	Set_Current_Velocity(current_direction * current_force)
+	
+	ActionExecuted.emit(index, current_velocity, teamSide)
+	
+	_cancelar_interacao()
+	turnPlayed.emit()
+
 #endregion
 
 #region collisions
@@ -531,11 +565,14 @@ func _instanciar_particula_impacto(posicao_colisao: Vector2) -> void:
 	var parent_node: Node = get_tree().current_scene
 	if parent_node == null:
 		parent_node = get_tree().root
+
 	parent_node.add_child(nova_particula)
 
 	if nova_particula is Node2D:
 		nova_particula.global_position = posicao_colisao
-
+	
+		print("New Particle on position = ", nova_particula.global_position)
+	
 	if nova_particula is GPUParticles2D:
 		var gpu := nova_particula as GPUParticles2D
 		gpu.restart()

@@ -55,6 +55,10 @@ locale/test="pt_BR"
 2d_physics/layer_2="PhysicsObjects"
 2d_physics/layer_3="Ground"
 2d_physics/layer_4="Others"
+2d_physics/layer_5="Walls_Simulation"
+2d_physics/layer_6="PhysicsObjects_Simulation"
+2d_physics/layer_8="Others_Simulation"
+2d_physics/layer_13="Simulation_Goal"
 
 [physics]
 

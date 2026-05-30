@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://4oj2bntndkk"]
+
+[ext_resource type="Script" uid="uid://d3aoiw2xrvpcp" path="res://Componentes/Simulation_AI/Scripts/PhysicsBall2D_Simulation.gd" id="1_ffkay"]
+[ext_resource type="Texture2D" uid="uid://d31uxg5j02m38" path="res://Recursos/2D_Art/Menu/bola.png" id="2_snuo5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cihxk"]
+radius = 22.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qaf7p"]
+radius = 22.0
+
+[node name="Ball2D_Simulation" type="CharacterBody2D" unique_id=1925699982 node_paths=PackedStringArray("Object_Radius", "shapecast_goals", "shapecast_physics_objects", "shapecast_walls")]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_ffkay")
+Object_Radius = NodePath("Object_Calculate_Radius")
+shapecast_goals = NodePath("ShapeCast2D - Goals")
+shapecast_physics_objects = NodePath("ShapeCast2D - Objects")
+shapecast_walls = NodePath("ShapeCast2D - Walls")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=511860556]
+shape = SubResource("CircleShape2D_cihxk")
+
+[node name="Object_Calculate_Radius" type="Node2D" parent="." unique_id=549135664]
+position = Vector2(22, 0)
+
+[node name="ShapeCast2D - Objects" type="ShapeCast2D" parent="." unique_id=1277373259]
+shape = SubResource("CircleShape2D_qaf7p")
+target_position = Vector2(0, 0)
+max_results = 1
+collision_mask = 32
+
+[node name="ShapeCast2D - Walls" type="ShapeCast2D" parent="." unique_id=1190861765]
+shape = SubResource("CircleShape2D_qaf7p")
+target_position = Vector2(0, 0)
+max_results = 1
+collision_mask = 16
+
+[node name="ShapeCast2D - Goals" type="ShapeCast2D" parent="." unique_id=621948083]
+shape = SubResource("CircleShape2D_qaf7p")
+target_position = Vector2(0, 0)
+max_results = 1
+collision_mask = 4096
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1125551120]
+modulate = Color(1, 1, 1, 0.47058824)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("2_snuo5")

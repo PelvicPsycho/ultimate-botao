@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dcb2hgssfu30v"]
+
+[ext_resource type="Script" uid="uid://gmi4qfapy37v" path="res://Componentes/Simulation_AI/Scripts/PhysicsPlayer2D_Simulation.gd" id="1_b0ewm"]
+[ext_resource type="Resource" uid="uid://gmvgc073734t" path="res://Recursos/Teams/Inter/Ale.tres" id="2_342hd"]
+[ext_resource type="Texture2D" uid="uid://ben3uk3cuad15" path="res://Recursos/2D_Art/Menu/peca base.png" id="14_36b5p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_th6yb"]
+radius = 35.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
+radius = 35.0
+
+[node name="Player2D_Simulation" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("Object_Radius", "shapecast_physics_objects", "shapecast_walls")]
+modulate = Color(1, 1, 1, 0.47058824)
+collision_layer = 32
+collision_mask = 48
+script = ExtResource("1_b0ewm")
+debug = false
+Object_Radius = NodePath("Object_Calculate_Radius")
+playerInfo = ExtResource("2_342hd")
+shapecast_physics_objects = NodePath("ShapeCast2D_Objects")
+shapecast_walls = NodePath("ShapeCast2D_Walls")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=566741673]
+shape = SubResource("CircleShape2D_th6yb")
+
+[node name="Object_Calculate_Radius" type="Node2D" parent="." unique_id=418766279]
+position = Vector2(35, 0)
+
+[node name="ShapeCast2D_Objects" type="ShapeCast2D" parent="." unique_id=1924576537]
+shape = SubResource("CircleShape2D_r8syo")
+target_position = Vector2(0, 0)
+max_results = 1
+collision_mask = 32
+
+[node name="ShapeCast2D_Walls" type="ShapeCast2D" parent="." unique_id=728845580]
+shape = SubResource("CircleShape2D_r8syo")
+target_position = Vector2(0, 0)
+max_results = 1
+collision_mask = 16
+
+[node name="sprite2D_body" type="Sprite2D" parent="." unique_id=523510040]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_36b5p")

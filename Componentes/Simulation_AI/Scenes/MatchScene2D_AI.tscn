@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://dsslsaui0r6j6"]
+
+[ext_resource type="Script" uid="uid://du1nsjujoug16" path="res://Scripts Globais/MatchState.gd" id="1_ss0s5"]
+[ext_resource type="PackedScene" uid="uid://605wdjor2lt6" path="res://Componentes/Recompensas/recompensa_partida.tscn" id="2_5b3c6"]
+[ext_resource type="PackedScene" uid="uid://byarw1jr857h3" path="res://Componentes/Recompensas/recompensa_torneio.tscn" id="3_n4ih5"]
+[ext_resource type="AudioStream" uid="uid://bc64cn1hhr7ym" path="res://Recursos/SFXs/fundo-estadio_loop.wav" id="4_ba03v"]
+[ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="5_tb6le"]
+[ext_resource type="PackedScene" uid="uid://blaeti31fcy1e" path="res://2D Changes/2D_Scenes/Camera2D.tscn" id="6_u1agk"]
+[ext_resource type="Script" uid="uid://dqt3kgmmnk2qm" path="res://Componentes/Simulation_AI/Scripts/IA_Controller.gd" id="7_5b3c6"]
+[ext_resource type="PackedScene" uid="uid://cmgl103lkwr8r" path="res://2D Changes/2D_Scenes/Pitch2D.tscn" id="7_v76cn"]
+[ext_resource type="Script" uid="uid://c3jx1lb0wr1pg" path="res://2D Changes/Scripts_2D/CollisionResolution2D.gd" id="8_sbrvv"]
+[ext_resource type="PackedScene" uid="uid://bjuey2wm1ffql" path="res://2D Changes/2D_Scenes/Player2D.tscn" id="9_12ci6"]
+[ext_resource type="Resource" uid="uid://daqsw61dp34rx" path="res://Recursos/Teams/MyTeam/Gugs.tres" id="10_u231a"]
+[ext_resource type="Resource" uid="uid://cjyd6bkt7lcc6" path="res://Recursos/Teams/MyTeam/Carlinhos.tres" id="11_035o7"]
+[ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Grêmio/Mec.tres" id="12_w1bfq"]
+[ext_resource type="PackedScene" uid="uid://v5srrfq0w6hn" path="res://2D Changes/2D_Scenes/Ball2D.tscn" id="13_d0h4u"]
+[ext_resource type="PackedScene" uid="uid://bfekqxt737l61" path="res://Componentes/Simulation_AI/Scenes/Pitch2D_Simulation.tscn" id="14_sg116"]
+[ext_resource type="Script" uid="uid://buw3b8c0hrlfb" path="res://2D Changes/Scripts_2D/Gol_Manager_2D.gd" id="15_3ylim"]
+[ext_resource type="AudioStream" uid="uid://cjmj3m8i68a7r" path="res://Recursos/SFXs/gol_5s_fadeout.wav" id="16_uckdl"]
+[ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="17_jvl26"]
+[ext_resource type="PackedScene" uid="uid://b8ms3txou0nej" path="res://Componentes/MatchUI/match_ui.tscn" id="18_3eaht"]
+[ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Componentes/PauseMenu/pause_menu.tscn" id="19_h5eqs"]
+[ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="20_w8iov"]
+[ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="21_qddwe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iej8s"]
+size = Vector2(215, 269)
+
+[node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("IA_Contr", "anunciador_ui")]
+script = ExtResource("1_ss0s5")
+IA_Contr = NodePath("IA_Controller")
+anunciador_ui = NodePath("AnunciadorUI")
+cena_recompensa_partida = ExtResource("2_5b3c6")
+cena_recompensa_torneio = ExtResource("3_n4ih5")
+audio_murmurio_fundo = ExtResource("4_ba03v")
+
+[node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("5_tb6le")]
+offset_left = -685.0
+offset_top = -343.0
+offset_right = -685.0
+offset_bottom = -343.0
+
+[node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("6_u1agk")]
+position = Vector2(960, 540)
+
+[node name="Pitch" parent="." unique_id=603521134 instance=ExtResource("7_v76cn")]
+
+[node name="IA_Controller" type="Node2D" parent="." unique_id=605442648 node_paths=PackedStringArray("physics_controller", "simulation_controller")]
+script = ExtResource("7_5b3c6")
+physics_controller = NodePath("../PhysicsObjects_Group")
+simulation_controller = NodePath("../SimulationController")
+
+[node name="SimulationController" parent="." unique_id=903002802 node_paths=PackedStringArray("ColResolution2D") instance=ExtResource("14_sg116")]
+ColResolution2D = NodePath("../PhysicsObjects_Group")
+
+[node name="PhysicsObjects_Group" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("Sim_Controller", "IA_Contr")]
+script = ExtResource("8_sbrvv")
+simulation_Active = true
+AI_Active = true
+Sim_Controller = NodePath("../SimulationController")
+IA_Contr = NodePath("../IA_Controller")
+
+[node name="HomeTeam" type="Node2D" parent="PhysicsObjects_Group" unique_id=2082446946]
+
+[node name="HomeTeam_P1" parent="PhysicsObjects_Group/HomeTeam" unique_id=1542391535 instance=ExtResource("9_12ci6")]
+position = Vector2(728, 372)
+debug = false
+
+[node name="HomeTeam_P2" parent="PhysicsObjects_Group/HomeTeam" unique_id=990928524 instance=ExtResource("9_12ci6")]
+position = Vector2(561, 626)
+
+[node name="HomeTeam_P3" parent="PhysicsObjects_Group/HomeTeam" unique_id=838132576 instance=ExtResource("9_12ci6")]
+position = Vector2(728, 872)
+debug = false
+playerInfo = ExtResource("10_u231a")
+
+[node name="HomeTeam_P4" parent="PhysicsObjects_Group/HomeTeam" unique_id=587159052 instance=ExtResource("9_12ci6")]
+position = Vector2(728, 626)
+debug = false
+playerInfo = ExtResource("11_035o7")
+
+[node name="HomeTeam_P5" parent="PhysicsObjects_Group/HomeTeam" unique_id=535361106 instance=ExtResource("9_12ci6")]
+position = Vector2(390, 626)
+debug = false
+
+[node name="AwayTeam" type="Node2D" parent="PhysicsObjects_Group" unique_id=1460559231]
+
+[node name="AwayTeam_P1" parent="PhysicsObjects_Group/AwayTeam" unique_id=469839092 instance=ExtResource("9_12ci6")]
+position = Vector2(1409, 628)
+debug = false
+teamSide = 1
+playerInfo = ExtResource("12_w1bfq")
+
+[node name="AwayTeam_P2" parent="PhysicsObjects_Group/AwayTeam" unique_id=25673446 instance=ExtResource("9_12ci6")]
+position = Vector2(1409, 374)
+debug = false
+teamSide = 1
+playerInfo = ExtResource("12_w1bfq")
+
+[node name="AwayTeam_P3" parent="PhysicsObjects_Group/AwayTeam" unique_id=1075169366 instance=ExtResource("9_12ci6")]
+position = Vector2(1409, 874)
+debug = false
+teamSide = 1
+playerInfo = ExtResource("12_w1bfq")
+
+[node name="AwayTeam_P4" parent="PhysicsObjects_Group/AwayTeam" unique_id=92848485 instance=ExtResource("9_12ci6")]
+position = Vector2(1205, 628)
+teamSide = 1
+playerInfo = ExtResource("12_w1bfq")
+
+[node name="AwayTeam_P5" parent="PhysicsObjects_Group/AwayTeam" unique_id=2146689794 instance=ExtResource("9_12ci6")]
+position = Vector2(1598, 628)
+debug = false
+teamSide = 1
+playerInfo = ExtResource("12_w1bfq")
+
+[node name="Balls" type="Node2D" parent="PhysicsObjects_Group" unique_id=1788694925]
+
+[node name="Ball2d" parent="PhysicsObjects_Group/Balls" unique_id=1925699982 instance=ExtResource("13_d0h4u")]
+position = Vector2(960, 628)
+
+[node name="Gol_Manager(Temporario)" type="Node2D" parent="." unique_id=632171838 node_paths=PackedStringArray("anunciadorui", "match_state")]
+script = ExtResource("15_3ylim")
+anunciadorui = NodePath("../AnunciadorUI")
+match_state = NodePath("..")
+audio_fez_gol = ExtResource("16_uckdl")
+
+[node name="AreaHome" type="Area2D" parent="." unique_id=1861784472]
+position = Vector2(283, 629)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaHome" unique_id=422259460]
+position = Vector2(54.5, 2.5)
+shape = SubResource("RectangleShape2D_iej8s")
+
+[node name="AreaAway" type="Area2D" parent="." unique_id=282501590]
+position = Vector2(1525, 629)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaAway" unique_id=54370429]
+position = Vector2(54.5, 2.5)
+shape = SubResource("RectangleShape2D_iej8s")
+
+[node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("17_jvl26")]
+
+[node name="MatchUI" parent="." unique_id=2001534732 instance=ExtResource("18_3eaht")]
+unique_name_in_owner = true
+
+[node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("19_h5eqs")]
+
+[node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("20_w8iov")]
+
+[node name="MatchTimer" type="Node" parent="." unique_id=1351562667]
+script = ExtResource("21_qddwe")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=229047291]
+
+[connection signal="body_entered" from="AreaHome" to="Camera2D" method="_on_area_home_body_entered"]
+[connection signal="body_entered" from="AreaAway" to="Camera2D" method="_on_area_away_body_entered"]
