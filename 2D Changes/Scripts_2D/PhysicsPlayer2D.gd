@@ -11,6 +11,9 @@ var radius: float
 @export var Object_Radius: Node2D
 
 signal ActionExecuted(index, velocity, teamSide)
+
+var AI_Active: bool
+
 #endregion
 
 # Runtime Variables
@@ -124,6 +127,8 @@ func loadPlayerInfo(plInfo):
 		#print("Start friction = ", friction)
 		#print("Start mass = ", mass)
 
+func Set_AI_Active(_AI_Active: bool) -> void:
+	AI_Active = _AI_Active
 
 func atualizar_fisica_por_status():
 	# MASS
@@ -285,8 +290,9 @@ func Mouse_Dragging_Update():
 	#print("current_force = ", current_force)
 
 func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
-	if teamSide == TeamSide.AWAY:
-		return
+	if AI_Active:
+		if teamSide == TeamSide.AWAY:
+			return
 		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		var player_que_quer_trocar = get_player_que_quer_trocar()
@@ -369,8 +375,9 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 			debug_status()
 
 func _input(event: InputEvent) -> void:
-	if teamSide == TeamSide.AWAY:
-		return
+	if AI_Active:
+		if teamSide == TeamSide.AWAY:
+			return
 		
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if menu_radial and menu_radial.is_open:

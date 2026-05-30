@@ -56,7 +56,6 @@ ColResolution2D = NodePath("../PhysicsObjects_Group")
 [node name="PhysicsObjects_Group" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("Sim_Controller", "IA_Contr")]
 script = ExtResource("8_sbrvv")
 simulation_Active = true
-AI_Active = true
 Sim_Controller = NodePath("../SimulationController")
 IA_Contr = NodePath("../IA_Controller")
 

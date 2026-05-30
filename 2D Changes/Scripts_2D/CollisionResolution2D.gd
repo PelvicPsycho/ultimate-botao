@@ -25,6 +25,8 @@ func _ready() -> void:
 	
 	var count = 0
 	for object in PhysicsObjects_List:
+		if object.is_in_group("Players"):
+			object.Set_AI_Active(AI_Active)
 		object.index = count
 		count += 1
 	
