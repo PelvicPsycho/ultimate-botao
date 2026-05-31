@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://fcps8oucva2v"]
+
+[ext_resource type="Script" uid="uid://cynjdyku5viu1" path="res://Componentes/Simulation_AI/Scripts/force_ia_button.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_force_btn"]
+bg_color = Color(0.8, 0.2, 0.2, 0.85)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_force_btn_pressed"]
+bg_color = Color(0.6, 0.1, 0.1, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_force_btn_hover"]
+bg_color = Color(1, 0.3, 0.3, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_size = 6
+
+[node name="ForceIAButton" type="CanvasLayer" unique_id=1648036820]
+process_mode = 1
+script = ExtResource("1_script")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1450709149]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+
+[node name="Button" type="Button" parent="MarginContainer" unique_id=570850623]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_force_btn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_force_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_force_btn_hover")
+text = "Forçar IA"
+
+[connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]

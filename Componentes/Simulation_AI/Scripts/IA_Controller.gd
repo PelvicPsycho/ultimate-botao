@@ -20,38 +20,37 @@ var AI_CanRun: bool = false
 var AI_NewPlay_Waiting: bool = false
 
 var new_play: Play
-var current_index: int
+
 
 func _ready() -> void:
 	current_TeamSide = TeamSide.HOME
 
 func _process(delta: float) -> void:
 	if AI_Active and AI_CanRun:
-		
-		current_index = GetCurrentPieceIndex()
 		AI_NewPlay_Waiting = false
+		AI_CanRun = false
+		current_time = 0
 		
-		if current_index >= 0:
-			print("IA play")
-			new_play = simulation_controller.call_get_all_best_plays_rotation(current_index, TeamSide.AWAY)
-			AI_CanRun = false
-			current_time = 0
+		var piece_list: Array[int]
+		if current_TeamSide == TeamSide.HOME:
+			piece_list = PhysicsObjects_HomeTeam_IndexList
+		else:
+			piece_list = PhysicsObjects_AwayTeam_IndexList
+		
+		if piece_list.size() > 0:
+			print("IA play — testing ", piece_list.size(), " pieces")
+			new_play = simulation_controller.get_best_play_for_team(current_TeamSide, piece_list)
 			AI_NewPlay_Waiting = true
 	
 	if AI_NewPlay_Waiting:
 		current_time += delta
 		if current_time >= time_to_IA_play:
-			physics_controller.PhysicsObjects_List[current_index].Execute_Action_parameters(new_play.direction, new_play.force_lerp)
+			physics_controller.PhysicsObjects_List[new_play.player_index].Execute_Action_parameters(new_play.direction, new_play.force_lerp)
 			AI_NewPlay_Waiting = false
 
 
-func GetCurrentPieceIndex() -> int:
-	if current_TeamSide == TeamSide.HOME:
-		return PhysicsObjects_HomeTeam_IndexList.pick_random()
-	elif current_TeamSide == TeamSide.AWAY:
-		return PhysicsObjects_AwayTeam_IndexList.pick_random()
-	
-	return -1
+## Removido: GetCurrentPieceIndex não é mais necessário;
+## o get_best_play_for_team testa todas as peças do time.
 
 func SetPieceLists() -> void:
 	print("SetPieceLists")

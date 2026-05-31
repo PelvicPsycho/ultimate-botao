@@ -1,7 +1,7 @@
 extends PhysicsObject2D
 class_name PhysicsBall2D_Simulation
 
-var lastTouch: PhysicsPlayer2D
+var lastTouch  # Pode ser PhysicsPlayer2D (jogo real) ou PhysicsPlayer2D_Simulation (simulação)
 
 @export var debug: bool = true
 

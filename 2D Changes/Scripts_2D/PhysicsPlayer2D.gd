@@ -1057,8 +1057,8 @@ func get_player_que_quer_trocar() -> PhysicsPlayer2D:
 		#break
 func _on_carta_do_radial(carta):
 	print("CARTA CLICADA -> ", carta.nome)
-	var ms = get_tree().root.get_node("MatchScene2d")
-	ms.tentar_usar_carta(self, carta)
+#	var ms = get_tree().root.get_node("MatchScene2d")
+#	ms.tentar_usar_carta(self, carta)
 	menu_radial.fechar()
 func aplicar_congelamento(turnos: int) -> void:
 	print("Peça congelada por ", turnos, " turnos!")

@@ -45,12 +45,12 @@ func _ready():
 				# Assim, ao arrastar o slider, o texto atualiza sozinho!
 				slider.value_changed.connect(func(novo_valor): label_valor.text = str(novo_valor))
 	await get_tree().process_frame
-	pegar_todas_pecas()
-	pegar_a_bola()
-	carregar_recursos()
-	
-	label_padrao.text = padrao_atual.name
-	set_padrao_atual()
+	#pegar_todas_pecas()
+	#pegar_a_bola()
+	#carregar_recursos()
+	#
+	#label_padrao.text = padrao_atual.name
+	#set_padrao_atual()
 
 
 func _unhandled_input(event):
@@ -101,7 +101,8 @@ func pegar_todas_pecas():
 			Pecas_Jogo.append(node as Player)
 
 func pegar_a_bola():
-	a_bola = get_tree().get_first_node_in_group("Balls")
+#	a_bola = get_tree().get_first_node_in_group("Balls")
+	pass
 
 func _on_forca_multiplicador_value_changed(value: float) -> void:
 	var labelValor = %ForcaMultiplicador.get_parent().get_node("ValorSlider")
