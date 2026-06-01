@@ -14,10 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://clc333t0ptaed" path="res://Recursos/SFXs/BateuNaParede_footstep_wood_003.wav" id="10_fl8l5"]
 [ext_resource type="AudioStream" uid="uid://c7i8wt5kqjjw6" path="res://Recursos/SFXs/BateuNaTrave_406490__anthousai__hit-metallic-basketball-hoop-pipe-01.wav" id="11_gwudw"]
 [ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="12_gwudw"]
-[ext_resource type="Script" uid="uid://c7dpm24duc7i" path="res://2D Changes/2D_Scenes/MenuRadial.gd" id="14_xkhmx"]
-[ext_resource type="Texture2D" uid="uid://b70rbmif2lwgc" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816120457-removebg-preview.png" id="15_fl8l5"]
-[ext_resource type="Texture2D" uid="uid://o5omjcf51pl3" path="res://Recursos/2D_Art/MyTeam/Shape with text.png" id="16_v8rn7"]
-[ext_resource type="Texture2D" uid="uid://d2f4o6btxl3tp" path="res://Recursos/2D_Art/MyTeam/Shape with text_1.png" id="17_o5120"]
+[ext_resource type="PackedScene" uid="uid://cjab8n13u8gkw" path="res://2D Changes/2D_Scenes/RadialMenu.tscn" id="19_o5120"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pol8b"]
 font = ExtResource("12_gwudw")
@@ -36,9 +33,6 @@ radius = 35.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
 radius = 35.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_gwudw"]
-radius = 28.0
 
 [node name="Player2d" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("Object_Radius", "sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
 collision_layer = 2
@@ -128,26 +122,8 @@ max_results = 1
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_tmkik")
 
-[node name="MenuRadial" type="Node2D" parent="." unique_id=1971170759]
-z_index = 6
-script = ExtResource("14_xkhmx")
-pa_cheia_texture = ExtResource("16_v8rn7")
-pa_vazia_texture = ExtResource("17_o5120")
-
-[node name="ButtonModel" type="Area2D" parent="MenuRadial" unique_id=899964867]
-visible = false
-
-[node name="Sprite2D" type="Sprite2D" parent="MenuRadial/ButtonModel" unique_id=1889376337]
-position = Vector2(-2.765626, -4.2656255)
-scale = Vector2(0.134125, 0.122125)
-texture = ExtResource("15_fl8l5")
-
-[node name="Label" type="Label" parent="MenuRadial/ButtonModel" unique_id=1437262646]
-visible = false
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MenuRadial/ButtonModel" unique_id=1958193863]
-shape = SubResource("CircleShape2D_gwudw")
+[node name="RadialMenu" parent="." unique_id=115300761 instance=ExtResource("19_o5120")]
+position = Vector2(1, -111)
+scale = Vector2(0.72371936, 0.72371936)
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

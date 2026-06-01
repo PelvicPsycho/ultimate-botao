@@ -4,7 +4,7 @@ enum turn {HOME, AWAY}
 enum ModoTiro { PUXAR, EMPURRAR, MODO_3 }
 
 var modo_atual: ModoTiro = ModoTiro.PUXAR
-
+signal turno_trocado(turno_atual: turn)
 @export var IA_Contr: IA_Controller
 
 var allPieces: Array[PhysicsPlayer2D]
@@ -41,7 +41,7 @@ var freeze_level: int = 0
 @export var audio_murmurio_fundo: AudioStream
 
 func _ready() -> void:
-	
+	add_to_group("MatchState2d")  
 	loadMatch()
 	SoundMaster.play_bgm(audio_murmurio_fundo, "loop")
 	%MatchUI.UI_start(homeTeam, awayTeam)
@@ -76,9 +76,9 @@ func _ready() -> void:
 	# CONEXÕES PADRÃO
 		if not piece.clickedPiece.is_connected(_on_player_clicked_piece):
 			piece.clickedPiece.connect(_on_player_clicked_piece)
-
+			
 		piece.turnPlayed.connect(onTurnPlayed)
-
+		turno_trocado.connect(piece._no_turno_trocado)
 	# DISTRIBUIÇÃO ENTRE EQUIPES
 		if piece.team == homeTeam:
 			piece.canPlay = (currentTurn == turn.HOME)
@@ -225,6 +225,7 @@ func changeTurn() -> void:
 		if (currentTurn == turn.HOME and piece.team == homeTeam) or (currentTurn == turn.AWAY and piece.team == awayTeam):
 			piece.playerInfo_atual.processar_expiracao_de_buffs(piece.playerInfo)
 	currentTurn = turn.AWAY if currentTurn == turn.HOME else turn.HOME
+	emit_signal("turno_trocado", currentTurn)
 	for piece in allPieces:
 		piece.canPlay = (currentTurn == turn.HOME) if piece.team == homeTeam else (currentTurn == turn.AWAY)
 	turnCounter = 0
@@ -238,6 +239,7 @@ func changeTurn() -> void:
 
 func forceTurn(target: turn) -> void:
 	currentTurn = target
+	emit_signal("turno_trocado", currentTurn)
 	turnCounter = 0
 	foulFlag = false
 	atualizar_cores_pecas()

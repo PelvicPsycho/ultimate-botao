@@ -1,28 +1,25 @@
 shader_type canvas_item;
 
-uniform vec4 outline_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
-uniform float outline_size : hint_range(0.0, 20.0) = 3.0;
-uniform float dim_amount : hint_range(0.0, 1.0) = 0.0;
+uniform vec4 outline_color : source_color = vec4(1.0, 0.9, 0.4, 1.0);
+uniform float outline_width : hint_range(0.0, 10.0) = 2.0;
 
 void fragment() {
-	vec4 base = texture(TEXTURE, UV);
-	float alpha = base.a;
+	vec4 color = texture(TEXTURE, UV);
+	float alpha = color.a;
 	
-	float outline_alpha = 0.0;
-	vec2 ps = TEXTURE_PIXEL_SIZE * outline_size;
-	outline_alpha = max(outline_alpha, texture(TEXTURE, UV + vec2(ps.x, 0.0)).a);
-	outline_alpha = max(outline_alpha, texture(TEXTURE, UV - vec2(ps.x, 0.0)).a);
-	outline_alpha = max(outline_alpha, texture(TEXTURE, UV + vec2(0.0, ps.y)).a);
-	outline_alpha = max(outline_alpha, texture(TEXTURE, UV - vec2(0.0, ps.y)).a);
-	outline_alpha = max(outline_alpha, texture(TEXTURE, UV + vec2(ps.x, ps.y)).a);
-	outline_alpha = max(outline_alpha, texture(TEXTURE, UV - vec2(ps.x, ps.y)).a);
-	outline_alpha = max(outline_alpha, texture(TEXTURE, UV + vec2(ps.x, -ps.y)).a);
-	outline_alpha = max(outline_alpha, texture(TEXTURE, UV - vec2(ps.x, -ps.y)).a);
+	vec2 size = 1.0 / vec2(textureSize(TEXTURE, 0));
+	float border = 0.0;
 	
-	vec4 cor_final = mix(outline_color, texture(TEXTURE, UV), alpha);
-	cor_final.a = max(alpha, outline_alpha);
+	border = max(border, texture(TEXTURE, UV + vec2(-1.0, -1.0) * size * outline_width).a);
+	border = max(border, texture(TEXTURE, UV + vec2(0.0, -1.0) * size * outline_width).a);
+	border = max(border, texture(TEXTURE, UV + vec2(1.0, -1.0) * size * outline_width).a);
+	border = max(border, texture(TEXTURE, UV + vec2(-1.0, 0.0) * size * outline_width).a);
+	border = max(border, texture(TEXTURE, UV + vec2(1.0, 0.0) * size * outline_width).a);
+	border = max(border, texture(TEXTURE, UV + vec2(-1.0, 1.0) * size * outline_width).a);
+	border = max(border, texture(TEXTURE, UV + vec2(0.0, 1.0) * size * outline_width).a);
+	border = max(border, texture(TEXTURE, UV + vec2(1.0, 1.0) * size * outline_width).a);
 	
-	// Aplica escurecimento no sprite + outline
-	float dim = 1.0 - dim_amount;
-	COLOR = vec4(cor_final.rgb * dim, cor_final.a);
+	float borda = border - alpha;
+	
+	COLOR = mix(color, outline_color, borda);
 }

@@ -72,7 +72,7 @@ signal zoom_drag_signal(pos, intensidade)
 @export var audio_cancelar: AudioStream
 # Variável para rastrear o som contínuo da puxada
 var sfx_tensao_atual: AudioStreamPlayer
-@onready var menu_radial := $MenuRadial
+@onready var menu_radial := $RadialMenu
 @export_group("Sons de Colisão")
 @export var audio_impacto_peca: AudioStream
 @export var audio_impacto_bola: AudioStream
@@ -84,7 +84,7 @@ var buff_tween: Tween
 func _ready() -> void:
 	team = playerInfo.time
 	is_pointer_inside_piece = false
-	
+	add_to_group("MatchScene2d") 
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 	
@@ -129,7 +129,9 @@ func loadPlayerInfo(plInfo):
 
 func Set_AI_Active(_AI_Active: bool) -> void:
 	AI_Active = _AI_Active
-
+func _no_turno_trocado(_turno_atual) -> void:
+	if menu_radial and menu_radial.is_open:
+		menu_radial.fechar()
 func atualizar_fisica_por_status():
 	# MASS
 	# - Aumentar a massa torna a peça mais difícil de ser empurrada por outros
@@ -1056,10 +1058,15 @@ func get_player_que_quer_trocar() -> PhysicsPlayer2D:
 		#spark_cooldowns[collider_id] = 0.2
 		#break
 func _on_carta_do_radial(carta):
-	print("CARTA CLICADA -> ", carta.nome)
-	var ms = get_tree().root.get_node("MatchScene2d")
-	ms.tentar_usar_carta(self, carta)
-	menu_radial.fechar()
+
+	var ms = get_tree().get_first_node_in_group("MatchState2d")
+	
+	
+	if ms:
+		ms.tentar_usar_carta(self, carta)
+	
+	if menu_radial:
+		menu_radial.fechar()
 func aplicar_congelamento(turnos: int) -> void:
 	print("Peça congelada por ", turnos, " turnos!")
 	current_velocity = Vector2.ZERO
@@ -1079,8 +1086,8 @@ func debug_status():
 	print("  Buffs Ativos:", playerInfo_atual.duracao_dos_buffs)
 
 func abrir_botoes_cartas():
-	var ms = get_tree().root.get_node("MatchScene2d")
-	if ms and ms.carta_usada_no_turno:
+	var match_state = get_tree().get_first_node_in_group("MatchScene2d")
+	if match_state and match_state.has_signal("turno_trocado"):
 		print("Já usou carta neste turno, não vai abrir o radial.")
 		return
 	if PhysicsPlayer2D.last_piece_with_radial != null:
@@ -1097,8 +1104,8 @@ func abrir_botoes_cartas():
 	menu_radial.definir_cartas(cartas, playerInfo_atual.PA)
 	if not menu_radial.carta_clicada.is_connected(_on_carta_do_radial):
 		menu_radial.carta_clicada.connect(_on_carta_do_radial)
-	menu_radial.scale = Vector2(1.5, 1.5)
-	menu_radial.definir_pa(playerInfo_atual.PA, 8)  # ← NOVO
+	
+	menu_radial.definir_pa(playerInfo_atual.PA, 8)  
 	menu_radial.abrir()
 	PhysicsPlayer2D.last_piece_with_radial = self
 #endregion
