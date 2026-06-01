@@ -53,10 +53,8 @@ simulation_controller = NodePath("../SimulationController")
 
 [node name="SimulationController" parent="." unique_id=903002802 node_paths=PackedStringArray("ColResolution2D") instance=ExtResource("14_sg116")]
 ColResolution2D = NodePath("../PhysicsObjects_Group")
-debug = true
-score_goal = 2000.0
-score_control_own = 400.0
-score_advance_per_pixel = 1.0
+rotation_steps = 5
+debug_scores = false
 
 [node name="PhysicsObjects_Group" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("Sim_Controller", "IA_Contr")]
 script = ExtResource("8_sbrvv")

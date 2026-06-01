@@ -33,9 +33,9 @@ rotation = 3.1415927
 polygon = PackedVector2Array(237, 322, 93, 319.00006, 91.00012, 671, 237.00012, 675, 236.00012, 631, 131.00012, 631, 133, 361.00006, 236, 360)
 
 [node name="HomeGoal_2D" parent="." unique_id=1637700476 instance=ExtResource("2_g6iqt")]
-position = Vector2(0, 89)
+position = Vector2(190, 628)
 
 [node name="AwayGoal_2D" parent="." unique_id=628271092 instance=ExtResource("2_g6iqt")]
-position = Vector2(1920, 1168)
+position = Vector2(1731, 629)
 rotation = 3.1415927
 team = 1

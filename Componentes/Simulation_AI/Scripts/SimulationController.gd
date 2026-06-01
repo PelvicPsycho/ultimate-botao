@@ -17,16 +17,69 @@ var ball_entered_goal: bool
 var ball_entered_enemy_goal: bool
 
 # Tracking para avaliação da IA
-var sim_ball_start_x: float
-var sim_ball_end_pos: Vector2     # posição final 2D da bola
+var sim_ball_start_pos: Vector2    # posição inicial 2D da bola
+var sim_ball_end_pos: Vector2      # posição final 2D da bola
 var sim_ball_last_touch_team: int  # TeamSide do último jogador a tocar a bola, -1 se nenhum
 var sim_piece_end_pos: Vector2     # posição final da peça que jogou
-var sim_blockers: int              # quantas peças adversárias entre a bola e o gol inimigo
+var sim_blockers: int              # peças adversárias entre a bola e o gol inimigo
+var sim_support: int               # peças aliadas perto da bola (triangulação)
+var sim_cover: int                 # peças aliadas entre bola e nosso gol (cobertura)
+var sim_near_wall: bool            # bola perto da parede lateral
+var sim_direct_hit: bool           # peça que jogou tocou a bola diretamente
+
+# Posições dos gols (detectadas automaticamente)
+var goal_home_x: float = 283.0   # gol do time Home (esquerda) — fallback
+var goal_away_x: float = 1525.0  # gol do time Away (direita) — fallback
+var goal_home_y: float = 629.0
+var goal_away_y: float = 629.0
+var goal_half_w: float = 107.0   # meia-largura do gol (fallback)
+var goal_half_h: float = 150.0   # meia-altura do gol (fallback)
 
 
 @export var run_num_max_steps: int
 
 @export var max_force_steps: int
+
+
+func _ready() -> void:
+	_detect_goal_positions()
+
+
+func _detect_goal_positions() -> void:
+	# Encontra os gols dinamicamente pelo grupo "Goals" e propriedade "team"
+	for node in get_tree().get_nodes_in_group("Goals"):
+		var ts = node.get("team")
+		if ts == null:
+			continue
+		# Busca recursiva pelo CollisionShape2D (pode estar em GoalArea/AreaGol_CollisionShape2D)
+		var shape_node = node.find_child("AreaGol_CollisionShape2D", true, false)
+		var edge_x = node.global_position.x
+		if shape_node and shape_node.shape is RectangleShape2D:
+			var rect: RectangleShape2D = shape_node.shape
+			var half_w := rect.size.x / 2.0
+			var half_h := rect.size.y / 2.0
+			var offset_x = shape_node.position.x
+			goal_half_h = maxf(goal_half_h, half_h)
+			goal_half_w = maxf(goal_half_w, half_w)
+			# Calcula posição global do shape: posição do nó do gol + posição do shape (acumulado)
+			var shape_global_x = node.global_position.x + offset_x
+			# Acumula offsets dos pais entre o nó do gol e o shape
+			var parent := shape_node.get_parent()
+			while parent != node and parent != null:
+				shape_global_x += parent.position.x
+				parent = parent.get_parent()
+			if ts == 0:  # HOME — gol na esquerda, borda interna = direita
+				edge_x = shape_global_x + half_w
+			else:        # AWAY — gol na direita, borda interna = esquerda
+				edge_x = shape_global_x - half_w
+		if ts == 0:
+			goal_home_x = edge_x
+			goal_home_y = node.global_position.y
+		else:
+			goal_away_x = edge_x
+			goal_away_y = node.global_position.y
+	print("Goals detected: Home=(%.0f, %.0f)  Away=(%.0f, %.0f)  half_w=%.0f half_h=%.0f" % [goal_home_x, goal_home_y, goal_away_x, goal_away_y, goal_half_w, goal_half_h])
+
 
 
 func call_get_all_best_plays_rotation(_piece_index: int, _teamSide: int) -> Play:
@@ -37,21 +90,16 @@ func call_get_all_best_plays_rotation(_piece_index: int, _teamSide: int) -> Play
 
 
 func get_best_play_for_team(teamSide: int, piece_indices: Array) -> Play:
-	var best_score: float = -INF
-	var best_play: Play = null
-	
+	var all_plays: Array[Dictionary] = []
 	var pieces_touched := 0
 	
 	for piece_index in piece_indices:
 		get_all_best_plays_rotation(rotation_steps, teamSide, piece_index)
-		
 		if scored_plays.size() > 0:
-			var best_for_piece = scored_plays[0]
-			if best_for_piece["bd"]["ctrl"] >= score_control_own:
+			var bd = scored_plays[0]["bd"]
+			if bd["ctrl"] >= score_control_own or bd["gl"] >= score_goal:
 				pieces_touched += 1
-			if best_for_piece["score"] > best_score:
-				best_score = best_for_piece["score"]
-				best_play = best_for_piece["play"]
+		all_plays.append_array(scored_plays)
 	
 	if debug_scores:
 		var ball_pos_str := "?"
@@ -61,26 +109,60 @@ func get_best_play_for_team(teamSide: int, piece_indices: Array) -> Play:
 				break
 		print("SUMMARY: %d/%d touched | ball@%s | run_steps=%d forces=%d" % [pieces_touched, piece_indices.size(), ball_pos_str, run_num_max_steps, max_force_steps])
 	
-	if best_play == null:
+	# Ordena todas as jogadas por score decrescente
+	all_plays.sort_custom(_sort_by_score_desc)
+	
+	if all_plays.size() == 0:
 		print("No valid play for any piece — fallback toward enemy goal")
-		best_play = Play.new()
-		best_play.player_index = piece_indices[0] if piece_indices.size() > 0 else 0
-		best_play.direction = Vector2.RIGHT if teamSide == 0 else Vector2.LEFT
-		best_play.force_lerp = 0.5
-		return best_play
+		var fb := Play.new()
+		fb.player_index = piece_indices[0] if piece_indices.size() > 0 else 0
+		fb.direction = Vector2.RIGHT if teamSide == 0 else Vector2.LEFT
+		fb.force_lerp = 1.0
+		return fb
 	
-	# Se a melhor jogada entre todas as peças ainda é ruim,
-	# usa fallback mirando no gol adversário com a peça que deu o melhor score
-	if best_score <= 0:
+	var best_score: float = all_plays[0]["score"]
+	
+	# Fallback se tudo muito ruim
+	if best_score <= -500:
 		print("Best score is ", best_score, " — fallback toward enemy goal")
-		var fallback = Play.new()
-		fallback.player_index = best_play.player_index
-		fallback.direction = Vector2.RIGHT if teamSide == 0 else Vector2.LEFT
-		fallback.force_lerp = 0.5
-		return fallback
+		var fb := Play.new()
+		fb.player_index = all_plays[0]["play"].player_index
+		fb.direction = Vector2.RIGHT if teamSide == 0 else Vector2.LEFT
+		fb.force_lerp = 1.0
+		return fb
 	
-	print("Best overall: piece=", best_play.player_index, " score=", best_score)
-	return best_play
+	# Top 5 + filtro 80% + escolha aleatória
+	var top_n := mini(5, all_plays.size())
+	var threshold := best_score * 0.8
+	var candidates: Array[Dictionary] = []
+	for i in top_n:
+		if all_plays[i]["score"] >= threshold:
+			candidates.append(all_plays[i])
+	
+	if debug_scores:
+		print("Top %d candidates (threshold=%.0f):" % [candidates.size(), threshold])
+		for c in candidates:
+			var bd = c["bd"]
+			var ang := int(round(rad_to_deg(c["play"].direction.angle()))) % 360
+			print("  piece=%d ang=%d° f=%.2f tot=%.1f" % [c["play"].player_index, ang, c["play"].force_lerp, c["score"]])
+	
+	var chosen := candidates[randi() % candidates.size()]
+	
+	if debug_scores:
+		# Re-simula a jogada escolhida pra imprimir o estado da simulação
+		var cp = chosen["play"]
+		var force := lerpf(PhysicsObjects_List[cp.player_index].playerInfo_atual.get_min_force(),
+			PhysicsObjects_List[cp.player_index].playerInfo_atual.get_max_force(), cp.force_lerp)
+		Execute_Physic_Simulation_Run(0.016667, cp.player_index, cp.direction * force, teamSide)
+		print("Chosen sim: piece=%d piece_pos=(%.0f,%.0f) ball_start=(%.0f,%.0f) ball_end=(%.0f,%.0f) goal=%s own=%s lastTouch=%d" % [
+			cp.player_index,
+			sim_piece_end_pos.x, sim_piece_end_pos.y,
+			sim_ball_start_pos.x, sim_ball_start_pos.y,
+			sim_ball_end_pos.x, sim_ball_end_pos.y,
+			ball_entered_enemy_goal, ball_entered_goal, sim_ball_last_touch_team])
+	
+	print("Chosen: piece=%d ang=%d° f=%.2f score=%.1f" % [chosen["play"].player_index, int(round(rad_to_deg(chosen["play"].direction.angle()))) % 360, chosen["play"].force_lerp, chosen["score"]])
+	return chosen["play"]
 
 func update_objects_positions_and_variables() -> void:
 	for i in ColResolution2D.PhysicsObjects_List.size():
@@ -150,10 +232,10 @@ func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity
 	ball_entered_enemy_goal = false
 	
 	# Salva posição inicial da bola para avaliação de avanço
-	sim_ball_start_x = 0.0
+	sim_ball_start_pos = Vector2.ZERO
 	for obj in PhysicsObjects_List:
 		if obj.is_in_group("Balls"):
-			sim_ball_start_x = obj.global_position.x
+			sim_ball_start_pos = obj.global_position
 			break
 	
 	#print("Simulation Started -------------------------------------")
@@ -176,15 +258,38 @@ func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity
 		
 		for object in PhysicsObjects_List:
 			if object.is_in_group("Balls"):
+				var bx := object.global_position.x
+				var by := object.global_position.y
+				
+				# Shapecast (original)
 				object.shapecast_goals.force_shapecast_update()
 				if object.shapecast_goals.is_colliding():
-					var collider = object.shapecast_goals.get_collider(0)
-					var collider_parent_node = collider.get_parent()
-					
+					var collider_parent_node = object.shapecast_goals.get_collider(0).get_parent()
 					if collider_parent_node.team == play_teamSide:
 						ball_entered_goal = true
 					else:
 						ball_entered_enemy_goal = true
+				
+				# Gol como área 2D: retângulo completo do CollisionShape2D
+				# Home: X de [goal_home_x - 2*half_w] até [goal_home_x]  (borda interna é direita)
+				# Away: X de [goal_away_x] até [goal_away_x + 2*half_w]  (borda interna é esquerda)
+				var goal_w := 2.0 * goal_half_w
+				if play_teamSide == 0:  # HOME ataca direita → gol do Away
+					if bx > goal_away_x and bx < goal_away_x + goal_w and abs(by - goal_away_y) < goal_half_h:
+						if not (sim_ball_start_pos.x > goal_away_x and sim_ball_start_pos.x < goal_away_x + goal_w and abs(sim_ball_start_pos.y - goal_away_y) < goal_half_h):
+							ball_entered_enemy_goal = true
+					# Gol contra (Home)
+					if bx < goal_home_x and bx > goal_home_x - goal_w and abs(by - goal_home_y) < goal_half_h:
+						if not (sim_ball_start_pos.x < goal_home_x and sim_ball_start_pos.x > goal_home_x - goal_w and abs(sim_ball_start_pos.y - goal_home_y) < goal_half_h):
+							ball_entered_goal = true
+				else:  # AWAY ataca esquerda → gol do Home
+					if bx < goal_home_x and bx > goal_home_x - goal_w and abs(by - goal_home_y) < goal_half_h:
+						if not (sim_ball_start_pos.x < goal_home_x and sim_ball_start_pos.x > goal_home_x - goal_w and abs(sim_ball_start_pos.y - goal_home_y) < goal_half_h):
+							ball_entered_enemy_goal = true
+					# Gol contra (Away)
+					if bx > goal_away_x and bx < goal_away_x + goal_w and abs(by - goal_away_y) < goal_half_h:
+						if not (sim_ball_start_pos.x > goal_away_x and sim_ball_start_pos.x < goal_away_x + goal_w and abs(sim_ball_start_pos.y - goal_away_y) < goal_half_h):
+							ball_entered_goal = true
 		
 		var all_stopped = true
 		for j in range(PhysicsObjects_List.size()):
@@ -208,31 +313,59 @@ func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity
 	#else:
 		#print("Ball Not Entered Enemy Goal")
 	
-	# Coleta posição final, último toque da bola, posição da peça, e bloqueadores
+	# Coleta posição final, último toque, posição da peça
 	sim_ball_end_pos = Vector2.ZERO
 	sim_ball_last_touch_team = -1
+	sim_direct_hit = false
 	sim_piece_end_pos = PhysicsObjects_List[play_index].global_position
 	for obj in PhysicsObjects_List:
 		if obj.is_in_group("Balls"):
 			sim_ball_end_pos = obj.global_position
 			if obj.lastTouch != null:
 				sim_ball_last_touch_team = obj.lastTouch.teamSide
+				sim_direct_hit = (obj.lastTouch == PhysicsObjects_List[play_index])
 			break
 	
-	# Conta bloqueadores: peças adversárias entre a bola e o gol inimigo
-	sim_blockers = 0
+	# --- Métricas pós-simulação ---
+	var ball_x := sim_ball_end_pos.x
+	var ball_y := sim_ball_end_pos.y
+	var our_goal_x := goal_home_x if play_teamSide == 0 else goal_away_x
+	var enemy_goal_x := goal_away_x if play_teamSide == 0 else goal_home_x
 	var enemy_team := 1 if play_teamSide == 0 else 0
-	var enemy_goal_x := 1525.0 if play_teamSide == 0 else 283.0
+	
+	sim_blockers = 0
+	sim_support = 0
+	sim_cover = 0
+	sim_near_wall = ball_y < 100.0 or ball_y > 1160.0
+	
 	for obj in PhysicsObjects_List:
-		# Usa get("teamSide") em vez de is_in_group pq cópias não estão no grupo Players
 		var ts = obj.get("teamSide")
-		if ts != null and ts == enemy_team:
+		if ts == null:
+			continue
+		var px := obj.global_position.x
+		var py := obj.global_position.y
+		var is_friendly = ts == play_teamSide
+		
+		if is_friendly:
+			# Triangulação: aliada (exceto a que jogou) a ≤200px da bola
+			if obj.global_position != sim_piece_end_pos:
+				if obj.global_position.distance_to(sim_ball_end_pos) <= 200.0:
+					sim_support += 1
+			# Cobertura: aliada entre bola e nosso gol
+			if play_teamSide == 0:
+				if px < ball_x and px > our_goal_x:
+					sim_cover += 1
+			else:
+				if px > ball_x and px < our_goal_x:
+					sim_cover += 1
+		else:
+			# Bloqueadores: inimiga entre bola e gol adversário
 			var x_between: bool
-			if play_teamSide == 0:  # HOME ataca direita
-				x_between = obj.global_position.x > sim_ball_end_pos.x and obj.global_position.x < enemy_goal_x
-			else:  # AWAY ataca esquerda
-				x_between = obj.global_position.x < sim_ball_end_pos.x and obj.global_position.x > enemy_goal_x
-			if x_between and abs(obj.global_position.y - sim_ball_end_pos.y) < 250:
+			if play_teamSide == 0:
+				x_between = px > ball_x and px < enemy_goal_x
+			else:
+				x_between = px < ball_x and px > enemy_goal_x
+			if x_between and abs(py - ball_y) < 250:
 				sim_blockers += 1
 		
 	#print("Simulation Ended -------------------------------------")
@@ -250,46 +383,92 @@ func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity
 @export var score_defensive_position: float = 20.0  # bônus por ficar entre bola e próprio gol
 @export var score_no_contact: float = -150.0        # penalidade por NÃO acertar a bola (perde controle)
 @export var score_per_blocker: float = -25.0        # penalidade por cada bloqueador no caminho do gol
+@export var score_per_support: float = 25.0         # bônus por peça aliada perto da bola (triangulação)
+@export var score_per_cover: float = 15.0           # bônus por peça aliada entre bola e nosso gol
+@export var score_pressure_goal: float = 150.0      # bônus por pressão: bola perto do gol inimigo + poucos bloqueadores
+@export var score_zone_offensive: float = 40.0      # bônus se a bola está no campo adversário
+@export var score_near_wall: float = -15.0          # penalidade se bola parou perto da parede lateral
+@export var score_force_on_goal: float = 2000.0      # bônus máximo por força no gol (quadrático: force² × este valor)
 @export var debug_scores: bool = true
 
 var scored_plays: Array[Dictionary]
 
 
-func score_simulation_result(play_teamSide: int, play_index: int) -> Dictionary:
-	var b := {"total": 0.0, "ctrl": 0.0, "adv": 0.0, "prox": 0.0, "def": 0.0, "blk": 0.0}
+func score_simulation_result(play_teamSide: int, play_index: int, force_lerp: float) -> Dictionary:
+	var b := {"total": 0.0, "ctrl": 0.0, "adv": 0.0, "prox": 0.0, "def": 0.0,
+			  "blk": 0.0, "sup": 0.0, "cov": 0.0, "prs": 0.0, "zon": 0.0, "wal": 0.0, "gl": 0.0}
 	
+	# Gol: bônus base + extra por força (só se tocou a bola diretamente)
 	if ball_entered_enemy_goal:
-		b["total"] = score_goal; b["ctrl"] = score_goal; return b
-	if ball_entered_goal:
-		b["total"] = score_own_goal; b["ctrl"] = score_own_goal; return b
+		var force_bonus := force_lerp * force_lerp * score_force_on_goal
+		if not sim_direct_hit:
+			force_bonus *= 0.2  # chute indireto (bateu em outra peça antes) = 20% do bônus
+		b["gl"] = score_goal + force_bonus
+	elif ball_entered_goal:
+		b["gl"] = score_own_goal
 	
-	if sim_ball_last_touch_team == play_teamSide:
-		b["ctrl"] = score_control_own
-	elif sim_ball_last_touch_team >= 0:
-		b["ctrl"] = score_control_enemy
+	# Controle da bola (só se NÃO foi gol)
+	if b["gl"] == 0.0:
+		if sim_ball_last_touch_team == play_teamSide:
+			b["ctrl"] = score_control_own
+		elif sim_ball_last_touch_team >= 0:
+			b["ctrl"] = score_control_enemy
 	
+	# Avanço linear
 	var advance: float
-	if play_teamSide == 0:  # HOME
-		advance = sim_ball_end_pos.x - sim_ball_start_x
-	else:  # AWAY
-		advance = sim_ball_start_x - sim_ball_end_pos.x
+	if play_teamSide == 0:
+		advance = sim_ball_end_pos.x - sim_ball_start_pos.x
+	else:
+		advance = sim_ball_start_pos.x - sim_ball_end_pos.x
 	b["adv"] = advance * score_advance_per_pixel
 	
+	# Proximidade + defensivo (só se não tocou na bola)
 	if sim_ball_last_touch_team < 0:
-		# Proximidade 2D real entre peça e bola (decai 0.2/px → alcance 750px)
 		var dist = sim_piece_end_pos.distance_to(sim_ball_end_pos)
 		b["prox"] = maxf(0.0, score_proximity_max - dist * 0.2)
-		# Defensivo: peça entre bola e nosso gol (eixo X)
-		var def_ok: bool = sim_piece_end_pos.x < sim_ball_end_pos.x if play_teamSide == 0 else sim_piece_end_pos.x > sim_ball_end_pos.x
+		var def_ok := sim_piece_end_pos.x < sim_ball_end_pos.x if play_teamSide == 0 else sim_piece_end_pos.x > sim_ball_end_pos.x
 		if def_ok:
 			b["def"] = score_defensive_position
 	
-	# Penalidade por bloqueadores no caminho do gol (quanto menos, melhor)
+	# Bloqueadores no caminho do gol
 	b["blk"] = sim_blockers * score_per_blocker
 	
-	b["total"] = b["ctrl"] + b["adv"] + b["prox"] + b["def"] + b["blk"]
+	# Triangulação: aliadas perto da bola
+	b["sup"] = sim_support * score_per_support
+	
+	# Cobertura defensiva: aliadas entre bola e nosso gol
+	b["cov"] = sim_cover * score_per_cover
+	
+	# Pressão de gol: bola perto do gol inimigo com poucos bloqueadores
+	var enemy_goal_x := goal_away_x if play_teamSide == 0 else goal_home_x
+	var dist_to_enemy_goal = abs(sim_ball_end_pos.x - enemy_goal_x)
+	if dist_to_enemy_goal <= 300.0 and sim_blockers <= 1:
+		b["prs"] = score_pressure_goal
+	
+	# Zona ofensiva: bola no campo adversário
+	var mid_x := (goal_home_x + goal_away_x) / 2.0
+	if (play_teamSide == 0 and sim_ball_end_pos.x > mid_x) or (play_teamSide == 1 and sim_ball_end_pos.x < mid_x):
+		b["zon"] = score_zone_offensive
+	
+	# Parede lateral
+	if sim_near_wall:
+		b["wal"] = score_near_wall
+	
+	b["total"] = b["gl"] + b["ctrl"] + b["adv"] + b["prox"] + b["def"] + b["blk"] + b["sup"] + b["cov"] + b["prs"] + b["zon"] + b["wal"]
 	if sim_ball_last_touch_team < 0:
-		b["total"] += score_no_contact  # penalidade por não acertar a bola
+		b["total"] += score_no_contact
+	
+	# Ajustes pós-gol: se fez gol, ignora penalidades e garante advance ≥ 0
+	if b["gl"] >= score_goal:
+		if b["adv"] < 0:
+			b["total"] -= b["adv"]  # remove advance negativo
+			b["adv"] = 0.0
+		b["total"] -= b["blk"]     # remove penalidade de bloqueadores
+		b["blk"] = 0.0
+		# Remove no_contact se foi aplicado
+		if sim_ball_last_touch_team < 0:
+			b["total"] -= score_no_contact
+	
 	return b
 
 
@@ -320,7 +499,7 @@ func get_all_best_plays_rotation(_rotation_steps: int, play_teamSide: int, play_
 			
 			Execute_Physic_Simulation_Run(0.016667, play_index, velocity, play_teamSide)
 			
-			var result = score_simulation_result(play_teamSide, play_index)
+			var result = score_simulation_result(play_teamSide, play_index, force_lerp)
 			
 			var last_play = Play.new()
 			last_play.player_index = play_index
@@ -344,7 +523,7 @@ func get_all_best_plays_rotation(_rotation_steps: int, play_teamSide: int, play_
 			var p = scored_plays[t]
 			var bd = p["bd"]
 			var ang := int(round(rad_to_deg(p["play"].direction.angle()))) % 360
-			print("  #%d ang=%d° f=%.2f tot=%.1f [c=%.0f a=%.1f p=%.1f d=%.0f k=%.0f]" % [t+1, ang, p["play"].force_lerp, p["score"], bd["ctrl"], bd["adv"], bd["prox"], bd["def"], bd["blk"]])
+			print("  #%d ang=%d° f=%.2f tot=%.1f [c=%.0f a=%.1f p=%.1f d=%.0f k=%.0f s=%.0f v=%.0f r=%.0f z=%.0f w=%.0f g=%.0f]" % [t+1, ang, p["play"].force_lerp, p["score"], bd["ctrl"], bd["adv"], bd["prox"], bd["def"], bd["blk"], bd["sup"], bd["cov"], bd["prs"], bd["zon"], bd["wal"], bd["gl"]])
 	
 	return best["play"]
 
