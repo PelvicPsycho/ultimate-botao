@@ -216,6 +216,8 @@ func waitAllStopped() -> bool:
 
 func selectFirstTurn() -> void:
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
+	for ball in allBalls:
+		ball.lastTouch = null
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
 	IA_Contr.SetCurrentTeamSide(currentTurn)
 	%MatchUI.colorir_turno(active_team, turnCounter) 
@@ -228,6 +230,8 @@ func changeTurn() -> void:
 	for piece in allPieces:
 		piece.canPlay = (currentTurn == turn.HOME) if piece.team == homeTeam else (currentTurn == turn.AWAY)
 	turnCounter = 0
+	for ball in allBalls:
+		ball.lastTouch = null
 	atualizar_cores_pecas()
 	
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
@@ -240,6 +244,8 @@ func forceTurn(target: turn) -> void:
 	currentTurn = target
 	turnCounter = 0
 	foulFlag = false
+	for ball in allBalls:
+		ball.lastTouch = null
 	atualizar_cores_pecas()
 	
 	for piece in allPieces:
