@@ -117,7 +117,7 @@ func definir_pa(pa_atual: int, max_pa: int = 8) -> void:
 	_pa_anterior = _pa_atual
 	_pa_atual = pa_atual
 	_atualizar_visuais()
-	_animar_pa_dots()  # ⭐ anima transição dos dots
+	_animar_pa_dots()  
 
 func _atualizar_visuais() -> void:
 	for i in range(min(_cartas.size(), buttons.size())):
@@ -150,7 +150,7 @@ func _animar_pa_dots() -> void:
 			tween.parallel().tween_property(pa_dots[i], "scale", Vector2(0.5, 0.5), 0.12)
 
 func _on_btn_click(_viewport: Node, event: InputEvent, _shape_idx: int, btn: Area2D) -> void:
-	# ⭐ Reset de segurança: se passou 3 segundos animando, desbloqueia
+
 	if _animating:
 		_animating = false
 		return
@@ -165,7 +165,7 @@ func _on_btn_hover(btn: Area2D) -> void:
 	if sprite and not sprite.material:
 		var mat = ShaderMaterial.new()
 		mat.shader = _outline_shader
-		mat.set_shader_parameter("outline_color", Color(1.0, 0.9, 0.4))
+		mat.set_shader_parameter("outline_color", Color(0, 0.0, 0.8))
 		mat.set_shader_parameter("outline_width", 3.0)
 		sprite.material = mat
 	

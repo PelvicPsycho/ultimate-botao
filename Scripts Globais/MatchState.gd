@@ -157,6 +157,8 @@ func onGoal(isHome: bool) -> void:
 	_atualizar_placar()
 
 func onClickedPiece(piece: PhysicsPlayer2D) -> void:
+	if carta_usada_no_turno:
+		return 
 	selectedPiece = piece
 	piece.abrir_botoes_cartas()
 

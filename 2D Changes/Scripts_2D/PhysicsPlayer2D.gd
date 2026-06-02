@@ -1086,8 +1086,9 @@ func debug_status():
 	print("  Buffs Ativos:", playerInfo_atual.duracao_dos_buffs)
 
 func abrir_botoes_cartas():
-	var match_state = get_tree().get_first_node_in_group("MatchScene2d")
-	if match_state and match_state.has_signal("turno_trocado"):
+	var ms = get_tree().get_first_node_in_group("MatchState2d")
+
+	if ms and ms.carta_usada_no_turno:
 		print("Já usou carta neste turno, não vai abrir o radial.")
 		return
 	if PhysicsPlayer2D.last_piece_with_radial != null:
