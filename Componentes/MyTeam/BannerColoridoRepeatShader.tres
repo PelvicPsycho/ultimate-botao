@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bl2m0gi16k8d4"]
+
+[ext_resource type="Shader" uid="uid://bgu3u71flpk5q" path="res://Componentes/MyTeam/BannerColoridoRepeatShader.gdshader" id="1_g5fbh"]
+[ext_resource type="Texture2D" uid="uid://cup81nhrvlgcu" path="res://Recursos/2D_Art/MyTeam/DetalheAmarelo.png" id="2_leegv"]
+
+[resource]
+shader = ExtResource("1_g5fbh")
+shader_parameter/textura_infinita = ExtResource("2_leegv")
+shader_parameter/velocidade_scroll = 0.04

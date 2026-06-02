@@ -4,9 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dsc5jb1xxcs0w" path="res://Recursos/2D_Art/TabMenu/referencia.png" id="1_bjpjv"]
 [ext_resource type="Script" uid="uid://dshaarm3s3a52" path="res://Componentes/TabButtons/MenuTorneio.gd" id="1_qvm3y"]
 [ext_resource type="PackedScene" uid="uid://cebbe7ms7qi0u" path="res://Componentes/TabButtons/card_torneio.tscn" id="2_toabo"]
-[ext_resource type="Texture2D" uid="uid://brci17iyugq4w" path="res://Recursos/2D_Art/TabMenu/Modo_de_isolamento_.png" id="4_fw3fr"]
-[ext_resource type="Texture2D" uid="uid://da5mchfqgk6n6" path="res://Recursos/2D_Art/TabMenu/Modo_de_isolamento.png" id="5_qc12b"]
-[ext_resource type="Texture2D" uid="uid://dihi22bj1mhmd" path="res://Recursos/2D_Art/TabMenu/Group.png" id="6_hnlvg"]
+[ext_resource type="PackedScene" uid="uid://cc3vpg1b6h3m6" path="res://Componentes/MyTeam/banner_colorido_control.tscn" id="4_s8nk6"]
+[ext_resource type="PackedScene" uid="uid://b0vytxc3ke4kc" path="res://Componentes/MyTeam/banner_texto_control.tscn" id="5_fw3fr"]
 
 [node name="MenuTorneio_Control" type="Control" unique_id=1762329946 node_paths=PackedStringArray("area_carrossel", "seta_esquerda", "seta_direita")]
 layout_mode = 3
@@ -49,60 +48,19 @@ grow_vertical = 2
 custom_minimum_size = Vector2(50, 200)
 layout_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/Banner_Control" unique_id=1211793940]
+[node name="BannerColorido_Control" parent="VBoxContainer/Banner_Control" unique_id=781915788 instance=ExtResource("4_s8nk6")]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -46.0
 grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_fw3fr")
-expand_mode = 1
+scale = Vector2(0.8, 0.8)
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Banner_Control" unique_id=543740339]
+[node name="BannerTexto_Control" parent="VBoxContainer/Banner_Control" unique_id=466428928 instance=ExtResource("5_fw3fr")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -46.0
-offset_bottom = -40.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_qc12b")
-expand_mode = 1
-
-[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/Banner_Control" unique_id=1036012777]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-offset_left = 591.0
-offset_top = 24.0
-offset_bottom = 94.0
-grow_horizontal = 2
-texture = ExtResource("6_hnlvg")
-expand_mode = 1
-
-[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/Banner_Control" unique_id=379123461]
-layout_mode = 1
-anchors_preset = -1
-offset_left = -1520.895
-offset_top = 24.0
-offset_right = 279.10498
-offset_bottom = 94.0
-texture = ExtResource("6_hnlvg")
-expand_mode = 1
-flip_h = true
-flip_v = true
-
-[node name="Label" type="Label" parent="VBoxContainer/Banner_Control" unique_id=1709785657]
-layout_mode = 1
-offset_left = 300.0
-offset_top = 19.0
-offset_right = 565.0
-offset_bottom = 102.0
-theme_override_font_sizes/font_size = 60
-text = "TORNEIO"
+anchors_preset = 10
+anchor_bottom = 0.0
+grow_vertical = 1
+scale = Vector2(0.8, 0.8)
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1731912505]
 layout_mode = 2

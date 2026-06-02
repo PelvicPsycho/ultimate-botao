@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://b7i7lscx1xobo" path="res://Recursos/2D_Art/MyTeam/Rectangle 23.png" id="13_0maoc"]
 [ext_resource type="PackedScene" uid="uid://d0h3cghqr1iun" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="13_2ysy5"]
 [ext_resource type="Texture2D" uid="uid://dnafvuhag1c13" path="res://Recursos/2D_Art/MyTeam/Rectangle 24.png" id="13_3c3cq"]
+[ext_resource type="PackedScene" uid="uid://cc3vpg1b6h3m6" path="res://Componentes/MyTeam/banner_colorido_control.tscn" id="16_2ysy5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3c3cq"]
 content_margin_left = 0.0
@@ -727,3 +728,28 @@ offset_right = 8.0
 offset_bottom = 8.0
 theme_override_font_sizes/font_size = 50
 text = "SAIRR"
+
+[node name="BannerColorido_Control" parent="." unique_id=781915788 instance=ExtResource("16_2ysy5")]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -284.99997
+offset_top = 1472.0001
+offset_right = -284.99997
+offset_bottom = 1472.0
+grow_vertical = 2
+rotation = -1.3962634
+
+[node name="BannerColorido_Control2" parent="." unique_id=342337384 instance=ExtResource("16_2ysy5")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 265.0
+offset_top = -175.00005
+offset_right = 265.0
+offset_bottom = -175.00006
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 1.7453293

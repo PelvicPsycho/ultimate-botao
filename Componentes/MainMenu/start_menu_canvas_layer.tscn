@@ -1,43 +1,199 @@
 [gd_scene format=3 uid="uid://dtgflpono35aw"]
 
 [ext_resource type="Script" uid="uid://3v4oy7df44ef" path="res://Componentes/MainMenu/start_menu_canvas_layer.gd" id="1_372uq"]
-[ext_resource type="Texture2D" uid="uid://c8mrjyko1e46n" path="res://Recursos/2D_Art/Menu/telas 7.png" id="2_gulj1"]
+[ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="2_7qgsk"]
 [ext_resource type="PackedScene" uid="uid://bmibeshifsq4s" path="res://Temporarios/AdicionarPreset.tscn" id="3_gulj1"]
+[ext_resource type="PackedScene" uid="uid://b0vytxc3ke4kc" path="res://Componentes/MyTeam/banner_texto_control.tscn" id="3_n5ba8"]
+[ext_resource type="Texture2D" uid="uid://dfqvdjgin4twy" path="res://Recursos/2D_Art/SplashScreen/Rectangle 3.png" id="3_rlkea"]
+[ext_resource type="PackedScene" uid="uid://cxvb5u7o6gv0q" path="res://Componentes/MyTeam/banner_azul_control.tscn" id="3_s1m4f"]
+[ext_resource type="Texture2D" uid="uid://h2qvxvcekkf6" path="res://Recursos/2D_Art/SplashScreen/DetalheAzulEscuro.png" id="4_rlkea"]
+[ext_resource type="Texture2D" uid="uid://cteish2yotv5s" path="res://Recursos/2D_Art/SplashScreen/logo 1 1.png" id="4_s1m4f"]
+[ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="4_txp36"]
+
+[sub_resource type="Shader" id="Shader_jdv1h"]
+code = "shader_type canvas_item;
+
+uniform sampler2D textura_infinita : repeat_enable;
+uniform float velocidade_scroll = 0.05;
+
+void fragment() {
+	vec2 uv_deslocada = UV;
+	uv_deslocada.x += TIME * velocidade_scroll;
+	
+	vec4 cor_final = texture(textura_infinita, uv_deslocada);
+	
+	// SE O PIXEL FOR QUASE TRANSPARENTE, DESTRÓI ELE!
+	// (0.05 significa que qualquer coisa com menos de 5% de opacidade some)
+	if (cor_final.a < 0.55) {
+		discard; 
+	}
+	
+	COLOR = cor_final;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6hyn"]
+shader = SubResource("Shader_jdv1h")
+shader_parameter/textura_infinita = ExtResource("4_rlkea")
+shader_parameter/velocidade_scroll = -0.15
 
 [node name="StartMenu_CanvasLayer" type="CanvasLayer" unique_id=140501578]
 script = ExtResource("1_372uq")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=2023151895]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_gulj1")
+[node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("2_7qgsk")]
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=1836294749]
+offset_left = 728.0
+offset_top = -482.00003
+offset_right = 878.0
+offset_bottom = 1318.0
+rotation = 0.7853982
+texture = ExtResource("3_rlkea")
 expand_mode = 1
 
-[node name="Startbutton" type="Button" parent="TextureRect" unique_id=937542176]
-visibility_layer = 0
-layout_mode = 1
-anchors_preset = 15
+[node name="TextureRect3" type="TextureRect" parent="." unique_id=212956297]
+offset_left = 945.10144
+offset_top = -396.1015
+offset_right = 1095.1014
+offset_bottom = 1403.8984
+rotation = 0.7853982
+texture = ExtResource("3_rlkea")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="." unique_id=1507553614]
+custom_minimum_size = Vector2(150, 1800)
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 482.79224
+offset_top = 115.0
+offset_right = 632.79224
+offset_bottom = 1915.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 0.7853982
+texture = ExtResource("3_rlkea")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="." unique_id=1977560941]
+custom_minimum_size = Vector2(150, 1800)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 343.0
+offset_top = -33.0
+offset_right = 493.0
+offset_bottom = 1767.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 0.7853982
+texture = ExtResource("3_rlkea")
+expand_mode = 1
+
+[node name="BannerColorido_Control" parent="." unique_id=781915788 instance=ExtResource("3_s1m4f")]
+offset_top = -10.0
+offset_bottom = -10.0
+scale = Vector2(1.5, 1.5)
+
+[node name="BannerColorido_Control2" type="Control" parent="." unique_id=1152343345]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 864.0
+offset_bottom = 864.0
+scale = Vector2(1.5, 1.5)
+
+[node name="Azul_TextureRect" type="TextureRect" parent="BannerColorido_Control2" unique_id=1016556733]
+material = SubResource("ShaderMaterial_o6hyn")
+layout_mode = 0
+offset_right = 935.0
+offset_bottom = 149.0
+texture = ExtResource("4_rlkea")
+flip_h = true
+flip_v = true
+
+[node name="Azul_TextureRect2" type="TextureRect" parent="BannerColorido_Control2" unique_id=991186985]
+material = SubResource("ShaderMaterial_o6hyn")
+layout_mode = 0
+offset_left = 933.0
+offset_right = 1868.0
+offset_bottom = 149.0
+texture = ExtResource("4_rlkea")
+flip_h = true
+flip_v = true
+
+[node name="BannerTexto_Control" parent="." unique_id=466428928 instance=ExtResource("3_n5ba8")]
+offset_top = 11.0
+offset_bottom = 11.0
+velocidade = 150.0
+esconder_label = true
+
+[node name="BannerTexto_Control2" parent="." unique_id=362051449 instance=ExtResource("3_n5ba8")]
+offset_left = 928.0
+offset_top = 924.0
+offset_right = 928.0
+offset_bottom = 924.0
+velocidade = -150.0
+esconder_label = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2023151895]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -402.0
+offset_top = -369.0
+offset_right = 399.4286
+offset_bottom = 192.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("4_s1m4f")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Button" type="Button" parent="." unique_id=971272928]
-offset_left = 189.0
-offset_top = 823.0
-offset_right = 286.0
-offset_bottom = 854.0
+visible = false
+offset_left = 95.0
+offset_top = 680.0
+offset_right = 379.0
+offset_bottom = 757.0
 theme_override_font_sizes/font_size = 50
 text = "Save delete"
 
 [node name="AddPreset_Button" parent="." unique_id=1518291067 instance=ExtResource("3_gulj1")]
-offset_left = 226.0
-offset_top = 647.0
-offset_right = 631.0
-offset_bottom = 724.0
+visible = false
+offset_left = 98.0
+offset_top = 510.0
+offset_right = 503.0
+offset_bottom = 587.0
 
-[connection signal="pressed" from="TextureRect/Startbutton" to="." method="_on_startbutton_pressed"]
+[node name="Label" type="Label" parent="." unique_id=369439649]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -173.0
+offset_top = 138.0
+offset_right = 184.0
+offset_bottom = 269.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("4_txp36")
+theme_override_font_sizes/font_size = 110
+text = "START"
+horizontal_alignment = 1
+
+[node name="Startbutton" type="Button" parent="." unique_id=937542176]
+visibility_layer = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Startbutton" to="." method="_on_startbutton_pressed"]

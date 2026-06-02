@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cxvb5u7o6gv0q"]
+
+[ext_resource type="Texture2D" uid="uid://h2qvxvcekkf6" path="res://Recursos/2D_Art/SplashScreen/DetalheAzulEscuro.png" id="1_g0tmv"]
+
+[sub_resource type="Shader" id="Shader_jdv1h"]
+code = "shader_type canvas_item;
+
+uniform sampler2D textura_infinita : repeat_enable;
+uniform float velocidade_scroll = 0.05;
+
+void fragment() {
+	vec2 uv_deslocada = UV;
+	uv_deslocada.x += TIME * velocidade_scroll;
+	
+	vec4 cor_final = texture(textura_infinita, uv_deslocada);
+	
+	// SE O PIXEL FOR QUASE TRANSPARENTE, DESTRÓI ELE!
+	// (0.05 significa que qualquer coisa com menos de 5% de opacidade some)
+	if (cor_final.a < 0.55) {
+		discard; 
+	}
+	
+	COLOR = cor_final;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6hyn"]
+shader = SubResource("Shader_jdv1h")
+shader_parameter/textura_infinita = ExtResource("1_g0tmv")
+shader_parameter/velocidade_scroll = -0.15
+
+[node name="BannerAzul_Control" type="Control" unique_id=781915788]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 1.0
+offset_bottom = 1.0
+
+[node name="Azul_TextureRect" type="TextureRect" parent="." unique_id=1016556733]
+material = SubResource("ShaderMaterial_o6hyn")
+layout_mode = 0
+offset_right = 935.0
+offset_bottom = 149.0
+texture = ExtResource("1_g0tmv")
+
+[node name="Azul_TextureRect2" type="TextureRect" parent="." unique_id=991186985]
+material = SubResource("ShaderMaterial_o6hyn")
+layout_mode = 0
+offset_left = 933.0
+offset_right = 1868.0
+offset_bottom = 149.0
+texture = ExtResource("1_g0tmv")
