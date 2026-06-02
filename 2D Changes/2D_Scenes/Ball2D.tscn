@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://v5srrfq0w6hn"]
 
 [ext_resource type="Script" uid="uid://d3gq2odluc0qf" path="res://2D Changes/Scripts_2D/PhysicsBall2D.gd" id="1_qdjjt"]
-[ext_resource type="Texture2D" uid="uid://d31uxg5j02m38" path="res://Recursos/2D_Art/Menu/bola.png" id="2_8yq7v"]
+[ext_resource type="Texture2D" uid="uid://c3y7vund1drav" path="res://Recursos/2D_Art/bola2_256.png" id="2_8yq7v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cihxk"]
 radius = 22.0
