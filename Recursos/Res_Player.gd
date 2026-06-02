@@ -1,7 +1,7 @@
 extends Resource
 class_name TeamPlayer
 
-enum Rank {S, A, B, C, D, F}
+enum Rank {S, A, B, C, D}
 
 signal status_mudou 
 
@@ -20,11 +20,12 @@ var time: Team
 @export var basic_scale: float = 1
 
 @export_group("Habilidades")
+@export_subgroup("Slots")
 @export var quantosSlotes: int
-@export var geral: int
 var slotsUpgrates: Array[CardResource] = []
 var turnos_congelamento_armazenado: int = 0
 var poder_congelar_turnos: int = 0	
+
 @export_subgroup("Força")
 @export var current_min_force: float = 100.0
 @export var current_max_force: float = 1000.0
@@ -32,11 +33,12 @@ var poder_congelar_turnos: int = 0
 @export var level_force_weak: int = 3  # Abaixo deste valor = FRACO
 @export var level_force_strong: int = 7  # Acima deste valor = FORTE
 var bonus_passivos: Dictionary = {}
-@export_subgroup("Outros")
-@export var PA: int
-@export var rank: Rank
+
+@export_subgroup("PA e outros")
+@export var PA: int #Action Points em ptbr
 @export var disabilitado: bool = false
 @export var turnos_preso:int
+var rank: Rank = Rank.D
 
 var congelamento_ativo: bool = false
 var duracao_dos_buffs: Dictionary = {}
@@ -61,7 +63,23 @@ var escala_maxima_circulo_atual: float = 0.3
 
 func _init():
 	slotsUpgrates.resize(quantosSlotes)
-	
+	estimateRank()
+
+func estimateRank():
+	var rankPoints = quantosSlotes + PA
+	if rankPoints <= 4:
+		rank = Rank.D
+	elif rankPoints <= 8:
+		rank = Rank.C
+	elif rankPoints <= 12:
+		rank = Rank.B
+	elif rankPoints <= 16:
+		rank = Rank.A
+	elif rankPoints <= 20:
+		rank = Rank.S
+	#else:
+		#rank = Rank.F
+
 func inicializar_slots() -> void:
 	if slotsUpgrates.size() == 0:
 		slotsUpgrates.resize(quantosSlotes)
@@ -71,7 +89,6 @@ func recalcular_status() -> void:
 	for card in slotsUpgrates:
 		if card != null:
 			bonus_geral += card.magnitude 
-			
 
 func resetar_status(base_info: TeamPlayer) -> void:
 	self.level_force = base_info.level_force
@@ -82,6 +99,7 @@ func resetar_status(base_info: TeamPlayer) -> void:
 	self.troca_posicao_ativa = false
 	self.congelamento_ativo = false
 	self.turnos_preso = 0
+
 func aplicar_buff(card: CardResource) -> void:
 	# 1. A carta já está equipada: só ativa o efeito.
 	if PA < card.custo_energia:
@@ -92,7 +110,6 @@ func aplicar_buff(card: CardResource) -> void:
 		match card.tipo_efeito:
 			CardResource.TipoEfeito.FORCA:
 				level_force += card.magnitude
-
 			CardResource.TipoEfeito.PA:
 				PA += card.magnitude
 			CardResource.TipoEfeito.Congelamento:
@@ -135,6 +152,7 @@ func aplicar_passivas() -> void:
 				bonus_passivos[card] = {"tipo": "PA", "valor": card.magnitude}
 				
 		print("Passiva ativada: ", card.nome, " | ", card.tipo_efeito)
+
 func _remover_passivas() -> void:
 	for card in bonus_passivos:
 		var info = bonus_passivos[card]
@@ -144,6 +162,7 @@ func _remover_passivas() -> void:
 			"FORCA":
 				level_force -= info["valor"]
 	bonus_passivos.clear()
+
 func processar_passagem_de_turno(base_info: TeamPlayer) -> void:
 	processar_expiracao_de_buffs(base_info)
 

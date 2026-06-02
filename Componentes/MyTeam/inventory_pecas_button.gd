@@ -12,9 +12,13 @@ func setup_item(dados: Resource, quantidade: int = 0):
 			nome_label.text = dados.nome
 			
 		if rank_label:
-			# Usa a lista de chaves do enum (ex: ["S", "A", "B"...]) 
-			# e pega a palavra que está no índice do rank atual.
-			rank_label.text = TeamPlayer.Rank.keys()[dados.rank]
+			dados.estimateRank()
+			var dadosRank = dados.rank
+			var rank_keys := TeamPlayer.Rank.keys()
+			if typeof(dadosRank) == TYPE_INT and dadosRank >= 0 and dadosRank < rank_keys.size():
+				rank_label.text = rank_keys[dadosRank]
+			else:
+				rank_label.text = str(dadosRank)
 
 	if quantidade_label:
 		quantidade_label.visible = quantidade > 1
