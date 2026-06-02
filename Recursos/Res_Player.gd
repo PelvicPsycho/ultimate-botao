@@ -21,7 +21,14 @@ var time: Team
 
 @export_group("Habilidades")
 @export_subgroup("Slots")
-@export var quantosSlotes: int
+var _quantosSlotes: int = 0
+@export var quantosSlotes: int:
+	set(value):
+		_quantosSlotes = max(value, 0)
+		slotsUpgrates.resize(_quantosSlotes)
+		estimateRank()
+	get:
+		return _quantosSlotes
 var slotsUpgrates: Array[CardResource] = []
 var turnos_congelamento_armazenado: int = 0
 var poder_congelar_turnos: int = 0	
@@ -35,7 +42,13 @@ var poder_congelar_turnos: int = 0
 var bonus_passivos: Dictionary = {}
 
 @export_subgroup("PA e outros")
-@export var PA: int #Action Points em ptbr
+var _PA: int = 0
+@export var PA: int: #Action Points em ptbr
+	set(value):
+		_PA = value
+		estimateRank()
+	get:
+		return _PA
 @export var disabilitado: bool = false
 @export var turnos_preso:int
 var rank: Rank = Rank.D
@@ -63,9 +76,8 @@ var escala_maxima_circulo_atual: float = 0.3
 
 func _init():
 	slotsUpgrates.resize(quantosSlotes)
-	estimateRank()
 
-func estimateRank():
+func estimateRank() -> Rank:
 	var rankPoints = quantosSlotes + PA
 	if rankPoints <= 4:
 		rank = Rank.D
@@ -77,6 +89,7 @@ func estimateRank():
 		rank = Rank.A
 	elif rankPoints <= 20:
 		rank = Rank.S
+	return rank
 	#else:
 		#rank = Rank.F
 
