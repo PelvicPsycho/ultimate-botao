@@ -123,6 +123,7 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_tmkik")
 
 [node name="RadialMenu" parent="." unique_id=115300761 instance=ExtResource("19_o5120")]
+z_index = 1
 position = Vector2(1, -111)
 scale = Vector2(0.72371936, 0.72371936)
 
