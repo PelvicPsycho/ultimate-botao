@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_bb1im"]
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_w67mv"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_qdq3a"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_00ohw"]
 
 [resource]
 script = ExtResource("1_bb1im")
@@ -9,8 +11,8 @@ id_unico = &"Josue_MyTeam"
 nome = "Josue Ronaldo"
 num_camisa = 7
 foto = ExtResource("1_w67mv")
+textura_peca = ExtResource("4_00ohw")
+material_shader = ExtResource("2_qdq3a")
 quantosSlotes = 5
-forca = 10
 PA = 3
-rank = 4
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

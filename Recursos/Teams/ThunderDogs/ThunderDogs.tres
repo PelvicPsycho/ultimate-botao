@@ -8,6 +8,8 @@
 [ext_resource type="Resource" uid="uid://bg585u4x32id3" path="res://Recursos/Teams/ThunderDogs/Chica.tres" id="5_5i08a"]
 [ext_resource type="Resource" uid="uid://dehwfken68jt1" path="res://Recursos/Teams/ThunderDogs/Emy.tres" id="6_ctmbm"]
 [ext_resource type="Resource" uid="uid://cnv45fa1voitc" path="res://Recursos/Teams/ThunderDogs/Max.tres" id="7_2pli6"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/peceas-04.png" id="9_5i08a"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/peceas-05.png" id="10_ctmbm"]
 
 [resource]
 script = ExtResource("2_mkjc6")
@@ -16,4 +18,8 @@ ranque = 7
 cor = Color(0.8139271, 0.8139268, 0, 1)
 emblem = ExtResource("2_3vf8f")
 mainSquad = Array[ExtResource("1_ule7c")]([ExtResource("3_ggt1h"), ExtResource("4_husfx"), ExtResource("5_5i08a"), ExtResource("6_ctmbm"), ExtResource("7_2pli6")])
+overlay_escolhido = 3
+textura_overlay_1 = ExtResource("9_5i08a")
+textura_overlay_2 = ExtResource("10_ctmbm")
+textura_overlay_3 = ExtResource("9_5i08a")
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

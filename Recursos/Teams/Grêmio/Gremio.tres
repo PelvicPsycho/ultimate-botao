@@ -10,6 +10,9 @@
 [ext_resource type="Resource" uid="uid://dju5oue5manqy" path="res://Recursos/Teams/Grêmio/Gustavo.tres" id="5_m86k1"]
 [ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="6_v7mno"]
 [ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Grêmio/Mec.tres" id="7_fwef6"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/peceas-04.png" id="11_m86k1"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/peceas-05.png" id="12_v7mno"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/peceas-06.png" id="13_fwef6"]
 
 [resource]
 script = ExtResource("2_li65g")
@@ -21,4 +24,8 @@ emblem = ExtResource("2_k83jf")
 mainSquad = Array[ExtResource("1_amvcu")]([ExtResource("3_22hdo"), ExtResource("4_r8ce3"), ExtResource("5_m86k1"), ExtResource("6_v7mno"), ExtResource("7_fwef6")])
 materialAtivo = ExtResource("2_ujupw")
 materialInativo = ExtResource("3_my0g1")
+overlay_escolhido = 1
+textura_overlay_1 = ExtResource("11_m86k1")
+textura_overlay_2 = ExtResource("12_v7mno")
+textura_overlay_3 = ExtResource("13_fwef6")
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

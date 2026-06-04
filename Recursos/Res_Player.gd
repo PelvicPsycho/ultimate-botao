@@ -11,7 +11,9 @@ signal status_mudou
 @export var num_camisa: int
 var time: Team
 @export var foto: Texture2D
-
+@export var textura_peca: Texture2D
+@export_range(1, 3) var overlay_texture: int = 1
+@export var material_shader: ShaderMaterial
 @export_group("Basic Attributes")
 @export var basic_min_force: float = 100.0
 @export var basic_max_force: float = 1000.0

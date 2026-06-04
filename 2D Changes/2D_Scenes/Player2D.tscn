@@ -34,6 +34,9 @@ radius = 35.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
 radius = 35.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_fl8l5"]
+radius = 34.058773
+
 [node name="Player2d" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("Object_Radius", "sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
 collision_layer = 2
 collision_mask = 3
@@ -119,11 +122,19 @@ target_position = Vector2(0, 0)
 max_results = 1
 
 [node name="sprite2D_body" type="Sprite2D" parent="." unique_id=523510040]
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.105, 0.105)
 texture = ExtResource("3_tmkik")
 
 [node name="RadialMenu" parent="." unique_id=115300761 instance=ExtResource("19_o5120")]
 position = Vector2(1, -111)
 scale = Vector2(0.72371936, 0.72371936)
 
+[node name="AreaClique" type="Area2D" parent="." unique_id=438372671]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaClique" unique_id=146416965]
+shape = SubResource("CircleShape2D_fl8l5")
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="input_event" from="AreaClique" to="." method="_on_area_clique_input_event"]
+[connection signal="mouse_entered" from="AreaClique" to="." method="_on_area_clique_mouse_entered"]
+[connection signal="mouse_exited" from="AreaClique" to="." method="_on_area_clique_mouse_exited"]

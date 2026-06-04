@@ -11,6 +11,8 @@
 [ext_resource type="Resource" uid="uid://c2usg0pshagw8" path="res://Recursos/Teams/MyTeam/Nigel.tres" id="6_75tbl"]
 [ext_resource type="Material" uid="uid://blg57clw7lgpi" path="res://Componentes/PlayerGradientes/TimeAzul.tres" id="7_bo60u"]
 [ext_resource type="Material" uid="uid://x67w856wlle8" path="res://Componentes/PlayerGradientes/TimeAzulDesactive.tres" id="8_q0ups"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/peceas-04.png" id="12_75tbl"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/peceas-05.png" id="13_bo60u"]
 
 [resource]
 script = ExtResource("2_2t8uq")
@@ -22,4 +24,8 @@ mainSquad = Array[ExtResource("1_n3tuv")]([ExtResource("2_hivfl"), ExtResource("
 collectedSquad = Array[ExtResource("1_n3tuv")]([ExtResource("2_iymq7")])
 materialAtivo = ExtResource("7_bo60u")
 materialInativo = ExtResource("8_q0ups")
+overlay_escolhido = 3
+textura_overlay_1 = ExtResource("12_75tbl")
+textura_overlay_2 = ExtResource("13_bo60u")
+textura_overlay_3 = ExtResource("12_75tbl")
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

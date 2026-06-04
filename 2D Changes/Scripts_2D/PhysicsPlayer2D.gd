@@ -85,8 +85,9 @@ func _ready() -> void:
 	team = playerInfo.time
 	is_pointer_inside_piece = false
 	add_to_group("MatchScene2d") 
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
+	#Desabilitei para fuinonar o click da AreaClique
+	#mouse_entered.connect(_on_mouse_entered)
+	#mouse_exited.connect(_on_mouse_exited)
 	
 	sprite2D_circulo_limite.visible = false
 	sprite2D_circulo_limite.self_modulate = Color(1.0, 1.0, 1.0, 0.0)
@@ -112,20 +113,44 @@ func _ready() -> void:
 	base_tracer_width = tracer2D.width
 
 func loadPlayerInfo(plInfo):
+	_configurar_status(plInfo)
+	_aplicar_visual(plInfo)
+
+func _configurar_status(plInfo) -> void:
 	playerInfo_atual = plInfo.duplicate(true)
 	playerInfo_atual.status_mudou.connect(atualizar_fisica_por_status)
 	playerInfo_atual.status_mudou.connect(atualizar_peca_pelo_status)
+	
 	atualizar_peca_pelo_status()
 	atualizar_fisica_por_status()
-	
 	Update_Values_With_StatusAtual()
 
-	sprite2D_body.self_modulate = team.cor
-	tracer2D.self_modulate = team.cor
+func _aplicar_visual(plInfo) -> void:
 	
-	#if debug:
-		#print("Start friction = ", friction)
-		#print("Start mass = ", mass)
+	if plInfo.get("textura_peca") and plInfo.textura_peca != null:
+		sprite2D_body.texture = plInfo.textura_peca
+
+	
+	if plInfo.get("material_shader") and plInfo.material_shader != null:
+		sprite2D_body.material = plInfo.material_shader.duplicate()
+	elif sprite2D_body.material:
+		sprite2D_body.material = sprite2D_body.material.duplicate()
+			
+	
+	if sprite2D_body.material and team:
+		
+		sprite2D_body.material.set_shader_parameter("sprite_tint", team.cor)
+		
+		
+		if team.has_method("get_overlay_texture"):
+			var tex_overlay = team.get_overlay_texture()
+			if tex_overlay != null:
+				sprite2D_body.material.set_shader_parameter("overlay_texture", tex_overlay)
+	
+	
+	if team:
+		tracer2D.self_modulate = team.cor
+	sprite2D_body.self_modulate = Color.WHITE
 
 func Set_AI_Active(_AI_Active: bool) -> void:
 	AI_Active = _AI_Active
@@ -195,7 +220,7 @@ func atualizar_peca_pelo_status() -> void:
 	if playerInfo_atual.duracao_dos_buffs.is_empty():
 		limpar_todos_efeitos_visuais()
 	if playerInfo_atual.turnos_congelamento_armazenado > 0 or playerInfo_atual.disabilitado:
-		sprite2D_body.self_modulate = Color(0.5, 0.8, 1.0) 
+		material.set_shader_parameter("sprite_tint", Color(0.5, 0.8, 1.0))
 	else:
 		sprite2D_body.self_modulate = team.cor # Volta ao normal
 	if is_instance_valid(sprite2D_circulo_limite):
@@ -412,7 +437,6 @@ func _input(event: InputEvent) -> void:
 		# Se soltou o dedo e ele estava FORA da peça, executa jogada!
 		if not is_pointer_inside_piece:
 			Execute_Action()
-		# Se soltou o dedo EM CIMA da peça, cancela a jogada
 		else:
 			_cancelar_interacao()
 
@@ -447,13 +471,13 @@ func _verificar_clique_fora_radial() -> void:
 				return  # clicou em cima de um botão → não fecha
 	menu_radial.fechar()
 
-func _on_mouse_entered() -> void:
-	is_pointer_inside_piece = true
-	_animar_hover(true)
-
-func _on_mouse_exited() -> void:
-	is_pointer_inside_piece = false
-	_animar_hover(false)
+#func _on_mouse_entered() -> void:
+	#is_pointer_inside_piece = true
+	#_animar_hover(true)
+#
+#func _on_mouse_exited() -> void:
+	#is_pointer_inside_piece = false
+	#_animar_hover(false)
 
 func _on_player_pressed(pos: Vector2):
 	zoom_out_signal.emit(pos)
@@ -912,28 +936,32 @@ func limpar_todos_efeitos_visuais() -> void:
 	atualizar_piscar_multi()
 
 func atualizar_piscar_multi() -> void:
-	# Mata o tween antigo
+	
 	if buff_tween and buff_tween.is_valid():
 		buff_tween.kill()
 		buff_tween = null
+		
 	
-	# Se não tem nenhum efeito ativo, volta à cor normal
-	if efeitos_visuais_ativos.is_empty():
-		if is_instance_valid(sprite2D_body):
-			sprite2D_body.self_modulate = team.cor
+	if not is_instance_valid(sprite2D_body) or not sprite2D_body.material:
 		return
+		
 	
-	# Pega todas as cores ativas
+	if efeitos_visuais_ativos.is_empty():
+		sprite2D_body.material.set_shader_parameter("sprite_tint", team.cor)
+		return
+		
+	
 	var cores: Array[Color] = []
 	for cor in efeitos_visuais_ativos.values():
 		cores.append(cor)
-	
-	# Cria um tween que cicla entre todas as cores + volta ao normal
 	var tw = create_tween().set_loops()
 	for cor in cores:
-		tw.tween_property(sprite2D_body, "self_modulate", cor, 0.15)
-		tw.tween_property(sprite2D_body, "self_modulate", team.cor, 0.15)
+		
+		tw.tween_property(sprite2D_body.material, "shader_parameter/sprite_tint", cor, 0.15)
+		tw.tween_property(sprite2D_body.material, "shader_parameter/sprite_tint", team.cor, 0.15)
+		
 	buff_tween = tw
+
 func animar_efeito_por_carta(card: CardResource) -> void:
 	match card.tipo_efeito:
 		CardResource.TipoEfeito.FORCA:
@@ -1057,6 +1085,7 @@ func get_player_que_quer_trocar() -> PhysicsPlayer2D:
 #
 		#spark_cooldowns[collider_id] = 0.2
 		#break
+
 func _on_carta_do_radial(carta):
 
 	var ms = get_tree().get_first_node_in_group("MatchState2d")
@@ -1076,7 +1105,7 @@ func aplicar_congelamento(turnos: int) -> void:
 		playerInfo_atual.disabilitado = true
 		playerInfo_atual.status_mudou.emit()
 	if is_instance_valid(sprite2D_body):
-		sprite2D_body.self_modulate = Color(0.5, 0.8, 1.0)
+		material.set_shader_parameter("sprite_tint", Color(0.5, 0.8, 1.0))
 		
 func debug_status():
 	print("STATUS DEBUG → ", playerInfo.nome)
@@ -1110,3 +1139,106 @@ func abrir_botoes_cartas():
 	menu_radial.abrir()
 	PhysicsPlayer2D.last_piece_with_radial = self
 #endregion
+
+# aqui para baixo novo codigo do input da area2d
+func _on_area_clique_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	# Verifica se o jogador clicou com o botão esquerdo do mouse
+	if AI_Active:
+		if teamSide == TeamSide.AWAY:
+			return
+		
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		get_viewport().set_input_as_handled()
+		var player_que_quer_trocar = get_player_que_quer_trocar()
+		if player_que_quer_trocar:
+			var alvo: PhysicsPlayer2D = player_que_quer_trocar
+			var pos_self: Vector2 = global_position
+			var pos_alvo: Vector2 = alvo.global_position
+			current_velocity = Vector2.ZERO
+			alvo.current_velocity = Vector2.ZERO
+			alvo.playerInfo_atual.troca_posicao_ativa = false
+			sprite2D_body.top_level = true
+			alvo.sprite2D_body.top_level = true
+		
+			sprite2D_body.global_position = pos_self
+			alvo.sprite2D_body.global_position = pos_alvo
+		
+			global_position = Vector2(5000, 5000)
+			alvo.global_position = Vector2(6000, 6000)
+			var tw = create_tween().set_parallel(true)
+			tw.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+			var tempo = 0.4
+			
+			tw.tween_property(sprite2D_body, "global_position", pos_alvo, tempo)
+			tw.tween_property(alvo.sprite2D_body, "global_position", pos_self, tempo)
+			
+			if sprite2D_body and alvo.sprite2D_body:
+				var escala_base_self = sprite2D_body.scale
+				var escala_base_alvo = alvo.sprite2D_body.scale
+				
+				tw.tween_property(sprite2D_body, "scale", escala_base_self * 1.2, tempo / 2.0)
+				tw.tween_property(alvo.sprite2D_body, "scale", escala_base_alvo * 1.2, tempo / 2.0)
+				tw.chain().tween_property(sprite2D_body, "scale", escala_base_self, tempo / 2.0)
+				tw.tween_property(alvo.sprite2D_body, "scale", escala_base_alvo, tempo / 2.0)
+				
+			tw.chain().tween_callback(func():
+				
+				global_position = pos_alvo
+				alvo.global_position = pos_self
+				sprite2D_body.top_level = false
+				alvo.sprite2D_body.top_level = false
+				sprite2D_body.position = base_visual_position
+				alvo.sprite2D_body.position = alvo.base_visual_position
+			)
+			return
+	if is_frozen():
+		return
+	
+	if !canPlay or disabled:
+		return
+	
+	# Evento - clique do mouse esquerdo
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			print("Peça clicada! level_force: ", playerInfo_atual.level_force)
+
+			clickedPiece.emit(self)
+
+			abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO
+			
+			is_dragging = true
+			
+			SoundMaster.play_sfx(audio_clique) #Toca o som de clique normal
+			sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) #Toca tensao e salva a ref
+			
+			# Emite um sinal que o player foi clicado
+			_on_player_pressed(position)
+			
+			# Zera variaveis
+			current_direction = Vector2.ZERO
+			
+			Set_Current_Velocity(Vector2.ZERO)
+			current_force = 0.0
+			
+			direcao_travada = false
+			
+			# Guarda a posição global do player
+			posicao_inicial_toque_Tela = global_position
+		
+		if Input.is_action_just_pressed("ui_focus_next"): # tecla TAB por padrão
+			debug_status()
+		# OBS: Se o seu MatchState espera um sinal quando a peça é clicada, 
+		# você também pode emitir o sinal aqui. Exemplo:
+		# emit_signal("clickedPiece", self)
+
+
+func _on_area_clique_mouse_entered() -> void:
+	is_pointer_inside_piece = true
+	_animar_hover(true)
+	pass # Replace with function body.
+
+
+func _on_area_clique_mouse_exited() -> void:
+	is_pointer_inside_piece = false
+	_animar_hover(false)
+	pass # Replace with function body.

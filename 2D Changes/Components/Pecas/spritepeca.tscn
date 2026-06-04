@@ -1,19 +1,8 @@
 [gd_scene format=3 uid="uid://cfsrpo18gnsi"]
 
-[ext_resource type="Shader" uid="uid://dgdwclsglmdhb" path="res://shaderdapeca.gdshader" id="1_r2tvd"]
-[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/peceas-04.png" id="2_5sqqv"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="1_t0dno"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="3_inpah"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_br0qm"]
-shader = ExtResource("1_r2tvd")
-shader_parameter/pixel_size = 8.0000003325
-shader_parameter/dist = 75
-shader_parameter/shadow_color = Color(0, 0, 0, 0.5)
-shader_parameter/angle = 40.9090019431775
-shader_parameter/sprite_tint = Color(0.9255518, 0.5382809, 0.14684999, 1)
-shader_parameter/overlay_texture = ExtResource("2_5sqqv")
-shader_parameter/overlay_mix_amount = 0.250000011875
-
 [node name="spritepeca" type="Sprite2D" unique_id=247002160]
-material = SubResource("ShaderMaterial_br0qm")
+material = ExtResource("1_t0dno")
 texture = ExtResource("3_inpah")
