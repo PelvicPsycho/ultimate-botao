@@ -153,8 +153,15 @@ texture = ExtResource("4_s1m4f")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="Startbutton" type="Button" parent="." unique_id=937542176]
+visibility_layer = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Button" type="Button" parent="." unique_id=971272928]
-visible = false
 offset_left = 95.0
 offset_top = 680.0
 offset_right = 379.0
@@ -163,11 +170,18 @@ theme_override_font_sizes/font_size = 50
 text = "Save delete"
 
 [node name="AddPreset_Button" parent="." unique_id=1518291067 instance=ExtResource("3_gulj1")]
-visible = false
 offset_left = 98.0
 offset_top = 510.0
 offset_right = 503.0
 offset_bottom = 587.0
+
+[node name="AddTodasCartas" type="Button" parent="." unique_id=951732222]
+offset_left = 75.0
+offset_top = 386.0
+offset_right = 366.0
+offset_bottom = 436.0
+theme_override_font_sizes/font_size = 30
+text = "Add todas as cartas"
 
 [node name="Label" type="Label" parent="." unique_id=369439649]
 anchors_preset = 8
@@ -187,13 +201,6 @@ theme_override_font_sizes/font_size = 110
 text = "START"
 horizontal_alignment = 1
 
-[node name="Startbutton" type="Button" parent="." unique_id=937542176]
-visibility_layer = 0
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Startbutton" to="." method="_on_startbutton_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="AddTodasCartas" to="." method="_on_add_todas_cartas_pressed"]

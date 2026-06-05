@@ -79,3 +79,34 @@ func _on_button_pressed() -> void:
 
 func _on_startbutton_pressed() -> void:
 	get_tree().change_scene_to_packed(TabMenu)
+
+
+func _on_add_todas_cartas_pressed() -> void:
+	# Garante que o Database já terminou de carregar os arquivos
+	if Database.cartas_db.size() == 0:
+		print("Erro: O Database de cartas está vazio ou não foi carregado ainda.")
+		return
+		
+	# Varre todos os IDs únicos que existem cadastrados no jogo
+	for id_carta in Database.cartas_db.keys():
+		GameState.adicionar_carta(id_carta)
+	
+	
+	var pecas_iniciais: Array = []
+	
+	# ==========================================
+	# 1. CARREGAR AS PEÇAS DO GRÊMIO
+	# ==========================================
+	for id_peca in Database.pecas_db:
+		var peca_original = Database.pecas_db[id_peca]
+		
+		# Procura peças que tenham um Resource de Time equipado e que o nome seja "Grêmio"
+		if peca_original is TeamPlayer and peca_original.time and peca_original.time.name == "My Team":
+			
+			# Faz a cópia para não estragar o arquivo original
+			var jogador_copia = peca_original.duplicate(true)
+			jogador_copia.slotsUpgrates.resize(jogador_copia.quantosSlotes)
+			pecas_iniciais.append(jogador_copia)
+			
+			# Adiciona aos desbloqueados
+			GameState.adicionar_peca(jogador_copia.id_unico)

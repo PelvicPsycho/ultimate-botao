@@ -29,6 +29,28 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ysy5"]
+bg_color = Color(0, 0, 0, 0.37254903)
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 0.15686275)
+border_blend = true
+corner_radius_top_left = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vb7km"]
+bg_color = Color(0, 0, 0, 0.3647059)
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 0.15686275)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqv65"]
+bg_color = Color(0, 0, 0, 0.33333334)
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 0.15686275)
+border_blend = true
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+
 [node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "az_filter_btn", "rank_filter_btn", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_pai_margincontainer", "center_plainmsg_vbox", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox")]
 layout_mode = 3
 anchors_preset = 15
@@ -45,9 +67,9 @@ tab_cards_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/Marg
 textura_aba_ativa = ExtResource("2_0maoc")
 textura_aba_inativa = ExtResource("9_cep57")
 btn_salvar_sair = NodePath("SAIRR_Button")
-az_filter_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer/AZFilter_Button")
-rank_filter_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer/RankFilter_Button")
-inventory_list = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/ScrollContainer/InventoryList_GridContainer")
+az_filter_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/AZFilter_Button")
+rank_filter_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/RankFilter_Button")
+inventory_list = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/InventoryList_GridContainer")
 central_nome_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer/CW-ItemName_Label")
 central_descricao_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ItemDescription_RichTextLabel")
 central_arte_rect = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ItemIMG_TextureRect")
@@ -101,8 +123,10 @@ texture = ExtResource("4_x3s7i")
 expand_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer" unique_id=110340212]
+custom_minimum_size = Vector2(1400, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 80
 
 [node name="TopNavHBox_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer" unique_id=2021018094]
@@ -138,6 +162,26 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Nome" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton1" unique_id=970913715]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -80.5
+offset_right = 116.0
+offset_bottom = -31.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 30
+text = "Everton"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="SlotButton2" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=1884737589]
 z_index = 1
 custom_minimum_size = Vector2(110, 80)
@@ -164,6 +208,26 @@ grow_vertical = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 50
 text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Nome" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton2" unique_id=998811070]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -80.5
+offset_right = 116.0
+offset_bottom = -31.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 30
+text = "Everton"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -196,6 +260,26 @@ text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Nome" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton3" unique_id=181659272]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -80.5
+offset_right = 116.0
+offset_bottom = -31.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 30
+text = "Everton"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="SlotButton4" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=466468303]
 z_index = 1
 custom_minimum_size = Vector2(110, 80)
@@ -222,6 +306,26 @@ grow_vertical = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 50
 text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Nome" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton4" unique_id=945019316]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -80.5
+offset_right = 116.0
+offset_bottom = -31.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 30
+text = "Everton"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -254,13 +358,33 @@ text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Nome" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton5" unique_id=109931045]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -80.5
+offset_right = 116.0
+offset_bottom = -31.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 30
+text = "Everton"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer" unique_id=1099787996]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 180
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 180
-theme_override_constants/margin_bottom = 70
+theme_override_constants/margin_bottom = 50
 
 [node name="CoreAreaHbox_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer" unique_id=245952719]
 layout_mode = 2
@@ -322,15 +446,22 @@ expand_mode = 1
 [node name="LeftWindow_PanelContainer" type="PanelContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer" unique_id=1496457597]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_2ysy5")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer" unique_id=1125311028]
+[node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer" unique_id=1787982407]
 layout_mode = 2
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_bottom = 15
 
-[node name="Filters_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer" unique_id=1442178262]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer" unique_id=1125311028]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Filters_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1442178262]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="RankFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer" unique_id=1856155120]
+[node name="RankFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer" unique_id=1856155120]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 texture_normal = ExtResource("13_3c3cq")
@@ -338,7 +469,7 @@ ignore_texture_size = true
 stretch_mode = 0
 flip_h = true
 
-[node name="Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer/RankFilter_Button" unique_id=2077872903]
+[node name="Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/RankFilter_Button" unique_id=2077872903]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -356,14 +487,14 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 text = "Rank"
 
-[node name="AZFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer" unique_id=866524000]
+[node name="AZFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer" unique_id=866524000]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 texture_normal = ExtResource("13_0maoc")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label2" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer/AZFilter_Button" unique_id=765010231]
+[node name="Label2" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/AZFilter_Button" unique_id=765010231]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -381,7 +512,7 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 text = "A-Z"
 
-[node name="TypeFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer" unique_id=1879588817]
+[node name="TypeFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer" unique_id=1879588817]
 visible = false
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
@@ -389,7 +520,7 @@ texture_normal = ExtResource("13_3c3cq")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label3" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/Filters_HBoxContainer/TypeFilter_Button" unique_id=2055535907]
+[node name="Label3" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/TypeFilter_Button" unique_id=2055535907]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -407,23 +538,24 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 text = "Tipo"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer" unique_id=609357060]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=609357060]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="InventoryList_GridContainer" type="GridContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/ScrollContainer" unique_id=185042268]
+[node name="InventoryList_GridContainer" type="GridContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=185042268]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 15
 
-[node name="CartaUI_Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/VBoxContainer/ScrollContainer/InventoryList_GridContainer" unique_id=445776678 instance=ExtResource("13_2ysy5")]
+[node name="CartaUI_Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/InventoryList_GridContainer" unique_id=445776678 instance=ExtResource("13_2ysy5")]
 layout_mode = 2
 
 [node name="CenterWindow_PanelContainer" type="PanelContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer" unique_id=1886739079]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vb7km")
 
 [node name="Pai_MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer" unique_id=548226556]
 layout_mode = 2
@@ -624,6 +756,7 @@ autowrap_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_bqv65")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer" unique_id=2051058442]
 layout_mode = 2

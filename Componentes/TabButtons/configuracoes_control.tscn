@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://hq56qc1w8exg" path="res://Componentes/TabButtons/configuracoes_control.gd" id="1_kqcqm"]
 [ext_resource type="AudioStream" uid="uid://br61fcdfiuwpy" path="res://Sons/quase-gol.wav" id="2_wc0ug"]
-[ext_resource type="Texture2D" uid="uid://brci17iyugq4w" path="res://Recursos/2D_Art/TabMenu/Modo_de_isolamento_.png" id="3_3bofs"]
-[ext_resource type="Texture2D" uid="uid://da5mchfqgk6n6" path="res://Recursos/2D_Art/TabMenu/Modo_de_isolamento.png" id="4_g7qru"]
-[ext_resource type="Texture2D" uid="uid://dihi22bj1mhmd" path="res://Recursos/2D_Art/TabMenu/Group.png" id="5_m7w78"]
+[ext_resource type="PackedScene" uid="uid://cc3vpg1b6h3m6" path="res://Componentes/MyTeam/banner_colorido_control.tscn" id="3_ya2lc"]
+[ext_resource type="Script" uid="uid://c4i5usj55plqt" path="res://Componentes/MyTeam/banner_texto_control.gd" id="4_g7qru"]
+[ext_resource type="Texture2D" uid="uid://d4hy1xvave0cr" path="res://Recursos/2D_Art/TabMenu/Detalhe_quadrados_meio.png" id="5_m7w78"]
+[ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="6_mn5s3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wc0ug"]
 content_margin_left = 0.0
@@ -40,85 +41,92 @@ Checkbox = NodePath("OptionsContainer/Control/FlowContainer/CheckBox")
 [node name="Banner_Control" type="Control" parent="." unique_id=2034304194]
 custom_minimum_size = Vector2(50, 200)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.0
-offset_top = 0.0
 offset_bottom = 200.0
 grow_horizontal = 2
 
-[node name="TextureRect2" type="TextureRect" parent="Banner_Control" unique_id=1427477341]
+[node name="BannerColorido_Control" parent="Banner_Control" unique_id=781915788 instance=ExtResource("3_ya2lc")]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -46.0
-offset_bottom = 0.0
 grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_3bofs")
-expand_mode = 1
+scale = Vector2(0.8, 0.8)
 
-[node name="TextureRect" type="TextureRect" parent="Banner_Control" unique_id=1540302817]
+[node name="BannerTexto_Control" type="Control" parent="Banner_Control" unique_id=466428928 node_paths=PackedStringArray("bloco1", "bloco2", "bloco3")]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -46.0
-offset_bottom = -40.0
 grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_g7qru")
-expand_mode = 1
+scale = Vector2(0.8, 0.8)
+script = ExtResource("4_g7qru")
+velocidade = 200.0
+texto_do_banner = "CONFIGURAÇÕES"
+bloco1 = NodePath("Bloco1_HBoxContainer")
+bloco2 = NodePath("Bloco2_HBoxContainer")
+bloco3 = NodePath("Bloco3_HBoxContainer")
 
-[node name="TextureRect3" type="TextureRect" parent="Banner_Control" unique_id=1370161430]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 0.0
-offset_left = 823.0
-offset_top = 24.0
-offset_right = 0.0
-offset_bottom = 94.0
-grow_horizontal = 2
+[node name="Bloco1_HBoxContainer" type="HBoxContainer" parent="Banner_Control/BannerTexto_Control" unique_id=2061361657]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 30
+
+[node name="TextureRect" type="TextureRect" parent="Banner_Control/BannerTexto_Control/Bloco1_HBoxContainer" unique_id=1148350124]
+layout_mode = 2
 texture = ExtResource("5_m7w78")
-expand_mode = 1
 
-[node name="TextureRect4" type="TextureRect" parent="Banner_Control" unique_id=398047111]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -1520.895
-offset_top = 24.0
-offset_right = 279.10498
-offset_bottom = 94.0
-texture = ExtResource("5_m7w78")
-expand_mode = 1
-flip_h = true
-flip_v = true
-
-[node name="Label" type="Label" parent="Banner_Control" unique_id=802026129]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -132.5
-offset_top = -41.5
-offset_right = 132.5
-offset_bottom = 41.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 60
+[node name="Label" type="Label" parent="Banner_Control/BannerTexto_Control/Bloco1_HBoxContainer" unique_id=1449802023]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("6_mn5s3")
+theme_override_font_sizes/font_size = 85
 text = "CONFIGURAÇÕES"
+
+[node name="Control" type="Control" parent="Banner_Control/BannerTexto_Control/Bloco1_HBoxContainer" unique_id=460513298]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="Bloco2_HBoxContainer" type="HBoxContainer" parent="Banner_Control/BannerTexto_Control" unique_id=423453587]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 30
+
+[node name="TextureRect" type="TextureRect" parent="Banner_Control/BannerTexto_Control/Bloco2_HBoxContainer" unique_id=957010053]
+layout_mode = 2
+texture = ExtResource("5_m7w78")
+
+[node name="Label" type="Label" parent="Banner_Control/BannerTexto_Control/Bloco2_HBoxContainer" unique_id=1700772648]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("6_mn5s3")
+theme_override_font_sizes/font_size = 85
+text = "CONFIGURAÇÕES"
+
+[node name="Control" type="Control" parent="Banner_Control/BannerTexto_Control/Bloco2_HBoxContainer" unique_id=623972631]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="Bloco3_HBoxContainer" type="HBoxContainer" parent="Banner_Control/BannerTexto_Control" unique_id=505547320]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 30
+
+[node name="TextureRect" type="TextureRect" parent="Banner_Control/BannerTexto_Control/Bloco3_HBoxContainer" unique_id=1225311613]
+layout_mode = 2
+texture = ExtResource("5_m7w78")
+
+[node name="Label" type="Label" parent="Banner_Control/BannerTexto_Control/Bloco3_HBoxContainer" unique_id=1977327592]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("6_mn5s3")
+theme_override_font_sizes/font_size = 85
+text = "CONFIGURAÇÕES"
+
+[node name="Control" type="Control" parent="Banner_Control/BannerTexto_Control/Bloco3_HBoxContainer" unique_id=1008541725]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=153066735]
 custom_minimum_size = Vector2(700, 700)

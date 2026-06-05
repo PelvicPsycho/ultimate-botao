@@ -86,6 +86,7 @@ var sort_mode := 0  # 0 = ordem original, 1 = A-Z, 2 = Rank
 # --- INICIALIZAÇÃO ---
 func _ready() -> void:
 	_connect_signals()
+	_atualizar_nomes_dos_slots()
 	_select_slot(1)
 	_switch_tab(CategoryTab.PIECES)
 	_clear_center_window()
@@ -424,9 +425,12 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 				tamanho_carta_centro = btn_fantasma.custom_minimum_size
 			btn_fantasma.queue_free()
 			
-		# 2. Popula o grid com o componente real de carta ou slot vazio
+		# 2. Popula o grid APENAS com as cartas e soma os slots usados
+		var slots_usados_centro = 0
 		for carta in item.slotsUpgrates:
 			if carta != null:
+				slots_usados_centro += carta.custoSlotes
+				
 				if cena_carta_pequena:
 					var btn_carta = cena_carta_pequena.instantiate()
 					center_peca_grid.add_child(btn_carta)
@@ -438,13 +442,16 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 					if btn_carta is BaseButton:
 						btn_carta.disabled = true
 					btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			else:
-				var slot_vazio = ColorRect.new()
-				slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5)
-				slot_vazio.custom_minimum_size = tamanho_carta_centro
-				slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-				slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-				center_peca_grid.add_child(slot_vazio)
+					
+		# 2.5 Desenha os slots vazios baseando-se na matemática real (Total - Usados)
+		var slots_livres_centro = item.quantosSlotes - slots_usados_centro
+		for i in range(slots_livres_centro):
+			var slot_vazio = ColorRect.new()
+			slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5)
+			slot_vazio.custom_minimum_size = tamanho_carta_centro
+			slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+			slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			center_peca_grid.add_child(slot_vazio)
 				
 		# 3. Matemática da Escala para a janela central (baseada no tamanho real do componente)
 		var espaco_colunas_centro = center_peca_grid.get_theme_constant("h_separation")
@@ -552,22 +559,28 @@ func _update_right_window() -> void:
 			tamanho_carta_dir = btn_fantasma.custom_minimum_size
 		btn_fantasma.queue_free()
 
-	# 2. Desenha as cartas equipadas e os slots vazios
+	# 2. Desenha APENAS as cartas equipadas e soma os slots usados
+	var slots_usados_dir = 0
 	for carta in peca_atual.slotsUpgrates:
 		if carta != null:
+			slots_usados_dir += carta.custoSlotes
+			
 			if cena_carta_pequena:
 				var btn_carta = cena_carta_pequena.instantiate()
 				right_window_grid.add_child(btn_carta)
 				if btn_carta.has_method("setup_item"):
 					btn_carta.setup_item(carta)
 				btn_carta.pressed.connect(func(): _inspecionar_item_na_janela_central(carta, true))
-		else:
-			var slot_vazio = ColorRect.new()
-			slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5)
-			slot_vazio.custom_minimum_size = tamanho_carta_dir
-			slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-			slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-			right_window_grid.add_child(slot_vazio)
+
+	# 2.5 Desenha os slots vazios com a matemática real
+	var slots_livres_dir = peca_atual.quantosSlotes - slots_usados_dir
+	for i in range(slots_livres_dir):
+		var slot_vazio = ColorRect.new()
+		slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5)
+		slot_vazio.custom_minimum_size = tamanho_carta_dir
+		slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		right_window_grid.add_child(slot_vazio)
 
 	# 3. Matemática da Escala para não empurrar a UI
 	var espaco_colunas_dir = right_window_grid.get_theme_constant("h_separation")
@@ -611,6 +624,7 @@ func _on_center_action_pressed() -> void:
 			GameState.jogadores[current_slot - 1] = nova_peca
 			GameState.remover_peca(peca_entrando.id_unico)
 		
+		_atualizar_nomes_dos_slots()
 		_enviar_peca_para_banco(peca_saindo)
 		
 		_switch_tab(CategoryTab.PIECES)
@@ -661,6 +675,7 @@ func _remover_buff_da_peca(peca: TeamPlayer, carta: CardResource):
 	var index = peca.slotsUpgrates.find(carta)
 	if index != -1:
 		peca.slotsUpgrates[index] = null
+		_reorganizar_slots_da_peca(peca)
 
 func _on_btn_salvar_sair_pressed() -> void:
 	SaveManager.save_game()
@@ -732,3 +747,38 @@ func _gerar_texto_detalhado_carta(carta: CardResource) -> String:
 		texto += "[b]Duração:[/b] %d turno(s)" % carta.duracao
 		
 	return texto
+
+# --- ATUALIZAÇÃO DOS NOMES DOS SLOTS ---
+func _atualizar_nomes_dos_slots() -> void:
+	for i in range(slot_buttons.size()):
+		var btn = slot_buttons[i]
+		
+		# Procura o nó filho exato chamado "Nome" dentro do botão
+		var label_nome = btn.get_node_or_null("Nome")
+		
+		if label_nome and label_nome is Label:
+			# Verifica se existe uma peça equipada para esse slot no momento
+			if i < GameState.jogadores.size() and GameState.jogadores[i] != null:
+				label_nome.text = GameState.jogadores[i].nome
+			else:
+				label_nome.text = "" # Deixa em branco caso o slot esteja vazio
+
+# --- REORGANIZAÇÃO DE SLOTS ---
+func _reorganizar_slots_da_peca(peca: TeamPlayer) -> void:
+	var cartas_ativas = []
+	
+	# 1. Pega apenas as cartas que existem (ignora os buracos/nulls)
+	for carta in peca.slotsUpgrates:
+		if carta != null:
+			cartas_ativas.append(carta)
+			
+	# 2. Cria um novo array limpo com o tamanho total de slots da peça
+	var array_limpo: Array[CardResource] = []
+	array_limpo.resize(peca.quantosSlotes)
+	
+	# 3. Coloca as cartas ativas em fila indiana, começando do zero
+	for i in range(cartas_ativas.size()):
+		array_limpo[i] = cartas_ativas[i]
+		
+	# 4. Substitui o array velho e bagunçado pelo novo e organizado!
+	peca.slotsUpgrates = array_limpo
