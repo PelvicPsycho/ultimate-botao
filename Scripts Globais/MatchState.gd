@@ -233,6 +233,8 @@ func changeTurn() -> void:
 	for piece in allPieces:
 		piece.canPlay = (currentTurn == turn.HOME) if piece.team == homeTeam else (currentTurn == turn.AWAY)
 	turnCounter = 0
+	foulFlag = false
+	rallyCounter = 2
 	for ball in allBalls:
 		ball.lastTouch = null
 	atualizar_cores_pecas()
@@ -248,6 +250,7 @@ func forceTurn(target: turn) -> void:
 	emit_signal("turno_trocado", currentTurn)
 	turnCounter = 0
 	foulFlag = false
+	rallyCounter = 2
 	for ball in allBalls:
 		ball.lastTouch = null
 	atualizar_cores_pecas()
