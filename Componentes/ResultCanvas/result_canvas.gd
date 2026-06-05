@@ -45,8 +45,8 @@ func _on_restart_button_up():
 func _on_next_pressed() -> void:
 	_set_match_paused(false)
 	if CupManager.isFinal:
-
-		# Aqui vai acabar o torneio. Tem que avisar que ganhou esse cup e voltar para o menu
+		# Torneio concluído! Desbloqueia o próximo rank e volta ao menu
+		CupManager._desbloquear_proximo_torneio()
 		get_tree().change_scene_to_file("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn")
 	else:
 		CupManager.nextCompetitor()

@@ -8,6 +8,9 @@ var jogadores: Array = []
 var cartas_desbloqueadas: Dictionary = {}
 var pecas_desbloqueadas: Dictionary = {}
 var ultimo_torneio_jogado: String = ""
+## Lista com os nomes (cupName) dos torneios que o jogador já desbloqueou.
+## O torneio mais fácil (Rank F) vem desbloqueado por padrão.
+var torneios_desbloqueados: Array[String] = []
 
 func _ready():
 	jogadores = SaveManager.load_game()

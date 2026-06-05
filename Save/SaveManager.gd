@@ -8,6 +8,7 @@ func save_game() -> void:
 		"cartas_desbloqueadas": {},
 		"pecas_desbloqueadas": {},
 		"ultimo_torneio_jogado": GameState.ultimo_torneio_jogado,
+		"torneios_desbloqueados": GameState.torneios_desbloqueados,
 		"config_audio": {
 			"master": SoundMaster.volume_master,
 			"bgm": SoundMaster.volume_BGM,
@@ -78,6 +79,15 @@ func load_game() -> Array:
 		AudioServer.set_bus_mute(master_bus, esta_mutado)
 	
 	GameState.ultimo_torneio_jogado = parsed.get("ultimo_torneio_jogado", "")
+	
+	# ── Restaura torneios desbloqueados ──
+	GameState.torneios_desbloqueados.clear()
+	if parsed.has("torneios_desbloqueados"):
+		var torneios_data = parsed["torneios_desbloqueados"]
+		if typeof(torneios_data) == TYPE_ARRAY:
+			for nome_cup in torneios_data:
+				GameState.torneios_desbloqueados.append(str(nome_cup))
+	
 	# ── Restaura cartas desbloqueadas (formato novo: dict, antigo: array) ──
 	GameState.cartas_desbloqueadas.clear()
 	if parsed.has("cartas_desbloqueadas"):

@@ -61,6 +61,24 @@ func _sync_main_squad_from_gamestate() -> void:
 		#for i in range(myTeam.collectedSquad.size()):
 			#print("  %d. %s" % [i + 1, myTeam.collectedSquad[i].nome])
 
+## Chamado quando o jogador completa um torneio (todas as partidas).
+## Desbloqueia o próximo torneio mais difícil (rank imediatamente inferior).
+func _desbloquear_proximo_torneio() -> void:
+	var rank_atual: int = currentCup.cupRank
+	var proximo_rank: int = rank_atual - 1  # Mais difícil = número menor no enum
+	if proximo_rank < 0:
+		return  # Já venceu o torneio S (mais difícil), nada a desbloquear
+	
+	# Procura o cup com o rank desejado na cupList
+	for cup in cupList:
+		if cup.cupRank == proximo_rank:
+			var nome: String = cup.cupName
+			if nome not in GameState.torneios_desbloqueados:
+				GameState.torneios_desbloqueados.append(nome)
+				print("🏆 Torneio desbloqueado: ", nome)
+				SaveManager.save_game()
+			return
+
 func newRun(): #PARA DELETAR
 	matchesPlayed = 0
 	playCup(0)
@@ -73,6 +91,9 @@ func playCup(index: int):
 	pickCompetitors()
 
 func nextCup():
+	# Desbloqueia o próximo torneio mais difícil antes de avançar
+	_desbloquear_proximo_torneio()
+	
 	isFinal = false
 	cupsPlayed+=1
 	matchesPlayed = 0

@@ -38,6 +38,13 @@ func _ready():
 	var torneios = _carregar_cups_da_pasta()
 	torneios.sort_custom(_ordenar_por_dificuldade)
 	
+	# Garante que o torneio mais fácil (primeiro da lista) esteja sempre desbloqueado
+	if torneios.size() > 0:
+		var nome_mais_facil = torneios[0].cupName
+		if nome_mais_facil not in GameState.torneios_desbloqueados:
+			GameState.torneios_desbloqueados.append(nome_mais_facil)
+			SaveManager.save_game()
+	
 	# 2. Instancia e adiciona os novos cards DENTRO da area_carrossel
 	for cup in torneios:
 		var novo_card = cena_card_torneio.instantiate()

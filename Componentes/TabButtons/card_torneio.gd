@@ -3,9 +3,12 @@ extends MarginContainer
 # Ajuste os caminhos dos nós conforme a sua árvore exata dentro da carta
 @export var label_titulo: Label
 @export var label_rank: Label
-@export var botao_aceitar: TextureButton # Ajuste o caminho do nó
+@export var botao_aceitar: TextureButton
+@export var botao_label: Label  # Label filho do TextureButton ("ACEITAR" / "BLOQUEADO")
+@export var grey_texture: Texture
 
 var cup_data: Cup
+var esta_desbloqueado: bool = false
 
 func setup(novo_cup: Cup):
 	cup_data = novo_cup
@@ -16,14 +19,34 @@ func setup(novo_cup: Cup):
 	# Pega o nome do Enum (S, A, B...) em formato de String baseando-se no número salvo
 	var letra_do_rank = Cup.CUP_RANK.keys()[cup_data.cupRank]
 	label_rank.text = "Rank " + letra_do_rank
+	
+	# Verifica se este torneio está desbloqueado
+	esta_desbloqueado = cup_data.cupName in GameState.torneios_desbloqueados
 
 func definir_foco(ativo: bool):
-	# Essa função continua igual, controlando o botão verde
+	# Controla a visibilidade e estado do botão com base no foco e no desbloqueio
 	botao_aceitar.visible = ativo
-	botao_aceitar.disabled = !ativo
+	
+	if ativo:
+		if esta_desbloqueado:
+			botao_aceitar.disabled = false
+			if botao_label:
+				botao_label.text = "ACEITAR"
+		else:
+			botao_aceitar.disabled = true
+			botao_aceitar.texture_normal = grey_texture
+			if botao_label:
+				botao_label.text = "BLOQUEADO"
+	else:
+		botao_aceitar.disabled = true
 
 
 func _on_texture_button_pressed() -> void:
+	# Bloqueia torneios que ainda não foram desbloqueados
+	if not esta_desbloqueado:
+		print("🔒 Torneio bloqueado: ", cup_data.cupName)
+		return
+	
 	# 1. Manda o CupManager preparar tudo e salvar o jogo
 	CupManager.iniciar_torneio_selecionado(cup_data)
 	

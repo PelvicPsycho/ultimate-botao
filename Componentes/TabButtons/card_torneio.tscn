@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b04s7gy4rn3lh" path="res://Componentes/TabButtons/card_torneio.gd" id="1_7kyiy"]
 [ext_resource type="Texture2D" uid="uid://durqlx37wnwmd" path="res://Recursos/2D_Art/TabMenu/Rectangle 25_.png" id="1_u171g"]
 [ext_resource type="Texture2D" uid="uid://cebp70fm7t0h2" path="res://Recursos/2D_Art/TabMenu/Rectangle 29.png" id="2_5mpu3"]
+[ext_resource type="Texture2D" uid="uid://5plbym5cm146" path="res://Recursos/2D_Art/MyTeam/Group 4_gray.png" id="2_o1e00"]
 [ext_resource type="Texture2D" uid="uid://7pb1a7h83erj" path="res://Recursos/2D_Art/MyTeam/Group 4_.png" id="3_ouq4j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ouq4j"]
@@ -15,7 +16,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[node name="CardTorneio_MarginContainer" type="MarginContainer" unique_id=1939318514 node_paths=PackedStringArray("label_titulo", "label_rank", "botao_aceitar")]
+[node name="CardTorneio_MarginContainer" type="MarginContainer" unique_id=1939318514 node_paths=PackedStringArray("label_titulo", "label_rank", "botao_aceitar", "botao_label")]
 custom_minimum_size = Vector2(600, 782)
 offset_right = 600.0
 offset_bottom = 782.0
@@ -25,6 +26,8 @@ script = ExtResource("1_7kyiy")
 label_titulo = NodePath("MarginContainer/VBoxContainer/TituloTorneio_Label")
 label_rank = NodePath("MarginContainer/VBoxContainer/PanelContainer/Rank_Label")
 botao_aceitar = NodePath("MarginContainer/VBoxContainer/TextureButton")
+botao_label = NodePath("MarginContainer/VBoxContainer/TextureButton/Botao_Label")
+grey_texture = ExtResource("2_o1e00")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1514885362]
 custom_minimum_size = Vector2(600, 782)
@@ -81,7 +84,7 @@ texture_normal = ExtResource("3_ouq4j")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TextureButton" unique_id=1636058237]
+[node name="Botao_Label" type="Label" parent="MarginContainer/VBoxContainer/TextureButton" unique_id=1636058237]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
