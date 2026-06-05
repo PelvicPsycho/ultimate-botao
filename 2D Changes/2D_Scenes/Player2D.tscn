@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cm2htggscwnaq" path="res://2D Changes/Scripts_2D/PhysicsPlayer2D.gd" id="1_yglll"]
 [ext_resource type="Resource" uid="uid://gmvgc073734t" path="res://Recursos/Teams/Inter/Ale.tres" id="2_b4028"]
 [ext_resource type="AudioStream" uid="uid://dophc5rewn0on" path="res://Recursos/SFXs/ClicouNaPeca_544883__ashboy34__smallgranitedry.wav" id="3_4wfki"]
-[ext_resource type="Texture2D" uid="uid://ben3uk3cuad15" path="res://Recursos/2D_Art/Menu/peca base.png" id="3_tmkik"]
 [ext_resource type="Texture2D" uid="uid://dd2an5o41fxro" path="res://2D Changes/Others_2D/Ground Effect Bubble.png" id="3_wpyri"]
 [ext_resource type="AudioStream" uid="uid://b8x46eek4pke2" path="res://Recursos/SFXs/SomDePuxarAPeca_freesound_community-wind-up3-89578.wav" id="4_85i0u"]
 [ext_resource type="AudioStream" uid="uid://b30b1yxsrtvue" path="res://Recursos/SFXs/ChutouAPeca_freesound_community-soccer-ball-kick-37625.wav" id="5_c16pp"]
@@ -14,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://clc333t0ptaed" path="res://Recursos/SFXs/BateuNaParede_footstep_wood_003.wav" id="10_fl8l5"]
 [ext_resource type="AudioStream" uid="uid://c7i8wt5kqjjw6" path="res://Recursos/SFXs/BateuNaTrave_406490__anthousai__hit-metallic-basketball-hoop-pipe-01.wav" id="11_gwudw"]
 [ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="12_gwudw"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="15_fl8l5"]
 [ext_resource type="PackedScene" uid="uid://cjab8n13u8gkw" path="res://2D Changes/2D_Scenes/RadialMenu.tscn" id="19_o5120"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pol8b"]
@@ -28,8 +28,9 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_fl8l5"]
 offsets = PackedFloat32Array(0, 0.096463025)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_th6yb"]
-radius = 35.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fl8l5"]
+radius = 40.0
+height = 85.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
 radius = 35.0
@@ -52,7 +53,7 @@ audio_impacto_peca = ExtResource("8_1440w")
 audio_impacto_bola = ExtResource("9_xkhmx")
 audio_impacto_parede = ExtResource("10_fl8l5")
 audio_impacto_trave = ExtResource("11_gwudw")
-sprite2D_body = NodePath("sprite2D_body")
+sprite2D_body = NodePath("Control/sprite2D_body")
 sprite2D_circulo_limite = NodePath("Sprite2D_CirculoLimite")
 aim_line2D = NodePath("Line2D_Aim")
 drag_line2D = NodePath("Line2D_Drag")
@@ -102,7 +103,7 @@ scale = Vector2(0.01, 0.01)
 texture = ExtResource("3_wpyri")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=566741673]
-shape = SubResource("CircleShape2D_th6yb")
+shape = SubResource("CapsuleShape2D_fl8l5")
 
 [node name="Object_Calculate_Radius" type="Node2D" parent="." unique_id=1905712883]
 position = Vector2(35, 0)
@@ -118,13 +119,20 @@ shape = SubResource("CircleShape2D_r8syo")
 target_position = Vector2(0, 0)
 max_results = 1
 
-[node name="sprite2D_body" type="Sprite2D" parent="." unique_id=523510040]
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("3_tmkik")
-
 [node name="RadialMenu" parent="." unique_id=115300761 instance=ExtResource("19_o5120")]
 z_index = 1
 position = Vector2(1, -111)
 scale = Vector2(0.72371936, 0.72371936)
+
+[node name="Control" type="Control" parent="." unique_id=886917077]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.17, 0.17)
+
+[node name="sprite2D_body" type="Sprite2D" parent="Control" unique_id=523510040]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("15_fl8l5")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
