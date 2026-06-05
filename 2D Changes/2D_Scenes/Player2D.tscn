@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://c7i8wt5kqjjw6" path="res://Recursos/SFXs/BateuNaTrave_406490__anthousai__hit-metallic-basketball-hoop-pipe-01.wav" id="11_gwudw"]
 [ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="12_gwudw"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="15_fl8l5"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="15_gwudw"]
 [ext_resource type="PackedScene" uid="uid://cjab8n13u8gkw" path="res://2D Changes/2D_Scenes/RadialMenu.tscn" id="19_o5120"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pol8b"]
@@ -41,6 +42,7 @@ collision_mask = 3
 input_pickable = true
 script = ExtResource("1_yglll")
 Object_Radius = NodePath("Object_Calculate_Radius")
+pixalizado = 14.175
 max_distance = 300.0
 playerInfo = ExtResource("2_b4028")
 velocity_lag_distance = 10.0
@@ -132,6 +134,7 @@ offset_bottom = 40.0
 scale = Vector2(0.17, 0.17)
 
 [node name="sprite2D_body" type="Sprite2D" parent="Control" unique_id=523510040]
+material = ExtResource("15_gwudw")
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("15_fl8l5")
 

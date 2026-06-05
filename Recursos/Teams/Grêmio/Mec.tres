@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://m8ilx3kupq67"]
 
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_1g1kv"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_exh2a"]
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_w7ge3"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_vcx1n"]
 
 [resource]
 script = ExtResource("2_w7ge3")
@@ -9,6 +11,8 @@ id_unico = &"mec_gremio"
 nome = "Mec"
 num_camisa = 10
 foto = ExtResource("1_1g1kv")
+textura_peca = ExtResource("4_vcx1n")
+material_shader = ExtResource("2_exh2a")
 basic_max_force = 1500.0
 basic_friction = 0.975
 quantosSlotes = 10

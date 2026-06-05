@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_vs3vr"]
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_ly3ky"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_pkfud"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_2ch7o"]
 
 [resource]
 script = ExtResource("2_ly3ky")
@@ -9,7 +11,8 @@ id_unico = &"pezzo_inter"
 nome = "Pezzo"
 num_camisa = 1
 foto = ExtResource("1_vs3vr")
+textura_peca = ExtResource("4_2ch7o")
+material_shader = ExtResource("2_pkfud")
 quantosSlotes = 10
-forca = 10
 PA = 5
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

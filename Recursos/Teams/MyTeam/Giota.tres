@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_au6cm"]
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_c2gw2"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_j0rb8"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_veswh"]
 
 [resource]
 script = ExtResource("2_c2gw2")
@@ -9,8 +11,8 @@ id_unico = &"Gugs_MyTeam"
 nome = "Gugs"
 num_camisa = 3
 foto = ExtResource("1_au6cm")
+textura_peca = ExtResource("4_veswh")
+material_shader = ExtResource("2_j0rb8")
 quantosSlotes = 8
-forca = 7
 PA = 6
-rank = 4
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

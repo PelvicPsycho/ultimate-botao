@@ -15,7 +15,8 @@ signal ActionExecuted(index, velocity, teamSide)
 var AI_Active: bool
 
 #endregion
-
+@export var pixalizado: float=  8.0
+@export var distanciaDropShadow:int =75
 # Runtime Variables
 var current_direction: Vector2 = Vector2.ZERO
 var current_force: float = 0.0
@@ -112,20 +113,40 @@ func _ready() -> void:
 	base_tracer_width = tracer2D.width
 
 func loadPlayerInfo(plInfo):
+	_configurar_status(plInfo)
+	_aplicar_visual(plInfo)
+
+func _configurar_status(plInfo) -> void:
 	playerInfo_atual = plInfo.duplicate(true)
 	playerInfo_atual.status_mudou.connect(atualizar_fisica_por_status)
 	playerInfo_atual.status_mudou.connect(atualizar_peca_pelo_status)
+	
 	atualizar_peca_pelo_status()
 	atualizar_fisica_por_status()
-	
 	Update_Values_With_StatusAtual()
 
-	sprite2D_body.self_modulate = team.cor
-	tracer2D.self_modulate = team.cor
+func _aplicar_visual(plInfo) -> void:
+
+	#if plInfo.get("material_shader") and plInfo.material_shader != null:
+		#sprite2D_body.material = plInfo.material_shader.duplicate()
+	#elif sprite2D_body.material:
+		#sprite2D_body.material = sprite2D_body.material.duplicate()
+			#
 	
-	#if debug:
-		#print("Start friction = ", friction)
-		#print("Start mass = ", mass)
+	if sprite2D_body.material and team:
+		
+		sprite2D_body.material.set_shader_parameter("sprite_tint", team.cor)
+		#sprite2D_body.material.set_shader_parameter("pixel_size,", pixalizado)
+		#sprite2D_body.material.set_shader_parameter("dist,", distanciaDropShadow)
+		if team.has_method("get_overlay_texture"):
+			var tex_overlay = team.get_overlay_texture()
+			if tex_overlay != null:
+				sprite2D_body.material.set_shader_parameter("overlay_texture", tex_overlay)
+	
+	
+	if team:
+		tracer2D.self_modulate = team.cor
+	sprite2D_body.self_modulate = Color.WHITE
 
 func Set_AI_Active(_AI_Active: bool) -> void:
 	AI_Active = _AI_Active
@@ -912,28 +933,32 @@ func limpar_todos_efeitos_visuais() -> void:
 	atualizar_piscar_multi()
 
 func atualizar_piscar_multi() -> void:
-	# Mata o tween antigo
+	
 	if buff_tween and buff_tween.is_valid():
 		buff_tween.kill()
 		buff_tween = null
+		
 	
-	# Se não tem nenhum efeito ativo, volta à cor normal
-	if efeitos_visuais_ativos.is_empty():
-		if is_instance_valid(sprite2D_body):
-			sprite2D_body.self_modulate = team.cor
+	if not is_instance_valid(sprite2D_body) or not sprite2D_body.material:
 		return
+		
 	
-	# Pega todas as cores ativas
+	if efeitos_visuais_ativos.is_empty():
+		sprite2D_body.material.set_shader_parameter("sprite_tint", team.cor)
+		return
+		
+	
 	var cores: Array[Color] = []
 	for cor in efeitos_visuais_ativos.values():
 		cores.append(cor)
-	
-	# Cria um tween que cicla entre todas as cores + volta ao normal
 	var tw = create_tween().set_loops()
 	for cor in cores:
-		tw.tween_property(sprite2D_body, "self_modulate", cor, 0.15)
-		tw.tween_property(sprite2D_body, "self_modulate", team.cor, 0.15)
+		
+		tw.tween_property(sprite2D_body.material, "shader_parameter/sprite_tint", cor, 0.15)
+		tw.tween_property(sprite2D_body.material, "shader_parameter/sprite_tint", team.cor, 0.15)
+		
 	buff_tween = tw
+
 func animar_efeito_por_carta(card: CardResource) -> void:
 	match card.tipo_efeito:
 		CardResource.TipoEfeito.FORCA:
@@ -1076,7 +1101,7 @@ func aplicar_congelamento(turnos: int) -> void:
 		playerInfo_atual.disabilitado = true
 		playerInfo_atual.status_mudou.emit()
 	if is_instance_valid(sprite2D_body):
-		sprite2D_body.self_modulate = Color(0.5, 0.8, 1.0)
+		material.set_shader_parameter("sprite_tint", Color(0.5, 0.8, 1.0))
 		
 func debug_status():
 	print("STATUS DEBUG → ", playerInfo.nome)

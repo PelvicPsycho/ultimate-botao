@@ -10,6 +10,8 @@
 [ext_resource type="Resource" uid="uid://cu8iue5dls8dj" path="res://Recursos/Teams/Inter/Paula.tres" id="5_a3pbj"]
 [ext_resource type="Resource" uid="uid://gtnit36263q6" path="res://Recursos/Teams/Inter/Pezzo.tres" id="6_6bv8s"]
 [ext_resource type="Resource" uid="uid://5psd0fjxpu77" path="res://Recursos/Teams/Inter/Sergio.tres" id="7_02jpn"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/peceas-04.png" id="11_nfeg7"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/peceas-05.png" id="12_a3pbj"]
 
 [resource]
 script = ExtResource("2_wdtrl")
@@ -20,4 +22,8 @@ emblem = ExtResource("2_4vr7p")
 mainSquad = Array[ExtResource("1_t7if8")]([ExtResource("3_hqtxk"), ExtResource("4_nfeg7"), ExtResource("5_a3pbj"), ExtResource("6_6bv8s"), ExtResource("7_02jpn")])
 materialAtivo = ExtResource("2_eb2mv")
 materialInativo = ExtResource("3_hk2ix")
+overlay_escolhido = 2
+textura_overlay_1 = ExtResource("11_nfeg7")
+textura_overlay_2 = ExtResource("12_a3pbj")
+textura_overlay_3 = ExtResource("11_nfeg7")
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"
