@@ -29,9 +29,8 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_fl8l5"]
 offsets = PackedFloat32Array(0, 0.096463025)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fl8l5"]
-radius = 40.0
-height = 85.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_gwudw"]
+radius = 50.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
 radius = 35.0
@@ -105,7 +104,7 @@ scale = Vector2(0.01, 0.01)
 texture = ExtResource("3_wpyri")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=566741673]
-shape = SubResource("CapsuleShape2D_fl8l5")
+shape = SubResource("CircleShape2D_gwudw")
 
 [node name="Object_Calculate_Radius" type="Node2D" parent="." unique_id=1905712883]
 position = Vector2(35, 0)

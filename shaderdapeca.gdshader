@@ -15,6 +15,10 @@ uniform vec4 sprite_tint : source_color = vec4(1.0, 1.0, 1.0, 1.0);
 uniform sampler2D overlay_texture : source_color, filter_nearest;
 uniform float overlay_mix_amount : hint_range(0.0, 1.0) = 1.0;
 
+// --- Stretch Deformation (drag feedback) ---
+uniform vec2 stretch_direction = vec2(0.0, 1.0);
+uniform float stretch_amount : hint_range(0.0, 1.0) = 0.0;
+
 // Varyings to pass safe, mesh-expanded coordinates from vertex to fragment
 varying vec2 main_uv;
 varying vec2 shadow_uv;
@@ -31,7 +35,16 @@ void vertex() {
 	// 3. Stretch vertices outward
 	VERTEX *= uv_dist;
 	
-	// 4. Pass adjusted UV coordinates down to the fragment step
+	// 4. Apply drag-stretch deformation along stretch_direction (no rotation)
+	if (length(stretch_direction) > 0.001 && stretch_amount > 0.001) {
+		vec2 dir = normalize(stretch_direction);
+		float along_factor = stretch_amount * 0.18;
+		float compress_factor = stretch_amount * 0.12;
+		float along = dot(VERTEX, dir);
+		VERTEX = VERTEX * (1.0 - compress_factor) + dir * along * (along_factor + compress_factor);
+	}
+	
+	// 5. Pass adjusted UV coordinates down to the fragment step
 	main_uv = UV * uv_dist - uv_half;
 	shadow_uv = main_uv - shadow_direction * uv_half;
 }

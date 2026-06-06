@@ -96,6 +96,10 @@ func _ready() -> void:
 		push_error("sprite2D_body é nulo")
 		return
 	
+	# Duplica o material para que cada peça tenha parâmetros de shader independentes
+	if sprite2D_body.material and sprite2D_body.material is ShaderMaterial:
+		sprite2D_body.material = sprite2D_body.material.duplicate()
+	
 	radius = (global_position - Object_Radius.global_position).length()
 	
 	base_visual_position = sprite2D_body.position
@@ -874,20 +878,17 @@ func _atualizar_deformacao_arrasto() -> void:
 		return
 
 	var intensidade = clamp(current_distance / max_distance, 0.0, 1.0)
-	var alonga = 1.0 + (intensidade * 0.18)
-	var comprime = 1.0 - (intensidade * 0.12)
-	var direcao_arrasto := posicao_final_toque_Tela - posicao_inicial_toque_Tela
-	if direcao_arrasto.length_squared() > 0.0001:
-		var angulo_arrasto := direcao_arrasto.angle()
-		sprite2D_body.rotation = base_visual_rotation + angulo_arrasto + deg_to_rad(drag_rotation_offset_degrees)
 
 	if deform_tween and deform_tween.is_valid():
 		deform_tween.kill()
 
-	sprite2D_body.scale = Vector2(
-		base_visual_scale.x * alonga,
-		base_visual_scale.y * comprime
-	)
+	# Passa direção e intensidade para o shader (sem rotacionar o sprite)
+	if sprite2D_body.material and sprite2D_body.material is ShaderMaterial:
+		var direcao_arrasto := posicao_final_toque_Tela - posicao_inicial_toque_Tela
+		# Transforma a direção do espaço global para o espaço local do sprite
+		var local_direction := sprite2D_body.get_global_transform().affine_inverse().basis_xform(direcao_arrasto)
+		sprite2D_body.material.set_shader_parameter("stretch_direction", local_direction)
+		sprite2D_body.material.set_shader_parameter("stretch_amount", intensidade)
 
 func _retomar_formato_normal() -> void:
 	if sprite2D_body == null:
@@ -895,6 +896,10 @@ func _retomar_formato_normal() -> void:
 
 	if deform_tween and deform_tween.is_valid():
 		deform_tween.kill()
+
+	# Reseta o stretch do shader
+	if sprite2D_body.material and sprite2D_body.material is ShaderMaterial:
+		sprite2D_body.material.set_shader_parameter("stretch_amount", 0.0)
 
 	deform_tween = create_tween()
 	deform_tween.set_trans(Tween.TRANS_ELASTIC)
