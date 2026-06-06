@@ -4,7 +4,6 @@ class_name PhysicsPlayer2D_Simulation
 @export var debug: bool = true
 
 #region Simulation Needed Variables
-var index: int
 enum TeamSide {HOME, AWAY}
 @export var teamSide: TeamSide
 

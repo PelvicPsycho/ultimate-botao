@@ -43,6 +43,9 @@ Goals=""
 Players=""
 Balls=""
 PhysicsObjects=""
+Simulation_Players=""
+Simulation_Balls=""
+Simulation_Goals=""
 
 [internationalization]
 

@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name PhysicsObject2D
 
+var index: int
+
 @export var shapecast_physics_objects: ShapeCast2D
 @export var shapecast_walls: ShapeCast2D
 

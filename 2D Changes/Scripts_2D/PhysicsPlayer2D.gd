@@ -4,7 +4,7 @@ class_name PhysicsPlayer2D
 @export var debug: bool = true
 
 #region Simulation Needed Variables
-var index: int
+
 enum TeamSide {HOME, AWAY}
 @export var teamSide: TeamSide
 var radius: float
@@ -132,6 +132,7 @@ func Set_AI_Active(_AI_Active: bool) -> void:
 func _no_turno_trocado(_turno_atual) -> void:
 	if menu_radial and menu_radial.is_open:
 		menu_radial.fechar()
+
 func atualizar_fisica_por_status():
 	# MASS
 	# - Aumentar a massa torna a peça mais difícil de ser empurrada por outros
@@ -348,7 +349,7 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 	# Evento - clique do mouse esquerdo
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			print("Peça clicada! level_force: ", playerInfo_atual.level_force)
+			#print("Peça clicada! level_force: ", playerInfo_atual.level_force)
 
 			clickedPiece.emit(self)
 
@@ -477,7 +478,7 @@ func puxar_no_timeout():
 
 #region Movement
 func Execute_Action() -> void:
-	print("Entered to execute action ---------------")
+	#print("Entered to execute action ---------------")
 	if menu_radial and menu_radial.is_open:
 		menu_radial.fechar()
 	if is_frozen():
@@ -492,7 +493,7 @@ func Execute_Action() -> void:
 		
 	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
 	
-	print("Action Executed ---------------")
+	#print("Action Executed ---------------")
 	Set_Current_Velocity(current_direction * current_force)
 	
 	ActionExecuted.emit(index, current_velocity, teamSide)
@@ -579,9 +580,7 @@ func _instanciar_particula_impacto(posicao_colisao: Vector2) -> void:
 
 	if nova_particula is Node2D:
 		nova_particula.global_position = posicao_colisao
-	
-		print("New Particle on position = ", nova_particula.global_position)
-	
+
 	if nova_particula is GPUParticles2D:
 		var gpu := nova_particula as GPUParticles2D
 		gpu.restart()
@@ -1079,11 +1078,12 @@ func aplicar_congelamento(turnos: int) -> void:
 		sprite2D_body.self_modulate = Color(0.5, 0.8, 1.0)
 		
 func debug_status():
-	print("STATUS DEBUG → ", playerInfo.nome)
-	print("  Força:", playerInfo_atual.level_force)
-	print("  PA:", playerInfo_atual.PA)
-	print("  Slots:", playerInfo_atual.slotsUpgrates)
-	print("  Buffs Ativos:", playerInfo_atual.duracao_dos_buffs)
+	pass
+	#print("STATUS DEBUG → ", playerInfo.nome)
+	#print("  Força:", playerInfo_atual.level_force)
+	#print("  PA:", playerInfo_atual.PA)
+	#print("  Slots:", playerInfo_atual.slotsUpgrates)
+	#print("  Buffs Ativos:", playerInfo_atual.duracao_dos_buffs)
 
 func abrir_botoes_cartas():
 	var match_state = get_tree().get_first_node_in_group("MatchScene2d")

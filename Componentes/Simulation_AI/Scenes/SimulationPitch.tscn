@@ -3,11 +3,15 @@
 [ext_resource type="Script" uid="uid://cpi3slk1enhph" path="res://Componentes/Simulation_AI/Scripts/SimulationController.gd" id="1_pbodn"]
 [ext_resource type="PackedScene" uid="uid://djvt35mqbc8jy" path="res://Componentes/Simulation_AI/Scenes/Goal2D_Simulation.tscn" id="1_x1snt"]
 
-[node name="SimulationController" type="Node2D" unique_id=603521134]
+[node name="SimulationPitch" type="Node2D" unique_id=603521134 node_paths=PackedStringArray("Goal_Home", "Goal_Away", "list_walls_polygons")]
 script = ExtResource("1_pbodn")
 run_num_max_steps = 1000
 max_force_steps = 2
 rotation_steps = 30
+Goal_Home = NodePath("Goal2D_Simulation_Home")
+Goal_Away = NodePath("Goal2D_Simulation_Away")
+current_sequancial_shots_num = 2
+list_walls_polygons = [NodePath("Limits/TopWall"), NodePath("Limits/BottttomWall"), NodePath("Limits/HomeGoal"), NodePath("Limits/AwayGoal")]
 
 [node name="Limits" type="StaticBody2D" parent="." unique_id=1520481869]
 position = Vector2(0, 45)
@@ -36,5 +40,6 @@ polygon = PackedVector2Array(237, 322, 93, 319.00006, 91.00012, 671, 237.00012, 
 position = Vector2(0, 89)
 
 [node name="Goal2D_Simulation_Away" parent="." unique_id=1016868111 instance=ExtResource("1_x1snt")]
-position = Vector2(1920, 1168)
-rotation = 3.1415927
+position = Vector2(1920, 1169.03)
+rotation = -3.1415925
+team = 1

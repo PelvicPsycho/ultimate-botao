@@ -1,11 +1,12 @@
 extends Node
+class_name MatchState
 
 enum turn {HOME, AWAY}
 enum ModoTiro { PUXAR, EMPURRAR, MODO_3 }
 
 var modo_atual: ModoTiro = ModoTiro.PUXAR
 signal turno_trocado(turno_atual: turn)
-@export var IA_Contr: IA_Controller
+#@export var IA_Contr: IA_Controller
 
 var allPieces: Array[PhysicsPlayer2D]
 var selectedPiece: PhysicsPlayer2D
@@ -219,7 +220,7 @@ func selectFirstTurn() -> void:
 	for ball in allBalls:
 		ball.lastTouch = null
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-	IA_Contr.SetCurrentTeamSide(currentTurn)
+	#IA_Contr.SetCurrentTeamSide(currentTurn)
 	%MatchUI.colorir_turno(active_team, turnCounter) 
 	
 func changeTurn() -> void:
@@ -236,7 +237,7 @@ func changeTurn() -> void:
 	atualizar_cores_pecas()
 	
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-	IA_Contr.SetCurrentTeamSide(currentTurn)
+	#IA_Contr.SetCurrentTeamSide(currentTurn)
 	%MatchUI.colorir_turno(active_team, turnCounter)
 	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
 	carta_usada_no_turno = false
@@ -256,7 +257,7 @@ func forceTurn(target: turn) -> void:
 		piece.canPlay = (currentTurn == turn.HOME) if piece.team == homeTeam else (currentTurn == turn.AWAY)
 			
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-	IA_Contr.SetCurrentTeamSide(currentTurn)
+	#IA_Contr.SetCurrentTeamSide(currentTurn)
 	%MatchUI.colorir_turno(active_team, turnCounter)
 	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
 	carta_usada_no_turno = false
@@ -285,7 +286,7 @@ func decideTurn() -> void:
 				else:
 					disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
 				
-				IA_Contr.SetCurrentTeamSide(currentTurn)
+				#IA_Contr.SetCurrentTeamSide(currentTurn)
 				return 
 				
 			if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:

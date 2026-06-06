@@ -1,6 +1,8 @@
 extends Node
 class_name CollisionResolution2D
 
+@export var match_state: MatchState
+
 var PhysicsObjects_List: Array[PhysicsObject2D]
 
 var object_A: PhysicsObject2D
@@ -11,31 +13,59 @@ var object_B: PhysicsObject2D
 @export var simulation_Active: bool
 @export var AI_Active: bool
 
-@export var Sim_Controller: SimulationController
-@export var IA_Contr: IA_Controller
+#region simulation_AI Variables
+var Sim_Controller_Object = preload("res://Componentes/Simulation_AI/Scenes/SimulationPitch.tscn")
+@export var num_threads: int
+
+# simulation to AI
+var Sim_Controller_list: Array[SimulationController]
+#@export var IA_Contr: IA_Controller
+
+# simulation to test
+#@export var Sim_Controller: SimulationController
+
+var pitch_state: PitchState
+
 
 func _ready() -> void:
 	var nodes = get_tree().get_nodes_in_group("PhysicsObjects")
-	#PhysicsObjects_List.assign(nodes)
 	
 	for object in nodes:
 		PhysicsObjects_List.append(object)
 		
 	print("number of players = ", PhysicsObjects_List.size())
 	
+	pitch_state = PitchState.new()
+	
 	var count = 0
 	for object in PhysicsObjects_List:
 		if object.is_in_group("Players"):
 			object.Set_AI_Active(AI_Active)
+			object.connect("ActionExecuted", Replicate_Action)
+			
 		object.index = count
 		count += 1
+
+func Replicate_Action(index: int, velocity: Vector2, teamSide: int):	
+	update_pitch_state_variables()
 	
-	if simulation_Active == true:
-		Sim_Controller.create_objects_copy()
-		Sim_Controller.connect_signal()
-		
-	if AI_Active:
-		IA_Contr.SetPieceLists()
+	if Sim_Controller_list.size() <= 0:
+		create_all_simulations()
+	
+	#for polygon in list_walls_polygons:
+		#print("original polygon point ----------------------------")
+		#print(polygon.polygon)
+	
+	for sim in Sim_Controller_list:
+		if sim.debug:
+			sim.copy_pitch_state_variables(pitch_state)
+			#sim.update_pitch_state_variables_on_pieces()
+			sim.Replicate_Action(index, velocity, teamSide)
+			count_steps = 0
+	
+	#print("Original -------------------------------------------------------")
+
+var count_steps = 0
 
 func _physics_process(delta: float) -> void:
 	#
@@ -49,6 +79,86 @@ func _physics_process(delta: float) -> void:
 	collision_wall_resolution()
 	#
 	
+	#if PhysicsObjects_List[0].is_moving:
+		#print("Original step = ", count_steps)
+		#print("Original current_velocity = ", PhysicsObjects_List[0].current_velocity)
+		#print("Original last_position = ", PhysicsObjects_List[0].global_position)
+	
+	count_steps += 1
+
+
+func create_all_simulations() -> void:
+	if simulation_Active == true:
+		var instance = Sim_Controller_Object.instantiate()
+		instance.global_position = self.global_position
+		
+		instance.copy_pitch_state_variables(pitch_state)
+
+		instance.create_objects_copy(true)
+
+		Sim_Controller_list.append(instance)
+		
+		add_child(instance)
+	
+	#if AI_Active:
+		#IA_Contr.SetPieceLists()
+	
+	#print("self position = ", self.global_position)
+	
+	for i in num_threads:
+		var instance = Sim_Controller_Object.instantiate()
+		instance.global_position = self.global_position + Vector2(0, 1 * (1000 * (i + 1)))
+		print("instance position = ", instance.global_position)
+		add_child(instance)
+		
+		instance.copy_pitch_state_variables(pitch_state)
+
+		instance.create_objects_copy(false)
+		
+		Sim_Controller_list.append(instance)
+		print("Num sim created = ", i)
+
+func update_pitch_state_variables() -> void:
+	pitch_state.all_physic_object_list.clear()
+	
+	for i in PhysicsObjects_List.size():
+		var new_PhysicObject_Struct = PhysicObject_Struct.new()
+		
+		new_PhysicObject_Struct.index = PhysicsObjects_List[i].index
+		new_PhysicObject_Struct.last_position = PhysicsObjects_List[i].global_position
+		new_PhysicObject_Struct.current_velocity = PhysicsObjects_List[i].current_velocity
+		
+		new_PhysicObject_Struct.mass = PhysicsObjects_List[i].mass
+		new_PhysicObject_Struct.friction = PhysicsObjects_List[i].friction
+		new_PhysicObject_Struct.scale = PhysicsObjects_List[i].scale
+		new_PhysicObject_Struct.radius = PhysicsObjects_List[i].radius
+		
+		if PhysicsObjects_List[i].is_in_group("Players"):
+			new_PhysicObject_Struct.teamSide = PhysicsObjects_List[i].teamSide
+			new_PhysicObject_Struct.is_a_player = true
+			new_PhysicObject_Struct.level_force = PhysicsObjects_List[i].playerInfo_atual.level_force
+			new_PhysicObject_Struct.level_force_weak = PhysicsObjects_List[i].playerInfo_atual.level_force_weak
+			new_PhysicObject_Struct.level_force_strong = PhysicsObjects_List[i].playerInfo_atual.level_force_strong
+			new_PhysicObject_Struct.current_min_force = PhysicsObjects_List[i].playerInfo_atual.get_min_force()
+			new_PhysicObject_Struct.current_max_force = PhysicsObjects_List[i].playerInfo_atual.get_max_force()
+			
+		elif PhysicsObjects_List[i].is_in_group("Balls"):
+			new_PhysicObject_Struct.is_a_player = false
+		
+		if PhysicsObjects_List[i].last_PhysicObject_collided != null:
+			new_PhysicObject_Struct.last_touch_index = PhysicsObjects_List[i].last_PhysicObject_collided.index
+		else:
+			new_PhysicObject_Struct.last_touch_index = -1
+		
+		pitch_state.all_physic_object_list.append(new_PhysicObject_Struct) 
+	
+	pitch_state.home_score = match_state.homeScore
+	pitch_state.away_score = match_state.awayScore
+	
+	pitch_state.can_score_goal = match_state.rallyCounter
+	pitch_state.ball_possesion_counter = match_state.turnCounter
+	pitch_state.current_team_playing = match_state.currentTurn
+
 
 #region Physics Objects Collisions
 func collision_physics_object_resolution() -> void:
@@ -57,6 +167,7 @@ func collision_physics_object_resolution() -> void:
 		for j in range(i + 1, PhysicsObjects_List.size()):
 			object_B = PhysicsObjects_List[j]
 			if has_collision_physics_object(object_A, object_B):
+				#print("original - Colidded with Objects ---------------------")
 				handle_physics_objects_collision(object_A, object_B)
 
 func has_collision_physics_object(object_1: PhysicsObject2D, object_2: PhysicsObject2D) -> bool:
@@ -72,6 +183,15 @@ func has_collision_physics_object(object_1: PhysicsObject2D, object_2: PhysicsOb
 		return true
 	else:
 		return false
+
+func has_collision_specific_Object(object_1: PhysicsObject2D) -> bool:
+	for j in range(PhysicsObjects_List.size()):
+		var object_2 = PhysicsObjects_List[j]
+		if object_1.index != object_2.index:
+			if has_collision_physics_object(object_1, object_2):
+				return true
+	return false
+
 
 func handle_physics_objects_collision(object_1: PhysicsObject2D, object_2: PhysicsObject2D) -> void:
 	var sum_masses = object_1.mass + object_2.mass
@@ -111,43 +231,97 @@ func handle_physics_objects_inside_each_other(object_1: PhysicsObject2D, object_
 #endregion
 
 #region Physics Wall Collisions
+@export var list_walls_polygons: Array[CollisionPolygon2D]
+
+var wall_collision_normal: Vector2
+var wall_collision_depth: float
+
 func collision_wall_resolution() -> void:
 	for i in range(PhysicsObjects_List.size()):
 		object_A = PhysicsObjects_List[i]
-		if has_collision_wall(object_A):
-			#print("Collided with a wall")
+		if has_collision_wall_polygons(object_A):
+			#print("original - Colidded with wall ---------------------")
 			handle_walls_collision(object_A)
 
-func has_collision_wall(physic_object: PhysicsObject2D) -> bool:
-	physic_object.shapecast_walls.force_shapecast_update()
-	
-	if physic_object.shapecast_walls.is_colliding():
-		for i in physic_object.shapecast_walls.get_collision_count():
-			return true
+func has_collision_wall_polygons(physic_object: PhysicsObject2D) -> bool:
+	for polygon in list_walls_polygons:
+		if physic_object.is_moving:
+			if check_circle_polygon_collision(physic_object.global_position, physic_object.radius, polygon):
+				return true
 	
 	return false
-	
+
+# if object has collided with a wall
+# - corrects their position, so they don't stay inside a wall
+# - Reflects the velocity vector
 func handle_walls_collision(object_1: PhysicsObject2D) -> void:
-	# Get the normal of the wall we hit
-	var normal = object_1.shapecast_walls.get_collision_normal(0)
-	
-	handle_physics_objects_inside_wall(object_1)
+	# Push the object out of the wall
+	object_1.global_position += wall_collision_normal * wall_collision_depth
 	
 	# Reflect the velocity vector
-	object_1.current_velocity = object_1.current_velocity.bounce(normal)
+	object_1.current_velocity = object_1.current_velocity.bounce(wall_collision_normal)
 
-func handle_physics_objects_inside_wall(object_1: PhysicsObject2D) -> void:
-	var collision_point = object_1.shapecast_walls.get_collision_point(0)
-	var line_of_impact = collision_point - object_1.global_position
-	var distance_from_impact = line_of_impact.length()
+# Returns true if the circle intersects the polygon's boundary or interior
+func check_circle_polygon_collision(circle_center: Vector2, circle_radius: float, CollisionPolygon: CollisionPolygon2D) -> bool:
+	if CollisionPolygon.polygon.size() < 3:
+		return false
+		
+	# Step 1: Check if the circle collides with any of the polygon's edges
+	for i in range(CollisionPolygon.polygon.size()):
+		# Get a point from the polygon
+		var current_point = CollisionPolygon.to_global(CollisionPolygon.polygon[i])
+		#print("original current_point = ", current_point)
+
+		# Get next point index, loop around to the first point if we are at the last index
+		var next_point_index = (i + 1) % CollisionPolygon.polygon.size()
+		
+		# Get the next point after current_point from the polygon
+		var next_point = CollisionPolygon.to_global(CollisionPolygon.polygon[next_point_index])
+		
+		# Find the closest point on this line segment to the circle's center
+		var closest_point = get_closest_point_on_line(circle_center, current_point, next_point)
+
+		# Calculate distance from circle center to the closest point
+		var distance = circle_center.distance_to(closest_point)
+		
+		# If the distance is less than the radius, a collision has occurred
+		if distance <= circle_radius:
+			wall_collision_normal = (circle_center - closest_point).normalized()
+			
+			if wall_collision_normal == Vector2.ZERO:
+				wall_collision_normal = (next_point - current_point).orthogonal().normalized()
+			
+			wall_collision_depth = circle_radius - distance
+			#print("Colidiu com a parede")
+			#print("circle_radius = ", circle_radius)
+			
+			return true
+			
+	# Step 2: interior check (handles when the circle is entirely inside the polygon)
+	if Geometry2D.is_point_in_polygon(circle_center, CollisionPolygon.polygon):
+		print("Inside Wall")
+		return true
+		
+	return false
+
+# Function to find the closest point on a line to a target point
+func get_closest_point_on_line(target_point: Vector2, line_point_A: Vector2, line_point_B: Vector2) -> Vector2:
+	# Get the direction vector from line_point_A to line_point_B
+	var AB = line_point_B - line_point_A
 	
-	var overlap = distance_from_impact - object_1.radius
-	overlap = abs(overlap)
-	#print("overlap = ", overlap)
+	# Get the direction vector from line_point_A to target_point
+	var AP = target_point - line_point_A
 	
-	line_of_impact = line_of_impact.normalized()
+	# calculate the perpendicular vector of line_point_A and target_point on the AB vector
+	# Project vector AP onto AB to find the scalar projection parameter 't'
+	var t = AP.dot(AB) / AB.length_squared()
 	
-	object_1.global_position = object_1.global_position + (-line_of_impact * overlap) * 1.1
+	# Clamp 't' to restrict the point to the segment boundaries [a, b]
+	t = clamp(t, 0.0, 1.0)
+	
+	# Calculate the final coordinate on the segment
+	return line_point_A + AB * t
+
 #endregion
 
 #region Movement
@@ -173,15 +347,14 @@ func movement_update(_delta: float) -> void:
 			# Acha a proxima posição do objeto
 			# - Percorre o caminho que o objeto iria passar entre um frame e outro
 			# - Caso tenha alguma colisão no meio do caminho, retorna a posição dessa colisão
-			var new_Pos = PhysicsObjects_List[i].global_position + (PhysicsObjects_List[i].current_velocity * _delta) 
-			#verify_collision_between_objects_on_movement_line_LinearSearch(PhysicsObjects_List[i], 10.0, _delta)
+			#var new_Pos = PhysicsObjects_List[i].global_position + (PhysicsObjects_List[i].current_velocity * _delta) 
+			var new_Pos = verify_collision_between_objects_on_movement_line_LinearSearch(PhysicsObjects_List[i], 10.0, _delta)
 			
-			#print("object ", i, " Current_velocity = ", PhysicsObjects_List[i].current_velocity)
+
 			# Atualiza a posição do objeto
 			PhysicsObjects_List[i].global_position = new_Pos
-		#else:
-			#print("object ", i, " not moving")
-
+			#print("count_steps = ", count_steps)
+			#print("New Pos = ", PhysicsObjects_List[i].global_position)
 
 
 # Faz verificações de colisões entre a posição atual do objeto e a sua próxima posição (posição depois de se mover no proximo frame)
@@ -193,18 +366,12 @@ func verify_collision_between_objects_on_movement_line_LinearSearch(object_1: Ph
 	
 	# verifica se o movimento é menor que seu proprio raio
 	# caso for, não é necessario fazer a verificação de colisão
-	var circle_shape_object_1: CircleShape2D = object_1.shapecast_physics_objects.shape as CircleShape2D
-	var radius_object_1: float = circle_shape_object_1.radius
-	
-	if inicial_Pos.distance_to(final_Pos) < radius_object_1:
-		#print("Distance Too Small")
+	if inicial_Pos.distance_to(final_Pos) < object_1.radius:
 		return final_Pos
-	
-	#print("Start --------------")
+
 	var result_Pos = final_Pos
 	var lerp_step = 1.0 / subdivisionsNumber
-	#print("lerp_step = ", lerp_step)
-	
+
 	for i in range(0.0, subdivisionsNumber + 1):
 		var lerp_value = lerp_step * i
 		var current_Pos = inicial_Pos.lerp(final_Pos, lerp_value)
@@ -219,163 +386,13 @@ func verify_collision_between_objects_on_movement_line_LinearSearch(object_1: Ph
 		global_Collision_Check_count += 1
 		
 		# Verifico se esta colidindo com outro objeto
-		if object_1.shapecast_physics_objects.is_colliding() or object_1.shapecast_walls.is_colliding(): # Colidiu com algo
+		if has_collision_specific_Object(object_1) or has_collision_wall_polygons(object_1): # Colidiu com algo
 			result_Pos = current_Pos
-			
-			#print("Colidiu com algum objeto, Para")
+
 			# retorno a posição da colisão
 			return result_Pos
-	
+			
 	object_1.global_position = inicial_Pos
-	
 	return result_Pos
 
-
-# Faz verificações de colisões entre a posição atual do objeto e a sua próxima posição (posição depois de se mover no proximo frame)
-# "subdivisionsNumber" é a quantidade de verifições
-# Usa a lógica de uma busca binária
-func verify_collision_between_objects_on_movement_line_BooleanSearch(object_1: PhysicsObject2D, subdivisionsNumber: float, _delta: float) -> Vector2:
-	var inicial_Pos = object_1.global_position
-	var final_Pos = object_1.global_position + (object_1.current_velocity * _delta)
-	
-	var result_Pos = final_Pos
-	
-	#print("Start --------------")
-	#print("final_Pos = ", final_Pos)
-	
-	var circle_shape_object_1: CircleShape2D = object_1.shapecast_physics_objects.shape as CircleShape2D
-	var radius_object_1: float = circle_shape_object_1.radius
-	
-	if inicial_Pos.distance_to(final_Pos) < radius_object_1:
-		#print("Distance Too Small")
-		return final_Pos
-	
-	# verifico se aconteceu alguma colisão na posição final
-	object_1.global_position = final_Pos
-	object_1.shapecast_physics_objects.force_shapecast_update()
-	object_1.shapecast_walls.force_shapecast_update()
-
-	global_Collision_Check_count += 1
-	
-	# posição final esta colidindo com outro objeto, então verificar posições anteriores para pegar a posição mais precisa da colisão
-	if object_1.shapecast_physics_objects.is_colliding() or object_1.shapecast_walls.is_colliding(): 
-		result_Pos = object_1.global_position
-		#print("final position has collision")
-	# posição final não colidiu com nada, então verificar posições anteriores
-	else:
-		#print("final position has NO collision")
-		result_Pos = verify_collision_between_objects_on_movement_line_recursive(object_1, subdivisionsNumber, inicial_Pos, final_Pos)
-	
-	# colidiu com algo
-	if result_Pos != Vector2.ZERO: 
-		# tenta achar a posição mais próxima do objeto mas que continue tendo colisão
-		return result_Pos #= #verify_collision_between_objects_on_movement_line_after_collision_found(object_1, subdivisionsNumber, result_Pos)
-	# Não colidiu com nada, retorna a posição final do movimento
-	else:
-		result_Pos = final_Pos
-	
-	object_1.global_position = inicial_Pos
-	
-	return result_Pos
-
-func verify_collision_between_objects_on_movement_line_recursive(object_1: PhysicsObject2D, subdivisionsNumber: float, inicial_Pos: Vector2, final_Pos: Vector2) -> Vector2:
-	var current_Pos = inicial_Pos.lerp(final_Pos, 0.5)
-	var result_Pos = Vector2.ZERO
-	#print("------------------------------------------")
-	#print("subdivisionsNumber = ", subdivisionsNumber)
-	#print("current_Pos = ", current_Pos)
-	# posiciono o objeto na posição nova
-	object_1.global_position = current_Pos
-	
-	# atualizo as informações do shapecast
-	object_1.shapecast_physics_objects.force_shapecast_update()
-	object_1.shapecast_walls.force_shapecast_update()
-	
-	global_Collision_Check_count += 1
-	
-	# Verifico se esta colidindo com outro objeto
-	if object_1.shapecast_physics_objects.is_colliding() or object_1.shapecast_walls.is_colliding(): # Colidiu com algo
-		result_Pos = current_Pos
-		
-		# retorno a posição da colisão
-		return result_Pos
-	else: # Nao Colidiu
-		# diminuo a quantidade de subdivisões para serem feites
-		subdivisionsNumber -= 1
-		
-		# verifico se ainda pode procurar mais
-		if subdivisionsNumber > 0:
-			var pos_1 = Vector2.ZERO
-			var pos_2 = Vector2.ZERO
-			
-			# defino as variaveis para procurar na metade anterior ao meio (inicio -> meio)
-			var new_inicial_Pos = inicial_Pos
-			var new_final_Pos = current_Pos
-			
-			var circle_shape_object_1: CircleShape2D = object_1.shapecast_physics_objects.shape as CircleShape2D
-			var radius_object_1: float = circle_shape_object_1.radius
-			
-			if new_inicial_Pos.distance_to(new_final_Pos) > radius_object_1:
-				pos_1 = verify_collision_between_objects_on_movement_line_recursive(object_1, subdivisionsNumber, new_inicial_Pos, new_final_Pos)
-			
-			# defino as variaveis para procurar na metade posterior ao meio (meio -> final)
-			new_inicial_Pos = current_Pos
-			new_final_Pos = final_Pos
-			
-			if new_inicial_Pos.distance_to(new_final_Pos) > radius_object_1:
-				pos_2 = verify_collision_between_objects_on_movement_line_recursive(object_1, subdivisionsNumber, new_inicial_Pos, new_final_Pos)
-			
-			# Verifico se alguma retornou colisão (retornou um Vector2 diferente de 0)
-			if pos_1 != Vector2.ZERO and pos_2 != Vector2.ZERO:
-				# se as duas retornaram com Vector2 diferente de 0, pego qual esta mais próxima da posição do objeto (colisão mais próxima)
-				if pos_1.distance_to(object_1.global_position) < pos_2.distance_to(object_1.global_position):
-					result_Pos = pos_1
-				else:
-					result_Pos = pos_2
-			else:
-				if pos_1 == Vector2.ZERO:
-					result_Pos = pos_2
-				elif pos_2 == Vector2.ZERO:
-					result_Pos = pos_1
-	
-	return result_Pos
-
-func verify_collision_between_objects_on_movement_line_after_collision_found(object_1: PhysicsObject2D, subdivisionsNumber: float, final_pos: Vector2) -> Vector2:
-	var result_Pos = final_pos
-	var initial_Pos = object_1.global_position
-	var lerp_step = 1.0 / subdivisionsNumber
-	
-	for i in subdivisionsNumber:
-		var lerp_value = 1.0 - (lerp_step * i)
-		var current_Pos = initial_Pos.lerp(final_pos, lerp_value)
-		
-		#print("------------------------------------------")
-		#print("subdivisionsNumber = ", i)
-		#print("current_Pos = ", current_Pos)
-		# posiciono o objeto na posição nova
-		object_1.global_position = current_Pos
-		
-		# atualizo as informações do shapecast
-		object_1.shapecast_physics_objects.force_shapecast_update()
-		object_1.shapecast_walls.force_shapecast_update()
-		
-		global_Collision_Check_count += 1
-		
-		# Verifico se esta colidindo com outro objeto
-		if object_1.shapecast_physics_objects.is_colliding() or object_1.shapecast_walls.is_colliding(): # Colidiu com algo
-			result_Pos = current_Pos
-			# retorno a posição da colisão
-			return result_Pos
-	
-	return result_Pos
 #endregion
-
-# Anotações
-# - Aquele erro em que a bola foi lançada para fora do mapa quando o player tinha bastante massa, talvez
-# tenha ocorrido pois a bola sendo esmagada na parede não consegue mudar a direção (velocity) do player a tempo
-# - A bola fica quicando entre a parede e o player, se o player tiver uma massa de 15 e a bola 1, vai precisar acontecer
-# 15 colisões para que a bola consiga mudar a direção do player
-# - o problema é que toda avez que 2 objetos se colidem eles são afastados um do outro e como o player continua indo na 
-# direção da bola ela continua sendo empurrada aos poucos para fora, fazendo que em algumas situações ela seja jogada para fora
-# - Vídeo que mostra o que estou falando -> https://youtu.be/HEfHFsfGXjs
-#

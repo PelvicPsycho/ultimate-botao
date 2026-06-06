@@ -6,16 +6,16 @@
 [ext_resource type="AudioStream" uid="uid://bc64cn1hhr7ym" path="res://Recursos/SFXs/fundo-estadio_loop.wav" id="4_ba03v"]
 [ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="5_tb6le"]
 [ext_resource type="PackedScene" uid="uid://blaeti31fcy1e" path="res://2D Changes/2D_Scenes/Camera2D.tscn" id="6_u1agk"]
+[ext_resource type="Script" uid="uid://dqt3kgmmnk2qm" path="res://Componentes/Simulation_AI/Scripts/IA_Controller.gd" id="7_5b3c6"]
+[ext_resource type="PackedScene" uid="uid://cmgl103lkwr8r" path="res://2D Changes/2D_Scenes/Pitch2D.tscn" id="7_v76cn"]
 [ext_resource type="Script" uid="uid://c3jx1lb0wr1pg" path="res://2D Changes/Scripts_2D/CollisionResolution2D.gd" id="8_sbrvv"]
-[ext_resource type="Texture2D" uid="uid://bf5trcwje221o" path="res://Recursos/2D_Art/Pitch/campo-02-gordo-goleira-2.png" id="8_ss0s5"]
-[ext_resource type="PackedScene" uid="uid://bnxuxd842ff3f" path="res://2D Changes/2D_Scenes/Goal2D.tscn" id="9_5b3c6"]
 [ext_resource type="PackedScene" uid="uid://bjuey2wm1ffql" path="res://2D Changes/2D_Scenes/Player2D.tscn" id="9_12ci6"]
 [ext_resource type="Resource" uid="uid://daqsw61dp34rx" path="res://Recursos/Teams/MyTeam/Gugs.tres" id="10_u231a"]
 [ext_resource type="Resource" uid="uid://cjyd6bkt7lcc6" path="res://Recursos/Teams/MyTeam/Carlinhos.tres" id="11_035o7"]
 [ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Grêmio/Mec.tres" id="12_w1bfq"]
 [ext_resource type="PackedScene" uid="uid://v5srrfq0w6hn" path="res://2D Changes/2D_Scenes/Ball2D.tscn" id="13_d0h4u"]
+[ext_resource type="PackedScene" uid="uid://bfekqxt737l61" path="res://Componentes/Simulation_AI/Scenes/SimulationPitch.tscn" id="14_sg116"]
 [ext_resource type="Script" uid="uid://buw3b8c0hrlfb" path="res://2D Changes/Scripts_2D/Gol_Manager_2D.gd" id="15_3ylim"]
-[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="15_5b3c6"]
 [ext_resource type="AudioStream" uid="uid://cjmj3m8i68a7r" path="res://Recursos/SFXs/gol_5s_fadeout.wav" id="16_uckdl"]
 [ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="17_jvl26"]
 [ext_resource type="PackedScene" uid="uid://b8ms3txou0nej" path="res://Componentes/MatchUI/match_ui.tscn" id="18_3eaht"]
@@ -26,8 +26,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iej8s"]
 size = Vector2(215, 269)
 
-[node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("anunciador_ui")]
+[node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("IA_Contr", "anunciador_ui")]
 script = ExtResource("1_ss0s5")
+IA_Contr = NodePath("PhysicsObjects_Group/IA_Controller")
 anunciador_ui = NodePath("AnunciadorUI")
 cena_recompensa_partida = ExtResource("2_5b3c6")
 cena_recompensa_torneio = ExtResource("3_n4ih5")
@@ -42,58 +43,31 @@ offset_bottom = -343.0
 [node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("6_u1agk")]
 position = Vector2(960, 540)
 
-[node name="PhysicsObjects_Group" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("match_state", "list_walls_polygons")]
+[node name="Pitch" parent="." unique_id=603521134 instance=ExtResource("7_v76cn")]
+
+[node name="PhysicsObjects_Group" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("match_state", "IA_Contr", "Sim_Controller")]
 script = ExtResource("8_sbrvv")
 match_state = NodePath("..")
 simulation_Active = true
-list_walls_polygons = [NodePath("Pitch/Limits/TopWall"), NodePath("Pitch/Limits/BottttomWall"), NodePath("Pitch/Limits/HomeGoal"), NodePath("Pitch/Limits/AwayGoal")]
+num_threads = 1
+IA_Contr = NodePath("IA_Controller")
+Sim_Controller = NodePath("SimulationPitch_Test")
 
-[node name="Pitch" type="Node2D" parent="PhysicsObjects_Group" unique_id=603521134]
+[node name="IA_Controller" type="Node2D" parent="PhysicsObjects_Group" unique_id=605442648 node_paths=PackedStringArray("physics_controller", "simulation_controller")]
+script = ExtResource("7_5b3c6")
+physics_controller = NodePath("..")
+simulation_controller = NodePath("../SimulationPitch_Test")
 
-[node name="Sprite2D" type="Sprite2D" parent="PhysicsObjects_Group/Pitch" unique_id=181346696]
-position = Vector2(960, 630)
-scale = Vector2(1, 0.9166667)
-texture = ExtResource("8_ss0s5")
-
-[node name="Limits" type="StaticBody2D" parent="PhysicsObjects_Group/Pitch" unique_id=1520481869]
-position = Vector2(0, 45)
-collision_mask = 2
-
-[node name="TopWall" type="CollisionPolygon2D" parent="PhysicsObjects_Group/Pitch/Limits" unique_id=1989422722]
-position = Vector2(-3.0517578e-05, 95.385056)
-scale = Vector2(0.9999999, 0.8194832)
-polygon = PackedVector2Array(242.00006, 424.188, 241.00006, 307.04102, 424.0001, 102.03374, 1503.0001, 104.47432, 1677.0002, 305.82074, 1677.0002, 424.188, 1715.0002, 424.188, 1713.0002, 287.51648, 1512, 63, 407, 63, 208.00006, 287.51648, 209.00006, 424.188)
-
-[node name="BottttomWall" type="CollisionPolygon2D" parent="PhysicsObjects_Group/Pitch/Limits" unique_id=125033711]
-position = Vector2(1920, 1080)
-scale = Vector2(-1, -1)
-polygon = PackedVector2Array(243, 354, 243, 255, 422, 91, 1498, 92, 1677, 256, 1678, 353, 1712, 352, 1713, 239, 1514, 58, 407, 57, 208, 241, 208, 354)
-
-[node name="HomeGoal" type="CollisionPolygon2D" parent="PhysicsObjects_Group/Pitch/Limits" unique_id=1304808500]
-polygon = PackedVector2Array(239, 423, 99, 420, 104, 751, 235, 751, 236, 719, 131, 720, 131, 450, 239, 448)
-
-[node name="AwayGoal" type="CollisionPolygon2D" parent="PhysicsObjects_Group/Pitch/Limits" unique_id=191755524]
-position = Vector2(1920, 1080)
-rotation = 3.1415927
-polygon = PackedVector2Array(237, 322, 93, 319.00006, 91.00012, 671, 237.00012, 675, 236.00012, 631, 131.00012, 631, 133, 361.00006, 236, 360)
-
-[node name="HomeGoal_2D" parent="PhysicsObjects_Group/Pitch" unique_id=1637700476 instance=ExtResource("9_5b3c6")]
-position = Vector2(0, 89)
-
-[node name="AwayGoal_2D" parent="PhysicsObjects_Group/Pitch" unique_id=628271092 instance=ExtResource("9_5b3c6")]
-position = Vector2(1920, 1168)
-rotation = 3.1415927
-team = 1
+[node name="SimulationPitch_Test" parent="PhysicsObjects_Group" unique_id=903002802 instance=ExtResource("14_sg116")]
 
 [node name="HomeTeam" type="Node2D" parent="PhysicsObjects_Group" unique_id=2082446946]
 
 [node name="HomeTeam_P1" parent="PhysicsObjects_Group/HomeTeam" unique_id=1542391535 instance=ExtResource("9_12ci6")]
-position = Vector2(633, 355)
+position = Vector2(728, 372)
 debug = false
 
 [node name="HomeTeam_P2" parent="PhysicsObjects_Group/HomeTeam" unique_id=990928524 instance=ExtResource("9_12ci6")]
-position = Vector2(560, 626)
-debug = false
+position = Vector2(561, 626)
 
 [node name="HomeTeam_P3" parent="PhysicsObjects_Group/HomeTeam" unique_id=838132576 instance=ExtResource("9_12ci6")]
 position = Vector2(728, 872)
@@ -131,7 +105,6 @@ playerInfo = ExtResource("12_w1bfq")
 
 [node name="AwayTeam_P4" parent="PhysicsObjects_Group/AwayTeam" unique_id=92848485 instance=ExtResource("9_12ci6")]
 position = Vector2(1205, 628)
-debug = false
 teamSide = 1
 playerInfo = ExtResource("12_w1bfq")
 
@@ -145,17 +118,6 @@ playerInfo = ExtResource("12_w1bfq")
 
 [node name="Ball2d" parent="PhysicsObjects_Group/Balls" unique_id=1925699982 instance=ExtResource("13_d0h4u")]
 position = Vector2(960, 628)
-mass = 2.0
-
-[node name="Sprite2D" type="Sprite2D" parent="PhysicsObjects_Group" unique_id=1782839816]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("15_5b3c6")
-
-[node name="Sprite2D2" type="Sprite2D" parent="PhysicsObjects_Group" unique_id=1117254443]
-modulate = Color(1, 0, 0.09411765, 1)
-position = Vector2(0, 3.8146973e-06)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("15_5b3c6")
 
 [node name="Gol_Manager(Temporario)" type="Node2D" parent="." unique_id=632171838 node_paths=PackedStringArray("anunciadorui", "match_state")]
 script = ExtResource("15_3ylim")

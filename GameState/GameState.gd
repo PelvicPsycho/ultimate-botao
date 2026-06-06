@@ -55,24 +55,25 @@ func quantas_cartas(id: StringName) -> int:
 	return cartas_desbloqueadas.get(id, 0)
 
 func imprimir_status_do_time() -> void:
-	print("\n==================================================")
-	print("📊 DIAGNÓSTICO DO ELENCO ATUAL")
-	print("==================================================")
-	for i in range(jogadores.size()):
-		var player = jogadores[i]
-		var f_atual = player.força if "força" in player else 50
-		var pa_atual = player.PA if "PA" in player else 3
-		
-		print("\n📍 Slot %d: %s" % [i + 1, player.nome])
-		print("   ↳ Força: %d | PA: %d" % [f_atual, pa_atual])
-		
-		for s in range(player.slotsUpgrates.size()):
-			var carta = player.slotsUpgrates[s]
-			if carta != null:
-				print("     [%d] 🃏 %s" % [s + 1, carta.nome])
-			else:
-				print("     [%d] 🔲 [Vazio]" % [s + 1])
-	print("==================================================\n")
+	pass
+	#print("\n==================================================")
+	#print("📊 DIAGNÓSTICO DO ELENCO ATUAL")
+	#print("==================================================")
+	#for i in range(jogadores.size()):
+		#var player = jogadores[i]
+		#var f_atual = player.força if "força" in player else 50
+		#var pa_atual = player.PA if "PA" in player else 3
+		#
+		#print("\n📍 Slot %d: %s" % [i + 1, player.nome])
+		#print("   ↳ Força: %d | PA: %d" % [f_atual, pa_atual])
+		#
+		#for s in range(player.slotsUpgrates.size()):
+			#var carta = player.slotsUpgrates[s]
+			#if carta != null:
+				#print("     [%d] 🃏 %s" % [s + 1, carta.nome])
+			#else:
+				#print("     [%d] 🔲 [Vazio]" % [s + 1])
+	#print("==================================================\n")
 
 #Funcao para soltar as cartas de uma peca numa fusao ou aposta e as cartas nao bugarem
 func preparar_peca_para_fusao(peca: TeamPlayer): 

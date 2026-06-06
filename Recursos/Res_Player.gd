@@ -71,7 +71,6 @@ func recalcular_status() -> void:
 	for card in slotsUpgrates:
 		if card != null:
 			bonus_geral += card.magnitude 
-			
 
 func resetar_status(base_info: TeamPlayer) -> void:
 	self.level_force = base_info.level_force
@@ -82,6 +81,7 @@ func resetar_status(base_info: TeamPlayer) -> void:
 	self.troca_posicao_ativa = false
 	self.congelamento_ativo = false
 	self.turnos_preso = 0
+	
 func aplicar_buff(card: CardResource) -> void:
 	# 1. A carta já está equipada: só ativa o efeito.
 	if PA < card.custo_energia:
@@ -135,6 +135,7 @@ func aplicar_passivas() -> void:
 				bonus_passivos[card] = {"tipo": "PA", "valor": card.magnitude}
 				
 		print("Passiva ativada: ", card.nome, " | ", card.tipo_efeito)
+
 func _remover_passivas() -> void:
 	for card in bonus_passivos:
 		var info = bonus_passivos[card]
@@ -144,6 +145,7 @@ func _remover_passivas() -> void:
 			"FORCA":
 				level_force -= info["valor"]
 	bonus_passivos.clear()
+
 func processar_passagem_de_turno(base_info: TeamPlayer) -> void:
 	processar_expiracao_de_buffs(base_info)
 

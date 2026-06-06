@@ -8,8 +8,9 @@ size = Vector2(99, 261)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y2bt5"]
 size = Vector2(29, 29)
 
-[node name="Goal2D_Simulation" type="Node2D" unique_id=1637700476]
+[node name="Goal2D_Simulation" type="Node2D" unique_id=1637700476 node_paths=PackedStringArray("GoalArea")]
 script = ExtResource("1_u0u11")
+GoalArea = NodePath("GoalArea/CollisionShape2D")
 
 [node name="GoalArea" type="Area2D" parent="." unique_id=209979040]
 collision_layer = 4096

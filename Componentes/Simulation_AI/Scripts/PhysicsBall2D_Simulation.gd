@@ -1,12 +1,11 @@
 extends PhysicsObject2D
 class_name PhysicsBall2D_Simulation
 
-var lastTouch: PhysicsPlayer2D
+@export var lastTouch: PhysicsPlayer2D_Simulation
 
 @export var debug: bool = true
 
 #region Simulation Needed Variables
-var index: int
 #enum TeamSide {HOME, AWAY}
 #@export var teamSide: TeamSide
 
@@ -17,11 +16,6 @@ var radius: float
 @export var shapecast_goals: ShapeCast2D
 #endregion
 
-@export var basic_min_force: float = 100.0
-@export var basic_max_force: float = 1000.0
-@export var basic_mass: float = 5.0
-@export var basic_friction: float = 0.98
-@export var basic_scale: float = 1
 
 func _ready() -> void:
 	radius = (global_position - Object_Radius.global_position).length()

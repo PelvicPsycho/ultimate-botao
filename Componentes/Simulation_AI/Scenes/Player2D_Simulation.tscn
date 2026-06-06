@@ -10,7 +10,7 @@ radius = 35.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
 radius = 35.0
 
-[node name="Player2D_Simulation" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("Object_Radius", "shapecast_physics_objects", "shapecast_walls")]
+[node name="Player2D_Simulation" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("Object_Radius", "shapecast_physics_objects", "shapecast_walls") groups=["Simulation_Players"]]
 modulate = Color(1, 1, 1, 0.47058824)
 collision_layer = 32
 collision_mask = 48

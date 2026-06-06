@@ -127,8 +127,8 @@ func _on_distancia_raio_value_changed(value: float) -> void:
 func _on_friccao_value_changed(value: float) -> void:
 	var labelValor = %Friccao.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.friction = value
+	#for peca in Pecas_Jogo:
+		#peca.friction = value
 
 func _on_bounce_value_changed(value: float) -> void:
 	var labelValor = %Bounce.get_parent().get_node("ValorSlider")
@@ -147,7 +147,7 @@ func _on_linear_damp_value_changed(value: float) -> void:
 func _on_peso_bola_value_changed(value: float) -> void:
 	var labelValor = %PesoBola.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	a_bola.mass = value
+	#a_bola.mass = value
 
 func _on_bounce_bola_value_changed(value: float) -> void:
 	var labelValor = %BounceBola.get_parent().get_node("ValorSlider")
@@ -164,7 +164,7 @@ func _on_linear_damp_bola_value_changed(value: float) -> void:
 func _on_friccao_bola_value_changed(value: float) -> void:
 	var labelValor = %FriccaoBola.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	a_bola.friction = value
+	#a_bola.friction = value
 
 func _on_shakedown_amp_min_value_changed(value):
 	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10/ShakedownAmpMin"
@@ -330,7 +330,7 @@ func _on_save_button_pressed():
 		#novo_padrao.forca_multiplicador = peca.forca_multiplicador
 		novo_padrao.forca_maxima = peca.max_force
 		#novo_padrao.distancia_raio_visual = peca.raio_saida_pixels
-		novo_padrao.friccao_jogador = peca.friction
+		#novo_padrao.friccao_jogador = peca.friction
 		#novo_padrao.bounce_jogador = peca.physics_material_override.bounce
 		#novo_padrao.linear_damp_jogador = peca.linear_damp
 		novo_padrao.shake_amplitude_min = peca.shake_amplitude_min
@@ -341,11 +341,11 @@ func _on_save_button_pressed():
 		novo_padrao.shake_duration_max = peca.shake_duration_max
 		novo_padrao.line_max = peca.tamanho_maximo_linha
 	
-	if a_bola:
-		novo_padrao.friccao_bola = a_bola.friction
-		#novo_padrao.bounce_bola = a_bola.physics_material_override.bounce
-		novo_padrao.peso_bola = a_bola.mass
-		#novo_padrao.linear_damp_bola = a_bola.linear_damp
+	#if a_bola:
+		#novo_padrao.friccao_bola = a_bola.friction
+		##novo_padrao.bounce_bola = a_bola.physics_material_override.bounce
+		#novo_padrao.peso_bola = a_bola.mass
+		##novo_padrao.linear_damp_bola = a_bola.linear_damp
 	
 	dados.append({
 		"name": novo_padrao.name,
