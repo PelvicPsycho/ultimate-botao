@@ -10,7 +10,7 @@ content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
+bg_color = Color(0.6, 0.6, 0.6, 0)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -19,11 +19,18 @@ corner_detail = 5
 
 [node name="PecasUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "foto_icone", "rank_label", "quantidade_label")]
 custom_minimum_size = Vector2(180, 180)
-offset_right = 120.0
-offset_bottom = 160.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1740.0
+offset_bottom = -900.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_s50es")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_s50es")
+theme_override_styles/hover = SubResource("StyleBoxFlat_s50es")
 script = ExtResource("1_s50es")
 nome_label = NodePath("Control/MarginContainer/ContainerLayout_VBoxContainer/Nome_Label")
 foto_icone = NodePath("Control/MarginContainer/ContainerLayout_VBoxContainer/ImagePlaceHolder_ColorRect")
@@ -31,6 +38,7 @@ rank_label = NodePath("Control/Rank_TextureRect/Rank_Label")
 quantidade_label = NodePath("Control/Fundo_TextureRect2/Quantidade_Label")
 
 [node name="Control" type="Control" parent="." unique_id=859865856]
+layout_mode = 1
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
