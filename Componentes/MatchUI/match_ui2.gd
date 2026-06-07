@@ -18,12 +18,14 @@ extends CanvasLayer
 @onready var timerPanel = $MarginContainer/Control/VBoxContainer/TimerBar
 
 #VARIÁVEIS/COMPONENTES DOS LANCES
+@onready var shotsGroupHome = $MarginContainer/Control/MarginContainer/VBoxContainer
 @onready var shotsCounterHome = $MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda
 @onready var shotsPanelHome = $MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome
 @onready var shotsDotsHomeLst = [$MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lance3,$MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lance2,$MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lance1] 
 @onready var shotsLabelHome = $MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lances
 @onready var shotsProgressBarHome = $MarginContainer/Control/MarginContainer/VBoxContainer/ProgressBarLanceHome
 
+@onready var shotsGroupAway = $MarginContainer/Control/MarginContainer/VBoxContainer2
 @onready var shotsCounterAway = $MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita
 @onready var shotsPanelAway = $MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway
 @onready var shotsDotsAwayLst = [$MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lance3,$MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lance2,$MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lance1]
@@ -43,10 +45,10 @@ var ultimo_time_posse: int = -1
 func _ready() -> void:
 	_inicializar_estado_lances()
 
-func UI_start(homeTeam: Team, awayTeam: Team):
+func UI_start(home_team: Team, away_team: Team):
 	
-	self.homeTeam = homeTeam
-	self.awayTeam = awayTeam
+	self.homeTeam = home_team
+	self.awayTeam = away_team
 	
 	changeEmblems()
 	changeEmblemPanelBorderColor()
@@ -193,8 +195,8 @@ func _animar_paineis_posse(activeTeam: Team) -> void:
 		return
 
 	ultimo_time_posse = posse_atual
-	shotsPanelHome.pivot_offset = shotsPanelHome.size * 0.5
-	shotsPanelAway.pivot_offset = shotsPanelAway.size * 0.5
+	shotsGroupHome.pivot_offset = shotsGroupHome.size * 0.5
+	shotsGroupAway.pivot_offset = shotsGroupAway.size * 0.5
 
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_SINE)
@@ -202,15 +204,15 @@ func _animar_paineis_posse(activeTeam: Team) -> void:
 	tween.set_parallel(true)
 
 	if posse_atual == 0:
-		tween.tween_property(shotsPanelHome, "scale", escala_painel_ativo, duracao_animacao_posse)
-		tween.tween_property(shotsPanelAway, "scale", escala_painel_inativo, duracao_animacao_posse)
-		tween.tween_property(shotsPanelHome, "modulate", Color(1.0, 1.0, 1.0, 1.0), duracao_animacao_posse)
-		tween.tween_property(shotsPanelAway, "modulate", Color(1.0, 1.0, 1.0, 0.5), duracao_animacao_posse)
+		tween.tween_property(shotsGroupHome, "scale", escala_painel_ativo, duracao_animacao_posse)
+		tween.tween_property(shotsGroupAway, "scale", escala_painel_inativo, duracao_animacao_posse)
+		tween.tween_property(shotsGroupHome, "modulate", Color(1.0, 1.0, 1.0, 1.0), duracao_animacao_posse)
+		tween.tween_property(shotsGroupAway, "modulate", Color(1.0, 1.0, 1.0, 0.5), duracao_animacao_posse)
 	else:
-		tween.tween_property(shotsPanelHome, "scale", escala_painel_inativo, duracao_animacao_posse)
-		tween.tween_property(shotsPanelAway, "scale", escala_painel_ativo, duracao_animacao_posse)
-		tween.tween_property(shotsPanelAway, "modulate", Color(1.0, 1.0, 1.0, 1.0), duracao_animacao_posse)
-		tween.tween_property(shotsPanelHome, "modulate", Color(1.0, 1.0, 1.0, 0.5), duracao_animacao_posse)
+		tween.tween_property(shotsGroupHome, "scale", escala_painel_inativo, duracao_animacao_posse)
+		tween.tween_property(shotsGroupAway, "scale", escala_painel_ativo, duracao_animacao_posse)
+		tween.tween_property(shotsGroupAway, "modulate", Color(1.0, 1.0, 1.0, 1.0), duracao_animacao_posse)
+		tween.tween_property(shotsGroupHome, "modulate", Color(1.0, 1.0, 1.0, 0.5), duracao_animacao_posse)
 
 func _atualizar_label_partida(time: float) -> void:
 	progressBar.value = time
