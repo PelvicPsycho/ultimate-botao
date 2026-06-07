@@ -1,6 +1,7 @@
 extends PhysicsObject2D
 class_name PhysicsBall2D
 
+var firstTouch: PhysicsPlayer2D
 var lastTouch: PhysicsPlayer2D
 
 @export var debug: bool = true
@@ -70,7 +71,8 @@ var last_PhysicObject_collision_position: Vector2
 func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collided: PhysicsObject2D) -> void:
 	last_PhysicObject_collided = object_collided
 	last_PhysicObject_collision_position = collision_position
-	
+	if firstTouch == null:
+		firstTouch = object_collided
 	lastTouch = object_collided
 	print("lastTouch object name = ", lastTouch.name)
 	print("lastTouch team name = ", lastTouch.team.name)

@@ -354,6 +354,9 @@ func forceTurn(target: turn) -> void:
 	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
 	carta_usada_no_turno = false
 
+enum TurnType {ORIGINAL, SIMPLIFIED, INTERSPERSED}
+@onready var turnDecider: TurnType = TurnType.INTERSPERSED
+
 func decideTurn() -> void:
 	var por_erro: bool = true
 	if goalFlag:
@@ -361,28 +364,53 @@ func decideTurn() -> void:
 		return
 		
 	for ball in allBalls:
-		var lastTouch = ball.lastTouch
-		if lastTouch != null:
-			rallyCounter += 1
-			if isCorrectSide(lastTouch.team) and turnCounter < 2:
-				turnCounter += 1
+		match turnDecider:
+			0:
+				var lastTouch = ball.lastTouch
+				if lastTouch != null:
+					rallyCounter += 1
+					if isCorrectSide(lastTouch.team) and turnCounter < 2:
+						turnCounter += 1
+						ball.lastTouch = null
+				
+					if currentTurn == turn.HOME:
+						%MatchUI.colorir_turno(homeTeam,turnCounter)
+					else: 
+						%MatchUI.colorir_turno(awayTeam,turnCounter)
+				
+					if turnCounter < 2:
+						disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+					else:
+						disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
+					IA_Contr.SetCurrentTeamSide(currentTurn)
+					return 
+				if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:
+					por_erro = false
 				ball.lastTouch = null
+			1:
+				var firstTouch = ball.firstTouch
+				if firstTouch != null:
+					rallyCounter += 1
+					if isCorrectSide(firstTouch.team) and turnCounter < 2:
+						turnCounter += 1
+						ball.firstTouch = null
 				
-				if currentTurn == turn.HOME:
-					%MatchUI.colorir_turno(homeTeam,turnCounter)
-				else: 
-					%MatchUI.colorir_turno(awayTeam,turnCounter)
+					if currentTurn == turn.HOME:
+						%MatchUI.colorir_turno(homeTeam,turnCounter)
+					else: 
+						%MatchUI.colorir_turno(awayTeam,turnCounter)
 				
-				if turnCounter < 2:
-					disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
-				else:
-					disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
-				
-				IA_Contr.SetCurrentTeamSide(currentTurn)
-				return 
-				
-			if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:
-				por_erro = false
+					if turnCounter < 2:
+						disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+					else:
+						disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
+					IA_Contr.SetCurrentTeamSide(currentTurn)
+					return 
+				if firstTouch != null and isCorrectSide(firstTouch.team) and turnCounter >= 2:
+					por_erro = false
+				ball.firstTouch = null
+			2:
+				pass
 
 	if por_erro:
 		SoundMaster.play_sfx(audio_perdeu_turno, 1.0, 0.0)
