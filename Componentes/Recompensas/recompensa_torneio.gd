@@ -84,39 +84,65 @@ func _gerar_loot_do_torneio() -> void:
 # --- DESENHO DA UI ---
 func _desenhar_vitrine() -> void:
 	var botoes_misturados: Array = []
+	var tamanho_unificado = 150.0 # <-- Escolha o tamanho final que vai aparecer na tela!
 	
-	# 1. Prepara os botões de Peça
+	# 1. Prepara os botões de Peça (Tamanho original 180x180)
 	for peca in pacote_pecas:
 		if cena_botao_peca:
 			var btn = cena_botao_peca.instantiate()
 			if btn.has_method("setup_item"):
 				btn.setup_item(peca)
 			
-			btn.pressed.connect(func(): _inspecionar_peca(peca, btn))
-			botoes_misturados.append(btn)
+			# Cria a caixa invisível para o HBox
+			var wrapper = Control.new()
+			wrapper.clip_contents = true
+			wrapper.custom_minimum_size = Vector2(tamanho_unificado, tamanho_unificado)
 			
-	# 2. Prepara os botões de Carta
+			# --- O SEGREDO PARA NÃO VOAR ---
+			btn.position = Vector2.ZERO 
+			wrapper.custom_minimum_size = Vector2(150, 150)
+			btn.pivot_offset = Vector2.ZERO
+			btn.scale = Vector2(tamanho_unificado / 180.0, tamanho_unificado / 180.0)
+			wrapper.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			wrapper.add_child(btn)
+			
+			btn.pressed.connect(func(): _inspecionar_peca(peca, btn))
+			botoes_misturados.append(wrapper) # Colocamos o wrapper na lista!
+			
+	# 2. Prepara os botões de Carta (Tamanho original 120x120)
 	for carta in pacote_cartas:
 		if cena_carta_pequena:
 			var btn = cena_carta_pequena.instantiate()
 			if btn.has_method("setup_item"):
 				btn.setup_item(carta)
 				
+			# Cria a caixa invisível para o HBox
+			var wrapper = Control.new()
+			wrapper.clip_contents = true
+			wrapper.custom_minimum_size = Vector2(tamanho_unificado, tamanho_unificado)
+			
+			# --- O SEGREDO PARA NÃO VOAR ---
+			btn.position = Vector2.ZERO 
+			
+			btn.pivot_offset = Vector2.ZERO
+			btn.scale = Vector2(tamanho_unificado / 120.0, tamanho_unificado / 120.0)
+			wrapper.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			wrapper.add_child(btn)
+				
 			btn.pressed.connect(func(): _inspecionar_carta(carta, btn))
-			botoes_misturados.append(btn)
+			botoes_misturados.append(wrapper) # Colocamos o wrapper na lista!
 
 	# 3. Embaralha a ordem de tudo!
 	botoes_misturados.shuffle()
 
-	# 4. Adiciona os botões já misturados no HBoxContainer
-	for btn in botoes_misturados:
-		container_opcoes.add_child(btn)
+	# 4. Adiciona as caixas invisíveis já misturadas no HBoxContainer
+	for wrapper in botoes_misturados:
+		container_opcoes.add_child(wrapper)
 
 	# 5. Auto-seleciona o primeiro item da vitrine
 	if botoes_misturados.size() > 0:
-		var primeiro_botao = botoes_misturados[0]
-		# Finge um clique no primeiro botão. O botão já sabe se é carta 
-		# ou peça e vai abrir a janela correta sozinho!
+		# Como o wrapper é o item da lista, o nosso botão real é o filho dele!
+		var primeiro_botao = botoes_misturados[0].get_child(0)
 		primeiro_botao.pressed.emit()
 
 # --- SISTEMA DE INSPEÇÃO ALTERNADA ---
@@ -152,13 +178,21 @@ func _inspecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 					btn_carta.disabled = true
 				btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	# 2. DESENHA OS SLOTS VAZIOS
+	# 2. DESENHA OS SLOTS VAZIOS (mesmo tamanho das cartas, igual ao elenco_menu)
+	var tamanho_slot := Vector2(120, 120)  # fallback = tamanho real da cena de carta
+	if cena_carta_pequena:
+		var ghost = cena_carta_pequena.instantiate()
+		if ghost is Control and ghost.custom_minimum_size.y > 0:
+			tamanho_slot = ghost.custom_minimum_size
+		ghost.queue_free()
+	
 	var slots_livres = peca.quantosSlotes - slots_usados
 	for i in range(slots_livres):
 		var slot_vazio = ColorRect.new()
 		slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5) 
-		slot_vazio.custom_minimum_size = Vector2(40, 60) 
-		
+		slot_vazio.custom_minimum_size = tamanho_slot
+		slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		peca_equipped_grid.add_child(slot_vazio)
 	
 	# Atualiza o texto de contagem de slots
@@ -205,9 +239,14 @@ func _inspecionar_carta(carta: CardResource, botao_clicado: Control) -> void:
 			carta_slots_indicator.add_child(icone)
 
 func _destacar_botao(botao_clicado: Control) -> void:
-	for child in container_opcoes.get_children():
-		child.modulate = Color.WHITE
-	botao_clicado.modulate = Color(0.5, 1.0, 0.5, 1.0) 
+	# Agora nós varremos as caixas wrapper
+	for wrapper in container_opcoes.get_children():
+		if wrapper.get_child_count() > 0:
+			# O botão real que precisa ficar branco é o filho do wrapper
+			wrapper.get_child(0).modulate = Color.WHITE
+			
+	# O botão clicado já é a referência certa que vem pelo Signal
+	botao_clicado.modulate = Color(0.5, 1.0, 0.5, 1.0)
 
 # --- AÇÃO FINAL (RESGATE) ---
 func _on_btn_aceitar_pressed() -> void:

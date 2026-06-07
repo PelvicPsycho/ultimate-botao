@@ -113,17 +113,21 @@ func _selecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 					btn_carta.disabled = true
 				btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 				
-	# --- NOVIDADE: DESENHA OS SLOTS VAZIOS NO INVENTÁRIO DO ELENCO ADVERSÁRIO ---
+	# --- DESENHA OS SLOTS VAZIOS (mesmo tamanho das cartas, igual ao elenco_menu) ---
+	var tamanho_slot := Vector2(120, 120)  # fallback = tamanho real da cena de carta
+	if cena_carta_pequena:
+		var ghost = cena_carta_pequena.instantiate()
+		if ghost is Control and ghost.custom_minimum_size.y > 0:
+			tamanho_slot = ghost.custom_minimum_size
+		ghost.queue_free()
+	
 	var slots_livres = peca.quantosSlotes - slots_usados
 	for i in range(slots_livres):
 		var slot_vazio = ColorRect.new()
 		slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5) # Cinza escuro semi-transparente
-		slot_vazio.custom_minimum_size = Vector2(40, 60) # Ajuste para as dimensões de sua carta
-		
-		# Mantém o alinhamento centralizado nas células do grid
+		slot_vazio.custom_minimum_size = tamanho_slot
 		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		
 		equipped_cards_grid.add_child(slot_vazio)
 	# --------------------------------------------------------------------------
 			

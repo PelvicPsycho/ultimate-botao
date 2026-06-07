@@ -324,7 +324,7 @@ layout_mode = 2
 size_flags_vertical = 6
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
-columns = 5
+columns = 4
 
 [node name="PontosAcao_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1383214861]
 layout_mode = 2
@@ -341,6 +341,7 @@ text = "2 AP"
 
 [node name="InspecaoCarta_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1581277166]
 visible = false
+custom_minimum_size = Vector2(0, 490)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -399,14 +400,16 @@ expand_mode = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer" unique_id=545648063]
 layout_mode = 2
-theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 70
+theme_override_constants/margin_bottom = 40
 
 [node name="Opcoes_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2" unique_id=191582257]
-custom_minimum_size = Vector2(50, 200)
+custom_minimum_size = Vector2(700, 120)
 layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer" unique_id=1486056273]
 layout_mode = 2
@@ -439,7 +442,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TESTE_Button" type="Button" parent="." unique_id=444642369]
-visible = false
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
@@ -447,7 +449,6 @@ theme_override_font_sizes/font_size = 30
 text = "BOTAO TESTE Recompensa torneio"
 
 [node name="TESTE_Button2" type="Button" parent="." unique_id=381510245]
-visible = false
 layout_mode = 0
 offset_left = -2.0
 offset_top = 62.0
