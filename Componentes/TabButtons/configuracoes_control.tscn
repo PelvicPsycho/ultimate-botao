@@ -41,6 +41,7 @@ Checkbox = NodePath("OptionsContainer/Control/FlowContainer/CheckBox")
 [node name="Banner_Control" type="Control" parent="." unique_id=2034304194]
 custom_minimum_size = Vector2(50, 200)
 layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 200.0
 grow_horizontal = 2
@@ -167,15 +168,13 @@ mouse_filter = 2
 [node name="FlowContainer" type="FlowContainer" parent="OptionsContainer/Control" unique_id=645327230]
 z_index = 1
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -125.0
-offset_top = -90.5
-offset_right = 125.0
-offset_bottom = 57.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -84.0
+offset_top = -142.30771
+offset_right = 84.0
+offset_bottom = 93.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -217,10 +216,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -299.5
-offset_top = -94.5
-offset_right = -217.5
-offset_bottom = 62.5
+offset_left = -328.0
+offset_top = -169.5
+offset_right = 184.38464
+offset_bottom = 137.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -250,8 +249,41 @@ theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 20
 text = "Mute:"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsContainer/Control/VLabelsContainer" unique_id=1141094389]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 136
+
+[node name="Label5" type="Label" parent="OptionsContainer/Control/VLabelsContainer/HBoxContainer" unique_id=1279481417]
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 20
+text = "Timer:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsContainer/Control/VLabelsContainer/HBoxContainer" unique_id=1446160772]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimerBack" type="Button" parent="OptionsContainer/Control/VLabelsContainer/HBoxContainer/HBoxContainer" unique_id=1905203639]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+text = "<"
+
+[node name="Label" type="Label" parent="OptionsContainer/Control/VLabelsContainer/HBoxContainer/HBoxContainer" unique_id=1162131968]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Default"
+horizontal_alignment = 1
+
+[node name="TimerForward" type="Button" parent="OptionsContainer/Control/VLabelsContainer/HBoxContainer/HBoxContainer" unique_id=2069278143]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+text = ">"
+
 [connection signal="value_changed" from="OptionsContainer/Control/FlowContainer/MasterSoundSlider" to="." method="_on_master_sound_slider_value_changed"]
 [connection signal="value_changed" from="OptionsContainer/Control/FlowContainer/BGMSlider" to="." method="_on_bgm_slider_value_changed"]
 [connection signal="drag_ended" from="OptionsContainer/Control/FlowContainer/SFXSlider" to="." method="_on_sfx_slider_drag_ended"]
 [connection signal="value_changed" from="OptionsContainer/Control/FlowContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="toggled" from="OptionsContainer/Control/FlowContainer/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="pressed" from="OptionsContainer/Control/VLabelsContainer/HBoxContainer/HBoxContainer/TimerBack" to="." method="_on_timer_back_pressed"]
+[connection signal="pressed" from="OptionsContainer/Control/VLabelsContainer/HBoxContainer/HBoxContainer/TimerForward" to="." method="_on_timer_forward_pressed"]

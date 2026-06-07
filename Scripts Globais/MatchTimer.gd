@@ -9,9 +9,10 @@ signal lance_acabou
 signal time_label_changed
 signal lance_label_changed(isHome: bool, value: float)
 
-@export var tipo_do_timer: TimerType = TimerType.CHESS
+@export var tipo_do_timer: TimerType = TimerType.TIMER
 
 func _ready() -> void:
+	tipo_do_timer  = GameState.TimerType
 	match tipo_do_timer:
 		TimerType.TIMER:
 			tempo_partida_restante = tempo_maximo_partida
@@ -24,6 +25,7 @@ func _ready() -> void:
 
 func iniciar_partida(startHome: bool = false) -> void:
 	isHomeTurn = startHome
+	tipo_do_timer  = GameState.TimerType
 	match tipo_do_timer:
 		TimerType.TIMER:
 			tempo_partida_restante = tempo_maximo_partida

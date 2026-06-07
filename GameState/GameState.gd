@@ -12,6 +12,8 @@ var ultimo_torneio_jogado: String = ""
 ## O torneio mais fácil (Rank F) vem desbloqueado por padrão.
 var torneios_desbloqueados: Array[String] = []
 
+var TimerType: int  = 0
+
 func _ready():
 	jogadores = SaveManager.load_game()
 
