@@ -18,14 +18,17 @@ extends CanvasLayer
 @onready var timerPanel = $MarginContainer/Control/VBoxContainer/TimerBar
 
 #VARIÁVEIS/COMPONENTES DOS LANCES
-@onready var shotsCounterHome = $MarginContainer/Control/MarginContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda
-@onready var shotsPanelHome = $MarginContainer/Control/MarginContainer/Panel_LancesHome
-@onready var shotsDotsHomeLst = [$MarginContainer/Control/MarginContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lance3,$MarginContainer/Control/MarginContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lance2,$MarginContainer/Control/MarginContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lance1] 
-@onready var shotsLabelHome = $MarginContainer/Control/MarginContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lances
-@onready var shotsCounterAway = $MarginContainer/Control/MarginContainer/Panel_LancesAway/MarginContainer/HBox_LancesDireita
-@onready var shotsPanelAway = $MarginContainer/Control/MarginContainer/Panel_LancesAway
-@onready var shotsDotsAwayLst = [$MarginContainer/Control/MarginContainer/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lance3,$MarginContainer/Control/MarginContainer/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lance2,$MarginContainer/Control/MarginContainer/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lance1]
-@onready var shotsLabelAway = $MarginContainer/Control/MarginContainer/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lances
+@onready var shotsCounterHome = $MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda
+@onready var shotsPanelHome = $MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome
+@onready var shotsDotsHomeLst = [$MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lance3,$MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lance2,$MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lance1] 
+@onready var shotsLabelHome = $MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lances
+@onready var shotsProgressBarHome = $MarginContainer/Control/MarginContainer/VBoxContainer/ProgressBarLanceHome
+
+@onready var shotsCounterAway = $MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita
+@onready var shotsPanelAway = $MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway
+@onready var shotsDotsAwayLst = [$MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lance3,$MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lance2,$MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lance1]
+@onready var shotsLabelAway = $MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lances
+@onready var shotsProgressBarAway = $MarginContainer/Control/MarginContainer/VBoxContainer2/ProgressBarLanceAway
 
 var homeTeam: Team
 var awayTeam: Team
@@ -49,6 +52,18 @@ func UI_start(homeTeam: Team, awayTeam: Team):
 	changeEmblemPanelBorderColor()
 	changeShotsPanelBorderColor()
 	changeScoreColor()
+	changeTimersColor()
+
+func changeTimersColor():
+	var style: StyleBoxFlat
+	
+	style = shotsProgressBarHome.get_theme_stylebox("fill").duplicate() as StyleBoxFlat
+	style.bg_color = homeTeam.cor
+	shotsProgressBarHome.add_theme_stylebox_override("fill", style)
+	
+	style = shotsProgressBarAway.get_theme_stylebox("fill").duplicate() as StyleBoxFlat
+	style.bg_color = awayTeam.cor
+	shotsProgressBarAway.add_theme_stylebox_override("fill", style)
 
 func changeEmblems():
 	textureRectHome.texture = homeTeam.emblem
@@ -199,6 +214,14 @@ func _animar_paineis_posse(activeTeam: Team) -> void:
 
 func _atualizar_label_partida(time: float) -> void:
 	progressBar.value = time
+
+func _atualizar_label_lance(isHome: float, time: float) -> void:
+	if isHome:
+		shotsProgressBarHome.value = time
+		shotsProgressBarAway.value = 0.0
+	else:
+		shotsProgressBarAway.value = time
+		shotsProgressBarHome.value = 0.0
 
 func atualizar_placar(home_score: int, away_score: int) -> void:
 	if labelScoreHome == null or labelScoreAway == null:

@@ -86,15 +86,41 @@ func _ready() -> void:
 			piece.canPlay = (currentTurn == turn.AWAY)
 	_atualizar_placar()
 	
-	timer.partida_acabou.connect(_on_partida_acabou)
-	timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)	
-	timer.iniciar_partida()
+	match timer.tipo_do_timer:
+		timer.TimerType.TIMER:
+			%MatchUI.progressBar.max_value = timer.tempo_maximo_partida
+			%MatchUI.shotsProgressBarHome.max_value = timer.tempo_maximo_lance
+			%MatchUI.shotsProgressBarAway.max_value = timer.tempo_maximo_lance
+			timer.partida_acabou.connect(_on_partida_acabou)
+			timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)
+			timer.lance_label_changed.connect(%MatchUI._atualizar_label_lance)
+			timer.lance_acabou.connect(_on_lance_acabou)
+			timer.iniciar_partida(currentTurn == turn.HOME)
+			timer.iniciar_lance(currentTurn)
+		timer.TimerType.SHOTS:
+			%MatchUI.progressBar.max_value = timer.totalShots
+			timer.partida_acabou.connect(_on_partida_acabou)
+			timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)
+			timer.iniciar_partida()
+		timer.TimerType.CHESS:
+			%MatchUI.progressBar.max_value = timer.homeTimeMax
+			%MatchUI.shotsProgressBarHome.max_value = timer.homeTimeMax
+			%MatchUI.shotsProgressBarAway.max_value = timer.homeTimeMax
+			timer.partida_acabou.connect(_on_partida_acabou)
+			timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)
+			timer.lance_label_changed.connect(%MatchUI._atualizar_label_lance)
+			timer.punishTeam.connect(_on_punish_team)
+			timer.iniciar_partida(currentTurn == turn.HOME)
 	
 	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, homeTeam.cor if currentTurn == turn.HOME else awayTeam.cor)
-	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
-	get_tree().create_timer(2.0).timeout.connect(disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5), CONNECT_ONE_SHOT)
+	get_tree().create_timer(2.0).timeout.connect(_on_begin_timeout, CONNECT_ONE_SHOT)
 	atualizar_cores_pecas()
 	
+func _on_begin_timeout():
+	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
+	disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5)
+	timer.partida_rodando = true
+
 func loadMatch():
 	homeTeam = CupManager.myTeam
 	awayTeam = CupManager.currentCompetitor
@@ -127,6 +153,32 @@ func assignPieces():
 
 func _atualizar_placar() -> void:
 	%MatchUI.atualizar_placar(homeScore, awayScore)
+
+func _on_punish_team(isHome: bool):
+	_aplicar_punicao_chess(isHome)
+	$"Gol_Manager(Temporario)".anunciar_gol_pt2(isHome)
+	timer.resetTimer(isHome)
+
+func _aplicar_punicao_chess(isHome: bool) -> void:
+	# No CHESS, timeout precisa sempre virar penalidade no placar.
+	goalFlag = false
+	rallyCounter = 1
+	foulFlag = false
+
+	if isHome:
+		awayScore += 1
+		if gol_de_ouro:
+			endMatch(awayTeam.name)
+	else:
+		homeScore += 1
+		if gol_de_ouro:
+			endMatch(homeTeam.name)
+
+	if homeScore > 2 or awayScore > 2:
+		var vencedor = homeTeam.name if homeScore > awayScore else awayTeam.name
+		endMatch(vencedor)
+
+	_atualizar_placar()
 
 func _on_partida_acabou() -> void:
 	timer.parar_tudo()
@@ -164,14 +216,42 @@ func onClickedPiece(piece: PhysicsPlayer2D) -> void:
 
 func onTurnPlayed() -> void:
 	congelar_jogo(true)
-	timer.rodando_lance()
+	#timer.rodando_lance()
+	if timer.tipo_do_timer == timer.TimerType.CHESS:
+		if currentTurn == turn.HOME and timer.homeTimeRemaining <= 10.0:
+			timer.addTime(true)
+		elif timer.awayTimeRemaining <= 10.0:
+			timer.addTime(false)
 	var parado_corretamente: bool = await waitAllStopped()
 	if not parado_corretamente or not is_inside_tree():
 		return
 		
 	congelar_jogo(false)
-	timer.acabando_lance()
+	#timer.acabando_lance()
+	if timer.tipo_do_timer == timer.TimerType.SHOTS:
+		timer.countShot()
+	if timer.tipo_do_timer == timer.TimerType.TIMER:
+		timer.iniciar_lance(currentTurn)
 	decideTurn()
+
+func _on_lance_acabou() -> void: 
+	var alguma_peca_arrastada: bool = false
+	var peca_arrastada: PhysicsPlayer2D = null
+	
+	for piece in allPieces:
+		if piece.is_dragging:
+			alguma_peca_arrastada = true
+			peca_arrastada = piece
+			break
+			
+	if alguma_peca_arrastada and peca_arrastada != null:
+		timer.lance_rodando = true
+		peca_arrastada.puxar_no_timeout()
+		#
+		#if peca_arrastada.vetor_arrasto_atual.length_squared() <= 25.0:
+			#changeTurn()
+	else:
+		changeTurn()
 
 func waitAllStopped() -> bool:
 	const LINEAR_THRESHOLD_SQ: float = 0.0001
@@ -242,6 +322,10 @@ func changeTurn() -> void:
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
 	IA_Contr.SetCurrentTeamSide(currentTurn)
 	%MatchUI.colorir_turno(active_team, turnCounter)
+	if timer.tipo_do_timer == timer.TimerType.CHESS:
+		timer.isHomeTurn = (currentTurn == turn.HOME)
+	if timer.tipo_do_timer == timer.TimerType.TIMER:
+		timer.iniciar_lance(currentTurn)
 	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
 	carta_usada_no_turno = false
 
@@ -263,6 +347,10 @@ func forceTurn(target: turn) -> void:
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
 	IA_Contr.SetCurrentTeamSide(currentTurn)
 	%MatchUI.colorir_turno(active_team, turnCounter)
+	if timer.tipo_do_timer == timer.TimerType.CHESS:
+		timer.isHomeTurn = (currentTurn == turn.HOME)
+	if timer.tipo_do_timer == timer.TimerType.TIMER:
+		timer.iniciar_lance(currentTurn)
 	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
 	carta_usada_no_turno = false
 
