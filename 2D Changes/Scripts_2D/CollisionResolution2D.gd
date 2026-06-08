@@ -9,6 +9,7 @@ var object_A: PhysicsObject2D
 var object_B: PhysicsObject2D
 
 @export var debug: bool
+@export var debug_index: int
 
 @export var simulation_Active: bool
 @export var AI_Active: bool
@@ -19,21 +20,29 @@ var Sim_Controller_Object = preload("res://Componentes/Simulation_AI/Scenes/Simu
 
 # simulation to AI
 var Sim_Controller_list: Array[SimulationController]
-#@export var IA_Contr: IA_Controller
+@export var IA_Contr: IA_Controller
 
 # simulation to test
 #@export var Sim_Controller: SimulationController
 
 var pitch_state: PitchState
 
+@export var list_polygons: Array[CollisionPolygon2D]
+var list_polygons_points_0: PackedVector2Array
+var list_polygons_points_1: PackedVector2Array
+var list_polygons_points_2: PackedVector2Array
+var list_polygons_points_3: PackedVector2Array
+
+var list_walls_polygons_points: Array[PackedVector2Array] = []
+
+var wall_collision_normal: Vector2
+var wall_collision_depth: float
 
 func _ready() -> void:
 	var nodes = get_tree().get_nodes_in_group("PhysicsObjects")
 	
 	for object in nodes:
 		PhysicsObjects_List.append(object)
-		
-	print("number of players = ", PhysicsObjects_List.size())
 	
 	pitch_state = PitchState.new()
 	
@@ -45,21 +54,43 @@ func _ready() -> void:
 			
 		object.index = count
 		count += 1
+	
+	for point in list_polygons[0].polygon:
+		list_polygons_points_0.append(list_polygons[0].to_global(point))
 
-func Replicate_Action(index: int, velocity: Vector2, teamSide: int):	
+	for point in list_polygons[1].polygon:
+		list_polygons_points_1.append(list_polygons[1].to_global(point))
+
+	for point in list_polygons[2].polygon:
+		list_polygons_points_2.append(list_polygons[2].to_global(point))
+
+	for point in list_polygons[3].polygon:
+		list_polygons_points_3.append(list_polygons[3].to_global(point))
+	
+	list_walls_polygons_points.append(list_polygons_points_0)
+	list_walls_polygons_points.append(list_polygons_points_1)
+	list_walls_polygons_points.append(list_polygons_points_2)
+	list_walls_polygons_points.append(list_polygons_points_3)
+
+
+
+func start_Collision_resulution() -> void:
 	update_pitch_state_variables()
 	
 	if Sim_Controller_list.size() <= 0:
 		create_all_simulations()
 	
-	#for polygon in list_walls_polygons:
-		#print("original polygon point ----------------------------")
-		#print(polygon.polygon)
+	for sim in Sim_Controller_list:
+		sim.copy_pitch_state_variables(pitch_state)
+		sim.simulation_ready = true
+
+func Replicate_Action(index: int, velocity: Vector2, teamSide: int):	
+	update_pitch_state_variables()
 	
 	for sim in Sim_Controller_list:
 		if sim.debug:
+			print("Sim index = ", sim.sim_index)
 			sim.copy_pitch_state_variables(pitch_state)
-			#sim.update_pitch_state_variables_on_pieces()
 			sim.Replicate_Action(index, velocity, teamSide)
 			count_steps = 0
 	
@@ -67,7 +98,7 @@ func Replicate_Action(index: int, velocity: Vector2, teamSide: int):
 
 var count_steps = 0
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	#
 	# verify physic objects collisions
 	collision_physics_object_resolution()
@@ -78,44 +109,43 @@ func _physics_process(delta: float) -> void:
 	# verify walls collisions
 	collision_wall_resolution()
 	#
-	
-	#if PhysicsObjects_List[0].is_moving:
-		#print("Original step = ", count_steps)
-		#print("Original current_velocity = ", PhysicsObjects_List[0].current_velocity)
-		#print("Original last_position = ", PhysicsObjects_List[0].global_position)
-	
+
 	count_steps += 1
 
 
 func create_all_simulations() -> void:
-	if simulation_Active == true:
-		var instance = Sim_Controller_Object.instantiate()
-		instance.global_position = self.global_position
+	if AI_Active:
+		IA_Contr.SetPieceLists()
 		
-		instance.copy_pitch_state_variables(pitch_state)
-
-		instance.create_objects_copy(true)
-
-		Sim_Controller_list.append(instance)
-		
-		add_child(instance)
-	
-	#if AI_Active:
-		#IA_Contr.SetPieceLists()
-	
-	#print("self position = ", self.global_position)
+	#if simulation_Active == true:
+		#var instance = Sim_Controller_Object.instantiate()
+		#instance.global_position = self.global_position
+		#
+		#instance.copy_pitch_state_variables(pitch_state)
+		#
+		#instance.create_objects_copy(true)
+		#
+		#Sim_Controller_list.append(instance)
+		#
+		#add_child(instance)
 	
 	for i in num_threads:
 		var instance = Sim_Controller_Object.instantiate()
-		instance.global_position = self.global_position + Vector2(0, 1 * (1000 * (i + 1)))
+		instance.global_position = self.global_position + Vector2(0, 1 * (1000 * (i)))
 		print("instance position = ", instance.global_position)
-		add_child(instance)
 		
 		instance.copy_pitch_state_variables(pitch_state)
-
-		instance.create_objects_copy(false)
 		
+		instance.sim_index = i
+		
+		if debug_index == i:
+			instance.create_objects_copy(false)
+		else:
+			instance.create_objects_copy(false)
+			
 		Sim_Controller_list.append(instance)
+		
+		add_child(instance)
 		print("Num sim created = ", i)
 
 func update_pitch_state_variables() -> void:
@@ -162,21 +192,22 @@ func update_pitch_state_variables() -> void:
 
 #region Physics Objects Collisions
 func collision_physics_object_resolution() -> void:
-	for i in range(PhysicsObjects_List.size()):
-		object_A = PhysicsObjects_List[i]
-		for j in range(i + 1, PhysicsObjects_List.size()):
-			object_B = PhysicsObjects_List[j]
+	for object_A_index in range(PhysicsObjects_List.size()):
+		object_A = PhysicsObjects_List[object_A_index]
+		
+		for object_B_index in range(object_A_index + 1, PhysicsObjects_List.size()):
+			object_B = PhysicsObjects_List[object_B_index]
+			
 			if has_collision_physics_object(object_A, object_B):
-				#print("original - Colidded with Objects ---------------------")
 				handle_physics_objects_collision(object_A, object_B)
+
 
 func has_collision_physics_object(object_1: PhysicsObject2D, object_2: PhysicsObject2D) -> bool:
 	var line_of_impact = object_2.global_position - object_1.global_position
 	var distance = line_of_impact.length()
 	
 	var overlap = distance - (object_1.radius + object_2.radius)
-	#print("Overlap = ", overlap)
-	
+
 	if overlap <= 0:
 		object_1.Set_Last_PhysicObject_Collision(object_1.global_position + line_of_impact.normalized() * object_1.radius, object_2)
 		object_2.Set_Last_PhysicObject_Collision(object_1.global_position + line_of_impact.normalized() * object_1.radius, object_1)
@@ -185,8 +216,9 @@ func has_collision_physics_object(object_1: PhysicsObject2D, object_2: PhysicsOb
 		return false
 
 func has_collision_specific_Object(object_1: PhysicsObject2D) -> bool:
-	for j in range(PhysicsObjects_List.size()):
-		var object_2 = PhysicsObjects_List[j]
+	for object_2_index in range(PhysicsObjects_List.size()):
+		var object_2 = PhysicsObjects_List[object_2_index]
+		
 		if object_1.index != object_2.index:
 			if has_collision_physics_object(object_1, object_2):
 				return true
@@ -231,24 +263,18 @@ func handle_physics_objects_inside_each_other(object_1: PhysicsObject2D, object_
 #endregion
 
 #region Physics Wall Collisions
-@export var list_walls_polygons: Array[CollisionPolygon2D]
-
-var wall_collision_normal: Vector2
-var wall_collision_depth: float
 
 func collision_wall_resolution() -> void:
 	for i in range(PhysicsObjects_List.size()):
 		object_A = PhysicsObjects_List[i]
 		if has_collision_wall_polygons(object_A):
-			#print("original - Colidded with wall ---------------------")
 			handle_walls_collision(object_A)
 
 func has_collision_wall_polygons(physic_object: PhysicsObject2D) -> bool:
-	for polygon in list_walls_polygons:
+	for polygon in list_walls_polygons_points:
 		if physic_object.is_moving:
 			if check_circle_polygon_collision(physic_object.global_position, physic_object.radius, polygon):
 				return true
-	
 	return false
 
 # if object has collided with a wall
@@ -262,21 +288,19 @@ func handle_walls_collision(object_1: PhysicsObject2D) -> void:
 	object_1.current_velocity = object_1.current_velocity.bounce(wall_collision_normal)
 
 # Returns true if the circle intersects the polygon's boundary or interior
-func check_circle_polygon_collision(circle_center: Vector2, circle_radius: float, CollisionPolygon: CollisionPolygon2D) -> bool:
-	if CollisionPolygon.polygon.size() < 3:
+func check_circle_polygon_collision(circle_center: Vector2, circle_radius: float, list_polygons_points: PackedVector2Array) -> bool:
+	if list_polygons_points.size() < 3:
 		return false
 		
 	# Step 1: Check if the circle collides with any of the polygon's edges
-	for i in range(CollisionPolygon.polygon.size()):
+	for i in range(list_polygons_points.size()):
 		# Get a point from the polygon
-		var current_point = CollisionPolygon.to_global(CollisionPolygon.polygon[i])
-		#print("original current_point = ", current_point)
-
-		# Get next point index, loop around to the first point if we are at the last index
-		var next_point_index = (i + 1) % CollisionPolygon.polygon.size()
+		var current_point = list_polygons_points[i]
 		
+		# Get next point index, loop around to the first point if we are at the last index		
 		# Get the next point after current_point from the polygon
-		var next_point = CollisionPolygon.to_global(CollisionPolygon.polygon[next_point_index])
+		var next_point_index = (i + 1) % list_polygons_points.size()
+		var next_point = list_polygons_points[next_point_index]
 		
 		# Find the closest point on this line segment to the circle's center
 		var closest_point = get_closest_point_on_line(circle_center, current_point, next_point)
@@ -292,17 +316,15 @@ func check_circle_polygon_collision(circle_center: Vector2, circle_radius: float
 				wall_collision_normal = (next_point - current_point).orthogonal().normalized()
 			
 			wall_collision_depth = circle_radius - distance
-			#print("Colidiu com a parede")
-			#print("circle_radius = ", circle_radius)
-			
 			return true
 			
 	# Step 2: interior check (handles when the circle is entirely inside the polygon)
-	if Geometry2D.is_point_in_polygon(circle_center, CollisionPolygon.polygon):
-		print("Inside Wall")
+	if Geometry2D.is_point_in_polygon(circle_center, list_polygons_points):
+		print("Inside Polygon")
 		return true
 		
 	return false
+
 
 # Function to find the closest point on a line to a target point
 func get_closest_point_on_line(target_point: Vector2, line_point_A: Vector2, line_point_B: Vector2) -> Vector2:
@@ -332,10 +354,9 @@ func movement_update(_delta: float) -> void:
 		# chama função do object que atualiza sua Velocity
 		var new_velocity = PhysicsObjects_List[i].current_velocity * PhysicsObjects_List[i].friction;
 		
-		var vel_x = abs(PhysicsObjects_List[i].current_velocity.x)
-		var vel_y = abs(PhysicsObjects_List[i].current_velocity.y)
+		var mag = new_velocity.length()
 		
-		if vel_x < 10 && vel_y < 10:
+		if mag < 20:
 			PhysicsObjects_List[i].Set_Current_Velocity(Vector2.ZERO)
 			PhysicsObjects_List[i].is_moving = false
 		else:
@@ -344,17 +365,15 @@ func movement_update(_delta: float) -> void:
 		
 		if PhysicsObjects_List[i].is_moving:
 			global_Collision_Check_count = 0
-			# Acha a proxima posição do objeto
+			
 			# - Percorre o caminho que o objeto iria passar entre um frame e outro
-			# - Caso tenha alguma colisão no meio do caminho, retorna a posição dessa colisão
-			#var new_Pos = PhysicsObjects_List[i].global_position + (PhysicsObjects_List[i].current_velocity * _delta) 
+			# - Caso tenha alguma colisão no meio do caminho, retorna a posição que a peça estava
 			var new_Pos = verify_collision_between_objects_on_movement_line_LinearSearch(PhysicsObjects_List[i], 10.0, _delta)
 			
 
 			# Atualiza a posição do objeto
 			PhysicsObjects_List[i].global_position = new_Pos
-			#print("count_steps = ", count_steps)
-			#print("New Pos = ", PhysicsObjects_List[i].global_position)
+
 
 
 # Faz verificações de colisões entre a posição atual do objeto e a sua próxima posição (posição depois de se mover no proximo frame)
@@ -388,10 +407,10 @@ func verify_collision_between_objects_on_movement_line_LinearSearch(object_1: Ph
 		# Verifico se esta colidindo com outro objeto
 		if has_collision_specific_Object(object_1) or has_collision_wall_polygons(object_1): # Colidiu com algo
 			result_Pos = current_Pos
-
+			
 			# retorno a posição da colisão
 			return result_Pos
-			
+	
 	object_1.global_position = inicial_Pos
 	return result_Pos
 

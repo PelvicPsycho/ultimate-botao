@@ -13,8 +13,8 @@ var radius: float
 
 
 func _ready() -> void:
-	print("Mass = ", mass)
-	print("friction = ", friction)
+	#print("Mass = ", mass)
+	#print("friction = ", friction)
 	
 	radius = (global_position - Object_Radius.global_position).length()
 

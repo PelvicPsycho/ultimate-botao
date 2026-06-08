@@ -10,3 +10,7 @@ var can_score_goal: int = 1
 var ball_possesion_counter: int = 0
 
 var current_team_playing: int
+
+var play_that_resulted_on_this_pitch_state: Play
+
+var score: int

@@ -6,7 +6,11 @@ enum ModoTiro { PUXAR, EMPURRAR, MODO_3 }
 
 var modo_atual: ModoTiro = ModoTiro.PUXAR
 signal turno_trocado(turno_atual: turn)
-#@export var IA_Contr: IA_Controller
+
+@export var physics_controller: CollisionResolution2D
+
+@export var IA_Active: bool
+@export var IA_Contr: IA_Controller
 
 var allPieces: Array[PhysicsPlayer2D]
 var selectedPiece: PhysicsPlayer2D
@@ -68,18 +72,16 @@ func _ready() -> void:
 		if info != -1:
 			piece.playerInfo.slotsUpgrates = jogadores_salvos[info].slotsUpgrates.duplicate()
 			piece.playerInfo_atual.slotsUpgrates = jogadores_salvos[info].slotsUpgrates.duplicate()
-
-			#print("Cartas carregadas para ", piece.playerInfo.nome)
-			#for c in piece.playerInfo.slotsUpgrates:
-				#print("  - ", (c.resource_path if c else "Vazio"))
-		
+			
 			piece.playerInfo_atual.aplicar_passivas()
+		
 	# CONEXÕES PADRÃO
 		if not piece.clickedPiece.is_connected(_on_player_clicked_piece):
 			piece.clickedPiece.connect(_on_player_clicked_piece)
 			
 		piece.turnPlayed.connect(onTurnPlayed)
 		turno_trocado.connect(piece._no_turno_trocado)
+	
 	# DISTRIBUIÇÃO ENTRE EQUIPES
 		if piece.team == homeTeam:
 			piece.canPlay = (currentTurn == turn.HOME)
@@ -105,13 +107,16 @@ func loadMatch():
 	turnCounter = 0
 	foulFlag = false
 	goalFlag = false
+	
 	assignPieces()
+	
+	physics_controller.start_Collision_resulution()
 
 func assignPieces():
 	var homePlayers: Array[TeamPlayer] = homeTeam.mainSquad
 	var awayPlayers: Array[TeamPlayer] = awayTeam.mainSquad
-	var homePieces = $PhysicsObjects_Group/HomeTeam.get_children()
-	var awayPieces = $PhysicsObjects_Group/AwayTeam.get_children()
+	var homePieces = $PhysicsController/HomeTeam.get_children()
+	var awayPieces = $PhysicsController/AwayTeam.get_children()
 	for i in range(homePieces.size()):
 		var piece = homePieces[i]
 		var player = homePlayers[i]
@@ -162,6 +167,7 @@ func onClickedPiece(piece: PhysicsPlayer2D) -> void:
 	piece.abrir_botoes_cartas()
 
 func onTurnPlayed() -> void:
+	print("onTurnPlayed")
 	congelar_jogo(true)
 	timer.rodando_lance()
 	var parado_corretamente: bool = await waitAllStopped()
@@ -220,24 +226,35 @@ func selectFirstTurn() -> void:
 	for ball in allBalls:
 		ball.lastTouch = null
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-	#IA_Contr.SetCurrentTeamSide(currentTurn)
+	
+	if IA_Active and IA_Contr != null:
+		IA_Contr.SetCurrentTeamSide(currentTurn)
+		
 	%MatchUI.colorir_turno(active_team, turnCounter) 
 	
 func changeTurn() -> void:
 	for piece in allPieces:
 		if (currentTurn == turn.HOME and piece.team == homeTeam) or (currentTurn == turn.AWAY and piece.team == awayTeam):
 			piece.playerInfo_atual.processar_expiracao_de_buffs(piece.playerInfo)
+	
 	currentTurn = turn.AWAY if currentTurn == turn.HOME else turn.HOME
+	print("currentTurn = ", currentTurn)
 	emit_signal("turno_trocado", currentTurn)
+	
 	for piece in allPieces:
 		piece.canPlay = (currentTurn == turn.HOME) if piece.team == homeTeam else (currentTurn == turn.AWAY)
+	
 	turnCounter = 0
 	for ball in allBalls:
 		ball.lastTouch = null
+	
 	atualizar_cores_pecas()
 	
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-	#IA_Contr.SetCurrentTeamSide(currentTurn)
+	
+	if IA_Active and IA_Contr != null:
+		IA_Contr.SetCurrentTeamSide(currentTurn)
+		
 	%MatchUI.colorir_turno(active_team, turnCounter)
 	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
 	carta_usada_no_turno = false
@@ -257,7 +274,8 @@ func forceTurn(target: turn) -> void:
 		piece.canPlay = (currentTurn == turn.HOME) if piece.team == homeTeam else (currentTurn == turn.AWAY)
 			
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-	#IA_Contr.SetCurrentTeamSide(currentTurn)
+	if IA_Active and IA_Contr != null:
+		IA_Contr.SetCurrentTeamSide(currentTurn)
 	%MatchUI.colorir_turno(active_team, turnCounter)
 	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
 	carta_usada_no_turno = false
@@ -286,7 +304,8 @@ func decideTurn() -> void:
 				else:
 					disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
 				
-				#IA_Contr.SetCurrentTeamSide(currentTurn)
+				if IA_Active and IA_Contr != null:
+					IA_Contr.SetCurrentTeamSide(currentTurn)
 				return 
 				
 			if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:

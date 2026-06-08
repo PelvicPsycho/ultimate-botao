@@ -113,7 +113,7 @@ func _on_forca_multiplicador_value_changed(value: float) -> void:
 func _on_forca_maxima_value_changed(value: float) -> void:
 	var labelValor = %ForcaMaxima.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	print("forca maxima value = ", value)
+	#print("forca maxima value = ", value)
 	for peca in Pecas_Jogo:
 		peca.max_force = value
 

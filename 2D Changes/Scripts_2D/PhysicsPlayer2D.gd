@@ -129,6 +129,7 @@ func loadPlayerInfo(plInfo):
 
 func Set_AI_Active(_AI_Active: bool) -> void:
 	AI_Active = _AI_Active
+	
 func _no_turno_trocado(_turno_atual) -> void:
 	if menu_radial and menu_radial.is_open:
 		menu_radial.fechar()
@@ -527,6 +528,8 @@ func Execute_Action_parameters(direction: Vector2, force_lerp: float) -> void:
 	
 	_cancelar_interacao()
 	turnPlayed.emit()
+
+
 
 #endregion
 
