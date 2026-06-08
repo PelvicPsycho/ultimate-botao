@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://h2qvxvcekkf6" path="res://Recursos/2D_Art/SplashScreen/DetalheAzulEscuro.png" id="4_rlkea"]
 [ext_resource type="Texture2D" uid="uid://cteish2yotv5s" path="res://Recursos/2D_Art/SplashScreen/logo 1 1.png" id="4_s1m4f"]
 [ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="4_txp36"]
+[ext_resource type="Resource" uid="uid://dh33al2pwnleh" path="res://Recursos/Teams/MyTeam/Josue.tres" id="9_1m4ei"]
+[ext_resource type="Resource" uid="uid://c2usg0pshagw8" path="res://Recursos/Teams/MyTeam/Nigel.tres" id="10_l8vg5"]
+[ext_resource type="Resource" uid="uid://cjyd6bkt7lcc6" path="res://Recursos/Teams/MyTeam/Carlinhos.tres" id="11_ffsqk"]
+[ext_resource type="Resource" uid="uid://nfpdil4vqo0k" path="res://Recursos/Teams/MyTeam/Giota.tres" id="12_k0boi"]
 
 [sub_resource type="Shader" id="Shader_jdv1h"]
 code = "shader_type canvas_item;
@@ -162,24 +166,29 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Button" type="Button" parent="." unique_id=971272928]
-offset_left = 95.0
-offset_top = 680.0
-offset_right = 379.0
-offset_bottom = 757.0
+offset_left = 30.0
+offset_top = 960.0
+offset_right = 314.0
+offset_bottom = 1037.0
 theme_override_font_sizes/font_size = 50
 text = "Save delete"
 
 [node name="AddPreset_Button" parent="." unique_id=1518291067 instance=ExtResource("3_gulj1")]
-offset_left = 98.0
-offset_top = 510.0
-offset_right = 503.0
-offset_bottom = 587.0
+offset_left = 155.0
+offset_top = 712.0
+offset_right = 560.0
+offset_bottom = 789.0
+text = "Preset 1"
+peca_slot_2 = ExtResource("9_1m4ei")
+peca_slot_3 = ExtResource("10_l8vg5")
+peca_slot_4 = ExtResource("11_ffsqk")
+peca_slot_5 = ExtResource("12_k0boi")
 
 [node name="AddTodasCartas" type="Button" parent="." unique_id=951732222]
-offset_left = 75.0
-offset_top = 386.0
-offset_right = 366.0
-offset_bottom = 436.0
+offset_left = 32.0
+offset_top = 871.0
+offset_right = 323.0
+offset_bottom = 921.0
 theme_override_font_sizes/font_size = 30
 text = "Add todas as cartas"
 
