@@ -7,16 +7,29 @@
 [ext_resource type="PackedScene" uid="uid://d0bgo77x0u5d7" path="res://Componentes/MyTeam/elenco_menu_control.tscn" id="3_i8k4o"]
 [ext_resource type="PackedScene" uid="uid://b3cpd23vgrn51" path="res://Componentes/TabButtons/menu_torneio.tscn" id="4_ggyg0"]
 [ext_resource type="PackedScene" uid="uid://xk1olpyb3y2w" path="res://Componentes/TabButtons/configuracoes_control.tscn" id="5_5ua05"]
+[ext_resource type="PackedScene" uid="uid://b3shgpcl0crs7" path="res://Componentes/TabButtons/PvP Team Selection/TeamSelection.tscn" id="6_oet0a"]
 [ext_resource type="Texture2D" uid="uid://bxfu5nodorh87" path="res://Recursos/2D_Art/TabMenu/botao200.png" id="7_q76v0"]
 [ext_resource type="Texture2D" uid="uid://deu3s0e8xohwk" path="res://Recursos/2D_Art/TabMenu/trofeu200.png" id="8_5ua05"]
 [ext_resource type="Texture2D" uid="uid://dbungef2si10m" path="res://Recursos/2D_Art/TabMenu/engrenagem200.png" id="9_3gipf"]
+[ext_resource type="FontFile" uid="uid://b8f7dj4qbp66f" path="res://Recursos/Fontes/Baloo2-Bold.ttf" id="10_3gipf"]
 
-[node name="TabButtons_CanvasLayer" type="CanvasLayer" unique_id=64088362 node_paths=PackedStringArray("bottom_nav", "tela_elenco", "tela_torneios", "tela_config")]
+[sub_resource type="LabelSettings" id="LabelSettings_oet0a"]
+font = ExtResource("10_3gipf")
+font_size = 40
+font_color = Color(0.9384497, 0.9384497, 0.9384497, 1)
+outline_size = 13
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 22
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(3, 6)
+
+[node name="TabButtons_CanvasLayer" type="CanvasLayer" unique_id=64088362 node_paths=PackedStringArray("bottom_nav", "tela_elenco", "tela_torneios", "tela_config", "tela_selection")]
 script = ExtResource("1_lhvel")
 bottom_nav = NodePath("BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer")
 tela_elenco = NodePath("RaizSubcenas_Control/ElencoMenu_Control")
 tela_torneios = NodePath("RaizSubcenas_Control/MenuTorneio_Control")
 tela_config = NodePath("RaizSubcenas_Control/Configuracoes_Control")
+tela_selection = NodePath("RaizSubcenas_Control/TeamSelection")
 
 [node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("2_yjeje")]
 
@@ -36,6 +49,10 @@ layout_mode = 1
 layout_mode = 1
 
 [node name="Configuracoes_Control" parent="RaizSubcenas_Control" unique_id=506933663 instance=ExtResource("5_5ua05")]
+visible = false
+layout_mode = 1
+
+[node name="TeamSelection" parent="RaizSubcenas_Control" unique_id=236353647 instance=ExtResource("6_oet0a")]
 visible = false
 layout_mode = 1
 
@@ -119,6 +136,27 @@ grow_vertical = 2
 texture = ExtResource("8_5ua05")
 expand_mode = 1
 
+[node name="Selection_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=904572006]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("2_lhvel")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/Selection_TextureButton" unique_id=1252831660]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Vs"
+label_settings = SubResource("LabelSettings_oet0a")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Configurações_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1360778727]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -144,16 +182,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_3gipf")
 expand_mode = 1
-
-[node name="TextureButton4" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=904572006]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-texture_normal = ExtResource("2_lhvel")
-ignore_texture_size = true
-stretch_mode = 0
 
 [node name="TextureButton5" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1004607767]
 visible = false

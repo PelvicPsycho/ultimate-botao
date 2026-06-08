@@ -10,6 +10,8 @@ extends CanvasLayer
 ## Arraste o nó Control raiz do seu Menu de Configurações aqui
 @export var tela_config: Control
 
+@export var tela_selection: Control
+
 var tela_atual: Control = null
 
 # Configurações de "Gamefeel"
@@ -62,6 +64,8 @@ func _on_button_up(button: TextureButton):
 			_alternar_telas(tela_torneios)
 		"Configurações_TextureButton":
 			_alternar_telas(tela_config)
+		"Selection_TextureButton":
+			_alternar_telas(tela_selection)
 
 # Função central que esconde o que não importa e mostra o alvo
 func _alternar_telas(tela_alvo: Control) -> void:
@@ -73,6 +77,7 @@ func _alternar_telas(tela_alvo: Control) -> void:
 	if tela_elenco: tela_elenco.hide()
 	if tela_torneios: tela_torneios.hide()
 	if tela_config: tela_config.hide()
+	if tela_selection: tela_selection.hide()
 	
 	# 3. Mostra apenas a tela que o botão mandou e atualiza o rastreador
 	if tela_alvo:
@@ -106,3 +111,7 @@ func _animate_to_normal(button: TextureButton):
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(button, "scale", Vector2(1.0, 1.0), REBOUND_TIME).set_ease(Tween.EASE_OUT)
 	tween.tween_property(button, "modulate", Color(1.0, 1.0, 1.0), REBOUND_TIME)
+
+
+func _on_versus_texture_button_pressed():
+	pass # Replace with function body.

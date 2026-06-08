@@ -122,8 +122,12 @@ func _on_begin_timeout():
 	timer.partida_rodando = true
 
 func loadMatch():
-	homeTeam = CupManager.myTeam
-	awayTeam = CupManager.currentCompetitor
+	if not PvPManager.isPvpMatch:
+		homeTeam = CupManager.myTeam
+		awayTeam = CupManager.currentCompetitor
+	else:
+		homeTeam = PvPManager.teams[0]
+		awayTeam = PvPManager.teams[1]
 	homeScore = 0
 	awayScore = 0
 	rallyCounter = 1

@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://b3shgpcl0crs7"]
+
+[ext_resource type="Script" uid="uid://bkpafmlh7nha6" path="res://Componentes/TabButtons/PvP Team Selection/team_selection.gd" id="1_n7c7g"]
+[ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="1_qw41b"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_wjaw6"]
+[ext_resource type="Resource" uid="uid://br5rcbidbt114" path="res://Recursos/Teams/MyTeam/MyTeam.tres" id="3_wkbut"]
+[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="4_g60so"]
+[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="5_txho2"]
+[ext_resource type="Resource" uid="uid://b0p46wodrhjlf" path="res://Recursos/Teams/ThunderDogs/ThunderDogs.tres" id="6_dv0xu"]
+[ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="7_wkbut"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g60so"]
+bg_color = Color(0.09803922, 0.44705883, 0.60784316, 0.5882353)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+expand_margin_left = 64.0
+expand_margin_top = 16.0
+expand_margin_right = 64.0
+expand_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wkbut"]
+bg_color = Color(0.05706004, 0.31745508, 0.43703923, 0.5882353)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+expand_margin_left = 72.0
+expand_margin_top = 24.0
+expand_margin_right = 72.0
+expand_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_txho2"]
+bg_color = Color(0.05882353, 0.31764707, 0.43529412, 0.5882353)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+expand_margin_left = 64.0
+expand_margin_top = 16.0
+expand_margin_right = 64.0
+expand_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dv0xu"]
+bg_color = Color(0.008918604, 0.11136327, 0.16388047, 0.5882353)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+expand_margin_left = 64.0
+expand_margin_top = 16.0
+expand_margin_right = 64.0
+expand_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wc0ug"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.09803922, 0.44705883, 0.60784316, 0.5882353)
+border_width_left = 6
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+corner_detail = 6
+shadow_size = 12
+shadow_offset = Vector2(-5, 5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_n7c7g"]
+font = ExtResource("1_qw41b")
+font_size = 64
+
+[node name="TeamSelection" type="Control" unique_id=236353647]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n7c7g")
+teams = Array[ExtResource("2_wjaw6")]([ExtResource("3_wkbut"), ExtResource("4_g60so"), ExtResource("5_txho2"), ExtResource("6_dv0xu")])
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=649607230]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 96
+
+[node name="Button" type="Button" parent="MarginContainer" unique_id=483220515]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("7_wkbut")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_g60so")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wkbut")
+theme_override_styles/hover = SubResource("StyleBoxFlat_txho2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_dv0xu")
+text = "Next"
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1481138577]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -400.0
+offset_right = 500.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wc0ug")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1067369605]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1211390258]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1059751477]
+layout_mode = 2
+text = "Select Teams"
+label_settings = SubResource("LabelSettings_n7c7g")
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=709094144]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 4
+
+[connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]
