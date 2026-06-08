@@ -238,7 +238,9 @@ func onGoal(isHome: bool) -> void:
 	if homeScore > 2 or awayScore > 2:
 		var vencedor = homeTeam.name if homeScore > awayScore else awayTeam.name
 		endMatch(vencedor)
-		
+	
+	if timer.tipo_do_timer == 1:
+		timer.resetAllChessTimers()
 	_atualizar_placar()
 
 func onClickedPiece(piece: PhysicsPlayer2D) -> void:
@@ -249,7 +251,8 @@ func onClickedPiece(piece: PhysicsPlayer2D) -> void:
 
 func onTurnPlayed() -> void:
 	congelar_jogo(true)
-	#timer.rodando_lance()
+	if timer.tipo_do_timer == 1:
+		timer.pauseChessTimer()
 	if timer.tipo_do_timer == timer.TimerType.CHESS:
 		if currentTurn == turn.HOME and timer.homeTimeRemaining <= 10.0:
 			timer.addTime(true)
@@ -260,7 +263,8 @@ func onTurnPlayed() -> void:
 		return
 		
 	congelar_jogo(false)
-	#timer.acabando_lance()
+	if timer.tipo_do_timer == 1:
+		timer.resumeChessTimer()
 	if timer.tipo_do_timer == timer.TimerType.SHOTS:
 		timer.countShot()
 	if timer.tipo_do_timer == timer.TimerType.TIMER:
