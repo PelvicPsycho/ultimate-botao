@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_juacb"]
 [ext_resource type="Texture2D" uid="uid://d0tpdnmythooq" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816125593-removebg-preview.png" id="1_t748s"]
+[ext_resource type="VideoStream" uid="uid://cd6lg2wswqy5n" path="res://Recursos/WebM/Carta_aumentoForca.ogv" id="3_jln1e"]
 
 [resource]
 script = ExtResource("1_juacb")
@@ -9,6 +10,7 @@ id_unico = &"bola_leve_00"
 nome = "Bola leve"
 custo_energia = 1
 arte = ExtResource("1_t748s")
+video_preview = ExtResource("3_jln1e")
 descricao = "Bola fica mais leve "
 tipo_alvo = 1
 magnitude = 5

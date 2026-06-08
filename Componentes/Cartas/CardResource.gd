@@ -25,6 +25,7 @@ enum TipoAlvo {
 @export var nome: String = ""
 @export var custo_energia: int = 0
 @export var arte: Texture2D
+@export var video_preview: VideoStream
 @export var descricao: String = ""
 @export var tipo_efeito: TipoEfeito
 @export var tipo_alvo: TipoAlvo

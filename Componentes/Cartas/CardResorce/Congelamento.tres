@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_fid8b"]
 [ext_resource type="Texture2D" uid="uid://b71b3s61p6ar0" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816127033-removebg-preview.png" id="1_w2tvo"]
+[ext_resource type="VideoStream" uid="uid://my3ruhqdlh01" path="res://Recursos/WebM/CartaCongelamento.ogv" id="3_0c2s5"]
 
 [resource]
 script = ExtResource("1_fid8b")
@@ -9,6 +10,7 @@ id_unico = &"congelar_01"
 nome = "Congelamento"
 custo_energia = 5
 arte = ExtResource("1_w2tvo")
+video_preview = ExtResource("3_0c2s5")
 tipo_efeito = 2
 magnitude = 2
 duracao = 2

@@ -63,6 +63,8 @@ var sort_mode := 0  # 0 = ordem original, 1 = A-Z, 2 = Rank
 @export_group("Janela Central - Carta")
 @export var slots_que_ocupa_hbox: HBoxContainer
 @export var icone_de_slot_textura: Texture2D
+@export var thumbnail_video_wrapper: Control #Janela central
+@export var central_video_player: VideoStreamPlayer
 
 @export_group("Janela Direita")
 @export var right_nome_label: Label
@@ -82,6 +84,15 @@ var sort_mode := 0  # 0 = ordem original, 1 = A-Z, 2 = Rank
 @export var cena_item_peca: PackedScene
 @export var cena_carta_pequena: PackedScene
 
+@export_group("Sistema de Vídeo Cinema")
+@export var overlay_video: Control
+@export var fundo_escuro: ColorRect
+@export var video_container: Control
+@export var popup_video_player: VideoStreamPlayer
+@export var btn_abrir_video: TextureButton
+@export var btn_fechar_video: Button
+
+
 
 # --- INICIALIZAÇÃO ---
 func _ready() -> void:
@@ -91,6 +102,9 @@ func _ready() -> void:
 	_switch_tab(CategoryTab.PIECES)
 	_clear_center_window()
 	_atualizar_visuais_dos_filtros()
+	btn_abrir_video.pressed.connect(_abrir_modo_cinema)
+	# O botão de fechar é a área invisível que cobre a tela toda
+	btn_fechar_video.pressed.connect(_fechar_modo_cinema)
 
 func _connect_signals() -> void:
 	for i in range(slot_buttons.size()):
@@ -339,6 +353,30 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 		
 		central_descricao_label.text = _gerar_texto_detalhado_carta(item)
 		
+		# --- LÓGICA DO THUMBNAIL DE VÍDEO ---
+		if "video_preview" in item and item.video_preview != null:
+			thumbnail_video_wrapper.visible = true
+			
+			# Tira o pause da inspeção anterior ANTES de trocar o vídeo!
+			central_video_player.paused = false 
+			
+			# Carrega o vídeo e dá o Play invisível
+			central_video_player.stream = item.video_preview
+			central_video_player.play()
+			
+			# Esperamos a placa de vídeo desenhar o frame na tela
+			await get_tree().process_frame
+			await get_tree().process_frame
+			
+			# Agora que o frame está na tela, congelamos o vídeo!
+			central_video_player.paused = true
+			
+		else:
+			# Não tem vídeo
+			thumbnail_video_wrapper.visible = false
+			central_video_player.paused = false # Despausa por segurança
+			central_video_player.stop()
+		
 		if item.arte:
 			central_arte_rect.texture = item.arte
 			
@@ -503,6 +541,12 @@ func _clear_center_window() -> void:
 	central_nome_label.text = "" 
 	central_descricao_label.text = ""
 	if central_arte_rect: central_arte_rect.texture = null
+	
+	if thumbnail_video_wrapper:
+		thumbnail_video_wrapper.visible = false
+	if central_video_player:
+		central_video_player.paused = false
+		central_video_player.stop()
 	
 	center_action_label.text = "Ação" 
 	center_action_label.modulate = Color.WHITE
@@ -782,3 +826,82 @@ func _reorganizar_slots_da_peca(peca: TeamPlayer) -> void:
 		
 	# 4. Substitui o array velho e bagunçado pelo novo e organizado!
 	peca.slotsUpgrates = array_limpo
+
+func _abrir_modo_cinema() -> void:
+	if not item_em_inspecao is CardResource or item_em_inspecao.video_preview == null:
+		return
+
+	# 1. Carrega o vídeo, dá Play e Pausa "em silêncio"
+	popup_video_player.stream = item_em_inspecao.video_preview
+	popup_video_player.play()
+	popup_video_player.paused = true 
+	
+	# Espera cirurgicamente 2 frames pro motor ler o cabeçalho do arquivo .ogv
+	await get_tree().process_frame
+	await get_tree().process_frame
+	
+	# 2. Descobre a Resolução Nativa do Vídeo (ex: 1920x1080, 800x600)
+	var tamanho_video = Vector2(640, 480) # Tamanho reserva de segurança
+	var textura_video = popup_video_player.get_video_texture()
+	if textura_video and textura_video.get_size() != Vector2.ZERO:
+		tamanho_video = textura_video.get_size()
+		
+	# 3. Matemática de Limites (Proporção da Tela)
+	var tamanho_tela = get_viewport_rect().size
+	var margem = 100.0 # Borda de respiro para o vídeo não encostar nas laterais
+	var limite_maximo = tamanho_tela - Vector2(margem, margem)
+	
+	# Calcula o quanto precisamos encolher o vídeo para caber na tela
+	var escala_x = limite_maximo.x / tamanho_video.x
+	var escala_y = limite_maximo.y / tamanho_video.y
+	
+	# Pega a MENOR escala. Isso garante que o aspecto original (Aspect Ratio) seja mantido!
+	var escala_final = min(escala_x, min(escala_y, 1.0)) 
+	
+	# O tamanho perfeito calculado em pixels
+	var tamanho_final = tamanho_video * escala_final
+	
+	# 4. Aplica o tamanho na caixa
+	video_container.custom_minimum_size = tamanho_final
+	video_container.size = tamanho_final
+	# Centraliza o pivô da caixa para a animação de Zoom sair do meio perfeito
+	video_container.pivot_offset = tamanho_final / 2 
+	
+	# 5. Configura as posições do Tween
+	overlay_video.visible = true
+	var centro_do_botao = btn_abrir_video.global_position + (btn_abrir_video.size / 2)
+	
+	# Ajusta as posições X e Y descontando o tamanho da própria caixa
+	var pos_inicial = centro_do_botao - (tamanho_final / 2)
+	var pos_centro_tela = (tamanho_tela / 2) - (tamanho_final / 2)
+	
+	video_container.global_position = pos_inicial
+	video_container.scale = Vector2(0.1, 0.1)
+	video_container.modulate.a = 0
+	fundo_escuro.modulate.a = 0
+	
+	# 6. A Mágica Animada
+	var tween = create_tween().set_parallel(true)
+	tween.tween_property(video_container, "global_position", pos_centro_tela, 0.4).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.tween_property(video_container, "scale", Vector2(1.0, 1.0), 0.4).set_trans(Tween.TRANS_QUINT)
+	tween.tween_property(video_container, "modulate:a", 1.0, 0.3)
+	tween.tween_property(fundo_escuro, "modulate:a", 1.0, 0.4)
+	
+	# 7. Solta o Play!
+	popup_video_player.paused = false
+
+
+func _fechar_modo_cinema() -> void:
+	# Calcula de volta a posição exata do botão para a janela "ser sugada" por ele
+	var centro_do_botao = btn_abrir_video.global_position + (btn_abrir_video.size / 2)
+	var pos_alvo = centro_do_botao - (video_container.size / 2)
+	
+	var tween = create_tween().set_parallel(true)
+	tween.tween_property(video_container, "global_position", pos_alvo, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween.tween_property(video_container, "scale", Vector2(0.1, 0.1), 0.3)
+	tween.tween_property(video_container, "modulate:a", 0.0, 0.2)
+	tween.tween_property(fundo_escuro, "modulate:a", 0.0, 0.3)
+	
+	await tween.finished
+	overlay_video.visible = false
+	popup_video_player.stop()

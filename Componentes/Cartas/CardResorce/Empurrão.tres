@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://17vyiih10lcw" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779817167916-removebg-preview.png" id="1_fk81x"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_sgwkw"]
+[ext_resource type="VideoStream" uid="uid://skjxt3odaail" path="res://Recursos/WebM/CartaParaemurrrarColega.ogv" id="3_7tvs0"]
 
 [resource]
 script = ExtResource("1_sgwkw")
@@ -9,6 +10,7 @@ id_unico = &"empurrao_aliado_01"
 nome = "Carta Empurradinha Aliada"
 custo_energia = 3
 arte = ExtResource("1_fk81x")
+video_preview = ExtResource("3_7tvs0")
 tipo_efeito = 3
 magnitude = 3
 custoSlotes = 1

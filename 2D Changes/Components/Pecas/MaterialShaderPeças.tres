@@ -12,3 +12,5 @@ shader_parameter/angle = 40.9090019431775
 shader_parameter/sprite_tint = Color(0.9255518, 0.5382809, 0.14684999, 1)
 shader_parameter/overlay_texture = ExtResource("2_rgjlk")
 shader_parameter/overlay_mix_amount = 0.250000011875
+shader_parameter/stretch_direction = Vector2(0, 1)
+shader_parameter/stretch_amount = 0.0

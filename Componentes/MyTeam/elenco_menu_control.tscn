@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://d0h3cghqr1iun" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="13_2ysy5"]
 [ext_resource type="Texture2D" uid="uid://dnafvuhag1c13" path="res://Recursos/2D_Art/MyTeam/Rectangle 24.png" id="13_3c3cq"]
 [ext_resource type="PackedScene" uid="uid://cc3vpg1b6h3m6" path="res://Componentes/MyTeam/banner_colorido_control.tscn" id="16_2ysy5"]
+[ext_resource type="Texture2D" uid="uid://c514sn5s761li" path="res://Recursos/2D_Art/MyTeam/botaoplay2.png" id="16_bqv65"]
+[ext_resource type="VideoStream" uid="uid://my3ruhqdlh01" path="res://Recursos/WebM/CartaCongelamento.ogv" id="18_bqv65"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3c3cq"]
 content_margin_left = 0.0
@@ -51,7 +53,43 @@ border_blend = true
 corner_radius_top_right = 40
 corner_radius_bottom_right = 40
 
-[node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "az_filter_btn", "rank_filter_btn", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_pai_margincontainer", "center_plainmsg_vbox", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a48m1"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_603hy"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8quf"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "az_filter_btn", "rank_filter_btn", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_pai_margincontainer", "center_plainmsg_vbox", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "thumbnail_video_wrapper", "central_video_player", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox", "overlay_video", "fundo_escuro", "video_container", "popup_video_player", "btn_abrir_video", "btn_fechar_video")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,7 +110,7 @@ rank_filter_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/Ma
 inventory_list = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/InventoryList_GridContainer")
 central_nome_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer/CW-ItemName_Label")
 central_descricao_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ItemDescription_RichTextLabel")
-central_arte_rect = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ItemIMG_TextureRect")
+central_arte_rect = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer/ItemIMG_TextureRect")
 center_action_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/MarginContainer/ActionButton_Button")
 center_action_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/MarginContainer/ActionButton_Button/EquipTrocar_Label")
 center_card_view = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer")
@@ -87,6 +125,8 @@ center_peca_slots_hbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxConta
 cw_contagem_slots_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer/CW_ContagemSlots_Label")
 slots_que_ocupa_hbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/SlotsQueOcupa_HBoxContainer")
 icone_de_slot_textura = ExtResource("2_1feu8")
+thumbnail_video_wrapper = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer/ThumbnailVideo_Control")
+central_video_player = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer")
 right_nome_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/PieceNameTitle_Label")
 right_window_stats = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/StatsLabel_RichTextLabel")
 right_window_grid = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control/EquippedCards_GridContainer")
@@ -99,6 +139,12 @@ icone_slot_livre = ExtResource("3_i1aih")
 cena_item_carta = ExtResource("2_mjelh")
 cena_item_peca = ExtResource("7_3c3cq")
 cena_carta_pequena = ExtResource("13_2ysy5")
+overlay_video = NodePath("VideoPreviewOverlay_Control")
+fundo_escuro = NodePath("VideoPreviewOverlay_Control/ColorRect")
+video_container = NodePath("VideoPreviewOverlay_Control/VideoContainer_Control")
+popup_video_player = NodePath("VideoPreviewOverlay_Control/VideoContainer_Control/PopupVideo_VideoStreamPlayer")
+btn_abrir_video = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer/AbrirVideo_TextureButton")
+btn_fechar_video = NodePath("VideoPreviewOverlay_Control/FecharVideo_Button")
 
 [node name="MainMargin_MarginContainer" type="MarginContainer" parent="." unique_id=259902652]
 layout_mode = 1
@@ -581,6 +627,7 @@ theme_override_constants/separation = 20
 layout_mode = 2
 
 [node name="CW-PecaName_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer" unique_id=236634062]
+visible = false
 layout_mode = 2
 
 [node name="CW-ItemName_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer" unique_id=1025454950]
@@ -621,11 +668,50 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="ItemIMG_TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer" unique_id=568094045]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer" unique_id=69626756]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
+
+[node name="ItemIMG_TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer" unique_id=568094045]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
+
+[node name="ThumbnailVideo_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer" unique_id=919748990]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="CentralVideo_VideoStreamPlayer" type="VideoStreamPlayer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer/ThumbnailVideo_Control" unique_id=1897566612]
+custom_minimum_size = Vector2(140, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("18_bqv65")
+expand = true
+loop = true
+
+[node name="AbrirVideo_TextureButton" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer" unique_id=338878200]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("16_bqv65")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="ItemDescription_RichTextLabel" type="RichTextLabel" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer" unique_id=383872329]
 custom_minimum_size = Vector2(300, 10)
@@ -886,3 +972,52 @@ offset_bottom = -175.00006
 grow_horizontal = 0
 grow_vertical = 2
 rotation = 1.7453293
+
+[node name="VideoPreviewOverlay_Control" type="Control" parent="." unique_id=1463757000]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="VideoPreviewOverlay_Control" unique_id=1721531478]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7058824)
+
+[node name="VideoContainer_Control" type="Control" parent="VideoPreviewOverlay_Control" unique_id=706544597]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PopupVideo_VideoStreamPlayer" type="VideoStreamPlayer" parent="VideoPreviewOverlay_Control/VideoContainer_Control" unique_id=350876441]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("18_bqv65")
+expand = true
+loop = true
+
+[node name="FecharVideo_Button" type="Button" parent="VideoPreviewOverlay_Control" unique_id=1838593146]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_a48m1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_603hy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y8quf")
