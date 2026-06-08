@@ -253,6 +253,8 @@ func onTurnPlayed() -> void:
 	congelar_jogo(true)
 	if timer.tipo_do_timer == 1:
 		timer.pauseChessTimer()
+	elif timer.tipo_do_timer == 0:
+		timer.pauseOngoingPlayFlag()
 	if timer.tipo_do_timer == timer.TimerType.CHESS:
 		if currentTurn == turn.HOME and timer.homeTimeRemaining <= 10.0:
 			timer.addTime(true)
@@ -265,6 +267,8 @@ func onTurnPlayed() -> void:
 	congelar_jogo(false)
 	if timer.tipo_do_timer == 1:
 		timer.resumeChessTimer()
+	elif timer.tipo_do_timer == 0:
+		timer.resumeOngoingPlayFlag()
 	if timer.tipo_do_timer == timer.TimerType.SHOTS:
 		timer.countShot()
 	if timer.tipo_do_timer == timer.TimerType.TIMER:

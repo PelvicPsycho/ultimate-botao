@@ -11,6 +11,8 @@ signal lance_label_changed(isHome: bool, value: float)
 
 @export var tipo_do_timer: TimerType = TimerType.TIMER
 
+var pauseOnGoingPlay: bool = false
+
 func _ready() -> void:
 	tipo_do_timer  = GameState.TimerType
 	match tipo_do_timer:
@@ -88,6 +90,12 @@ func pausar_lance() -> void:
 
 func retomar_lance() -> void:
 	pausado = false
+
+func pauseOngoingPlayFlag():
+	pauseOnGoingPlay = true
+
+func resumeOngoingPlayFlag():
+	pauseOnGoingPlay = false
 
 func parar_tudo() -> void:
 	lance_rodando = false
@@ -185,7 +193,7 @@ func _process(delta: float) -> void:
 				tempo_partida_restante -= delta
 				time_label_changed.emit(tempo_partida_restante)
 				# emitir o label changed pra progress bar de lance
-				if lance_rodando:
+				if lance_rodando and !pauseOnGoingPlay:
 					tempo_lance_restante -= delta
 					lance_label_changed.emit(isHomeTurn, tempo_lance_restante)
 					if tempo_lance_restante <= 5.0 and not tocando_alerta:
