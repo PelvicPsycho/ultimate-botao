@@ -3,8 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_4sctd"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_d62rq"]
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_oysnk"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="3_q4ies"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_je7mx"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_jqdya"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="4_sy1rd"]
 [ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="5_jqdya"]
 
 [resource]
@@ -17,5 +19,6 @@ textura_peca = ExtResource("4_je7mx")
 material_shader = ExtResource("2_d62rq")
 quantosSlotes = 1
 slotsUpgrates = Array[ExtResource("4_jqdya")]([ExtResource("5_jqdya")])
+mao_cartas = Array[ExtResource("4_jqdya")]([ExtResource("3_q4ies"), ExtResource("4_sy1rd")])
 PA = 8
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

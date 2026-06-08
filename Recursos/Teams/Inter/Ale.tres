@@ -3,9 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_hnuoy"]
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_fm0lg"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_i4x78"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="3_0p8uh"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_0b285"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_orxf8"]
-[ext_resource type="Resource" uid="uid://c2p5gvqgqqsos" path="res://Componentes/Cartas/CardResorce/CartaDefesa.tres" id="5_7jemp"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="4_tsawn"]
+[ext_resource type="Resource" uid="uid://cnyerld68fmwt" path="res://Componentes/Cartas/CardResorce/Congelamento.tres" id="5_kgg77"]
 
 [resource]
 script = ExtResource("2_fm0lg")
@@ -16,6 +18,6 @@ foto = ExtResource("1_hnuoy")
 textura_peca = ExtResource("4_orxf8")
 material_shader = ExtResource("2_i4x78")
 quantosSlotes = 5
-slotsUpgrates = Array[ExtResource("4_0b285")]([ExtResource("5_7jemp")])
+mao_cartas = Array[ExtResource("4_0b285")]([ExtResource("3_0p8uh"), ExtResource("4_tsawn"), ExtResource("5_kgg77")])
 PA = 3
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
