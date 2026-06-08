@@ -148,8 +148,19 @@ var homeTimeRemaining: float
 var awayTimeRemaining: float
 
 var isHomeTurn: bool = false
+var pauseChess: bool = false
 
 signal punishTeam(isHome: bool)
+
+func pauseChessTimer():
+	pauseChess = true
+
+func resumeChessTimer():
+	pauseChess = false
+
+func resetAllChessTimers():
+	homeTimeRemaining = homeTimeMax
+	awayTimeRemaining = awayTimeMax
 
 func addTime(isHome:bool):
 	if isHome:
@@ -197,13 +208,15 @@ func _process(delta: float) -> void:
 					
 			TimerType.CHESS:
 				if isHomeTurn:
-					homeTimeRemaining -= delta
+					if !pauseChess:
+						homeTimeRemaining -= delta
 					time_label_changed.emit(homeTimeRemaining)
 					lance_label_changed.emit(true, homeTimeRemaining)
 					if homeTimeRemaining <= 0.0:
 						punishTeam.emit(true)
 				else:
-					awayTimeRemaining -= delta
+					if !pauseChess:
+						awayTimeRemaining -= delta
 					time_label_changed.emit(awayTimeRemaining)
 					lance_label_changed.emit(false, awayTimeRemaining)
 					if awayTimeRemaining <= 0.0:
