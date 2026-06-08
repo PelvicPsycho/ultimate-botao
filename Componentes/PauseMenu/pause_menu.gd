@@ -5,9 +5,7 @@ var a_bola: PhysicsBall2D
 
 @onready var recursos: Array[Padrao] = [
 	preload("res://Recursos/Padroes/Padrao_Pavin_Fisica2D.tres"),
-	preload("res://Recursos/Padroes/PadraoVS.tres"),
 	preload("res://Recursos/Padroes/Padrao.tres"),
-	preload("res://Recursos/Padroes/PadraoIgor.tres"),
 	]
 
 @onready var padrao_atual: Padrao = recursos[0] 
@@ -15,6 +13,10 @@ var a_bola: PhysicsBall2D
 @onready var padrao_atual_index = 0
 
 @onready var label_padrao = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis/Label_Padrao"
+
+@onready var labelPosse = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer17/PosseHbox/Label_Posse"
+var posseTypes = ["Original", "Simplified", "Interspersed"]
+var posseIndex = 0
 
 func _ready():
 	# Garante que o menu comece invisível quando o jogo roda
@@ -48,9 +50,13 @@ func _ready():
 	pegar_todas_pecas()
 	pegar_a_bola()
 	carregar_recursos()
+	_sincronizar_sliders_com_player()
+	_sincronizar_sliders_com_bola()
 	
 	label_padrao.text = padrao_atual.name
 	set_padrao_atual()
+	
+	labelPosse.text = posseTypes[posseIndex]
 
 
 func _unhandled_input(event):
@@ -97,8 +103,54 @@ func pegar_todas_pecas():
 	Pecas_Jogo.clear()
 	var nodes_pecas = get_tree().get_nodes_in_group("Players")
 	for node in nodes_pecas:
-		if node is Player:
-			Pecas_Jogo.append(node as Player)
+		if node is PhysicsPlayer2D:
+			Pecas_Jogo.append(node as PhysicsPlayer2D)
+
+func _sincronizar_sliders_com_player() -> void:
+	if Pecas_Jogo.is_empty():
+		return
+	var peca := Pecas_Jogo[0]
+	if peca == null or peca.playerInfo_atual == null:
+		return
+
+	%ForcaMultiplicador.set_value_no_signal(peca.playerInfo_atual.basic_min_force)
+	%ForcaMaxima.set_value_no_signal(peca.playerInfo_atual.basic_max_force)
+	%DistanciaRaio.set_value_no_signal(peca.playerInfo_atual.basic_mass)
+	%Friccao.set_value_no_signal(peca.playerInfo_atual.basic_friction)
+	%Bounce.set_value_no_signal(peca.playerInfo_atual.basic_scale)
+
+	_on_forca_multiplicador_value_changed(peca.playerInfo_atual.basic_min_force)
+	_on_forca_maxima_value_changed(peca.playerInfo_atual.basic_max_force)
+	_on_distancia_raio_value_changed(peca.playerInfo_atual.basic_mass)
+	_on_friccao_value_changed(peca.playerInfo_atual.basic_friction)
+	_on_bounce_value_changed(peca.playerInfo_atual.basic_scale)
+
+func _atualizar_fisica_das_pecas() -> void:
+	for peca in Pecas_Jogo:
+		if peca == null or peca.playerInfo_atual == null:
+			continue
+		peca.atualizar_fisica_por_status()
+		peca.atualizar_peca_pelo_status()
+
+func _sincronizar_sliders_com_bola() -> void:
+	if a_bola == null:
+		return
+
+	%PesoBola.set_value_no_signal(a_bola.basic_mass)
+	%FriccaoBola.set_value_no_signal(a_bola.basic_friction)
+	%BounceBola.set_value_no_signal(a_bola.basic_scale)
+
+	_on_peso_bola_value_changed(a_bola.basic_mass)
+	_on_friccao_bola_value_changed(a_bola.basic_friction)
+	_on_bounce_bola_value_changed(a_bola.basic_scale)
+
+func _atualizar_fisica_da_bola() -> void:
+	if a_bola == null:
+		return
+	a_bola.mass = a_bola.basic_mass
+	a_bola.friction = a_bola.basic_friction
+	a_bola.scale = Vector2(a_bola.basic_scale, a_bola.basic_scale)
+	a_bola.radius = (a_bola.global_position - a_bola.Object_Radius.global_position).length()
 
 func pegar_a_bola():
 	a_bola = get_tree().get_first_node_in_group("Balls")
@@ -106,8 +158,9 @@ func pegar_a_bola():
 func _on_forca_multiplicador_value_changed(value: float) -> void:
 	var labelValor = %ForcaMultiplicador.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	#for peca in Pecas_Jogo:
-		#peca.forca_multiplicador = value
+	for peca in Pecas_Jogo:
+		peca.playerInfo_atual.basic_min_force = value
+	_atualizar_fisica_das_pecas()
 	#print("forca_multiplicador - Not Updated to the physics 2D")
 
 func _on_forca_maxima_value_changed(value: float) -> void:
@@ -115,45 +168,44 @@ func _on_forca_maxima_value_changed(value: float) -> void:
 	labelValor.text = str(value)
 	print("forca maxima value = ", value)
 	for peca in Pecas_Jogo:
-		peca.max_force = value
+		peca.playerInfo_atual.basic_max_force = value
+	_atualizar_fisica_das_pecas()
 
 func _on_distancia_raio_value_changed(value: float) -> void:
 	var labelValor = %DistanciaRaio.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	#for peca in Pecas_Jogo:
-		#peca.raio_saida_pixels = value
+	for peca in Pecas_Jogo:
+		peca.playerInfo_atual.basic_mass = value
+	_atualizar_fisica_das_pecas()
 	#print("distancia_raio - Not Updated to the physics 2D")
 
 func _on_friccao_value_changed(value: float) -> void:
 	var labelValor = %Friccao.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
 	for peca in Pecas_Jogo:
-		peca.friction = value
+		peca.playerInfo_atual.basic_friction = value
+	_atualizar_fisica_das_pecas()
 
 func _on_bounce_value_changed(value: float) -> void:
 	var labelValor = %Bounce.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	#for peca in Pecas_Jogo:
-		#peca.physics_material_override.bounce = value
-	#print("player bounce - Not Updated to the physics 2D")
-
-func _on_linear_damp_value_changed(value: float) -> void:
-	var labelValor = %LinearDamp.get_parent().get_node("ValorSlider")
-	labelValor.text = str(value)
-	#for peca in Pecas_Jogo:
-		#peca.linear_damp = value
-	#print("linear_damp player - Not Updated to the physics 2D")
+	for peca in Pecas_Jogo:
+		peca.playerInfo_atual.basic_scale = value
+		peca.default_visual_scale = Vector2(value, value)
+	_atualizar_fisica_das_pecas()
+	print("player bounce - Not Updated to the physics 2D")
 
 func _on_peso_bola_value_changed(value: float) -> void:
 	var labelValor = %PesoBola.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	a_bola.mass = value
+	a_bola.basic_mass = value
+	_atualizar_fisica_da_bola()
 
 func _on_bounce_bola_value_changed(value: float) -> void:
 	var labelValor = %BounceBola.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	#a_bola.physics_material_override.bounce = value
-	#print("bounce_bola - Not Updated to the physics 2D")
+	a_bola.basic_scale = value
+	_atualizar_fisica_da_bola()
 
 func _on_linear_damp_bola_value_changed(value: float) -> void:
 	var labelValor = %LinearDampBola.get_parent().get_node("ValorSlider")
@@ -164,59 +216,8 @@ func _on_linear_damp_bola_value_changed(value: float) -> void:
 func _on_friccao_bola_value_changed(value: float) -> void:
 	var labelValor = %FriccaoBola.get_parent().get_node("ValorSlider")
 	labelValor.text = str(value)
-	a_bola.friction = value
-
-func _on_shakedown_amp_min_value_changed(value):
-	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10/ShakedownAmpMin"
-	var labelValor = label.get_parent().get_node("ValorSlider")
-	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.shake_amplitude_min = value
-
-
-func _on_shakedown_amp_max_value_changed(value):
-	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer11/ShakedownAmpMax"
-	var labelValor = label.get_parent().get_node("ValorSlider")
-	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.shake_amplitude_max = value
-
-
-func _on_shakedown_freq_min_value_changed(value):
-	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer12/ShakedownFreqMin"
-	var labelValor = label.get_parent().get_node("ValorSlider")
-	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.shake_frequency_min = value
-
-
-func _on_shakedown_freq_max_value_changed(value):
-	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer13/ShakedownFreqMax"
-	var labelValor = label.get_parent().get_node("ValorSlider")
-	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.shake_frequency_max = value
-
-func _on_shake_duration_min_value_changed(value):
-	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer14/ShakeDurationMin"
-	var labelValor = label.get_parent().get_node("ValorSlider")
-	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.shake_duration_min = value
-
-func _on_shake_duration_max_value_changed(value):
-	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer15/ShakeDurationMax"
-	var labelValor = label.get_parent().get_node("ValorSlider")
-	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.shake_duration_max = value
-
-func _on_line_max_value_changed(value):
-	var label = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer16/lineMax"
-	var labelValor = label.get_parent().get_node("ValorSlider")
-	labelValor.text = str(value)
-	for peca in Pecas_Jogo:
-		peca.tamanho_maximo_linha = value
+	a_bola.basic_friction = value
+	_atualizar_fisica_da_bola()
 
 func _on_padrao_pressed() -> void:
 	padrao_atual_index += 1
@@ -242,137 +243,125 @@ func _on_padrao_2_pressed() -> void:
 	
 func set_padrao_atual():
 	#Jogador
-	%ForcaMultiplicador.set_value_no_signal(padrao_atual.forca_multiplicador)
-	%ForcaMaxima.set_value_no_signal(padrao_atual.forca_maxima)
-	%DistanciaRaio.set_value_no_signal(padrao_atual.distancia_raio_visual)
-	%Friccao.set_value_no_signal(padrao_atual.friccao_jogador)
-	%Bounce.set_value_no_signal(padrao_atual.bounce_jogador)
-	%LinearDamp.set_value_no_signal(padrao_atual.linear_damp_jogador)
-	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10/ShakedownAmpMin".set_value_no_signal(padrao_atual.shake_amplitude_min)
-	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer11/ShakedownAmpMax".set_value_no_signal(padrao_atual.shake_amplitude_max)
-	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer12/ShakedownFreqMin".set_value_no_signal(padrao_atual.shake_frequency_min)
-	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer13/ShakedownFreqMax".set_value_no_signal(padrao_atual.shake_frequency_max)
-	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer14/ShakeDurationMin".set_value_no_signal(padrao_atual.shake_duration_min)
-	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer15/ShakeDurationMax".set_value_no_signal(padrao_atual.shake_duration_max)
-	_on_forca_multiplicador_value_changed(padrao_atual.forca_multiplicador)
-	_on_forca_maxima_value_changed(padrao_atual.forca_maxima)
-	_on_distancia_raio_value_changed(padrao_atual.distancia_raio_visual)
-	_on_friccao_value_changed(padrao_atual.friccao_jogador)
-	_on_bounce_value_changed(padrao_atual.bounce_jogador)
-	_on_linear_damp_value_changed(padrao_atual.linear_damp_jogador)
-	_on_shakedown_amp_min_value_changed(padrao_atual.shake_amplitude_min)
-	_on_shakedown_amp_max_value_changed(padrao_atual.shake_amplitude_max)
-	_on_shakedown_freq_min_value_changed(padrao_atual.shake_frequency_min)
-	_on_shakedown_freq_max_value_changed(padrao_atual.shake_frequency_max)
-	_on_shake_duration_min_value_changed(padrao_atual.shake_duration_min)
-	_on_shake_duration_max_value_changed(padrao_atual.shake_duration_max)
+	%ForcaMultiplicador.set_value_no_signal(padrao_atual.jogador_basic_min_force)
+	%ForcaMaxima.set_value_no_signal(padrao_atual.jogador_basic_max_force)
+	%DistanciaRaio.set_value_no_signal(padrao_atual.jogador_basic_mass)
+	%Friccao.set_value_no_signal(padrao_atual.jogador_basic_friction)
+	%Bounce.set_value_no_signal(padrao_atual.jogador_basic_scale)
+	_on_forca_multiplicador_value_changed(padrao_atual.jogador_basic_min_force)
+	_on_forca_maxima_value_changed(padrao_atual.jogador_basic_max_force)
+	_on_distancia_raio_value_changed(padrao_atual.jogador_basic_mass)
+	_on_friccao_value_changed(padrao_atual.jogador_basic_friction)
+	_on_bounce_value_changed(padrao_atual.jogador_basic_scale)
 	
 	#Bola
-	%FriccaoBola.set_value_no_signal(padrao_atual.friccao_bola)
-	%BounceBola.set_value_no_signal(padrao_atual.bounce_bola)
-	%PesoBola.set_value_no_signal(padrao_atual.peso_bola)
-	%LinearDampBola.set_value_no_signal(padrao_atual.linear_damp_bola)
-	_on_friccao_bola_value_changed(padrao_atual.friccao_bola)
-	_on_bounce_bola_value_changed(padrao_atual.bounce_bola)
-	_on_peso_bola_value_changed(padrao_atual.peso_bola)
-	_on_linear_damp_bola_value_changed(padrao_atual.linear_damp_bola)
+	%FriccaoBola.set_value_no_signal(padrao_atual.bola_basic_friction)
+	%BounceBola.set_value_no_signal(padrao_atual.bola_basic_scale)
+	%PesoBola.set_value_no_signal(padrao_atual.bola_basic_mass)
+	%BolaEscala.set_value_no_signal(padrao_atual.bola_basic_scale)
+	_on_friccao_bola_value_changed(padrao_atual.bola_basic_friction)
+	_on_bounce_bola_value_changed(padrao_atual.bola_basic_scale)
+	_on_peso_bola_value_changed(padrao_atual.bola_basic_mass)
+	_on_bola_escala_value_changed(padrao_atual.bola_basic_scale)
 
 func carregar_recursos():
 	if not FileAccess.file_exists("user://padroes.json"):
 		return
-	var f = FileAccess.open("user://padroes.json", FileAccess.READ)
-	var dados = JSON.parse_string(f.get_as_text())
-	f.close()
+	var f_custom_read = FileAccess.open("user://padroes.json", FileAccess.READ)
+	var dados = JSON.parse_string(f_custom_read.get_as_text())
+	f_custom_read.close()
 	if not dados is Array:
 		return
 	for entrada in dados:
 		var padrao = Padrao.new()
 		padrao.name = entrada.get("name", "Custom")
-		padrao.forca_multiplicador = entrada.get("forca_multiplicador", 0.0)
-		padrao.forca_maxima = entrada.get("forca_maxima", 0.0)
-		padrao.distancia_raio_visual = entrada.get("distancia_raio_visual", 0.0)
-		padrao.friccao_jogador = entrada.get("friccao_jogador", 0.0)
-		padrao.bounce_jogador = entrada.get("bounce_jogador", 0.0)
-		padrao.linear_damp_jogador = entrada.get("linear_damp_jogador", 0.0)
-		padrao.shake_amplitude_min = entrada.get("shake_amplitude_min", 0.0)
-		padrao.shake_amplitude_max = entrada.get("shake_amplitude_max", 0.0)
-		padrao.shake_frequency_min = entrada.get("shake_frequency_min", 0.0)
-		padrao.shake_frequency_max = entrada.get("shake_frequency_max", 0.0)
-		padrao.shake_duration_min = entrada.get("shake_duration_min", 0.0)
-		padrao.shake_duration_max = entrada.get("shake_duration_max", 0.0)
-		padrao.line_max = entrada.get("line_max", 0.0)
-		padrao.friccao_bola = entrada.get("friccao_bola", 0.0)
-		padrao.bounce_bola = entrada.get("bounce_bola", 0.0)
-		padrao.peso_bola = entrada.get("peso_bola", 0.0)
-		padrao.linear_damp_bola = entrada.get("linear_damp_bola", 0.0)
+		padrao.jogador_basic_min_force = entrada.get("jogador_basic_min_force", entrada.get("forca_multiplicador", 100.0))
+		padrao.jogador_basic_max_force = entrada.get("jogador_basic_max_force", entrada.get("forca_maxima", 1000.0))
+		padrao.jogador_basic_mass = entrada.get("jogador_basic_mass", entrada.get("distancia_raio_visual", 5.0))
+		padrao.jogador_basic_friction = entrada.get("jogador_basic_friction", entrada.get("friccao_jogador", 0.98))
+		padrao.jogador_basic_scale = entrada.get("jogador_basic_scale", entrada.get("bounce_jogador", 1.0))
+		padrao.bola_basic_min_force = entrada.get("bola_basic_min_force", 100.0)
+		padrao.bola_basic_max_force = entrada.get("bola_basic_max_force", 1000.0)
+		padrao.bola_basic_mass = entrada.get("bola_basic_mass", entrada.get("peso_bola", 5.0))
+		padrao.bola_basic_friction = entrada.get("bola_basic_friction", entrada.get("friccao_bola", 0.98))
+		padrao.bola_basic_scale = entrada.get("bola_basic_scale", entrada.get("bounce_bola", 1.0))
 		recursos.append(padrao)
 
 func _on_save_button_pressed():
-	var dados: Array = []
+	var dados_salvos: Array = []
 	if FileAccess.file_exists("user://padroes.json"):
-		var f = FileAccess.open("user://padroes.json", FileAccess.READ)
-		var parsed = JSON.parse_string(f.get_as_text())
-		f.close()
+		var arquivo_leitura = FileAccess.open("user://padroes.json", FileAccess.READ)
+		var parsed = JSON.parse_string(arquivo_leitura.get_as_text())
+		arquivo_leitura.close()
 		if parsed is Array:
-			dados = parsed
-	
-	var custom_count = 0
-	for r in recursos:
-		if r.name.begins_with("Custom"):
-			custom_count += 1
-	
+			dados_salvos = parsed
+
+	var quantidade_custom = 0
+	for recurso in recursos:
+		if recurso.name.begins_with("Custom"):
+			quantidade_custom += 1
+
 	var novo_padrao = Padrao.new()
-	novo_padrao.name = "Custom " + str(custom_count + 1)
-	
-	#if Pecas_Jogo.size() > 0:
-	for peca in Pecas_Jogo:
-		#var peca = Pecas_Jogo[0]
-		#novo_padrao.forca_multiplicador = peca.forca_multiplicador
-		novo_padrao.forca_maxima = peca.max_force
-		#novo_padrao.distancia_raio_visual = peca.raio_saida_pixels
-		novo_padrao.friccao_jogador = peca.friction
-		#novo_padrao.bounce_jogador = peca.physics_material_override.bounce
-		#novo_padrao.linear_damp_jogador = peca.linear_damp
-		novo_padrao.shake_amplitude_min = peca.shake_amplitude_min
-		novo_padrao.shake_amplitude_max = peca.shake_amplitude_max
-		novo_padrao.shake_frequency_min = peca.shake_frequency_min
-		novo_padrao.shake_frequency_max = peca.shake_frequency_max
-		novo_padrao.shake_duration_min = peca.shake_duration_min
-		novo_padrao.shake_duration_max = peca.shake_duration_max
-		novo_padrao.line_max = peca.tamanho_maximo_linha
-	
+	novo_padrao.name = "Custom " + str(quantidade_custom + 1)
+
+	if not Pecas_Jogo.is_empty() and Pecas_Jogo[0].playerInfo_atual != null:
+		var peca = Pecas_Jogo[0]
+		novo_padrao.jogador_basic_min_force = peca.playerInfo_atual.basic_min_force
+		novo_padrao.jogador_basic_max_force = peca.playerInfo_atual.basic_max_force
+		novo_padrao.jogador_basic_mass = peca.playerInfo_atual.basic_mass
+		novo_padrao.jogador_basic_friction = peca.playerInfo_atual.basic_friction
+		novo_padrao.jogador_basic_scale = peca.playerInfo_atual.basic_scale
+
 	if a_bola:
-		novo_padrao.friccao_bola = a_bola.friction
-		#novo_padrao.bounce_bola = a_bola.physics_material_override.bounce
-		novo_padrao.peso_bola = a_bola.mass
-		#novo_padrao.linear_damp_bola = a_bola.linear_damp
-	
-	dados.append({
+		novo_padrao.bola_basic_min_force = a_bola.basic_min_force
+		novo_padrao.bola_basic_max_force = a_bola.basic_max_force
+		novo_padrao.bola_basic_mass = a_bola.basic_mass
+		novo_padrao.bola_basic_friction = a_bola.basic_friction
+		novo_padrao.bola_basic_scale = a_bola.basic_scale
+
+	dados_salvos.append({
 		"name": novo_padrao.name,
-		"forca_multiplicador": novo_padrao.forca_multiplicador,
-		"forca_maxima": novo_padrao.forca_maxima,
-		"distancia_raio_visual": novo_padrao.distancia_raio_visual,
-		"friccao_jogador": novo_padrao.friccao_jogador,
-		"bounce_jogador": novo_padrao.bounce_jogador,
-		"linear_damp_jogador": novo_padrao.linear_damp_jogador,
-		"shake_amplitude_min": novo_padrao.shake_amplitude_min,
-		"shake_amplitude_max": novo_padrao.shake_amplitude_max,
-		"shake_frequency_min": novo_padrao.shake_frequency_min,
-		"shake_frequency_max": novo_padrao.shake_frequency_max,
-		"shake_duration_min": novo_padrao.shake_duration_min,
-		"shake_duration_max": novo_padrao.shake_duration_max,
-		"line_max": novo_padrao.line_max,
-		"friccao_bola": novo_padrao.friccao_bola,
-		"bounce_bola": novo_padrao.bounce_bola,
-		"peso_bola": novo_padrao.peso_bola,
-		"linear_damp_bola": novo_padrao.linear_damp_bola,
+		"jogador_basic_min_force": novo_padrao.jogador_basic_min_force,
+		"jogador_basic_max_force": novo_padrao.jogador_basic_max_force,
+		"jogador_basic_mass": novo_padrao.jogador_basic_mass,
+		"jogador_basic_friction": novo_padrao.jogador_basic_friction,
+		"jogador_basic_scale": novo_padrao.jogador_basic_scale,
+		"bola_basic_min_force": novo_padrao.bola_basic_min_force,
+		"bola_basic_max_force": novo_padrao.bola_basic_max_force,
+		"bola_basic_mass": novo_padrao.bola_basic_mass,
+		"bola_basic_friction": novo_padrao.bola_basic_friction,
+		"bola_basic_scale": novo_padrao.bola_basic_scale,
 	})
-	
-	var f = FileAccess.open("user://padroes.json", FileAccess.WRITE)
-	f.store_string(JSON.stringify(dados, "\t"))
-	f.close()
-	
+
+	var arquivo_escrita = FileAccess.open("user://padroes.json", FileAccess.WRITE)
+	arquivo_escrita.store_string(JSON.stringify(dados_salvos, "\t"))
+	arquivo_escrita.close()
+
 	recursos.append(novo_padrao)
 	padrao_atual_index = recursos.size() - 1
 	padrao_atual = novo_padrao
 	label_padrao.text = novo_padrao.name
+
+
+func _on_padrao_1_pressed():
+	posseIndex -= 1
+	if posseIndex < 0:
+		posseIndex = posseTypes.size() - 1
+	labelPosse.text = posseTypes[posseIndex]
+	$"..".turnDecider = posseIndex
+	print($"..".turnDecider)
+
+func _on_posse_back_pressed():
+	posseIndex += 1
+	if posseIndex > posseTypes.size() - 1:
+		posseIndex = 0
+	labelPosse.text = posseTypes[posseIndex]
+	$"..".turnDecider = posseIndex
+	print($"..".turnDecider)
+
+
+func _on_bola_escala_value_changed(value):
+	var labelValor = %BolaEscala.get_parent().get_node("ValorSlider")
+	labelValor.text = str(value)
+	a_bola.basic_scale = value
+	_atualizar_fisica_da_bola()

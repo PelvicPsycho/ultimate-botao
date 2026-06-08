@@ -5,21 +5,4 @@
 [resource]
 script = ExtResource("1_m3q6x")
 name = "Realist"
-forca_multiplicador = 0.05
-forca_maxima = 10.0
-distancia_raio_visual = 40.0
-friccao_jogador = 1.0
-bounce_jogador = 0.25
-linear_damp_jogador = 2.0
-shake_amplitude_min = 0.003
-shake_amplitude_max = 0.02
-shake_frequency_min = 10.0
-shake_frequency_max = 30.0
-shake_duration_min = 0.05
-shake_duration_max = 0.12
-line_max = 4.0
-friccao_bola = 1.0
-bounce_bola = 0.25
-peso_bola = 0.5
-linear_damp_bola = 2.0
 metadata/_custom_type_script = "uid://ejxtb67lkht7"

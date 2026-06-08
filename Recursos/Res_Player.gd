@@ -20,7 +20,7 @@ var time: Team
 @export var basic_max_force: float = 1000.0
 @export var basic_mass: float = 5.0
 @export var basic_friction: float = 0.98
-@export var basic_scale: float = 1
+@export var basic_scale: float = 0.75
 
 @export_group("Habilidades")
 @export_subgroup("Slots")

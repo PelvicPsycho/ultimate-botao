@@ -300,6 +300,7 @@ func selectFirstTurn() -> void:
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
 	for ball in allBalls:
 		ball.lastTouch = null
+		ball.firstTouch = null
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
 	IA_Contr.SetCurrentTeamSide(currentTurn)
 	%MatchUI.colorir_turno(active_team, turnCounter) 
@@ -317,6 +318,7 @@ func changeTurn() -> void:
 	rallyCounter = 2
 	for ball in allBalls:
 		ball.lastTouch = null
+		ball.firstTouch = null
 	atualizar_cores_pecas()
 	
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
@@ -337,6 +339,7 @@ func forceTurn(target: turn) -> void:
 	rallyCounter = 2
 	for ball in allBalls:
 		ball.lastTouch = null
+		ball.firstTouch = null
 	atualizar_cores_pecas()
 	
 	for piece in allPieces:
@@ -355,7 +358,7 @@ func forceTurn(target: turn) -> void:
 	carta_usada_no_turno = false
 
 enum TurnType {ORIGINAL, SIMPLIFIED, INTERSPERSED}
-@onready var turnDecider: TurnType = TurnType.INTERSPERSED
+@onready var turnDecider: TurnType = TurnType.SIMPLIFIED
 
 func decideTurn() -> void:
 	var por_erro: bool = true
@@ -367,48 +370,57 @@ func decideTurn() -> void:
 		match turnDecider:
 			0:
 				var lastTouch = ball.lastTouch
-				if lastTouch != null:
-					rallyCounter += 1
-					if isCorrectSide(lastTouch.team) and turnCounter < 2:
-						turnCounter += 1
-						ball.lastTouch = null
-				
+				if lastTouch == null:
+					continue
+
+				rallyCounter += 1
+				var toque_time_correto: bool = isCorrectSide(lastTouch.team)
+				if toque_time_correto and turnCounter < 2:
+					turnCounter += 1
 					if currentTurn == turn.HOME:
 						%MatchUI.colorir_turno(homeTeam,turnCounter)
 					else: 
 						%MatchUI.colorir_turno(awayTeam,turnCounter)
-				
+
 					if turnCounter < 2:
 						disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
 					else:
 						disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
 					IA_Contr.SetCurrentTeamSide(currentTurn)
-					return 
-				if lastTouch != null and isCorrectSide(lastTouch.team) and turnCounter >= 2:
+					ball.lastTouch = null
+					return
+
+				# Se o time correto tocou com turnCounter >= 2, segue para troca com som "mudou".
+				if toque_time_correto and turnCounter >= 2:
 					por_erro = false
 				ball.lastTouch = null
+				break
 			1:
 				var firstTouch = ball.firstTouch
-				if firstTouch != null:
-					rallyCounter += 1
-					if isCorrectSide(firstTouch.team) and turnCounter < 2:
-						turnCounter += 1
-						ball.firstTouch = null
-				
+				if firstTouch == null:
+					continue
+
+				rallyCounter += 1
+				var toque_time_correto_first: bool = isCorrectSide(firstTouch.team)
+				if toque_time_correto_first and turnCounter < 2:
+					turnCounter += 1
 					if currentTurn == turn.HOME:
 						%MatchUI.colorir_turno(homeTeam,turnCounter)
 					else: 
 						%MatchUI.colorir_turno(awayTeam,turnCounter)
-				
+
 					if turnCounter < 2:
 						disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
 					else:
 						disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
 					IA_Contr.SetCurrentTeamSide(currentTurn)
-					return 
-				if firstTouch != null and isCorrectSide(firstTouch.team) and turnCounter >= 2:
+					ball.firstTouch = null
+					return
+
+				if toque_time_correto_first and turnCounter >= 2:
 					por_erro = false
 				ball.firstTouch = null
+				break
 			2:
 				pass
 
