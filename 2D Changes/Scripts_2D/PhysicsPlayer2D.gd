@@ -341,19 +341,19 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 			var tw = create_tween().set_parallel(true)
 			tw.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 			var tempo = 0.4
-			
-			tw.tween_property(sprite2D_body, "global_position", pos_alvo, tempo)
-			tw.tween_property(alvo.sprite2D_body, "global_position", pos_self, tempo)
-			
-			if sprite2D_body and alvo.sprite2D_body:
-				var escala_base_self = sprite2D_body.scale
-				var escala_base_alvo = alvo.sprite2D_body.scale
-				
-				tw.tween_property(sprite2D_body, "scale", escala_base_self * 1.2, tempo / 2.0)
-				tw.tween_property(alvo.sprite2D_body, "scale", escala_base_alvo * 1.2, tempo / 2.0)
-				tw.chain().tween_property(sprite2D_body, "scale", escala_base_self, tempo / 2.0)
-				tw.tween_property(alvo.sprite2D_body, "scale", escala_base_alvo, tempo / 2.0)
-				
+			#
+			#tw.tween_property(sprite2D_body, "global_position", pos_alvo, tempo)
+			#tw.tween_property(alvo.sprite2D_body, "global_position", pos_self, tempo)
+			#
+			#if sprite2D_body and alvo.sprite2D_body:
+				#var escala_base_self = sprite2D_body.scale
+				#var escala_base_alvo = alvo.sprite2D_body.scale
+				#
+				#tw.tween_property(sprite2D_body, "scale", escala_base_self * 1.2, tempo / 2.0)
+				#tw.tween_property(alvo.sprite2D_body, "scale", escala_base_alvo * 1.2, tempo / 2.0)
+				#tw.chain().tween_property(sprite2D_body, "scale", escala_base_self, tempo / 2.0)
+				#tw.tween_property(alvo.sprite2D_body, "scale", escala_base_alvo, tempo / 2.0)
+				#
 			tw.chain().tween_callback(func():
 				
 				global_position = pos_alvo
@@ -1166,8 +1166,10 @@ func aplicar_congelamento(turnos: int) -> void:
 		playerInfo_atual.turnos_congelamento_armazenado = turnos
 		playerInfo_atual.disabilitado = true
 		playerInfo_atual.status_mudou.emit()
-	if is_instance_valid(sprite2D_body):
-		material.set_shader_parameter("sprite_tint", Color(0.5, 0.8, 1.0))
+	if is_instance_valid(sprite2D_body) and sprite2D_body.material:
+		sprite2D_body.material.set_shader_parameter("sprite_tint", Color(0.5, 0.8, 1.0))
+	else:
+		push_warning("Aviso: sprite2D_body ou seu material não estão configurados corretamente.")
 		
 func debug_status():
 	print("STATUS DEBUG → ", playerInfo.nome)
