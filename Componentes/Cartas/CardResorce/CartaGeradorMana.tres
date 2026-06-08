@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://c08s6tcbbgjih"]
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cndo0e8eucob3"]
 
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_ebwee"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_b232q"]

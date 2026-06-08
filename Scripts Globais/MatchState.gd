@@ -391,7 +391,7 @@ func forceTurn(target: turn) -> void:
 	carta_usada_no_turno = false
 
 enum TurnType {ORIGINAL, SIMPLIFIED, INTERSPERSED}
-@onready var turnDecider: TurnType = TurnType.SIMPLIFIED
+@onready var turnDecider: TurnType = TurnType.ORIGINAL
 
 func decideTurn() -> void:
 	var por_erro: bool = true
@@ -486,14 +486,14 @@ func endMatch(winner: String):
 	
 	# ── Jogador venceu: recompensa primeiro ──
 	if CupManager.isFinal:
-		if cena_recompensa_torneio:
+		if cena_recompensa_torneio and !PvPManager.isPvpMatch:
 			var tela = cena_recompensa_torneio.instantiate()
 			tela.anchors_preset = Control.PRESET_FULL_RECT
 			%MatchUI.add_child(tela)
 			tela.iniciar_tela_de_torneio(CupManager.currentCup)
 			await tela.recompensa_coletada
 	else:
-		if cena_recompensa_partida:
+		if cena_recompensa_partida and !PvPManager.isPvpMatch:
 			var tela = cena_recompensa_partida.instantiate()
 			tela.anchors_preset = Control.PRESET_FULL_RECT
 			%MatchUI.add_child(tela)

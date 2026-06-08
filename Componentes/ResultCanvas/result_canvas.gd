@@ -17,26 +17,34 @@ func _set_match_paused(value: bool) -> void:
 		get_tree().paused = value
 
 func _show(winner: String,  score: String, playerWin: bool):
-	if CupManager.isFinal and playerWin:
-		championLabel.show()
-		QuitBtn.visible = false
-		NextBtn.text = "Retornar"
+	if not PvPManager.isPvpMatch:
+		if CupManager.isFinal and playerWin:
+			championLabel.show()
+			QuitBtn.visible = false
+			NextBtn.text = "Retornar"
+		else:
+			championLabel.hide()
+		cupLabel.text = CupManager.currentCup.cupName
+		youWinLabel.text = winner + " ganhou!"
+		scoreLabel.text = score
+		if !playerWin:
+			$Control/Panel/VBoxContainer/VBoxContainer2/Next.hide()
+		
+		else:
+			$Control/Panel/VBoxContainer/VBoxContainer2/Next.show()
 	else:
 		championLabel.hide()
-	cupLabel.text = CupManager.currentCup.cupName
-	youWinLabel.text = winner + " ganhou!"
-	scoreLabel.text = score
-	if !playerWin:
 		$Control/Panel/VBoxContainer/VBoxContainer2/Next.hide()
-		
-	else:
-		$Control/Panel/VBoxContainer/VBoxContainer2/Next.show()
+		$Control/Panel/VBoxContainer/VBoxContainer2/Restart.show()
+		cupLabel.text = "Friendly"
+		youWinLabel.text = winner + " ganhou!"
+		scoreLabel.text = score
 	_set_match_paused(true)
 	show()
 
 func _on_quit_button_up():
 	_set_match_paused(false)
-	get_tree().quit()
+	get_tree().change_scene_to_file("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn")
 
 func _on_restart_button_up():
 	_set_match_paused(false)
@@ -51,15 +59,3 @@ func _on_next_pressed() -> void:
 	else:
 		CupManager.nextCompetitor()
 		get_tree().reload_current_scene()
-
-
-func pickReward():
-	var opposingTeam = CupManager.currentCompetitor
-	var currentTeam = CupManager.myTeam
-	var reward: TeamPlayer
-	while true:
-		reward = opposingTeam.mainSquad.pick_random()
-		if reward not in currentTeam.collectedSquad or reward not in currentTeam.mainSquad:
-			currentTeam.collectedSquad.append(reward)
-			print("VOCE GANHOU: ", reward)
-			return;
