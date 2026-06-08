@@ -15,6 +15,10 @@ var object_B: PhysicsObject2D
 @export var IA_Contr: IA_Controller
 
 func _ready() -> void:
+	if not PvPManager.isPvpMatch:
+		AI_Active = true
+	else:
+		AI_Active = false
 	var nodes = get_tree().get_nodes_in_group("PhysicsObjects")
 	#PhysicsObjects_List.assign(nodes)
 	
