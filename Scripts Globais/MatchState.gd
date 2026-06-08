@@ -398,7 +398,7 @@ func forceTurn(target: turn) -> void:
 	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
 	carta_usada_no_turno = false
 
-enum TurnType {ORIGINAL, SIMPLIFIED, INTERSPERSED}
+enum TurnType {ORIGINAL, SIMPLIFIED, INTERSPERSED, ORIGINAL_SHORT}
 @onready var turnDecider: TurnType = TurnType.ORIGINAL
 
 func decideTurn() -> void:
@@ -464,6 +464,33 @@ func decideTurn() -> void:
 				break
 			2:
 				pass
+			3:
+				var lastTouch = ball.lastTouch
+				if lastTouch == null:
+					continue
+
+				rallyCounter += 1
+				var toque_time_correto: bool = isCorrectSide(lastTouch.team)
+				if toque_time_correto and turnCounter < 1:
+					turnCounter += 1
+					if currentTurn == turn.HOME:
+						%MatchUI.colorir_turno(homeTeam,turnCounter)
+					else: 
+						%MatchUI.colorir_turno(awayTeam,turnCounter)
+
+					if turnCounter < 1:
+						disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+					else:
+						disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
+					IA_Contr.SetCurrentTeamSide(currentTurn)
+					ball.lastTouch = null
+					return
+
+				# Se o time correto tocou com turnCounter >= 2, segue para troca com som "mudou".
+				if toque_time_correto and turnCounter >= 1:
+					por_erro = false
+				ball.lastTouch = null
+				break
 
 	if por_erro:
 		SoundMaster.play_sfx(audio_perdeu_turno, 1.0, 0.0)

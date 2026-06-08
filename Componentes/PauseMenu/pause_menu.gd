@@ -15,7 +15,7 @@ var a_bola: PhysicsBall2D
 @onready var label_padrao = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis/Label_Padrao"
 
 @onready var labelPosse = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer17/PosseHbox/Label_Posse"
-var posseTypes = ["Original", "Simplified", "Interspersed"]
+var posseTypes = ["Original", "Simplified", "Interspersed", "Original short"]
 var posseIndex = 0
 
 func _ready():
