@@ -5,9 +5,7 @@ var a_bola: PhysicsBall2D
 
 @onready var recursos: Array[Padrao] = [
 	preload("res://Recursos/Padroes/Padrao_Pavin_Fisica2D.tres"),
-	preload("res://Recursos/Padroes/PadraoVS.tres"),
 	preload("res://Recursos/Padroes/Padrao.tres"),
-	preload("res://Recursos/Padroes/PadraoIgor.tres"),
 	]
 
 @onready var padrao_atual: Padrao = recursos[0] 
@@ -56,7 +54,7 @@ func _ready():
 	_sincronizar_sliders_com_bola()
 	
 	label_padrao.text = padrao_atual.name
-	#set_padrao_atual()
+	set_padrao_atual()
 	
 	labelPosse.text = posseTypes[posseIndex]
 
@@ -230,7 +228,7 @@ func _on_padrao_pressed() -> void:
 	padrao_atual = recursos[padrao_atual_index]
 	label_padrao.text = padrao_atual.name
 	
-	#set_padrao_atual()
+	set_padrao_atual()
 
 func _on_padrao_2_pressed() -> void:
 	padrao_atual_index -= 1
@@ -241,7 +239,7 @@ func _on_padrao_2_pressed() -> void:
 	padrao_atual = recursos[padrao_atual_index]
 	label_padrao.text = padrao_atual.name
 	
-	#set_padrao_atual()
+	set_padrao_atual()
 	
 func set_padrao_atual():
 	#Jogador
@@ -250,12 +248,6 @@ func set_padrao_atual():
 	%DistanciaRaio.set_value_no_signal(padrao_atual.jogador_basic_mass)
 	%Friccao.set_value_no_signal(padrao_atual.jogador_basic_friction)
 	%Bounce.set_value_no_signal(padrao_atual.jogador_basic_scale)
-	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10/ShakedownAmpMin".set_value_no_signal(padrao_atual.shake_amplitude_min)
-	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer11/ShakedownAmpMax".set_value_no_signal(padrao_atual.shake_amplitude_max)
-	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer12/ShakedownFreqMin".set_value_no_signal(padrao_atual.shake_frequency_min)
-	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer13/ShakedownFreqMax".set_value_no_signal(padrao_atual.shake_frequency_max)
-	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer14/ShakeDurationMin".set_value_no_signal(padrao_atual.shake_duration_min)
-	$"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer15/ShakeDurationMax".set_value_no_signal(padrao_atual.shake_duration_max)
 	_on_forca_multiplicador_value_changed(padrao_atual.jogador_basic_min_force)
 	_on_forca_maxima_value_changed(padrao_atual.jogador_basic_max_force)
 	_on_distancia_raio_value_changed(padrao_atual.jogador_basic_mass)
@@ -288,13 +280,6 @@ func carregar_recursos():
 		padrao.jogador_basic_mass = entrada.get("jogador_basic_mass", entrada.get("distancia_raio_visual", 5.0))
 		padrao.jogador_basic_friction = entrada.get("jogador_basic_friction", entrada.get("friccao_jogador", 0.98))
 		padrao.jogador_basic_scale = entrada.get("jogador_basic_scale", entrada.get("bounce_jogador", 1.0))
-		padrao.shake_amplitude_min = entrada.get("shake_amplitude_min", 0.0)
-		padrao.shake_amplitude_max = entrada.get("shake_amplitude_max", 0.0)
-		padrao.shake_frequency_min = entrada.get("shake_frequency_min", 0.0)
-		padrao.shake_frequency_max = entrada.get("shake_frequency_max", 0.0)
-		padrao.shake_duration_min = entrada.get("shake_duration_min", 0.0)
-		padrao.shake_duration_max = entrada.get("shake_duration_max", 0.0)
-		padrao.line_max = entrada.get("line_max", 0.0)
 		padrao.bola_basic_min_force = entrada.get("bola_basic_min_force", 100.0)
 		padrao.bola_basic_max_force = entrada.get("bola_basic_max_force", 1000.0)
 		padrao.bola_basic_mass = entrada.get("bola_basic_mass", entrada.get("peso_bola", 5.0))
@@ -326,13 +311,6 @@ func _on_save_button_pressed():
 		novo_padrao.jogador_basic_mass = peca.playerInfo_atual.basic_mass
 		novo_padrao.jogador_basic_friction = peca.playerInfo_atual.basic_friction
 		novo_padrao.jogador_basic_scale = peca.playerInfo_atual.basic_scale
-		novo_padrao.shake_amplitude_min = peca.shake_amplitude_min
-		novo_padrao.shake_amplitude_max = peca.shake_amplitude_max
-		novo_padrao.shake_frequency_min = peca.shake_frequency_min
-		novo_padrao.shake_frequency_max = peca.shake_frequency_max
-		novo_padrao.shake_duration_min = peca.shake_duration_min
-		novo_padrao.shake_duration_max = peca.shake_duration_max
-		novo_padrao.line_max = peca.tamanho_maximo_linha
 
 	if a_bola:
 		novo_padrao.bola_basic_min_force = a_bola.basic_min_force
@@ -348,13 +326,6 @@ func _on_save_button_pressed():
 		"jogador_basic_mass": novo_padrao.jogador_basic_mass,
 		"jogador_basic_friction": novo_padrao.jogador_basic_friction,
 		"jogador_basic_scale": novo_padrao.jogador_basic_scale,
-		"shake_amplitude_min": novo_padrao.shake_amplitude_min,
-		"shake_amplitude_max": novo_padrao.shake_amplitude_max,
-		"shake_frequency_min": novo_padrao.shake_frequency_min,
-		"shake_frequency_max": novo_padrao.shake_frequency_max,
-		"shake_duration_min": novo_padrao.shake_duration_min,
-		"shake_duration_max": novo_padrao.shake_duration_max,
-		"line_max": novo_padrao.line_max,
 		"bola_basic_min_force": novo_padrao.bola_basic_min_force,
 		"bola_basic_max_force": novo_padrao.bola_basic_max_force,
 		"bola_basic_mass": novo_padrao.bola_basic_mass,

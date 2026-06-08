@@ -1,0 +1,458 @@
+[gd_scene format=3 uid="uid://cmr1tg758m3vc"]
+
+[ext_resource type="Script" uid="uid://dk828cj38hv0o" path="res://Componentes/PauseMenu/pause_menu.gd" id="1_qe3g4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe3g4"]
+bg_color = Color(0.088219516, 0.22485891, 0.14035928, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 6
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=649671765]
+process_mode = 3
+script = ExtResource("1_qe3g4")
+
+[node name="Control" type="Control" parent="." unique_id=1313633818]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect - Fundo Preto" type="ColorRect" parent="Control" unique_id=2124737438]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.4392157)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control" unique_id=620711891]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer - Abas" type="TabContainer" parent="Control/CenterContainer" unique_id=1698994393]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qe3g4")
+tab_alignment = 1
+current_tab = 1
+
+[node name="Jogo" type="MarginContainer" parent="Control/CenterContainer/TabContainer - Abas" unique_id=773568432]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+metadata/_tab_index = 0
+
+[node name="VBoxMenu" type="VBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Jogo" unique_id=1948797305]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Label - Jogo Pausado" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=990441323]
+layout_mode = 2
+text = "PAUSE"
+horizontal_alignment = 1
+
+[node name="Button - Continuar" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=10636318]
+layout_mode = 2
+text = "CONTINUE"
+
+[node name="Button - Recomecar" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=1438065989]
+layout_mode = 2
+text = "RESTART"
+
+[node name="Button - Menu Inicial" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=93931786]
+layout_mode = 2
+text = "QUIT"
+
+[node name="Debug" type="MarginContainer" parent="Control/CenterContainer/TabContainer - Abas" unique_id=1121924991]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+metadata/_tab_index = 1
+
+[node name="VboxDebug" type="VBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug" unique_id=1765252321]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+
+[node name="PecasDebug" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=872752825]
+auto_translate_mode = 1
+layout_mode = 2
+text = "Regras"
+horizontal_alignment = 1
+
+[node name="HBoxContainer17" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=704981282]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer17" unique_id=1792009285]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Posse"
+
+[node name="PosseHbox" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer17" unique_id=391643523]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Padrao1" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer17/PosseHbox" unique_id=747621023]
+layout_mode = 2
+text = "<"
+
+[node name="Label_Posse" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer17/PosseHbox" unique_id=1557762307]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="PosseBack" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer17/PosseHbox" unique_id=1016674059]
+layout_mode = 2
+text = ">"
+
+[node name="PecasDebug2" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=93598223]
+auto_translate_mode = 1
+layout_mode = 2
+text = "Jogadores"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1499901274]
+layout_mode = 2
+tooltip_text = "Quanto mais puxar, maior a força"
+theme_override_constants/separation = 15
+
+[node name="Slider1Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer" unique_id=897332013]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "basic_min_force"
+
+[node name="ForcaMultiplicador" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer" unique_id=8681016]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+min_value = 100.0
+max_value = 5000.0
+step = 50.0
+value = 100.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer" unique_id=1135434074]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1096311835]
+layout_mode = 2
+tooltip_text = "Força máxima de impulso"
+theme_override_constants/separation = 15
+
+[node name="Slider2Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer2" unique_id=1483922375]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "basic_max_force"
+
+[node name="ForcaMaxima" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer2" unique_id=1817866603]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+min_value = 100.0
+max_value = 5000.0
+step = 50.0
+value = 100.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer2" unique_id=1783659343]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1902765141]
+layout_mode = 2
+tooltip_text = "Tamanho do raio laranja"
+theme_override_constants/separation = 15
+
+[node name="Slider3Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer3" unique_id=1112730630]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "basic_mass"
+
+[node name="DistanciaRaio" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer3" unique_id=1873651709]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer3" unique_id=737840578]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1360495782]
+layout_mode = 2
+tooltip_text = "Maior = maior desaceleração em contato com o chão ou outras coisas (a peca não fica  em contato com o chão)"
+theme_override_constants/separation = 15
+
+[node name="Slider4Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer4" unique_id=1617703530]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "basic_friction"
+
+[node name="Friccao" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer4" unique_id=836005539]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer4" unique_id=431249687]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1488963291]
+layout_mode = 2
+tooltip_text = "Maior = Maior bounciness"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer5" unique_id=1357466911]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "basic_scale"
+
+[node name="Bounce" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer5" unique_id=1253104067]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+min_value = 0.5
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer5" unique_id=551527133]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="BolaDebug" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=932804153]
+layout_mode = 2
+text = "Bola"
+horizontal_alignment = 1
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=914657623]
+layout_mode = 2
+tooltip_text = "Maior = maior desaceleração em contato com o chão ou outras coisas (a peca não fica  em contato com o chão)"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer7" unique_id=285546535]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "basic_min_force"
+
+[node name="FriccaoBola" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer7" unique_id=836743035]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 0.96
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer7" unique_id=493979765]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1486256616]
+layout_mode = 2
+tooltip_text = "Maior = Maior bounciness"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer1" unique_id=1313895706]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "basic_max_force"
+
+[node name="BounceBola" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer1" unique_id=1242511494]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.05
+value = 0.35
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer1" unique_id=783054514]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=968259261]
+layout_mode = 2
+tooltip_text = "Maior = maior a desaceleração"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer8" unique_id=2082096757]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "basic_mass"
+
+[node name="LinearDampBola" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer8" unique_id=251487988]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.1
+value = 2.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer8" unique_id=316044474]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=383756837]
+layout_mode = 2
+tooltip_text = "Maior = maior o peso"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer9" unique_id=1063448723]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "basic_friction"
+
+[node name="PesoBola" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer9" unique_id=1880081804]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 5.0
+step = 0.1
+value = 1.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer9" unique_id=1621555224]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=1599401398]
+layout_mode = 2
+tooltip_text = "Maior = maior o peso"
+theme_override_constants/separation = 15
+
+[node name="Slider5Label" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10" unique_id=1299450260]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+mouse_filter = 1
+text = "basic_scale"
+
+[node name="BolaEscala" type="HSlider" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10" unique_id=340888142]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="ValorSlider" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10" unique_id=843967185]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "ValorSlider"
+
+[node name="PadroesPerfis" type="HBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=818903027]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Padrao1" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis" unique_id=716880085]
+layout_mode = 2
+text = "<"
+
+[node name="Label_Padrao" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis" unique_id=1366224677]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+
+[node name="Padrao2" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis" unique_id=1983042811]
+layout_mode = 2
+text = ">"
+
+[node name="SaveButton" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug" unique_id=635276514]
+layout_mode = 2
+text = "SAVE SETTINGS"
+
+[connection signal="gui_input" from="Control/ColorRect - Fundo Preto" to="." method="_on_color_rect__fundo_preto_gui_input"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu/Button - Continuar" to="." method="_on_button__continuar_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu/Button - Recomecar" to="." method="_on_button__recomecar_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu/Button - Menu Inicial" to="." method="_on_button__menu_inicial_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer17/PosseHbox/Padrao1" to="." method="_on_padrao_1_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer17/PosseHbox/PosseBack" to="." method="_on_posse_back_pressed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer/ForcaMultiplicador" to="." method="_on_forca_multiplicador_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer2/ForcaMaxima" to="." method="_on_forca_maxima_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer3/DistanciaRaio" to="." method="_on_distancia_raio_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer4/Friccao" to="." method="_on_friccao_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer5/Bounce" to="." method="_on_bounce_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer7/FriccaoBola" to="." method="_on_friccao_bola_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer1/BounceBola" to="." method="_on_bounce_bola_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer8/LinearDampBola" to="." method="_on_linear_damp_bola_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer9/PesoBola" to="." method="_on_peso_bola_value_changed"]
+[connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer10/BolaEscala" to="." method="_on_bola_escala_value_changed"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis/Padrao1" to="." method="_on_padrao_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis/Padrao2" to="." method="_on_padrao_2_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/SaveButton" to="." method="_on_save_button_pressed"]
