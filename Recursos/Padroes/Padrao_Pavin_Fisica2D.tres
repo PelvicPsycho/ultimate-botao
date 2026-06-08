@@ -5,4 +5,5 @@
 [resource]
 script = ExtResource("1_djf1u")
 name = "Física Pavin"
+jogador_basic_scale = 0.75
 metadata/_custom_type_script = "uid://ejxtb67lkht7"
