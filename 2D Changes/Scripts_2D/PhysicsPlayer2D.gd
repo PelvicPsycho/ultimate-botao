@@ -999,7 +999,68 @@ func get_player_que_quer_trocar() -> PhysicsPlayer2D:
 			print('Pos peca  ', global_position,)
 			return p
 	return null
+func _physics_process(delta: float) -> void:
+	# Verificamos a booleana DENTRO do Resource playerInfo_atual
+	if playerInfo_atual and playerInfo_atual.atrai_bola_ativo:
+		# Passamos a força que também está no Resource
+		aplicar_atracao_bola(delta)
+	
+func aplicar_atracao_bola(delta: float) -> void:
+	var raio: float = 250.0 
+	var forca: float = playerInfo_atual.atrai_bola_forca
+	
+	var objetos = get_tree().get_nodes_in_group("PhysicsObjects")
+	
+	for obj in objetos:
+		if obj.is_in_group("Balls"): 
+			var direcao_vetor = global_position - obj.global_position
+			var distancia = direcao_vetor.length()
+			var distancia_contato = radius + obj.radius + 2.0 
+			
+			if distancia < raio and distancia > distancia_contato:
+				var forca_normalizada = direcao_vetor.normalized()
+				var intensidade = forca * 20
+				var aceleracao = (forca_normalizada * intensidade) / max(obj.mass, 0.1)
+				var forca_final = aceleracao * delta
+				obj.current_velocity += forca_final
 
+				if obj.current_velocity.length() < 25.0:
+					
+					obj.current_velocity = forca_normalizada * 25.0
+				obj.is_moving = true
+			elif distancia <= distancia_contato:
+				
+				obj.current_velocity = obj.current_velocity * 0.1
+				
+				if obj.current_velocity.length() < 5.0:
+					obj.current_velocity = Vector2.ZERO
+					obj.is_moving = false
+
+#func aplicar_carta_clone_pesado():
+	## Verifica se o buff está ativo no recurso do jogador
+	#if team_player_resource.clone_pesado_ativo:
+		## Captura a posição atual do player
+		#var posicao_atual = global_position
+		#
+		## Cria uma cópia do próprio player
+		#var clone = self.duplicate()
+		#
+		## Configura o clone como um obstáculo estático
+		#clone.velocity = Vector2.ZERO
+		#clone.mass = 99999.0
+		#
+		## Remove o script para evitar recursão ou comportamento inesperado do player original
+		#clone.set_script(null)
+		#
+		## Adiciona ao grupo 'Players' para reconhecimento do motor de física
+		#clone.add_to_group("Players")
+		#
+		## O uso de call_deferred é necessário para evitar conflitos no loop de física,
+		## garantindo que a adição do nó ocorra após o processamento atual da cena.
+		#get_tree().root.call_deferred("add_child", clone)
+		#
+		## Define a posição do clone após a adição
+		#clone.global_position = posicao_atual
 # ainda tenho que ver o que utilizo dessa função
 #func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	#var total := state.get_contact_count()

@@ -33,6 +33,7 @@ var _quantosSlotes: int = 0
 	get:
 		return _quantosSlotes
 @export var slotsUpgrates: Array[CardResource] = []
+@export var mao_cartas: Array[CardResource] = []
 var turnos_congelamento_armazenado: int = 0
 var poder_congelar_turnos: int = 0	
 

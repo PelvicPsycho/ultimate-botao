@@ -11,6 +11,7 @@ enum TipoEfeito {
 	Pequeno,
 	Atrasao,
 	Aumentar_Pa_Maximo,
+	CartaClonePesado
 }
 enum Raridade{
 	NORMAL, INCOMUN, RARA

@@ -55,6 +55,12 @@ func _ready() -> void:
 		goal.gol.connect(onGoal)
 		
 	var jogadores_salvos: Array = GameState.jogadores
+	
+	
+	
+	var save_map = {}
+	for j in jogadores_salvos:
+		save_map[j.id_unico] = j
 
 	for piece in allPieces:
 		var info := -1
@@ -71,8 +77,31 @@ func _ready() -> void:
 			#print("Cartas carregadas para ", piece.playerInfo.nome)
 			#for c in piece.playerInfo.slotsUpgrates:
 				#print("  - ", (c.resource_path if c else "Vazio"))
+		var res_atual = piece.playerInfo_atual
+		var id_da_peca = piece.playerInfo.id_unico
+		
+		print("Verificando Peça: ", res_atual.nome, " [ID: ", id_da_peca, "]")
+		
+		
+		if save_map.has(id_da_peca):
+			var res_save = save_map[id_da_peca]
+			res_atual.slotsUpgrates = res_save.slotsUpgrates.duplicate()
+			res_atual.mao_cartas = res_save.mao_cartas.duplicate()
+			print("  💾 [SAVE] Dados carregados para ", res_atual.nome)
 		
 			piece.playerInfo_atual.aplicar_passivas()
+		
+		else:
+			if not res_atual.mao_cartas.is_empty():
+				
+				res_atual.slotsUpgrates = res_atual.mao_cartas.duplicate()
+				print("  ❌ [ERRO] ID   '", id_da_peca, "' Usando as cartas da mão mão.")
+				
+			else:
+				print("  ❌ [ERRO] ID '", id_da_peca, "' sem dados no Save e mão vazia no Editor.")
+		
+		# 4. Sempre aplica as passivas (seja do save ou do fallback da mão)
+		res_atual.aplicar_passivas()
 	# CONEXÕES PADRÃO
 		if not piece.clickedPiece.is_connected(_on_player_clicked_piece):
 			piece.clickedPiece.connect(_on_player_clicked_piece)
