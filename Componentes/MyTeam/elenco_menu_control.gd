@@ -364,12 +364,12 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 			central_video_player.stream = item.video_preview
 			central_video_player.play()
 			
-			# Esperamos a placa de vídeo desenhar o frame na tela
-			await get_tree().process_frame
-			await get_tree().process_frame
-			
-			# Agora que o frame está na tela, congelamos o vídeo!
-			central_video_player.paused = true
+			## Esperamos a placa de vídeo desenhar o frame na tela
+			#await get_tree().process_frame
+			#await get_tree().process_frame
+			#
+			## Agora que o frame está na tela, congelamos o vídeo!
+			#central_video_player.paused = true
 			
 		else:
 			# Não tem vídeo
@@ -777,10 +777,11 @@ func _gerar_texto_detalhado_carta(carta: CardResource) -> String:
 	# 4. Efeito e Magnitude (Usa o capitalize para tirar o "_" do enum e deixar bonito)
 	var nome_efeito = CardResource.TipoEfeito.keys()[carta.tipo_efeito].capitalize()
 	texto += "[b]Efeito:[/b] %s" % nome_efeito
-	if carta.magnitude > 0:
-		texto += " [color=cyan](Magnitude: %d)[/color]\n" % carta.magnitude
-	else:
-		texto += "\n"
+	#if carta.magnitude > 0:
+		#texto += " [color=cyan](Magnitude: %d)[/color]\n" % carta.magnitude
+	#else:
+#		texto += "\n"
+	texto += "\n"
 		
 	# 5. Alvo
 	var nome_alvo = CardResource.TipoAlvo.keys()[carta.tipo_alvo].capitalize()

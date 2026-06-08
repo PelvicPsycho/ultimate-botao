@@ -17,7 +17,10 @@
 [ext_resource type="Texture2D" uid="uid://dnafvuhag1c13" path="res://Recursos/2D_Art/MyTeam/Rectangle 24.png" id="13_3c3cq"]
 [ext_resource type="PackedScene" uid="uid://cc3vpg1b6h3m6" path="res://Componentes/MyTeam/banner_colorido_control.tscn" id="16_2ysy5"]
 [ext_resource type="Texture2D" uid="uid://c514sn5s761li" path="res://Recursos/2D_Art/MyTeam/botaoplay2.png" id="16_bqv65"]
+[ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="17_y8quf"]
+[ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="18_0wqyg"]
 [ext_resource type="VideoStream" uid="uid://my3ruhqdlh01" path="res://Recursos/WebM/CartaCongelamento.ogv" id="18_bqv65"]
+[ext_resource type="FontFile" uid="uid://bpdotvvypoig5" path="res://Recursos/Fontes/Rubik/Rubik-Italic.ttf" id="19_uy8iv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3c3cq"]
 content_margin_left = 0.0
@@ -125,8 +128,8 @@ center_peca_slots_hbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxConta
 cw_contagem_slots_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer/CW_ContagemSlots_Label")
 slots_que_ocupa_hbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/SlotsQueOcupa_HBoxContainer")
 icone_de_slot_textura = ExtResource("2_1feu8")
-thumbnail_video_wrapper = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer/ThumbnailVideo_Control")
-central_video_player = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer")
+thumbnail_video_wrapper = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control")
+central_video_player = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer")
 right_nome_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/PieceNameTitle_Label")
 right_window_stats = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/StatsLabel_RichTextLabel")
 right_window_grid = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control/EquippedCards_GridContainer")
@@ -143,7 +146,7 @@ overlay_video = NodePath("VideoPreviewOverlay_Control")
 fundo_escuro = NodePath("VideoPreviewOverlay_Control/ColorRect")
 video_container = NodePath("VideoPreviewOverlay_Control/VideoContainer_Control")
 popup_video_player = NodePath("VideoPreviewOverlay_Control/VideoContainer_Control/PopupVideo_VideoStreamPlayer")
-btn_abrir_video = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer/AbrirVideo_TextureButton")
+btn_abrir_video = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer/AbrirVideo_TextureButton")
 btn_fechar_video = NodePath("VideoPreviewOverlay_Control/FecharVideo_Button")
 
 [node name="MainMargin_MarginContainer" type="MarginContainer" parent="." unique_id=259902652]
@@ -620,6 +623,7 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer" unique_id=467573718]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
@@ -668,6 +672,44 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 20
 
+[node name="ThumbnailVideo_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer" unique_id=919748990]
+custom_minimum_size = Vector2(200, 160)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="CentralVideo_VideoStreamPlayer" type="VideoStreamPlayer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control" unique_id=1897566612]
+custom_minimum_size = Vector2(280, 160)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -50.0
+offset_right = 70.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("18_bqv65")
+expand = true
+loop = true
+
+[node name="AbrirVideo_TextureButton" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer" unique_id=338878200]
+modulate = Color(1, 1, 1, 0.8509804)
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("16_bqv65")
+ignore_texture_size = true
+stretch_mode = 5
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer" unique_id=69626756]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -679,45 +721,16 @@ layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="ThumbnailVideo_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer" unique_id=919748990]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="CentralVideo_VideoStreamPlayer" type="VideoStreamPlayer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer/ThumbnailVideo_Control" unique_id=1897566612]
-custom_minimum_size = Vector2(140, 100)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 40.0
-grow_horizontal = 2
-grow_vertical = 2
-stream = ExtResource("18_bqv65")
-expand = true
-loop = true
-
-[node name="AbrirVideo_TextureButton" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer" unique_id=338878200]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("16_bqv65")
-ignore_texture_size = true
-stretch_mode = 0
-
 [node name="ItemDescription_RichTextLabel" type="RichTextLabel" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer" unique_id=383872329]
 custom_minimum_size = Vector2(300, 10)
 layout_mode = 2
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/normal_font_size = 30
+theme_override_fonts/normal_font = ExtResource("17_y8quf")
+theme_override_fonts/bold_font = ExtResource("18_0wqyg")
+theme_override_fonts/italics_font = ExtResource("19_uy8iv")
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+theme_override_font_sizes/italics_font_size = 25
 bbcode_enabled = true
 text = "ItemDescription"
 fit_content = true
