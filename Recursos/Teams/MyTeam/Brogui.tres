@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_hcf67"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_fls4a"]
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_wtanw"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_0f06n"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_i3p2d"]
 
 [resource]

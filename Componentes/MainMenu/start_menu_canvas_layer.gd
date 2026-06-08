@@ -55,11 +55,13 @@ func _carregar_time_inicial():
 	# Coloque aqui os 'id_unico' exatos das cartas que o jogador começa
 	var ids_cartas_iniciais: Array[StringName] = [
 		"corre_peao_01", 
-		"corre_peao_02",
+		"corre_peao_01",
 		"defesa_escudo_01",
-		"defesa_escudo_02",
+		"defesa_escudo_01",
 		"bola_leve_01",
-		"bola_leve_02"
+		"bola_leve_01",
+		"gerador_mana_01",
+		"encolher_01"
 	]
 	
 	for id_carta in ids_cartas_iniciais:

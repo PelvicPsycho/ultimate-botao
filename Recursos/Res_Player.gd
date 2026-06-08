@@ -32,7 +32,7 @@ var _quantosSlotes: int = 0
 		estimateRank()
 	get:
 		return _quantosSlotes
-var slotsUpgrates: Array[CardResource] = []
+@export var slotsUpgrates: Array[CardResource] = []
 var turnos_congelamento_armazenado: int = 0
 var poder_congelar_turnos: int = 0	
 

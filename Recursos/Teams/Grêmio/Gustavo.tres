@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_44scv"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_xsuxx"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_fs3cl"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_qk75u"]
+[ext_resource type="Resource" uid="uid://cnyerld68fmwt" path="res://Componentes/Cartas/CardResorce/Congelamento.tres" id="5_jg75n"]
 
 [resource]
 script = ExtResource("2_44scv")
@@ -14,5 +16,6 @@ foto = ExtResource("1_mcesi")
 textura_peca = ExtResource("4_fs3cl")
 material_shader = ExtResource("2_xsuxx")
 quantosSlotes = 3
+slotsUpgrates = Array[ExtResource("4_qk75u")]([ExtResource("5_jg75n")])
 PA = 3
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

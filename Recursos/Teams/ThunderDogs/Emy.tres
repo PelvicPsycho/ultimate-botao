@@ -4,6 +4,9 @@
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_kdh5x"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_nl5ip"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_el1xf"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_pnyyk"]
+[ext_resource type="Resource" uid="uid://c08s6tcbbgjih" path="res://Componentes/Cartas/CardResorce/CartaGeradorMana.tres" id="5_6n6ts"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="6_b71y0"]
 
 [resource]
 script = ExtResource("2_kdh5x")
@@ -14,5 +17,6 @@ foto = ExtResource("1_bjmar")
 textura_peca = ExtResource("4_el1xf")
 material_shader = ExtResource("2_nl5ip")
 quantosSlotes = 5
+slotsUpgrates = Array[ExtResource("4_pnyyk")]([ExtResource("5_6n6ts"), ExtResource("6_b71y0")])
 PA = 3
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

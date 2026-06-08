@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://djh351vtbufgc" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816129029-removebg-preview.png" id="1_8647a"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_r0qth"]
+[ext_resource type="VideoStream" uid="uid://cd6lg2wswqy5n" path="res://Recursos/WebM/Carta_aumentoForca.ogv" id="3_6vucj"]
 
 [resource]
 script = ExtResource("1_r0qth")
@@ -9,6 +10,7 @@ id_unico = &"corre_peao_01"
 nome = "Corre Peao"
 custo_energia = 4
 arte = ExtResource("1_8647a")
+video_preview = ExtResource("3_6vucj")
 descricao = "Peça corre mais rapido"
 raridade = 1
 magnitude = 15

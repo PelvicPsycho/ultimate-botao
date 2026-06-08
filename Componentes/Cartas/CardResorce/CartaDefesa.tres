@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://c08s6tcbbgjih"]
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://c2p5gvqgqqsos"]
 
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_7yd4g"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_k6pek"]
@@ -6,14 +6,13 @@
 [resource]
 script = ExtResource("1_k6pek")
 id_unico = &"defesa_escudo_01"
-nome = "GeradorDeMana"
+nome = "Escudo"
 custo_energia = 1
 arte = ExtResource("1_7yd4g")
 descricao = "Previne Gol"
-tipo_efeito = 8
+tipo_efeito = 1
 raridade = 2
 magnitude = 10
 custoSlotes = 1
-duracao = 0
-is_passiva = true
+duracao = 2
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

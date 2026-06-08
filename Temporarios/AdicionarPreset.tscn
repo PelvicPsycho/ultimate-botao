@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://djljl45usfxlo" path="res://Temporarios/adicionar_preset.gd" id="1_fvje2"]
 [ext_resource type="Resource" uid="uid://vl5uhvjx0anj" path="res://Recursos/Teams/Grêmio/Martin.tres" id="2_abnyy"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="3_a6ixd"]
-[ext_resource type="Resource" uid="uid://cq1j88bdgrf6d" path="res://Componentes/Cartas/CardResorce/Carta.tres" id="4_w8w5m"]
+[ext_resource type="Resource" uid="uid://cq1j88bdgrf6d" path="res://Componentes/Cartas/CardResorce/CartaBolaLeve.tres" id="4_w8w5m"]
 [ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="5_qjtpi"]
 [ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="6_m4asg"]
 

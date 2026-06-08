@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_o4eb2"]
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_ojrr8"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_224er"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_57t4t"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_crrlm"]
+[ext_resource type="Resource" uid="uid://bq1qsd3ojqnsw" path="res://Componentes/Cartas/CardResorce/CartaEncolhedor.tres" id="5_57t4t"]
 
 [resource]
 script = ExtResource("1_o4eb2")
@@ -13,6 +15,7 @@ num_camisa = 10
 foto = ExtResource("1_ojrr8")
 textura_peca = ExtResource("4_crrlm")
 material_shader = ExtResource("2_224er")
-quantosSlotes = 15
+quantosSlotes = 10
+slotsUpgrates = Array[ExtResource("4_57t4t")]([ExtResource("5_57t4t")])
 PA = 11
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
