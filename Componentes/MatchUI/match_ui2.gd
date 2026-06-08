@@ -55,6 +55,10 @@ func UI_start(home_team: Team, away_team: Team):
 	changeShotsPanelBorderColor()
 	changeScoreColor()
 	changeTimersColor()
+	
+	var timerNode = $"../MatchTimer"
+	if timerNode and timerNode.tipo_do_timer == 2:
+		timeLabel.text = str(timerNode.totalShotsRemaining)
 
 func changeTimersColor():
 	var style: StyleBoxFlat
@@ -216,6 +220,9 @@ func _animar_paineis_posse(activeTeam: Team) -> void:
 
 func _atualizar_label_partida(time: float) -> void:
 	progressBar.value = time
+	var timerNode = $"../MatchTimer"
+	if timerNode and timerNode.tipo_do_timer == 2:
+		timeLabel.text = str(timerNode.totalShotsRemaining)
 
 func _atualizar_label_lance(isHome: float, time: float) -> void:
 	if isHome:
