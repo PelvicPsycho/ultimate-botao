@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://d3y3poafaqkad"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_i7305"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_j0khq"]
+
+[resource]
+script = ExtResource("1_j0khq")
+id_unico = &"Carta_Onda_De_Shock"
+nome = "Onda de shock"
+custo_energia = 2
+arte = ExtResource("1_i7305")
+tipo_efeito = 10
+magnitude = 2
+custoSlotes = 1
+metadata/_custom_type_script = "uid://dbejkveogu8jv"

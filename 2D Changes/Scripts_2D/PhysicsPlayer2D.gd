@@ -587,7 +587,46 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 	
 	ultimo_tempo_particula_impacto_ms = agora_ms
 	_instanciar_particula_impacto(collision_position)
+func animar_pulso(alvo: Node2D) -> void:
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(alvo, "scale", Vector2(1.3, 1.3), 0.1)
+	tween.tween_property(alvo, "scale", Vector2(1.0, 1.0), 0.1)
 
+func executar_onda_choque_direta():
+	const RAIO_EXPLOSAO = 400.0
+	const FORCA_EXPLOSAO = 1000.0 
+	
+	animar_pulso(self)
+	
+	var alvos = get_tree().get_nodes_in_group("PhysicsObjects")
+	print("DEBUG: [", playerInfo_atual.nome, "] Onda de Choque! Alvos detectados: ", alvos.size())
+	
+	for obj in alvos:
+		if obj == self: 
+			continue 
+		var distancia = global_position.distance_to(obj.global_position)
+		
+		if distancia < RAIO_EXPLOSAO:
+			var direcao = (obj.global_position - global_position).normalized()
+			if direcao == Vector2.ZERO: 
+				direcao = Vector2.UP 
+			
+			var intensidade = 1.0 - (distancia / RAIO_EXPLOSAO)
+			var impulso = direcao * FORCA_EXPLOSAO * intensidade
+			
+			if "current_velocity" in obj:
+				obj.current_velocity += impulso
+				animar_pulso(obj)
+				
+				if obj.has_method("Set_Current_Velocity"):
+					obj.Set_Current_Velocity(obj.current_velocity)
+					
+				print("DEBUG: [SUCESSO] Empurrou ", obj.name, " com força ", impulso.length())
+
+	playerInfo_atual.onda_choque_ativa = false
+	
 func _instanciar_particula_impacto(posicao_colisao: Vector2) -> void:
 	if impactParticles == null:
 		return
@@ -1004,6 +1043,8 @@ func _physics_process(delta: float) -> void:
 	if playerInfo_atual and playerInfo_atual.atrai_bola_ativo:
 		# Passamos a força que também está no Resource
 		aplicar_atracao_bola(delta)
+	if playerInfo_atual.onda_choque_ativa:
+			executar_onda_choque_direta()
 	
 func aplicar_atracao_bola(delta: float) -> void:
 	var raio: float = 250.0 

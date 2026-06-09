@@ -69,6 +69,7 @@ var empurra_aliados_ativo = false
 var empurra_aliados_multiplicador = 1.8 
 var atrai_bola_ativo = false
 var atrai_bola_forca = 1.0
+var onda_choque_ativa = false
 
 @export_group("Tamanhos do Círculo Limite")
 var escala_maxima_circulo_atual: float = 0.3
@@ -116,7 +117,7 @@ func resetar_status(base_info: TeamPlayer) -> void:
 	self.troca_posicao_ativa = false
 	self.congelamento_ativo = false
 	self.turnos_preso = 0
-
+	self.atrai_bola_ativo = false
 func aplicar_buff(card: CardResource) -> void:
 	# 1. A carta já está equipada: só ativa o efeito.
 	if PA < card.custo_energia:
@@ -145,6 +146,8 @@ func aplicar_buff(card: CardResource) -> void:
 			CardResource.TipoEfeito.Atrasao:
 				atrai_bola_ativo = true
 				atrai_bola_forca = card.magnitude
+			CardResource.TipoEfeito.CartaOndaDeShock:
+				onda_choque_ativa = true
 				
 		PA -= card.custo_energia
 		duracao_dos_buffs[card] = card.duracao
