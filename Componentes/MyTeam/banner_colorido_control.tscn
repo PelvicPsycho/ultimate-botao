@@ -9,6 +9,9 @@
 shader = ExtResource("3_dr5eq")
 shader_parameter/textura_infinita = ExtResource("3_o6hyn")
 shader_parameter/velocidade_scroll = -0.05
+shader_parameter/cor_tint = Color(1.070584, 0.87690145, 0.9501867, 1)
+shader_parameter/brilho = 1.10000005225
+shader_parameter/nivel_cinza = 0.23600001121
 
 [node name="BannerColorido_Control" type="Control" unique_id=781915788]
 layout_mode = 3

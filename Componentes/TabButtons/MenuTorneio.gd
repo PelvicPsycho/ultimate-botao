@@ -158,12 +158,18 @@ func _atualizar_carrossel(animado: bool):
 			tween.set_trans(tipo_transicao).set_ease(tipo_suavizacao)
 			tween.tween_property(carta, "position", posicao_ajustada, duracao_transicao)
 			tween.tween_property(carta, "scale", escala_alvo, duracao_transicao)
-			tween.tween_property(carta, "modulate", Color(opacidade_alvo, opacidade_alvo, opacidade_alvo, 1.0), duracao_transicao)
+			
+			# Correção: R, G e B em 1.0, Alpha recebendo a opacidade_alvo
+			tween.tween_property(carta, "modulate", Color(1.0, 1.0, 1.0, opacidade_alvo), duracao_transicao)
+			
 			if carta.has_method("definir_foco"):
 				carta.definir_foco(e_a_carta_central)
 		else:
 			carta.position = posicao_ajustada
 			carta.scale = escala_alvo
-			carta.modulate = Color(opacidade_alvo, opacidade_alvo, opacidade_alvo, 1.0)
+			
+			# Correção: R, G e B em 1.0, Alpha recebendo a opacidade_alvo
+			carta.modulate = Color(1.0, 1.0, 1.0, opacidade_alvo)
+			
 			if carta.has_method("definir_foco"):
 				carta.definir_foco(e_a_carta_central)

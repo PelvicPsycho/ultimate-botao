@@ -7,3 +7,6 @@
 shader = ExtResource("1_g5fbh")
 shader_parameter/textura_infinita = ExtResource("2_leegv")
 shader_parameter/velocidade_scroll = 0.04
+shader_parameter/cor_tint = Color(1, 1, 1, 1)
+shader_parameter/brilho = 1.0
+shader_parameter/nivel_cinza = 0.0630000029925

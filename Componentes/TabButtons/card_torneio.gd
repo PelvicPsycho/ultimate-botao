@@ -27,18 +27,27 @@ func definir_foco(ativo: bool):
 	# Controla a visibilidade e estado do botão com base no foco e no desbloqueio
 	botao_aceitar.visible = ativo
 	
+	# Procura o animador pelo nome da classe
+	var animador = _obter_animador_do_botao()
+	
 	if ativo:
 		if esta_desbloqueado:
 			botao_aceitar.disabled = false
 			if botao_label:
 				botao_label.text = "ACEITAR"
+			if animador:
+				animador.esta_bloqueado = false # Libera a animação de hover
 		else:
 			botao_aceitar.disabled = true
 			botao_aceitar.texture_normal = grey_texture
 			if botao_label:
 				botao_label.text = "BLOQUEADO"
+			if animador:
+				animador.esta_bloqueado = true # Trava a animação de hover
 	else:
 		botao_aceitar.disabled = true
+		if animador:
+			animador.esta_bloqueado = true # Trava a animação se não estiver em foco
 
 
 func _on_texture_button_pressed() -> void:
@@ -54,3 +63,9 @@ func _on_texture_button_pressed() -> void:
 	#get_tree().change_scene_to_file("res://2D Changes/2D_Scenes/MatchScene2D.tscn")
 	
 	get_tree().change_scene_to_file("res://Componentes/Simulation_AI/Scenes/MatchScene2D_AI.tscn")
+
+func _obter_animador_do_botao() -> AnimadorHover:
+	for filho in botao_aceitar.get_children():
+		if filho is AnimadorHover:
+			return filho
+	return null
