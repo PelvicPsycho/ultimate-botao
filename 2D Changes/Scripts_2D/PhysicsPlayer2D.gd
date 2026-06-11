@@ -562,30 +562,35 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 	last_PhysicObject_collided = object_collided
 	last_PhysicObject_collision_position = collision_position
 
-	if not (object_collided is PhysicsPlayer2D):
-		return
-	
-	if get_instance_id() > object_collided.get_instance_id():
-		return
+
+	if playerInfo_atual and playerInfo_atual.peça_bomba_ativa:
+		executar_onda_choque_direta()
+		playerInfo_atual.peça_bomba_ativa = false
+		return 
+
 	if playerInfo_atual and playerInfo_atual.congelamento_ativo:
 		if object_collided.has_method("aplicar_congelamento"):
+			print("DEBUG: Aplicando congelamento em ", object_collided.name)
 			object_collided.aplicar_congelamento(playerInfo_atual.poder_congelar_turnos)
 			playerInfo_atual.congelamento_ativo = false
-				
+			
+
+	
+	if not (object_collided is PhysicsPlayer2D):
+		_instanciar_particula_impacto(collision_position)
+		return
+
+
+	if get_instance_id() > object_collided.get_instance_id():
+		return
+
+	
 	if playerInfo_atual and playerInfo_atual.empurra_aliados_ativo:
-		# Verifica se quem bateu é do MESMO TIME (aliado)
 		if object_collided.team == self.team:
 			if object_collided.has_method("aplicar_empurrao"):
-				# Passa a velocidade atual para dar o boost
-				
 				object_collided.aplicar_empurrao(self.current_velocity)
-				# Gasta o poder após usar
-				playerInfo_atual.empurra_aliados_ativo = false	
-	var agora_ms := Time.get_ticks_msec()
-	if agora_ms - ultimo_tempo_particula_impacto_ms < intervalo_minimo_particula_impacto_ms:
-		return
-	
-	ultimo_tempo_particula_impacto_ms = agora_ms
+				playerInfo_atual.empurra_aliados_ativo = false
+
 	_instanciar_particula_impacto(collision_position)
 func animar_pulso(alvo: Node2D) -> void:
 	var tween = create_tween()
@@ -625,7 +630,7 @@ func executar_onda_choque_direta():
 					
 				print("DEBUG: [SUCESSO] Empurrou ", obj.name, " com força ", impulso.length())
 
-	playerInfo_atual.onda_choque_ativa = false
+	
 	
 func _instanciar_particula_impacto(posicao_colisao: Vector2) -> void:
 	if impactParticles == null:
@@ -963,7 +968,7 @@ func is_frozen() -> bool:
 	if playerInfo_atual:
 		return playerInfo_atual.disabilitado or playerInfo_atual.turnos_congelamento_armazenado > 0
 	return false
-# Inicia um piscar contínuo na cor do efeito
+
 func adicionar_efeito_visual(tipo: int, cor: Color) -> void:
 	efeitos_visuais_ativos[tipo] = cor
 	atualizar_piscar_multi()
@@ -1045,6 +1050,7 @@ func _physics_process(delta: float) -> void:
 		aplicar_atracao_bola(delta)
 	if playerInfo_atual.onda_choque_ativa:
 			executar_onda_choque_direta()
+			playerInfo_atual.onda_choque_ativa = false
 	
 func aplicar_atracao_bola(delta: float) -> void:
 	var raio: float = 250.0 
