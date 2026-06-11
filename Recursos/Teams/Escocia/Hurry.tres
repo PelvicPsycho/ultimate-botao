@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cxrq0wbdvgq6a"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_pr7gu"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_xmhio"]
+
+[resource]
+script = ExtResource("2_xmhio")
+nome = "Hurry"

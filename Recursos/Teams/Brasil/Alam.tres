@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cpv7b8gjvojon"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_obahg"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_6ygp0"]
+
+[resource]
+script = ExtResource("2_6ygp0")
+nome = "Alam"

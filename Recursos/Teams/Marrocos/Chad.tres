@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bw2tkayhu6y5d"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_j13rx"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_o87ko"]
+
+[resource]
+script = ExtResource("2_o87ko")
+nome = "Chad"
