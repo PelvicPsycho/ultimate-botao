@@ -29,7 +29,7 @@ size = Vector2(215, 269)
 [node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller", "IA_Contr", "anunciador_ui")]
 script = ExtResource("1_ss0s5")
 physics_controller = NodePath("PhysicsController")
-IA_Active = true
+show_play_simulation_result = true
 IA_Contr = NodePath("IA_Controller")
 anunciador_ui = NodePath("AnunciadorUI")
 cena_recompensa_partida = ExtResource("2_5b3c6")
@@ -48,15 +48,15 @@ position = Vector2(960, 540)
 [node name="IA_Controller" type="Node2D" parent="." unique_id=1970917918 node_paths=PackedStringArray("physics_controller")]
 script = ExtResource("7_n4ih5")
 physics_controller = NodePath("../PhysicsController")
-rotation_angle_steps = 20
+rotation_angle_steps = 10
 max_force_steps = 2
+num_steps = 3
+step_angle = 10
 
 [node name="PhysicsController" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("match_state", "IA_Contr", "list_polygons")]
 script = ExtResource("8_sbrvv")
 match_state = NodePath("..")
-simulation_Active = true
-AI_Active = true
-num_threads = 4
+num_threads = 1
 IA_Contr = NodePath("../IA_Controller")
 list_polygons = [NodePath("Pitch/Limits/TopWall"), NodePath("Pitch/Limits/BotWall"), NodePath("Pitch/Limits/HomeGoalWall"), NodePath("Pitch/Limits/AwayGoalWall")]
 
@@ -101,7 +101,7 @@ team = 1
 [node name="HomeTeam" type="Node2D" parent="PhysicsController" unique_id=2082446946]
 
 [node name="HomeTeam_P1" parent="PhysicsController/HomeTeam" unique_id=1542391535 instance=ExtResource("9_12ci6")]
-position = Vector2(835, 632)
+position = Vector2(1179, 474)
 debug = false
 
 [node name="HomeTeam_P2" parent="PhysicsController/HomeTeam" unique_id=990928524 instance=ExtResource("9_12ci6")]
@@ -131,7 +131,7 @@ teamSide = 1
 playerInfo = ExtResource("12_w1bfq")
 
 [node name="AwayTeam_P2" parent="PhysicsController/AwayTeam" unique_id=25673446 instance=ExtResource("9_12ci6")]
-position = Vector2(1409, 374)
+position = Vector2(1317, 466)
 debug = false
 teamSide = 1
 playerInfo = ExtResource("12_w1bfq")
@@ -157,7 +157,7 @@ playerInfo = ExtResource("12_w1bfq")
 [node name="Balls" type="Node2D" parent="PhysicsController" unique_id=1788694925]
 
 [node name="Ball2d" parent="PhysicsController/Balls" unique_id=1925699982 instance=ExtResource("13_d0h4u")]
-position = Vector2(960, 633)
+position = Vector2(352, 635)
 mass = 2.0
 
 [node name="Gol_Manager(Temporario)" type="Node2D" parent="." unique_id=632171838 node_paths=PackedStringArray("anunciadorui", "match_state")]

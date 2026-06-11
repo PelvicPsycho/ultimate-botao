@@ -21,8 +21,8 @@ var is_moving: bool
 
 var radius: float
 
-@export var current_min_force: float = 100.0
-@export var current_max_force: float = 1000.0
-@export var level_force: int # nivel de força da peça (0 a 10)
-@export var level_force_weak: int = 3  # Abaixo deste valor = FRACO
-@export var level_force_strong: int = 7  # Acima deste valor = FORTE
+var current_min_force: float = 100.0
+var current_max_force: float = 1000.0
+var level_force: int # nivel de força da peça (0 a 10)
+var level_force_weak: int = 3  # Abaixo deste valor = FRACO
+var level_force_strong: int = 7  # Acima deste valor = FORTE

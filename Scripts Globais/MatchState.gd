@@ -9,6 +9,9 @@ signal turno_trocado(turno_atual: turn)
 
 @export var physics_controller: CollisionResolution2D
 
+@export var show_play_simulation_result: bool
+@export var show_play_simulation_result_index: int
+
 @export var IA_Active: bool
 @export var IA_Contr: IA_Controller
 
@@ -110,13 +113,16 @@ func loadMatch():
 	
 	assignPieces()
 	
-	physics_controller.start_Collision_resulution()
+	physics_controller.start_Collision_resulution(IA_Active, show_play_simulation_result, show_play_simulation_result_index)
+
 
 func assignPieces():
 	var homePlayers: Array[TeamPlayer] = homeTeam.mainSquad
 	var awayPlayers: Array[TeamPlayer] = awayTeam.mainSquad
+	
 	var homePieces = $PhysicsController/HomeTeam.get_children()
 	var awayPieces = $PhysicsController/AwayTeam.get_children()
+	
 	for i in range(homePieces.size()):
 		var piece = homePieces[i]
 		var player = homePlayers[i]
@@ -130,6 +136,8 @@ func assignPieces():
 		piece.team = awayTeam
 		piece.playerInfo = player
 		piece.loadPlayerInfo(player)
+	
+	physics_controller.all_physicObjects_loaded = true
 
 func _atualizar_placar() -> void:
 	%MatchUI.atualizar_placar(homeScore, awayScore)
@@ -167,7 +175,6 @@ func onClickedPiece(piece: PhysicsPlayer2D) -> void:
 	piece.abrir_botoes_cartas()
 
 func onTurnPlayed() -> void:
-	print("onTurnPlayed")
 	congelar_jogo(true)
 	timer.rodando_lance()
 	var parado_corretamente: bool = await waitAllStopped()
@@ -222,6 +229,7 @@ func waitAllStopped() -> bool:
 	return true
 
 func selectFirstTurn() -> void:
+	print("AAA")
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
 	for ball in allBalls:
 		ball.lastTouch = null
@@ -238,7 +246,6 @@ func changeTurn() -> void:
 			piece.playerInfo_atual.processar_expiracao_de_buffs(piece.playerInfo)
 	
 	currentTurn = turn.AWAY if currentTurn == turn.HOME else turn.HOME
-	print("currentTurn = ", currentTurn)
 	emit_signal("turno_trocado", currentTurn)
 	
 	for piece in allPieces:
@@ -409,3 +416,11 @@ func _on_player_clicked_piece(Piece: PhysicsPlayer2D) -> void:
 		#Piece.playerInfo_atual.aplicar_buff(carta)
 		#carta_usada_no_turno = true
 		#%MatchUI.consumir_carta_selecionada()
+
+func get_current_turn_int() -> int:
+	if currentTurn == turn.HOME:
+		return 0
+	elif currentTurn == turn.AWAY:
+		return 1
+	
+	return 0

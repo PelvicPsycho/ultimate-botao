@@ -110,6 +110,9 @@ func _ready() -> void:
 	
 	tracer2D.clear_points()
 	base_tracer_width = tracer2D.width
+	playerInfo_atual_Loaded = false
+
+var playerInfo_atual_Loaded: bool
 
 func loadPlayerInfo(plInfo):
 	playerInfo_atual = plInfo.duplicate(true)
@@ -123,9 +126,7 @@ func loadPlayerInfo(plInfo):
 	sprite2D_body.self_modulate = team.cor
 	tracer2D.self_modulate = team.cor
 	
-	#if debug:
-		#print("Start friction = ", friction)
-		#print("Start mass = ", mass)
+	playerInfo_atual_Loaded = true
 
 func Set_AI_Active(_AI_Active: bool) -> void:
 	AI_Active = _AI_Active
@@ -164,7 +165,6 @@ func atualizar_fisica_por_status():
 	
 	if friction >= 1:
 		friction = 0.99
-
 
 func atualizar_peca_pelo_status() -> void:
 	if not is_instance_valid(playerInfo_atual): 
@@ -221,10 +221,13 @@ func _process(delta: float) -> void:
 	
 	if label and playerInfo_atual:
 		label.text = str(playerInfo_atual.num_camisa)
+	
 	Draw_Aim()
 	Draw_Dragging_Line()
 	Draw_Velocity_Line()
-
+	
+	radius = (global_position - Object_Radius.global_position).length()
+	
 	if shaking and sprite2D_body != null:
 		shake_timer += delta
 
@@ -521,6 +524,8 @@ func Execute_Action_parameters(direction: Vector2, force_lerp: float) -> void:
 	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
 	
 	current_force = lerpf(playerInfo_atual.get_min_force(), playerInfo_atual.get_max_force(), lerp_current_force)
+	
+	print("IA Action Executed")
 	
 	Set_Current_Velocity(current_direction * current_force)
 	
