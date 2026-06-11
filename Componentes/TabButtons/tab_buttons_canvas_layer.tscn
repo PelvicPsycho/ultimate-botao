@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://deu3s0e8xohwk" path="res://Recursos/2D_Art/TabMenu/trofeu200.png" id="8_5ua05"]
 [ext_resource type="Texture2D" uid="uid://dbungef2si10m" path="res://Recursos/2D_Art/TabMenu/engrenagem200.png" id="9_3gipf"]
 [ext_resource type="FontFile" uid="uid://b8f7dj4qbp66f" path="res://Recursos/Fontes/Baloo2-Bold.ttf" id="10_3gipf"]
+[ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="10_wwbwe"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oet0a"]
 font = ExtResource("10_3gipf")
@@ -110,6 +111,8 @@ grow_vertical = 2
 texture = ExtResource("7_q76v0")
 expand_mode = 1
 
+[node name="AnimationHover_Node" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/MyTeam_TextureButton" unique_id=1375273779 instance=ExtResource("10_wwbwe")]
+
 [node name="Torneio_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1874214184]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -136,6 +139,8 @@ grow_vertical = 2
 texture = ExtResource("8_5ua05")
 expand_mode = 1
 
+[node name="AnimationHover_Node" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/Torneio_TextureButton" unique_id=76116055 instance=ExtResource("10_wwbwe")]
+
 [node name="Selection_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=904572006]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -156,6 +161,8 @@ text = "Vs"
 label_settings = SubResource("LabelSettings_oet0a")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationHover_Node" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/Selection_TextureButton" unique_id=491508051 instance=ExtResource("10_wwbwe")]
 
 [node name="Configurações_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1360778727]
 custom_minimum_size = Vector2(80, 80)
@@ -183,6 +190,8 @@ grow_vertical = 2
 texture = ExtResource("9_3gipf")
 expand_mode = 1
 
+[node name="AnimationHover_Node" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/Configurações_TextureButton" unique_id=90598064 instance=ExtResource("10_wwbwe")]
+
 [node name="TextureButton5" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1004607767]
 visible = false
 custom_minimum_size = Vector2(80, 80)
@@ -192,7 +201,3 @@ size_flags_vertical = 4
 texture_normal = ExtResource("2_lhvel")
 ignore_texture_size = true
 stretch_mode = 0
-
-[connection signal="pressed" from="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/MyTeam_TextureButton" to="." method="_on_my_team_texture_button_pressed"]
-[connection signal="pressed" from="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/Torneio_TextureButton" to="." method="_on_torneio_texture_button_pressed"]
-[connection signal="pressed" from="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/Configurações_TextureButton" to="." method="_on_configurações_texture_button_pressed"]

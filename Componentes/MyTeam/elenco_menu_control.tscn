@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://orrq0vy3qa51" path="res://Componentes/MyTeam/inventory_pecas_button.tscn" id="7_3c3cq"]
 [ext_resource type="Texture2D" uid="uid://sb143gchnnfr" path="res://Recursos/2D_Art/MyTeam/Group 57.png" id="9_cep57"]
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="10_wegx5"]
+[ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="12_0wqyg"]
 [ext_resource type="Texture2D" uid="uid://b7i7lscx1xobo" path="res://Recursos/2D_Art/MyTeam/Rectangle 23.png" id="13_0maoc"]
 [ext_resource type="PackedScene" uid="uid://d0h3cghqr1iun" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="13_2ysy5"]
 [ext_resource type="Texture2D" uid="uid://dnafvuhag1c13" path="res://Recursos/2D_Art/MyTeam/Rectangle 24.png" id="13_3c3cq"]
@@ -231,6 +232,8 @@ text = "Everton"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton1" unique_id=1375273779 instance=ExtResource("12_0wqyg")]
+
 [node name="SlotButton2" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=1884737589]
 z_index = 1
 custom_minimum_size = Vector2(110, 80)
@@ -279,6 +282,8 @@ theme_override_font_sizes/font_size = 30
 text = "Everton"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton2" unique_id=1901993087 instance=ExtResource("12_0wqyg")]
 
 [node name="SlotButton3" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=1203333085]
 z_index = 1
@@ -329,6 +334,8 @@ text = "Everton"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton3" unique_id=1462905319 instance=ExtResource("12_0wqyg")]
+
 [node name="SlotButton4" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=466468303]
 z_index = 1
 custom_minimum_size = Vector2(110, 80)
@@ -377,6 +384,8 @@ theme_override_font_sizes/font_size = 30
 text = "Everton"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton4" unique_id=1535130825 instance=ExtResource("12_0wqyg")]
 
 [node name="SlotButton5" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=1866593553]
 z_index = 1
@@ -427,6 +436,8 @@ text = "Everton"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton5" unique_id=230395769 instance=ExtResource("12_0wqyg")]
+
 [node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer" unique_id=1099787996]
 layout_mode = 2
 size_flags_vertical = 3
@@ -468,6 +479,8 @@ grow_vertical = 2
 texture = ExtResource("10_wegx5")
 expand_mode = 1
 
+[node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer/TabCartas_Button" unique_id=1628362272 instance=ExtResource("12_0wqyg")]
+
 [node name="TabPecas_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer" unique_id=1351309353]
 custom_minimum_size = Vector2(160, 200)
 layout_mode = 2
@@ -491,6 +504,8 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_x3s7i")
 expand_mode = 1
+
+[node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer/TabPecas_Button" unique_id=441251270 instance=ExtResource("12_0wqyg")]
 
 [node name="LeftWindow_PanelContainer" type="PanelContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer" unique_id=1496457597]
 layout_mode = 2
@@ -536,6 +551,8 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 text = "Rank"
 
+[node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/RankFilter_Button" unique_id=1092946135 instance=ExtResource("12_0wqyg")]
+
 [node name="AZFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer" unique_id=866524000]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
@@ -560,6 +577,8 @@ grow_vertical = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 text = "A-Z"
+
+[node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/AZFilter_Button" unique_id=723428573 instance=ExtResource("12_0wqyg")]
 
 [node name="TypeFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer" unique_id=1879588817]
 visible = false
@@ -816,6 +835,8 @@ grow_vertical = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 35
 text = "Equipar"
+
+[node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/MarginContainer/ActionButton_Button" unique_id=2106885778 instance=ExtResource("12_0wqyg")]
 
 [node name="PlainMSG_VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer" unique_id=15331625]
 visible = false

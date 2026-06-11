@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://c2usg0pshagw8" path="res://Recursos/Teams/MyTeam/Nigel.tres" id="10_l8vg5"]
 [ext_resource type="Resource" uid="uid://cjyd6bkt7lcc6" path="res://Recursos/Teams/MyTeam/Carlinhos.tres" id="11_ffsqk"]
 [ext_resource type="Resource" uid="uid://nfpdil4vqo0k" path="res://Recursos/Teams/MyTeam/Giota.tres" id="12_k0boi"]
+[ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="14_l8vg5"]
 
 [sub_resource type="Shader" id="Shader_jdv1h"]
 code = "shader_type canvas_item;
@@ -209,6 +210,8 @@ theme_override_fonts/font = ExtResource("4_txp36")
 theme_override_font_sizes/font_size = 110
 text = "START"
 horizontal_alignment = 1
+
+[node name="AnimationHover_Node" parent="Label" unique_id=1375273779 instance=ExtResource("14_l8vg5")]
 
 [connection signal="pressed" from="Startbutton" to="." method="_on_startbutton_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

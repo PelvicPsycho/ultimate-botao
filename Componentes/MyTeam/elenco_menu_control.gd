@@ -96,6 +96,7 @@ var sort_mode := 0  # 0 = ordem original, 1 = A-Z, 2 = Rank
 
 # --- INICIALIZAÇÃO ---
 func _ready() -> void:
+	visibility_changed.connect(_ao_mudar_visibilidade)
 	_connect_signals()
 	_atualizar_nomes_dos_slots()
 	_select_slot(1)
@@ -128,30 +129,10 @@ func _connect_signals() -> void:
 func _select_slot(slot_index: int) -> void:
 	current_slot = slot_index
 	
-	var tween = create_tween().set_parallel(true)
-	for i in range(slot_buttons.size()):
-		var btn = slot_buttons[i]
-		btn.pivot_offset = btn.size / 2.0
-		
-		if (i + 1) == current_slot:
-			# Animação para o botão selecionado (aumenta)
-			tween.tween_property(btn, "scale", Vector2(1.2, 1.2), 0.15).set_trans(Tween.TRANS_SINE)
-			tween.tween_property(btn, "modulate", Color.WHITE, 0.15)
-			
-			# Aplica a textura do botão ativo (Ex: O Azul)
-			if textura_slot_selecionado:
-				btn.texture_normal = textura_slot_selecionado
-				
-		else:
-			# Animação para os botões inativos (tamanho normal)
-			tween.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.15).set_trans(Tween.TRANS_SINE)
-			tween.tween_property(btn, "modulate", Color.WHITE, 0.15)
-			
-			# Aplica a textura do botão inativo (Ex: O Vermelho)
-			if textura_slot_inativo:
-				btn.texture_normal = textura_slot_inativo
-			
+	_atualizar_visual_dos_slots()
+	
 	_update_right_window()
+	
 	GameState.imprimir_status_do_time()
 	
 	if item_em_inspecao is CardResource and inspecionando_carta_equipada:
@@ -906,3 +887,40 @@ func _fechar_modo_cinema() -> void:
 	await tween.finished
 	overlay_video.visible = false
 	popup_video_player.stop()
+
+func _ao_mudar_visibilidade() -> void:
+	if visible:
+		_atualizar_visual_dos_slots()
+
+func _atualizar_visual_dos_slots() -> void:
+	var tween = create_tween().set_parallel(true)
+	for i in range(slot_buttons.size()):
+		var btn = slot_buttons[i]
+		btn.pivot_offset = btn.size / 2.0
+		
+		var animador: AnimadorHover = null
+		for filho in btn.get_children():
+			if filho is AnimadorHover:
+				animador = filho
+				break
+		# ----------------------------------
+		
+		if (i + 1) == current_slot:
+			# Botão Titular: Trava o hover e fica grande
+			if animador: animador.esta_selecionado = true
+			
+			tween.tween_property(btn, "scale", Vector2(1.2, 1.2), 0.15).set_trans(Tween.TRANS_SINE)
+			tween.tween_property(btn, "modulate", Color.WHITE, 0.15)
+			
+			if textura_slot_selecionado:
+				btn.texture_normal = textura_slot_selecionado
+				
+		else:
+			# Botão Inativo: Destrava o hover e volta ao normal
+			if animador: animador.esta_selecionado = false
+			
+			tween.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.15).set_trans(Tween.TRANS_SINE)
+			tween.tween_property(btn, "modulate", Color.WHITE, 0.15)
+			
+			if textura_slot_inativo:
+				btn.texture_normal = textura_slot_inativo
