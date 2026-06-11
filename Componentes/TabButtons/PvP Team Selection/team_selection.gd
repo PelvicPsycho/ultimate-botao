@@ -4,8 +4,8 @@ extends Control
 @export var team_card_scene: PackedScene = preload("res://Componentes/TabButtons/PvP Team Selection/TeamCard.tscn")
 @export var match_scene: PackedScene = preload("res://Componentes/Simulation_AI/Scenes/MatchScene2D_AI.tscn")
 
-@onready var grid_container: GridContainer = $PanelContainer/MarginContainer/VBoxContainer/GridContainer
-@onready var next_button: Button = $MarginContainer/Button
+@onready var grid_container: GridContainer = $MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer
+@onready var next_button: Button = $MarginContainer/VBoxContainer/Button
 
 var team_cards: Array[Node] = []
 var selected_team_cards: Array[Node] = []
