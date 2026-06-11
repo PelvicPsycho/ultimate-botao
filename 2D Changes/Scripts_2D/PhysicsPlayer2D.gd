@@ -462,14 +462,17 @@ func _cancelar_interacao() -> void:
 func _verificar_clique_fora_radial() -> void:
 	if not menu_radial or not menu_radial.is_open:
 		return
+		
+	var mouse_pos = get_global_mouse_position()
+	
 	for btn in menu_radial.buttons:
-		var shape = btn.get_node("CollisionShape2D")
-		if shape and shape.shape is CircleShape2D:
-			var raio = shape.shape.radius * max(btn.scale.x, btn.scale.y)
-			var centro = btn.global_position
-			var mouse_pos = get_global_mouse_position()
-			if centro.distance_squared_to(mouse_pos) < raio * raio:
-				return  # clicou em cima de um botão → não fecha
+		var poly = btn.get_node_or_null("CollisionPolygon2D")
+		
+		if poly:
+			
+			var local_mouse_pos = poly.to_local(mouse_pos)
+			if Geometry2D.is_point_in_polygon(local_mouse_pos, poly.polygon):
+				return  
 	menu_radial.fechar()
 
 func _on_mouse_entered() -> void:
