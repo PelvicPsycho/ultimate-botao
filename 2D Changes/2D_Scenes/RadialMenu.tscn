@@ -2,13 +2,17 @@
 
 [ext_resource type="Script" uid="uid://88ajrn070qsh" path="res://2D Changes/Scripts_2D/radial_menu.gd" id="1_kcqld"]
 [ext_resource type="Texture2D" uid="uid://003yorx3a3cg" path="res://Recursos/2D_Art/Radia_icon/Vector.png" id="2_b0fan"]
+[ext_resource type="Texture2D" uid="uid://ccoik23g8we7s" path="res://Recursos/2D_Art/Radia_icon/FundoPop/Vector (12).png" id="2_ktpcs"]
 [ext_resource type="Texture2D" uid="uid://co6lawculgxkq" path="res://Recursos/2D_Art/Radia_icon/Pa_Imagem/Vector (7).png" id="4_wqj6r"]
 [ext_resource type="Texture2D" uid="uid://2v4jnernh37i" path="res://Recursos/2D_Art/Radia_icon/Pa_Imagem/Vector (8).png" id="5_42bbl"]
 [ext_resource type="Texture2D" uid="uid://b71b3s61p6ar0" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816127033-removebg-preview.png" id="5_wqj6r"]
+[ext_resource type="Texture2D" uid="uid://bldi3g7r4rqdv" path="res://Recursos/2D_Art/Radia_icon/FundoPop/Vector (11).png" id="6_42bbl"]
+[ext_resource type="Texture2D" uid="uid://b70rbmif2lwgc" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816120457-removebg-preview.png" id="8_vqcoy"]
 
 [node name="RadialMenu" type="Node2D" unique_id=115300761]
 scale = Vector2(0.19898058, 0.19898058)
 script = ExtResource("1_kcqld")
+icone_fogo_tex = ExtResource("2_ktpcs")
 metadata/_edit_vertical_guides_ = [-133.0]
 
 [node name="BtnCentro" type="Area2D" parent="." unique_id=1506189750]
@@ -150,3 +154,78 @@ texture = ExtResource("4_wqj6r")
 [node name="Dot" type="Sprite2D" parent="PADots/PADot6" unique_id=1534288831]
 scale = Vector2(0.73, 0.73)
 texture = ExtResource("5_42bbl")
+
+[node name="PopupInfo" type="Control" parent="." unique_id=1003390614]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 59.622837
+offset_top = 25.128078
+offset_right = 99.62283
+offset_bottom = 65.12808
+
+[node name="TextureRect" type="TextureRect" parent="PopupInfo" unique_id=1978635701]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -5.511
+anchor_top = -5.905
+anchor_right = 2.8140001
+anchor_bottom = -1.205
+offset_left = 95.484146
+offset_top = 175.89264
+offset_right = 95.48416
+offset_bottom = 175.89264
+texture = ExtResource("6_42bbl")
+
+[node name="Descricao" type="Label" parent="PopupInfo" unique_id=1365777810]
+layout_mode = 0
+offset_left = -10.317
+offset_top = 17.769
+offset_right = 78.683
+offset_bottom = 40.768997
+text = "asdasdsdas"
+horizontal_alignment = 1
+
+[node name="CustoContainer" type="HBoxContainer" parent="PopupInfo" unique_id=1181201876]
+layout_mode = 0
+offset_left = 13.54
+offset_top = 69.255
+offset_right = 13.54
+offset_bottom = 69.255
+alignment = 2
+
+[node name="IconeCarta" type="Sprite2D" parent="PopupInfo/CustoContainer" unique_id=239933191]
+position = Vector2(25.128078, 48.38425)
+scale = Vector2(0.234, 0.254)
+texture = ExtResource("2_ktpcs")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupInfo" unique_id=886034277]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -5.472
+anchor_top = -5.9020004
+anchor_right = 2.5770001
+anchor_bottom = -1.401
+offset_left = 129.10345
+offset_top = 190.84949
+offset_right = 63.449898
+offset_bottom = 146.5011
+
+[node name="Titulo" type="Label" parent="PopupInfo/VBoxContainer" unique_id=116529582]
+layout_mode = 2
+text = "asddassadsda"
+horizontal_alignment = 1
+
+[node name="ContentContainer" type="HBoxContainer" parent="PopupInfo/VBoxContainer" unique_id=1248949420]
+layout_mode = 2
+
+[node name="IconAnchor" type="Control" parent="PopupInfo/VBoxContainer/ContentContainer" unique_id=1736935602]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="IconeCarta" type="Sprite2D" parent="PopupInfo/VBoxContainer/ContentContainer/IconAnchor" unique_id=1551199224]
+position = Vector2(25.128, 65.644)
+scale = Vector2(0.234, 0.254)
+texture = ExtResource("8_vqcoy")
+
+[node name="TextContainer" type="HBoxContainer" parent="PopupInfo/VBoxContainer" unique_id=1353876333]
+layout_mode = 2

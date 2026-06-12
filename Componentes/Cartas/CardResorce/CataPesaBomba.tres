@@ -11,5 +11,5 @@ custo_energia = 2
 arte = ExtResource("1_p1kpu")
 tipo_efeito = 11
 magnitude = 2
-custoSlotes = 1
+custoSlotes = 2
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

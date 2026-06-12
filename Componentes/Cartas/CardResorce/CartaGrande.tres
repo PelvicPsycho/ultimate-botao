@@ -12,5 +12,6 @@ custo_energia = 2
 arte = ExtResource("1_lonpo")
 video_preview = ExtResource("3_8o5hd")
 tipo_efeito = 5
+custoSlotes = 1
 duracao = 2
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

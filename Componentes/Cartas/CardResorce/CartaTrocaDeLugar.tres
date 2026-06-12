@@ -8,12 +8,12 @@
 script = ExtResource("1_lysx1")
 id_unico = &"troca_lugar_01"
 nome = "Troca De Lugar"
-custo_energia = 4
+custo_energia = 2
 arte = ExtResource("1_vnqm6")
 video_preview = ExtResource("3_1vkqn")
 descricao = "Troca De Lugar da sua peça com suas ou do adiversario"
 tipo_efeito = 4
 raridade = 1
-custoSlotes = 1
+custoSlotes = 2
 duracao = 0
 metadata/_custom_type_script = "uid://dbejkveogu8jv"
