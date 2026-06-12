@@ -30,11 +30,11 @@ texture = ExtResource("2_ttnwg")
 custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_ttnwg")
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 120
 text = "TORNEIOS"
 
 [node name="Control" type="Control" parent="Bloco1_HBoxContainer" unique_id=460513298]
-custom_minimum_size = Vector2(60, 0)
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
 [node name="Bloco2_HBoxContainer" type="HBoxContainer" parent="." unique_id=423453587]
@@ -51,11 +51,11 @@ texture = ExtResource("2_ttnwg")
 custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_ttnwg")
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 120
 text = "TORNEIOS"
 
 [node name="Control" type="Control" parent="Bloco2_HBoxContainer" unique_id=623972631]
-custom_minimum_size = Vector2(60, 0)
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
 [node name="Bloco3_HBoxContainer" type="HBoxContainer" parent="." unique_id=505547320]
@@ -72,9 +72,9 @@ texture = ExtResource("2_ttnwg")
 custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_ttnwg")
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 120
 text = "TORNEIOS"
 
 [node name="Control" type="Control" parent="Bloco3_HBoxContainer" unique_id=1008541725]
-custom_minimum_size = Vector2(60, 0)
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2

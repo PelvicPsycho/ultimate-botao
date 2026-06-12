@@ -7,6 +7,7 @@ signal recompensa_coletada
 # --- VARIÁVEIS DE ESTADO ---
 var peca_selecionada: TeamPlayer = null
 var time_derrotado: Team = null
+var grupo_recompensa := ButtonGroup.new()
 
 # --- REFERÊNCIAS DE NÓS (Mapeadas para a sua imagem) ---
 @export_group("Janela de Inspeção - Esquerda")
@@ -31,11 +32,33 @@ var time_derrotado: Team = null
 @export_group("Cenas")
 @export var cena_botao_peca: PackedScene    
 @export var cena_carta_pequena: PackedScene 
+@export var cena_carta_bem_pequena: PackedScene 
+
+@export_group("Visual dos Slots Vazios")
+## O valor de arredondamento de todos os cantos
+@export var raio_dos_cantos: int = 15
+## A cor de fundo do espaço vazio (com um pouco de transparência por padrão)
+@export var cor_do_slot: Color = Color(0.1, 0.1, 0.1, 0.5) 
+
+var estilo_slot_vazio: StyleBoxFlat
 
 func _ready() -> void:
 	_limpar_inspecao()
 	btn_aceitar.disabled = true
 	btn_aceitar.pressed.connect(_on_btn_aceitar_pressed)
+	
+	# 1. Configura o visual do slot uma única vez ao carregar a cena
+	estilo_slot_vazio = StyleBoxFlat.new()
+	estilo_slot_vazio.bg_color = cor_do_slot
+	
+	# 2. Aplica o raio exportado em todos os cantos
+	estilo_slot_vazio.corner_radius_top_left = raio_dos_cantos
+	estilo_slot_vazio.corner_radius_top_right = raio_dos_cantos
+	estilo_slot_vazio.corner_radius_bottom_left = raio_dos_cantos
+	estilo_slot_vazio.corner_radius_bottom_right = raio_dos_cantos
+	
+	# Opcional: Garante que as bordas arredondadas fiquem suaves
+#	estilo_slot_vazio.anti_aliasing = true
 
 func iniciar_tela_de_recompensa(time_inimigo: Team) -> void:
 	time_derrotado = time_inimigo
@@ -59,12 +82,14 @@ func iniciar_tela_de_recompensa(time_inimigo: Team) -> void:
 
 	# --- AUTO-CARREGA A PRIMEIRA PEÇA DA LISTA ---
 	if primeiro_btn and primeira_peca:
+		primeiro_btn.button_pressed = true
 		_selecionar_peca(primeira_peca, primeiro_btn)
 
 func _criar_botao_de_opcao(peca: TeamPlayer) -> Control:
 	if not cena_botao_peca: return null
 	
 	var btn_item = cena_botao_peca.instantiate()
+	btn_item.button_group = grupo_recompensa
 	container_opcoes.add_child(btn_item)
 	
 	btn_item.set_meta("id_peca", peca.id_unico) 
@@ -103,7 +128,7 @@ func _selecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 			slots_usados += carta.custoSlotes
 			
 			if cena_carta_pequena:
-				var btn_carta = cena_carta_pequena.instantiate()
+				var btn_carta = cena_carta_bem_pequena.instantiate()
 				equipped_cards_grid.add_child(btn_carta)
 				
 				if btn_carta.has_method("setup_item"):
@@ -113,21 +138,22 @@ func _selecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 					btn_carta.disabled = true
 				btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 				
-	# --- DESENHA OS SLOTS VAZIOS (mesmo tamanho das cartas, igual ao elenco_menu) ---
-	var tamanho_slot := Vector2(120, 120)  # fallback = tamanho real da cena de carta
-	if cena_carta_pequena:
-		var ghost = cena_carta_pequena.instantiate()
+	# --- CALCULA O TAMANHO DOS SLOTS ---
+	var tamanho_slot := Vector2(100, 100)
+	if cena_carta_bem_pequena:
+		var ghost = cena_carta_bem_pequena.instantiate()
 		if ghost is Control and ghost.custom_minimum_size.y > 0:
 			tamanho_slot = ghost.custom_minimum_size
 		ghost.queue_free()
 	
+	# --- CRIA E ADICIONA OS SLOTS VAZIOS COM PANEL ---
 	var slots_livres = peca.quantosSlotes - slots_usados
 	for i in range(slots_livres):
-		var slot_vazio = ColorRect.new()
-		slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5) # Cinza escuro semi-transparente
+		var slot_vazio = Panel.new()
 		slot_vazio.custom_minimum_size = tamanho_slot
 		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		slot_vazio.add_theme_stylebox_override("panel", estilo_slot_vazio)
 		equipped_cards_grid.add_child(slot_vazio)
 	# --------------------------------------------------------------------------
 			
@@ -153,16 +179,11 @@ func _selecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 		var peca_na_lista_repetida = GameState.tem_peca(id)
 		child.modulate = Color(0.6, 0.6, 0.6, 1.0) if peca_na_lista_repetida else Color.WHITE
 	
-	botao_clicado.modulate = Color(0.5, 1.0, 0.5, 1.0) 
 	
 	# --- INTELIGÊNCIA DO BOTÃO DE AÇÃO ---
-#	var selecionou_repetida = GameState.tem_peca(peca.id_unico)
 	var label_do_botao = btn_aceitar.get_node_or_null("Aceitar_Label")
 	
 	if label_do_botao:
-	#	if selecionou_repetida:
-	#		label_do_botao.text = "Pegar Cartas"
-	#	else:
 		label_do_botao.text = "Aceitar"
 			
 	btn_aceitar.disabled = false

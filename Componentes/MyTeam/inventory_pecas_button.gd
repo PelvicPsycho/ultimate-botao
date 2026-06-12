@@ -4,6 +4,20 @@ extends Button
 @export var foto_icone: TextureRect
 @export var rank_label: Label
 @export var quantidade_label: Label
+@export var borda_panel: Panel
+
+func _ready() -> void:
+	# Garante que a borda comece invisível e o botão permita seleção
+	if borda_panel:
+		borda_panel.visible = false
+		borda_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE # Evita que o painel bloqueie cliques
+		
+	toggle_mode = true # Ativa o modo interruptor do botão
+	toggled.connect(_on_toggled)
+
+func _on_toggled(toggled_on: bool) -> void:
+	if borda_panel:
+		borda_panel.visible = toggled_on
 
 ## quantidade: se > 1, mostra o label com o número. 0 ou omitido = invisível.
 func setup_item(dados: Resource, quantidade: int = 0):

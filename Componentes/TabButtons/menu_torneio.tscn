@@ -61,7 +61,7 @@ scale = Vector2(0.8, 0.8)
 layout_mode = 1
 offset_top = 17.0
 offset_bottom = 17.0
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.6, 0.6)
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1731912505]
 layout_mode = 2

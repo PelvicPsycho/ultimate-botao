@@ -5,6 +5,7 @@ extends Button
 @export var imagem_icone : TextureRect
 @export var quantidade_label: Label
 @export var textura_raridade: TextureRect 
+@export var borda_panel: Panel
 
 @export_group("Cores por Raridade")
 @export var cor_normal: Color = Color("9e9e9e") # Cinza
@@ -12,6 +13,19 @@ extends Button
 @export var cor_rara: Color = Color("ffc107") # Dourado (Amarelo)
 
 var item_data: Resource
+
+func _ready() -> void:
+	# Garante que a borda comece invisível e o botão permita seleção
+	if borda_panel:
+		borda_panel.visible = false
+		borda_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE # Evita que o painel bloqueie cliques
+		
+	toggle_mode = true # Ativa o modo interruptor do botão
+	toggled.connect(_on_toggled)
+
+func _on_toggled(toggled_on: bool) -> void:
+	if borda_panel:
+		borda_panel.visible = toggled_on
 
 ## quantidade: se > 1, mostra o label com o número. 0 ou omitido = invisível.
 func setup_item(dados: Resource, quantidade: int = 0):

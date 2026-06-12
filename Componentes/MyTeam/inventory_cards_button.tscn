@@ -3,9 +3,71 @@
 [ext_resource type="Script" uid="uid://ljmvhexims2q" path="res://Componentes/MyTeam/inventory_cards_button.gd" id="1_gfv3x"]
 [ext_resource type="Texture2D" uid="uid://v6d1xe484tcc" path="res://Recursos/2D_Art/MyTeam/Rectangle 34.png" id="3_7wxhq"]
 [ext_resource type="Texture2D" uid="uid://cgsamk8f0iwca" path="res://Recursos/2D_Art/MyTeam/Rectangle 33.png" id="3_hadsi"]
-[ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="3_qoayl"]
+[ext_resource type="Texture2D" uid="uid://sjiecn1fmei" path="res://Recursos/2D_Art/MyTeam/Group 78.png" id="4_7wxhq"]
+[ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="5_hmer5"]
 
-[node name="CartaUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "imagem_icone", "quantidade_label", "textura_raridade")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoayl"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wxhq"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0.23529412, 0.2784314, 0.5254902)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmer5"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(2.5509298e-06, 0.4465431, 0.5210718, 0.5254902)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sua76"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvdey"]
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 4
+
+[node name="CartaUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "imagem_icone", "quantidade_label", "textura_raridade", "borda_panel")]
 custom_minimum_size = Vector2(440, 80)
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,11 +76,16 @@ offset_right = -1480.0
 offset_bottom = -1000.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_qoayl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7wxhq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hmer5")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_sua76")
 script = ExtResource("1_gfv3x")
 nome_label = NodePath("Control/MarginContainer/MarginContainer/HBoxContainer/Nome_Label")
 imagem_icone = NodePath("Control/MarginContainer/MarginContainer/HBoxContainer/ImagePlaceHolder_ColorRect")
 quantidade_label = NodePath("Control/MarginContainer/TextureRect/Quantidade_Label")
 textura_raridade = NodePath("Control/MarginContainer/Raridade_TextureRect")
+borda_panel = NodePath("Control/MarginContainer/WhiteBorder_Panel")
 
 [node name="Control" type="Control" parent="." unique_id=1118418332]
 anchors_preset = 0
@@ -62,19 +129,10 @@ theme_override_constants/outline_size = 3
 text = "99"
 horizontal_alignment = 1
 
-[node name="Raridade_TextureRect" type="TextureRect" parent="Control/MarginContainer" unique_id=567763977]
-custom_minimum_size = Vector2(50, 20)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-mouse_filter = 2
-texture = ExtResource("3_7wxhq")
-expand_mode = 1
-
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer" unique_id=1466296230]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 15
+theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = -15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = -15
@@ -85,19 +143,34 @@ mouse_filter = 2
 theme_override_constants/separation = 15
 
 [node name="ImagePlaceHolder_ColorRect" type="TextureRect" parent="Control/MarginContainer/MarginContainer/HBoxContainer" unique_id=725166944]
-custom_minimum_size = Vector2(60, 90)
+custom_minimum_size = Vector2(65, 90)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
-texture = ExtResource("3_qoayl")
+texture = ExtResource("4_7wxhq")
 expand_mode = 1
 
 [node name="Nome_Label" type="Label" parent="Control/MarginContainer/MarginContainer/HBoxContainer" unique_id=264130752]
 custom_minimum_size = Vector2(300, 20)
 layout_mode = 2
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 30
-text = "Nome da carta"
+theme_override_fonts/font = ExtResource("5_hmer5")
+theme_override_font_sizes/font_size = 35
+text = "Mega coisa"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="WhiteBorder_Panel" type="Panel" parent="Control/MarginContainer" unique_id=2009647334]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gvdey")
+
+[node name="Raridade_TextureRect" type="TextureRect" parent="Control/MarginContainer" unique_id=567763977]
+custom_minimum_size = Vector2(75, 20)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 2
+texture = ExtResource("3_7wxhq")
+expand_mode = 1

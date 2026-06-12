@@ -8,10 +8,12 @@ var current_slot: int = 1
 var current_tab: CategoryTab = CategoryTab.PIECES
 var item_em_inspecao: Resource = null 
 var inspecionando_carta_equipada: bool = false
+var grupo_janela_esquerda := ButtonGroup.new()
 
 var az_ascending := true
 var rank_ascending := true
-var sort_mode := 0  # 0 = ordem original, 1 = A-Z, 2 = Rank
+var data_ascending := true # Começa como true (Ascendente)
+var sort_mode := 3         # O padrão agora é 3 (Data)
 
 # --- REFERÊNCIAS DE NÓS (INSPETOR) ---
 @export_group("Navegação Superior")
@@ -33,6 +35,7 @@ var sort_mode := 0  # 0 = ordem original, 1 = A-Z, 2 = Rank
 @export_group("Filtros")
 @export var az_filter_btn: TextureButton
 @export var rank_filter_btn: TextureButton
+@export var date_filter_btn: TextureButton
 
 @export_group("Janela Esquerda")
 @export var inventory_list: GridContainer 
@@ -120,6 +123,8 @@ func _connect_signals() -> void:
 		az_filter_btn.pressed.connect(_on_az_filter_pressed)
 	if rank_filter_btn:
 		rank_filter_btn.pressed.connect(_on_rank_filter_pressed)
+	if date_filter_btn:
+		date_filter_btn.pressed.connect(_on_date_filter_pressed)
 	
 	if btn_salvar_sair:
 		btn_salvar_sair.pressed.connect(_on_btn_salvar_sair_pressed)
@@ -191,66 +196,80 @@ func _switch_tab(tab: CategoryTab) -> void:
 # --- FILTROS DE ORDENAÇÃO ---
 func _on_az_filter_pressed() -> void:
 	if sort_mode != 1:
-		# 1º Clique: Ativa A-Z (Crescente)
+		# Se não era o ativo, ativa o A-Z no modo padrão (Crescente/Verde)
 		sort_mode = 1
 		az_ascending = true
-	elif az_ascending == true:
-		# 2º Clique: Inverte para Z-A (Decrescente)
-		az_ascending = false
 	else:
-		# 3º Clique: Desliga o filtro e volta à ordem original do save
-		sort_mode = 0
-		az_ascending = true # Reseta para a próxima vez
+		# Se já era o ativo, apenas inverte a ordem
+		az_ascending = not az_ascending
 		
 	_atualizar_visuais_dos_filtros()
 	_switch_tab(current_tab)
 
 func _on_rank_filter_pressed() -> void:
 	if sort_mode != 2:
-		# 1º Clique: Ativa Rank (Melhor pro Pior)
+		# Se não era o ativo, ativa o Rank no modo padrão (Melhor pro Pior/Verde)
 		sort_mode = 2
 		rank_ascending = true
-	elif rank_ascending == true:
-		# 2º Clique: Inverte para Rank (Pior pro Melhor)
-		rank_ascending = false
 	else:
-		# 3º Clique: Desliga o filtro
-		sort_mode = 0
-		rank_ascending = true # Reseta para a próxima vez
+		# Se já era o ativo, apenas inverte a ordem
+		rank_ascending = not rank_ascending
+		
+	_atualizar_visuais_dos_filtros()
+	_switch_tab(current_tab)
+
+func _on_date_filter_pressed() -> void:
+	if sort_mode != 3:
+		# Se não era o ativo, ativa a Data no modo padrão (Mais antigos primeiro/Verde)
+		sort_mode = 3
+		data_ascending = true 
+	else:
+		# Se já era o ativo, apenas inverte a ordem (Mais novos primeiro/Laranja)
+		data_ascending = not data_ascending
 		
 	_atualizar_visuais_dos_filtros()
 	_switch_tab(current_tab)
 
 func _atualizar_visuais_dos_filtros() -> void:
-	# 1. Reseta os dois botões para a cor original (branco puro / sem filtro)
+	# 1. Reseta TODOS os botões para branco
 	if az_filter_btn: az_filter_btn.modulate = Color.WHITE
 	if rank_filter_btn: rank_filter_btn.modulate = Color.WHITE
+	if date_filter_btn: date_filter_btn.modulate = Color.WHITE
 	
-	# 2. Define as cores dos estados (você pode alterar esses valores depois)
-	var cor_estado_1 = Color(0.5, 1.0, 0.5)  # Verde Claro (Crescente)
-	var cor_estado_2 = Color(1.0, 0.6, 0.2)  # Laranja (Decrescente)
+	# 2. Define as cores
+	var cor_crescente = Color(0.5, 1.0, 0.5)  # Verde
+	var cor_decrescente = Color(1.0, 0.6, 0.2)  # Laranja
 	
-	# 3. Pinta apenas o botão que está ativo
-	if sort_mode == 1 and az_filter_btn:
-		az_filter_btn.modulate = cor_estado_1 if az_ascending else cor_estado_2
-		
-	elif sort_mode == 2 and rank_filter_btn:
-		rank_filter_btn.modulate = cor_estado_1 if rank_ascending else cor_estado_2
+	# 3. Pinta apenas o ativo usando match
+	match sort_mode:
+		1:
+			if az_filter_btn: az_filter_btn.modulate = cor_crescente if az_ascending else cor_decrescente
+		2:
+			if rank_filter_btn: rank_filter_btn.modulate = cor_crescente if rank_ascending else cor_decrescente
+		3:
+			if date_filter_btn: date_filter_btn.modulate = cor_crescente if data_ascending else cor_decrescente
 
 func _apply_sort(array: Array) -> void:
 	match sort_mode:
 		1: _sort_by_name(array)
 		2: _sort_by_rank(array)
+		3: _sort_by_date(array)
+
+func _sort_by_date(array: Array) -> void:
+	# Se for data_ascending (Verde), não fazemos nada, pois o Godot já entrega 
+	# o array na ordem de obtenção (os primeiros do array são os mais antigos).
+	# Só precisamos reverter se o jogador quiser os mais novos primeiro (Laranja).
+	if not data_ascending:
+		array.reverse()
 
 func _sort_by_name(array: Array) -> void:
 	array.sort_custom(func(a, b):
-		var na := ""
-		var nb := ""
-		if a is TeamPlayer: na = a.nome
-		elif a is CardResource: na = a.nome
-		if b is TeamPlayer: nb = b.nome
-		elif b is CardResource: nb = b.nome
-		return na.to_lower() < nb.to_lower() if az_ascending else na.to_lower() > nb.to_lower()
+		# Puxa a propriedade direto (Duck Typing)
+		var nome_a = a.nome.to_lower()
+		var nome_b = b.nome.to_lower()
+		
+		# Retorna a comparação de acordo com a ordem
+		return nome_a < nome_b if az_ascending else nome_a > nome_b
 	)
 
 func _sort_by_rank(array: Array) -> void:
@@ -277,6 +296,7 @@ func _popular_lista_de_cartas(lista_de_cartas: Array, status_de_uso: Dictionary)
 	for carta in lista_de_cartas:
 		if cena_item_carta:
 			var btn_item = cena_item_carta.instantiate()
+			btn_item.button_group = grupo_janela_esquerda
 			inventory_list.add_child(btn_item)
 			
 			var usuarios = status_de_uso.get(carta.id_unico, [])
@@ -301,6 +321,7 @@ func _popular_lista(lista_de_itens: Array) -> void:
 			btn_item = cena_item_peca.instantiate()
 			
 		if btn_item:
+			btn_item.button_group = grupo_janela_esquerda
 			inventory_list.add_child(btn_item)
 			if btn_item.has_method("setup_item"):
 				var qtd := 0

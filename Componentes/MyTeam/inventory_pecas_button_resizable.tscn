@@ -1,14 +1,23 @@
-[gd_scene format=3 uid="uid://orrq0vy3qa51"]
+[gd_scene format=3 uid="uid://sav4x78bmqjc"]
 
-[ext_resource type="StyleBox" uid="uid://oxr2bw7f1064" path="res://Componentes/MyTeam/BotaoStyleNormal.tres" id="1_lmlmw"]
-[ext_resource type="Script" uid="uid://c8wvtxvkt6jow" path="res://Componentes/MyTeam/inventory_pecas_button.gd" id="1_s50es"]
-[ext_resource type="StyleBox" uid="uid://c4npex4yttw5w" path="res://Componentes/MyTeam/BotaoStylePressed.tres" id="2_d0t74"]
-[ext_resource type="Texture2D" uid="uid://dukkotrku2ydb" path="res://Recursos/2D_Art/MyTeam/Rectangle 33_pecas.png" id="2_s50es"]
-[ext_resource type="StyleBox" uid="uid://j7l2gv08rxa8" path="res://Componentes/MyTeam/BotaoStyleHover.tres" id="3_jj0rj"]
-[ext_resource type="Texture2D" uid="uid://2cnlefi2jtnx" path="res://Recursos/2D_Art/MyTeam/Rectangle 34_rankcarta.png" id="3_rdpgs"]
-[ext_resource type="Texture2D" uid="uid://bx053wrlnlc1n" path="res://Recursos/2D_Art/MyTeam/peca.png" id="4_rdpgs"]
-[ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="5_qes8w"]
-[ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="6_qes8w"]
+[ext_resource type="Script" uid="uid://c8wvtxvkt6jow" path="res://Componentes/MyTeam/inventory_pecas_button.gd" id="1_3hob7"]
+[ext_resource type="Texture2D" uid="uid://dukkotrku2ydb" path="res://Recursos/2D_Art/MyTeam/Rectangle 33_pecas.png" id="2_p3jt0"]
+[ext_resource type="Texture2D" uid="uid://2cnlefi2jtnx" path="res://Recursos/2D_Art/MyTeam/Rectangle 34_rankcarta.png" id="3_qqaeg"]
+[ext_resource type="Texture2D" uid="uid://bx053wrlnlc1n" path="res://Recursos/2D_Art/MyTeam/peca.png" id="4_sao4c"]
+[ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="5_pfa2n"]
+[ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="6_h0hxm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s50es"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rdpgs"]
 bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
@@ -34,11 +43,10 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/normal = ExtResource("1_lmlmw")
-theme_override_styles/pressed = ExtResource("2_d0t74")
-theme_override_styles/hover = ExtResource("3_jj0rj")
-theme_override_styles/disabled = ExtResource("1_lmlmw")
-script = ExtResource("1_s50es")
+theme_override_styles/normal = SubResource("StyleBoxFlat_s50es")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_s50es")
+theme_override_styles/hover = SubResource("StyleBoxFlat_s50es")
+script = ExtResource("1_3hob7")
 nome_label = NodePath("Control/MarginContainer/ContainerLayout_VBoxContainer/Nome_Label")
 foto_icone = NodePath("Control/MarginContainer/ContainerLayout_VBoxContainer/ImagePlaceHolder_ColorRect")
 rank_label = NodePath("Control/Rank_TextureRect/Rank_Label")
@@ -60,7 +68,7 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-texture = ExtResource("2_s50es")
+texture = ExtResource("2_p3jt0")
 expand_mode = 1
 
 [node name="Quantidade_Label" type="Label" parent="Control/Fundo_TextureRect2" unique_id=916016902]
@@ -85,7 +93,7 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-texture = ExtResource("3_rdpgs")
+texture = ExtResource("3_qqaeg")
 expand_mode = 1
 
 [node name="Rank_Label" type="Label" parent="Control/Rank_TextureRect" unique_id=1665693706]
@@ -129,14 +137,14 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
 mouse_filter = 2
-texture = ExtResource("4_rdpgs")
+texture = ExtResource("4_sao4c")
 expand_mode = 1
 
 [node name="Nome_Label" type="Label" parent="Control/MarginContainer/ContainerLayout_VBoxContainer" unique_id=264130752]
 custom_minimum_size = Vector2(120, 50)
 layout_mode = 2
 size_flags_vertical = 10
-theme_override_fonts/font = ExtResource("5_qes8w")
+theme_override_fonts/font = ExtResource("5_pfa2n")
 theme_override_font_sizes/font_size = 20
 text = "Nome da peca super longo"
 horizontal_alignment = 1
@@ -154,4 +162,4 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rdpgs")
 
-[node name="AnimationHover_Node" parent="." unique_id=1375273779 instance=ExtResource("6_qes8w")]
+[node name="AnimationHover_Node" parent="." unique_id=1375273779 instance=ExtResource("6_h0hxm")]

@@ -6,6 +6,7 @@ signal recompensa_coletada
 # --- VARIÁVEIS DE ESTADO (O PACOTE) ---
 var pacote_pecas: Array[TeamPlayer] = []
 var pacote_cartas: Array[CardResource] = []
+var grupo_recompensa := ButtonGroup.new()
 
 # --- REFERÊNCIAS DE NÓS (Baseado nas suas imagens) ---
 @export_group("Janelas Principais")
@@ -39,11 +40,34 @@ var pacote_cartas: Array[CardResource] = []
 @export_group("Cenas")
 @export var cena_botao_peca: PackedScene
 @export var cena_carta_pequena: PackedScene
+@export var cena_carta_bem_pequena: PackedScene 
+
+@export_group("Visual dos Slots Vazios")
+## O valor de arredondamento de todos os cantos
+@export var raio_dos_cantos: int = 15
+## A cor de fundo do espaço vazio (com um pouco de transparência por padrão)
+@export var cor_do_slot: Color = Color(0.1, 0.1, 0.1, 0.5) 
+
+var estilo_slot_vazio: StyleBoxFlat
+
 
 func _ready() -> void:
 	inspecao_peca_hbox.visible = false
 	inspecao_carta_hbox.visible = false
 	btn_aceitar.pressed.connect(_on_btn_aceitar_pressed)
+	
+		# 1. Configura o visual do slot uma única vez ao carregar a cena
+	estilo_slot_vazio = StyleBoxFlat.new()
+	estilo_slot_vazio.bg_color = cor_do_slot
+	
+	# 2. Aplica o raio exportado em todos os cantos
+	estilo_slot_vazio.corner_radius_top_left = raio_dos_cantos
+	estilo_slot_vazio.corner_radius_top_right = raio_dos_cantos
+	estilo_slot_vazio.corner_radius_bottom_left = raio_dos_cantos
+	estilo_slot_vazio.corner_radius_bottom_right = raio_dos_cantos
+	
+	# Opcional: Garante que as bordas arredondadas fiquem suaves
+#	estilo_slot_vazio.anti_aliasing = true
 
 # O MatchScene ou CupManager vai chamar essa função quando o torneio acabar
 func iniciar_tela_de_torneio(copa_atual: Resource) -> void: # O desenrolar começa aqui
@@ -84,72 +108,100 @@ func _gerar_loot_do_torneio() -> void:
 # --- DESENHO DA UI ---
 func _desenhar_vitrine() -> void:
 	var botoes_misturados: Array = []
-	var tamanho_unificado = 150.0 # <-- Escolha o tamanho final que vai aparecer na tela!
-	
+	var tamanho_unificado := Vector2(150.0, 150.0) # Tamanho final que vai aparecer na tela
+
 	# 1. Prepara os botões de Peça (Tamanho original 180x180)
 	for peca in pacote_pecas:
-		if cena_botao_peca:
-			var btn = cena_botao_peca.instantiate()
-			if btn.has_method("setup_item"):
-				btn.setup_item(peca)
-			
-			# Cria a caixa invisível para o HBox
-			var wrapper = Control.new()
-			wrapper.clip_contents = true
-			wrapper.custom_minimum_size = Vector2(tamanho_unificado, tamanho_unificado)
-			
-			# --- O SEGREDO PARA NÃO VOAR ---
-			btn.position = Vector2.ZERO 
-			wrapper.custom_minimum_size = Vector2(150, 150)
-			btn.pivot_offset = Vector2.ZERO
-			btn.scale = Vector2(tamanho_unificado / 180.0, tamanho_unificado / 180.0)
-			wrapper.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-			wrapper.add_child(btn)
-			
-			btn.pressed.connect(func(): _inspecionar_peca(peca, btn))
-			botoes_misturados.append(wrapper) # Colocamos o wrapper na lista!
-			
+		if cena_botao_peca == null:
+			continue
+		var btn := cena_botao_peca.instantiate()
+		btn.button_group = grupo_recompensa
+		if btn.has_method("setup_item"):
+			btn.setup_item(peca)
+
+		btn.pressed.connect(func(): _inspecionar_peca(peca, btn))
+		botoes_misturados.append({
+			"btn": btn,
+			"original": Vector2(180.0, 180.0),
+		})
+		
+
 	# 2. Prepara os botões de Carta (Tamanho original 120x120)
 	for carta in pacote_cartas:
-		if cena_carta_pequena:
-			var btn = cena_carta_pequena.instantiate()
-			if btn.has_method("setup_item"):
-				btn.setup_item(carta)
-				
-			# Cria a caixa invisível para o HBox
-			var wrapper = Control.new()
-			wrapper.clip_contents = true
-			wrapper.custom_minimum_size = Vector2(tamanho_unificado, tamanho_unificado)
-			
-			# --- O SEGREDO PARA NÃO VOAR ---
-			btn.position = Vector2.ZERO 
-			
-			btn.pivot_offset = Vector2.ZERO
-			btn.scale = Vector2(tamanho_unificado / 120.0, tamanho_unificado / 120.0)
-			wrapper.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-			wrapper.add_child(btn)
-				
-			btn.pressed.connect(func(): _inspecionar_carta(carta, btn))
-			botoes_misturados.append(wrapper) # Colocamos o wrapper na lista!
+		if cena_carta_pequena == null:
+			continue
+		var btn := cena_carta_pequena.instantiate()
+		btn.button_group = grupo_recompensa
+		if btn.has_method("setup_item"):
+			btn.setup_item(carta)
+
+		btn.pressed.connect(func(): _inspecionar_carta(carta, btn))
+		botoes_misturados.append({
+			"btn": btn,
+			"original": Vector2(120.0, 120.0),
+		})
 
 	# 3. Embaralha a ordem de tudo!
 	botoes_misturados.shuffle()
 
-	# 4. Adiciona as caixas invisíveis já misturadas no HBoxContainer
-	for wrapper in botoes_misturados:
+	# 4. Cria a estrutura de 3 camadas para proteger a escala da animação
+	for item in botoes_misturados:
+		var btn: Button = item["btn"]
+		var original: Vector2 = item["original"]
+
+		# CAMADA 1: A "Caixa" que avisa o HBoxContainer do tamanho ocupado
+		var wrapper := Control.new()
+		wrapper.custom_minimum_size = tamanho_unificado
+		wrapper.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		wrapper.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		# IMPORTANTE: Garante que a animação possa vazar da caixa sem ser cortada
+		wrapper.clip_contents = false 
+
+		# Calcula a escala matemática
+		var escala := Vector2.ONE
+		if original.x > 0.0 and original.y > 0.0:
+			escala = tamanho_unificado / original
+
+		# CAMADA 2: O "Escalonador" invisível que aplica a matemática
+		var escalonador := Control.new()
+		escalonador.scale = escala
+		escalonador.position = Vector2.ZERO
+
+		# CAMADA 3: O seu Botão Real
+		btn.anchor_left = 0.0
+		btn.anchor_top = 0.0
+		btn.anchor_right = 0.0
+		btn.anchor_bottom = 0.0
+		btn.offset_left = 0.0
+		btn.offset_top = 0.0
+		btn.offset_right = 0.0
+		btn.offset_bottom = 0.0
+		
+		# Ele volta a ter exatamente o tamanho que tem lá no arquivo .tscn
+		btn.size = original 
+		btn.position = Vector2.ZERO
+		
+		# Coloca o pivô do botão bem no meio dele! 
+		# Assim, quando o seu Hover animar a escala, o botão cresce a partir do centro.
+		btn.pivot_offset = original / 2.0 
+
+		# Monta a boneca russa
+		escalonador.add_child(btn)
+		wrapper.add_child(escalonador)
 		container_opcoes.add_child(wrapper)
 
-	# 5. Auto-seleciona o primeiro item da vitrine
+	# 6. Auto-seleciona o primeiro item da vitrine
 	if botoes_misturados.size() > 0:
-		# Como o wrapper é o item da lista, o nosso botão real é o filho dele!
-		var primeiro_botao = botoes_misturados[0].get_child(0)
+		# Agora o nosso botão real é o filho do escalonador, que é filho do wrapper
+		var primeiro_botao = botoes_misturados[0]["btn"]
+		primeiro_botao.button_pressed = true
 		primeiro_botao.pressed.emit()
 
 # --- SISTEMA DE INSPEÇÃO ALTERNADA ---
 func _inspecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 	inspecao_carta_hbox.visible = false
 	inspecao_peca_hbox.visible = true
-	_destacar_botao(botao_clicado)
+#	_destacar_botao(botao_clicado)
 	
 	peca_nome_label.text = peca.nome
 	peca_rank_label.text = str(TeamPlayer.Rank.keys()[peca.rank])
@@ -169,8 +221,8 @@ func _inspecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 		if carta != null:
 			slots_usados += carta.custoSlotes
 			
-			if cena_carta_pequena:
-				var btn_carta = cena_carta_pequena.instantiate()
+			if cena_carta_bem_pequena:
+				var btn_carta = cena_carta_bem_pequena.instantiate()
 				peca_equipped_grid.add_child(btn_carta)
 				if btn_carta.has_method("setup_item"):
 					btn_carta.setup_item(carta)
@@ -178,21 +230,22 @@ func _inspecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 					btn_carta.disabled = true
 				btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	# 2. DESENHA OS SLOTS VAZIOS (mesmo tamanho das cartas, igual ao elenco_menu)
-	var tamanho_slot := Vector2(120, 120)  # fallback = tamanho real da cena de carta
-	if cena_carta_pequena:
-		var ghost = cena_carta_pequena.instantiate()
+	# --- CALCULA O TAMANHO DOS SLOTS ---
+	var tamanho_slot := Vector2(100, 100)
+	if cena_carta_bem_pequena:
+		var ghost = cena_carta_bem_pequena.instantiate()
 		if ghost is Control and ghost.custom_minimum_size.y > 0:
 			tamanho_slot = ghost.custom_minimum_size
 		ghost.queue_free()
 	
+	# --- CRIA E ADICIONA OS SLOTS VAZIOS COM PANEL ---
 	var slots_livres = peca.quantosSlotes - slots_usados
 	for i in range(slots_livres):
-		var slot_vazio = ColorRect.new()
-		slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5) 
+		var slot_vazio = Panel.new()
 		slot_vazio.custom_minimum_size = tamanho_slot
-		slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		slot_vazio.add_theme_stylebox_override("panel", estilo_slot_vazio)
 		peca_equipped_grid.add_child(slot_vazio)
 	
 	# Atualiza o texto de contagem de slots
@@ -220,7 +273,7 @@ func _inspecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 func _inspecionar_carta(carta: CardResource, botao_clicado: Control) -> void:
 	inspecao_peca_hbox.visible = false
 	inspecao_carta_hbox.visible = true
-	_destacar_botao(botao_clicado)
+#	_destacar_botao(botao_clicado)
 	
 	carta_nome_label.text = carta.nome
 	carta_descricao_label.text = carta.descricao
@@ -238,15 +291,15 @@ func _inspecionar_carta(carta: CardResource, botao_clicado: Control) -> void:
 			icone.custom_minimum_size = Vector2(30, 30)
 			carta_slots_indicator.add_child(icone)
 
-func _destacar_botao(botao_clicado: Control) -> void:
-	# Agora nós varremos as caixas wrapper
-	for wrapper in container_opcoes.get_children():
-		if wrapper.get_child_count() > 0:
-			# O botão real que precisa ficar branco é o filho do wrapper
-			wrapper.get_child(0).modulate = Color.WHITE
-			
-	# O botão clicado já é a referência certa que vem pelo Signal
-	botao_clicado.modulate = Color(0.5, 1.0, 0.5, 1.0)
+#func _destacar_botao(botao_clicado: Control) -> void:
+	## Agora nós varremos as caixas wrapper
+	#for wrapper in container_opcoes.get_children():
+		#if wrapper.get_child_count() > 0:
+			## O botão real que precisa ficar branco é o filho do wrapper
+			#wrapper.get_child(0).modulate = Color.WHITE
+#
+	## O botão clicado já é a referência certa que vem pelo Signal
+	#botao_clicado.modulate = Color(0.5, 1.0, 0.5, 1.0)
 
 # --- AÇÃO FINAL (RESGATE) ---
 func _on_btn_aceitar_pressed() -> void:

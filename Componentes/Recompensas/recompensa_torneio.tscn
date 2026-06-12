@@ -14,7 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://cl2tgl8bovq38" path="res://Componentes/Recompensas/Rectangle 39_recompensadown.png" id="11_xxcsh"]
 [ext_resource type="Texture2D" uid="uid://47ugmokghauy" path="res://Recursos/2D_Art/MyTeam/Group 53_.png" id="12_75vte"]
 [ext_resource type="Texture2D" uid="uid://7pb1a7h83erj" path="res://Recursos/2D_Art/MyTeam/Group 4_.png" id="13_f8u3f"]
+[ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="13_l5le2"]
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="14_7o35e"]
+[ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="15_utayo"]
 
 [node name="RecompensaTorneio_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("inspecao_peca_hbox", "inspecao_carta_hbox", "peca_nome_label", "peca_rank_label", "peca_ap_label", "peca_slots_count_label", "peca_slots_indicator", "peca_equipped_grid", "carta_nome_label", "carta_descricao_label", "carta_slots_indicator", "container_opcoes", "btn_aceitar")]
 process_mode = 3
@@ -197,10 +199,14 @@ grow_vertical = 2
 custom_minimum_size = Vector2(50, 100)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("13_l5le2")
 theme_override_font_sizes/font_size = 65
 text = "Parabéns!"
 
 [node name="InspecaoPeca_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=220846082]
+visible = false
+custom_minimum_size = Vector2(0, 490)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -225,6 +231,7 @@ theme_override_constants/separation = 8
 custom_minimum_size = Vector2(380, 70)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("13_l5le2")
 theme_override_font_sizes/font_size = 40
 text = "Peça Xandao"
 horizontal_alignment = 1
@@ -251,37 +258,44 @@ offset_right = 14.5
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("13_l5le2")
 theme_override_font_sizes/font_size = 80
 text = "C"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer" unique_id=1133440059]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer" unique_id=2130652905]
+layout_mode = 2
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_right = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/MarginContainer" unique_id=1133440059]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/HBoxContainer" unique_id=1194078372]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/MarginContainer/HBoxContainer" unique_id=1194078372]
 custom_minimum_size = Vector2(100, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1184357430]
+[node name="Label" type="Label" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1184357430]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("13_l5le2")
 theme_override_font_sizes/font_size = 35
 text = "Rank"
-horizontal_alignment = 2
 
-[node name="Label2" type="Label" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1202026695]
+[node name="Label2" type="Label" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1202026695]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("15_utayo")
 theme_override_font_sizes/font_size = 20
 text = "RP: 7"
-horizontal_alignment = 2
 
-[node name="PecaRank_Label" type="Label" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/HBoxContainer" unique_id=998535190]
+[node name="PecaRank_Label" type="Label" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/MarginContainer/HBoxContainer" unique_id=998535190]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("13_l5le2")
 theme_override_font_sizes/font_size = 120
 text = "C"
 
@@ -291,12 +305,13 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1521172543]
-custom_minimum_size = Vector2(35, 70)
 layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="ContagemSlots_Label" type="Label" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/HBoxContainer" unique_id=702110813]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("15_utayo")
 theme_override_font_sizes/font_size = 30
 text = "Slots (0/0)"
 vertical_alignment = 1
@@ -307,15 +322,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="TextureRect3" type="TextureRect" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/HBoxContainer/SlotsIndicator_HBoxContainer" unique_id=1840318810]
-custom_minimum_size = Vector2(60, 60)
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 texture = ExtResource("3_7o35e")
 expand_mode = 1
 
 [node name="Cartas_Label" type="Label" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=92075946]
-visible = false
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_fonts/font = ExtResource("15_utayo")
+theme_override_font_sizes/font_size = 24
 text = "Cartas"
 
 [node name="EquippedCards_GridContainer" type="GridContainer" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1178925908]
@@ -324,23 +339,24 @@ layout_mode = 2
 size_flags_vertical = 6
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
-columns = 4
+columns = 5
 
 [node name="PontosAcao_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1383214861]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/PontosAcao_HBoxContainer" unique_id=1791325102]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("15_utayo")
 theme_override_font_sizes/font_size = 28
 text = "Pontos de Ação - "
 
 [node name="PontosdeAcao_Label" type="Label" parent="Panel/VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/PontosAcao_HBoxContainer" unique_id=1121614287]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("15_utayo")
 theme_override_font_sizes/font_size = 25
 text = "2 AP"
 
 [node name="InspecaoCarta_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1581277166]
-visible = false
 custom_minimum_size = Vector2(0, 490)
 layout_mode = 2
 size_flags_vertical = 3
@@ -360,7 +376,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
-theme_override_constants/separation = 8
 
 [node name="PecaTexture_TextureRect" type="TextureRect" parent="Panel/VBoxContainer/InspecaoCarta_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer" unique_id=617089316]
 z_index = 1
@@ -378,16 +393,19 @@ size_flags_vertical = 4
 theme_override_constants/separation = 10
 
 [node name="NomeCarta_Label" type="Label" parent="Panel/VBoxContainer/InspecaoCarta_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1317223796]
-custom_minimum_size = Vector2(380, 70)
+custom_minimum_size = Vector2(600, 70)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 40
 text = "Nome da carta"
+autowrap_mode = 2
 
 [node name="DescricaoCarta_Label" type="Label" parent="Panel/VBoxContainer/InspecaoCarta_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1008483945]
+custom_minimum_size = Vector2(600, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Descricao"
+autowrap_mode = 2
 
 [node name="SlotsIndicator_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/InspecaoCarta_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1130142981]
 layout_mode = 2
@@ -399,17 +417,21 @@ texture = ExtResource("3_7o35e")
 expand_mode = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer" unique_id=545648063]
+custom_minimum_size = Vector2(50, 210)
 layout_mode = 2
-theme_override_constants/margin_left = 70
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 70
-theme_override_constants/margin_bottom = 40
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 72
+theme_override_constants/margin_bottom = 35
 
 [node name="Opcoes_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2" unique_id=191582257]
-custom_minimum_size = Vector2(700, 120)
+custom_minimum_size = Vector2(700, 150)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 10
+
+[node name="CartaUI_Button" parent="Panel/VBoxContainer/MarginContainer2/Opcoes_HBoxContainer" unique_id=445776678 instance=ExtResource("5_7o35e")]
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer" unique_id=1486056273]
 layout_mode = 2
@@ -436,6 +458,7 @@ offset_right = 30.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("13_l5le2")
 theme_override_font_sizes/font_size = 55
 text = "Aceitar"
 horizontal_alignment = 1
