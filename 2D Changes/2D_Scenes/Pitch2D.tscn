@@ -8,6 +8,7 @@
 [node name="Pitch" type="Node2D" unique_id=603521134]
 
 [node name="CampoV2" type="Sprite2D" parent="." unique_id=303944095]
+visible = false
 position = Vector2(3630, 615.00006)
 scale = Vector2(0.60573524, 0.60573506)
 texture = ExtResource("1_aubv3")
@@ -19,8 +20,8 @@ scale = Vector2(1, 0.9166667)
 texture = ExtResource("1_bp3cd")
 
 [node name="CampoV3" type="Sprite2D" parent="." unique_id=995364415]
-position = Vector2(961.62506, 626)
-scale = Vector2(0.5328884, 0.5328885)
+position = Vector2(960, 586.075)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_vrscm")
 
 [node name="Limits" type="StaticBody2D" parent="." unique_id=1520481869]
@@ -30,23 +31,22 @@ collision_mask = 2
 [node name="TopWall" type="CollisionPolygon2D" parent="Limits" unique_id=1989422722]
 position = Vector2(-3.0517578e-05, 95.385056)
 scale = Vector2(0.9999999, 0.8194832)
-polygon = PackedVector2Array(256.00006, 424.188, 256.00006, 281.4151, 431.0001, 67.865875, 1494.0001, 70.30644, 1665.0002, 280.19482, 1667.0002, 424.188, 1715.0002, 424.188, 1713.0002, 287.51648, 1512, 26.376312, 407, 26.376312, 208.00006, 287.51648, 209.00006, 424.188)
+polygon = PackedVector2Array(298.00006, 374.15643, 304.00006, 246.02693, 464.0001, 53.222504, 1457.0001, 54.44278, 1619.0002, 248.46748, 1619.0002, 371.71588, 1644.0002, 393.68097, 1638.0002, 244.80666, 1465.0001, 32.477722, 457.0001, 34.918274, 284.00006, 239.92552, 284.00006, 387.57953)
 
 [node name="BottttomWall" type="CollisionPolygon2D" parent="Limits" unique_id=125033711]
 position = Vector2(1920, 1080)
 scale = Vector2(-1, -1)
-polygon = PackedVector2Array(255, 360, 253, 247, 430, 70, 1488, 68, 1664, 243, 1664, 353, 1712, 352, 1713, 239, 1519, 37, 414, 36, 208, 241, 210, 359)
+polygon = PackedVector2Array(298, 397, 301, 299, 463, 137, 1456, 135, 1619, 299, 1622, 397, 1641, 413, 1633, 292, 1465, 122, 456, 122, 286, 295, 284, 411)
 
 [node name="HomeGoal" type="CollisionPolygon2D" parent="Limits" unique_id=1304808500]
-polygon = PackedVector2Array(239, 423, 99, 420, 104, 751, 235, 751, 236, 719, 131, 720, 131, 450, 239, 448)
+polygon = PackedVector2Array(287, 396, 181, 401, 182, 687, 284, 686, 282, 665, 200, 662, 201, 422, 287, 416)
 
 [node name="AwayGoal" type="CollisionPolygon2D" parent="Limits" unique_id=191755524]
 position = Vector2(1920, 1080)
 rotation = 3.1415927
-polygon = PackedVector2Array(237, 322, 93, 319.00006, 91.00012, 671, 237.00012, 675, 236.00012, 631, 131.00012, 631, 133, 361.00006, 236, 360)
+polygon = PackedVector2Array(285, 395, 177, 402, 182.00012, 674, 278.00012, 677, 277.00012, 664, 202.00012, 661, 197, 418, 284, 412)
 
 [node name="HomeGoal_2D" parent="." unique_id=1637700476 instance=ExtResource("2_g6iqt")]
-position = Vector2(0, 89)
 
 [node name="AwayGoal_2D" parent="." unique_id=628271092 instance=ExtResource("2_g6iqt")]
 position = Vector2(1920, 1168)

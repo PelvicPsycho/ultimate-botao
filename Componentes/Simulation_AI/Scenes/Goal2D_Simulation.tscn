@@ -1,22 +1,29 @@
 [gd_scene format=3 uid="uid://djvt35mqbc8jy"]
 
 [ext_resource type="Script" uid="uid://cnkkuss1obmwh" path="res://Componentes/Simulation_AI/Scripts/Goal2D_Simulation.gd" id="1_u0u11"]
+[ext_resource type="Texture2D" uid="uid://bjlt7xu1uryas" path="res://Recursos/2D_Art/Pitch/campo v3.png" id="2_u0u11"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iorkw"]
-size = Vector2(99, 261)
+size = Vector2(74, 252)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y2bt5"]
-size = Vector2(29, 29)
+size = Vector2(29, 94.5)
 
 [node name="Goal2D_Simulation" type="Node2D" unique_id=1637700476]
 script = ExtResource("1_u0u11")
+
+[node name="CampoV3" type="Sprite2D" parent="." unique_id=24636020]
+visible = false
+position = Vector2(960, 586.075)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_u0u11")
 
 [node name="GoalArea" type="Area2D" parent="." unique_id=209979040]
 collision_layer = 4096
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalArea" unique_id=893226879]
-position = Vector2(182.5, 540.5)
+position = Vector2(232, 585)
 shape = SubResource("RectangleShape2D_iorkw")
 
 [node name="NearMissArea" type="Area2D" parent="." unique_id=989177745]
@@ -24,11 +31,11 @@ collision_layer = 128
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NearMissArea" unique_id=1305831501]
-position = Vector2(257.25, 388)
+position = Vector2(314, 396)
 shape = SubResource("RectangleShape2D_y2bt5")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="NearMissArea" unique_id=1111317881]
-position = Vector2(253, 692)
+position = Vector2(314, 779)
 shape = SubResource("RectangleShape2D_y2bt5")
 
 [connection signal="body_entered" from="GoalArea" to="." method="_on_area_2d_body_entered"]

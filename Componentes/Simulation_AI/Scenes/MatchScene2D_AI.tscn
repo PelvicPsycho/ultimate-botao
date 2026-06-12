@@ -24,7 +24,7 @@
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="21_qddwe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iej8s"]
-size = Vector2(215, 269)
+size = Vector2(292.5, 366)
 
 [node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("IA_Contr", "anunciador_ui")]
 script = ExtResource("1_ss0s5")
@@ -43,6 +43,9 @@ offset_bottom = -343.0
 [node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("6_u1agk")]
 position = Vector2(960, 540)
 
+[node name="SimulationController" parent="." unique_id=903002802 node_paths=PackedStringArray("ColResolution2D") instance=ExtResource("14_sg116")]
+ColResolution2D = NodePath("../PhysicsObjects_Group")
+
 [node name="Pitch" parent="." unique_id=603521134 instance=ExtResource("7_v76cn")]
 
 [node name="IA_Controller" type="Node2D" parent="." unique_id=605442648 node_paths=PackedStringArray("physics_controller", "simulation_controller")]
@@ -50,10 +53,8 @@ script = ExtResource("7_5b3c6")
 physics_controller = NodePath("../PhysicsObjects_Group")
 simulation_controller = NodePath("../SimulationController")
 
-[node name="SimulationController" parent="." unique_id=903002802 node_paths=PackedStringArray("ColResolution2D") instance=ExtResource("14_sg116")]
-ColResolution2D = NodePath("../PhysicsObjects_Group")
-
 [node name="PhysicsObjects_Group" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("Sim_Controller", "IA_Contr")]
+position = Vector2(0, -40)
 script = ExtResource("8_sbrvv")
 simulation_Active = true
 Sim_Controller = NodePath("../SimulationController")
@@ -130,7 +131,7 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaHome" unique_id=422259460]
-position = Vector2(54.5, 2.5)
+position = Vector2(47.25, -45)
 shape = SubResource("RectangleShape2D_iej8s")
 
 [node name="AreaAway" type="Area2D" parent="." unique_id=282501590]
@@ -139,7 +140,7 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaAway" unique_id=54370429]
-position = Vector2(54.5, 2.5)
+position = Vector2(86, -44)
 shape = SubResource("RectangleShape2D_iej8s")
 
 [node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("17_jvl26")]

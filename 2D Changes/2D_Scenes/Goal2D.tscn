@@ -2,30 +2,31 @@
 
 [ext_resource type="Script" uid="uid://kg61sq2ilqb" path="res://2D Changes/Scripts_2D/Goal2D.gd" id="1_2khpa"]
 [ext_resource type="PackedScene" uid="uid://pwbv5pt3tysb" path="res://2D Changes/Components/Particles/GoalExplosion/GoalExplosion.tscn" id="2_5wrtv"]
-[ext_resource type="Texture2D" uid="uid://bf5trcwje221o" path="res://Recursos/2D_Art/Pitch/campo-02-gordo-goleira-2.png" id="2_casod"]
 [ext_resource type="AudioStream" uid="uid://br61fcdfiuwpy" path="res://Sons/quase-gol.wav" id="2_e46p4"]
+[ext_resource type="Texture2D" uid="uid://bjlt7xu1uryas" path="res://Recursos/2D_Art/Pitch/campo v3.png" id="3_e46p4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iorkw"]
-size = Vector2(99, 261)
+size = Vector2(66.5, 261)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y2bt5"]
-size = Vector2(29, 29)
+size = Vector2(29, 99.5)
 
 [node name="Goal2D" type="Node2D" unique_id=1637700476 groups=["Goals"]]
 script = ExtResource("1_2khpa")
 audio_quase_gol = ExtResource("2_e46p4")
 
-[node name="Campo02GordoGoleira2" type="Sprite2D" parent="." unique_id=812897400]
+[node name="CampoV3" type="Sprite2D" parent="." unique_id=1961027755]
 visible = false
-position = Vector2(960, 540)
-texture = ExtResource("2_casod")
+position = Vector2(960, 586.075)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_e46p4")
 
 [node name="GoalArea" type="Area2D" parent="." unique_id=209979040]
 collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalArea" unique_id=893226879]
-position = Vector2(182.5, 540.5)
+position = Vector2(228.75, 589)
 shape = SubResource("RectangleShape2D_iorkw")
 
 [node name="NearMissArea" type="Area2D" parent="." unique_id=989177745]
@@ -33,11 +34,11 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NearMissArea" unique_id=1305831501]
-position = Vector2(257.25, 388)
+position = Vector2(314, 393)
 shape = SubResource("RectangleShape2D_y2bt5")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="NearMissArea" unique_id=1111317881]
-position = Vector2(253, 692)
+position = Vector2(313, 778)
 shape = SubResource("RectangleShape2D_y2bt5")
 
 [node name="GoalExplosion" parent="." unique_id=998256435 instance=ExtResource("2_5wrtv")]
