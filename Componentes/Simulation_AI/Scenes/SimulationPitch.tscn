@@ -3,14 +3,14 @@
 [ext_resource type="Script" uid="uid://cpi3slk1enhph" path="res://Componentes/Simulation_AI/Scripts/SimulationController.gd" id="1_pbodn"]
 [ext_resource type="PackedScene" uid="uid://bc3fn0bmpysvf" path="res://Componentes/Simulation_AI/Scenes/Goal_2D_Simulation_Polygons.tscn" id="2_txvbp"]
 
-[node name="SimulationPitch" type="Node2D" unique_id=603521134 node_paths=PackedStringArray("Goal_Home", "Goal_Away", "list_polygons", "home_goal_polygon", "home_goal_near_1_polygon", "home_goal_near_2_polygon", "away_goal_polygon", "away_goal_near_1_polygon", "away_goal_near_2_polygon")]
+[node name="SimulationPitch" type="Node2D" unique_id=603521134 node_paths=PackedStringArray("Goal_Home", "Goal_Away", "list_lines", "home_goal_polygon", "home_goal_near_1_polygon", "home_goal_near_2_polygon", "away_goal_polygon", "away_goal_near_1_polygon", "away_goal_near_2_polygon")]
 script = ExtResource("1_pbodn")
 rotation_steps = 30
 Goal_Home = NodePath("Goal2D_Simulation_Home")
 Goal_Away = NodePath("Goal2D_Simulation_Away")
 current_sequancial_shots_num = 2
 run_num_max_steps = 1000
-list_polygons = [NodePath("Limits/TopWall"), NodePath("Limits/BotWall"), NodePath("Limits/HomeGoalWall"), NodePath("Limits/AwayGoalWall")]
+list_lines = [NodePath("Node2D/TopWall_Line"), NodePath("Node2D/BotWall_Line"), NodePath("Node2D/HomeGoalWall_Line"), NodePath("Node2D/AwayGoalWall_Line")]
 home_goal_polygon = NodePath("Goal2D_Simulation_Home/Home_Goal_Polygons/Home_PolygonGoalArea")
 home_goal_near_1_polygon = NodePath("Goal2D_Simulation_Home/Home_Goal_Polygons/Home_PolygonNearGoalArea1")
 home_goal_near_2_polygon = NodePath("Goal2D_Simulation_Home/Home_Goal_Polygons/Home_PolygonNearGoalArea2")
@@ -18,29 +18,31 @@ away_goal_polygon = NodePath("Goal2D_Simulation_Away/Home_Goal_Polygons/Home_Pol
 away_goal_near_1_polygon = NodePath("Goal2D_Simulation_Away/Home_Goal_Polygons/Home_PolygonNearGoalArea1")
 away_goal_near_2_polygon = NodePath("Goal2D_Simulation_Away/Home_Goal_Polygons/Home_PolygonNearGoalArea2")
 
-[node name="Limits" type="StaticBody2D" parent="." unique_id=1520481869]
+[node name="Node2D" type="Node2D" parent="." unique_id=282542887]
+
+[node name="TopWall_Line" type="Line2D" parent="Node2D" unique_id=442895051]
 position = Vector2(0, 45)
-collision_layer = 16
-collision_mask = 32
+points = PackedVector2Array(242, 448, 242, 347, 424, 179, 1501, 179, 1677, 347, 1677, 449)
+width = 5.0
 
-[node name="TopWall" type="CollisionPolygon2D" parent="Limits" unique_id=1989422722]
-position = Vector2(-3.0517578e-05, 95.385056)
-scale = Vector2(0.9999999, 0.8194832)
-polygon = PackedVector2Array(242.00006, 396.12152, 242.00006, 307.04102, 424.0001, 102.03374, 1501.0001, 102.03374, 1677, 307.041, 1677, 396.122, 1713, 396.122, 1713.0002, 287.51648, 1512, 63, 407, 63, 208.00006, 287.51648, 208.00006, 396.12152)
+[node name="BotWall_Line" type="Line2D" parent="Node2D" unique_id=1941994424]
+position = Vector2(1919, 1214)
+rotation = -3.1415925
+points = PackedVector2Array(242, 448, 242, 347, 424, 179, 1501, 179, 1677, 347, 1677, 449)
+width = 5.0
 
-[node name="BotWall" type="CollisionPolygon2D" parent="Limits" unique_id=1712701221]
-position = Vector2(1919, 1074)
-rotation = 3.1415927
-scale = Vector2(0.9999999, 0.8194832)
-polygon = PackedVector2Array(242, 396.59137, 242.00006, 307.04102, 424.0001, 102.03374, 1501.0001, 102.03374, 1677, 307.041, 1677.0002, 396.5912, 1713.0002, 396.5912, 1713.0002, 287.51648, 1512, 63, 407, 63, 208.00006, 287.51648, 208, 396.59137)
+[node name="HomeGoalWall_Line" type="Line2D" parent="Node2D" unique_id=960754916]
+position = Vector2(-6.1035156e-05, 136.81512)
+scale = Vector2(1, 0.8277928)
+points = PackedVector2Array(242.00006, 430.28265, 130.00006, 430.28265, 130.00006, 758.86725, 242.00006, 758.86725)
+width = 5.0
 
-[node name="HomeGoalWall" type="CollisionPolygon2D" parent="Limits" unique_id=1304808500]
-polygon = PackedVector2Array(242, 420, 99, 420, 99, 749, 242, 749, 242, 720, 130, 720, 130, 448, 242, 448)
-
-[node name="AwayGoalWall" type="CollisionPolygon2D" parent="Limits" unique_id=666266155]
-position = Vector2(1919, 1169)
-rotation = 3.1415927
-polygon = PackedVector2Array(242, 420, 99, 420, 99, 749, 242, 749, 242, 720, 130, 720, 130, 448, 242, 448)
+[node name="AwayGoalWall_Line" type="Line2D" parent="Node2D" unique_id=239243887]
+position = Vector2(1919, 1121.9999)
+rotation = -3.1415925
+scale = Vector2(1, 0.8277928)
+points = PackedVector2Array(242.00006, 430.28265, 130.00006, 430.28265, 130.00006, 758.86725, 242.00006, 758.86725)
+width = 5.0
 
 [node name="Goal2D_Simulation_Home" parent="." unique_id=970188486 instance=ExtResource("2_txvbp")]
 position = Vector2(0, 89)

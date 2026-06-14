@@ -30,6 +30,7 @@ size = Vector2(215, 269)
 script = ExtResource("1_ss0s5")
 physics_controller = NodePath("PhysicsController")
 show_play_simulation_result = true
+IA_Active = true
 IA_Contr = NodePath("IA_Controller")
 anunciador_ui = NodePath("AnunciadorUI")
 cena_recompensa_partida = ExtResource("2_5b3c6")
@@ -48,17 +49,17 @@ position = Vector2(960, 540)
 [node name="IA_Controller" type="Node2D" parent="." unique_id=1970917918 node_paths=PackedStringArray("physics_controller")]
 script = ExtResource("7_n4ih5")
 physics_controller = NodePath("../PhysicsController")
-rotation_angle_steps = 10
-max_force_steps = 2
-num_steps = 3
-step_angle = 10
+AllModes_max_force_steps = 2
+AroundPlayer_Mode_rotation_angle_steps = 15
+AroundBall_Mode_num_steps = 5
+AroundBall_Mode_step_angle = 10
 
-[node name="PhysicsController" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("match_state", "IA_Contr", "list_polygons")]
+[node name="PhysicsController" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("match_state", "IA_Contr", "list_lines")]
 script = ExtResource("8_sbrvv")
 match_state = NodePath("..")
-num_threads = 1
+num_threads = 4
 IA_Contr = NodePath("../IA_Controller")
-list_polygons = [NodePath("Pitch/Limits/TopWall"), NodePath("Pitch/Limits/BotWall"), NodePath("Pitch/Limits/HomeGoalWall"), NodePath("Pitch/Limits/AwayGoalWall")]
+list_lines = [NodePath("Pitch/Node2D/TopWall_Line"), NodePath("Pitch/Node2D/BotWall_Line"), NodePath("Pitch/Node2D/HomeGoalWall_Line"), NodePath("Pitch/Node2D/AwayGoalWall_Line")]
 
 [node name="Pitch" type="Node2D" parent="PhysicsController" unique_id=603521134]
 
@@ -67,28 +68,31 @@ position = Vector2(960, 630)
 scale = Vector2(1, 0.9166667)
 texture = ExtResource("8_ss0s5")
 
-[node name="Limits" type="StaticBody2D" parent="PhysicsController/Pitch" unique_id=1932722948]
+[node name="Node2D" type="Node2D" parent="PhysicsController/Pitch" unique_id=1636445506]
+
+[node name="TopWall_Line" type="Line2D" parent="PhysicsController/Pitch/Node2D" unique_id=1600159428]
 position = Vector2(0, 45)
-collision_mask = 2
+points = PackedVector2Array(242, 448, 242, 347, 424, 179, 1501, 179, 1677, 347, 1677, 449)
+width = 5.0
 
-[node name="TopWall" type="CollisionPolygon2D" parent="PhysicsController/Pitch/Limits" unique_id=252941790]
-position = Vector2(-3.0517578e-05, 95.385056)
-scale = Vector2(0.9999999, 0.8194832)
-polygon = PackedVector2Array(242.00006, 396.12152, 242.00006, 307.04102, 424.0001, 102.03374, 1501.0001, 102.03374, 1677, 307.041, 1677, 396.122, 1713, 396.122, 1713.0002, 287.51648, 1512, 63, 407, 63, 208.00006, 287.51648, 208.00006, 396.12152)
+[node name="BotWall_Line" type="Line2D" parent="PhysicsController/Pitch/Node2D" unique_id=146215045]
+position = Vector2(1919, 1214)
+rotation = -3.1415925
+points = PackedVector2Array(242, 448, 242, 347, 424, 179, 1501, 179, 1677, 347, 1677, 449)
+width = 5.0
 
-[node name="BotWall" type="CollisionPolygon2D" parent="PhysicsController/Pitch/Limits" unique_id=2055355957]
-position = Vector2(1919, 1074)
-rotation = 3.1415927
-scale = Vector2(0.9999999, 0.8194832)
-polygon = PackedVector2Array(242, 396.59137, 242.00006, 307.04102, 424.0001, 102.03374, 1501.0001, 102.03374, 1677, 307.041, 1677.0002, 396.5912, 1713.0002, 396.5912, 1713.0002, 287.51648, 1512, 63, 407, 63, 208.00006, 287.51648, 208, 396.59137)
+[node name="HomeGoalWall_Line" type="Line2D" parent="PhysicsController/Pitch/Node2D" unique_id=978039785]
+position = Vector2(-6.1035156e-05, 136.81512)
+scale = Vector2(1, 0.8277928)
+points = PackedVector2Array(242.00006, 430.28265, 130.00006, 430.28265, 130.00006, 758.86725, 242.00006, 758.86725)
+width = 5.0
 
-[node name="HomeGoalWall" type="CollisionPolygon2D" parent="PhysicsController/Pitch/Limits" unique_id=1543475137]
-polygon = PackedVector2Array(242, 420, 99, 420, 99, 749, 242, 749, 242, 720, 130, 720, 130, 448, 242, 448)
-
-[node name="AwayGoalWall" type="CollisionPolygon2D" parent="PhysicsController/Pitch/Limits" unique_id=140015613]
-position = Vector2(1919, 1169)
-rotation = 3.1415927
-polygon = PackedVector2Array(242, 420, 99, 420, 99, 749, 242, 749, 242, 720, 130, 720, 130, 448, 242, 448)
+[node name="AwayGoalWall_Line" type="Line2D" parent="PhysicsController/Pitch/Node2D" unique_id=1960774499]
+position = Vector2(1919, 1121.9999)
+rotation = -3.1415925
+scale = Vector2(1, 0.8277928)
+points = PackedVector2Array(242.00006, 430.28265, 130.00006, 430.28265, 130.00006, 758.86725, 242.00006, 758.86725)
+width = 5.0
 
 [node name="HomeGoal_2D" parent="PhysicsController/Pitch" unique_id=1637700476 instance=ExtResource("9_5b3c6")]
 position = Vector2(0, 89)
@@ -101,55 +105,55 @@ team = 1
 [node name="HomeTeam" type="Node2D" parent="PhysicsController" unique_id=2082446946]
 
 [node name="HomeTeam_P1" parent="PhysicsController/HomeTeam" unique_id=1542391535 instance=ExtResource("9_12ci6")]
-position = Vector2(1179, 474)
+position = Vector2(747, 609)
 debug = false
 
 [node name="HomeTeam_P2" parent="PhysicsController/HomeTeam" unique_id=990928524 instance=ExtResource("9_12ci6")]
-position = Vector2(442, 632)
+position = Vector2(539, 617)
 debug = false
 
 [node name="HomeTeam_P3" parent="PhysicsController/HomeTeam" unique_id=838132576 instance=ExtResource("9_12ci6")]
-position = Vector2(644, 869)
+position = Vector2(559, 837)
 debug = false
 playerInfo = ExtResource("10_u231a")
 
 [node name="HomeTeam_P4" parent="PhysicsController/HomeTeam" unique_id=587159052 instance=ExtResource("9_12ci6")]
-position = Vector2(644, 379)
+position = Vector2(520, 379)
 debug = false
 playerInfo = ExtResource("11_035o7")
 
 [node name="HomeTeam_P5" parent="PhysicsController/HomeTeam" unique_id=535361106 instance=ExtResource("9_12ci6")]
-position = Vector2(644, 633)
+position = Vector2(374, 612)
 debug = false
 
 [node name="AwayTeam" type="Node2D" parent="PhysicsController" unique_id=1460559231]
 
 [node name="AwayTeam_P1" parent="PhysicsController/AwayTeam" unique_id=469839092 instance=ExtResource("9_12ci6")]
-position = Vector2(1409, 628)
+position = Vector2(1176, 617)
 debug = false
 teamSide = 1
 playerInfo = ExtResource("12_w1bfq")
 
 [node name="AwayTeam_P2" parent="PhysicsController/AwayTeam" unique_id=25673446 instance=ExtResource("9_12ci6")]
-position = Vector2(1317, 466)
+position = Vector2(1168, 343)
 debug = false
 teamSide = 1
 playerInfo = ExtResource("12_w1bfq")
 
 [node name="AwayTeam_P3" parent="PhysicsController/AwayTeam" unique_id=1075169366 instance=ExtResource("9_12ci6")]
-position = Vector2(1409, 874)
+position = Vector2(1169, 869)
 debug = false
 teamSide = 1
 playerInfo = ExtResource("12_w1bfq")
 
 [node name="AwayTeam_P4" parent="PhysicsController/AwayTeam" unique_id=92848485 instance=ExtResource("9_12ci6")]
-position = Vector2(1092, 627)
+position = Vector2(1398, 621)
 debug = false
 teamSide = 1
 playerInfo = ExtResource("12_w1bfq")
 
 [node name="AwayTeam_P5" parent="PhysicsController/AwayTeam" unique_id=2146689794 instance=ExtResource("9_12ci6")]
-position = Vector2(1598, 628)
+position = Vector2(1599, 617)
 debug = false
 teamSide = 1
 playerInfo = ExtResource("12_w1bfq")
@@ -157,7 +161,7 @@ playerInfo = ExtResource("12_w1bfq")
 [node name="Balls" type="Node2D" parent="PhysicsController" unique_id=1788694925]
 
 [node name="Ball2d" parent="PhysicsController/Balls" unique_id=1925699982 instance=ExtResource("13_d0h4u")]
-position = Vector2(352, 635)
+position = Vector2(970, 614)
 mass = 2.0
 
 [node name="Gol_Manager(Temporario)" type="Node2D" parent="." unique_id=632171838 node_paths=PackedStringArray("anunciadorui", "match_state")]

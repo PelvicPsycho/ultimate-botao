@@ -3,9 +3,6 @@ class_name PhysicsObject2D
 
 var index: int
 
-@export var shapecast_physics_objects: ShapeCast2D
-@export var shapecast_walls: ShapeCast2D
-
 #@export var acceleration: Vector2 = Vector2.ZERO
 @export var mass: float = 5
 @export_range(0, 1) var friction: float = 0.98

@@ -36,13 +36,13 @@ var current_pitch_state: PitchState
 var plays_to_simulate: Array[Play]
 var list_of_pitch_state_after_play_simulation: Array[PitchState]
 
-@export var list_polygons: Array[CollisionPolygon2D]
-var list_polygons_points_0: PackedVector2Array
-var list_polygons_points_1: PackedVector2Array
-var list_polygons_points_2: PackedVector2Array
-var list_polygons_points_3: PackedVector2Array
+@export var list_lines: Array[Line2D]
+var list_lines_points_0: PackedVector2Array
+var list_lines_points_1: PackedVector2Array
+var list_lines_points_2: PackedVector2Array
+var list_lines_points_3: PackedVector2Array
 
-var list_walls_polygons_points: Array[PackedVector2Array] = []
+var list_walls_lines_points: Array[PackedVector2Array] = []
 
 var wall_collision_normal: Vector2
 var wall_collision_depth: float
@@ -77,28 +77,12 @@ func _exit_tree() -> void:
 	thread.wait_to_finish()
 
 func update_visuals_position() -> void:
-	print("update_visuals_position")
 	for object in current_pitch_state.all_physic_object_list:
-		PhysicsObjects_List[object.index].global_position = object.last_position - position_difference
+		PhysicsObjects_List[object.index].global_position = object.last_position - global_position
 
-
-
-#var all_physic_object_list: Array[PhysicObject_Struct]
-#
-#var home_score: int
-#var away_score: int
-#
-#var can_score_goal: int = 1
-#var ball_possesion_counter: int = 0
-#
-#var current_team_playing: int
-#
-#var play_that_resulted_on_this_pitch_state: Play
-#
-#var score: int
 
 #region Start simulation
-func copy_pitch_state_variables(_pitch_state: PitchState) -> void:
+func update_pitch_state_variables(_pitch_state: PitchState) -> void:
 	if current_pitch_state == null:
 		current_pitch_state = PitchState.new()
 	
@@ -108,7 +92,7 @@ func copy_pitch_state_variables(_pitch_state: PitchState) -> void:
 		var new_PhysicObject_Struct = PhysicObject_Struct.new()
 		
 		new_PhysicObject_Struct.index = _pitch_state.all_physic_object_list[i].index
-		new_PhysicObject_Struct.last_position = _pitch_state.all_physic_object_list[i].last_position
+		new_PhysicObject_Struct.last_position = _pitch_state.all_physic_object_list[i].last_position + global_position
 		new_PhysicObject_Struct.current_velocity = _pitch_state.all_physic_object_list[i].current_velocity
 		
 		new_PhysicObject_Struct.mass = _pitch_state.all_physic_object_list[i].mass
@@ -140,39 +124,41 @@ func copy_pitch_state_variables(_pitch_state: PitchState) -> void:
 	current_pitch_state.ball_possesion_counter = _pitch_state.ball_possesion_counter
 	current_pitch_state.current_team_playing = _pitch_state.current_team_playing
 	
+	update_objects_positions()
+
+func Set_Pitch_Simulation_Lines() -> void:
 	# Physics Objects
-	list_walls_polygons_points.clear()
-	list_polygons_points_0.clear()
-	list_polygons_points_1.clear()
-	list_polygons_points_2.clear()
-	list_polygons_points_3.clear()
+	list_walls_lines_points.clear()
+	list_lines_points_0.clear()
+	list_lines_points_1.clear()
+	list_lines_points_2.clear()
+	list_lines_points_3.clear()
 	
-	for point in list_polygons[0].polygon:
-		list_polygons_points_0.append(list_polygons[0].to_global(point))
+	for point in list_lines[0].points:
+		list_lines_points_0.append(list_lines[0].to_global(point))
 
-	for point in list_polygons[1].polygon:
-		list_polygons_points_1.append(list_polygons[1].to_global(point))
+	for point in list_lines[1].points:
+		list_lines_points_1.append(list_lines[1].to_global(point))
 
-	for point in list_polygons[2].polygon:
-		list_polygons_points_2.append(list_polygons[2].to_global(point))
+	for point in list_lines[2].points:
+		list_lines_points_2.append(list_lines[2].to_global(point))
 
-	for point in list_polygons[3].polygon:
-		list_polygons_points_3.append(list_polygons[3].to_global(point))
+	for point in list_lines[3].points:
+		list_lines_points_3.append(list_lines[3].to_global(point))
 	
-	list_walls_polygons_points.append(list_polygons_points_0)
-	list_walls_polygons_points.append(list_polygons_points_1)
-	list_walls_polygons_points.append(list_polygons_points_2)
-	list_walls_polygons_points.append(list_polygons_points_3)
+	list_walls_lines_points.append(list_lines_points_0)
+	list_walls_lines_points.append(list_lines_points_1)
+	list_walls_lines_points.append(list_lines_points_2)
+	list_walls_lines_points.append(list_lines_points_3)
 	
 	home_goal_top_position = Goal_Home.Goal_top_position.global_position
 	home_goal_bottom_position = Goal_Home.Goal_bottom_position.global_position
 	
 	away_goal_top_position = Goal_Away.Goal_top_position.global_position
 	away_goal_bottom_position = Goal_Away.Goal_bottom_position.global_position
-	
-	update_objects_positions_and_variables(global_position)
-	
-	print("Score = ", evaluate_pitch_state_based_on_team(current_pitch_state, 1))
+	#
+	#print("Score for team Home = ", evaluate_pitch_state_based_on_team(current_pitch_state, 0))
+	#print("Score for team Away = ", evaluate_pitch_state_based_on_team(current_pitch_state, 1))
 
 func create_objects_copy(_show_play_simulation_result: bool) -> void:
 	show_play_simulation_result = _show_play_simulation_result
@@ -191,8 +177,6 @@ func create_objects_copy(_show_play_simulation_result: bool) -> void:
 			instance.scale = object.scale
 			instance.mass = object.mass
 			instance.friction = object.friction
-			
-
 			
 			add_child(instance)
 			PhysicsObjects_List.append(instance)
@@ -214,7 +198,6 @@ func create_objects_copy(_show_play_simulation_result: bool) -> void:
 			add_child(instance)
 			PhysicsObjects_List.append(instance)
 			PhysicsObjects_List_balls.append(instance)
-
 #endregion
 
 #region simulation
@@ -234,16 +217,19 @@ func Replicate_Action(index: int, velocity: Vector2, teamSide: int):
 		# Start the thread execution
 		thread.start(task)
 
-func update_objects_positions_and_variables(initial_position: Vector2) -> void:
-	position_difference = global_position - initial_position
-
+func update_objects_positions() -> void:
 	for i in current_pitch_state.all_physic_object_list.size():
-		current_pitch_state.all_physic_object_list[i].last_position = current_pitch_state.all_physic_object_list[i].last_position + position_difference
-
-
+		current_pitch_state.all_physic_object_list[i].last_position = current_pitch_state.all_physic_object_list[i].last_position
 
 func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity: Vector2, play_teamSide: int) -> int:
 	current_pitch_state.all_physic_object_list[play_index].current_velocity = play_velocity
+	
+	var ball = null
+	for piece in current_pitch_state.all_physic_object_list:
+		if !piece.is_a_player:
+			ball = piece
+	
+	current_pitch_state.last_ball = ball
 	
 	# Reset Variables
 	current_pitch_state.score = 0
@@ -258,48 +244,35 @@ func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity
 	ball_entered_away_goal = false
 	
 	# garante que todos os objetos estão no lugar que deveriam e com as variaveis corretas
-	update_objects_positions_and_variables(global_position)
-	
+	update_objects_positions()
+
 	var start_time_simulation = Time.get_ticks_usec()
 	for i in range(run_num_max_steps + 1):
-		var start_time = Time.get_ticks_usec()
 		#
 		# verify physic objects collisions
 		collision_physics_object_resolution()
 		#
-		#var time_taken = Time.get_ticks_usec() - start_time
-		#print("collision_physics_object_resolution took: ", time_taken, " microseconds")
-		
-		
-		#start_time = Time.get_ticks_usec()
 		# update the movemente of all physic objects
 		movement_update(0.016667)
 		#
-		#time_taken = Time.get_ticks_usec() - start_time
-		#print("movement_update took: ", time_taken, " microseconds")
-		
-		
-		#start_time = Time.get_ticks_usec()
 		# verify walls collisions
 		collision_wall_resolution()
 		#
 		
-		#var time_taken = (Time.get_ticks_usec() - start_time) / 1000000.0
-		#print("resolution took: ", start_time, " seconds")
-
-				
 		# Check if ball entered the home goal area
 		for object in current_pitch_state.all_physic_object_list:
 			if not object.is_a_player:
 				if check_circle_polygon_collision(object.last_position, object.radius, home_goal_polygon.polygon):
 					ball_entered_home_goal = true
-					#print("Entered in a goal, finishes the simulation")
 					break
 				
 				if check_circle_polygon_collision(object.last_position, object.radius, away_goal_polygon.polygon):
 					ball_entered_away_goal = true
-					#print("Entered in a goal, finishes the simulation")
 					break
+		
+		if ball_entered_home_goal or ball_entered_away_goal:
+			print("Entered in a goal, finishes the simulation")
+			break
 		
 		var all_stopped = true
 		for j in range(current_pitch_state.all_physic_object_list.size()):
@@ -309,7 +282,7 @@ func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity
 		if all_stopped == true:
 			break
 	
-	#var time_taken_simulation = (Time.get_ticks_usec() - start_time_simulation) / 1000000.0
+	var time_taken_simulation = (Time.get_ticks_usec() - start_time_simulation) / 1000000.0
 	#print("Simulation took: ", time_taken_simulation, " seconds")
 	
 	if show_play_simulation_result:
@@ -318,9 +291,6 @@ func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity
 	else:
 		current_pitch_state.score = evaluate_pitch_state_based_on_team(current_pitch_state, current_pitch_state.current_team_playing)
 		return current_pitch_state.score
-
-	#var time_taken_evaluation = (Time.get_ticks_usec() - start_time_evaluation) / 1000000.0
-	#print("Evaluation took: ", time_taken_evaluation, " seconds")
 
 var simulation_ended: bool = false
 var simulation_data_collected: bool = false
@@ -335,9 +305,6 @@ func Simulate_and_Evaluate_a_List_of_Plays(plays: Array[Play]) -> void:
 	
 	var time_taken = (Time.get_ticks_usec() - start_time) / 1000000.0
 	print("Simulate_and_Evaluate_a_List_of_Plays ", sim_index, " took: ", time_taken, " seconds")
-	
-	#for play in list_of_plays_simulated:
-		#print("play score = ", play.score)
 	
 	simulation_ended = true
 	simulation_data_collected = false
@@ -445,12 +412,12 @@ func handle_physics_objects_inside_each_other(object_1: PhysicObject_Struct, obj
 func collision_wall_resolution() -> void:
 	for i in range(current_pitch_state.all_physic_object_list.size()):
 		var object_A = current_pitch_state.all_physic_object_list[i]
-		if has_collision_wall_polygons(object_A):
+		if has_collision_wall_lines(object_A):
 			handle_walls_collision(object_A)
 
-func has_collision_wall_polygons(physic_object: PhysicObject_Struct) -> bool:
-	for polygon in list_walls_polygons_points:
-		if check_circle_polygon_collision(physic_object.last_position, physic_object.radius, polygon):
+func has_collision_wall_lines(physic_object: PhysicObject_Struct) -> bool:
+	for line in list_walls_lines_points:
+		if check_circle_lines_collision(physic_object.last_position, physic_object.radius, line):
 			return true
 	return false
 
@@ -466,11 +433,63 @@ func handle_walls_collision(object_1: PhysicObject_Struct) -> void:
 	
 	current_pitch_state.all_physic_object_list[object_1.index] = object_1
 
+# Returns true if the circle intersects the line
+func check_circle_lines_collision(circle_center: Vector2, circle_radius: float, list_line_points: PackedVector2Array) -> bool:
+	if list_line_points.size() < 3:
+		return false
+	
+	# Step 1: Check if the circle collides with any of the line's edges
+	for i in range(list_line_points.size() - 1):
+		# Get a point from the line
+		var current_point = list_line_points[i]
+		
+		# Get next point index, loop around to the first point if we are at the last index
+		# Get the next point after current_point from the line
+		var next_point_index = i + 1
+		var next_point = list_line_points[next_point_index]
+		
+		# Find the closest point on this line segment to the circle's center
+		var closest_point = get_closest_point_on_line(circle_center, current_point, next_point)
+
+		# Calculate distance from circle center to the closest point
+		var distance = circle_center.distance_to(closest_point)
+		
+		# If the distance is less than the radius, a collision has occurred
+		if distance <= circle_radius:
+			wall_collision_normal = (circle_center - closest_point).normalized()
+			
+			if wall_collision_normal == Vector2.ZERO:
+				wall_collision_normal = (next_point - current_point).orthogonal().normalized()
+			
+			wall_collision_depth = circle_radius - distance
+			return true
+		
+	return false
+
+
+# Function to find the closest point on a line to a target point
+func get_closest_point_on_line(target_point: Vector2, line_point_A: Vector2, line_point_B: Vector2) -> Vector2:
+	# Get the direction vector from line_point_A to line_point_B
+	var AB = line_point_B - line_point_A
+	
+	# Get the direction vector from line_point_A to target_point
+	var AP = target_point - line_point_A
+	
+	# calculate the perpendicular vector of line_point_A and target_point on the AB vector
+	# Project vector AP onto AB to find the scalar projection parameter 't'
+	var t = AP.dot(AB) / AB.length_squared()
+	
+	# Clamp 't' to restrict the point to the segment boundaries [a, b]
+	t = clamp(t, 0.0, 1.0)
+	
+	# Calculate the final coordinate on the segment
+	return line_point_A + AB * t
+
 # Returns true if the circle intersects the polygon's boundary or interior
 func check_circle_polygon_collision(circle_center: Vector2, circle_radius: float, list_polygons_points: PackedVector2Array) -> bool:
 	if list_polygons_points.size() < 3:
 		return false
-	
+
 	# Step 1: Check if the circle collides with any of the polygon's edges
 	for i in range(list_polygons_points.size()):
 		# Get a point from the polygon
@@ -503,25 +522,6 @@ func check_circle_polygon_collision(circle_center: Vector2, circle_radius: float
 		return true
 		
 	return false
-
-# Function to find the closest point on a line to a target point
-func get_closest_point_on_line(target_point: Vector2, line_point_A: Vector2, line_point_B: Vector2) -> Vector2:
-	# Get the direction vector from line_point_A to line_point_B
-	var AB = line_point_B - line_point_A
-	
-	# Get the direction vector from line_point_A to target_point
-	var AP = target_point - line_point_A
-	
-	# calculate the perpendicular vector of line_point_A and target_point on the AB vector
-	# Project vector AP onto AB to find the scalar projection parameter 't'
-	var t = AP.dot(AB) / AB.length_squared()
-	
-	# Clamp 't' to restrict the point to the segment boundaries [a, b]
-	t = clamp(t, 0.0, 1.0)
-	
-	# Calculate the final coordinate on the segment
-	return line_point_A + AB * t
-
 #endregion
 
 #region Movement
@@ -578,7 +578,7 @@ func verify_collision_between_objects_on_movement_line_LinearSearch(object_1: Ph
 		global_Collision_Check_count += 1
 		
 		# Verifico se esta colidindo com outro objeto
-		if has_collision_specific_Object(object_1, true) or has_collision_wall_polygons(object_1): # Colidiu com algo
+		if has_collision_specific_Object(object_1, true) or has_collision_wall_lines(object_1): # Colidiu com algo
 			result_Pos = current_Pos
 			
 			# retorno a posição da colisão
@@ -593,85 +593,90 @@ func verify_collision_between_objects_on_movement_line_LinearSearch(object_1: Ph
 #region Pitch Evaluation
 func evaluate_pitch_state_based_on_team(_current_pitch_state: PitchState, _team: int) -> int:
 	var score = 0
-	print("Calculating to Team ", _team)
-	score += evaluate_pitch_state_ball_path_to_enemy_goal(_current_pitch_state, _team)
 	
-	score += evaluate_pitch_state_pieces_close_to_ball(_current_pitch_state, _team)
+	#var start_time_evaluation = Time.get_ticks_usec()
+	score += evaluate_pitch_state_Goal(_current_pitch_state, _team)
+	if score >= 10000 or score <= -10000:
+		return score
 	
 	score += evaluate_pitch_state_ball_possession(_current_pitch_state, _team)
-	
-	score += evaluate_pitch_state_ball_path_to_Ally_goal(_current_pitch_state, _team)
-	
+	score += evaluate_pitch_state_ball_field_advance(_current_pitch_state, _team)
+	score += evaluate_pitch_state_pieces_close_to_ball(_current_pitch_state, _team, 200)
+	score += evaluate_pitch_state_defence(_current_pitch_state, _team, 500)
+	score += evaluate_pitch_state_attack(_current_pitch_state, _team, 500)
 	score += evaluate_pitch_state_Ball_close_to_goal(_current_pitch_state, _team)
 	
-	# Goal Evaluation
-	if ball_entered_home_goal:
-		print("ball_entered_home_goal _team = ", _team)
-		print("ball_entered_home_goal")
-		if _team == 0:
-			return -10000
-		else:
-			return 10000
-		
-	if ball_entered_away_goal:
-		print("ball_entered_away_goal _team = ", _team)
-		print("ball_entered_away_goal")
-		if _team == 1:
-			return -10000
-		else:
-			return 10000
+	#var time_taken_evaluation = (Time.get_ticks_usec() - start_time_evaluation) / 1000000.0
+	#print("Evaluation took: ", time_taken_evaluation, " seconds")
 	
-	#print("Final Score = ", score)
 	return score
 
-# avaliação sobre o caminho da bola até o gol do time adversario, se esta livre ou tem algum obstaculo
-func evaluate_pitch_state_ball_path_to_enemy_goal(_current_pitch_state: PitchState, _team: int) -> int:
+# Goal Evaluation
+func evaluate_pitch_state_Goal(_current_pitch_state: PitchState, _team: int) -> int:
 	var score = 0
-	var goal_lerp_steps = 5
+	if ball_entered_home_goal:
+		#print("ball_entered_home_goal _team = ", _team)
+		print("ball_entered_home_goal")
+		if _team == 0:
+			score += -10000
+		else:
+			score += 10000
+		
+	if ball_entered_away_goal:
+		#print("ball_entered_away_goal _team = ", _team)
+		print("ball_entered_away_goal")
+		if _team == 1:
+			score += -10000
+		else:
+			score += 10000
+	
+	#print("Goal Added = ", score)
+	return score
+
+# Evaluation about maintaining the ball possession
+func evaluate_pitch_state_ball_possession(_current_pitch_state: PitchState, _team: int) -> int:
+	var score = 0
+	
+	if will_maintain_ball_possession(_current_pitch_state, _team):
+		score += 400
+	else:
+		score -= 200
+	
+	print("ball_possession Added = ", score)
+	return score
+
+# Evaluation of how much the ball advanced on the field in direction of the goal
+func evaluate_pitch_state_ball_field_advance(_current_pitch_state: PitchState, _team: int) -> int:
+	var score = 0
+	
 	var ball = null
 	for piece in _current_pitch_state.all_physic_object_list:
 		if !piece.is_a_player:
 			ball = piece
-	
-	if ball != null:
-		var path_free = 0
-		if _team == 0:
-			for i in range(goal_lerp_steps):
-				var lerp_pos = i / (goal_lerp_steps - 1.0)
-				var new_pos = away_goal_top_position.lerp(away_goal_bottom_position, lerp_pos)
-				
-				var dist = (new_pos - ball.last_position).length()
-				if dist < 500:
-					if not verify_collisions_on_path_LinearSearch(ball, 10, new_pos):
-						path_free += 1
-		elif _team == 1:
-			for i in range(goal_lerp_steps):
-				var lerp_pos = i / (goal_lerp_steps - 1.0)
-				var new_pos = home_goal_top_position.lerp(home_goal_bottom_position, lerp_pos)
-				
-				var dist = (new_pos - ball.last_position).length()
-				if dist < 500:
-					if not verify_collisions_on_path_LinearSearch(ball, 10, new_pos):
-						path_free += 1
 		
-		# Aumenta a pontuação se a bola tem o caminho livre até o gol
-		if path_free > 0:
-			score += 100 * path_free
-			# Aumenta a pontuação se o time vai continuar com a posse da bola no proximo turno
-			if ball_possession(_current_pitch_state, _team):
-				score += 500
+	if ball != null and _current_pitch_state.last_ball != null:
+		if _team == 0:
+			var goal_pos = away_goal_top_position.lerp(away_goal_bottom_position, 0.5)
+			var dist_ball_to_goal = (ball.last_position - goal_pos).length()
+			var dist_last_ball_to_goal = (_current_pitch_state.last_ball.last_position - goal_pos).length()
 			
-		# Diminui a pontuação se a bola não tem o caminho livre até o gol
-		elif path_free <= 0:
-			score -= 200
+			var dist_dif = dist_ball_to_goal - dist_last_ball_to_goal
+			score += 0.5 * dist_dif
+		elif _team == 1:
+			var goal_pos = home_goal_top_position.lerp(home_goal_bottom_position, 0.5)
+			var dist_ball_to_goal = (ball.last_position - goal_pos).length()
+			var dist_last_ball_to_goal = (_current_pitch_state.last_ball.last_position - goal_pos).length()
+			
+			var dist_dif = dist_ball_to_goal - dist_last_ball_to_goal
+			score += 0.5 * dist_dif
 	else:
-		print("Erro: pitch state não contem um objeto bola (evaluate_pitch_state_ball_path_to_goal)")
+		print("Erro: pitch state não contem um objeto bola (evaluate_pitch_state_ball_field_advance)")
 	
-	print("ball_path_to_goal enemy Added = ", score)
+	#print("ball_field_advance Added = ", score)
 	return score
 
-# avaliação sobre o caminho da bola até o gol do time adversario, se esta livre ou tem algum obstaculo
-func evaluate_pitch_state_pieces_close_to_ball(_current_pitch_state: PitchState, _team: int) -> int:
+# Evaluation of how many ally pieces are close to the ball
+func evaluate_pitch_state_pieces_close_to_ball(_current_pitch_state: PitchState, _team: int, max_dist: int) -> int:
 	var score = 0
 
 	# get ball piece
@@ -681,50 +686,30 @@ func evaluate_pitch_state_pieces_close_to_ball(_current_pitch_state: PitchState,
 			ball = piece
 	
 	var num_pieces_from_team_close_to_ball = 0
-	var num_pieces_from_team_enemy_to_ball = 0
+	#var num_pieces_from_team_enemy_to_ball = 0
 	if ball != null:
 		for piece in _current_pitch_state.all_physic_object_list:
 			if piece.is_a_player and piece.teamSide == _team:
 				var dist = piece.last_position.distance_to(ball.last_position)
-				if dist <= 200:
+				if dist <= max_dist:
 					num_pieces_from_team_close_to_ball += 1
-			elif piece.is_a_player and piece.teamSide != _team:
-				var dist = piece.last_position.distance_to(ball.last_position)
-				if dist <= 200:
-					num_pieces_from_team_enemy_to_ball += 1
 	else:
 		print("Erro: pitch state não contem um objeto bola (evaluate_pitch_state_pieces_close_to_ball)")
 	
 	# Aumenta a pontuação dependendo de quantas peças do time estão proximas da bola
 	if num_pieces_from_team_close_to_ball > 0:
-		score += 50 * num_pieces_from_team_close_to_ball
+		score += 30 * num_pieces_from_team_close_to_ball
 	# Diminui a pontuação se nenhuma peça do time esta perto da bola
 	elif num_pieces_from_team_close_to_ball <= 0:
-		score -= 300
+		score -= 100
 	
-	# Diminui a pontuação dependendo de quantas peças do time inimigo estão proximas da bola
-	if num_pieces_from_team_enemy_to_ball > 0:
-		score -= 20 * num_pieces_from_team_enemy_to_ball
-	# Aumenta a pontuação se nenhuma peça do time inimigo esta perto da bola
-	elif num_pieces_from_team_enemy_to_ball <= 0:
-		score += 50
-		
-	print("pieces_close_to_ball Added = ", score)
+	#print("pieces_close_to_ball Added = ", score)
 	return score
 
-# avaliação sobre o controle da bola (posse)
-func evaluate_pitch_state_ball_possession(_current_pitch_state: PitchState, _team: int) -> int:
+# Evaluation if ally goal is defended, verifying if there is any piece on the way of the ball to the ally goal
+func evaluate_pitch_state_defence(_current_pitch_state: PitchState, _team: int, max_dist: int) -> int:
 	var score = 0
-	
-	if ball_possession(_current_pitch_state, _team):
-		score += 300
-	
-	return score
-
-# avaliação sobre o caminho da bola até o gol do proprio time, se esta livre ou tem alguma peça defendendo
-func evaluate_pitch_state_ball_path_to_Ally_goal(_current_pitch_state: PitchState, _team: int) -> int:
-	var score = 0
-	var goal_lerp_steps = 5
+	var goal_lerp_steps = 3
 	
 	var ball = null
 	for piece in _current_pitch_state.all_physic_object_list:
@@ -734,38 +719,86 @@ func evaluate_pitch_state_ball_path_to_Ally_goal(_current_pitch_state: PitchStat
 	if ball != null:
 		var path_defended = 0
 		if _team == 0:
-			for i in range(goal_lerp_steps):
-				var lerp_pos = i / (goal_lerp_steps - 1.0)
-				var new_pos = home_goal_top_position.lerp(home_goal_bottom_position, lerp_pos)
-				
-				var dist = (new_pos - ball.last_position).length()
-				if dist < 500:
-					if verify_collisions_on_path_LinearSearch(ball, 10, new_pos):
+			var goal_pos = home_goal_top_position.lerp(home_goal_bottom_position, 0.5)
+			var dist = (goal_pos - ball.last_position).length()
+			if dist < max_dist:
+				for i in range(goal_lerp_steps):
+					var lerp_pos = i / (goal_lerp_steps - 1.0)
+					var new_goal_pos = home_goal_top_position.lerp(home_goal_bottom_position, lerp_pos)
+					if verify_collisions_on_path_LinearSearch(ball, 5, new_goal_pos):
 						path_defended += 1
-			
+			else:
+				path_defended += 5
 		elif _team == 1:
-			for i in range(goal_lerp_steps):
-				var lerp_pos = i / (goal_lerp_steps - 1.0)
-				var new_pos = away_goal_top_position.lerp(away_goal_bottom_position, lerp_pos)
-				
-				var dist = (new_pos - ball.last_position).length()
-				if dist < 500:
-					if verify_collisions_on_path_LinearSearch(ball, 10, new_pos):
+			var goal_pos = away_goal_top_position.lerp(away_goal_bottom_position, 0.5)
+			var dist = (goal_pos - ball.last_position).length()
+			if dist < max_dist:
+				for i in range(goal_lerp_steps):
+					var lerp_pos = i / (goal_lerp_steps - 1.0)
+					var new_goal_pos = away_goal_top_position.lerp(away_goal_bottom_position, lerp_pos)
+					if verify_collisions_on_path_LinearSearch(ball, 5, new_goal_pos):
 						path_defended += 1
-		
-		# Aumenta a pontuação se a bola não tem o caminho livre até o gol aliado
+			else:
+				path_defended += 5
+			
+		# Aumenta a pontuação para cada caminho que a bola não tem o caminho livre até o gol aliado
 		if path_defended > 0:
 			score += 20 * path_defended
-		# Diminui a pontuação se a bola tem o caminho livre até o gol
+		# Diminui a pontuação se a bola tem o caminho livre até o gol aliado
 		elif path_defended <= 0:
 			score -= 100
 	else:
-		print("Erro: pitch state não contem um objeto bola (evaluate_pitch_state_ball_path_to_goal)")
+		print("Erro: pitch state não contem um objeto bola (evaluate_pitch_state_defence)")
 	
-	print("ball_path_to_Ally_goal Added = ", score)
+	#print("defence Added = ", score)
 	return score
 
-# avaliação sobre o caminho da bola até o gol do time adversario, se esta livre ou tem algum obstaculo
+# Evaluation if there is a free way to attack enemy goal, verifying if there is any piece on the way of the ball to the enemy goal
+func evaluate_pitch_state_attack(_current_pitch_state: PitchState, _team: int, max_dist: int) -> int:
+	var score = 0
+	var goal_lerp_steps = 3
+	
+	var ball = null
+	for piece in _current_pitch_state.all_physic_object_list:
+		if !piece.is_a_player:
+			ball = piece
+	
+	if ball != null:
+		var path_free = 0
+		if _team == 0:
+			var goal_pos = away_goal_top_position.lerp(away_goal_bottom_position, 0.5)
+			var dist = (goal_pos - ball.last_position).length()
+			if dist < max_dist:
+				for i in range(goal_lerp_steps):
+					var lerp_pos = i / (goal_lerp_steps - 1.0)
+					var new_goal_pos = away_goal_top_position.lerp(away_goal_bottom_position, lerp_pos)
+					if not verify_collisions_on_path_LinearSearch(ball, 5, new_goal_pos):
+						path_free += 1
+			
+		elif _team == 1:
+			var goal_pos = home_goal_top_position.lerp(home_goal_bottom_position, 0.5)
+			var dist = (goal_pos - ball.last_position).length()
+			if dist < max_dist:
+				for i in range(goal_lerp_steps):
+					var lerp_pos = i / (goal_lerp_steps - 1.0)
+					var new_goal_pos = home_goal_top_position.lerp(home_goal_bottom_position, lerp_pos)
+					
+					if not verify_collisions_on_path_LinearSearch(ball, 5, new_goal_pos):
+						path_free += 1
+		
+		# Aumenta a pontuação se a bola tem o caminho livre até o gol
+		if path_free > 0:
+			score += 150 * path_free
+		# Diminui a pontuação se a bola não tem nenhum caminho livre até o gol
+		elif path_free <= 0:
+			score -= 200
+	else:
+		print("Erro: pitch state não contem um objeto bola (evaluate_pitch_state_attack)")
+	
+	#print("attack Added = ", score)
+	return score
+
+# Evaluating the distance of the ball towards the goals
 func evaluate_pitch_state_Ball_close_to_goal(_current_pitch_state: PitchState, _team: int) -> int:
 	var score = 0
 
@@ -775,8 +808,9 @@ func evaluate_pitch_state_Ball_close_to_goal(_current_pitch_state: PitchState, _
 		if !piece.is_a_player:
 			ball = piece
 	
-	var dist_from_home_goal = 1000
-	var dist_from_away_goal = 1000
+	var dist_from_home_goal = 0
+	var dist_from_away_goal = 0
+	
 	if ball != null:
 		dist_from_home_goal = ball.last_position.distance_to(home_goal_top_position.lerp(home_goal_bottom_position, 0.5))
 		dist_from_away_goal = ball.last_position.distance_to(away_goal_top_position.lerp(away_goal_bottom_position, 0.5))
@@ -785,30 +819,30 @@ func evaluate_pitch_state_Ball_close_to_goal(_current_pitch_state: PitchState, _
 	
 	# Aumenta a pontuação se a bola estiver mais perto do gol do time inimigo
 	if _team == 0:
-		if dist_from_home_goal < dist_from_away_goal: # mais perto do Home goal
-			score -= 100
-		elif dist_from_home_goal > dist_from_away_goal: # mais perto do Away goal
-			score += 500
+		var score_dist_from_home_goal = dist_from_home_goal * 0.1
+		var score_dist_from_away_goal = dist_from_away_goal * -0.1
+		
+		score = score_dist_from_home_goal + score_dist_from_away_goal
 		
 	elif _team == 1:
-		if dist_from_home_goal < dist_from_away_goal: # mais perto do Home goal
-			score += 500
-		elif dist_from_home_goal > dist_from_away_goal: # mais perto do Away goal
-			score -= 100
+		var score_dist_from_home_goal = dist_from_home_goal * -0.1
+		var score_dist_from_away_goal = dist_from_away_goal * 0.1
+		
+		score = score_dist_from_home_goal + score_dist_from_away_goal
 	
 	print("Ball_close_to_goal Added = ", score)
 	return score
 
 #endregion
 
-func ball_possession(_current_pitch_state: PitchState, _team: int) -> bool:
+#region Pitch Evaluation Utils
+func will_maintain_ball_possession(_current_pitch_state: PitchState, _team: int) -> bool:
 	var ball = null
 	for piece in _current_pitch_state.all_physic_object_list:
 		if !piece.is_a_player:
 			ball = piece
 
 	if ball != null:
-		#print("ball last_touch_index = ", ball.last_touch_index)
 		if _current_pitch_state.ball_possesion_counter < 2 and ball.last_touch_index != -1:
 			if _current_pitch_state.all_physic_object_list[ball.last_touch_index].teamSide == _team:
 				return true
@@ -820,8 +854,7 @@ func ball_possession(_current_pitch_state: PitchState, _team: int) -> bool:
 		print("Erro: pitch state não contem um objeto bola (ball_possession function)")
 		return false
 
-# Verifica se existe algo no caminho, verificando colisões
-# "subdivisionsNumber" é a quantidade de verifições
+# Verifica se existe algo no caminho, verificando colisões, "subdivisionsNumber" é a quantidade de passos/verificações no caminho
 func verify_collisions_on_path_LinearSearch(object: PhysicObject_Struct, subdivisionsNumber: float, target: Vector2) -> bool:
 	var inicial_Pos = object.last_position
 	var final_Pos = target
@@ -838,9 +871,10 @@ func verify_collisions_on_path_LinearSearch(object: PhysicObject_Struct, subdivi
 			colidiu = true
 			break
 		
-		if has_collision_wall_polygons(object):
+		if has_collision_wall_lines(object):
 			colidiu = true
 			break
 	
 	object.last_position = inicial_Pos
 	return colidiu
+#endregion

@@ -25,16 +25,18 @@ var current_pitch_state: PitchState
 var all_physicObjects_loaded: bool = false
 var current_pitch_state_loaded: bool = false
 
-@export var list_polygons: Array[CollisionPolygon2D]
-var list_polygons_points_0: PackedVector2Array
-var list_polygons_points_1: PackedVector2Array
-var list_polygons_points_2: PackedVector2Array
-var list_polygons_points_3: PackedVector2Array
+@export var list_lines: Array[Line2D]
+var list_lines_points_0: PackedVector2Array
+var list_lines_points_1: PackedVector2Array
+var list_lines_points_2: PackedVector2Array
+var list_lines_points_3: PackedVector2Array
 
-var list_walls_polygons_points: Array[PackedVector2Array] = []
+var list_walls_lines_points: Array[PackedVector2Array] = []
 
 var wall_collision_normal: Vector2
 var wall_collision_depth: float
+
+var count_steps = 0
 
 func _ready() -> void:
 	var nodes = get_tree().get_nodes_in_group("PhysicsObjects")
@@ -55,49 +57,22 @@ func _ready() -> void:
 		object.index = count
 		count += 1
 	
-	for point in list_polygons[0].polygon:
-		list_polygons_points_0.append(list_polygons[0].to_global(point))
+	for point in list_lines[0].points:
+		list_lines_points_0.append(list_lines[0].to_global(point))
 
-	for point in list_polygons[1].polygon:
-		list_polygons_points_1.append(list_polygons[1].to_global(point))
+	for point in list_lines[1].points:
+		list_lines_points_1.append(list_lines[1].to_global(point))
 
-	for point in list_polygons[2].polygon:
-		list_polygons_points_2.append(list_polygons[2].to_global(point))
+	for point in list_lines[2].points:
+		list_lines_points_2.append(list_lines[2].to_global(point))
 
-	for point in list_polygons[3].polygon:
-		list_polygons_points_3.append(list_polygons[3].to_global(point))
+	for point in list_lines[3].points:
+		list_lines_points_3.append(list_lines[3].to_global(point))
 	
-	list_walls_polygons_points.append(list_polygons_points_0)
-	list_walls_polygons_points.append(list_polygons_points_1)
-	list_walls_polygons_points.append(list_polygons_points_2)
-	list_walls_polygons_points.append(list_polygons_points_3)
-
-func start_Collision_resulution(_ai_active: bool, _show_play_simulation_result: bool, _show_play_simulation_result_index: int) -> void:
-	AI_Active = _ai_active
-	show_play_simulation_result = _show_play_simulation_result
-	show_play_simulation_result_index = _show_play_simulation_result_index
-	
-	set_pitch_state_variables_from_PhysicsObjects()
-	
-	if Sim_Controller_list.size() <= 0:
-		create_all_simulations()
-	
-	for sim in Sim_Controller_list:
-		sim.copy_pitch_state_variables(current_pitch_state)
-		sim.simulation_ready = true
-
-func Replicate_Action(index: int, velocity: Vector2, teamSide: int):	
-	set_pitch_state_variables_from_PhysicsObjects()
-	
-	for sim in Sim_Controller_list:
-		if sim.show_play_simulation_result:
-			sim.copy_pitch_state_variables(current_pitch_state)
-			sim.Replicate_Action(index, velocity, teamSide)
-			count_steps = 0
-	
-	#print("Original -------------------------------------------------------")
-
-var count_steps = 0
+	list_walls_lines_points.append(list_lines_points_0)
+	list_walls_lines_points.append(list_lines_points_1)
+	list_walls_lines_points.append(list_lines_points_2)
+	list_walls_lines_points.append(list_lines_points_3)
 
 func _physics_process(_delta: float) -> void:
 	#
@@ -111,32 +86,24 @@ func _physics_process(_delta: float) -> void:
 	collision_wall_resolution()
 	#
 	
+	# Set Physical objects positions from PitchState
 	update_PhysicsObjects_from_CurrentPitchState()
 	
 	count_steps += 1
 
-
-func create_all_simulations() -> void:
-	if AI_Active:
-		IA_Contr.SetPieceLists()
+func start_Collision_resulution(_ai_active: bool, _show_play_simulation_result: bool, _show_play_simulation_result_index: int) -> void:
+	AI_Active = _ai_active
+	show_play_simulation_result = _show_play_simulation_result
+	show_play_simulation_result_index = _show_play_simulation_result_index
 	
-	for i in num_threads:
-		print("num_threads = ", i)
-		var instance = Sim_Controller_Object.instantiate()
-		instance.global_position = self.global_position + Vector2(0, 1 * (1000 * (i)))
-		
-		instance.copy_pitch_state_variables(current_pitch_state)
-		
-		instance.sim_index = i
-		
-		if show_play_simulation_result_index == i:
-			instance.create_objects_copy(true)
-		else:
-			instance.create_objects_copy(false)
-			
-		Sim_Controller_list.append(instance)
-		
-		add_child(instance)
+	set_pitch_state_variables_from_PhysicsObjects()
+	
+	if Sim_Controller_list.size() <= 0:
+		create_all_simulations()
+	
+	for sim in Sim_Controller_list:
+		Update_pitch_state_variables_on_Simulations(current_pitch_state.current_team_playing)
+		sim.simulation_ready = true
 
 func set_pitch_state_variables_from_PhysicsObjects() -> void:
 	current_pitch_state.all_physic_object_list.clear()
@@ -166,12 +133,14 @@ func set_pitch_state_variables_from_PhysicsObjects() -> void:
 			new_PhysicObject_Struct.is_a_player = false
 
 		
-		if PhysicsObjects_List[i].last_PhysicObject_collided != null:
-			new_PhysicObject_Struct.last_touch_index = PhysicsObjects_List[i].last_PhysicObject_collided.index
-		else:
-			new_PhysicObject_Struct.last_touch_index = -1
+		#if PhysicsObjects_List[i].last_PhysicObject_collided != null:
+			#new_PhysicObject_Struct.last_touch_index = PhysicsObjects_List[i].last_PhysicObject_collided.index
+		#else:
+			#new_PhysicObject_Struct.last_touch_index = -1
 		
 		current_pitch_state.all_physic_object_list.append(new_PhysicObject_Struct) 
+	
+	reset_last_touch_of_all_pieces()
 	
 	current_pitch_state.home_score = match_state.homeScore
 	current_pitch_state.away_score = match_state.awayScore
@@ -181,6 +150,48 @@ func set_pitch_state_variables_from_PhysicsObjects() -> void:
 	current_pitch_state.current_team_playing = match_state.get_current_turn_int()
 	
 	current_pitch_state_loaded = true
+
+func reset_last_touch_of_all_pieces() -> void:
+	for object in current_pitch_state.all_physic_object_list:
+		object.last_touch_index = -1
+		object.last_touch_position = Vector2.ZERO
+
+func create_all_simulations() -> void:
+	# If AI is active, call the AI controller and update it with all pieces
+	if AI_Active:
+		IA_Contr.SetPieceLists()
+	
+	num_threads = 4#OS.get_processor_count()
+	print("Available hardware threads: ", num_threads)
+	
+	# Create all simulations
+	for i in num_threads:
+		var instance = Sim_Controller_Object.instantiate()
+		instance.global_position = self.global_position + Vector2(0, 1 * (1000 * (i)))
+		
+		# Set all physics variables
+		instance.Set_Pitch_Simulation_Lines()
+		
+		# Set the simulation 'PitchState' with 'CollisionResolution' 'PitchState'
+		instance.update_pitch_state_variables(current_pitch_state)
+		instance.sim_index = i
+		
+		# Create all physical objects on the simulation
+		# The index selected will show a visible prediction of last play of game
+		if show_play_simulation_result_index == i and show_play_simulation_result:
+			instance.create_objects_copy(true)
+		else:
+			instance.create_objects_copy(false)
+		
+		instance.update_visuals_position()
+		
+		Sim_Controller_list.append(instance)
+		add_child(instance)
+
+func Update_pitch_state_variables_on_Simulations(teamSide: int) -> void:
+	current_pitch_state.current_team_playing = teamSide
+	for sim in Sim_Controller_list:
+		sim.update_pitch_state_variables(current_pitch_state)
 
 func update_PhysicsObjects_from_CurrentPitchState() -> void:
 	for object in current_pitch_state.all_physic_object_list:
@@ -203,8 +214,21 @@ func update_PhysicsObjects_from_CurrentPitchState() -> void:
 			PhysicsObjects_List[object.index].playerInfo_atual.current_max_force = PhysicsObjects_List[object.index].playerInfo_atual.get_max_force()
 		
 		# Last piece collided
-		PhysicsObjects_List[object.index].last_PhysicObject_collided = PhysicsObjects_List[object.last_touch_index]
-		PhysicsObjects_List[object.index].last_PhysicObject_collision_position = object.last_touch_position
+		if object.last_touch_index >= 0:
+			PhysicsObjects_List[object.index].Set_Last_PhysicObject_Collision(object.last_touch_position, PhysicsObjects_List[object.last_touch_index])
+		
+		object.last_touch_position = Vector2.ZERO
+		object.last_touch_index = -1
+
+
+func Replicate_Action(index: int, velocity: Vector2, teamSide: int):
+	set_pitch_state_variables_from_PhysicsObjects()
+	
+	for sim in Sim_Controller_list:
+		if sim.show_play_simulation_result:
+			Update_pitch_state_variables_on_Simulations(teamSide)
+			sim.Replicate_Action(index, velocity, teamSide)
+			count_steps = 0
 
 #region Physics Objects Collisions
 
@@ -241,6 +265,13 @@ func has_collision_specific_Object(object_1: PhysicObject_Struct, _change_values
 				return true
 	return false
 
+func has_collision_specific_Object_NoBall(object_1: PhysicObject_Struct, _change_values: bool) -> bool:
+	for object_2_index in range(current_pitch_state.all_physic_object_list.size()):
+		var object_2 = current_pitch_state.all_physic_object_list[object_2_index]
+		if object_1.index != object_2.index and object_2.is_a_player:
+			if has_collision_physics_object(object_1, object_2, _change_values):
+				return true
+	return false
 
 func handle_physics_objects_collision(object_1: PhysicObject_Struct, object_2: PhysicObject_Struct) -> void:
 	var sum_masses = object_1.mass + object_2.mass
@@ -290,12 +321,12 @@ func handle_physics_objects_inside_each_other(object_1: PhysicObject_Struct, obj
 func collision_wall_resolution() -> void:
 	for i in range(current_pitch_state.all_physic_object_list.size()):
 		var object_A = current_pitch_state.all_physic_object_list[i]
-		if has_collision_wall_polygons(object_A):
+		if has_collision_wall_lines(object_A):
 			handle_walls_collision(object_A)
 
-func has_collision_wall_polygons(physic_object: PhysicObject_Struct) -> bool:
-	for polygon in list_walls_polygons_points:
-		if check_circle_polygon_collision(physic_object.last_position, physic_object.radius, polygon):
+func has_collision_wall_lines(physic_object: PhysicObject_Struct) -> bool:
+	for line in list_walls_lines_points:
+		if check_circle_lines_collision(physic_object.last_position, physic_object.radius, line):
 			return true
 	return false
 
@@ -310,6 +341,58 @@ func handle_walls_collision(object_1: PhysicObject_Struct) -> void:
 	object_1.current_velocity = object_1.current_velocity.bounce(wall_collision_normal)
 	
 	current_pitch_state.all_physic_object_list[object_1.index] = object_1
+
+# Returns true if the circle intersects the line
+func check_circle_lines_collision(circle_center: Vector2, circle_radius: float, list_line_points: PackedVector2Array) -> bool:
+	if list_line_points.size() < 3:
+		return false
+	
+	# Step 1: Check if the circle collides with any of the line's edges
+	for i in range(list_line_points.size() - 1):
+		# Get a point from the line
+		var current_point = list_line_points[i]
+		
+		# Get next point index, loop around to the first point if we are at the last index
+		# Get the next point after current_point from the line
+		var next_point_index = i + 1
+		var next_point = list_line_points[next_point_index]
+		
+		# Find the closest point on this line segment to the circle's center
+		var closest_point = get_closest_point_on_line(circle_center, current_point, next_point)
+
+		# Calculate distance from circle center to the closest point
+		var distance = circle_center.distance_to(closest_point)
+		
+		# If the distance is less than the radius, a collision has occurred
+		if distance <= circle_radius:
+			wall_collision_normal = (circle_center - closest_point).normalized()
+			
+			if wall_collision_normal == Vector2.ZERO:
+				wall_collision_normal = (next_point - current_point).orthogonal().normalized()
+			
+			wall_collision_depth = circle_radius - distance
+			return true
+		
+	return false
+
+
+# Function to find the closest point on a line to a target point
+func get_closest_point_on_line(target_point: Vector2, line_point_A: Vector2, line_point_B: Vector2) -> Vector2:
+	# Get the direction vector from line_point_A to line_point_B
+	var AB = line_point_B - line_point_A
+	
+	# Get the direction vector from line_point_A to target_point
+	var AP = target_point - line_point_A
+	
+	# calculate the perpendicular vector of line_point_A and target_point on the AB vector
+	# Project vector AP onto AB to find the scalar projection parameter 't'
+	var t = AP.dot(AB) / AB.length_squared()
+	
+	# Clamp 't' to restrict the point to the segment boundaries [a, b]
+	t = clamp(t, 0.0, 1.0)
+	
+	# Calculate the final coordinate on the segment
+	return line_point_A + AB * t
 
 # Returns true if the circle intersects the polygon's boundary or interior
 func check_circle_polygon_collision(circle_center: Vector2, circle_radius: float, list_polygons_points: PackedVector2Array) -> bool:
@@ -348,26 +431,6 @@ func check_circle_polygon_collision(circle_center: Vector2, circle_radius: float
 		return true
 		
 	return false
-
-
-# Function to find the closest point on a line to a target point
-func get_closest_point_on_line(target_point: Vector2, line_point_A: Vector2, line_point_B: Vector2) -> Vector2:
-	# Get the direction vector from line_point_A to line_point_B
-	var AB = line_point_B - line_point_A
-	
-	# Get the direction vector from line_point_A to target_point
-	var AP = target_point - line_point_A
-	
-	# calculate the perpendicular vector of line_point_A and target_point on the AB vector
-	# Project vector AP onto AB to find the scalar projection parameter 't'
-	var t = AP.dot(AB) / AB.length_squared()
-	
-	# Clamp 't' to restrict the point to the segment boundaries [a, b]
-	t = clamp(t, 0.0, 1.0)
-	
-	# Calculate the final coordinate on the segment
-	return line_point_A + AB * t
-
 #endregion
 
 #region Movement
@@ -426,7 +489,7 @@ func verify_collision_between_objects_on_movement_line_LinearSearch(object_1: Ph
 		global_Collision_Check_count += 1
 		
 		# Verifico se esta colidindo com outro objeto
-		if has_collision_specific_Object(object_1, true) or has_collision_wall_polygons(object_1): # Colidiu com algo
+		if has_collision_specific_Object(object_1, true) or has_collision_wall_lines(object_1): # Colidiu com algo
 			result_Pos = current_Pos
 			
 			# retorno a posição da colisão
@@ -434,5 +497,29 @@ func verify_collision_between_objects_on_movement_line_LinearSearch(object_1: Ph
 	
 	object_1.last_position = inicial_Pos
 	return result_Pos
+
+# Verifica se existe algo no caminho, verificando colisões, "subdivisionsNumber" é a quantidade de passos/verificações no caminho
+func verify_collisions_on_path_LinearSearch_NoBall(object: PhysicObject_Struct, subdivisionsNumber: float, target: Vector2) -> bool:
+	var inicial_Pos = object.last_position
+	var final_Pos = target
+	
+	var colidiu = false
+
+	var lerp_step = 1.0 / subdivisionsNumber
+	for i in range(0.0, subdivisionsNumber + 1):
+		var lerp_value = lerp_step * i
+		var current_pos = inicial_Pos.lerp(final_Pos, lerp_value)
+		object.last_position = current_pos
+		# Verifico se esta colidindo com outro objeto
+		if has_collision_specific_Object_NoBall(object, false):
+			colidiu = true
+			break
+		
+		if has_collision_wall_lines(object):
+			colidiu = true
+			break
+	
+	object.last_position = inicial_Pos
+	return colidiu
 
 #endregion

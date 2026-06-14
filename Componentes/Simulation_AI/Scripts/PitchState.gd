@@ -3,6 +3,8 @@ class_name PitchState
 
 var all_physic_object_list: Array[PhysicObject_Struct]
 
+var last_ball: PhysicObject_Struct
+
 var home_score: int
 var away_score: int
 

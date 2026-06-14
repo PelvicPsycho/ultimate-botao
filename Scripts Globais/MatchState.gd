@@ -229,10 +229,10 @@ func waitAllStopped() -> bool:
 	return true
 
 func selectFirstTurn() -> void:
-	print("AAA")
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
 	for ball in allBalls:
 		ball.lastTouch = null
+		physics_controller.reset_last_touch_of_all_pieces()
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
 	
 	if IA_Active and IA_Contr != null:
@@ -254,7 +254,7 @@ func changeTurn() -> void:
 	turnCounter = 0
 	for ball in allBalls:
 		ball.lastTouch = null
-	
+		physics_controller.reset_last_touch_of_all_pieces()
 	atualizar_cores_pecas()
 	
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
@@ -273,6 +273,7 @@ func forceTurn(target: turn) -> void:
 	foulFlag = false
 	for ball in allBalls:
 		ball.lastTouch = null
+		physics_controller.reset_last_touch_of_all_pieces()
 	atualizar_cores_pecas()
 	
 	for piece in allPieces:
@@ -295,11 +296,13 @@ func decideTurn() -> void:
 		
 	for ball in allBalls:
 		var lastTouch = ball.lastTouch
+		print("lastTouch = ", lastTouch)
 		if lastTouch != null:
 			rallyCounter += 1
 			if isCorrectSide(lastTouch.team) and turnCounter < 2:
 				turnCounter += 1
 				ball.lastTouch = null
+				physics_controller.reset_last_touch_of_all_pieces()
 				
 				if currentTurn == turn.HOME:
 					%MatchUI.colorir_turno(homeTeam,turnCounter)
