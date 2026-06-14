@@ -4,10 +4,13 @@ class_name Goal2D_Simulation
 enum TeamSide {HOME, AWAY}
 @export var team: TeamSide
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group('Balls'):
-		print("body_entered goal is a ball - Simulation")
+@export var Goal_top_position: Node2D
+@export var Goal_bottom_position: Node2D
 
-func _on_near_miss_area_body_entered(body):
-	if body.is_in_group('Balls'):
-		print("ball entered goal miss area - Simulation")
+#func _on_area_2d_body_entered(body: Node2D) -> void:
+	#if body.is_in_group('Balls'):
+		#print("body_entered goal is a ball - Simulation")
+#
+#func _on_near_miss_area_body_entered(body):
+	#if body.is_in_group('Balls'):
+		#print("ball entered goal miss area - Simulation")

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bc3fn0bmpysvf"]
+
+[ext_resource type="Script" uid="uid://cnkkuss1obmwh" path="res://Componentes/Simulation_AI/Scripts/Goal2D_Simulation.gd" id="1_nwni8"]
+
+[node name="Goal2D_Simulation_Home" type="Node2D" unique_id=970188486 node_paths=PackedStringArray("Goal_top_position", "Goal_bottom_position")]
+script = ExtResource("1_nwni8")
+Goal_top_position = NodePath("Goal_top_position")
+Goal_bottom_position = NodePath("Goal_bottom_position")
+
+[node name="Home_Goal_Polygons" type="StaticBody2D" parent="." unique_id=1784832649]
+position = Vector2(0, 45)
+collision_layer = 4224
+collision_mask = 32
+
+[node name="Home_PolygonGoalArea" type="CollisionPolygon2D" parent="Home_Goal_Polygons" unique_id=501614359]
+position = Vector2(-3.0517578e-05, 95.385056)
+scale = Vector2(0.9999999, 0.8194832)
+polygon = PackedVector2Array(133.00005, 646.2792, 203, 646.279, 203.00006, 329.00604, 133.00005, 329.00604)
+
+[node name="Goal_top_position" type="Node2D" parent="." unique_id=1953533605]
+position = Vector2(188, 442)
+
+[node name="Goal_bottom_position" type="Node2D" parent="." unique_id=1936101181]
+position = Vector2(188, 638)

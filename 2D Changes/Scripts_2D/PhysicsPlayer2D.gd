@@ -15,14 +15,16 @@ signal ActionExecuted(index, velocity, teamSide)
 var AI_Active: bool
 
 #endregion
-@export var pixalizado: float=  8.0
-@export var distanciaDropShadow:int =75
+@export var pixalizado: float = 8.0
+@export var distanciaDropShadow:int = 75
+
 # Runtime Variables
 var current_direction: Vector2 = Vector2.ZERO
 var current_force: float = 0.0
 var lerp_current_force: float = 0.0
 var current_distance: float = 0
 @export var max_distance: float = 1
+
 signal carta_clicada(carta)
 var dono: PhysicsPlayer2D
 var efeitos_visuais_ativos: Dictionary = {}
@@ -82,6 +84,8 @@ var sfx_tensao_atual: AudioStreamPlayer
 var buff_tween: Tween
 #endregion
 
+var playerInfo_atual_Loaded: bool
+
 func _ready() -> void:
 	team = playerInfo.time
 	is_pointer_inside_piece = false
@@ -115,6 +119,7 @@ func _ready() -> void:
 	
 	tracer2D.clear_points()
 	base_tracer_width = tracer2D.width
+	playerInfo_atual_Loaded = false
 
 func loadPlayerInfo(plInfo):
 	_configurar_status(plInfo)
@@ -128,25 +133,16 @@ func _configurar_status(plInfo) -> void:
 	atualizar_peca_pelo_status()
 	atualizar_fisica_por_status()
 	Update_Values_With_StatusAtual()
+	
+	playerInfo_atual_Loaded = true
 
 func _aplicar_visual(plInfo) -> void:
-
-	#if plInfo.get("material_shader") and plInfo.material_shader != null:
-		#sprite2D_body.material = plInfo.material_shader.duplicate()
-	#elif sprite2D_body.material:
-		#sprite2D_body.material = sprite2D_body.material.duplicate()
-			#
-	
 	if sprite2D_body.material and team:
-		
 		sprite2D_body.material.set_shader_parameter("sprite_tint", team.cor)
-		#sprite2D_body.material.set_shader_parameter("pixel_size,", pixalizado)
-		#sprite2D_body.material.set_shader_parameter("dist,", distanciaDropShadow)
 		if team.has_method("get_overlay_texture"):
 			var tex_overlay = team.get_overlay_texture()
 			if tex_overlay != null:
 				sprite2D_body.material.set_shader_parameter("overlay_texture", tex_overlay)
-	
 	
 	if team:
 		tracer2D.self_modulate = team.cor
@@ -154,9 +150,11 @@ func _aplicar_visual(plInfo) -> void:
 
 func Set_AI_Active(_AI_Active: bool) -> void:
 	AI_Active = _AI_Active
+	
 func _no_turno_trocado(_turno_atual) -> void:
 	if menu_radial and menu_radial.is_open:
 		menu_radial.fechar()
+		
 func atualizar_fisica_por_status():
 	# MASS
 	# - Aumentar a massa torna a peça mais difícil de ser empurrada por outros
@@ -187,7 +185,6 @@ func atualizar_fisica_por_status():
 	
 	if friction >= 1:
 		friction = 0.99
-
 
 func atualizar_peca_pelo_status() -> void:
 	if not is_instance_valid(playerInfo_atual): 
@@ -247,17 +244,19 @@ func _process(delta: float) -> void:
 	Draw_Aim()
 	Draw_Dragging_Line()
 	Draw_Velocity_Line()
-
+	
+	radius = (global_position - Object_Radius.global_position).length()
+	
 	if shaking and sprite2D_body != null:
 		shake_timer += delta
-
+		
 		var t := shake_timer * shake_frequency
-
+		
 		var offset := Vector2(
 			sin(t * 1.7) * shake_amplitude,
 			cos(t * 1.9) * shake_amplitude
 		)
-
+		
 		shake_visual_offset = offset
 	else:
 		shake_visual_offset = Vector2.ZERO
@@ -280,7 +279,6 @@ func definir_estado_visual(ativo: bool) -> void:
 	self.canPlay = ativo
 	
 
-
 #region Input
 var is_dragging: bool = false
 var is_pointer_inside_piece: bool = false #Mouse/dedo dentro da peça
@@ -289,15 +287,14 @@ var posicao_atual_toque_Tela: Vector2 = Vector2.ZERO
 var posicao_inicial_toque_Tela: Vector2 = Vector2.ZERO
 var posicao_final_toque_Tela: Vector2 = Vector2.ZERO
 
-#var posicao_inicial_toque_Mundo3D: Vector2 = Vector2.ZERO
-#var posicao_final_toque_Mundo3D: Vector2 = Vector2.ZERO
-
 # Atualiza as variaveis de direcao_atual, distancia_atual e forca_atual
 func Mouse_Dragging_Update():
 	current_direction = posicao_inicial_toque_Tela - posicao_final_toque_Tela
 	current_distance = current_direction.length()
+	
 	if current_distance > 2.0 and menu_radial and menu_radial.is_open:
 		menu_radial.fechar()
+		
 	if current_distance > max_distance:
 		current_distance = max_distance
 	
@@ -313,8 +310,7 @@ func Mouse_Dragging_Update():
 	
 	if current_force > playerInfo_atual.basic_max_force:
 		current_force = playerInfo_atual.basic_max_force
-	
-	#print("current_force = ", current_force)
+
 
 func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 	if AI_Active:
@@ -364,6 +360,7 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 				alvo.sprite2D_body.position = alvo.base_visual_position
 			)
 			return
+	
 	if is_frozen():
 		return
 	
@@ -505,7 +502,6 @@ func puxar_no_timeout():
 
 #region Movement
 func Execute_Action() -> void:
-	print("Entered to execute action ---------------")
 	if menu_radial and menu_radial.is_open:
 		menu_radial.fechar()
 	if is_frozen():
@@ -519,8 +515,7 @@ func Execute_Action() -> void:
 		audio_tiro = audio_chute_max
 		
 	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
-	
-	print("Action Executed ---------------")
+
 	Set_Current_Velocity(current_direction * current_force)
 	
 	ActionExecuted.emit(index, current_velocity, teamSide)
@@ -565,7 +560,6 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 	last_PhysicObject_collided = object_collided
 	last_PhysicObject_collision_position = collision_position
 
-
 	if playerInfo_atual and playerInfo_atual.peça_bomba_ativa:
 		executar_onda_choque_direta()
 		playerInfo_atual.peça_bomba_ativa = false
@@ -576,25 +570,22 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 			print("DEBUG: Aplicando congelamento em ", object_collided.name)
 			object_collided.aplicar_congelamento(playerInfo_atual.poder_congelar_turnos)
 			playerInfo_atual.congelamento_ativo = false
-			
-
 	
 	if not (object_collided is PhysicsPlayer2D):
 		_instanciar_particula_impacto(collision_position)
 		return
-
-
+	
 	if get_instance_id() > object_collided.get_instance_id():
 		return
-
 	
 	if playerInfo_atual and playerInfo_atual.empurra_aliados_ativo:
 		if object_collided.team == self.team:
 			if object_collided.has_method("aplicar_empurrao"):
 				object_collided.aplicar_empurrao(self.current_velocity)
 				playerInfo_atual.empurra_aliados_ativo = false
-
+	
 	_instanciar_particula_impacto(collision_position)
+
 func animar_pulso(alvo: Node2D) -> void:
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_SINE)
@@ -633,8 +624,6 @@ func executar_onda_choque_direta():
 					
 				print("DEBUG: [SUCESSO] Empurrou ", obj.name, " com força ", impulso.length())
 
-	
-	
 func _instanciar_particula_impacto(posicao_colisao: Vector2) -> void:
 	if impactParticles == null:
 		return
@@ -836,7 +825,6 @@ func _update_velocity_feedback(delta: float) -> void:
 
 #region Merge
 
-
 var painel_cartas: Control = null
 
 var gerenciador_cartas: Control
@@ -955,6 +943,7 @@ func _retomar_formato_normal() -> void:
 	deform_tween.parallel().tween_property(sprite2D_body, "rotation", base_visual_rotation, 0.25)
 	
 #endregion
+
 func _animar_buff_forca() -> void:
 	if buff_tween and buff_tween.is_valid():
 		buff_tween.kill()
@@ -967,6 +956,7 @@ func _animar_buff_forca() -> void:
 		var cor_brilho = team.cor.lerp(Color.WHITE, 0.8)
 		buff_tween.tween_property(sprite2D_body, "self_modulate", cor_brilho, 0.3).set_trans(Tween.TRANS_SINE)
 		buff_tween.tween_property(sprite2D_body, "self_modulate", team.cor, 0.3).set_trans(Tween.TRANS_SINE)
+
 func is_frozen() -> bool:
 	if playerInfo_atual:
 		return playerInfo_atual.disabilitado or playerInfo_atual.turnos_congelamento_armazenado > 0
@@ -1029,6 +1019,7 @@ func animar_efeito_por_carta(card: CardResource) -> void:
 			adicionar_efeito_visual(card.tipo_efeito, Color(1.0, 0.7, 0.1))
 		CardResource.TipoEfeito.Atrasao:
 			adicionar_efeito_visual(card.tipo_efeito, Color(0.6, 0.4, 0.9))
+
 func aplicar_empurrao(velocidade_aliado: Vector2) -> void:
 	var impulso = velocidade_aliado * 4
 	Set_Current_Velocity(current_velocity + impulso)
@@ -1038,6 +1029,7 @@ func aplicar_empurrao(velocidade_aliado: Vector2) -> void:
 	var tw = create_tween().set_parallel(true)
 	tw.tween_property(sprite2D_body, "self_modulate", Color.YELLOW, 0.3)
 	tw.tween_property(sprite2D_body, "self_modulate", team.cor, 0.3)
+
 func get_player_que_quer_trocar() -> PhysicsPlayer2D:
 	var players = get_tree().get_nodes_in_group("Players")
 	
@@ -1046,6 +1038,7 @@ func get_player_que_quer_trocar() -> PhysicsPlayer2D:
 			print('Pos peca  ', global_position,)
 			return p
 	return null
+
 func _physics_process(delta: float) -> void:
 	# Verificamos a booleana DENTRO do Resource playerInfo_atual
 	if playerInfo_atual and playerInfo_atual.atrai_bola_ativo:
@@ -1198,6 +1191,7 @@ func aplicar_atracao_bola(delta: float) -> void:
 #
 		#spark_cooldowns[collider_id] = 0.2
 		#break
+
 func _on_carta_do_radial(carta):
 
 	var ms = get_tree().get_first_node_in_group("MatchState2d")
@@ -1208,6 +1202,7 @@ func _on_carta_do_radial(carta):
 	
 	if menu_radial:
 		menu_radial.fechar()
+
 func aplicar_congelamento(turnos: int) -> void:
 	print("Peça congelada por ", turnos, " turnos!")
 	current_velocity = Vector2.ZERO

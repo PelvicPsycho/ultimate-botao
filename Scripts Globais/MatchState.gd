@@ -1,10 +1,15 @@
 extends Node
+class_name MatchState_AI
 
 enum turn {HOME, AWAY}
-enum ModoTiro { PUXAR, EMPURRAR, MODO_3 }
-
-var modo_atual: ModoTiro = ModoTiro.PUXAR
 signal turno_trocado(turno_atual: turn)
+
+@export var physics_controller: CollisionResolution2D
+
+@export var show_play_simulation_result: bool
+@export var show_play_simulation_result_index: int
+
+@export var IA_Active: bool
 @export var IA_Contr: IA_Controller
 
 var allPieces: Array[PhysicsPlayer2D]
@@ -56,8 +61,6 @@ func _ready() -> void:
 		
 	var jogadores_salvos: Array = GameState.jogadores
 	
-	
-	
 	var save_map = {}
 	for j in jogadores_salvos:
 		save_map[j.id_unico] = j
@@ -102,12 +105,14 @@ func _ready() -> void:
 		
 		# 4. Sempre aplica as passivas (seja do save ou do fallback da mão)
 		res_atual.aplicar_passivas()
+	
 	# CONEXÕES PADRÃO
 		if not piece.clickedPiece.is_connected(_on_player_clicked_piece):
 			piece.clickedPiece.connect(_on_player_clicked_piece)
 			
 		piece.turnPlayed.connect(onTurnPlayed)
 		turno_trocado.connect(piece._no_turno_trocado)
+	
 	# DISTRIBUIÇÃO ENTRE EQUIPES
 		if piece.team == homeTeam:
 			piece.canPlay = (currentTurn == turn.HOME)
@@ -152,11 +157,14 @@ func _on_begin_timeout():
 
 func loadMatch():
 	if not PvPManager.isPvpMatch:
+		IA_Active = true
 		homeTeam = CupManager.myTeam
 		awayTeam = CupManager.currentCompetitor
 	else:
+		IA_Active = false
 		homeTeam = PvPManager.teams[0]
 		awayTeam = PvPManager.teams[1]
+	
 	homeScore = 0
 	awayScore = 0
 	rallyCounter = 1
@@ -164,12 +172,14 @@ func loadMatch():
 	foulFlag = false
 	goalFlag = false
 	assignPieces()
+	
+	physics_controller.start_Collision_resulution(IA_Active, show_play_simulation_result, show_play_simulation_result_index)
 
 func assignPieces():
 	var homePlayers: Array[TeamPlayer] = homeTeam.mainSquad
 	var awayPlayers: Array[TeamPlayer] = awayTeam.mainSquad
-	var homePieces = $PhysicsObjects_Group/HomeTeam.get_children()
-	var awayPieces = $PhysicsObjects_Group/AwayTeam.get_children()
+	var homePieces = $PhysicsController/HomeTeam.get_children()
+	var awayPieces = $PhysicsController/AwayTeam.get_children()
 	for i in range(homePieces.size()):
 		var piece = homePieces[i]
 		var player = homePlayers[i]
@@ -183,6 +193,8 @@ func assignPieces():
 		piece.team = awayTeam
 		piece.playerInfo = player
 		piece.loadPlayerInfo(player)
+	
+	physics_controller.all_physicObjects_loaded = true
 
 func _atualizar_placar() -> void:
 	%MatchUI.atualizar_placar(homeScore, awayScore)
@@ -342,8 +354,13 @@ func selectFirstTurn() -> void:
 	for ball in allBalls:
 		ball.lastTouch = null
 		ball.firstTouch = null
+	
+	physics_controller.reset_last_touch_of_all_pieces()
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-	IA_Contr.SetCurrentTeamSide(currentTurn)
+	
+	if IA_Active and IA_Contr != null:
+		IA_Contr.SetCurrentTeamSide(currentTurn)
+		
 	%MatchUI.colorir_turno(active_team, turnCounter) 
 	
 func changeTurn() -> void:
@@ -360,10 +377,16 @@ func changeTurn() -> void:
 	for ball in allBalls:
 		ball.lastTouch = null
 		ball.firstTouch = null
+	
+	physics_controller.reset_last_touch_of_all_pieces()
+	
 	atualizar_cores_pecas()
 	
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-	IA_Contr.SetCurrentTeamSide(currentTurn)
+	
+	if IA_Active and IA_Contr != null:
+		IA_Contr.SetCurrentTeamSide(currentTurn)
+		
 	%MatchUI.colorir_turno(active_team, turnCounter)
 	if timer.tipo_do_timer == timer.TimerType.CHESS:
 		timer.isHomeTurn = (currentTurn == turn.HOME)
@@ -381,6 +404,9 @@ func forceTurn(target: turn) -> void:
 	for ball in allBalls:
 		ball.lastTouch = null
 		ball.firstTouch = null
+	
+	physics_controller.reset_last_touch_of_all_pieces()
+	
 	atualizar_cores_pecas()
 	
 	for piece in allPieces:
@@ -389,7 +415,10 @@ func forceTurn(target: turn) -> void:
 		piece.canPlay = (currentTurn == turn.HOME) if piece.team == homeTeam else (currentTurn == turn.AWAY)
 			
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-	IA_Contr.SetCurrentTeamSide(currentTurn)
+	
+	if IA_Active and IA_Contr != null:
+		IA_Contr.SetCurrentTeamSide(currentTurn)
+		
 	%MatchUI.colorir_turno(active_team, turnCounter)
 	if timer.tipo_do_timer == timer.TimerType.CHESS:
 		timer.isHomeTurn = (currentTurn == turn.HOME)
@@ -413,7 +442,7 @@ func decideTurn() -> void:
 				var lastTouch = ball.lastTouch
 				if lastTouch == null:
 					continue
-
+				
 				rallyCounter += 1
 				var toque_time_correto: bool = isCorrectSide(lastTouch.team)
 				if toque_time_correto and turnCounter < 2:
@@ -422,19 +451,24 @@ func decideTurn() -> void:
 						%MatchUI.colorir_turno(homeTeam,turnCounter)
 					else: 
 						%MatchUI.colorir_turno(awayTeam,turnCounter)
-
+					
 					if turnCounter < 2:
 						disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
 					else:
 						disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
-					IA_Contr.SetCurrentTeamSide(currentTurn)
+					
+					if IA_Active and IA_Contr != null:
+						IA_Contr.SetCurrentTeamSide(currentTurn)
+					
 					ball.lastTouch = null
+					physics_controller.reset_last_touch_of_all_pieces()
 					return
 
 				# Se o time correto tocou com turnCounter >= 2, segue para troca com som "mudou".
 				if toque_time_correto and turnCounter >= 2:
 					por_erro = false
 				ball.lastTouch = null
+				physics_controller.reset_last_touch_of_all_pieces()
 				break
 			1:
 				var firstTouch = ball.firstTouch
@@ -454,13 +488,18 @@ func decideTurn() -> void:
 						disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
 					else:
 						disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
-					IA_Contr.SetCurrentTeamSide(currentTurn)
+					
+					if IA_Active and IA_Contr != null:
+						IA_Contr.SetCurrentTeamSide(currentTurn)
+						
 					ball.firstTouch = null
+					physics_controller.reset_last_touch_of_all_pieces()
 					return
 
 				if toque_time_correto_first and turnCounter >= 2:
 					por_erro = false
 				ball.firstTouch = null
+				physics_controller.reset_last_touch_of_all_pieces()
 				break
 			2:
 				pass
@@ -482,14 +521,19 @@ func decideTurn() -> void:
 						disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
 					else:
 						disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
-					IA_Contr.SetCurrentTeamSide(currentTurn)
+					
+					if IA_Active and IA_Contr != null:
+						IA_Contr.SetCurrentTeamSide(currentTurn)
+						
 					ball.lastTouch = null
+					physics_controller.reset_last_touch_of_all_pieces()
 					return
 
 				# Se o time correto tocou com turnCounter >= 2, segue para troca com som "mudou".
 				if toque_time_correto and turnCounter >= 1:
 					por_erro = false
 				ball.lastTouch = null
+				physics_controller.reset_last_touch_of_all_pieces()
 				break
 
 	if por_erro:
@@ -590,3 +634,11 @@ func _on_player_clicked_piece(Piece: PhysicsPlayer2D) -> void:
 		#Piece.playerInfo_atual.aplicar_buff(carta)
 		#carta_usada_no_turno = true
 		#%MatchUI.consumir_carta_selecionada()
+
+func get_current_turn_int() -> int:
+	if currentTurn == turn.HOME:
+		return 0
+	elif currentTurn == turn.AWAY:
+		return 1
+	
+	return 0

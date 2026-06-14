@@ -1,14 +1,8 @@
 extends CharacterBody2D
 class_name PhysicsObject2D
 
-@export var shapecast_physics_objects: ShapeCast2D
-@export var shapecast_walls: ShapeCast2D
-
-#@export var acceleration: Vector2 = Vector2.ZERO
 @export var mass: float = 5
 @export_range(0, 1) var friction: float = 0.98
-#@export var friction_min: float = 0.01
-#@export var friction_max: float = 0.2
 
 var is_moving: bool
 

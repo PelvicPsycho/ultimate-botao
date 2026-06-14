@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bfekqxt737l61"]
+[gd_scene format=3 uid="uid://qg2n8lmg5rw"]
 
 [ext_resource type="Script" uid="uid://cpi3slk1enhph" path="res://Componentes/Simulation_AI/Scripts/SimulationController.gd" id="1_pbodn"]
 [ext_resource type="PackedScene" uid="uid://djvt35mqbc8jy" path="res://Componentes/Simulation_AI/Scenes/Goal2D_Simulation.tscn" id="1_x1snt"]
@@ -6,9 +6,8 @@
 
 [node name="SimulationController" type="Node2D" unique_id=603521134]
 script = ExtResource("1_pbodn")
-run_num_max_steps = 1000
-max_force_steps = 2
 rotation_steps = 30
+run_num_max_steps = 1000
 
 [node name="CampoV3" type="Sprite2D" parent="." unique_id=1782367444]
 position = Vector2(960, 586.075)

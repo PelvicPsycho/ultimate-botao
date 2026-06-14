@@ -30,12 +30,9 @@ point_count = 2
 offsets = PackedFloat32Array(0, 0.096463025)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gwudw"]
-radius = 50.0
+radius = 41.04875
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_r8syo"]
-radius = 35.0
-
-[node name="Player2d" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("Object_Radius", "sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D", "shapecast_physics_objects", "shapecast_walls") groups=["PhysicsObjects", "Players"]]
+[node name="Player2d" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("Object_Radius", "sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D") groups=["PhysicsObjects", "Players"]]
 collision_layer = 2
 collision_mask = 3
 input_pickable = true
@@ -59,8 +56,6 @@ sprite2D_circulo_limite = NodePath("Sprite2D_CirculoLimite")
 aim_line2D = NodePath("Line2D_Aim")
 drag_line2D = NodePath("Line2D_Drag")
 velocity_line2D = NodePath("Line2D_Velocity")
-shapecast_physics_objects = NodePath("ShapeCast2D_Objects")
-shapecast_walls = NodePath("ShapeCast2D_Walls")
 
 [node name="LabelPA" type="Label" parent="." unique_id=204624804]
 z_index = 1
@@ -109,18 +104,8 @@ shape = SubResource("CircleShape2D_gwudw")
 [node name="Object_Calculate_Radius" type="Node2D" parent="." unique_id=1905712883]
 position = Vector2(35, 0)
 
-[node name="ShapeCast2D_Objects" type="ShapeCast2D" parent="." unique_id=1924576537]
-shape = SubResource("CircleShape2D_r8syo")
-target_position = Vector2(0, 0)
-max_results = 1
-collision_mask = 2
-
-[node name="ShapeCast2D_Walls" type="ShapeCast2D" parent="." unique_id=728845580]
-shape = SubResource("CircleShape2D_r8syo")
-target_position = Vector2(0, 0)
-max_results = 1
-
 [node name="RadialMenu" parent="." unique_id=115300761 instance=ExtResource("19_o5120")]
+visible = false
 z_index = 1
 position = Vector2(1, -125)
 scale = Vector2(1.6437211, 1.2837207)

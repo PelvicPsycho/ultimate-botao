@@ -39,30 +39,6 @@ func _ready() -> void:
 	_shader_material.shader = load("res://2D Changes/Shader_2d/ball_roll.gdshader")
 	$Sprite2D.material = _shader_material
 
-#region Movement
-
-func move_object(_delta: float) -> void:
-	#var friction_value = lerpf(friction_min, friction_max, friction)
-	var new_velocity = current_velocity * friction;
-	
-	Set_Current_Velocity(new_velocity)
-	
-	#print("Ball Velocity = ", current_velocity.length())
-	
-	if abs(current_velocity.x) < 10 && abs(current_velocity.y) < 10:
-		Set_Current_Velocity(Vector2.ZERO)
-		is_moving = false
-	else:
-		is_moving = true
-		
-	if !is_moving:
-		return
-	
-	#last_position = position
-	#var newPos = position + (current_velocity * _delta)
-	#position = newPos
-
-#endregion
 
 #region collisions
 var last_PhysicObject_collided: PhysicsObject2D
