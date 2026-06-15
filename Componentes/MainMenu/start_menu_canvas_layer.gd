@@ -26,33 +26,33 @@ func _carregar_time_inicial():
 	var pecas_iniciais: Array = []
 	
 	# ==========================================
-	# 1. CARREGAR AS PEÇAS DO GRÊMIO
+	# 1. CARREGAR AS PEÇAS DO GRÊMIO / MY TEAM
 	# ==========================================
 	for id_peca in Database.pecas_db:
 		var peca_original = Database.pecas_db[id_peca]
 		
-		# Procura peças que tenham um Resource de Time equipado e que o nome seja "Grêmio"
+		# Procura peças que tenham um Resource de Time equipado
 		if peca_original is TeamPlayer and peca_original.time and peca_original.time.name == "My Team":
 			
-			# Faz a cópia para não estragar o arquivo original
-			var jogador_copia = peca_original.duplicate(true)
-			jogador_copia.slotsUpgrates.resize(jogador_copia.quantosSlotes)
-			pecas_iniciais.append(jogador_copia)
-			
-			# Adiciona aos desbloqueados
-			GameState.adicionar_peca(jogador_copia.id_unico)
+			if pecas_iniciais.size() < 5:
+				# As primeiras 5 peças vão para o time titular (ativas no campo)
+				var jogador_copia = peca_original.duplicate(true)
+				jogador_copia.slotsUpgrates.resize(jogador_copia.quantosSlotes)
+				pecas_iniciais.append(jogador_copia)
+			else:
+				# A 6ª peça (e qualquer outra extra) vai direto para o Stack/Banco genérico!
+				GameState.adicionar_peca(peca_original.id_unico)
 
 	if pecas_iniciais.size() == 0:
 		print("ERRO -> Nenhuma peça do Grêmio encontrada no Database!")
 	else:
 		GameState.jogadores = pecas_iniciais
-		#print("✔ Time inicial (Grêmio) carregado com sucesso!")
+		#print("✔ Time inicial carregado com sucesso!")
 
 
 	# ==========================================
 	# 2. CARREGAR CARTAS INICIAIS
 	# ==========================================
-	# Coloque aqui os 'id_unico' exatos das cartas que o jogador começa
 	var ids_cartas_iniciais: Array[StringName] = [
 		"corre_peao_01", 
 		"corre_peao_01",
@@ -70,8 +70,6 @@ func _carregar_time_inicial():
 		else:
 			print("AVISO -> Carta inicial não encontrada no Database: ", id_carta)
 			
-	#print("✔ Cartas iniciais adicionadas! Total: ", GameState.cartas_desbloqueadas.size())
-	
 	SaveManager.save_game()
 
 func _on_button_pressed() -> void:

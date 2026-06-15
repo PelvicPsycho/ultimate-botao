@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://cjab8n13u8gkw"]
+
+[ext_resource type="Script" uid="uid://dvdg5byov2esp" path="res://2D Changes/2D_Scenes/menu_radial.gd" id="1_4j84u"]
+[ext_resource type="PackedScene" uid="uid://brakhc6otketl" path="res://2D Changes/2D_Scenes/carta_botao_match.tscn" id="2_usdny"]
+[ext_resource type="Texture2D" uid="uid://cmk0e4bn7r18t" path="res://Recursos/2D_Art/Radia_icon/Vector_cheio.png" id="3_p5b11"]
+[ext_resource type="Texture2D" uid="uid://djh351vtbufgc" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816129029-removebg-preview.png" id="4_6ovhs"]
+[ext_resource type="Texture2D" uid="uid://ccoik23g8we7s" path="res://Recursos/2D_Art/Radia_icon/FundoPop/Vector (12).png" id="5_4gekx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ub1q"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[node name="MenuRadial" type="Control" unique_id=431991993 node_paths=PackedStringArray("popup_info", "label_titulo", "label_desc", "icone_arte", "container_custo")]
+z_index = 99
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_4j84u")
+cena_botao_carta = ExtResource("2_usdny")
+textura_pa_cheio = ExtResource("3_p5b11")
+popup_info = NodePath("PopupInfo")
+label_titulo = NodePath("PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer/NomeCarta_Label")
+label_desc = NodePath("PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer/DescricaoCarta_Label")
+icone_arte = NodePath("PopupInfo/Panel/MarginContainer/DivisorInicial/Arte_VBoxContainer/Arte_TextureRect")
+container_custo = NodePath("PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer/Custo_HBoxContainer")
+textura_custo_pa = ExtResource("5_4gekx")
+metadata/_edit_vertical_guides_ = [-133.0]
+
+[node name="PopupInfo" type="Control" parent="." unique_id=1003390614]
+visible = false
+anchors_preset = 0
+
+[node name="Panel" type="Panel" parent="PopupInfo" unique_id=351739034]
+custom_minimum_size = Vector2(350, 200)
+layout_mode = 1
+offset_left = -175.0
+offset_top = -428.0
+offset_right = 175.0
+offset_bottom = -228.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ub1q")
+
+[node name="MarginContainer" type="MarginContainer" parent="PopupInfo/Panel" unique_id=59873544]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="DivisorInicial" type="HBoxContainer" parent="PopupInfo/Panel/MarginContainer" unique_id=480916682]
+layout_mode = 2
+
+[node name="Arte_VBoxContainer" type="VBoxContainer" parent="PopupInfo/Panel/MarginContainer/DivisorInicial" unique_id=886034277]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.6
+
+[node name="Arte_TextureRect" type="TextureRect" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Arte_VBoxContainer" unique_id=361580584]
+custom_minimum_size = Vector2(100, 180)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.5
+texture = ExtResource("4_6ovhs")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Texto_VBoxContainer" type="VBoxContainer" parent="PopupInfo/Panel/MarginContainer/DivisorInicial" unique_id=1443750359]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NomeCarta_Label" type="Label" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer" unique_id=116529582]
+custom_minimum_size = Vector2(50, 10)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Nome Carta"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="DescricaoCarta_Label" type="Label" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer" unique_id=1365777810]
+custom_minimum_size = Vector2(50, 10)
+layout_mode = 2
+size_flags_vertical = 6
+text = "Descrição"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Custo_HBoxContainer" type="HBoxContainer" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer" unique_id=1256784178]
+layout_mode = 2

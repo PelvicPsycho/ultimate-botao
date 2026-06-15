@@ -460,16 +460,13 @@ func _verificar_clique_fora_radial() -> void:
 	if not menu_radial or not menu_radial.is_open:
 		return
 		
-	var mouse_pos = get_global_mouse_position()
-	
-	for btn in menu_radial.buttons:
-		var poly = btn.get_node_or_null("CollisionPolygon2D")
-		
-		if poly:
+	for btn in menu_radial.botoes_ativos:
+		if Rect2(Vector2.ZERO, btn.size).has_point(btn.get_local_mouse_position()):
+			# O motor de interface falhou em clicar? Sem problema!
+			# Nós forçamos o botão a atirar o sinal de 'pressed' daqui mesmo:
+			btn.pressed.emit()
+			return  
 			
-			var local_mouse_pos = poly.to_local(mouse_pos)
-			if Geometry2D.is_point_in_polygon(local_mouse_pos, poly.polygon):
-				return  
 	menu_radial.fechar()
 
 func _on_mouse_entered() -> void:
@@ -1193,7 +1190,7 @@ func aplicar_atracao_bola(delta: float) -> void:
 		#break
 
 func _on_carta_do_radial(carta):
-
+	print("✅ PhysicsPlayer: Sinal recebido com sucesso! Tentando usar: ", carta.nome)
 	var ms = get_tree().get_first_node_in_group("MatchState2d")
 	
 	
@@ -1229,22 +1226,67 @@ func abrir_botoes_cartas():
 	if ms and ms.carta_usada_no_turno:
 		print("Já usou carta neste turno, não vai abrir o radial.")
 		return
+		
 	if PhysicsPlayer2D.last_piece_with_radial != null:
 		if PhysicsPlayer2D.last_piece_with_radial != self:
 			if PhysicsPlayer2D.last_piece_with_radial.menu_radial.is_open:
 				PhysicsPlayer2D.last_piece_with_radial.menu_radial.fechar()
+				
 	var cartas = []
 	
-	for c in playerInfo_atual.slotsUpgrates:
-		if c != null:
-			if c.is_passiva:
-				continue 
-			cartas.append(c)
+	# === INÍCIO DO DEBUG ===
+	#var nome_peca = playerInfo_atual.nome if "nome" in playerInfo_atual else "Peça Desconhecida"
+	#print("\n=== DEBUG DE CARTAS EQUIPADAS: ", nome_peca, " ===")
+	#print("Tamanho do array 'slotsUpgrates': ", playerInfo_atual.slotsUpgrates.size())
+	
+	for i in range(playerInfo_atual.slotsUpgrates.size()):
+		var c = playerInfo_atual.slotsUpgrates[i]
+		
+		if c == null:
+			#print("  Slot [", i, "]: VAZIO (null)")
+			continue
+			
+		#var nome_carta = c.nome if "nome" in c else "Sem Nome"
+		#print("  Slot [", i, "]: ", nome_carta, " | Passiva: ", c.is_passiva)
+		
+		if c.is_passiva:
+			#print("    -> REJEITADA: Cartas passivas não vão para o menu radial.")
+			continue 
+			
+		cartas.append(c)
+		#print("    -> ACEITA E ADICIONADA.")
+		#
+	#print("Total de cartas enviadas para o MenuRadial: ", cartas.size())
+	#print("===================================================\n")
+	# === FIM DO DEBUG ===
+
 	menu_radial.definir_cartas(cartas, playerInfo_atual.PA)
+	
 	if not menu_radial.carta_clicada.is_connected(_on_carta_do_radial):
 		menu_radial.carta_clicada.connect(_on_carta_do_radial)
 	
-	menu_radial.definir_pa(playerInfo_atual.PA, 8)  
+	# === CÁLCULO DO PA (MÁXIMO VS RESTANTE) ===
+	
+	# 1. Pega o PA Base Imutável da peça ORIGINAL (antes da partida começar)
+	var pa_maximo_da_peca = playerInfo.PA if playerInfo else 3
+	
+	# 2. Soma APENAS o PA extra que as cartas PASSIVAS dão ao limite máximo
+	for carta in playerInfo_atual.slotsUpgrates:
+		if carta != null and "tipo_efeito" in carta:
+			# Como vimos no seu Res_Player.gd, passivas usam Aumentar_Pa_Maximo
+			if carta.tipo_efeito == CardResource.TipoEfeito.Aumentar_Pa_Maximo:
+				pa_maximo_da_peca += carta.magnitude
+			# (Fallback de segurança caso você tenha cartas passivas antigas com o tipo PA)
+			elif carta.is_passiva and carta.tipo_efeito == CardResource.TipoEfeito.PA:
+				pa_maximo_da_peca += carta.magnitude
+				
+	# 3.
+	# 1º Parâmetro: PA Atual (playerInfo_atual.PA, que diminui ao usar cartas)
+	# 2º Parâmetro: PA Máximo Real (pa_maximo_da_peca, que desenha os fundos escuros)
+	menu_radial.definir_pa(playerInfo_atual.PA, pa_maximo_da_peca)  
+	# ========================================================
+	# ===================================
+	
 	menu_radial.abrir()
 	PhysicsPlayer2D.last_piece_with_radial = self
 #endregion

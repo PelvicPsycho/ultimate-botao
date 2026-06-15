@@ -134,6 +134,24 @@ func _connect_signals() -> void:
 func _select_slot(slot_index: int) -> void:
 	current_slot = slot_index
 	
+	# === INÍCIO DO DEBUG DE CARTAS DO ELENCO ===
+	if current_slot - 1 >= 0 and current_slot - 1 < GameState.jogadores.size():
+		var peca_selecionada = GameState.jogadores[current_slot - 1]
+		if peca_selecionada != null:
+			var nome_peca = peca_selecionada.nome if "nome" in peca_selecionada else "Peça Desconhecida"
+			print("\n=== DEBUG MENU ELENCO: Slot ", current_slot, " (", nome_peca, ") ===")
+			print("Tamanho real do array 'slotsUpgrates' nesta peça: ", peca_selecionada.slotsUpgrates.size())
+			
+			for i in range(peca_selecionada.slotsUpgrates.size()):
+				var c = peca_selecionada.slotsUpgrates[i]
+				if c == null:
+					print("  Slot [", i, "]: VAZIO (null)")
+				else:
+					var nome_carta = c.nome if "nome" in c else "Sem Nome"
+					print("  Slot [", i, "]: ", nome_carta, " | Custo: ", c.custoSlotes)
+			print("===================================================\n")
+	# === FIM DO DEBUG ===
+
 	_atualizar_visual_dos_slots()
 	
 	_update_right_window()

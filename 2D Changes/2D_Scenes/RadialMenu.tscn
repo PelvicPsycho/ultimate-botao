@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cjab8n13u8gkw"]
+[gd_scene format=3 uid="uid://pwn17rjek3kh"]
 
 [ext_resource type="Script" uid="uid://88ajrn070qsh" path="res://2D Changes/Scripts_2D/radial_menu.gd" id="1_kcqld"]
 [ext_resource type="Texture2D" uid="uid://003yorx3a3cg" path="res://Recursos/2D_Art/Radia_icon/Vector.png" id="2_b0fan"]
