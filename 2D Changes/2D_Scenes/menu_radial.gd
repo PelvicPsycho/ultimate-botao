@@ -36,6 +36,11 @@ enum ModoDistribuicao { AGRUPADO_CENTRO, EXPANDIDO_ARCO }
 @export var container_custo: HBoxContainer
 @export var textura_custo_pa: Texture2D # O ícone da bolinha de PA que vai aparecer no custo
 
+@export_group("Posicionamento Inteligente")
+@export var painel_filho: Panel # Arraste o seu Panel filho aqui no Inspector
+@export var posicao_padrao_cima: float = -420.0 # A posição original que você configurou
+@export var posicao_alternativa_baixo: float = 160.0 # A posição dele quando for para baixo da peça
+
 var _tween_popup: Tween
 
 var _container_pa_dinamico: Control
@@ -332,6 +337,8 @@ func _animar_entrada_cartas() -> void:
 		tween.tween_property(ancora, "scale", Vector2.ONE, 0.25)\
 			.set_trans(Tween.TRANS_BACK)\
 			.set_ease(Tween.EASE_OUT)
+	
+	_adaptar_painel_a_tela() # Arruma a localização do painel de informações
 
 func _mostrar_detalhes_carta(carta: CardResource) -> void:
 	if not popup_info: return
@@ -375,6 +382,23 @@ func _esconder_detalhes_carta() -> void:
 	_tween_popup.tween_property(popup_info, "modulate:a", 0.0, 0.1)
 	# Garante que o painel saia da tela ao terminar de ficar invisível
 	_tween_popup.tween_callback(popup_info.hide)
+
+func _adaptar_painel_a_tela() -> void:
+	if not painel_filho:
+		print ("SEM PAINEL")
+		return
+		
+	print ("COM PAINEL")
+	# Primeiro, força o painel a ir para a posição original de cima
+	painel_filho.position.y = posicao_padrao_cima
+	
+	# FORÇA o Godot a recalcular a posição global na tela imediatamente neste frame
+	painel_filho.force_update_transform()
+	
+	# Se a posição global Y for menor que 0, o topo do painel saiu da tela por cima!
+	if painel_filho.global_position.y < 0:
+		# Move o painel para a posição de baixo
+		painel_filho.position.y = posicao_alternativa_baixo
 
 
 #func _on_button_pressed() -> void:

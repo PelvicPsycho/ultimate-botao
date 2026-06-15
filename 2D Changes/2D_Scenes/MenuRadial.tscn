@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://cmk0e4bn7r18t" path="res://Recursos/2D_Art/Radia_icon/Vector_cheio.png" id="3_p5b11"]
 [ext_resource type="Texture2D" uid="uid://djh351vtbufgc" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816129029-removebg-preview.png" id="4_6ovhs"]
 [ext_resource type="Texture2D" uid="uid://ccoik23g8we7s" path="res://Recursos/2D_Art/Radia_icon/FundoPop/Vector (12).png" id="5_4gekx"]
+[ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="6_usdny"]
+[ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="7_p5b11"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ub1q"]
 content_margin_left = 0.0
@@ -18,7 +20,7 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 5
 corner_detail = 5
 
-[node name="MenuRadial" type="Control" unique_id=431991993 node_paths=PackedStringArray("popup_info", "label_titulo", "label_desc", "icone_arte", "container_custo")]
+[node name="MenuRadial" type="Control" unique_id=431991993 node_paths=PackedStringArray("popup_info", "label_titulo", "label_desc", "icone_arte", "container_custo", "painel_filho")]
 z_index = 99
 layout_mode = 3
 anchors_preset = 0
@@ -31,6 +33,7 @@ label_desc = NodePath("PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBox
 icone_arte = NodePath("PopupInfo/Panel/MarginContainer/DivisorInicial/Arte_VBoxContainer/Arte_TextureRect")
 container_custo = NodePath("PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer/Custo_HBoxContainer")
 textura_custo_pa = ExtResource("5_4gekx")
+painel_filho = NodePath("PopupInfo/Panel")
 metadata/_edit_vertical_guides_ = [-133.0]
 
 [node name="PopupInfo" type="Control" parent="." unique_id=1003390614]
@@ -38,12 +41,13 @@ visible = false
 anchors_preset = 0
 
 [node name="Panel" type="Panel" parent="PopupInfo" unique_id=351739034]
+z_index = 500
 custom_minimum_size = Vector2(350, 200)
 layout_mode = 1
 offset_left = -175.0
-offset_top = -428.0
+offset_top = -420.0
 offset_right = 175.0
-offset_bottom = -228.0
+offset_bottom = -220.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0ub1q")
 
 [node name="MarginContainer" type="MarginContainer" parent="PopupInfo/Panel" unique_id=59873544]
@@ -81,20 +85,48 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="NomeCarta_Label" type="Label" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer" unique_id=116529582]
-custom_minimum_size = Vector2(50, 10)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_vertical = 0
-text = "Nome Carta"
+theme_override_fonts/font = ExtResource("6_usdny")
+theme_override_font_sizes/font_size = 25
+text = "Nome Super Comprido "
 vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="DescricaoCarta_Label" type="Label" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer" unique_id=1365777810]
-custom_minimum_size = Vector2(50, 10)
+custom_minimum_size = Vector2(50, 80)
 layout_mode = 2
 size_flags_vertical = 6
-text = "Descrição"
+theme_override_fonts/font = ExtResource("7_p5b11")
+text = "Descrição Super Comprida da Carta E seus efeitos mágicos"
 vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Custo_HBoxContainer" type="HBoxContainer" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer" unique_id=1256784178]
 layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer/Custo_HBoxContainer" unique_id=751758022]
+layout_mode = 2
+texture = ExtResource("5_4gekx")
+
+[node name="TextureRect2" type="TextureRect" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer/Custo_HBoxContainer" unique_id=858092966]
+layout_mode = 2
+texture = ExtResource("5_4gekx")
+
+[node name="TextureRect3" type="TextureRect" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer/Custo_HBoxContainer" unique_id=146289834]
+layout_mode = 2
+texture = ExtResource("5_4gekx")
+
+[node name="TextureRect4" type="TextureRect" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer/Custo_HBoxContainer" unique_id=551498398]
+layout_mode = 2
+texture = ExtResource("5_4gekx")
+
+[node name="TextureRect5" type="TextureRect" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer/Custo_HBoxContainer" unique_id=205882711]
+layout_mode = 2
+texture = ExtResource("5_4gekx")
+
+[node name="TextureRect6" type="TextureRect" parent="PopupInfo/Panel/MarginContainer/DivisorInicial/Texto_VBoxContainer/Custo_HBoxContainer" unique_id=855321482]
+layout_mode = 2
+texture = ExtResource("5_4gekx")
