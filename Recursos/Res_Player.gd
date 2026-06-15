@@ -71,6 +71,8 @@ var atrai_bola_ativo = false
 var atrai_bola_forca = 1.0
 var onda_choque_ativa = false
 var peça_bomba_ativa  = false
+var zona_Gelo_ativa = false
+var escalaZonaGelo:float
 @export_group("Tamanhos do Círculo Limite")
 var escala_maxima_circulo_atual: float = 0.3
 @export var escala_maxima_circulo_fraco: float = 0.3
@@ -119,6 +121,7 @@ func resetar_status(base_info: TeamPlayer) -> void:
 	self.turnos_preso = 0
 	self.atrai_bola_ativo = false
 	self.peça_bomba_ativa = false
+	self.zona_Gelo_ativa = false 
 func aplicar_buff(card: CardResource) -> void:
 	# 1. A carta já está equipada: só ativa o efeito.
 	if PA < card.custo_energia:
@@ -151,6 +154,9 @@ func aplicar_buff(card: CardResource) -> void:
 				onda_choque_ativa = true
 			CardResource.TipoEfeito.PesaBomba:
 				peça_bomba_ativa  = true
+			CardResource.TipoEfeito.AreaDeGelo:
+				zona_Gelo_ativa = true
+				escalaZonaGelo = card.magnitude
 		PA -= card.custo_energia
 		duracao_dos_buffs[card] = card.duracao
 		recalcular_status()

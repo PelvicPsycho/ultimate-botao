@@ -13,7 +13,8 @@ enum TipoEfeito {
 	Aumentar_Pa_Maximo,
 	CartaClonePesado,
 	CartaOndaDeShock,
-	PesaBomba
+	PesaBomba,
+	AreaDeGelo
 }
 enum Raridade{
 	NORMAL, INCOMUN, RARA

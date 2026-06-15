@@ -1,23 +1,24 @@
 [gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://4f1qna4c5ycp"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_o4eb2"]
-[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_ojrr8"]
+[ext_resource type="Texture2D" uid="uid://bxfu5nodorh87" path="res://Recursos/2D_Art/TabMenu/botao200.png" id="1_qnqhe"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_224er"]
 [ext_resource type="Resource" uid="uid://cqbnt1i0kov4g" path="res://Componentes/Cartas/CardResorce/CartaTrocaDeLugar.tres" id="3_qnqhe"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_57t4t"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_crrlm"]
 [ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="4_ifbr0"]
 [ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="5_ymnvi"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="6_qnqhe"]
 
 [resource]
 script = ExtResource("1_o4eb2")
 id_unico = &"alanpa_inter"
 nome = "Alanpa"
 num_camisa = 10
-foto = ExtResource("1_ojrr8")
+foto = ExtResource("1_qnqhe")
 textura_peca = ExtResource("4_crrlm")
 material_shader = ExtResource("2_224er")
 quantosSlotes = 10
-mao_cartas = Array[ExtResource("4_57t4t")]([ExtResource("3_qnqhe"), ExtResource("4_ifbr0"), ExtResource("5_ymnvi")])
+mao_cartas = Array[ExtResource("4_57t4t")]([ExtResource("3_qnqhe"), ExtResource("4_ifbr0"), ExtResource("5_ymnvi"), ExtResource("6_qnqhe")])
 PA = 11
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

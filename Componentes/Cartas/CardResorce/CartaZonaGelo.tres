@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://25svowd4imjv"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_xdse1"]
+
+[resource]
+script = ExtResource("1_xdse1")
+id_unico = &"Zona_Gelo"
+nome = "Carta Zona Gelo"
+custo_energia = 1
+tipo_efeito = 12
+duracao = 2
+metadata/_custom_type_script = "uid://dbejkveogu8jv"

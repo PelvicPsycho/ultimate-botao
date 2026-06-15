@@ -11,20 +11,20 @@ var radius: float
 @export var Object_Radius: Node2D
 
 signal ActionExecuted(index, velocity, teamSide)
-
+var zonaGeloAtiva:bool
 var AI_Active: bool
 
 #endregion
 @export var pixalizado: float = 8.0
 @export var distanciaDropShadow:int = 75
-
+var _base_radius: float = 0.0
 # Runtime Variables
 var current_direction: Vector2 = Vector2.ZERO
 var current_force: float = 0.0
 var lerp_current_force: float = 0.0
 var current_distance: float = 0
 @export var max_distance: float = 1
-
+@onready var zona_gelo_scene = preload("res://2D Changes/2D_Scenes/ZonaCongelada2D.tscn")
 signal carta_clicada(carta)
 var dono: PhysicsPlayer2D
 var efeitos_visuais_ativos: Dictionary = {}
@@ -49,7 +49,7 @@ var ultimo_tempo_particula_impacto_ms: int = -99999
 @export var velocity_scale_boost: float = 0.08
 @onready var tracer2D = $Line2D_Trace
 var base_tracer_width: float = 8.0
-
+var zona 
 var hover_tween: Tween
 @export var hover_scale_multiplier: float = 1.2
 var deform_tween: Tween
@@ -104,7 +104,8 @@ func _ready() -> void:
 	if sprite2D_body.material and sprite2D_body.material is ShaderMaterial:
 		sprite2D_body.material = sprite2D_body.material.duplicate()
 	
-	radius = (global_position - Object_Radius.global_position).length()
+	_base_radius = (global_position - Object_Radius.global_position).length()
+	radius = _base_radius
 	
 	base_visual_position = sprite2D_body.position
 	default_visual_scale = sprite2D_body.scale
@@ -121,6 +122,7 @@ func _ready() -> void:
 	base_tracer_width = tracer2D.width
 	playerInfo_atual_Loaded = false
 
+	
 func loadPlayerInfo(plInfo):
 	_configurar_status(plInfo)
 	_aplicar_visual(plInfo)
@@ -214,6 +216,10 @@ func atualizar_peca_pelo_status() -> void:
 	tween.tween_property(ShapeCast2D_Objects, "scale", target_scale, 0.5)
 	tween.tween_property(ShapeCast2D_Walls, "scale", target_scale, 0.5)
 	tween.tween_property(sprite2D_body, "scale", target_scale, 0.5)
+	var novo_raio = _base_radius * scale_multiplier
+	self.radius = novo_raio 
+	
+	
 	if playerInfo_atual.duracao_dos_buffs.is_empty():
 		limpar_todos_efeitos_visuais()
 	if playerInfo_atual.turnos_congelamento_armazenado > 0 or playerInfo_atual.disabilitado:
@@ -1044,7 +1050,32 @@ func _physics_process(delta: float) -> void:
 	if playerInfo_atual.onda_choque_ativa:
 			executar_onda_choque_direta()
 			playerInfo_atual.onda_choque_ativa = false
+	if playerInfo_atual.zona_Gelo_ativa and zonaGeloAtiva == false:
+			usar_habilidade_zona_gelo()
 	
+	if playerInfo_atual.zona_Gelo_ativa== false and zonaGeloAtiva:
+		zona.queue_free()
+		zonaGeloAtiva = false
+func usar_habilidade_zona_gelo() -> void:
+	
+	if zona_gelo_scene == null:
+		push_error("Erro: zona_gelo_scene não configurada no Inspetor!")
+		return
+			
+		# 1. Instancia a zona fixa no campo
+	zona = zona_gelo_scene.instantiate()
+		
+		# 2. Posiciona exatamente onde a peça está agora
+	zona.global_position = self.global_position
+		
+		# 3. Define o tamanho da zona baseado na magnitude da carta
+		# Se a magnitude for 2, a zona terá o dobro do tamanho original
+	
+		# 4. Adiciona à cena principal (para não mover junto com o player)
+	get_tree().current_scene.add_child(zona)
+		
+	
+	zonaGeloAtiva = true
 func aplicar_atracao_bola(delta: float) -> void:
 	var raio: float = 250.0 
 	var forca: float = playerInfo_atual.atrai_bola_forca
@@ -1201,7 +1232,7 @@ func _on_carta_do_radial(carta):
 		menu_radial.fechar()
 
 func aplicar_congelamento(turnos: int) -> void:
-	print("Peça congelada por ", turnos, " turnos!")
+	
 	current_velocity = Vector2.ZERO
 	Set_Current_Velocity(Vector2.ZERO)
 	if playerInfo_atual:

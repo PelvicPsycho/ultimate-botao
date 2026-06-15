@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cwoibu6wndr1t"]
+
+[ext_resource type="Script" uid="uid://coe6qer6yyqx7" path="res://2D Changes/2D_Scenes/Zona_congelada_2D.gd" id="1_le32k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xdblt"]
+radius = 89.94443
+
+[node name="ZonaCongelada2d" type="Area2D" unique_id=2019265033]
+script = ExtResource("1_le32k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=126842365]
+shape = SubResource("CircleShape2D_xdblt")
