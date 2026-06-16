@@ -6,13 +6,14 @@
 [resource]
 script = ExtResource("2_tw6ds")
 id_unico = &"atracao_01"
-nome = "Atração"
-custo_energia = 2
+nome = "Magnetismo"
+custo_energia = 1
 arte = ExtResource("1_1rmqj")
+descricao = "Trasforma a sua peça em imã que consegue puxar a bola "
 tipo_efeito = 7
 tipo_alvo = 1
 raridade = 1
 magnitude = 100
-custoSlotes = 1
+custoSlotes = 2
 duracao = 2
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

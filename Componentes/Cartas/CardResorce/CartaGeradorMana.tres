@@ -6,14 +6,13 @@
 [resource]
 script = ExtResource("2_b232q")
 id_unico = &"gerador_mana_01"
-nome = "GeradorDeMana"
-custo_energia = 1
+nome = "Aumenta_Maximo PA"
 arte = ExtResource("1_ebwee")
-descricao = "Previne Gol"
+descricao = "Aumenta Limite de Pa por custo de slot"
 tipo_efeito = 8
 raridade = 2
 magnitude = 10
-custoSlotes = 1
+custoSlotes = 2
 duracao = 0
 is_passiva = true
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

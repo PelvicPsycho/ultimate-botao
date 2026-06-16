@@ -7,10 +7,11 @@
 [resource]
 script = ExtResource("1_g7ju4")
 id_unico = &"aumentar_01"
-nome = "Carta Aumento De Tamanho"
-custo_energia = 2
+nome = "Gigantificação"
+custo_energia = 1
 arte = ExtResource("1_lonpo")
 video_preview = ExtResource("3_8o5hd")
+descricao = "Aumenta o Tamanho da peça"
 tipo_efeito = 5
 custoSlotes = 1
 duracao = 2

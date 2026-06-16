@@ -37,7 +37,7 @@ collision_layer = 2
 collision_mask = 3
 input_pickable = true
 script = ExtResource("1_yglll")
-Object_Radius = NodePath("Object_Calculate_Radius")
+Object_Radius = NodePath("Control/Object_Calculate_Radius")
 pixalizado = 14.175
 max_distance = 300.0
 playerInfo = ExtResource("2_b4028")
@@ -101,9 +101,6 @@ texture = ExtResource("3_wpyri")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=566741673]
 shape = SubResource("CircleShape2D_gwudw")
 
-[node name="Object_Calculate_Radius" type="Node2D" parent="." unique_id=1905712883]
-position = Vector2(35, 0)
-
 [node name="RadialMenu" parent="." unique_id=115300761 instance=ExtResource("19_o5120")]
 visible = false
 z_index = 1
@@ -114,6 +111,10 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(0.17, 0.17)
+
+[node name="Object_Calculate_Radius" type="Node2D" parent="Control" unique_id=1905712883]
+position = Vector2(205.88234, 0)
+scale = Vector2(5.8823524, 5.8823524)
 
 [node name="sprite2D_body" type="Sprite2D" parent="Control" unique_id=523510040]
 material = ExtResource("15_gwudw")

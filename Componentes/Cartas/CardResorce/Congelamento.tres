@@ -8,10 +8,12 @@
 script = ExtResource("1_fid8b")
 id_unico = &"congelar_01"
 nome = "Congelamento"
-custo_energia = 5
+custo_energia = 2
 arte = ExtResource("1_w2tvo")
 video_preview = ExtResource("3_0c2s5")
+descricao = "Tranforma a sua peça em uma peça congelante onde em qualquer peça acaca aplicando de buff de congelamento, congelamento peça não podera andar durante 1 turno"
 tipo_efeito = 2
 magnitude = 2
-custoSlotes = 3
+custoSlotes = 2
+duracao = 0
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

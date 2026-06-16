@@ -6,12 +6,12 @@
 [resource]
 script = ExtResource("1_k6pek")
 id_unico = &"defesa_escudo_01"
-nome = "Escudo"
+nome = "Aumento de PA"
 custo_energia = 1
 arte = ExtResource("1_7yd4g")
-descricao = "Previne Gol"
+descricao = "Ganha Pontos de Ação"
 tipo_efeito = 1
-raridade = 2
+raridade = 1
 magnitude = 3
 custoSlotes = 1
 duracao = 2

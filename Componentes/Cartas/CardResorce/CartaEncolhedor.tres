@@ -7,11 +7,11 @@
 [resource]
 script = ExtResource("1_0d516")
 id_unico = &"encolher_01"
-nome = "Carta Encolhedora"
-custo_energia = 4
+nome = "Minimização "
+custo_energia = 1
 arte = ExtResource("1_xpjp8")
 video_preview = ExtResource("3_sbeoe")
-descricao = "Deixa pequeno "
+descricao = "Encolhe a propria peça"
 tipo_efeito = 6
 custoSlotes = 1
 duracao = 2

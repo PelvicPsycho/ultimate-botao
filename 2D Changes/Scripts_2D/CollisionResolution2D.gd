@@ -441,14 +441,16 @@ var global_Collision_Check_count: int
 
 func movement_update(_delta: float) -> void:
 	for index in range(current_pitch_state.all_physic_object_list.size()):
-		var obj_struct = current_pitch_state.all_physic_object_list[index]
-		var real_object = PhysicsObjects_List[index]
-		# chama função do object que atualiza sua Velocity
+	   # Alteração que tinha feito para fazer a carta congelar zona,  😊
+		#var obj_struct = current_pitch_state.all_physic_object_list[index]
+		#var real_object = PhysicsObjects_List[index]
 		
-		obj_struct.friction = real_object.friction
-		var decay = pow(obj_struct.friction, _delta * 60.0)
-
-		var new_velocity = obj_struct.current_velocity * decay
+		
+		#obj_struct.friction = real_object.friction
+		#var decay = pow(obj_struct.friction, _delta * 60.0)
+#
+		#var new_velocity = obj_struct.current_velocity * decay
+		var new_velocity = current_pitch_state.all_physic_object_list[index].current_velocity * current_pitch_state.all_physic_object_list[index].friction;
 		var mag = new_velocity.length()
 		if mag < 20:
 			current_pitch_state.all_physic_object_list[index].current_velocity = Vector2.ZERO

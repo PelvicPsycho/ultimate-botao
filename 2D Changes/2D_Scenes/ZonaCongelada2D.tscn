@@ -1,12 +1,80 @@
 [gd_scene format=3 uid="uid://cwoibu6wndr1t"]
 
 [ext_resource type="Script" uid="uid://coe6qer6yyqx7" path="res://2D Changes/2D_Scenes/Zona_congelada_2D.gd" id="1_le32k"]
+[ext_resource type="PackedScene" uid="uid://c8yw2uugaw7eq" path="res://2D Changes/2D_Scenes/trail_particles_scene.tscn" id="2_o7ygs"]
+[ext_resource type="Shader" uid="uid://iucjuy3i4222" path="res://2D Changes/Shader_2d/ice_zone.gdshader" id="2_xdblt"]
+[ext_resource type="Texture2D" uid="uid://cv5quqjbm27r7" path="res://shaders/Smoke/Texture/T_Noise_001R.png" id="3_a5rlk"]
+[ext_resource type="Texture2D" uid="uid://b2vww70qibbki" path="res://Recursos/2D_Art/Generatedimage_1781632825545-removebg-preview.png" id="3_tbaj1"]
+[ext_resource type="Script" uid="uid://biw4gnx2x5ddo" path="res://2D Changes/2D_Scenes/nevoa_rasteira.gd" id="4_o7ygs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xdblt"]
-radius = 89.94443
+radius = 243.74167
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3nlqh"]
+shader = ExtResource("2_xdblt")
+shader_parameter/noise_texture = ExtResource("3_a5rlk")
+shader_parameter/radius = 0.52999998815344
+shader_parameter/edge_softness = 0.0650000030875
+shader_parameter/edge_roughness = 0.41999999061216
+shader_parameter/transparency_center = 0.76999998278896
+shader_parameter/refraction_strength = 0.02400000114
+shader_parameter/pulse_speed = 1.40000002086168
+shader_parameter/pulse_intensity = 0.25999999418848
+shader_parameter/glow_intensity = 0.98999997787152
+shader_parameter/crack_density = 0.0
+shader_parameter/crack_width = 0.00999999977648
+shader_parameter/ice_color = Color(7.925912e-05, 1.4866208, 2.0356958, 0.58431375)
+shader_parameter/glow_color = Color(0.45, 0.85, 1, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3nlqh"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_3nlqh"]
+offsets = PackedFloat32Array(0, 0.504931, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.49411765, 0.49411765, 0.49411765, 1, 1, 1, 1, 0.49411765)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a5rlk"]
+gradient = SubResource("Gradient_3nlqh")
+
+[sub_resource type="Curve" id="Curve_o7ygs"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.112570345, 0.12760788), 0.0, 0.0, 0, 0, Vector2(0.44465292, 0.68810856), 0.0, 0.0, 0, 0, Vector2(0.55159473, 0.6971489), 0.0, 0.0, 0, 0, Vector2(0.69606006, 0.62482625), 0.0, 0.0, 0, 0, Vector2(0.8217636, 0.5208624), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 7
+
+[sub_resource type="CurveTexture" id="CurveTexture_tbaj1"]
+curve = SubResource("Curve_o7ygs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_am211"]
+particle_flag_disable_z = true
+gravity = Vector3(0, -5, 0)
+scale_curve = SubResource("CurveTexture_tbaj1")
+color_ramp = SubResource("GradientTexture1D_a5rlk")
 
 [node name="ZonaCongelada2d" type="Area2D" unique_id=2019265033]
 script = ExtResource("1_le32k")
+trail_particles_scene = ExtResource("2_o7ygs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=126842365]
 shape = SubResource("CircleShape2D_xdblt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=845655869]
+visible = false
+self_modulate = Color(1, 1, 1, 0.25882354)
+texture = ExtResource("3_tbaj1")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2051261033]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_3nlqh")
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ColorRect" unique_id=996687014]
+visible = false
+modulate = Color(1, 1, 1, 0.16470589)
+self_modulate = Color(1, 1, 1, 0.08627451)
+material = SubResource("CanvasItemMaterial_3nlqh")
+amount = 81
+texture = ExtResource("3_a5rlk")
+lifetime = 3.0
+collision_base_size = 3.0
+process_material = SubResource("ParticleProcessMaterial_am211")
+script = ExtResource("4_o7ygs")

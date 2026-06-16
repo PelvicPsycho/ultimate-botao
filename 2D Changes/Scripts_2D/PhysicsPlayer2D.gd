@@ -193,8 +193,8 @@ func atualizar_peca_pelo_status() -> void:
 		return
 	
 	var CollisionShape2D_object = $CollisionShape2D
-	var ShapeCast2D_Objects = $ShapeCast2D_Objects
-	var ShapeCast2D_Walls = $ShapeCast2D_Walls
+	
+	
 	
 	if CollisionShape2D_object == null:
 		print("Erro - Colisor Nulo")
@@ -213,8 +213,8 @@ func atualizar_peca_pelo_status() -> void:
 	var tween = create_tween().set_parallel(true)
 	tween.set_trans(Tween.TRANS_SPRING)
 	tween.tween_property(CollisionShape2D_object, "scale", target_scale, 0.5)
-	tween.tween_property(ShapeCast2D_Objects, "scale", target_scale, 0.5)
-	tween.tween_property(ShapeCast2D_Walls, "scale", target_scale, 0.5)
+
+
 	tween.tween_property(sprite2D_body, "scale", target_scale, 0.5)
 	var novo_raio = _base_radius * scale_multiplier
 	self.radius = novo_raio 
@@ -1069,36 +1069,29 @@ func usar_habilidade_zona_gelo() -> void:
 	
 	zonaGeloAtiva = true
 func aplicar_atracao_bola(delta: float) -> void:
-	var raio: float = 250.0 
+	var raio: float = 250.0
 	var forca: float = playerInfo_atual.atrai_bola_forca
-	
-	var objetos = get_tree().get_nodes_in_group("PhysicsObjects")
+	var objetos = get_tree().get_nodes_in_group("Balls")
 	
 	for obj in objetos:
-		if obj.is_in_group("Balls"): 
-			var direcao_vetor = global_position - obj.global_position
-			var distancia = direcao_vetor.length()
-			var distancia_contato = radius + obj.radius + 2.0 
+		var direcao_vetor = global_position - obj.global_position
+		var distancia = direcao_vetor.length()
+		
+		# Se estiver muito perto do centro (menos de 5 pixels)
+		if distancia <= 5.0:
+			obj.current_velocity = Vector2.ZERO
+			obj.global_position = global_position # Snap no centro
+			obj.is_moving = false # ESSENCIAL para o turno encerrar
+			continue # Pula para o próximo objeto, parando a atração neste
+
+		if distancia < raio:
+			var forca_normalizada = direcao_vetor.normalized()
+			# Intensidade alta para vencer o seu novo cálculo de friction
+			var intensidade = forca * 10
 			
-			if distancia < raio and distancia > distancia_contato:
-				var forca_normalizada = direcao_vetor.normalized()
-				var intensidade = forca * 20
-				var aceleracao = (forca_normalizada * intensidade) / max(obj.mass, 0.1)
-				var forca_final = aceleracao * delta
-				obj.current_velocity += forca_final
-
-				if obj.current_velocity.length() < 25.0:
-					
-					obj.current_velocity = forca_normalizada * 25.0
-				obj.is_moving = true
-			elif distancia <= distancia_contato:
-				
-				obj.current_velocity = obj.current_velocity * 0.1
-				
-				if obj.current_velocity.length() < 5.0:
-					obj.current_velocity = Vector2.ZERO
-					obj.is_moving = false
-
+			# Define a velocidade diretamente para garantir que seja > 5 (o novo limite)
+			obj.current_velocity = forca_normalizada * intensidade
+			obj.is_moving = true
 #func aplicar_carta_clone_pesado():
 	## Verifica se o buff está ativo no recurso do jogador
 	#if team_player_resource.clone_pesado_ativo:

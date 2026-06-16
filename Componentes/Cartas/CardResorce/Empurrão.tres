@@ -7,8 +7,8 @@
 [resource]
 script = ExtResource("1_sgwkw")
 id_unico = &"empurrao_aliado_01"
-nome = "Carta Empurradinha Aliada"
-custo_energia = 3
+nome = "Empurrão Amigo"
+custo_energia = 1
 arte = ExtResource("1_fk81x")
 video_preview = ExtResource("3_7tvs0")
 tipo_efeito = 3

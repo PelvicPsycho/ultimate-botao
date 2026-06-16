@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c8yw2uugaw7eq"]
+
+[ext_resource type="Script" uid="uid://biw4gnx2x5ddo" path="res://2D Changes/2D_Scenes/nevoa_rasteira.gd" id="1_etw4c"]
+
+[node name="TrailParticlesScene" type="GPUParticles2D" unique_id=610125145]
+lifetime = 0.5
+script = ExtResource("1_etw4c")
