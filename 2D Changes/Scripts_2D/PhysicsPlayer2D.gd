@@ -216,9 +216,9 @@ func atualizar_peca_pelo_status() -> void:
 	tween.tween_property(ShapeCast2D_Objects, "scale", target_scale, 0.5)
 	tween.tween_property(ShapeCast2D_Walls, "scale", target_scale, 0.5)
 	tween.tween_property(sprite2D_body, "scale", target_scale, 0.5)
-	var novo_raio = _base_radius * scale_multiplier
+
+	var novo_raio = (self.global_position - Object_Radius.global_position).length() #_base_radius * scale_multiplier
 	self.radius = novo_raio 
-	
 	
 	if playerInfo_atual.duracao_dos_buffs.is_empty():
 		limpar_todos_efeitos_visuais()
@@ -1048,6 +1048,7 @@ func _physics_process(delta: float) -> void:
 	if playerInfo_atual.zona_Gelo_ativa== false and zonaGeloAtiva:
 		zona.queue_free()
 		zonaGeloAtiva = false
+
 func usar_habilidade_zona_gelo() -> void:
 	
 	if zona_gelo_scene == null:
@@ -1068,6 +1069,7 @@ func usar_habilidade_zona_gelo() -> void:
 		
 	
 	zonaGeloAtiva = true
+
 func aplicar_atracao_bola(delta: float) -> void:
 	var raio: float = 250.0 
 	var forca: float = playerInfo_atual.atrai_bola_forca
@@ -1215,7 +1217,6 @@ func aplicar_atracao_bola(delta: float) -> void:
 func _on_carta_do_radial(carta):
 	print("✅ PhysicsPlayer: Sinal recebido com sucesso! Tentando usar: ", carta.nome)
 	var ms = get_tree().get_first_node_in_group("MatchState2d")
-	
 	
 	if ms:
 		ms.tentar_usar_carta(self, carta)

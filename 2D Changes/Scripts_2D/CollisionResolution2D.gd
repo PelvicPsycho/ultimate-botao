@@ -80,6 +80,7 @@ func _ready() -> void:
 	list_walls_lines_points.append(list_lines_points_3)
 
 func _physics_process(_delta: float) -> void:
+	set_pitch_state_variables_from_PhysicsObjects()
 	#
 	# verify physic objects collisions
 	collision_physics_object_resolution()
@@ -165,7 +166,9 @@ func create_all_simulations() -> void:
 	if AI_Active:
 		IA_Contr.SetPieceLists()
 	
-	num_threads = OS.get_processor_count()
+	num_threads = OS.get_processor_count() - 2#floor(OS.get_processor_count() / 2)
+	if num_threads < 0:
+		num_threads = 0
 	print("Available hardware threads: ", num_threads)
 	
 	# Create all simulations
@@ -462,7 +465,19 @@ func movement_update(_delta: float) -> void:
 			
 			# - Percorre o caminho que o objeto iria passar entre um frame e outro
 			# - Caso tenha alguma colisão no meio do caminho, retorna a posição que a peça estava
-			var new_Pos = verify_collision_between_objects_on_movement_line_LinearSearch(current_pitch_state.all_physic_object_list[index], 10.0, _delta)
+			#print("Velocity length = ", current_pitch_state.all_physic_object_list[index].current_velocity.length())
+			var Velocity_length = current_pitch_state.all_physic_object_list[index].current_velocity.length()
+			var new_Pos = current_pitch_state.all_physic_object_list[index].last_position
+			
+			if Velocity_length >= 800:
+				#print("Velocity length >= 800")
+				new_Pos = verify_collision_between_objects_on_movement_line_LinearSearch(current_pitch_state.all_physic_object_list[index], 10.0, _delta)
+			elif Velocity_length >= 400:
+				#print("Velocity length >= 400")
+				new_Pos = verify_collision_between_objects_on_movement_line_LinearSearch(current_pitch_state.all_physic_object_list[index], 5.0, _delta)
+			else:
+				#print("Velocity length < 400")
+				new_Pos = current_pitch_state.all_physic_object_list[index].last_position + (current_pitch_state.all_physic_object_list[index].current_velocity * _delta)
 			
 			# Atualiza a posição do objeto
 			current_pitch_state.all_physic_object_list[index].last_position = new_Pos

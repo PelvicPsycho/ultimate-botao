@@ -20,21 +20,21 @@ away_goal_polygon = NodePath("Goal2D_Simulation_Away/Home_Goal_Polygons/Home_Pol
 position = Vector2(960, 182)
 points = PackedVector2Array(-688, 280, -677, 276, -668, 269, -663, 261, -661, 253, -661, 170, -658, 160, -501, 3, -493, 0, 493, 0, 501, 3, 658, 160, 661, 170, 661, 253, 663, 261, 668, 269, 677, 276, 688, 280)
 width = 5.0
-default_color = Color(1, 0, 0, 0.5764706)
+default_color = Color(1, 0, 0, 0)
 
 [node name="BotWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1223852677]
 position = Vector2(960, 990)
 rotation = -3.1415925
 points = PackedVector2Array(-688, 280, -677, 276, -668, 269, -663, 261, -661, 253, -661, 170, -658, 160, -501, 3, -493, 0, 493, 0, 501, 3, 658, 160, 661, 170, 661, 253, 663, 261, 668, 269, 677, 276, 688, 280)
 width = 5.0
-default_color = Color(1, 0, 0, 0.5764706)
+default_color = Color(1, 0, 0, 0)
 
 [node name="HomeGoalWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1739921629]
 position = Vector2(183, 589)
 scale = Vector2(1, 0.8277928)
 points = PackedVector2Array(89, -153.42004, 30, -153.42, 12, -134.09149, 12, 125.635315, 30, 146.172, 89, 146.17188)
 width = 5.0
-default_color = Color(1, 0, 0, 0.5764706)
+default_color = Color(1, 0, 0, 0)
 
 [node name="AwayGoalWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1848776503]
 position = Vector2(1737, 583)
@@ -42,7 +42,7 @@ rotation = -3.1415925
 scale = Vector2(1, 0.8277928)
 points = PackedVector2Array(89, -153.42004, 30, -153.42, 12, -134.09149, 12, 125.635315, 30, 146.172, 89, 146.17188)
 width = 5.0
-default_color = Color(1, 0, 0, 0.5764706)
+default_color = Color(1, 0, 0, 0)
 
 [node name="Goal2D_Simulation_Home" parent="." unique_id=970188486 instance=ExtResource("2_pvx5m")]
 position = Vector2(61, 46)

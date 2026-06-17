@@ -122,6 +122,7 @@ func resetar_status(base_info: TeamPlayer) -> void:
 	self.atrai_bola_ativo = false
 	self.peça_bomba_ativa = false
 	self.zona_Gelo_ativa = false 
+
 func aplicar_buff(card: CardResource) -> void:
 	# 1. A carta já está equipada: só ativa o efeito.
 	if PA < card.custo_energia:
