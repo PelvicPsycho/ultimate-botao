@@ -25,6 +25,7 @@ var lerp_current_force: float = 0.0
 var current_distance: float = 0
 @export var max_distance: float = 1
 @onready var zona_gelo_scene = preload("res://2D Changes/2D_Scenes/ZonaCongelada2D.tscn")
+@onready var efeito_de_onda = preload("res://2D Changes/2D_Scenes/EfeitoOndaDeShock.tscn")
 signal carta_clicada(carta)
 var dono: PhysicsPlayer2D
 var efeitos_visuais_ativos: Dictionary = {}
@@ -589,16 +590,19 @@ func animar_pulso(alvo: Node2D) -> void:
 	tween.tween_property(alvo, "scale", Vector2(1.0, 1.0), 0.1)
 
 func executar_onda_choque_direta():
+	
 	const RAIO_EXPLOSAO = 400.0
 	const FORCA_EXPLOSAO = 1000.0 
-	
+	var efeito_visual = efeito_de_onda.instantiate()
+	get_tree().current_scene.add_child(efeito_visual)
+	efeito_visual.global_position = global_position
 	animar_pulso(self)
 	
 	var alvos = get_tree().get_nodes_in_group("PhysicsObjects")
 	print("DEBUG: [", playerInfo_atual.nome, "] Onda de Choque! Alvos detectados: ", alvos.size())
 	
 	for obj in alvos:
-		if obj == self: 
+		if not is_instance_valid(obj) or obj == self: 
 			continue 
 		var distancia = global_position.distance_to(obj.global_position)
 		
