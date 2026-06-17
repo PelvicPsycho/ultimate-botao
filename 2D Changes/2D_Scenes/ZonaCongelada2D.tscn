@@ -1,12 +1,48 @@
 [gd_scene format=3 uid="uid://cwoibu6wndr1t"]
 
 [ext_resource type="Script" uid="uid://coe6qer6yyqx7" path="res://2D Changes/2D_Scenes/Zona_congelada_2D.gd" id="1_le32k"]
+[ext_resource type="Texture2D" uid="uid://cv5quqjbm27r7" path="res://shaders/Smoke/Texture/T_Noise_001R.png" id="2_3nlqh"]
+[ext_resource type="Shader" path="res://2D Changes/Shader_2d/ice_zone.gdshader" id="2_a5rlk"]
+[ext_resource type="Script" path="res://2D Changes/Scripts_2D/nevoa_rasteira.gd" id="3_a5rlk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xdblt"]
-radius = 89.94443
+radius = 177.29073
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o7ygs"]
+shader = ExtResource("2_a5rlk")
+shader_parameter/noise_texture = ExtResource("2_3nlqh")
+shader_parameter/radius = 0.52999998815344
+shader_parameter/edge_softness = 0.16800000798
+shader_parameter/edge_roughness = 0.35999999195328
+shader_parameter/transparency_center = 0.65
+shader_parameter/refraction_strength = 0.02400000114
+shader_parameter/pulse_speed = 1.40000002086168
+shader_parameter/pulse_intensity = 0.25999999418848
+shader_parameter/glow_intensity = 1.20999997295408
+shader_parameter/crack_density = 0.0
+shader_parameter/crack_width = 0.00999999977648
+shader_parameter/ice_color = Color(0.44987363, 0.8322637, 0.9999991, 0.81960785)
+shader_parameter/glow_color = Color(0.45, 0.85, 1, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tbaj1"]
+blend_mode = 1
 
 [node name="ZonaCongelada2d" type="Area2D" unique_id=2019265033]
 script = ExtResource("1_le32k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=126842365]
 shape = SubResource("CircleShape2D_xdblt")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=858892620]
+material = SubResource("ShaderMaterial_o7ygs")
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ColorRect" unique_id=581905821]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_tbaj1")
+amount = 81
+texture = ExtResource("2_3nlqh")
+lifetime = 3.0
+script = ExtResource("3_a5rlk")
