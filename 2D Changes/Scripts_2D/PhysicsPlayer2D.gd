@@ -366,36 +366,78 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 			debug_status()
 func executar_troca_posicao(alvo: PhysicsPlayer2D) -> void:
 	if alvo == null: return
-	
+
 	var pos_A = self.global_position
 	var pos_B = alvo.global_position
-	
+
+	# Zera velocidade nas peças reais
 	self.current_velocity = Vector2.ZERO
 	alvo.current_velocity = Vector2.ZERO
-	
+
 	playerInfo_atual.troca_posicao_ativa = false
-	
+
+	# Move as peças reais
 	self.global_position = pos_B
 	self.last_position = pos_B
-	
+
 	alvo.global_position = pos_A
 	alvo.last_position = pos_A
-	
+
 	sprite2D_body.position = Vector2.ZERO
 	alvo.sprite2D_body.position = Vector2.ZERO
-	
-	var motor = get_parent()
 
+	# Sincroniza a struct do motor de física com as novas posições.
+	# Sem isso, o CollisionResolution2D reseta as peças para a posição antiga
+	# da struct no próximo update_PhysicsObjects_from_CurrentPitchState().
+	var motor = get_parent()
 	if not motor.has_method("set_pitch_state_variables_from_PhysicsObjects"):
 		motor = motor.get_parent()
-		
+
 	if motor and motor.has_method("set_pitch_state_variables_from_PhysicsObjects"):
+		# Acha as structs correspondentes a self e alvo e já troca a posição
+		# nelas também, para o caso de o motor não estar inicializado.
+		var struct_self := _get_physic_object_struct()
+		var struct_alvo := alvo._get_physic_object_struct()
+		if struct_self != null and struct_alvo != null:
+			struct_self.last_position = pos_B
+			struct_self.current_velocity = Vector2.ZERO
+			struct_alvo.last_position = pos_A
+			struct_alvo.current_velocity = Vector2.ZERO
+
 		motor.set_pitch_state_variables_from_PhysicsObjects()
 		print("DEBUG: Motor de física sincronizado com as novas posições.")
 	else:
 		push_error("ERRO: Não foi possível encontrar o motor de física para sincronizar a troca!")
-	
+
 	print("DEBUG: Troca instantânea realizada.")
+
+# Retorna a struct PhysicObject_Struct correspondente a esta peça
+# no motor de física (physics_controller.current_pitch_state.all_physic_object_list),
+# ou null se não for possível localizar.
+func _get_physic_object_struct() -> PhysicObject_Struct:
+	var motor := _get_motor_de_fisica()
+	if motor == null:
+		return null
+	if motor.current_pitch_state == null:
+		return null
+	var lista: Array = motor.current_pitch_state.all_physic_object_list
+	if motor.PhysicsObjects_List == null:
+		return null
+	for i in motor.PhysicsObjects_List.size():
+		if motor.PhysicsObjects_List[i] == self:
+			if i < lista.size():
+				return lista[i]
+			return null
+	return null
+
+# Sobe a árvore até achar o CollisionResolution2D (motor de física).
+func _get_motor_de_fisica() -> CollisionResolution2D:
+	var no: Node = get_parent()
+	while no != null:
+		if no is CollisionResolution2D:
+			return no
+		no = no.get_parent()
+	return null
 func _input(event: InputEvent) -> void:
 	if AI_Active:
 		if teamSide == TeamSide.AWAY:
@@ -590,33 +632,49 @@ func animar_pulso(alvo: Node2D) -> void:
 
 func executar_onda_choque_direta():
 	const RAIO_EXPLOSAO = 400.0
-	const FORCA_EXPLOSAO = 1000.0 
-	
+	const FORCA_EXPLOSAO = 1000.0
+
 	animar_pulso(self)
-	
+
 	var alvos = get_tree().get_nodes_in_group("PhysicsObjects")
 	print("DEBUG: [", playerInfo_atual.nome, "] Onda de Choque! Alvos detectados: ", alvos.size())
-	
+
 	for obj in alvos:
-		if obj == self: 
-			continue 
+		if obj == self:
+			continue
 		var distancia = global_position.distance_to(obj.global_position)
-		
+
 		if distancia < RAIO_EXPLOSAO:
 			var direcao = (obj.global_position - global_position).normalized()
-			if direcao == Vector2.ZERO: 
-				direcao = Vector2.UP 
-			
+			if direcao == Vector2.ZERO:
+				direcao = Vector2.UP
+
 			var intensidade = 1.0 - (distancia / RAIO_EXPLOSAO)
 			var impulso = direcao * FORCA_EXPLOSAO * intensidade
-			
+
 			if "current_velocity" in obj:
 				obj.current_velocity += impulso
 				animar_pulso(obj)
-				
+
 				if obj.has_method("Set_Current_Velocity"):
 					obj.Set_Current_Velocity(obj.current_velocity)
-					
+
+				# Também empurra na struct do motor de física. Sem isso, o
+				# update_PhysicsObjects_from_CurrentPitchState() reseta a
+				# velocidade do alvo no próximo frame.
+				if obj is PhysicsPlayer2D:
+					var struct_alvo: PhysicObject_Struct = (obj as PhysicsPlayer2D)._get_physic_object_struct()
+					if struct_alvo != null:
+						struct_alvo.current_velocity += impulso
+				elif obj is PhysicsObject2D:
+					var motor := _get_motor_de_fisica()
+					if motor != null and motor.current_pitch_state != null:
+						var lista: Array = motor.current_pitch_state.all_physic_object_list
+						for i in motor.PhysicsObjects_List.size():
+							if motor.PhysicsObjects_List[i] == obj and i < lista.size():
+								lista[i].current_velocity += impulso
+								break
+
 				print("DEBUG: [SUCESSO] Empurrou ", obj.name, " com força ", impulso.length())
 
 func _instanciar_particula_impacto(posicao_colisao: Vector2) -> void:
@@ -1018,7 +1076,13 @@ func animar_efeito_por_carta(card: CardResource) -> void:
 func aplicar_empurrao(velocidade_aliado: Vector2) -> void:
 	var impulso = velocidade_aliado * 4
 	Set_Current_Velocity(current_velocity + impulso)
-	
+
+	# Espelha o impulso na struct do motor de física para o
+	# update_PhysicsObjects_from_CurrentPitchState() não sobrescrever.
+	var struct_self := _get_physic_object_struct()
+	if struct_self != null:
+		struct_self.current_velocity = current_velocity
+
 	if buff_tween and buff_tween.is_valid():
 		buff_tween.kill()
 	var tw = create_tween().set_parallel(true)
@@ -1069,17 +1133,29 @@ func usar_habilidade_zona_gelo() -> void:
 	
 	zonaGeloAtiva = true
 func aplicar_atracao_bola(delta: float) -> void:
-	var raio: float = 250.0 
+	var raio: float = 250.0
 	var forca: float = playerInfo_atual.atrai_bola_forca
-	
+
 	var objetos = get_tree().get_nodes_in_group("PhysicsObjects")
-	
+	var motor := _get_motor_de_fisica()
+	var lista_structs: Array = []
+	if motor != null and motor.current_pitch_state != null:
+		lista_structs = motor.current_pitch_state.all_physic_object_list
+
 	for obj in objetos:
-		if obj.is_in_group("Balls"): 
+		if obj.is_in_group("Balls"):
 			var direcao_vetor = global_position - obj.global_position
 			var distancia = direcao_vetor.length()
-			var distancia_contato = radius + obj.radius + 2.0 
-			
+			var distancia_contato = radius + obj.radius + 2.0
+
+			# Localiza a struct correspondente à bola
+			var struct_bola: PhysicObject_Struct = null
+			if motor != null and motor.PhysicsObjects_List != null:
+				for i in motor.PhysicsObjects_List.size():
+					if motor.PhysicsObjects_List[i] == obj and i < lista_structs.size():
+						struct_bola = lista_structs[i]
+						break
+
 			if distancia < raio and distancia > distancia_contato:
 				var forca_normalizada = direcao_vetor.normalized()
 				var intensidade = forca * 20
@@ -1088,16 +1164,21 @@ func aplicar_atracao_bola(delta: float) -> void:
 				obj.current_velocity += forca_final
 
 				if obj.current_velocity.length() < 25.0:
-					
+
 					obj.current_velocity = forca_normalizada * 25.0
 				obj.is_moving = true
 			elif distancia <= distancia_contato:
-				
+
 				obj.current_velocity = obj.current_velocity * 0.1
-				
+
 				if obj.current_velocity.length() < 5.0:
 					obj.current_velocity = Vector2.ZERO
 					obj.is_moving = false
+
+			# Espelha a velocity da bola na struct, senão o motor reseta.
+			if struct_bola != null:
+				struct_bola.current_velocity = obj.current_velocity
+				struct_bola.is_moving = obj.is_moving
 
 #func aplicar_carta_clone_pesado():
 	## Verifica se o buff está ativo no recurso do jogador
@@ -1224,9 +1305,15 @@ func _on_carta_do_radial(carta):
 		menu_radial.fechar()
 
 func aplicar_congelamento(turnos: int) -> void:
-	
+
 	current_velocity = Vector2.ZERO
 	Set_Current_Velocity(Vector2.ZERO)
+	# Zera também na struct para o motor não recolocar a velocity no
+	# próximo update_PhysicsObjects_from_CurrentPitchState().
+	var struct_self := _get_physic_object_struct()
+	if struct_self != null:
+		struct_self.current_velocity = Vector2.ZERO
+		struct_self.is_moving = false
 	if playerInfo_atual:
 		playerInfo_atual.turnos_congelamento_armazenado = turnos
 		playerInfo_atual.disabilitado = true
