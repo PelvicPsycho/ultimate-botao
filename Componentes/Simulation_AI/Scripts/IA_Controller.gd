@@ -39,6 +39,16 @@ var current_index: int
 @export var AroundBall_Mode_num_steps: int
 @export var AroundBall_Mode_step_angle: int
 
+
+#dificuldade atual
+@export var dificuldade_atual = CupManager.currentCup.cupRank
+
+func SetIADifficulty():
+	dificuldade_atual = CupManager.currentCup.cupRank
+
+func _ready() -> void:
+	SetIADifficulty()
+
 func SetPieceLists() -> void:
 	print("SetPieceLists")
 	for piece in physics_controller.PhysicsObjects_List:
@@ -55,6 +65,24 @@ func SetPieceLists() -> void:
 	print("HomeTeam = ", PhysicsObjects_HomeTeam_IndexList.size())
 	print("AwayTeam = ", PhysicsObjects_AwayTeam_IndexList.size())
 	AI_Pieces_setted = true
+
+func GetRandomPlayByDifficulty(max_index: int) -> int:
+	
+	if dificuldade_atual == Cup.CUP_RANK.S:
+		return randi_range(0, min(1,max_index))
+	elif dificuldade_atual == Cup.CUP_RANK.A:
+		return randi_range(0, min(4,max_index))
+	elif dificuldade_atual == Cup.CUP_RANK.B:
+		return randi_range(0, min(7,max_index))
+	elif dificuldade_atual == Cup.CUP_RANK.C:
+		return randi_range(0, min(10,max_index))
+	elif dificuldade_atual == Cup.CUP_RANK.D:
+		return randi_range(0, min(13,max_index))
+	elif dificuldade_atual == Cup.CUP_RANK.E:
+		return randi_range(0, min(16,max_index))
+	elif dificuldade_atual == Cup.CUP_RANK.F:
+		return randi_range(0, min(19,max_index))
+	return randi_range(0, max_index)
 
 func _process(delta: float) -> void:
 	# All Setted and AI can start choosing the plays it will simulate
@@ -151,7 +179,8 @@ func _process(delta: float) -> void:
 			else:
 				break
 		
-		var play_index = randi_range(0, max_index)
+		var play_index = GetRandomPlayByDifficulty(max_index)#randi_range(0, max_index)
+		
 		print("Play selected index = ", play_index)
 		print("Play selected force_lerp = ", list_of_plays_simulated_Ordered[play_index].force_lerp)
 		print("Play selected Score = ", list_of_plays_simulated_Ordered[play_index].score)

@@ -62,6 +62,8 @@ var list_of_plays_simulated: Array[Play]
 var simulation_ready: bool = false
 var show_play_simulation_result: bool
 
+
+
 func _ready() -> void:
 	thread = Thread.new()
 	#mutex = Mutex.new()
