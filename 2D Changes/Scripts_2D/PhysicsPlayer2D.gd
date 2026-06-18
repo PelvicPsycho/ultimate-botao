@@ -495,6 +495,9 @@ func puxar_no_timeout():
 #endregion
 
 #region Movement
+
+signal maxForceShot(direction: Vector2)
+
 func Execute_Action() -> void:
 	if menu_radial and menu_radial.is_open:
 		menu_radial.fechar()
@@ -507,7 +510,7 @@ func Execute_Action() -> void:
 	var audio_tiro = audio_chute_normal
 	if lerp_current_force >= 1: 
 		audio_tiro = audio_chute_max
-		
+		maxForceShot.emit(Vector2.ONE)
 	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
 
 	Set_Current_Velocity(current_direction * current_force)
@@ -532,7 +535,7 @@ func Execute_Action_parameters(direction: Vector2, force_lerp: float) -> void:
 	var audio_tiro = audio_chute_normal
 	if lerp_current_force >= 1: 
 		audio_tiro = audio_chute_max
-		
+		maxForceShot.emit(Vector2.ONE)
 	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
 	
 	current_force = lerpf(playerInfo_atual.get_min_force(), playerInfo_atual.get_max_force(), lerp_current_force)
