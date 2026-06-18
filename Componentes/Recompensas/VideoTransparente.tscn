@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cvpgan4rpnohq"]
+
+[ext_resource type="Shader" uid="uid://bwk4a7irj5xyf" path="res://Componentes/Recompensas/VideoTransparente.gdshader" id="3_nmsvg"]
+[ext_resource type="VideoStream" uid="uid://b5hiyctv2kbos" path="res://Recursos/WebM/bau_completo_hstack.ogv" id="5_36evs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f28d2"]
+shader = ExtResource("3_nmsvg")
+shader_parameter/chroma_color = Color(0, 0, 0, 1)
+shader_parameter/chroma_sensitivity = 0.2490000118275
+shader_parameter/chroma_tolerance = 0.47600002261
+shader_parameter/mask_threshold = 0.926000043985
+
+[node name="Control" type="Control" unique_id=530132800]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VideoStreamPlayer2" type="VideoStreamPlayer" parent="." unique_id=943998554]
+material = SubResource("ShaderMaterial_f28d2")
+layout_mode = 0
+offset_right = 848.0
+offset_bottom = 848.0
+stream = ExtResource("5_36evs")
+autoplay = true
+expand = true
+loop = true

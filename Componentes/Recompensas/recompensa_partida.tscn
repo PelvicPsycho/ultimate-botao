@@ -2,9 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://c2l1n5xvmq5ab" path="res://Componentes/Recompensas/recompensapartida.png" id="1_1v55f"]
 [ext_resource type="Script" uid="uid://b3chomo5j6b1u" path="res://Componentes/Recompensas/recompensa_partida.gd" id="1_u85iu"]
-[ext_resource type="Texture2D" uid="uid://d2f4o6btxl3tp" path="res://Recursos/2D_Art/MyTeam/Shape with text_1.png" id="2_co4fe"]
 [ext_resource type="PackedScene" uid="uid://orrq0vy3qa51" path="res://Componentes/MyTeam/inventory_pecas_button.tscn" id="2_ml02d"]
 [ext_resource type="Texture2D" uid="uid://47ugmokghauy" path="res://Recursos/2D_Art/MyTeam/Group 53_.png" id="2_u85iu"]
+[ext_resource type="Texture2D" uid="uid://bogm6yps4rlg4" path="res://Componentes/Recompensas/SlotVazio.png" id="2_x43w7"]
+[ext_resource type="Texture2D" uid="uid://b0j3i4kittphv" path="res://Componentes/Recompensas/SlotPreenchido.png" id="3_edpve"]
 [ext_resource type="Texture2D" uid="uid://o5omjcf51pl3" path="res://Recursos/2D_Art/MyTeam/Shape with text.png" id="3_g3cx5"]
 [ext_resource type="Texture2D" uid="uid://cgxabsu4cebmy" path="res://Componentes/Recompensas/Rectangle 15.png" id="3_uacbv"]
 [ext_resource type="Texture2D" uid="uid://b3uly4nf1rasq" path="res://Componentes/Recompensas/Rectangle 41.png" id="4_2ldjs"]
@@ -27,14 +28,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_u85iu")
 insp_nome_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/ItemName_Label")
-insp_rank_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/PecaTexture_TextureRect/PecaRank_Label")
+insp_rank_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/MarginContainer/HBoxContainer/PecaRank_Label")
 insp_arte_rect = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/PecaTexture_TextureRect")
 contagem_slots_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/HBoxContainer/ContagemSlots_Label")
-slots_indicator_hbox = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/HBoxContainer/SlotsIndicator_HBoxContainer")
+slots_indicator_hbox = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/SlotsIndicator_HBoxContainer")
 equipped_cards_grid = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer")
 pontos_acao_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/PontosAcao_HBoxContainer/PontosdeAcao_Label")
-icone_slot_livre = ExtResource("2_co4fe")
-icone_slot_ocupado = ExtResource("3_g3cx5")
+icone_slot_livre = ExtResource("2_x43w7")
+icone_slot_ocupado = ExtResource("3_edpve")
 container_opcoes = NodePath("Panel/VBoxContainer/MarginContainer2/Control/Opcoes_HBoxContainer")
 btn_aceitar = NodePath("Panel/VBoxContainer/MarginContainer/AceitarButton_Button")
 cena_botao_peca = ExtResource("2_ml02d")
@@ -86,7 +87,7 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -563.0
-offset_top = -378.0
+offset_top = -414.0
 offset_right = 563.0
 offset_bottom = 449.0
 grow_horizontal = 2
@@ -103,7 +104,7 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -545.0
-offset_top = -365.0
+offset_top = -401.0
 offset_right = 547.0
 offset_bottom = 435.0
 grow_horizontal = 2
@@ -119,9 +120,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -461.0
-offset_top = -436.0
+offset_top = -472.0
 offset_right = 484.0
-offset_bottom = -289.0
+offset_bottom = -325.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_ml02d")
@@ -135,9 +136,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -484.0
-offset_top = -285.0
+offset_top = -306.0
 offset_right = 487.0
-offset_bottom = 111.0
+offset_bottom = 126.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_co4fe")
@@ -167,10 +168,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -148.0
-offset_top = -377.0
-offset_right = 148.0
-offset_bottom = 377.0
+offset_left = -550.0
+offset_top = -461.0
+offset_right = 550.0
+offset_bottom = 425.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -193,9 +194,9 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(1100, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 70
+theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 0
+theme_override_constants/margin_bottom = 23
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer" unique_id=107255297]
 layout_mode = 2
@@ -203,6 +204,7 @@ layout_mode = 2
 [node name="Esquerda_VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer" unique_id=1747641047]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 size_flags_stretch_ratio = 0.6
 theme_override_constants/separation = 8
 
@@ -225,6 +227,7 @@ texture = ExtResource("2_u85iu")
 expand_mode = 1
 
 [node name="PecaRank_Label" type="Label" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/PecaTexture_TextureRect" unique_id=706919507]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -288,30 +291,35 @@ layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="ContagemSlots_Label" type="Label" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/HBoxContainer" unique_id=702110813]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("14_04a5q")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 text = "Slots (0/0)"
+vertical_alignment = 1
 
-[node name="SlotsIndicator_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/HBoxContainer" unique_id=1192494353]
+[node name="SlotsIndicator_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1192494353]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="TextureRect3" type="TextureRect" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/HBoxContainer/SlotsIndicator_HBoxContainer" unique_id=1840318810]
+[node name="TextureRect3" type="TextureRect" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=1840318810]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 texture = ExtResource("3_g3cx5")
 expand_mode = 1
 
 [node name="Cartas_Label" type="Label" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=92075946]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("14_04a5q")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 25
 text = "Cartas"
+vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=722990762]
 layout_mode = 2
+size_flags_vertical = 6
 theme_override_constants/margin_right = 50
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer" unique_id=1458433062]
@@ -321,6 +329,7 @@ layout_mode = 2
 [node name="EquippedCards_GridContainer" type="GridContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer" unique_id=1178925908]
 custom_minimum_size = Vector2(50, 220)
 layout_mode = 2
+size_flags_vertical = 6
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 15
 columns = 5

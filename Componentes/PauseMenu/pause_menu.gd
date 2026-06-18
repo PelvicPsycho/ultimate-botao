@@ -365,3 +365,11 @@ func _on_bola_escala_value_changed(value):
 	labelValor.text = str(value)
 	a_bola.basic_scale = value
 	_atualizar_fisica_da_bola()
+
+
+func _on_button_pressed() -> void:
+	var matchscene = get_parent()
+	matchscene.homeScore = 3
+	matchscene._on_partida_acabou()
+	
+	pass # Replace with function body.

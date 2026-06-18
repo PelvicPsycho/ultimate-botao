@@ -24,6 +24,7 @@ var grupo_recompensa := ButtonGroup.new()
 @export_group("Ícones")
 @export var icone_slot_livre: Texture2D
 @export var icone_slot_ocupado: Texture2D
+@export var icone_slot_minimum_size:= Vector2(50, 50)
 
 @export_group("Opções e Ações")
 @export var container_opcoes: HBoxContainer 
@@ -97,17 +98,17 @@ func _criar_botao_de_opcao(peca: TeamPlayer) -> Control:
 	if btn_item.has_method("setup_item"):
 		btn_item.setup_item(peca)
 		
-	var ja_possui = GameState.tem_peca(peca.id_unico)
+#	var ja_possui = GameState.tem_peca(peca.id_unico)
 	
-	if ja_possui:
-		btn_item.modulate = Color(0.6, 0.6, 0.6, 1.0) 
-	else:
-		btn_item.modulate = Color.WHITE
+#	if ja_possui:
+#		btn_item.modulate = Color(0.6, 0.6, 0.6, 1.0) 
+#	else:
+#		btn_item.modulate = Color.WHITE
 		
 	btn_item.pressed.connect(func(): _selecionar_peca(peca, btn_item))
 	return btn_item # Retorna o nó criado para a inicialização poder usar
 
-func _selecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
+func _selecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
 	peca_selecionada = peca
 	
 	# 1. Atualiza Esquerda (Nome, Arte, Rank)
@@ -170,14 +171,14 @@ func _selecionar_peca(peca: TeamPlayer, botao_clicado: Control) -> void:
 			icone_bolinha.texture = icone_slot_ocupado if i < slots_usados else icone_slot_livre
 			icone_bolinha.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			icone_bolinha.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			icone_bolinha.custom_minimum_size = Vector2(20, 20)
+			icone_bolinha.custom_minimum_size = icone_slot_minimum_size
 			slots_indicator_hbox.add_child(icone_bolinha)
 
 	# 4. Feedback Visual de Seleção na lista inferior
-	for child in container_opcoes.get_children():
-		var id = child.get_meta("id_peca")
-		var peca_na_lista_repetida = GameState.tem_peca(id)
-		child.modulate = Color(0.6, 0.6, 0.6, 1.0) if peca_na_lista_repetida else Color.WHITE
+	#for child in container_opcoes.get_children():
+		#var id = child.get_meta("id_peca")
+		#var peca_na_lista_repetida = GameState.tem_peca(id)
+#		child.modulate = Color(0.6, 0.6, 0.6, 1.0) if peca_na_lista_repetida else Color.WHITE
 	
 	
 	# --- INTELIGÊNCIA DO BOTÃO DE AÇÃO ---
