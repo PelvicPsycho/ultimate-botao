@@ -47,16 +47,22 @@ offset_bottom = 200.0
 grow_horizontal = 2
 
 [node name="BannerColorido_Control" parent="Banner_Control" unique_id=781915788 instance=ExtResource("3_ya2lc")]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_right = 479.99976
+offset_bottom = 282.49997
 grow_horizontal = 2
 scale = Vector2(0.8, 0.8)
 
 [node name="BannerTexto_Control" type="Control" parent="Banner_Control" unique_id=466428928 node_paths=PackedStringArray("bloco1", "bloco2", "bloco3")]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_right = 479.99976
+offset_bottom = 202.49998
 grow_horizontal = 2
 scale = Vector2(0.8, 0.8)
 script = ExtResource("4_g7qru")

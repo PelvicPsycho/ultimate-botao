@@ -51,19 +51,25 @@ custom_minimum_size = Vector2(50, 200)
 layout_mode = 2
 
 [node name="BannerColorido_Control" parent="VBoxContainer/Banner_Control" unique_id=781915788 instance=ExtResource("4_s8nk6")]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_right = 479.99976
+offset_bottom = 261.24997
 grow_horizontal = 2
 scale = Vector2(0.8, 0.8)
 
 [node name="BannerTexto_Control" parent="VBoxContainer/Banner_Control" unique_id=466428928 instance=ExtResource("5_fw3fr")]
+clip_contents = true
 layout_mode = 1
 offset_top = 17.0
-offset_bottom = 17.0
+offset_right = 1280.0
+offset_bottom = 223.66667
 scale = Vector2(0.6, 0.6)
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1731912505]
+clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_bottom = 200

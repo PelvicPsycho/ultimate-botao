@@ -12,22 +12,37 @@ extends CanvasLayer
 @export var tela_selection: Control
 
 var tela_atual: Control = null
+var indice_atual: int = 1 # 1 é o índice inicial (botão Torneios)
 
-# Configurações de "Gamefeel"
+# Configurações de "Gamefeel" dos Botões
 const REBOUND_TIME = 0.15
 const REBOUND_EASE = Tween.EASE_OUT
 const REBOUND_TRANS = Tween.TRANS_BACK
 
+# Configurações de Transição das Telas (Panning)
+const PAN_TIME = 0.35
+const PAN_EASE = Tween.EASE_OUT
+const PAN_TRANS = Tween.TRANS_CUBIC
+
+# Guardamos o tween atual para cancelá-lo se o jogador clicar rápido demais
+var _tween_transicao: Tween
+
 func _ready():
-	# Conecta automaticamente apenas o _on_button_up, 
-	# já que o AnimadorHover cuida do _on_button_down.
 	for child in bottom_nav.get_children():
 		if child is TextureButton:
 			child.button_up.connect(_on_button_up.bind(child))
 			
+	# Garante que as telas extras comecem escondidas
+	if tela_elenco: tela_elenco.hide()
+	if tela_config: tela_config.hide()
+	if tela_selection: tela_selection.hide()
+			
 	# Inicia já com a aba do meio (Torneios) aberta
 	var botao_inicial = bottom_nav.get_child(1) 
 	if botao_inicial is TextureButton:
+		if tela_torneios:
+			tela_torneios.show()
+			tela_atual = tela_torneios
 		call_deferred("_on_button_up", botao_inicial)
 
 
@@ -39,9 +54,11 @@ func _on_button_up(button: TextureButton):
 		if btn is TextureButton:
 			btn.pivot_offset = btn.size / 2.0
 			
-			var animador: AnimadorHover = null
+			var animador = null
 			for filho in btn.get_children():
-				if filho is AnimadorHover:
+				# Se você tiver uma classe definida globalmente, pode usar "is AnimadorHover"
+				# Usando string para evitar erros dependendo de como você declarou.
+				if filho.name == "AnimadorHover" or filho.has_method("esta_selecionado"):
 					animador = filho
 					break
 			# ----------------------------------
@@ -59,33 +76,71 @@ func _on_button_up(button: TextureButton):
 				tween.tween_property(btn, "scale", Vector2(1.0, 1.0), REBOUND_TIME).set_ease(Tween.EASE_OUT)
 				tween.tween_property(btn, "modulate", Color(1.0, 1.0, 1.0), REBOUND_TIME)
 
-	# --- LÓGICA DE ABAS E SAVE ---
+	# --- LÓGICA DE ABAS ---
+	var tela_alvo: Control = null
 	match button.name:
 		"MyTeam_TextureButton":
-			_alternar_telas(tela_elenco)
+			tela_alvo = tela_elenco
 		"Torneio_TextureButton":
-			_alternar_telas(tela_torneios)
+			tela_alvo = tela_torneios
 		"Configurações_TextureButton":
-			_alternar_telas(tela_config)
+			tela_alvo = tela_config
 		"Selection_TextureButton":
-			_alternar_telas(tela_selection)
+			tela_alvo = tela_selection
+			
+	var indice_alvo = button.get_index()
+	
+	if tela_alvo and tela_alvo != tela_atual:
+		_transicao_panning(tela_alvo, indice_alvo)
 
-# Função central que esconde o que não importa e mostra o alvo
-func _alternar_telas(tela_alvo: Control) -> void:
-	# 1. Verifica se estamos SAINDO do Menu Elenco para ir para outra tela
-	if tela_atual == tela_elenco and tela_alvo != tela_elenco:
+
+# Função que cria o efeito de empurrar a tela
+func _transicao_panning(tela_alvo: Control, indice_alvo: int) -> void:
+	if _tween_transicao and _tween_transicao.is_running():
+		_tween_transicao.kill() # Evita bugs se o jogador clicar loucamente
+
+	# 1. Sincroniza dados do Elenco caso estejamos saindo dele
+	if tela_atual == tela_elenco:
 		_sincronizar_elenco()
+		
+	var tela_saindo = tela_atual
+	tela_atual = tela_alvo
 	
-	# 2. Esconde tudo
-	if tela_elenco: tela_elenco.hide()
-	if tela_torneios: tela_torneios.hide()
-	if tela_config: tela_config.hide()
-	if tela_selection: tela_selection.hide()
+	# Usamos a largura do viewport para saber o quanto empurrar a tela para fora.
+	# Se os submenus não ocupam a tela toda, troque isso pela largura do painel.
+	var distancia_slide = get_viewport().get_visible_rect().size.x
 	
-	# 3. Mostra apenas a tela que o botão mandou e atualiza o rastreador
-	if tela_alvo:
-		tela_alvo.show()
-		tela_atual = tela_alvo
+	# 2. Descobre a direção com base no índice dos botões
+	var indo_para_direita = indice_alvo > indice_atual
+	indice_atual = indice_alvo
+	
+	# Calcula as posições no Eixo X (Assumindo que o "centro" da tela alvo é X = 0)
+	var pos_centro = 0.0
+	var pos_escondida_esquerda = -distancia_slide
+	var pos_escondida_direita = distancia_slide
+	
+	# 3. Prepara a nova tela na posição inicial correta (fora de cena)
+	tela_alvo.show()
+	if indo_para_direita:
+		tela_alvo.position.x = pos_escondida_direita
+	else:
+		tela_alvo.position.x = pos_escondida_esquerda
+
+	# 4. Inicia a animação (Tween)
+	_tween_transicao = create_tween().set_parallel(true)
+	
+	# Traz a tela alvo para o centro
+	_tween_transicao.tween_property(tela_alvo, "position:x", pos_centro, PAN_TIME)\
+		.set_trans(PAN_TRANS).set_ease(PAN_EASE)
+		
+	# Empurra a tela antiga para fora
+	if tela_saindo:
+		var destino_saida = pos_escondida_esquerda if indo_para_direita else pos_escondida_direita
+		_tween_transicao.tween_property(tela_saindo, "position:x", destino_saida, PAN_TIME)\
+			.set_trans(PAN_TRANS).set_ease(PAN_EASE)
+			
+		# Quando a animação inteira terminar, escondemos o nó antigo (para não renderizar off-screen e economizar processamento)
+		_tween_transicao.chain().tween_callback(tela_saindo.hide)
 
 # --- A SUBSCRIÇÃO DA SUA FUNÇÃO DE SAVE/SYNC ---
 func _sincronizar_elenco() -> void:
