@@ -5,7 +5,7 @@
 
 [node name="Pitch" type="Node2D" unique_id=603521134]
 
-[node name="CampoV3" type="Sprite2D" parent="." unique_id=995364415]
+[node name="CampoV3" type="Sprite2D" parent="." unique_id=995364415 groups=["Chao"]]
 clip_children = 2
 z_index = -1
 position = Vector2(960, 586)
