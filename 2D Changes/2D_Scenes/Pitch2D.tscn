@@ -6,6 +6,8 @@
 [node name="Pitch" type="Node2D" unique_id=603521134]
 
 [node name="CampoV3" type="Sprite2D" parent="." unique_id=995364415]
+clip_children = 2
+z_index = -1
 position = Vector2(960, 586)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_vrscm")

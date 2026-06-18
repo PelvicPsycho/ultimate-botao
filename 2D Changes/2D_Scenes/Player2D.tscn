@@ -58,7 +58,7 @@ drag_line2D = NodePath("Line2D_Drag")
 velocity_line2D = NodePath("Line2D_Velocity")
 
 [node name="LabelPA" type="Label" parent="." unique_id=204624804]
-z_index = 1
+z_index = 2
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -95,6 +95,7 @@ round_precision = 16
 antialiased = true
 
 [node name="Sprite2D_CirculoLimite" type="Sprite2D" parent="." unique_id=1504443643]
+z_index = 1
 scale = Vector2(0.01, 0.01)
 texture = ExtResource("3_wpyri")
 
@@ -113,6 +114,7 @@ offset_bottom = 40.0
 scale = Vector2(0.17, 0.17)
 
 [node name="sprite2D_body" type="Sprite2D" parent="Control" unique_id=523510040]
+z_index = 1
 material = ExtResource("15_gwudw")
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("15_fl8l5")

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cv5quqjbm27r7" path="res://shaders/Smoke/Texture/T_Noise_001R.png" id="2_3nlqh"]
 [ext_resource type="Shader" path="res://2D Changes/Shader_2d/ice_zone.gdshader" id="2_a5rlk"]
 [ext_resource type="Script" path="res://2D Changes/Scripts_2D/nevoa_rasteira.gd" id="3_a5rlk"]
+[ext_resource type="Texture2D" uid="uid://b2vww70qibbki" path="res://Recursos/2D_Art/Generatedimage_1781632825545-removebg-preview.png" id="5_o7ygs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xdblt"]
 radius = 177.29073
@@ -12,20 +13,22 @@ radius = 177.29073
 shader = ExtResource("2_a5rlk")
 shader_parameter/noise_texture = ExtResource("2_3nlqh")
 shader_parameter/radius = 0.52999998815344
-shader_parameter/edge_softness = 0.16800000798
+shader_parameter/edge_softness = 0.1270000060325
 shader_parameter/edge_roughness = 0.35999999195328
-shader_parameter/transparency_center = 0.65
-shader_parameter/refraction_strength = 0.02400000114
+shader_parameter/transparency_center = 0.33999999240032
+shader_parameter/refraction_strength = 0.0
 shader_parameter/pulse_speed = 1.40000002086168
 shader_parameter/pulse_intensity = 0.25999999418848
-shader_parameter/glow_intensity = 1.20999997295408
-shader_parameter/crack_density = 0.0
+shader_parameter/glow_intensity = 1.8499999586487998
+shader_parameter/crack_density = 0.1999999955296
 shader_parameter/crack_width = 0.00999999977648
-shader_parameter/ice_color = Color(0.44987363, 0.8322637, 0.9999991, 0.81960785)
+shader_parameter/ice_color = Color(0.4509804, 0.83137256, 1, 0.92156863)
 shader_parameter/glow_color = Color(0.45, 0.85, 1, 1)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tbaj1"]
 blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o7ygs"]
 
 [node name="ZonaCongelada2d" type="Area2D" unique_id=2019265033]
 script = ExtResource("1_le32k")
@@ -41,8 +44,17 @@ offset_bottom = 40.0
 [node name="GPUParticles2D" type="GPUParticles2D" parent="ColorRect" unique_id=581905821]
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 1, 1, 0)
+z_index = 3
 material = SubResource("CanvasItemMaterial_tbaj1")
 amount = 81
 texture = ExtResource("2_3nlqh")
 lifetime = 3.0
 script = ExtResource("3_a5rlk")
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorRect" unique_id=1378813305]
+self_modulate = Color(1, 1, 1, 0.54509807)
+clip_children = 2
+material = SubResource("CanvasItemMaterial_o7ygs")
+position = Vector2(200, 202)
+scale = Vector2(0.80134034, 0.80134034)
+texture = ExtResource("5_o7ygs")

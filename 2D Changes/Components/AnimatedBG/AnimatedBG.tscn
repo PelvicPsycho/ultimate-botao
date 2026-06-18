@@ -36,6 +36,7 @@ shader_parameter/enable_dithering = true
 shader_parameter/dither_strength = 0.999999977648
 
 [node name="AnimatedBg" type="Control" unique_id=28414625]
+z_index = -2
 layout_mode = 3
 anchors_preset = 0
 

@@ -17,6 +17,8 @@ var AI_Active: bool
 #endregion
 @export var pixalizado: float = 8.0
 @export var distanciaDropShadow:int = 75
+@onready var efeito_de_onda = preload("res://2D Changes/2D_Scenes/EfeitoOndaDeShock.tscn")
+
 var _base_radius: float = 0.0
 # Runtime Variables
 var current_direction: Vector2 = Vector2.ZERO
@@ -193,9 +195,7 @@ func atualizar_peca_pelo_status() -> void:
 		return
 	
 	var CollisionShape2D_object = $CollisionShape2D
-	var ShapeCast2D_Objects = $ShapeCast2D_Objects
-	var ShapeCast2D_Walls = $ShapeCast2D_Walls
-	
+
 	if CollisionShape2D_object == null:
 		print("Erro - Colisor Nulo")
 		return
@@ -213,8 +213,7 @@ func atualizar_peca_pelo_status() -> void:
 	var tween = create_tween().set_parallel(true)
 	tween.set_trans(Tween.TRANS_SPRING)
 	tween.tween_property(CollisionShape2D_object, "scale", target_scale, 0.5)
-	tween.tween_property(ShapeCast2D_Objects, "scale", target_scale, 0.5)
-	tween.tween_property(ShapeCast2D_Walls, "scale", target_scale, 0.5)
+
 	tween.tween_property(sprite2D_body, "scale", target_scale, 0.5)
 
 	var novo_raio = (self.global_position - Object_Radius.global_position).length() #_base_radius * scale_multiplier
@@ -589,16 +588,19 @@ func animar_pulso(alvo: Node2D) -> void:
 	tween.tween_property(alvo, "scale", Vector2(1.0, 1.0), 0.1)
 
 func executar_onda_choque_direta():
+	
 	const RAIO_EXPLOSAO = 400.0
 	const FORCA_EXPLOSAO = 1000.0 
-	
+	var efeito_visual = efeito_de_onda.instantiate()
+	get_tree().current_scene.add_child(efeito_visual)
+	efeito_visual.global_position = global_position
 	animar_pulso(self)
 	
 	var alvos = get_tree().get_nodes_in_group("PhysicsObjects")
 	print("DEBUG: [", playerInfo_atual.nome, "] Onda de Choque! Alvos detectados: ", alvos.size())
 	
 	for obj in alvos:
-		if obj == self: 
+		if not is_instance_valid(obj) or obj == self: 
 			continue 
 		var distancia = global_position.distance_to(obj.global_position)
 		
