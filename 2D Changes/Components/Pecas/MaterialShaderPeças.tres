@@ -1,7 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://bylg623wa5do2"]
 
 [ext_resource type="Shader" uid="uid://dgdwclsglmdhb" path="res://shaderdapeca.gdshader" id="1_ft45n"]
-[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/peceas-04.png" id="2_rgjlk"]
 
 [resource]
 shader = ExtResource("1_ft45n")
@@ -10,7 +9,6 @@ shader_parameter/dist = 937
 shader_parameter/shadow_color = Color(0, 0, 0, 0.23529412)
 shader_parameter/angle = 154.8350073546625
 shader_parameter/sprite_tint = Color(0.9255518, 0.5382809, 0.14684999, 1)
-shader_parameter/overlay_texture = ExtResource("2_rgjlk")
 shader_parameter/overlay_mix_amount = 0.250000011875
 shader_parameter/stretch_direction = Vector2(0, 1)
 shader_parameter/stretch_amount = 0.0
