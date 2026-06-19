@@ -3,7 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_06cnq"]
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_8nsg6"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_8ra4q"]
-[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_hpabj"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_hpabj"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_hpabj"]
 
 [resource]
 script = ExtResource("2_8nsg6")
@@ -11,8 +12,6 @@ id_unico = &"Nigel_MyTeam"
 nome = "Nigel"
 num_camisa = 1
 foto = ExtResource("1_06cnq")
-textura_peca = ExtResource("4_hpabj")
-material_shader = ExtResource("2_8ra4q")
 quantosSlotes = 10
 PA = 5
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

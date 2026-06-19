@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bey371cqce78v"
-path="res://.godot/imported/peceas-05.png-b412b0d0e67371a3983da287118d7eab.ctex"
+uid="uid://btvxil75hchdm"
+path="res://.godot/imported/Padrao4.png-9988713eb4b0e1a8684bd5806c98aebf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://2D Changes/Components/Pecas/padroes/peceas-05.png"
-dest_files=["res://.godot/imported/peceas-05.png-b412b0d0e67371a3983da287118d7eab.ctex"]
+source_file="res://2D Changes/Components/Pecas/padroes/Padrao4.png"
+dest_files=["res://.godot/imported/Padrao4.png-9988713eb4b0e1a8684bd5806c98aebf.ctex"]
 
 [params]
 

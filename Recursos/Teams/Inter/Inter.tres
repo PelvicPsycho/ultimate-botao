@@ -10,10 +10,14 @@
 [ext_resource type="Resource" uid="uid://cu8iue5dls8dj" path="res://Recursos/Teams/Inter/Paula.tres" id="5_a3pbj"]
 [ext_resource type="Resource" uid="uid://gtnit36263q6" path="res://Recursos/Teams/Inter/Pezzo.tres" id="6_6bv8s"]
 [ext_resource type="Resource" uid="uid://5psd0fjxpu77" path="res://Recursos/Teams/Inter/Sergio.tres" id="7_02jpn"]
-[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/peceas-04.png" id="11_nfeg7"]
-[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/peceas-05.png" id="12_a3pbj"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="11_1joua"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="11_nfeg7"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="12_a3pbj"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="12_ogoeg"]
 [ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="13_6bv8s"]
 [ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="14_02jpn"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="15_uqehm"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="16_n5xrb"]
 
 [resource]
 script = ExtResource("2_wdtrl")
@@ -24,11 +28,5 @@ emblem = ExtResource("2_4vr7p")
 mainSquad = Array[ExtResource("1_t7if8")]([ExtResource("3_hqtxk"), ExtResource("4_nfeg7"), ExtResource("5_a3pbj"), ExtResource("6_6bv8s"), ExtResource("7_02jpn")])
 materialAtivo = ExtResource("2_eb2mv")
 materialInativo = ExtResource("3_hk2ix")
-overlay_escolhido = 2
-textura_overlay_1 = ExtResource("11_nfeg7")
-textura_overlay_2 = ExtResource("12_a3pbj")
-textura_overlay_3 = ExtResource("11_nfeg7")
-textura_overlay_menu_1 = ExtResource("13_6bv8s")
-textura_overlay_menu_2 = ExtResource("14_02jpn")
-textura_overlay_menu_3 = ExtResource("13_6bv8s")
+overlay_escolhido = 3
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

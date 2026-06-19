@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_b6fsa"]
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_v0lv2"]
-[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_abkbp"]
 [ext_resource type="Resource" uid="uid://cnyerld68fmwt" path="res://Componentes/Cartas/CardResorce/Congelamento.tres" id="4_1n13e"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_64i74"]
-[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_guubf"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_guubf"]
 [ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="4_rxlff"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_rxlff"]
 
 [resource]
 script = ExtResource("1_b6fsa")
@@ -14,8 +14,6 @@ id_unico = &"carlos_gremio"
 nome = "Carlos"
 num_camisa = 95
 foto = ExtResource("1_v0lv2")
-textura_peca = ExtResource("4_guubf")
-material_shader = ExtResource("2_abkbp")
 quantosSlotes = 3
 mao_cartas = Array[ExtResource("4_64i74")]([ExtResource("4_1n13e"), ExtResource("4_rxlff")])
 PA = 5

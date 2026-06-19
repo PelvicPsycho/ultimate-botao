@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cfsrpo18gnsi"]
 
 [ext_resource type="Shader" uid="uid://dgdwclsglmdhb" path="res://shaderdapeca.gdshader" id="1_r2tvd"]
-[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/peceas-04.png" id="2_5sqqv"]
-[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="3_inpah"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="2_5sqqv"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="3_inpah"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_br0qm"]
 shader = ExtResource("1_r2tvd")

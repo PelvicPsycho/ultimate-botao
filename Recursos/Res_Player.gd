@@ -5,15 +5,15 @@ enum Rank {S, A, B, C, D}
 
 signal status_mudou 
 
-@export_group("Infos pessoais")
+#@export_group("Infos pessoais")
 @export var id_unico: StringName #EX: "ronaldinho_gaucho_gremio"
 @export var nome: String = ""
 @export var num_camisa: int
 var time: Team
 @export var foto: Texture2D
-@export var textura_peca: Texture2D
-@export_range(1, 3) var overlay_texture: int = 1
-@export var material_shader: ShaderMaterial
+@export var textura_peca: Texture2D = preload("res://2D Changes/Components/Pecas/Textura_peca_campo.png")
+#@export_range(0, 4) var overlay_texture: int = 1 #É definido no time
+@export var material_shader: ShaderMaterial = preload("res://2D Changes/Components/Pecas/MaterialShaderPeças.tres")
 
 @export_group("Basic Attributes")
 @export var basic_min_force: float = 100.0
@@ -35,7 +35,7 @@ var _quantosSlotes: int = 0
 @export var slotsUpgrates: Array[CardResource] = []
 @export var mao_cartas: Array[CardResource] = []
 var turnos_congelamento_armazenado: int = 0
-var poder_congelar_turnos: int = 0	
+var poder_congelar_turnos: int = 0
 
 @export_subgroup("Força")
 @export var current_min_force: float = 100.0

@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="3_chebd"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_5s4k5"]
 [ext_resource type="Resource" uid="uid://cq1j88bdgrf6d" path="res://Componentes/Cartas/CardResorce/CartaBolaLeve.tres" id="4_qk420"]
-[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_vcx1n"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_vcx1n"]
 [ext_resource type="Resource" uid="uid://cqbnt1i0kov4g" path="res://Componentes/Cartas/CardResorce/CartaTrocaDeLugar.tres" id="5_ejnw7"]
 [ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="5_nf3c5"]
 

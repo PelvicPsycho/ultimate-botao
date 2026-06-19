@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://bq1qsd3ojqnsw" path="res://Componentes/Cartas/CardResorce/CartaEncolhedor.tres" id="3_48gnh"]
 [ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="4_mppal"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_vcnx3"]
-[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_vmo4h"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_vmo4h"]
 [ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="5_drpkb"]
 
 [resource]

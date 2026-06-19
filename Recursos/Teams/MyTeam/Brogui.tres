@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="3_lomfa"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_0f06n"]
 [ext_resource type="Resource" uid="uid://bq1qsd3ojqnsw" path="res://Componentes/Cartas/CardResorce/CartaEncolhedor.tres" id="4_e27ku"]
-[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_i3p2d"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_i3p2d"]
 
 [resource]
 script = ExtResource("2_wtanw")

@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_224er"]
 [ext_resource type="Resource" uid="uid://cqbnt1i0kov4g" path="res://Componentes/Cartas/CardResorce/CartaTrocaDeLugar.tres" id="3_qnqhe"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_57t4t"]
-[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_crrlm"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_crrlm"]
 [ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="4_ifbr0"]
 [ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="5_ymnvi"]
 [ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="6_qnqhe"]

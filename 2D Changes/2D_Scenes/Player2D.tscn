@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://clc333t0ptaed" path="res://Recursos/SFXs/BateuNaParede_footstep_wood_003.wav" id="10_fl8l5"]
 [ext_resource type="AudioStream" uid="uid://c7i8wt5kqjjw6" path="res://Recursos/SFXs/BateuNaTrave_406490__anthousai__hit-metallic-basketball-hoop-pipe-01.wav" id="11_gwudw"]
 [ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="12_gwudw"]
-[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="15_fl8l5"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="15_fl8l5"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="15_gwudw"]
 [ext_resource type="PackedScene" uid="uid://cjab8n13u8gkw" path="res://2D Changes/2D_Scenes/MenuRadial.tscn" id="19_o5120"]
 

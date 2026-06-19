@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_xsuxx"]
 [ext_resource type="Resource" uid="uid://cndo0e8eucob3" path="res://Componentes/Cartas/CardResorce/CartaGeradorMana.tres" id="3_pb4op"]
 [ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="4_8qcmp"]
-[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/peceas-03.png" id="4_fs3cl"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_fs3cl"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_qk75u"]
 [ext_resource type="Resource" uid="uid://cnyerld68fmwt" path="res://Componentes/Cartas/CardResorce/Congelamento.tres" id="5_jg75n"]
 
