@@ -20,6 +20,7 @@
 [ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="13_l5le2"]
 [ext_resource type="Shader" uid="uid://bwk4a7irj5xyf" path="res://Componentes/Recompensas/VideoTransparente.gdshader" id="14_tsond"]
 [ext_resource type="VideoStream" uid="uid://b5hiyctv2kbos" path="res://Recursos/WebM/bau_completo_hstack.ogv" id="14_utayo"]
+[ext_resource type="PackedScene" uid="uid://cv3g8c3wjj8x0" path="res://2D Changes/Components/Pecas/PecaMenus.tscn" id="15_75vte"]
 [ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="15_utayo"]
 [ext_resource type="Texture2D" uid="uid://ctxn0nxcadoth" path="res://Recursos/2D_Art/IconesCartas/Carta_costas.png" id="16_vb2l2"]
 [ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="21_vb2l2"]
@@ -31,7 +32,7 @@ shader_parameter/chroma_sensitivity = 0.414000019665
 shader_parameter/chroma_tolerance = 0.31200001482
 shader_parameter/mask_threshold = 0.92800004408
 
-[node name="RecompensaTorneio_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("video_player", "fundo_azul_2", "fundo_azul_3", "tamanho_vazio", "botao_bau", "inspecao_peca_hbox", "inspecao_carta_hbox", "peca_nome_label", "peca_rank_label", "peca_arte_rect", "peca_ap_label", "peca_slots_count_label", "peca_slots_indicator", "peca_equipped_grid", "carta_nome_label", "carta_descricao_label", "carta_slots_indicator", "container_opcoes", "btn_menu")]
+[node name="RecompensaTorneio_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("video_player", "fundo_azul_2", "fundo_azul_3", "tamanho_vazio", "botao_bau", "inspecao_peca_hbox", "inspecao_carta_hbox", "peca_nome_label", "peca_rank_label", "peca_ap_label", "peca_slots_count_label", "peca_slots_indicator", "peca_equipped_grid", "carta_nome_label", "carta_descricao_label", "carta_slots_indicator", "container_opcoes", "btn_menu")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -50,7 +51,6 @@ inspecao_peca_hbox = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContain
 inspecao_carta_hbox = NodePath("Panel/Info_VBoxContainer/InspecaoCarta_HBoxContainer")
 peca_nome_label = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/ItemName_Label")
 peca_rank_label = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/MarginContainer/HBoxContainer/PecaRank_Label")
-peca_arte_rect = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/PecaTexture_TextureRect")
 peca_ap_label = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/PontosAcao_HBoxContainer/PontosdeAcao_Label")
 peca_slots_count_label = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/HBoxContainer/ContagemSlots_Label")
 peca_slots_indicator = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/SlotsIndicator_HBoxContainer")
@@ -251,7 +251,12 @@ theme_override_font_sizes/font_size = 40
 text = "Peça Xandao"
 horizontal_alignment = 1
 
+[node name="PecaMenus_TextureRect" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer" unique_id=1271087044 instance=ExtResource("15_75vte")]
+custom_minimum_size = Vector2(190, 130)
+layout_mode = 2
+
 [node name="PecaTexture_TextureRect" type="TextureRect" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer" unique_id=919147315]
+visible = false
 z_index = 1
 custom_minimum_size = Vector2(190, 130)
 layout_mode = 2

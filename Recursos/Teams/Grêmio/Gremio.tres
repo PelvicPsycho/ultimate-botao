@@ -12,6 +12,8 @@
 [ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Grêmio/Mec.tres" id="7_fwef6"]
 [ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/peceas-04.png" id="11_r8ce3"]
 [ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/peceas-05.png" id="12_m86k1"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="13_v7mno"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="14_fwef6"]
 
 [resource]
 script = ExtResource("2_li65g")
@@ -26,4 +28,7 @@ materialInativo = ExtResource("3_my0g1")
 textura_overlay_1 = ExtResource("11_r8ce3")
 textura_overlay_2 = ExtResource("12_m86k1")
 textura_overlay_3 = ExtResource("11_r8ce3")
+textura_overlay_menu_1 = ExtResource("13_v7mno")
+textura_overlay_menu_2 = ExtResource("14_fwef6")
+textura_overlay_menu_3 = ExtResource("13_v7mno")
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

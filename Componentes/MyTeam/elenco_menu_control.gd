@@ -3,6 +3,8 @@ class_name ElencoMenuManager
 
 enum CategoryTab { PIECES, CARDS }
 
+#var controle_sob_o_mouse: Control = null #DEBUG
+
 # --- VARIÁVEIS DE ESTADO ---
 var current_slot: int = 1
 var current_tab: CategoryTab = CategoryTab.PIECES
@@ -95,7 +97,11 @@ var sort_mode := 3         # O padrão agora é 3 (Data)
 @export var btn_abrir_video: TextureButton
 @export var btn_fechar_video: Button
 
-
+@export_group("Visuais Dinâmicos da Peça (PecaMenuUI)")
+@export var center_peca_visual: PecaMenuUI
+@export var right_peca_visual: PecaMenuUI
+## Coloque aqui os 5 nós PecaMenuUI que ficam dentro dos botões do topo, na ordem correta (1 a 5).
+@export var top_slots_visuais: Array[PecaMenuUI]
 
 # --- INICIALIZAÇÃO ---
 func _ready() -> void:
@@ -109,6 +115,19 @@ func _ready() -> void:
 	btn_abrir_video.pressed.connect(_abrir_modo_cinema)
 	# O botão de fechar é a área invisível que cobre a tela toda
 	btn_fechar_video.pressed.connect(_fechar_modo_cinema)
+
+#func _process(_delta: float) -> void:
+	## Pega exatamente o Control que está debaixo do ponteiro do mouse agora
+	#var controle_atual = get_viewport().gui_get_hovered_control()
+	#
+	## Se for diferente do que estava no frame anterior, a gente imprime!
+	#if controle_atual != controle_sob_o_mouse:
+		#controle_sob_o_mouse = controle_atual
+		#
+		#if controle_atual != null:
+			#print("🔎 [DEBUG MOUSE] Apontando para: ", controle_atual.name, " | Tipo: ", controle_atual.get_class())
+		#else:
+			#print("🔎 [DEBUG MOUSE] Apontando para: NADA (Fundo/Canvas)")
 
 func _connect_signals() -> void:
 	for i in range(slot_buttons.size()):
@@ -139,24 +158,25 @@ func _select_slot(slot_index: int) -> void:
 		var peca_selecionada = GameState.jogadores[current_slot - 1]
 		if peca_selecionada != null:
 			var nome_peca = peca_selecionada.nome if "nome" in peca_selecionada else "Peça Desconhecida"
-			print("\n=== DEBUG MENU ELENCO: Slot ", current_slot, " (", nome_peca, ") ===")
-			print("Tamanho real do array 'slotsUpgrates' nesta peça: ", peca_selecionada.slotsUpgrates.size())
+			#print("\n=== DEBUG MENU ELENCO: Slot ", current_slot, " (", nome_peca, ") ===")
+			#print("Tamanho real do array 'slotsUpgrates' nesta peça: ", peca_selecionada.slotsUpgrates.size())
 			
 			for i in range(peca_selecionada.slotsUpgrates.size()):
 				var c = peca_selecionada.slotsUpgrates[i]
 				if c == null:
-					print("  Slot [", i, "]: VAZIO (null)")
+					pass
+					#print("  Slot [", i, "]: VAZIO (null)")
 				else:
 					var nome_carta = c.nome if "nome" in c else "Sem Nome"
-					print("  Slot [", i, "]: ", nome_carta, " | Custo: ", c.custoSlotes)
-			print("===================================================\n")
+					#print("  Slot [", i, "]: ", nome_carta, " | Custo: ", c.custoSlotes)
+			#print("===================================================\n")
 	# === FIM DO DEBUG ===
 
 	_atualizar_visual_dos_slots()
 	
 	_update_right_window()
 	
-	GameState.imprimir_status_do_time()
+#	GameState.imprimir_status_do_time()
 	
 	if item_em_inspecao is CardResource and inspecionando_carta_equipada:
 		_clear_center_window()
@@ -368,8 +388,8 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 		center_card_view.visible = true
 		center_peca_view.visible = false
 		
-		if cw_button_texture:
-			cw_button_texture.visible = false 
+		#if cw_button_texture:
+			#cw_button_texture.visible = false 
 		
 		central_descricao_label.text = _gerar_texto_detalhado_carta(item)
 		
@@ -458,14 +478,18 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 		center_card_view.visible = false
 		center_peca_view.visible = true
 		
-		if cw_button_texture and cw_button_label:
-			cw_button_texture.visible = true
-			var index_no_time = GameState.jogadores.find(item)
-			
-			if index_no_time != -1 and index_no_time < slot_buttons.size():
-				cw_button_label.text = str(index_no_time + 1)
-			else:
-				cw_button_label.text = ""
+		if is_instance_valid(center_peca_visual):
+#			center_peca_visual.show()
+			center_peca_visual.setup_peca(item)
+		
+		#if cw_button_texture and cw_button_label:
+			#cw_button_texture.visible = true
+			#var index_no_time = GameState.jogadores.find(item)
+			#
+			#if index_no_time != -1 and index_no_time < slot_buttons.size():
+				#cw_button_label.text = str(index_no_time + 1)
+			#else:
+				#cw_button_label.text = ""
 		
 		var status = _get_status_calculado(item)
 		var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, item.quantosSlotes]
@@ -577,15 +601,19 @@ func _update_right_window() -> void:
 	if current_slot < 1 or current_slot > GameState.jogadores.size(): return 
 
 	var peca_atual = GameState.jogadores[current_slot - 1] 
-
+	
+	if is_instance_valid(right_peca_visual) and peca_atual != null:
+#		right_peca_visual.show()
+		right_peca_visual.setup_peca(peca_atual)
+	
 	if right_nome_label:
 		right_nome_label.text = peca_atual.nome
 		
-	if rw_button_texture and rw_button_label:
-		rw_button_texture.visible = true
-		var index_no_time = GameState.jogadores.find(peca_atual)
-		
-		rw_button_label.text = str(index_no_time + 1) if index_no_time != -1 and index_no_time < slot_buttons.size() else " "
+	#if rw_button_texture and rw_button_label:
+		#rw_button_texture.visible = true
+		#var index_no_time = GameState.jogadores.find(peca_atual)
+		#
+		#rw_button_label.text = str(index_no_time + 1) if index_no_time != -1 and index_no_time < slot_buttons.size() else " "
 			
 	var status = _get_status_calculado(peca_atual)
 	var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, peca_atual.quantosSlotes]
@@ -813,21 +841,35 @@ func _gerar_texto_detalhado_carta(carta: CardResource) -> String:
 		
 	return texto
 
-# --- ATUALIZAÇÃO DOS NOMES DOS SLOTS ---
+# --- ATUALIZAÇÃO DOS NOMES E VISUAIS DOS SLOTS ---
 func _atualizar_nomes_dos_slots() -> void:
 	for i in range(slot_buttons.size()):
 		var btn = slot_buttons[i]
 		
 		# Procura o nó filho exato chamado "Nome" dentro do botão
 		var label_nome = btn.get_node_or_null("Nome")
+		var peca_no_slot: TeamPlayer = null
 		
-		if label_nome and label_nome is Label:
-			# Verifica se existe uma peça equipada para esse slot no momento
-			if i < GameState.jogadores.size() and GameState.jogadores[i] != null:
-				label_nome.text = GameState.jogadores[i].nome
-			else:
+		# Verifica se existe uma peça equipada para esse slot no momento
+		if i < GameState.jogadores.size() and GameState.jogadores[i] != null:
+			peca_no_slot = GameState.jogadores[i]
+			
+		if peca_no_slot != null:
+			if label_nome: 
+				label_nome.text = peca_no_slot.nome
+				
+			# Atualiza o visual da PecaMenuUI correspondente ao slot
+			if i < top_slots_visuais.size() and is_instance_valid(top_slots_visuais[i]):
+				top_slots_visuais[i].show()
+				top_slots_visuais[i].setup_peca(peca_no_slot)
+		else:
+			if label_nome: 
 				label_nome.text = "" # Deixa em branco caso o slot esteja vazio
-
+				
+			# Esconde o visual se não houver peça
+			if i < top_slots_visuais.size() and is_instance_valid(top_slots_visuais[i]):
+				top_slots_visuais[i].hide()
+	
 # --- REORGANIZAÇÃO DE SLOTS ---
 func _reorganizar_slots_da_peca(peca: TeamPlayer) -> void:
 	var cartas_ativas = []
@@ -929,6 +971,7 @@ func _fechar_modo_cinema() -> void:
 
 func _ao_mudar_visibilidade() -> void:
 	if visible:
+		_atualizar_nomes_dos_slots()
 		_atualizar_visual_dos_slots()
 
 func _atualizar_visual_dos_slots() -> void:

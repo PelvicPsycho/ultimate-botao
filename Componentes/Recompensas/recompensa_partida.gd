@@ -13,7 +13,8 @@ var grupo_recompensa := ButtonGroup.new()
 @export_group("Janela de Inspeção - Esquerda")
 @export var insp_nome_label: Label         
 @export var insp_rank_label: Label         
-@export var insp_arte_rect: TextureRect    
+#@export var insp_arte_rect: TextureRect
+@export var insp_peca_visual: PecaMenuUI   
 
 @export_group("Janela de Inspeção - Direita")
 @export var contagem_slots_label: Label    
@@ -114,9 +115,12 @@ func _selecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
 	# 1. Atualiza Esquerda (Nome, Arte, Rank)
 	insp_nome_label.text = peca.nome
 	insp_rank_label.text = str(TeamPlayer.Rank.keys()[peca.rank])
-	if peca.foto:
-		insp_arte_rect.texture = peca.foto
-		
+	#if peca.foto:
+		#insp_arte_rect.texture = peca.foto
+	if is_instance_valid(insp_peca_visual):
+#		insp_peca_visual.show() # Garante que está visível
+		insp_peca_visual.setup_peca(peca)
+	
 	pontos_acao_label.text = "%d AP" % peca.PA
 	
 	# 2. Atualiza a Grid de Cartas Equipadas (com a cena quadrada pequena)
@@ -224,7 +228,7 @@ func _limpar_inspecao() -> void:
 	insp_nome_label.text = "Selecione uma Peça"
 	insp_rank_label.text = ""
 	pontos_acao_label.text = ""
-	insp_arte_rect.texture = null
+#	insp_arte_rect.texture = null
 	if slots_indicator_hbox:
 		for child in slots_indicator_hbox.get_children():
 			child.queue_free()
@@ -250,3 +254,18 @@ func _on_teste_button_2_pressed() -> void:
 			GameState.adicionar_peca(peca.id_unico)
 			
 	print("Save carregado! Você possui ", GameState.pecas_desbloqueadas.size(), " tipos de peças.")
+
+
+func _on_teste_button_3_pressed() -> void:
+	# 1. Sorteia uma copa aleatória da lista oficial do CupManager
+	var copa_aleatoria = CupManager.cupList.pick_random()
+	
+	# 2. Verifica se a copa tem times e sorteia um time aleatório dela
+	if copa_aleatoria and copa_aleatoria.teamPool.size() > 0:
+		var time_aleatorio = copa_aleatoria.teamPool.pick_random()
+		
+		# 3. Inicia a tela de recompensa passando o time sorteado
+		iniciar_tela_de_recompensa(time_aleatorio)
+		print("Time sorteado para teste: ", time_aleatorio.name)
+	else:
+		print("Erro: A copa sorteada não possui times na teamPool!")
