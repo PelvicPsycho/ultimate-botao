@@ -41,11 +41,16 @@ func _sync_main_squad_from_gamestate() -> void:
 	var num_titulares = mini(myTeam.mainSquad.size(), GameState.jogadores.size())
 	for i in range(num_titulares):
 		myTeam.mainSquad[i] = GameState.jogadores[i]
+		if myTeam.mainSquad[i] != null:
+			myTeam.mainSquad[i].time = myTeam
 	
 	# Preenche o collectedSquad com as peças restantes (reservas)
 	myTeam.collectedSquad.clear()
 	for i in range(num_titulares, GameState.jogadores.size()):
-		myTeam.collectedSquad.append(GameState.jogadores[i])
+		var peca_reserva = GameState.jogadores[i]
+		myTeam.collectedSquad.append(peca_reserva)
+		if peca_reserva != null:
+			peca_reserva.time = myTeam
 	
 	#print("✔ mainSquad: %d titulares | collectedSquad: %d reservas" % [num_titulares, myTeam.collectedSquad.size()])
 	#

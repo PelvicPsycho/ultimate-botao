@@ -1,7 +1,7 @@
 extends Button
 
 @export var nome_label: Label
-@export var foto_icone: TextureRect
+@export var peca_visual: PecaMenuUI
 @export var rank_label: Label
 @export var quantidade_label: Label
 @export var borda_panel: Panel
@@ -33,7 +33,11 @@ func setup_item(dados: Resource, quantidade: int = 0):
 				rank_label.text = rank_keys[dadosRank]
 			else:
 				rank_label.text = str(dadosRank)
-
+		
+		if is_instance_valid(peca_visual):
+#			peca_visual.show()
+			peca_visual.setup_peca(dados)
+	
 	if quantidade_label:
 		quantidade_label.visible = quantidade > 1
 		if quantidade > 1:

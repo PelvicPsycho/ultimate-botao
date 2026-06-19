@@ -26,7 +26,8 @@ var _debug_inserir_myteam := false
 @export_group("Inspeção da Peça")
 @export var peca_nome_label: Label         # ItemName_Label
 @export var peca_rank_label: Label         # PecaRank_Label
-@export var peca_arte_rect: TextureRect    # PecaTexture_TextureRect
+#@export var peca_arte_rect: TextureRect    # PecaTexture_TextureRect
+@export var insp_peca_visual: PecaMenuUI
 @export var peca_ap_label: Label           # PontosdeAcao_Label
 @export var peca_slots_count_label: Label  # ContagemSlots_Label
 @export var peca_slots_indicator: HBoxContainer # SlotsIndicator_HBoxContainer da peça
@@ -288,8 +289,12 @@ func _inspecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
 	
 	peca_nome_label.text = peca.nome
 	peca_rank_label.text = str(TeamPlayer.Rank.keys()[peca.rank])
-	if peca.foto:
-		peca_arte_rect.texture = peca.foto
+	#if peca.foto:
+		#peca_arte_rect.texture = peca.foto
+	if is_instance_valid(insp_peca_visual):
+#		insp_peca_visual.show()
+		insp_peca_visual.setup_peca(peca)
+	
 	peca_ap_label.text = "%d AP" % peca.PA
 	
 	# Limpa a janela de cartas equipadas

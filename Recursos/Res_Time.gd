@@ -18,9 +18,15 @@ enum Rank {F,E,D,C,B,A,S,PLAYER}
 @export_category("Overlay do Shader")
 @export_enum("Nenhum", "Textura 1", "Textura 2", "Textura 3") var overlay_escolhido: int = 0
 
+## Texturas de overlay para a peça na partida (vista de cima)
 @export var textura_overlay_1: Texture2D
 @export var textura_overlay_2: Texture2D
 @export var textura_overlay_3: Texture2D
+
+## Texturas de overlay para a peça nos menus (vista em ângulo de 30°)
+@export var textura_overlay_menu_1: Texture2D
+@export var textura_overlay_menu_2: Texture2D
+@export var textura_overlay_menu_3: Texture2D
 
 
 func get_overlay_texture() -> Texture2D:
@@ -28,4 +34,11 @@ func get_overlay_texture() -> Texture2D:
 		1: return textura_overlay_1
 		2: return textura_overlay_2
 		3: return textura_overlay_3
+		_: return null
+
+func get_overlay_texture_menu() -> Texture2D:
+	match overlay_escolhido:
+		1: return textura_overlay_menu_1
+		2: return textura_overlay_menu_2
+		3: return textura_overlay_menu_3
 		_: return null

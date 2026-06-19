@@ -110,3 +110,30 @@ func _on_add_todas_cartas_pressed() -> void:
 			
 			# Adiciona aos desbloqueados
 			GameState.adicionar_peca(jogador_copia.id_unico)
+
+
+func _on_addpecasaleatorias_pressed() -> void:
+	# Garante que o banco de dados já carregou para não dar erro
+	if Database.pecas_db.is_empty():
+		print("Erro: O Database de peças está vazio ou ainda não carregou.")
+		return
+		
+	# Pega todos os IDs das peças e transforma em um Array
+	var todas_as_chaves = Database.pecas_db.keys()
+	
+	print("=== Sorteando 5 Peças Aleatórias ===")
+	
+	# Roda o sorteio 5 vezes
+	for i in range(5):
+		var id_sorteado = todas_as_chaves.pick_random()
+		
+		# Adiciona no stack/inventário do GameState
+		GameState.adicionar_peca(id_sorteado)
+		
+		# Pega o nome apenas para imprimir no console e você saber o que ganhou
+		var nome_peca = Database.pecas_db[id_sorteado].nome
+		print(i + 1, "ª Peça recebida: ", nome_peca)
+		
+	# Salva o jogo para não perder as peças novas ao fechar
+	SaveManager.save_game()
+	print("✔ 5 Peças salvas com sucesso no seu inventário!")

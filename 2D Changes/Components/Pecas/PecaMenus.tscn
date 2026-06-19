@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cv3g8c3wjj8x0"]
+
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="1_6b50c"]
+[ext_resource type="Texture2D" uid="uid://c2tjj3vxiyhx" path="res://Recursos/2D_Art/MyTeam/peca_frente.png" id="1_oxojg"]
+[ext_resource type="Script" uid="uid://cnebfihj12wjo" path="res://2D Changes/Components/Pecas/peca_menus.gd" id="3_ytww4"]
+
+[node name="PecaMenus_TextureRect" type="TextureRect" unique_id=1271087044]
+material = ExtResource("1_6b50c")
+offset_right = 372.0
+offset_bottom = 238.0
+mouse_filter = 2
+texture = ExtResource("1_oxojg")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("3_ytww4")
+intensidade_overlay = 0.5

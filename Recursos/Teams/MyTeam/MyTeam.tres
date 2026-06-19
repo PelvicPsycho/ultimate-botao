@@ -13,6 +13,8 @@
 [ext_resource type="Material" uid="uid://x67w856wlle8" path="res://Componentes/PlayerGradientes/TimeAzulDesactive.tres" id="8_q0ups"]
 [ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/peceas-04.png" id="12_75tbl"]
 [ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/peceas-05.png" id="13_bo60u"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="14_q0ups"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="15_ny1ln"]
 
 [resource]
 script = ExtResource("2_2t8uq")
@@ -28,4 +30,7 @@ overlay_escolhido = 1
 textura_overlay_1 = ExtResource("12_75tbl")
 textura_overlay_2 = ExtResource("13_bo60u")
 textura_overlay_3 = ExtResource("12_75tbl")
+textura_overlay_menu_1 = ExtResource("14_q0ups")
+textura_overlay_menu_2 = ExtResource("15_ny1ln")
+textura_overlay_menu_3 = ExtResource("14_q0ups")
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

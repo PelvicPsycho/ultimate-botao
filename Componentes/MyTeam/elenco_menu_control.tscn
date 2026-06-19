@@ -4,15 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://de2inw5i1aorq" path="res://Recursos/2D_Art/MyTeam/Group 140.png" id="2_0maoc"]
 [ext_resource type="Texture2D" uid="uid://o5omjcf51pl3" path="res://Recursos/2D_Art/MyTeam/Shape with text.png" id="2_1feu8"]
 [ext_resource type="PackedScene" uid="uid://d3ckt5m6bhi5e" path="res://Componentes/MyTeam/inventory_cards_button.tscn" id="2_mjelh"]
-[ext_resource type="Texture2D" uid="uid://d4hv2pdlb1jrf" path="res://Recursos/2D_Art/MyTeam/Group 52_.png" id="3_2ysy5"]
-[ext_resource type="Texture2D" uid="uid://d2f4o6btxl3tp" path="res://Recursos/2D_Art/MyTeam/Shape with text_1.png" id="3_i1aih"]
+[ext_resource type="Texture2D" uid="uid://b0j3i4kittphv" path="res://Componentes/Recompensas/SlotPreenchido.png" id="4_uy8iv"]
 [ext_resource type="Texture2D" uid="uid://crifmj85cln87" path="res://Recursos/2D_Art/MyTeam/Rectangle 16.png" id="4_x3s7i"]
+[ext_resource type="Texture2D" uid="uid://bogm6yps4rlg4" path="res://Componentes/Recompensas/SlotVazio.png" id="5_1unkj"]
 [ext_resource type="Texture2D" uid="uid://47ugmokghauy" path="res://Recursos/2D_Art/MyTeam/Group 53_.png" id="5_x3s7i"]
 [ext_resource type="Texture2D" uid="uid://7pb1a7h83erj" path="res://Recursos/2D_Art/MyTeam/Group 4_.png" id="6_3vc01"]
 [ext_resource type="PackedScene" uid="uid://orrq0vy3qa51" path="res://Componentes/MyTeam/inventory_pecas_button.tscn" id="7_3c3cq"]
 [ext_resource type="Texture2D" uid="uid://sb143gchnnfr" path="res://Recursos/2D_Art/MyTeam/Group 57.png" id="9_cep57"]
 [ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="10_wegx5"]
 [ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="12_0wqyg"]
+[ext_resource type="PackedScene" uid="uid://cv3g8c3wjj8x0" path="res://2D Changes/Components/Pecas/PecaMenus.tscn" id="12_uy8iv"]
 [ext_resource type="Texture2D" uid="uid://b7i7lscx1xobo" path="res://Recursos/2D_Art/MyTeam/Rectangle 23.png" id="13_0maoc"]
 [ext_resource type="PackedScene" uid="uid://d0h3cghqr1iun" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="13_2ysy5"]
 [ext_resource type="Texture2D" uid="uid://dnafvuhag1c13" path="res://Recursos/2D_Art/MyTeam/Rectangle 24.png" id="13_3c3cq"]
@@ -93,7 +94,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "az_filter_btn", "rank_filter_btn", "date_filter_btn", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_pai_margincontainer", "center_plainmsg_vbox", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "thumbnail_video_wrapper", "central_video_player", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox", "overlay_video", "fundo_escuro", "video_container", "popup_video_player", "btn_abrir_video", "btn_fechar_video")]
+[node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "az_filter_btn", "rank_filter_btn", "date_filter_btn", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_pai_margincontainer", "center_plainmsg_vbox", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "thumbnail_video_wrapper", "central_video_player", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox", "overlay_video", "fundo_escuro", "video_container", "popup_video_player", "btn_abrir_video", "btn_fechar_video", "center_peca_visual", "right_peca_visual", "top_slots_visuais")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -102,8 +103,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rox6y")
 slot_buttons = [NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton1"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton2"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton3"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton4"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton5")]
-textura_slot_selecionado = ExtResource("5_x3s7i")
-textura_slot_inativo = ExtResource("3_2ysy5")
 tab_pieces_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer/TabPecas_Button")
 tab_cards_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer/TabCartas_Button")
 textura_aba_ativa = ExtResource("2_0maoc")
@@ -129,7 +128,7 @@ cw_button_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/Ma
 center_peca_slots_hbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer/CENTERSlotsIndicator_HBoxContainer")
 cw_contagem_slots_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer/CW_ContagemSlots_Label")
 slots_que_ocupa_hbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/SlotsQueOcupa_HBoxContainer")
-icone_de_slot_textura = ExtResource("2_1feu8")
+icone_de_slot_textura = ExtResource("4_uy8iv")
 thumbnail_video_wrapper = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control")
 central_video_player = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer")
 right_nome_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/PieceNameTitle_Label")
@@ -139,8 +138,8 @@ rw_contagem_slots_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxCont
 rw_button_texture = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/RW-ButtonTexture_TextureRect")
 rw_button_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/RW-ButtonTexture_TextureRect/RW-ButtonLabel_Label")
 right_slots_indicator_hbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer")
-icone_slot_ocupado = ExtResource("2_1feu8")
-icone_slot_livre = ExtResource("3_i1aih")
+icone_slot_ocupado = ExtResource("4_uy8iv")
+icone_slot_livre = ExtResource("5_1unkj")
 cena_item_carta = ExtResource("2_mjelh")
 cena_item_peca = ExtResource("7_3c3cq")
 cena_carta_pequena = ExtResource("13_2ysy5")
@@ -150,6 +149,9 @@ video_container = NodePath("VideoPreviewOverlay_Control/VideoContainer_Control")
 popup_video_player = NodePath("VideoPreviewOverlay_Control/VideoContainer_Control/PopupVideo_VideoStreamPlayer")
 btn_abrir_video = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer/AbrirVideo_TextureButton")
 btn_fechar_video = NodePath("VideoPreviewOverlay_Control/FecharVideo_Button")
+center_peca_visual = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer/PecaMenus_TextureRect")
+right_peca_visual = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/PecaMenus_TextureRect")
+top_slots_visuais = [NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton1/PecaMenus_TextureRect"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton2/PecaMenus_TextureRect"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton3/PecaMenus_TextureRect"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton4/PecaMenus_TextureRect"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton5/PecaMenus_TextureRect")]
 
 [node name="MainMargin_MarginContainer" type="MarginContainer" parent="." unique_id=259902652]
 layout_mode = 1
@@ -190,9 +192,18 @@ custom_minimum_size = Vector2(110, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
-texture_normal = ExtResource("5_x3s7i")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="PecaMenus_TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton1" unique_id=1271087044 instance=ExtResource("12_uy8iv")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton1" unique_id=802778601]
 layout_mode = 1
@@ -241,9 +252,18 @@ custom_minimum_size = Vector2(110, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
-texture_normal = ExtResource("5_x3s7i")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="PecaMenus_TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton2" unique_id=921464201 instance=ExtResource("12_uy8iv")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label2" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton2" unique_id=5192055]
 layout_mode = 1
@@ -292,9 +312,18 @@ custom_minimum_size = Vector2(110, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
-texture_normal = ExtResource("5_x3s7i")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="PecaMenus_TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton3" unique_id=151871815 instance=ExtResource("12_uy8iv")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label3" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton3" unique_id=2057543723]
 layout_mode = 1
@@ -343,9 +372,18 @@ custom_minimum_size = Vector2(110, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
-texture_normal = ExtResource("5_x3s7i")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="PecaMenus_TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton4" unique_id=336139307 instance=ExtResource("12_uy8iv")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label4" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton4" unique_id=1246603818]
 layout_mode = 1
@@ -394,9 +432,18 @@ custom_minimum_size = Vector2(110, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
-texture_normal = ExtResource("5_x3s7i")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="PecaMenus_TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton5" unique_id=1915804176 instance=ExtResource("12_uy8iv")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label5" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton5" unique_id=466581749]
 layout_mode = 1
@@ -477,6 +524,7 @@ offset_right = 50.0
 offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("10_wegx5")
 expand_mode = 1
 
@@ -503,6 +551,7 @@ offset_right = 64.0
 offset_bottom = 33.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("5_x3s7i")
 expand_mode = 1
 
@@ -660,7 +709,13 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 text = "ItemName"
 
+[node name="PecaMenus_TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer" unique_id=1367843058 instance=ExtResource("12_uy8iv")]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 10
+
 [node name="CW-ButtonTexture_TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer" unique_id=778005741]
+visible = false
 z_index = 1
 custom_minimum_size = Vector2(150, 120)
 layout_mode = 2
@@ -906,7 +961,13 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 30
 text = "ItemName"
 
+[node name="PecaMenus_TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer" unique_id=1054778971 instance=ExtResource("12_uy8iv")]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 10
+
 [node name="RW-ButtonTexture_TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer" unique_id=1882861952]
+visible = false
 z_index = 1
 custom_minimum_size = Vector2(150, 120)
 layout_mode = 2
@@ -990,6 +1051,7 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 274.0
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="BannerColorido_Control" parent="Banner_Esq_Control" unique_id=781915788 instance=ExtResource("16_2ysy5")]
 layout_mode = 1
@@ -1012,6 +1074,7 @@ anchor_bottom = 1.0
 offset_left = -241.0
 grow_horizontal = 0
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="BannerColorido_Control2" parent="Banner_Dir_Control" unique_id=342337384 instance=ExtResource("16_2ysy5")]
 layout_mode = 1

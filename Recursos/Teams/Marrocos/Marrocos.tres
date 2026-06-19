@@ -2,7 +2,11 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_64eak"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_kkb1t"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="3_kkb1t"]
 
 [resource]
 script = ExtResource("2_kkb1t")
 name = "Marrocos"
+overlay_escolhido = 1
+textura_overlay_1 = ExtResource("3_kkb1t")
+textura_overlay_menu_1 = ExtResource("3_kkb1t")

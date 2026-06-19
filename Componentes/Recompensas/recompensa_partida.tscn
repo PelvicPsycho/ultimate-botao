@@ -16,9 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://cl2tgl8bovq38" path="res://Componentes/Recompensas/Rectangle 39_recompensadown.png" id="7_w73gl"]
 [ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="12_xqpaq"]
 [ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="14_04a5q"]
+[ext_resource type="PackedScene" uid="uid://cv3g8c3wjj8x0" path="res://2D Changes/Components/Pecas/PecaMenus.tscn" id="14_edpve"]
 [ext_resource type="PackedScene" uid="uid://bictrlui67dr8" path="res://Componentes/MyTeam/inventory_cards_smaller_button.tscn" id="15_04a5q"]
 
-[node name="RecompensaPartida_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("insp_nome_label", "insp_rank_label", "insp_arte_rect", "contagem_slots_label", "slots_indicator_hbox", "equipped_cards_grid", "pontos_acao_label", "container_opcoes", "btn_aceitar")]
+[node name="RecompensaPartida_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("insp_nome_label", "insp_rank_label", "insp_peca_visual", "contagem_slots_label", "slots_indicator_hbox", "equipped_cards_grid", "pontos_acao_label", "container_opcoes", "btn_aceitar")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -29,7 +30,7 @@ grow_vertical = 2
 script = ExtResource("1_u85iu")
 insp_nome_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/ItemName_Label")
 insp_rank_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/MarginContainer/HBoxContainer/PecaRank_Label")
-insp_arte_rect = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/PecaTexture_TextureRect")
+insp_peca_visual = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/PecaMenus_TextureRect")
 contagem_slots_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/HBoxContainer/ContagemSlots_Label")
 slots_indicator_hbox = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/SlotsIndicator_HBoxContainer")
 equipped_cards_grid = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer")
@@ -217,7 +218,12 @@ theme_override_font_sizes/font_size = 40
 text = "Peça Xandao"
 horizontal_alignment = 1
 
+[node name="PecaMenus_TextureRect" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer" unique_id=1271087044 instance=ExtResource("14_edpve")]
+custom_minimum_size = Vector2(190, 130)
+layout_mode = 2
+
 [node name="PecaTexture_TextureRect" type="TextureRect" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer" unique_id=919147315]
+visible = false
 z_index = 1
 custom_minimum_size = Vector2(190, 130)
 layout_mode = 2
@@ -454,5 +460,15 @@ offset_bottom = 112.0
 theme_override_font_sizes/font_size = 30
 text = "LOAD MYTEAM"
 
+[node name="TESTE_Button3" type="Button" parent="." unique_id=1938422950]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 236.0
+offset_right = 408.0
+offset_bottom = 286.0
+theme_override_font_sizes/font_size = 30
+text = "random team"
+
 [connection signal="pressed" from="TESTE_Button" to="." method="_on_teste_button_pressed"]
 [connection signal="pressed" from="TESTE_Button2" to="." method="_on_teste_button_2_pressed"]
+[connection signal="pressed" from="TESTE_Button3" to="." method="_on_teste_button_3_pressed"]

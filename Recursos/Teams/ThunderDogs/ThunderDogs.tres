@@ -10,6 +10,8 @@
 [ext_resource type="Resource" uid="uid://cnv45fa1voitc" path="res://Recursos/Teams/ThunderDogs/Max.tres" id="7_2pli6"]
 [ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/peceas-04.png" id="9_5i08a"]
 [ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/peceas-05.png" id="10_ctmbm"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="11_2pli6"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="12_xc67t"]
 
 [resource]
 script = ExtResource("2_mkjc6")
@@ -22,4 +24,7 @@ overlay_escolhido = 2
 textura_overlay_1 = ExtResource("9_5i08a")
 textura_overlay_2 = ExtResource("10_ctmbm")
 textura_overlay_3 = ExtResource("9_5i08a")
+textura_overlay_menu_1 = ExtResource("11_2pli6")
+textura_overlay_menu_2 = ExtResource("12_xc67t")
+textura_overlay_menu_3 = ExtResource("11_2pli6")
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"
