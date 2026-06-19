@@ -69,19 +69,19 @@ func SetPieceLists() -> void:
 func GetRandomPlayByDifficulty(max_index: int) -> int:
 	
 	if dificuldade_atual == Cup.CUP_RANK.S:
-		return randi_range(0, min(1,max_index))
+		return randi_range(0, min(5,max_index))
 	elif dificuldade_atual == Cup.CUP_RANK.A:
-		return randi_range(0, min(4,max_index))
-	elif dificuldade_atual == Cup.CUP_RANK.B:
-		return randi_range(0, min(7,max_index))
-	elif dificuldade_atual == Cup.CUP_RANK.C:
 		return randi_range(0, min(10,max_index))
+	elif dificuldade_atual == Cup.CUP_RANK.B:
+		return randi_range(0, min(15,max_index))
+	elif dificuldade_atual == Cup.CUP_RANK.C:
+		return randi_range(0, min(20,max_index))
 	elif dificuldade_atual == Cup.CUP_RANK.D:
-		return randi_range(0, min(13,max_index))
+		return randi_range(0, min(25,max_index))
 	elif dificuldade_atual == Cup.CUP_RANK.E:
-		return randi_range(0, min(16,max_index))
+		return randi_range(0, min(30,max_index))
 	elif dificuldade_atual == Cup.CUP_RANK.F:
-		return randi_range(0, min(19,max_index))
+		return randi_range(0, min(35,max_index))
 	return randi_range(0, max_index)
 
 func _process(delta: float) -> void:
@@ -179,7 +179,7 @@ func _process(delta: float) -> void:
 			else:
 				break
 		
-		var play_index = GetRandomPlayByDifficulty(max_index)#randi_range(0, max_index)
+		var play_index = GetRandomPlayByDifficulty(list_of_plays_simulated_Ordered.size()-1)#randi_range(0, max_index)
 		
 		print("Play selected index = ", play_index)
 		print("Play selected force_lerp = ", list_of_plays_simulated_Ordered[play_index].force_lerp)
