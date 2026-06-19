@@ -64,18 +64,6 @@ list_lines = [NodePath("Pitch/Pitch_Walls/TopWall_Line"), NodePath("Pitch/Pitch_
 
 [node name="Pitch" parent="PhysicsController" unique_id=603521134 instance=ExtResource("7_v76cn")]
 
-[node name="TopWall_Line" parent="PhysicsController/Pitch/Pitch_Walls" parent_id_path=PackedInt32Array(603521134, 2023815139) index="0" unique_id=1000286466]
-default_color = Color(1, 0.043137256, 0.015686275, 0.7647059)
-
-[node name="BotWall_Line" parent="PhysicsController/Pitch/Pitch_Walls" parent_id_path=PackedInt32Array(603521134, 2023815139) index="1" unique_id=1223852677]
-default_color = Color(1, 0.043137256, 0.015686275, 0.7647059)
-
-[node name="HomeGoalWall_Line" parent="PhysicsController/Pitch/Pitch_Walls" parent_id_path=PackedInt32Array(603521134, 2023815139) index="2" unique_id=1739921629]
-default_color = Color(1, 0.043137256, 0.015686275, 0.7647059)
-
-[node name="AwayGoalWall_Line" parent="PhysicsController/Pitch/Pitch_Walls" parent_id_path=PackedInt32Array(603521134, 2023815139) index="3" unique_id=1848776503]
-default_color = Color(1, 0.043137256, 0.015686275, 0.7647059)
-
 [node name="HomeTeam" type="Node2D" parent="PhysicsController" unique_id=2082446946]
 position = Vector2(0, -41)
 
@@ -177,5 +165,3 @@ script = ExtResource("21_qddwe")
 
 [connection signal="body_entered" from="AreaHome" to="Camera2D" method="_on_area_home_body_entered"]
 [connection signal="body_entered" from="AreaAway" to="Camera2D" method="_on_area_away_body_entered"]
-
-[editable path="PhysicsController/Pitch"]

@@ -110,8 +110,8 @@ func _ready() -> void:
 	radius = _base_radius
 	
 	base_visual_position = sprite2D_body.position
-	default_visual_scale = sprite2D_body.scale
-	base_visual_scale = default_visual_scale
+	default_sprite_scale = sprite2D_body.scale
+	default_player_scale = self.scale
 	base_visual_rotation = sprite2D_body.rotation
 	
 	start_Effects()
@@ -208,13 +208,14 @@ func atualizar_peca_pelo_status() -> void:
 	elif playerInfo_atual.diminui_de_tamano:
 		scale_multiplier = 0.5
 
-	var target_scale: Vector2 = default_visual_scale * scale_multiplier
-	base_visual_scale = target_scale
+	var target_scale: Vector2 = default_player_scale * scale_multiplier
+	#base_visual_scale = target_scale
 	var tween = create_tween().set_parallel(true)
 	tween.set_trans(Tween.TRANS_SPRING)
-	tween.tween_property(CollisionShape2D_object, "scale", target_scale, 0.5)
-
-	tween.tween_property(sprite2D_body, "scale", target_scale, 0.5)
+	#tween.tween_property(CollisionShape2D_object, "scale", target_scale, 0.5)
+	#tween.tween_property(sprite2D_body, "scale", target_scale, 0.5)
+	
+	tween.tween_property(self, "scale", target_scale, 0.5)
 
 	var novo_raio = (self.global_position - Object_Radius.global_position).length() #_base_radius * scale_multiplier
 	self.radius = novo_raio 
@@ -251,6 +252,10 @@ func _process(delta: float) -> void:
 	Draw_Velocity_Line()
 	
 	radius = (global_position - Object_Radius.global_position).length()
+	
+	# Mantem a escala do menu radial mesmo se a peça escalar
+	var inverse_scale = Vector2.ONE / self.scale
+	menu_radial.scale = inverse_scale
 	
 	if shaking and sprite2D_body != null:
 		shake_timer += delta
@@ -363,6 +368,7 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 		
 		if Input.is_action_just_pressed("ui_focus_next"): # tecla TAB por padrão
 			debug_status()
+
 func executar_troca_posicao(alvo: PhysicsPlayer2D) -> void:
 	if alvo == null: return
 	
@@ -781,8 +787,8 @@ func _get_velocity_visual_intensity() -> float:
 
 func _get_rest_visual_scale(hovering: bool = is_pointer_inside_piece) -> Vector2:
 	if hovering and canPlay:
-		return base_visual_scale * hover_scale_multiplier
-	return base_visual_scale
+		return default_sprite_scale * hover_scale_multiplier
+	return default_sprite_scale
 
 func _update_velocity_feedback(delta: float) -> void:
 	if tracer2D == null or sprite2D_body == null:
@@ -876,8 +882,9 @@ var shake_frequency: float = 0.0
 var cooldown_timer: float = 0.0
 var cooldown_duration: float = 0.1  # Cooldown curto para evitar disparos repetidos
 var base_visual_position: Vector2 = Vector2.ZERO
-var base_visual_scale: Vector2 = Vector2.ONE
-var default_visual_scale: Vector2 = Vector2.ONE
+
+var default_player_scale: Vector2 = Vector2.ONE
+var default_sprite_scale: Vector2 = Vector2.ONE
 
 @export var shake_amplitude_min: float = 0.8
 @export var shake_amplitude_max: float = 4.0

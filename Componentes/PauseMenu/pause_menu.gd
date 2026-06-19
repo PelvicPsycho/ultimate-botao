@@ -191,7 +191,7 @@ func _on_bounce_value_changed(value: float) -> void:
 	labelValor.text = str(value)
 	for peca in Pecas_Jogo:
 		peca.playerInfo_atual.basic_scale = value
-		peca.default_visual_scale = Vector2(value, value)
+		peca.default_sprite_scale = Vector2(value, value)
 	_atualizar_fisica_das_pecas()
 	print("player bounce - Not Updated to the physics 2D")
 
