@@ -42,9 +42,24 @@ var current_index: int
 
 #dificuldade atual
 @export var dificuldade_atual = CupManager.currentCup.cupRank
+@export var min_for_best_play = 0
 
 func SetIADifficulty():
 	dificuldade_atual = CupManager.currentCup.cupRank
+	if dificuldade_atual == Cup.CUP_RANK.S:
+		min_for_best_play = 30
+	elif dificuldade_atual == Cup.CUP_RANK.A:
+		min_for_best_play = 40
+	elif dificuldade_atual == Cup.CUP_RANK.B:
+		min_for_best_play = 50
+	elif dificuldade_atual == Cup.CUP_RANK.C:
+		min_for_best_play = 60
+	elif dificuldade_atual == Cup.CUP_RANK.D:
+		min_for_best_play = 70
+	elif dificuldade_atual == Cup.CUP_RANK.E:
+		min_for_best_play = 80
+	elif dificuldade_atual == Cup.CUP_RANK.F:
+		min_for_best_play = 90
 
 func _ready() -> void:
 	SetIADifficulty()
@@ -83,6 +98,7 @@ func GetRandomPlayByDifficulty(max_index: int) -> int:
 	elif dificuldade_atual == Cup.CUP_RANK.F:
 		return randi_range(0, min(35,max_index))
 	return randi_range(0, max_index)
+
 
 func _process(delta: float) -> void:
 	# All Setted and AI can start choosing the plays it will simulate
@@ -179,7 +195,14 @@ func _process(delta: float) -> void:
 			else:
 				break
 		
-		var play_index = GetRandomPlayByDifficulty(list_of_plays_simulated_Ordered.size()-1)#randi_range(0, max_index)
+		var play_index = 0
+		
+		var r = randi_range(0,100)
+		
+		if r >= min_for_best_play:
+			play_index = randi_range(0, max_index)
+		else:
+			play_index = GetRandomPlayByDifficulty(list_of_plays_simulated_Ordered.size()-1)#randi_range(0, max_index)
 		
 		print("Play selected index = ", play_index)
 		print("Play selected force_lerp = ", list_of_plays_simulated_Ordered[play_index].force_lerp)
