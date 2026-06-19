@@ -43,6 +43,8 @@ offset_bottom = -343.0
 
 [node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("6_u1agk")]
 position = Vector2(960, 540)
+position_smoothing_enabled = true
+zoom_speed = 6.0
 
 [node name="IA_Controller" type="Node2D" parent="." unique_id=605442648 node_paths=PackedStringArray("physics_controller")]
 script = ExtResource("7_5b3c6")
