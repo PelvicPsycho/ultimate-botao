@@ -53,13 +53,13 @@ func SetIADifficulty():
 	elif dificuldade_atual == Cup.CUP_RANK.B:
 		min_for_best_play = 20
 	elif dificuldade_atual == Cup.CUP_RANK.C:
-		min_for_best_play = 30
+		min_for_best_play = 25
 	elif dificuldade_atual == Cup.CUP_RANK.D:
-		min_for_best_play = 40
+		min_for_best_play = 30
 	elif dificuldade_atual == Cup.CUP_RANK.E:
-		min_for_best_play = 50
+		min_for_best_play = 35
 	elif dificuldade_atual == Cup.CUP_RANK.F:
-		min_for_best_play = 60
+		min_for_best_play = 40
 
 func _ready() -> void:
 	SetIADifficulty()
@@ -82,22 +82,23 @@ func SetPieceLists() -> void:
 	AI_Pieces_setted = true
 
 func GetRandomPlayByDifficulty(max_index: int) -> int:
-	
+	"""
 	if dificuldade_atual == Cup.CUP_RANK.S:
 		return randi_range(0, min(5,max_index))
 	elif dificuldade_atual == Cup.CUP_RANK.A:
-		return randi_range(0, min(10,max_index))
+		return randi_range(0, min(5,max_index))
 	elif dificuldade_atual == Cup.CUP_RANK.B:
-		return randi_range(0, min(15,max_index))
+		return randi_range(0, min(10,max_index))
 	elif dificuldade_atual == Cup.CUP_RANK.C:
-		return randi_range(0, min(20,max_index))
+		return randi_range(0, min(15,max_index))
 	elif dificuldade_atual == Cup.CUP_RANK.D:
-		return randi_range(0, min(25,max_index))
+		return randi_range(0, min(20,max_index))
 	elif dificuldade_atual == Cup.CUP_RANK.E:
-		return randi_range(0, min(30,max_index))
+		return randi_range(0, min(25,max_index))
 	elif dificuldade_atual == Cup.CUP_RANK.F:
-		return randi_range(0, min(35,max_index))
-	return randi_range(0, max_index)
+		return randi_range(0, min(30,max_index))
+	"""
+	return randi_range(0, min(19,max_index))
 
 
 func _process(delta: float) -> void:
