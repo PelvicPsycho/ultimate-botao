@@ -348,17 +348,16 @@ func AI_start_choosing() -> void:
 		# get the best piece to play
 		current_index = Get_piece_Index_By_Team(current_TeamSide, i)
 		
-		if !physics_controller.verify_collisions_on_path_LinearSearch_NoBall(physics_controller.current_pitch_state.all_physic_object_list[current_index], 5, ball.last_position):
+		if !physics_controller.verify_collisions_on_path_LinearSearch_NoBall(physics_controller.current_pitch_state.all_physic_object_list[current_index], 10, ball.last_position):
 			index_list.append(current_index)
 	
-	print("index_list.size = ", index_list.size())
-	@warning_ignore("integer_division")
-	var num_of_plays_to_each_piece = ceil(max_plays_to_simulate / index_list.size())
-	print("num_of_plays_to_each_piece = ", num_of_plays_to_each_piece)
-	
 	if index_list.size() > 0:
+		#print("index_list.size = ", index_list.size())
+		@warning_ignore("integer_division")
+		var num_of_plays_to_each_piece = ceil(max_plays_to_simulate / index_list.size())
+		#print("num_of_plays_to_each_piece = ", num_of_plays_to_each_piece)
 		for i in index_list:
-			print("Player ", i, " has path to ball free")
+			#print("Player ", i, " has path to ball free")
 			# get a list of plays possible from the piece
 			Set_All_Plays_To_Simulate_AroundBall_Mode(num_of_plays_to_each_piece, AllModes_max_force_steps, current_TeamSide, i)
 	
@@ -367,6 +366,7 @@ func AI_start_choosing() -> void:
 	
 	if num_p <= 0:
 		print("No piece with free path to the ball, AroundPlayer_Mode")
+		var num_of_plays_to_each_piece = ceil(max_plays_to_simulate / PhysicsObjects_HomeTeam_IndexList.size())
 		for i in PhysicsObjects_HomeTeam_IndexList.size():
 			# get the best piece to play
 			current_index = Get_piece_Index_By_Team(current_TeamSide, i) 

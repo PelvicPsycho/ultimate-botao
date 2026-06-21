@@ -126,7 +126,7 @@ playerInfo = ExtResource("12_w1bfq")
 [node name="Balls" type="Node2D" parent="PhysicsController" unique_id=1788694925]
 
 [node name="Ball2d" parent="PhysicsController/Balls" unique_id=1925699982 instance=ExtResource("13_d0h4u")]
-position = Vector2(960, 585)
+position = Vector2(328, 575)
 
 [node name="Gol_Manager(Temporario)" type="Node2D" parent="." unique_id=632171838 node_paths=PackedStringArray("anunciadorui", "match_state")]
 script = ExtResource("15_3ylim")
