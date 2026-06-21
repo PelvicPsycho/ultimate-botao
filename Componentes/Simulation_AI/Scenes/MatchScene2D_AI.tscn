@@ -46,21 +46,24 @@ position = Vector2(960, 540)
 position_smoothing_enabled = true
 zoom_speed = 6.0
 
-[node name="IA_Controller" type="Node2D" parent="." unique_id=605442648 node_paths=PackedStringArray("physics_controller")]
+[node name="IA_Controller" type="Node2D" parent="." unique_id=605442648 node_paths=PackedStringArray("physics_controller", "match_state")]
 script = ExtResource("7_5b3c6")
 physics_controller = NodePath("../PhysicsController")
-time_to_IA_play = 5.0
+match_state = NodePath("..")
+max_plays_to_simulate = 50
+time_to_IA_play = 2.0
 AllModes_max_force_steps = 1
-AroundPlayer_Mode_rotation_angle_steps = 20
-AroundBall_Mode_num_steps = 5
-AroundBall_Mode_step_angle = 10
 
-[node name="PhysicsController" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("match_state", "IA_Contr", "list_lines")]
+[node name="PhysicsController" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("match_state", "IA_Contr", "TopWall_Line", "BotWall_Line", "HomeGoalWall_Line", "AwayGoalWall_Line", "Pitch_Middle_Point")]
 script = ExtResource("8_sbrvv")
 match_state = NodePath("..")
 num_threads = 4
 IA_Contr = NodePath("../IA_Controller")
-list_lines = [NodePath("Pitch/Pitch_Walls/TopWall_Line"), NodePath("Pitch/Pitch_Walls/BotWall_Line"), NodePath("Pitch/Pitch_Walls/HomeGoalWall_Line"), NodePath("Pitch/Pitch_Walls/AwayGoalWall_Line")]
+TopWall_Line = NodePath("Pitch/Pitch_Walls/TopWall_Line")
+BotWall_Line = NodePath("Pitch/Pitch_Walls/BotWall_Line")
+HomeGoalWall_Line = NodePath("Pitch/Pitch_Walls/HomeGoalWall_Line")
+AwayGoalWall_Line = NodePath("Pitch/Pitch_Walls/AwayGoalWall_Line")
+Pitch_Middle_Point = NodePath("Pitch/Pitch_Middle_Point")
 
 [node name="Pitch" parent="PhysicsController" unique_id=603521134 instance=ExtResource("7_v76cn")]
 
@@ -165,3 +168,5 @@ script = ExtResource("21_qddwe")
 
 [connection signal="body_entered" from="AreaHome" to="Camera2D" method="_on_area_home_body_entered"]
 [connection signal="body_entered" from="AreaAway" to="Camera2D" method="_on_area_away_body_entered"]
+
+[editable path="PhysicsController/Pitch"]

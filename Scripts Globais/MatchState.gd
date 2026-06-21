@@ -45,6 +45,9 @@ var freeze_level: int = 0
 
 @export var audio_murmurio_fundo: AudioStream
 
+var game_started: bool = false
+var game_paused: bool = false
+
 func _ready() -> void:
 	add_to_group("MatchState2d")  
 	loadMatch()
@@ -390,8 +393,10 @@ func changeTurn() -> void:
 	%MatchUI.colorir_turno(active_team, turnCounter)
 	if timer.tipo_do_timer == timer.TimerType.CHESS:
 		timer.isHomeTurn = (currentTurn == turn.HOME)
+		
 	if timer.tipo_do_timer == timer.TimerType.TIMER:
 		timer.iniciar_lance(currentTurn)
+		
 	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
 	carta_usada_no_turno = false
 
@@ -584,10 +589,12 @@ func endMatch(winner: String):
 	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), true)
 
 func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
+	game_paused = congelar
 	if congelar:
 		freeze_level += 1
 	else:
 		freeze_level = max(0, freeze_level - 1)
+	
 	_sincronizar_estado_congelamento()
 	
 	if congelar and tempo > 0.0:
@@ -596,10 +603,12 @@ func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
 func _descongelar_auto() -> void:
 	if is_instance_valid(self) and is_inside_tree():
 		congelar_jogo(false)
+		
 func _sincronizar_estado_congelamento() -> void:
 	var deve_congelar: bool = freeze_level > 0
 	for piece in allPieces:
 		piece.disabled = deve_congelar
+		
 func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: Color = Color.WHITE) -> void:
 	congelar_jogo(true, tempo + 0.2)
 	anunciador_ui.mostrar_evento(texto, tamanho, tempo, cor)

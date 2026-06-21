@@ -1,48 +1,28 @@
 [gd_scene format=3 uid="uid://bjbp8irp1noq5"]
 
 [ext_resource type="Script" uid="uid://cpi3slk1enhph" path="res://Componentes/Simulation_AI/Scripts/SimulationController.gd" id="1_pvx5m"]
+[ext_resource type="PackedScene" uid="uid://cmgl103lkwr8r" path="res://2D Changes/2D_Scenes/Pitch2D.tscn" id="2_6g2md"]
 [ext_resource type="PackedScene" uid="uid://bc3fn0bmpysvf" path="res://Componentes/Simulation_AI/Scenes/Goal_2D_Simulation_Polygons.tscn" id="2_pvx5m"]
 
-[node name="SimulationPitch2D" type="Node2D" unique_id=603521134 node_paths=PackedStringArray("Goal_Home", "Goal_Away", "list_lines", "home_goal_polygon", "away_goal_polygon")]
+[node name="SimulationPitch2D" type="Node2D" unique_id=603521134 node_paths=PackedStringArray("Goal_Home", "Goal_Away", "TopWall_Line", "BotWall_Line", "HomeGoalWall_Line", "AwayGoalWall_Line", "home_goal_polygon", "away_goal_polygon", "Pitch_Middle_Point")]
 script = ExtResource("1_pvx5m")
 rotation_steps = 30
 Goal_Home = NodePath("Goal2D_Simulation_Home")
 Goal_Away = NodePath("Goal2D_Simulation_Away")
 current_sequancial_shots_num = 2
 run_num_max_steps = 1000
-list_lines = [NodePath("Pitch_Walls/TopWall_Line"), NodePath("Pitch_Walls/BotWall_Line"), NodePath("Pitch_Walls/HomeGoalWall_Line"), NodePath("Pitch_Walls/AwayGoalWall_Line")]
+TopWall_Line = NodePath("Pitch/Pitch_Walls/TopWall_Line")
+BotWall_Line = NodePath("Pitch/Pitch_Walls/BotWall_Line")
+HomeGoalWall_Line = NodePath("Pitch/Pitch_Walls/HomeGoalWall_Line")
+AwayGoalWall_Line = NodePath("Pitch/Pitch_Walls/AwayGoalWall_Line")
 home_goal_polygon = NodePath("Goal2D_Simulation_Home/Home_Goal_Polygons/Home_PolygonGoalArea")
 away_goal_polygon = NodePath("Goal2D_Simulation_Away/Home_Goal_Polygons/Home_PolygonGoalArea")
+Pitch_Middle_Point = NodePath("Pitch/Pitch_Middle_Point")
 
-[node name="Pitch_Walls" type="Node2D" parent="." unique_id=2023815139]
+[node name="Pitch" parent="." unique_id=157458087 instance=ExtResource("2_6g2md")]
 
-[node name="TopWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1000286466]
-position = Vector2(960, 182)
-points = PackedVector2Array(-688, 280, -677, 276, -668, 269, -663, 261, -661, 253, -661, 170, -658, 160, -501, 3, -493, 0, 493, 0, 501, 3, 658, 160, 661, 170, 661, 253, 663, 261, 668, 269, 677, 276, 688, 280)
-width = 5.0
-default_color = Color(1, 0, 0, 0)
-
-[node name="BotWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1223852677]
-position = Vector2(960, 990)
-rotation = -3.1415925
-points = PackedVector2Array(-688, 280, -677, 276, -668, 269, -663, 261, -661, 253, -661, 170, -658, 160, -501, 3, -493, 0, 493, 0, 501, 3, 658, 160, 661, 170, 661, 253, 663, 261, 668, 269, 677, 276, 688, 280)
-width = 5.0
-default_color = Color(1, 0, 0, 0)
-
-[node name="HomeGoalWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1739921629]
-position = Vector2(183, 589)
-scale = Vector2(1, 0.8277928)
-points = PackedVector2Array(89, -153.42004, 30, -153.42, 12, -134.09149, 12, 125.635315, 30, 146.172, 89, 146.17188)
-width = 5.0
-default_color = Color(1, 0, 0, 0)
-
-[node name="AwayGoalWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1848776503]
-position = Vector2(1737, 583)
-rotation = -3.1415925
-scale = Vector2(1, 0.8277928)
-points = PackedVector2Array(89, -153.42004, 30, -153.42, 12, -134.09149, 12, 125.635315, 30, 146.172, 89, 146.17188)
-width = 5.0
-default_color = Color(1, 0, 0, 0)
+[node name="CampoV3" parent="Pitch" index="0" unique_id=995364415]
+modulate = Color(1, 1, 1, 0)
 
 [node name="Goal2D_Simulation_Home" parent="." unique_id=970188486 instance=ExtResource("2_pvx5m")]
 position = Vector2(61, 46)
@@ -52,5 +32,6 @@ position = Vector2(1859, 1126)
 rotation = 3.1415927
 team = 1
 
+[editable path="Pitch"]
 [editable path="Goal2D_Simulation_Home"]
 [editable path="Goal2D_Simulation_Away"]
