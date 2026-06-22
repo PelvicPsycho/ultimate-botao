@@ -16,3 +16,6 @@ var current_team_playing: int
 var play_that_resulted_on_this_pitch_state: Play
 
 var score: int
+
+var middle_x: int
+var middle_y: int

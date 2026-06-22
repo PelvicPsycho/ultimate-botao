@@ -65,8 +65,6 @@ func _process(delta: float) -> void:
 	if AI_Pieces_setted and AI_CanRun and physics_controller.Sim_Controller_list[0].current_pitch_state.all_physic_object_list.size() > 0:
 		#physics_controller.Sim_Controller_list[0].update_pitch_state_variables(physics_controller.current_pitch_state)
 		start_time_AI = Time.get_ticks_usec()
-		var current_pitch_state_score =  physics_controller.Sim_Controller_list[0].evaluate_pitch_state_based_on_team(physics_controller.current_pitch_state, current_TeamSide)
-		print("current_pitch_state score = ", current_pitch_state_score)
 		AI_start_choosing()
 	
 	# Passes through all simulators and verify if they already simulate and evaluate all plays
@@ -437,6 +435,10 @@ func execute_play() -> void:
 	print("Play selected force_lerp = ", list_of_plays_simulated_Ordered[play_index].force_lerp)
 	print("Play selected Score = ", list_of_plays_simulated_Ordered[play_index].score)
 	
+	var current_pitch_state_score =  physics_controller.Sim_Controller_list[0].evaluate_pitch_state_based_on_team(physics_controller.current_pitch_state, current_TeamSide)
+	print("current_pitch_state score = ", current_pitch_state_score)
+	
+	#if current_pitch_state_score > list_of_plays_simulated_Ordered[play_index].score:
 	use_card_on_selected_piece(list_of_plays_simulated_Ordered[play_index].player_index)
 	
 	physics_controller.PhysicsObjects_List[list_of_plays_simulated_Ordered[play_index].player_index].Execute_Action_parameters(list_of_plays_simulated_Ordered[play_index].direction, list_of_plays_simulated_Ordered[play_index].force_lerp)
@@ -445,31 +447,37 @@ func execute_play() -> void:
 func use_card_on_selected_piece(_piece_index: int) -> void:
 	print("Cards ------------------------------------------")
 	print("Card - Piece Index = ", _piece_index)
-	for card in physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates:
+	print("Card - Num Cards = ", physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates.size())
+	var card_index = randi_range(0, physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates.size() - 1)
+	print("Card - card_index = ", card_index)
+	#for card in physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates:
 		#print("Card = ", card)
-		if card != null:
-			if card.nome == "Carta Aumento De Tamanho":
-				print(" -- Card - Name = ", card.nome)
-				match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
-				break
-			elif card.nome == "Atração":
-				print(" -- Card - Name = ", card.nome)
-				match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
-				break
-			elif card.nome == "Carta Encolhedora":
-				print(" -- Card - Name = ", card.nome)
-				match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
-				break
-			elif card.nome == "Corre Peao":
-				print(" -- Card - Name = ", card.nome)
-				match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
-				break
-			elif card.nome == "Onda de shock":
-				print(" -- Card - Name = ", card.nome)
-				match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
-				break
+	var card = physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates[card_index]
+	if card != null:
+		if card.nome == "Carta Aumento De Tamanho":
+			print(" -- Card - Name = ", card.nome)
+			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
+			#break
+		elif card.nome == "Atração":
+			print(" -- Card - Name = ", card.nome)
+			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
+			#break
+		elif card.nome == "Carta Encolhedora":
+			print(" -- Card - Name = ", card.nome)
+			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
+			#break
+		elif card.nome == "Corre Peao":
+			print(" -- Card - Name = ", card.nome)
+			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
+			#break
+		elif card.nome == "Onda de shock":
+			print(" -- Card - Name = ", card.nome)
+			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
+			#break
 		else:
-			print(" -- Card - Null")
+			print(" -- Card - Other = ", card.nome)
+	else:
+		print(" -- Card - Null")
 
 func use_card_test() -> void:
 	print("Cards Test ------------------------------------------")
