@@ -101,7 +101,7 @@ func _ready() -> void:
 			if not res_atual.mao_cartas.is_empty():
 				
 				res_atual.slotsUpgrates = res_atual.mao_cartas.duplicate()
-				print("  ❌ [ERRO] ID   '", id_da_peca, "' Usando as cartas da mão mão.")
+				print("  ❌ [ERRO] ID   '", id_da_peca, "' Usando as cartas da mão.")
 				
 			else:
 				print("  ❌ [ERRO] ID '", id_da_peca, "' sem dados no Save e mão vazia no Editor.")

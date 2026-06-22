@@ -10,5 +10,5 @@
 script = ExtResource("2_h4ti3")
 cupName = "Noobie Cup"
 cupRank = 6
-teamPool = Array[ExtResource("1_jismj")]([ExtResource("5_vi0c3"), ExtResource("4_vi0c3"), ExtResource("3_38u24")])
+teamPool = Array[ExtResource("1_jismj")]([ExtResource("4_vi0c3"), ExtResource("4_vi0c3"), ExtResource("4_vi0c3")])
 nextTeamPool = Array[ExtResource("1_jismj")]([ExtResource("5_vi0c3"), ExtResource("4_vi0c3"), ExtResource("3_38u24")])

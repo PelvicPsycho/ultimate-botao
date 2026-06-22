@@ -28,6 +28,7 @@ size = Vector2(292.5, 366)
 [node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller", "IA_Contr", "anunciador_ui")]
 script = ExtResource("1_ss0s5")
 physics_controller = NodePath("PhysicsController")
+show_play_simulation_result = true
 IA_Active = true
 IA_Contr = NodePath("IA_Controller")
 anunciador_ui = NodePath("AnunciadorUI")
@@ -126,7 +127,7 @@ playerInfo = ExtResource("12_w1bfq")
 [node name="Balls" type="Node2D" parent="PhysicsController" unique_id=1788694925]
 
 [node name="Ball2d" parent="PhysicsController/Balls" unique_id=1925699982 instance=ExtResource("13_d0h4u")]
-position = Vector2(328, 575)
+position = Vector2(958, 589)
 
 [node name="Gol_Manager(Temporario)" type="Node2D" parent="." unique_id=632171838 node_paths=PackedStringArray("anunciadorui", "match_state")]
 script = ExtResource("15_3ylim")

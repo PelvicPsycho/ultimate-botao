@@ -26,3 +26,7 @@ var current_max_force: float = 1000.0
 var level_force: int # nivel de força da peça (0 a 10)
 var level_force_weak: int = 3  # Abaixo deste valor = FRACO
 var level_force_strong: int = 7  # Acima deste valor = FORTE
+
+var atrai_bola_ativo: bool = false
+var atrai_bola_forca: float = 1.0
+var atrai_bola_raio: float = 250.0 

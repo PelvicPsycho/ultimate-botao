@@ -40,6 +40,8 @@ var wall_collision_depth: float
 var count_steps = 0
 
 @export var Pitch_Middle_Point: Node2D
+#var middle_x: int
+#var middle_y: int
 
 func _ready() -> void:
 	if not PvPManager.isPvpMatch:
@@ -144,6 +146,9 @@ func set_pitch_state_variables_from_PhysicsObjects() -> void:
 			new_PhysicObject_Struct.current_min_force = PhysicsObjects_List[i].playerInfo_atual.get_min_force()
 			new_PhysicObject_Struct.current_max_force = PhysicsObjects_List[i].playerInfo_atual.get_max_force()
 			
+			new_PhysicObject_Struct.atrai_bola_ativo = PhysicsObjects_List[i].playerInfo_atual.atrai_bola_ativo
+			new_PhysicObject_Struct.atrai_bola_forca = PhysicsObjects_List[i].playerInfo_atual.atrai_bola_forca
+			
 		elif PhysicsObjects_List[i].is_in_group("Balls"):
 			new_PhysicObject_Struct.is_a_player = false
 
@@ -159,6 +164,9 @@ func set_pitch_state_variables_from_PhysicsObjects() -> void:
 	
 	current_pitch_state.home_score = match_state.homeScore
 	current_pitch_state.away_score = match_state.awayScore
+	
+	current_pitch_state.middle_x = Pitch_Middle_Point.global_position.x
+	current_pitch_state.middle_y = Pitch_Middle_Point.global_position.y
 	
 	current_pitch_state.can_score_goal = match_state.rallyCounter
 	current_pitch_state.ball_possesion_counter = match_state.turnCounter
@@ -184,7 +192,7 @@ func create_all_simulations() -> void:
 	# Create all simulations
 	for i in num_threads:
 		var instance = Sim_Controller_Object.instantiate()
-		instance.global_position = self.global_position + Vector2(0, 1 * (1000 * (i)))
+		instance.global_position = self.global_position #+ Vector2(0, 1 * (1000 * (i)))
 		
 		# Set all physics variables
 		instance.Set_Pitch_Simulation_Lines()
@@ -340,25 +348,24 @@ func has_collision_specific_Object_NoBall(object_1: PhysicObject_Struct, _change
 
 
 #region Physics Wall Collisions
-var middle_x: int
-var middle_y: int
+
 
 func collision_wall_resolution() -> void:
-	middle_x = Pitch_Middle_Point.global_position.x
-	middle_y = Pitch_Middle_Point.global_position.y
+	current_pitch_state.middle_x = Pitch_Middle_Point.global_position.x
+	current_pitch_state.middle_y = Pitch_Middle_Point.global_position.y
 	for object_A in current_pitch_state.all_physic_object_list:
 		if has_collision_wall_lines(object_A):
 			handle_walls_collision(object_A)
 
 func has_collision_wall_lines(physic_object: PhysicObject_Struct) -> bool:
-	if physic_object.last_position.x >= middle_x:
+	if physic_object.last_position.x >= current_pitch_state.middle_x:
 		if check_circle_lines_collision(physic_object.last_position, physic_object.radius, AwayGoalWall_Line_points):
 			return true
 	else:
 		if check_circle_lines_collision(physic_object.last_position, physic_object.radius, HomeGoalWall_Line_points):
 			return true
 	
-	if physic_object.last_position.y >= middle_y:
+	if physic_object.last_position.y >= current_pitch_state.middle_y:
 		if check_circle_lines_collision(physic_object.last_position, physic_object.radius, BotWall_Line_points):
 			return true
 	else:
