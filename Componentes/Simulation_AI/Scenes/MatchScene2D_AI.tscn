@@ -28,7 +28,6 @@ size = Vector2(292.5, 366)
 [node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller", "IA_Contr", "anunciador_ui")]
 script = ExtResource("1_ss0s5")
 physics_controller = NodePath("PhysicsController")
-show_play_simulation_result = true
 IA_Active = true
 IA_Contr = NodePath("IA_Controller")
 anunciador_ui = NodePath("AnunciadorUI")

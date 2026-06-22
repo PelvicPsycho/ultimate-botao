@@ -49,16 +49,16 @@ func _ready() -> void:
 		
 
 func anunciar_gol_e_resetar_campo(isHome: bool):
-	print("entrou na func 'anunciar_gol_e_resetar_campo'")
+	#print("entrou na func 'anunciar_gol_e_resetar_campo'")
 	
 	# Trava as interações para nenhum jogador clicar nas peças durante a comemoração
 	match_state.congelar_jogo(true)
 	
-	print("match_state.foulFlag = ", match_state.foulFlag)
+	#print("match_state.foulFlag = ", match_state.foulFlag)
 	
 	#checa se foi falta o gol
 	if !match_state.foulFlag:
-		print("Dispara a UI")
+		#print("Dispara a UI")
 		# Dispara a UI
 		SoundMaster.play_sfx(audio_fez_gol)
 		anunciadorui.mostrar_evento(tr("GOAL"), 120, tempo_anuncio_gol, match_state.homeTeam.cor if !isHome else match_state.awayTeam.cor)

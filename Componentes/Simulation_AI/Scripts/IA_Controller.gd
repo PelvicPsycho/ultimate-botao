@@ -431,12 +431,12 @@ func execute_play() -> void:
 			break
 	
 	var play_index = randi_range(0, max_index)
-	print("Play selected index = ", play_index)
-	print("Play selected force_lerp = ", list_of_plays_simulated_Ordered[play_index].force_lerp)
-	print("Play selected Score = ", list_of_plays_simulated_Ordered[play_index].score)
+	#print("Play selected index = ", play_index)
+	#print("Play selected force_lerp = ", list_of_plays_simulated_Ordered[play_index].force_lerp)
+	#print("Play selected Score = ", list_of_plays_simulated_Ordered[play_index].score)
 	
 	var current_pitch_state_score =  physics_controller.Sim_Controller_list[0].evaluate_pitch_state_based_on_team(physics_controller.current_pitch_state, current_TeamSide)
-	print("current_pitch_state score = ", current_pitch_state_score)
+	#print("current_pitch_state score = ", current_pitch_state_score)
 	
 	#if current_pitch_state_score > list_of_plays_simulated_Ordered[play_index].score:
 	use_card_on_selected_piece(list_of_plays_simulated_Ordered[play_index].player_index)
@@ -445,67 +445,67 @@ func execute_play() -> void:
 	current_time = 0
 
 func use_card_on_selected_piece(_piece_index: int) -> void:
-	print("Cards ------------------------------------------")
-	print("Card - Piece Index = ", _piece_index)
-	print("Card - Num Cards = ", physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates.size())
+	#print("Cards ------------------------------------------")
+	#print("Card - Piece Index = ", _piece_index)
+	#print("Card - Num Cards = ", physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates.size())
 	var card_index = randi_range(0, physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates.size() - 1)
-	print("Card - card_index = ", card_index)
+	#print("Card - card_index = ", card_index)
 	#for card in physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates:
 		#print("Card = ", card)
 	var card = physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates[card_index]
 	if card != null:
 		if card.nome == "Carta Aumento De Tamanho":
-			print(" -- Card - Name = ", card.nome)
+			#print(" -- Card - Name = ", card.nome)
 			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
 			#break
 		elif card.nome == "Atração":
-			print(" -- Card - Name = ", card.nome)
+			#print(" -- Card - Name = ", card.nome)
 			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
 			#break
 		elif card.nome == "Carta Encolhedora":
-			print(" -- Card - Name = ", card.nome)
+			#print(" -- Card - Name = ", card.nome)
 			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
 			#break
 		elif card.nome == "Corre Peao":
-			print(" -- Card - Name = ", card.nome)
+			#print(" -- Card - Name = ", card.nome)
 			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
 			#break
 		elif card.nome == "Onda de shock":
-			print(" -- Card - Name = ", card.nome)
+			#print(" -- Card - Name = ", card.nome)
 			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
 			#break
-		else:
-			print(" -- Card - Other = ", card.nome)
-	else:
-		print(" -- Card - Null")
+		#else:
+			#print(" -- Card - Other = ", card.nome)
+	#else:
+		#print(" -- Card - Null")
 
-func use_card_test() -> void:
-	print("Cards Test ------------------------------------------")
-	for i in PhysicsObjects_AwayTeam_IndexList:
-		#physics_controller.PhysicsObjects_List[i].playerInfo_atual.slotsUpgrates.size()
-		print("Card - Piece Index = ", i)
-		for card in physics_controller.PhysicsObjects_List[i].playerInfo_atual.slotsUpgrates:
-			#print("Card = ", card)
-			if card != null:
-				if card.nome == "Carta Aumento De Tamanho":
-					print(" -- Card - Name = ", card.nome)
-					match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[i], card)
-					break
-				elif card.nome == "Atração":
-					print(" -- Card - Name = ", card.nome)
-					match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[i], card)
-					break
-				elif card.nome == "Carta Encolhedora":
-					print(" -- Card - Name = ", card.nome)
-					match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[i], card)
-					break
-				elif card.nome == "Corre Peao":
-					print(" -- Card - Name = ", card.nome)
-					match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[i], card)
-					break
-				elif card.nome == "Onda de shock":
-					print(" -- Card - Name = ", card.nome)
-					match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[i], card)
-					break
-			else:
-				print(" -- Card - Null")
+#func use_card_test() -> void:
+	#print("Cards Test ------------------------------------------")
+	#for i in PhysicsObjects_AwayTeam_IndexList:
+		##physics_controller.PhysicsObjects_List[i].playerInfo_atual.slotsUpgrates.size()
+		#print("Card - Piece Index = ", i)
+		#for card in physics_controller.PhysicsObjects_List[i].playerInfo_atual.slotsUpgrates:
+			##print("Card = ", card)
+			#if card != null:
+				#if card.nome == "Carta Aumento De Tamanho":
+					#print(" -- Card - Name = ", card.nome)
+					#match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[i], card)
+					#break
+				#elif card.nome == "Atração":
+					#print(" -- Card - Name = ", card.nome)
+					#match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[i], card)
+					#break
+				#elif card.nome == "Carta Encolhedora":
+					#print(" -- Card - Name = ", card.nome)
+					#match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[i], card)
+					#break
+				#elif card.nome == "Corre Peao":
+					#print(" -- Card - Name = ", card.nome)
+					#match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[i], card)
+					#break
+				#elif card.nome == "Onda de shock":
+					#print(" -- Card - Name = ", card.nome)
+					#match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[i], card)
+					#break
+			#else:
+				#print(" -- Card - Null")

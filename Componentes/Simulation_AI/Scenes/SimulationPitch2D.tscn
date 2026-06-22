@@ -26,19 +26,19 @@ modulate = Color(1, 1, 1, 0)
 
 [node name="TopWall_Line" parent="Pitch/Pitch_Walls" parent_id_path=PackedInt32Array(157458087, 2023815139) index="0" unique_id=1000286466]
 width = 10.0
-default_color = Color(1.1551381e-06, 0.5810911, 0.792743, 1)
+default_color = Color(0, 0.5803922, 0.7921569, 0)
 
 [node name="BotWall_Line" parent="Pitch/Pitch_Walls" parent_id_path=PackedInt32Array(157458087, 2023815139) index="1" unique_id=411115506]
 width = 10.0
-default_color = Color(1.1551381e-06, 0.5810911, 0.792743, 1)
+default_color = Color(0, 0.5803922, 0.7921569, 0)
 
 [node name="HomeGoalWall_Line" parent="Pitch/Pitch_Walls" parent_id_path=PackedInt32Array(157458087, 2023815139) index="2" unique_id=1739921629]
 width = 10.0
-default_color = Color(1.1551381e-06, 0.5810911, 0.792743, 1)
+default_color = Color(0, 0.5803922, 0.7921569, 0)
 
 [node name="AwayGoalWall_Line" parent="Pitch/Pitch_Walls" parent_id_path=PackedInt32Array(157458087, 2023815139) index="3" unique_id=1848776503]
 width = 10.0
-default_color = Color(1.1551381e-06, 0.5810911, 0.792743, 1)
+default_color = Color(0, 0.5803922, 0.7921569, 0)
 
 [node name="Goal2D_Simulation_Home" parent="." unique_id=970188486 instance=ExtResource("2_pvx5m")]
 position = Vector2(61, 46)
