@@ -47,19 +47,19 @@ var current_index: int
 func SetIADifficulty():
 	dificuldade_atual = CupManager.currentCup.cupRank
 	if dificuldade_atual == Cup.CUP_RANK.S:
-		min_for_best_play = 10
+		min_for_best_play = 0
 	elif dificuldade_atual == Cup.CUP_RANK.A:
-		min_for_best_play = 15
+		min_for_best_play = 5
 	elif dificuldade_atual == Cup.CUP_RANK.B:
-		min_for_best_play = 20
+		min_for_best_play = 10
 	elif dificuldade_atual == Cup.CUP_RANK.C:
-		min_for_best_play = 25
+		min_for_best_play = 20
 	elif dificuldade_atual == Cup.CUP_RANK.D:
 		min_for_best_play = 30
 	elif dificuldade_atual == Cup.CUP_RANK.E:
-		min_for_best_play = 35
-	elif dificuldade_atual == Cup.CUP_RANK.F:
 		min_for_best_play = 40
+	elif dificuldade_atual == Cup.CUP_RANK.F:
+		min_for_best_play = 50
 
 func _ready() -> void:
 	SetIADifficulty()
