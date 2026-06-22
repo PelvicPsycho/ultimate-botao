@@ -38,11 +38,8 @@ var current_index: int
 @export var AroundPlayer_Mode_angle: int
 
 @export_group("Dificuldade Atual")
-@export var dificuldade_atual = CupManager.currentCup.cupRank
+var dificuldade_atual
 @export var min_for_best_play = 0
-
-func _ready() -> void:
-	SetIADifficulty()
 
 func SetPieceLists() -> void:
 	print("SetPieceLists")
@@ -59,6 +56,9 @@ func SetPieceLists() -> void:
 	
 	print("HomeTeam = ", PhysicsObjects_HomeTeam_IndexList.size())
 	print("AwayTeam = ", PhysicsObjects_AwayTeam_IndexList.size())
+	
+	SetIADifficulty()
+	
 	AI_Pieces_setted = true
 
 func SetIADifficulty():

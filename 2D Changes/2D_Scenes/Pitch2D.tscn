@@ -4,10 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://bjlt7xu1uryas" path="res://Recursos/2D_Art/Pitch/campo v3.png" id="3_vrscm"]
 
 [node name="Pitch" type="Node2D" unique_id=603521134]
+z_index = -2
 
 [node name="CampoV3" type="Sprite2D" parent="." unique_id=995364415 groups=["Chao"]]
 clip_children = 2
-z_index = -1
+z_index = 1
 position = Vector2(960, 586)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_vrscm")
@@ -43,11 +44,14 @@ width = 0.3
 default_color = Color(1, 0, 0, 0)
 
 [node name="HomeGoal_2D" parent="." unique_id=1637700476 instance=ExtResource("2_g6iqt")]
+z_index = 1
 
 [node name="AwayGoal_2D" parent="." unique_id=628271092 instance=ExtResource("2_g6iqt")]
+z_index = 1
 position = Vector2(1920, 1168)
 rotation = 3.1415927
 team = 1
 
 [node name="Pitch_Middle_Point" type="Node2D" parent="." unique_id=716940055]
+z_index = 1
 position = Vector2(958, 589)

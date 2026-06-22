@@ -2,8 +2,8 @@ shader_type canvas_item;
 
 uniform float scroll_speed : hint_range(0, 2) = 0.05;
 uniform float angle_degrees : hint_range(0, 360, 1) = 45.0;
-uniform float repeat_x : hint_range(1, 20, 1) = 1;
-uniform float repeat_y : hint_range(1, 20, 1) = 1;
+uniform float repeat_x : hint_range(1, 50, 1) = 1;
+uniform float repeat_y : hint_range(1, 50, 1) = 1;
 uniform vec4 tint : source_color = vec4(1.0);
 
 // Noise warp settings

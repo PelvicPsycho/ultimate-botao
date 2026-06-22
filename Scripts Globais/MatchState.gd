@@ -12,6 +12,9 @@ signal turno_trocado(turno_atual: turn)
 @export var IA_Active: bool
 @export var IA_Contr: IA_Controller
 
+@export var gradient_background_TextureRect: TextureRect
+var gradient_texture: GradientTexture2D
+
 var allPieces: Array[PhysicsPlayer2D]
 var selectedPiece: PhysicsPlayer2D
 @export var anunciador_ui: CanvasLayer
@@ -48,11 +51,16 @@ var freeze_level: int = 0
 var game_started: bool = false
 var game_paused: bool = false
 
+
+
 func _ready() -> void:
 	add_to_group("MatchState2d")  
 	loadMatch()
 	SoundMaster.play_bgm(audio_murmurio_fundo, "loop")
 	%MatchUI.UI_start(homeTeam, awayTeam)
+	
+	gradient_texture = gradient_background_TextureRect.texture as GradientTexture2D
+	
 	selectFirstTurn()
 	
 	allPieces.assign(get_tree().get_nodes_in_group("Players"))
@@ -352,8 +360,38 @@ func waitAllStopped() -> bool:
 
 	return true
 
+# Gradient
+func change_gradient_background_TextureRect_Offsets() -> void:
+	if currentTurn == turn.HOME:
+		gradient_texture.gradient.set_offset(0, 0.75)
+		gradient_texture.gradient.set_offset(1, 1.00)
+	elif currentTurn == turn.AWAY:
+		gradient_texture.gradient.set_offset(0, 0.00)
+		gradient_texture.gradient.set_offset(1, 0.25)
+	
+	gradient_background_TextureRect.texture = gradient_texture
+
+func change_gradient_background_TextureRect_Colors() -> void:
+	# Get colors from team info
+	var homeTeam_color = homeTeam.cor
+	var awayTeam_color = awayTeam.cor
+	
+	# Set transparency 
+	homeTeam_color.a = 0.3
+	awayTeam_color.a = 0.3
+	
+	# Update gradient with new colors
+	gradient_texture.gradient.set_color(0, homeTeam_color)
+	gradient_texture.gradient.set_color(1, awayTeam_color)
+	
+	# Update background TextureRect
+	gradient_background_TextureRect.texture = gradient_texture
+
 func selectFirstTurn() -> void:
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
+	change_gradient_background_TextureRect_Colors()
+	change_gradient_background_TextureRect_Offsets()
+	
 	for ball in allBalls:
 		ball.lastTouch = null
 		ball.firstTouch = null
@@ -371,6 +409,8 @@ func changeTurn() -> void:
 		if (currentTurn == turn.HOME and piece.team == homeTeam) or (currentTurn == turn.AWAY and piece.team == awayTeam):
 			piece.playerInfo_atual.processar_expiracao_de_buffs(piece.playerInfo)
 	currentTurn = turn.AWAY if currentTurn == turn.HOME else turn.HOME
+	change_gradient_background_TextureRect_Colors()
+	change_gradient_background_TextureRect_Offsets()
 	emit_signal("turno_trocado", currentTurn)
 	for piece in allPieces:
 		piece.canPlay = (currentTurn == turn.HOME) if piece.team == homeTeam else (currentTurn == turn.AWAY)
@@ -402,6 +442,8 @@ func changeTurn() -> void:
 
 func forceTurn(target: turn) -> void:
 	currentTurn = target
+	change_gradient_background_TextureRect_Colors()
+	change_gradient_background_TextureRect_Offsets()
 	emit_signal("turno_trocado", currentTurn)
 	turnCounter = 0
 	foulFlag = false
