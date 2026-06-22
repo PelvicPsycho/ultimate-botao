@@ -268,7 +268,7 @@ func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity
 		for object in current_pitch_state.all_physic_object_list:
 			if object.is_a_player:
 				if object.atrai_bola_ativo:
-					print("Sim - Atração")
+					#print("Sim - Atração")
 					aplicar_atracao_bola(_delta, object)
 		
 		var start_time_movement = Time.get_ticks_usec()

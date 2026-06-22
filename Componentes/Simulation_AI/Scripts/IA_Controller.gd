@@ -37,8 +37,12 @@ var current_index: int
 @export_group("Around Player Mode")
 @export var AroundPlayer_Mode_angle: int
 
-#@export_group("Around Ball Mode")
-#@export var AroundBall_Mode_angle: int
+@export_group("Dificuldade Atual")
+@export var dificuldade_atual = CupManager.currentCup.cupRank
+@export var min_for_best_play = 0
+
+func _ready() -> void:
+	SetIADifficulty()
 
 func SetPieceLists() -> void:
 	print("SetPieceLists")
@@ -56,6 +60,30 @@ func SetPieceLists() -> void:
 	print("HomeTeam = ", PhysicsObjects_HomeTeam_IndexList.size())
 	print("AwayTeam = ", PhysicsObjects_AwayTeam_IndexList.size())
 	AI_Pieces_setted = true
+
+func SetIADifficulty():
+	dificuldade_atual = CupManager.currentCup.cupRank
+	if dificuldade_atual == Cup.CUP_RANK.S:
+		print("dificuldade_atual = S")
+		min_for_best_play = 0
+	elif dificuldade_atual == Cup.CUP_RANK.A:
+		print("dificuldade_atual = A")
+		min_for_best_play = 5
+	elif dificuldade_atual == Cup.CUP_RANK.B:
+		print("dificuldade_atual = B")
+		min_for_best_play = 10
+	elif dificuldade_atual == Cup.CUP_RANK.C:
+		print("dificuldade_atual = C")
+		min_for_best_play = 20
+	elif dificuldade_atual == Cup.CUP_RANK.D:
+		print("dificuldade_atual = D")
+		min_for_best_play = 30
+	elif dificuldade_atual == Cup.CUP_RANK.E:
+		print("dificuldade_atual = E")
+		min_for_best_play = 40
+	elif dificuldade_atual == Cup.CUP_RANK.F:
+		print("dificuldade_atual = F")
+		min_for_best_play = 50
 
 var start_time_AI
 
@@ -415,7 +443,7 @@ func verify_if_all_plays_are_simulated() -> void:
 
 # if all simulators ended their simulation and a X time has passed
 func execute_play() -> void:
-	print("All plays simulated")
+	print("All plays simulated ------------------------")
 	
 	# sort "list_of_plays_simulated" by their score
 	sort_by_score(list_of_plays_simulated.size())
@@ -430,16 +458,25 @@ func execute_play() -> void:
 		else:
 			break
 	
-	var play_index = randi_range(0, max_index)
-	#print("Play selected index = ", play_index)
-	#print("Play selected force_lerp = ", list_of_plays_simulated_Ordered[play_index].force_lerp)
-	#print("Play selected Score = ", list_of_plays_simulated_Ordered[play_index].score)
+	var play_index = 0
+	var r = randi_range(0,100)
+	
+	if r >= min_for_best_play:
+		print("Best Play")
+		play_index = randi_range(0, max_index)
+	else:
+		print("Get Random Play By Difficulty")
+		var pivot = (list_of_plays_simulated_Ordered.size()-1)#/2
+		play_index = GetRandomPlayByDifficulty(pivot)#randi_range(0, max_index)
+	
+	print("Play selected index = ", play_index)
+	print("Play selected force_lerp = ", list_of_plays_simulated_Ordered[play_index].force_lerp)
+	print("Play selected Score = ", list_of_plays_simulated_Ordered[play_index].score)
 	
 	var current_pitch_state_score =  physics_controller.Sim_Controller_list[0].evaluate_pitch_state_based_on_team(physics_controller.current_pitch_state, current_TeamSide)
-	#print("current_pitch_state score = ", current_pitch_state_score)
 	
-	#if current_pitch_state_score > list_of_plays_simulated_Ordered[play_index].score:
-	use_card_on_selected_piece(list_of_plays_simulated_Ordered[play_index].player_index)
+	if current_pitch_state_score > list_of_plays_simulated_Ordered[play_index].score:
+		use_card_on_selected_piece(list_of_plays_simulated_Ordered[play_index].player_index)
 	
 	physics_controller.PhysicsObjects_List[list_of_plays_simulated_Ordered[play_index].player_index].Execute_Action_parameters(list_of_plays_simulated_Ordered[play_index].direction, list_of_plays_simulated_Ordered[play_index].force_lerp)
 	current_time = 0
@@ -509,3 +546,21 @@ func use_card_on_selected_piece(_piece_index: int) -> void:
 					#break
 			#else:
 				#print(" -- Card - Null")
+
+func GetRandomPlayByDifficulty(max_index: int) -> int:
+	if dificuldade_atual == Cup.CUP_RANK.S and max_index > 3:
+		return randi_range(3, max_index)
+	elif dificuldade_atual == Cup.CUP_RANK.A  and max_index > 6:
+		return randi_range(6, max_index)
+	elif dificuldade_atual == Cup.CUP_RANK.B  and max_index > 9:
+		return randi_range(9, max_index)
+	elif dificuldade_atual == Cup.CUP_RANK.C  and max_index > 12:
+		return randi_range(12, max_index)
+	elif dificuldade_atual == Cup.CUP_RANK.D  and max_index > 15:
+		return randi_range(15, max_index)
+	elif dificuldade_atual == Cup.CUP_RANK.E  and max_index > 18:
+		return randi_range(18, max_index)
+	elif dificuldade_atual == Cup.CUP_RANK.F  and max_index > 21:
+		return randi_range(21, max_index)
+	
+	return max_index#randi_range(0, max_index)
