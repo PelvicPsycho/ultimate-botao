@@ -8,14 +8,16 @@ class_name PlacarController
 @export var backgroundScoreHome: TextureRect
 @export var backgroundScoreAway: TextureRect
 
+@export_range(0.0, 1.0) var lightened_value: float = 0.3
+
 func change_Score_background_TextureRect_Colors(homeTeam_Color: Color, awayTeam_Color: Color) -> void:
 	print("AAAAAAAAAA")
 	# Get colors from team info
 	var homeTeam_gradient_texture = backgroundScoreHome.texture as GradientTexture2D
 	var awayTeam_gradient_texture = backgroundScoreAway.texture as GradientTexture2D
 	
-	var homeTeam_Color_light = homeTeam_Color.lightened(0.3)
-	var awayTeam_Color_light = awayTeam_Color.lightened(0.3)
+	var homeTeam_Color_light = homeTeam_Color.lightened(lightened_value)
+	var awayTeam_Color_light = awayTeam_Color.lightened(lightened_value)
 	
 	# Update gradient with new colors
 	homeTeam_gradient_texture.gradient.set_color(0, homeTeam_Color)

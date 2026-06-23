@@ -21,8 +21,8 @@ var back_ground_can_animate: bool = false
 var home_color_offset: float
 var away_color_offset: float
 
-var home_color_alpha: float = 0.3
-var away_color_alpha: float = 0.3
+@export_range(0.0, 1.0) var home_color_alpha: float = 0.3
+@export_range(0.0, 1.0) var away_color_alpha: float = 0.3
 
 var allPieces: Array[PhysicsPlayer2D]
 var selectedPiece: PhysicsPlayer2D
