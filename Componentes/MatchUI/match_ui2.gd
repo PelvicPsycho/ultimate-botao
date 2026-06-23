@@ -22,14 +22,14 @@ extends CanvasLayer
 @onready var shotsPanelHome = $MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome
 @onready var shotsDotsHomeLst = [$MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lance3,$MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lance2,$MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lance1] 
 @onready var shotsLabelHome = $MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda/Lances
-@onready var shotsProgressBarHome = $MarginContainer/Control/MarginContainer/VBoxContainer/ProgressBarLanceHome
+@onready var shotsProgressBarHome = $MarginContainer/Control/MarginContainer/Control/ProgressBarLanceHome #$MarginContainer/Control/MarginContainer/VBoxContainer/ProgressBarLanceHome
 
 @onready var shotsGroupAway = $MarginContainer/Control/MarginContainer/VBoxContainer2
 @onready var shotsCounterAway = $MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita
 @onready var shotsPanelAway = $MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway
 @onready var shotsDotsAwayLst = [$MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lance3,$MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lance2,$MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lance1]
 @onready var shotsLabelAway = $MarginContainer/Control/MarginContainer/VBoxContainer2/Panel_LancesAway/MarginContainer/HBox_LancesDireita/Lances
-@onready var shotsProgressBarAway = $MarginContainer/Control/MarginContainer/VBoxContainer2/ProgressBarLanceAway
+@onready var shotsProgressBarAway = $MarginContainer/Control/MarginContainer/Control/ProgressBarLanceAway #$MarginContainer/Control/MarginContainer/VBoxContainer2/ProgressBarLanceAway
 
 var homeTeam: Team
 var awayTeam: Team
@@ -40,6 +40,41 @@ var ultimo_time_posse: int = -1
 @export var escala_painel_ativo: Vector2 = Vector2(1.0, 1.0)
 @export var escala_painel_inativo: Vector2 = Vector2(0.75, 0.75)
 @export var duracao_animacao_posse: float = 0.22
+
+@export var contador_de_lances_home = Control
+@export var contador_de_lances_away = Control
+
+var contador_atual: Node = null
+
+signal transicao_concluida
+
+func disparar_animacao_de_turno(activeTeam: Team) -> void:
+	var novo_contador = contador_de_lances_home if activeTeam == homeTeam else contador_de_lances_away
+	
+	if contador_atual == null:
+		# Primeira vez: só entra o contador do time escolhido
+		novo_contador.entrada_concluida.connect(_on_primeira_entrada.bind(novo_contador), CONNECT_ONE_SHOT)
+		novo_contador.animar_entrada(activeTeam.cor)
+	elif contador_atual == novo_contador:
+		# Mesmo time (não deveria acontecer)
+		transicao_concluida.emit()
+	else:
+		# Time diferente: sai o atual, depois entra o novo
+		contador_atual.saida_concluida.connect(_on_saida_para_entrada.bind(novo_contador, activeTeam.cor), CONNECT_ONE_SHOT)
+		contador_atual.animar_saida()
+
+func _on_primeira_entrada(novo_contador: Node) -> void:
+	contador_atual = novo_contador
+	transicao_concluida.emit()
+
+func _on_saida_para_entrada(novo_contador: Node, cor: Color) -> void:
+	contador_atual = null
+	novo_contador.entrada_concluida.connect(_on_entrada_final.bind(novo_contador), CONNECT_ONE_SHOT)
+	novo_contador.animar_entrada(cor)
+
+func _on_entrada_final(novo_contador: Node) -> void:
+	contador_atual = novo_contador
+	transicao_concluida.emit()
 
 func _ready() -> void:
 	_inicializar_estado_lances()

@@ -32,7 +32,6 @@ cena_recompensa_torneio = ExtResource("3_pnfph")
 audio_murmurio_fundo = ExtResource("4_5a5ja")
 
 [node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("4_iej8s")]
-z_index = -2
 offset_left = -685.0
 offset_top = -343.0
 offset_right = -685.0

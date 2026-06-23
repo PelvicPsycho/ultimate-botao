@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b8ms3txou0nej"]
 
 [ext_resource type="Script" uid="uid://lajotldv5xxr" path="res://Componentes/MatchUI/match_ui2.gd" id="1_yfw0a"]
+[ext_resource type="Texture2D" uid="uid://tp26m5u35pjg" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/placar/Video da matchscene.mp4_snapshot_00.03.844.jpg" id="2_ky2rs"]
 [ext_resource type="Texture2D" uid="uid://bq5ebrgitptm0" path="res://junk/Untitled.png" id="2_xrqu3"]
 [ext_resource type="FontFile" uid="uid://b8f7dj4qbp66f" path="res://Recursos/Fontes/Baloo2-Bold.ttf" id="5_1jthf"]
 [ext_resource type="Texture2D" uid="uid://cvj7rqqmgx45x" path="res://Recursos/2D_Art/MatchUI/Gremio_logo.png" id="6_hdx5a"]
@@ -11,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://jriomq0tn3ni" path="res://Recursos/2D_Art/MatchUI/Ativo 1.png" id="8_xrqu3"]
 [ext_resource type="Texture2D" uid="uid://bspvf8n8v742y" path="res://Recursos/2D_Art/MatchUI/Sport_Club_Internacional_logopng.png" id="9_gww17"]
 [ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="13_xrqu3"]
+[ext_resource type="PackedScene" uid="uid://b0thcfrltb1pl" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/contador_de_lances.tscn" id="14_ky2rs"]
 [ext_resource type="Texture2D" uid="uid://cqsce67mxbkpw" path="res://Recursos/2D_Art/MatchUI/pause.png" id="14_vxabe"]
 [ext_resource type="Script" uid="uid://b3008pymwpp85" path="res://Componentes/MainMenu/ControleCard.gd" id="20_gww17"]
 
@@ -78,6 +80,10 @@ expand_margin_bottom = 8.0
 font = ExtResource("13_xrqu3")
 font_size = 24
 
+[sub_resource type="LabelSettings" id="LabelSettings_ky2rs"]
+font = ExtResource("13_xrqu3")
+font_size = 24
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gww17"]
 bg_color = Color(0.49019608, 0.5294118, 0.5372549, 1)
 border_width_left = 4
@@ -101,10 +107,6 @@ corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
-
-[sub_resource type="LabelSettings" id="LabelSettings_ky2rs"]
-font = ExtResource("13_xrqu3")
-font_size = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nmdq6"]
 bg_color = Color(0.49019608, 0.5294118, 0.5372549, 1)
@@ -130,8 +132,16 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[node name="MatchUI" type="CanvasLayer" unique_id=2001534732]
+[node name="MatchUI" type="CanvasLayer" unique_id=2001534732 node_paths=PackedStringArray("contador_de_lances_home", "contador_de_lances_away")]
 script = ExtResource("1_yfw0a")
+contador_de_lances_home = NodePath("Resize_LancesHome/ContadorDeLancesHome")
+contador_de_lances_away = NodePath("Resize_LancesAway/ContadorDeLancesAway")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=641967731]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_ky2rs")
 
 [node name="Untitled" type="Sprite2D" parent="." unique_id=220589213]
 visible = false
@@ -298,6 +308,7 @@ theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/MarginContainer" unique_id=528913991]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -362,18 +373,8 @@ theme_override_font_sizes/font_size = 24
 text = "SHOTS"
 label_settings = SubResource("LabelSettings_jt1jy")
 
-[node name="ProgressBarLanceHome" type="ProgressBar" parent="MarginContainer/Control/MarginContainer/VBoxContainer" unique_id=2103576362]
-custom_minimum_size = Vector2(99, 216.17)
-layout_mode = 2
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.0
-theme_override_styles/background = SubResource("StyleBoxFlat_gww17")
-theme_override_styles/fill = SubResource("StyleBoxFlat_llkwk")
-value = 100.0
-fill_mode = 3
-show_percentage = false
-
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/Control/MarginContainer" unique_id=2033824398]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
@@ -438,9 +439,31 @@ theme_override_font_sizes/font_size = 24
 text = "SHOTS"
 label_settings = SubResource("LabelSettings_ky2rs")
 
-[node name="ProgressBarLanceAway" type="ProgressBar" parent="MarginContainer/Control/MarginContainer/VBoxContainer2" unique_id=1421573203]
-custom_minimum_size = Vector2(99, 216.17)
+[node name="Control" type="Control" parent="MarginContainer/Control/MarginContainer" unique_id=488125463]
 layout_mode = 2
+mouse_filter = 2
+
+[node name="ProgressBarLanceHome" type="ProgressBar" parent="MarginContainer/Control/MarginContainer/Control" unique_id=2103576362]
+custom_minimum_size = Vector2(99, 216.17)
+layout_mode = 0
+offset_top = 682.0
+offset_right = 99.0
+offset_bottom = 898.17
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme_override_styles/background = SubResource("StyleBoxFlat_gww17")
+theme_override_styles/fill = SubResource("StyleBoxFlat_llkwk")
+value = 100.0
+fill_mode = 3
+show_percentage = false
+
+[node name="ProgressBarLanceAway" type="ProgressBar" parent="MarginContainer/Control/MarginContainer/Control" unique_id=1421573203]
+custom_minimum_size = Vector2(99, 216.17)
+layout_mode = 0
+offset_left = 1757.0
+offset_top = 705.0
+offset_right = 1856.0
+offset_bottom = 921.17
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.0
 theme_override_styles/background = SubResource("StyleBoxFlat_nmdq6")
@@ -448,5 +471,30 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_g1b24")
 value = 100.0
 fill_mode = 3
 show_percentage = false
+
+[node name="Resize_LancesHome" type="Control" parent="." unique_id=1177550993]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 100.0
+offset_top = 528.0
+offset_right = 140.0
+offset_bottom = 568.0
+scale = Vector2(0.4, 0.4)
+
+[node name="ContadorDeLancesHome" parent="Resize_LancesHome" unique_id=69894196 instance=ExtResource("14_ky2rs")]
+layout_mode = 0
+
+[node name="Resize_LancesAway" type="Control" parent="." unique_id=1234242969]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1820.0
+offset_top = 528.0
+offset_right = 1860.0
+offset_bottom = 568.0
+scale = Vector2(0.4, 0.4)
+
+[node name="ContadorDeLancesAway" parent="Resize_LancesAway" unique_id=887959712 instance=ExtResource("14_ky2rs")]
+layout_mode = 0
+away_team = true
 
 [connection signal="pressed" from="MarginContainer/Control/BotaoPause" to="." method="_on_botao_pause_pressed"]

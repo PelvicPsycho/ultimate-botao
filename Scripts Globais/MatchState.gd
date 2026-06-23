@@ -168,9 +168,13 @@ func _ready() -> void:
 			timer.punishTeam.connect(_on_punish_team)
 			timer.iniciar_partida(currentTurn == turn.HOME)
 	
-	#disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, homeTeam.cor if currentTurn == turn.HOME else awayTeam.cor)
-	disparar_anuncio_com_pausa("", 100, 2.0, homeTeam.cor if currentTurn == turn.HOME else awayTeam.cor, true)
-	get_tree().create_timer(2.0).timeout.connect(_on_begin_timeout, CONNECT_ONE_SHOT)
+	# Inicia a animação do contador de lances do time sorteado
+	congelar_jogo(true)
+	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
+	%MatchUI.transicao_concluida.connect(_on_contador_inicial_concluido.bind(active_team), CONNECT_ONE_SHOT)
+	%MatchUI.disparar_animacao_de_turno(active_team)
+	%MatchUI.contador_de_lances_home.cor_atual_time = homeTeam.cor
+	%MatchUI.contador_de_lances_away.cor_atual_time = awayTeam.cor
 	atualizar_cores_pecas()
 
 func _process(delta: float) -> void:
@@ -483,17 +487,50 @@ func changeTurn() -> void:
 		IA_Contr.SetCurrentTeamSide(currentTurn)
 		
 	%MatchUI.colorir_turno(active_team, turnCounter)
+	
+	# 1. Congela o jogo pra ninguém chutar o botão fora de hora
+	congelar_jogo(true)
+	
+	# 2. Fica escutando o sinal da UI. Quando ela terminar, roda o resto do código.
+	# Usamos o bind(active_team) para passar qual time está jogando para a próxima função
+	%MatchUI.transicao_concluida.connect(
+		_continuar_troca_de_turno.bind(active_team), CONNECT_ONE_SHOT)
+	
+	# 3. Dá o play na animação do contador
+	%MatchUI.disparar_animacao_de_turno(active_team)
+
+
+# 4. Roda quando acabar a animação de entrada do contador de lances
+func _continuar_troca_de_turno(active_team: Team) -> void:
+	# O jogo já está congelado desde changeTurn().
+	# Mostra o anunciador de lance sem congelar novamente.
+	var is_home = active_team == homeTeam
+	anunciador_ui.mostrar_evento_interface(is_home, str(turnCounter + 1), active_team.cor, 1.5)
+	anunciador_ui.evento_interface_encerrado.connect(_on_anuncio_turno_fim, CONNECT_ONE_SHOT)
+	
+	
 	if timer.tipo_do_timer == timer.TimerType.CHESS:
 		timer.isHomeTurn = (currentTurn == turn.HOME)
 		
 	if timer.tipo_do_timer == timer.TimerType.TIMER:
 		timer.iniciar_lance(currentTurn)
 		
-	#disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
-	disparar_anuncio_com_pausa("", 80, 1.5,Color.WHITE, true)
-	
-	
 	carta_usada_no_turno = false
+
+func _on_anuncio_turno_fim() -> void:
+	congelar_jogo(false)
+
+func _on_contador_inicial_concluido(active_team: Team) -> void:
+	# Contador de lances inicial terminou a animação de entrada.
+	# Agora mostra o anunciador de lance.
+	var is_home = active_team == homeTeam
+	anunciador_ui.mostrar_evento_interface(is_home, str(turnCounter + 1), active_team.cor, 2.0)
+	anunciador_ui.evento_interface_encerrado.connect(_on_anuncio_inicial_fim, CONNECT_ONE_SHOT)
+
+func _on_anuncio_inicial_fim() -> void:
+	# Anunciador inicial terminou. Despausa e começa a partida.
+	congelar_jogo(false)
+	timer.partida_rodando = true
 
 func forceTurn(target: turn) -> void:
 	currentTurn = target
@@ -558,6 +595,9 @@ func decideTurn() -> void:
 						
 						#disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
 						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
+						var is_home = true if currentTurn == 0 else false #Descobre o time jogando
+						%MatchUI.contador_de_lances_away.animar_segundo_lance(is_home)
+						%MatchUI.contador_de_lances_home.animar_segundo_lance(is_home)
 					else:
 						#disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
 						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
@@ -722,7 +762,6 @@ func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: 
 	congelar_jogo(true, tempo + 0.5)
 	var is_home = true if currentTurn == 0 else false #Descobre o time jogando
 	var cor_time = homeTeam.cor if is_home else awayTeam.cor #Define a cor pra pintar
-	print ("tempo ", tempo)
 	
 	if not evento_lance:
 		anunciador_ui.mostrar_evento(texto, tamanho, tempo, cor)
