@@ -9,11 +9,11 @@ enum TeamSide {HOME, AWAY}
 @export var teamSide: TeamSide
 var radius: float
 @export var Object_Radius: Node2D
-@onready var animation =$Control/BackBufferCopy/AnimationPlayer
+@onready var animation =$BackBufferCopy/AnimationPlayer
 signal ActionExecuted(index, velocity, teamSide)
 var zonaGeloAtiva:bool
 var AI_Active: bool
-@onready var efeitoIma =$Control/BackBufferCopy
+@onready var efeitoIma =$BackBufferCopy
 #endregion
 @export var pixalizado: float = 8.0
 @export var distanciaDropShadow:int = 75
@@ -89,6 +89,7 @@ var buff_tween: Tween
 var playerInfo_atual_Loaded: bool
 
 func _ready() -> void:
+	
 	team = playerInfo.time
 	is_pointer_inside_piece = false
 	add_to_group("MatchScene2d") 
@@ -1071,7 +1072,7 @@ func _physics_process(delta: float) -> void:
 
 func usar_habilidade_zona_gelo() -> void:
 	
-	if zona_gelo_scene == null:
+	if zona_gelo_scene == null: 
 		push_error("Erro: zona_gelo_scene não configurada no Inspetor!")
 		return
 			

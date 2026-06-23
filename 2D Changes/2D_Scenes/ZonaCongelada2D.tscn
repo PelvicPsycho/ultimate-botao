@@ -47,6 +47,7 @@ material = SubResource("ShaderMaterial_am211")
 material = SubResource("ShaderMaterial_o7ygs")
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="CanvasGroup/ColorRect" unique_id=581905821]
 modulate = Color(1, 1, 1, 0)

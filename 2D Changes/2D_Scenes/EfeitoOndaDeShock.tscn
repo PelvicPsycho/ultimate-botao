@@ -146,6 +146,7 @@ offset_top = -100.0
 offset_right = 100.0
 offset_bottom = 100.0
 scale = Vector2(1.009, 1)
+mouse_filter = 2
 color = Color(0.8776157, 0.8776158, 0.8776157, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1751471925]
