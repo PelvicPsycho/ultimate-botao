@@ -226,6 +226,9 @@ func update_PhysicsObjects_from_CurrentPitchState() -> void:
 		# Velocity
 		PhysicsObjects_List[object.index].current_velocity = object.current_velocity
 		
+		# Movement state — needed by ball rolling shader & other visuals
+		PhysicsObjects_List[object.index].is_moving = object.is_moving
+		
 		# Other Physics Variables
 		PhysicsObjects_List[object.index].mass = object.mass
 		PhysicsObjects_List[object.index].friction = object.friction
