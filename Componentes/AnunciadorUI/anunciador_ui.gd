@@ -213,3 +213,8 @@ func _avisar_fim_evento_interface() -> void:
 
 func _on_button_pressed() -> void:
 	mostrar_evento_interface(true,"1",Color(0.0, 0.59, 0.58, 1.0))
+
+
+func _on_button_2_pressed() -> void:
+	var matchsc = get_parent()
+	matchsc.congelar_jogo(true, 1)

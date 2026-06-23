@@ -94,6 +94,7 @@ theme_override_font_sizes/font_size = 311
 text = "1º Lance"
 
 [node name="Button" type="Button" parent="." unique_id=147299025]
+visible = false
 offset_left = 297.0
 offset_top = 63.0
 offset_right = 419.0
@@ -101,4 +102,14 @@ offset_bottom = 94.0
 theme_override_font_sizes/font_size = 50
 text = "tocar desgraça"
 
+[node name="Button2" type="Button" parent="." unique_id=500257454]
+visible = false
+offset_left = 92.0
+offset_top = 187.0
+offset_right = 455.0
+offset_bottom = 264.0
+theme_override_font_sizes/font_size = 50
+text = "congelar +1"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

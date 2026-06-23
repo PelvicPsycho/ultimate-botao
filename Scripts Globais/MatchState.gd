@@ -712,6 +712,11 @@ func _sincronizar_estado_congelamento() -> void:
 	var deve_congelar: bool = freeze_level > 0
 	for piece in allPieces:
 		piece.disabled = deve_congelar
+	
+	if deve_congelar:
+		timer.pausar_lance()
+	else:
+		timer.retomar_lance()
 		
 func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: Color = Color.WHITE, evento_lance: bool = false) -> void:
 	congelar_jogo(true, tempo + 0.5)
