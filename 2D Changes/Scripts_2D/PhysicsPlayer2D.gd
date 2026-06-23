@@ -89,7 +89,6 @@ var buff_tween: Tween
 var playerInfo_atual_Loaded: bool
 
 func _ready() -> void:
-	
 	team = playerInfo.time
 	is_pointer_inside_piece = false
 	add_to_group("MatchScene2d") 
@@ -329,9 +328,11 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 			return
 		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		
 		var player_que_quer_trocar = get_player_que_quer_trocar()
 		if player_que_quer_trocar:
 			executar_troca_posicao(player_que_quer_trocar)
+			playerInfo.troca_posicao_ativa = false
 	
 	if is_frozen():
 		return
@@ -373,13 +374,15 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 func executar_troca_posicao(alvo: PhysicsPlayer2D) -> void:
 	if alvo == null: return
 	
+	playerInfo_atual.troca_posicao_ativa = false
+	alvo.playerInfo_atual.troca_posicao_ativa = false
 	var pos_A = self.global_position
 	var pos_B = alvo.global_position
 	
 	self.current_velocity = Vector2.ZERO
 	alvo.current_velocity = Vector2.ZERO
 	
-	playerInfo_atual.troca_posicao_ativa = false
+	
 	
 	self.global_position = pos_B
 	self.last_position = pos_B
