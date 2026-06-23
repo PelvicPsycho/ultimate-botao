@@ -102,13 +102,15 @@ func UI_start(home_team: Team, away_team: Team):
 func changeTimersColor():
 	var style: StyleBoxFlat
 	
-	style = shotsProgressBarHome.get_theme_stylebox("fill").duplicate() as StyleBoxFlat
-	style.bg_color = homeTeam.cor
-	shotsProgressBarHome.add_theme_stylebox_override("fill", style)
+	#style = shotsProgressBarHome.get_theme_stylebox("fill").duplicate() as StyleBoxFlat
+	#style.bg_color = homeTeam.cor
+	#shotsProgressBarHome.add_theme_stylebox_override("fill", style)
+	ProgressBarHome_Middle_Texture.self_modulate = homeTeam.cor
+	ProgressBarAway_Middle_Texture.self_modulate = awayTeam.cor
 	
-	style = shotsProgressBarAway.get_theme_stylebox("fill").duplicate() as StyleBoxFlat
-	style.bg_color = awayTeam.cor
-	shotsProgressBarAway.add_theme_stylebox_override("fill", style)
+	#style = shotsProgressBarAway.get_theme_stylebox("fill").duplicate() as StyleBoxFlat
+	#style.bg_color = awayTeam.cor
+	#shotsProgressBarAway.add_theme_stylebox_override("fill", style)
 
 func changeEmblems():
 	textureRectHome.texture = homeTeam.emblem
@@ -264,9 +266,78 @@ func _atualizar_label_partida(time: float) -> void:
 		timeLabel.text = str(timerNode.totalShotsRemaining)
 
 func _atualizar_label_lance(isHome: float, time: float) -> void:
+	var text = format_time(time)
 	if isHome:
-		shotsProgressBarHome.value = time
+		text = format_time(time)
+		ProgressBarHome_Time_Label.text = text
+		
+		text = format_time(0)
 		shotsProgressBarAway.value = 0.0
+		
+		update_progressbar_Home_position(ProgressBarHome_MaxTime_Label, time)
+		reset_progressbar_Away_position()
 	else:
-		shotsProgressBarAway.value = time
-		shotsProgressBarHome.value = 0.0
+		text = format_time(0)
+		ProgressBarHome_Time_Label.text = text
+		
+		text = format_time(time)
+		ProgressBarAway_Time_Label.text = text
+		
+		update_progressbar_Away_position(ProgressBarAway_MaxTime_Label, time)
+		reset_progressbar_Home_position()
+
+@export var AnimationP_Home: AnimationPlayer 
+@export var AnimationP_Away: AnimationPlayer 
+@export var ProgressBarHome_Value_Texture: TextureRect
+@export var ProgressBarHome_Middle_Texture: TextureRect
+@export var ProgressBarHome_Time_Label: Label
+var ProgressBarHome_MaxTime_Label: float
+@export var ProgressBarHome_InitalPosition: Vector2 = Vector2.ZERO
+@export var ProgressBarHome_FinalPosition: Vector2 = Vector2.ZERO
+
+
+
+@export var ProgressBarAway_Value_Texture: TextureRect
+@export var ProgressBarAway_Middle_Texture: TextureRect
+@export var ProgressBarAway_Time_Label: Label
+var ProgressBarAway_MaxTime_Label: float
+@export var ProgressBarAway_InitalPosition: Vector2 = Vector2.ZERO
+@export var ProgressBarAway_FinalPosition: Vector2 = Vector2.ZERO
+
+func update_progressbar_Home_position(maxtime: float, currenttime: float) -> void:
+	var value_lerp = 1 - (currenttime / maxtime)
+	#print("value_lerp = ", value_lerp)
+	var new_pos = ProgressBarHome_InitalPosition.lerp(ProgressBarHome_FinalPosition, value_lerp)
+	ProgressBarHome_Value_Texture.position = new_pos
+
+func reset_progressbar_Home_position() -> void:
+	var tween = create_tween()
+	# Moves the node's position to Vector2(500, 300) over 2 seconds
+	tween.tween_property(ProgressBarHome_Value_Texture, "position", ProgressBarHome_InitalPosition, 1)
+
+
+func update_progressbar_Away_position(maxtime: float, currenttime: float) -> void:
+	var value_lerp = 1 - (currenttime / maxtime)
+	#print("value_lerp = ", value_lerp)
+	var new_pos = ProgressBarAway_InitalPosition.lerp(ProgressBarAway_FinalPosition, value_lerp)
+	ProgressBarAway_Value_Texture.position = new_pos
+
+func reset_progressbar_Away_position() -> void:
+	var tween = create_tween()
+	# Moves the node's position to Vector2(500, 300) over 2 seconds
+	tween.tween_property(ProgressBarAway_Value_Texture, "position", ProgressBarAway_InitalPosition, 1)
+
+func play_progressbar_Animations(isHome: bool) -> void:
+	if isHome:
+		AnimationP_Home.play("Home_TimeBar_Activate")
+		AnimationP_Away.play("Away_TimeBar_Deactivate")
+	else:
+		AnimationP_Home.play("Home_TimeBar_Deactivate")
+		AnimationP_Away.play("Away_TimeBar_Activate")
+	
+func format_time(time_in_seconds: float) -> String:
+	var minutes: int = int(time_in_seconds) / 60
+	var seconds: int = int(time_in_seconds) % 60
+	
+	# "%02d" pads numbers with a leading zero if they are single digits
+	return "%02d:%02d" % [minutes, seconds]

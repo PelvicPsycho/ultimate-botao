@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://o4mq8tpu7slo"]
+
+[ext_resource type="Texture2D" uid="uid://c5v7y0d6gotqu" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/Timer-jogador-sombra.png" id="1_8pn1m"]
+[ext_resource type="Texture2D" uid="uid://8tcpu0ghyk22" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/Timer-jogador.png" id="2_btsm4"]
+[ext_resource type="Texture2D" uid="uid://bpc7cnf0ggnnv" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/timer jogador parte Borda.png" id="3_43heh"]
+[ext_resource type="Texture2D" uid="uid://b71jjxce8sei3" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/timer jogador parte Meio.png" id="4_gbi84"]
+[ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="5_t2yhg"]
+
+[node name="HomeTeam_ProgressBar_Panel" type="Panel" unique_id=623505144]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = -1
+anchor_left = 0.010000001
+anchor_top = 0.716
+anchor_right = 0.10700001
+anchor_bottom = 1.2110001
+offset_left = -1.2000008
+offset_top = -1.2800293
+offset_right = -1.4402618
+offset_bottom = -0.888916
+
+[node name="Progress_Shadow" type="TextureRect" parent="." unique_id=1513578011]
+self_modulate = Color(1, 1, 1, 0.5882353)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.093
+anchor_right = 0.989
+anchor_bottom = 0.998
+offset_left = 0.008041382
+offset_top = 0.24581528
+offset_right = 0.04623413
+offset_bottom = 0.10168457
+texture = ExtResource("1_8pn1m")
+
+[node name="Progress_Background" type="TextureRect" parent="." unique_id=1372319063]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.892
+anchor_bottom = 0.93700004
+offset_right = 0.08821106
+offset_bottom = -3.2727356
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_btsm4")
+
+[node name="Progress_Value_Outline" type="TextureRect" parent="Progress_Background" unique_id=1469374242]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 6.1035156e-05
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_43heh")
+
+[node name="Progress_Value_Middle" type="TextureRect" parent="Progress_Background/Progress_Value_Outline" unique_id=2097522861]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.042000003
+anchor_top = 0.011000001
+anchor_right = 0.95800006
+anchor_bottom = 0.989
+offset_left = 0.027999401
+offset_top = 0.12203455
+offset_right = -0.028015137
+offset_bottom = 0.07788086
+texture = ExtResource("4_gbi84")
+
+[node name="Label" type="Label" parent="Progress_Background" unique_id=477034393]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.042000003
+anchor_top = 0.25500003
+anchor_right = 0.95800006
+anchor_bottom = 0.423
+offset_left = 0.027999401
+offset_top = -16.993591
+offset_right = -0.028015137
+offset_bottom = -16.87735
+theme_override_colors/font_color = Color(1, 0.9490196, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("5_t2yhg")
+theme_override_font_sizes/font_size = 45
+text = "01:30"
+horizontal_alignment = 1
+vertical_alignment = 1

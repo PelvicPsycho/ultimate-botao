@@ -147,6 +147,8 @@ func _ready() -> void:
 			%MatchUI.progressBar.max_value = timer.tempo_maximo_partida
 			%MatchUI.shotsProgressBarHome.max_value = timer.tempo_maximo_lance
 			%MatchUI.shotsProgressBarAway.max_value = timer.tempo_maximo_lance
+			%MatchUI.ProgressBarHome_MaxTime_Label = timer.tempo_maximo_lance
+			%MatchUI.ProgressBarAway_MaxTime_Label = timer.tempo_maximo_lance
 			timer.partida_acabou.connect(_on_partida_acabou)
 			timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)
 			timer.lance_label_changed.connect(%MatchUI._atualizar_label_lance)
@@ -446,6 +448,7 @@ func change_gradient_background_TextureRect_Colors() -> void:
 func selectFirstTurn() -> void:
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
 	
+	%MatchUI.play_progressbar_Animations(currentTurn == turn.HOME)
 	call_gradient_background_TextureRect_animation()
 	
 	back_ground_can_animate = true
@@ -466,6 +469,7 @@ func changeTurn() -> void:
 		if (currentTurn == turn.HOME and piece.team == homeTeam) or (currentTurn == turn.AWAY and piece.team == awayTeam):
 			piece.playerInfo_atual.processar_expiracao_de_buffs(piece.playerInfo)
 	currentTurn = turn.AWAY if currentTurn == turn.HOME else turn.HOME
+	%MatchUI.play_progressbar_Animations(currentTurn == turn.HOME)
 	call_gradient_background_TextureRect_animation()
 	emit_signal("turno_trocado", currentTurn)
 	for piece in allPieces:
@@ -534,6 +538,7 @@ func _on_anuncio_inicial_fim() -> void:
 
 func forceTurn(target: turn) -> void:
 	currentTurn = target
+	%MatchUI.play_progressbar_Animations(currentTurn == turn.HOME)
 	call_gradient_background_TextureRect_animation()
 	emit_signal("turno_trocado", currentTurn)
 	turnCounter = 0
