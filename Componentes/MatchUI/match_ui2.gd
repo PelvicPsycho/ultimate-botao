@@ -1,10 +1,9 @@
 extends CanvasLayer
 
-#VARIÁVEIS/COMPONENTES DO PLACAR
-@onready var labelScoreHome = $MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/ScoreHome
-@onready var labelScoreAway = $MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/ScoreAway
-@onready var dividerHome = $MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/VBoxContainer/Panel
-@onready var dividerAway = $MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/VBoxContainer/Panel2
+#@export var Score_Position_Node: Node2D
+
+#@onready var dividerHome = $MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/VBoxContainer/Panel
+#@onready var dividerAway = $MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/VBoxContainer/Panel2
 
 #VARIÁVEIS/COMPONENTES DOS EMBLEMAS
 @onready var textureRectHome = $MarginContainer/Control/EmblemaHome/TextureRect
@@ -44,6 +43,11 @@ var ultimo_time_posse: int = -1
 
 func _ready() -> void:
 	_inicializar_estado_lances()
+	#print("Score.global_position = ", Score.global_position)
+	#print("Score_Position_Node.global_position = ", Score_Position_Node.global_position)
+#
+#func _process(delta: float) -> void:
+	#Score.global_position = Score_Position_Node.global_position
 
 func UI_start(home_team: Team, away_team: Team):
 	
@@ -53,7 +57,7 @@ func UI_start(home_team: Team, away_team: Team):
 	changeEmblems()
 	changeEmblemPanelBorderColor()
 	changeShotsPanelBorderColor()
-	changeScoreColor()
+	#changeScoreColor()
 	changeTimersColor()
 	
 	var timerNode = $"../MatchTimer"
@@ -100,19 +104,19 @@ func changeShotsPanelBorderColor():
 	shotsLabelHome.label_settings.font_color = homeTeam.cor
 	shotsLabelAway.label_settings.font_color = awayTeam.cor
 
-func changeScoreColor():
-	var style: StyleBoxFlat
-	
-	style = dividerHome.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
-	style.bg_color = homeTeam.cor
-	dividerHome.add_theme_stylebox_override("panel", style)
-	
-	style = dividerAway.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
-	style.bg_color = awayTeam.cor
-	dividerAway.add_theme_stylebox_override("panel", style)
-	
-	labelScoreHome.label_settings.font_color = homeTeam.cor
-	labelScoreAway.label_settings.font_color = awayTeam.cor
+#func changeScoreColor():
+	#var style: StyleBoxFlat
+	#
+	#style = dividerHome.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
+	#style.bg_color = homeTeam.cor
+	#dividerHome.add_theme_stylebox_override("panel", style)
+	#
+	#style = dividerAway.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
+	#style.bg_color = awayTeam.cor
+	#dividerAway.add_theme_stylebox_override("panel", style)
+	#
+	#labelScoreHome.label_settings.font_color = homeTeam.cor
+	#labelScoreAway.label_settings.font_color = awayTeam.cor
 
 func colorir_turno(activeTeam: Team, turnCounter: int):
 	var style: StyleBoxFlat
@@ -231,11 +235,3 @@ func _atualizar_label_lance(isHome: float, time: float) -> void:
 	else:
 		shotsProgressBarAway.value = time
 		shotsProgressBarHome.value = 0.0
-
-func atualizar_placar(home_score: int, away_score: int) -> void:
-	if labelScoreHome == null or labelScoreAway == null:
-		push_warning("MatchUI: labels de placar não encontrados.")
-		return
-
-	labelScoreHome.text = str(home_score)
-	labelScoreAway.text = str(away_score)

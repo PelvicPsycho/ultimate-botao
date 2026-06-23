@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cmgl103lkwr8r" path="res://2D Changes/2D_Scenes/Pitch2D.tscn" id="7_v76cn"]
 [ext_resource type="Script" uid="uid://c3jx1lb0wr1pg" path="res://2D Changes/Scripts_2D/CollisionResolution2D.gd" id="8_sbrvv"]
 [ext_resource type="PackedScene" uid="uid://bjuey2wm1ffql" path="res://2D Changes/2D_Scenes/Player2D.tscn" id="9_12ci6"]
+[ext_resource type="Texture2D" uid="uid://bl50wljegqt23" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/placar/Placar-Contorno.png" id="9_n4ih5"]
 [ext_resource type="Resource" uid="uid://daqsw61dp34rx" path="res://Recursos/Teams/MyTeam/Gugs.tres" id="10_u231a"]
 [ext_resource type="Resource" uid="uid://cjyd6bkt7lcc6" path="res://Recursos/Teams/MyTeam/Carlinhos.tres" id="11_035o7"]
 [ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Grêmio/Mec.tres" id="12_w1bfq"]
@@ -21,6 +22,9 @@
 [ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Componentes/PauseMenu/pause_menu.tscn" id="19_h5eqs"]
 [ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="20_w8iov"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="21_qddwe"]
+[ext_resource type="Script" uid="uid://dmaaq5gpwxbo8" path="res://2D Changes/Scripts_2D/PlacarController.gd" id="22_tb6le"]
+[ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="23_ba03v"]
+[ext_resource type="Texture2D" uid="uid://clhndkw8oj368" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/placar/Placar-sombra.png" id="24_tb6le"]
 
 [sub_resource type="Gradient" id="Gradient_xrqu3"]
 colors = PackedColorArray(0.38431373, 0.67058825, 0.827451, 0.39215687, 0.94509804, 0.4, 0.3882353, 0.39215687)
@@ -28,31 +32,154 @@ colors = PackedColorArray(0.38431373, 0.67058825, 0.827451, 0.39215687, 0.945098
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ss0s5"]
 gradient = SubResource("Gradient_xrqu3")
 
+[sub_resource type="Gradient" id="Gradient_n4ih5"]
+offsets = PackedFloat32Array(0.45, 1)
+colors = PackedColorArray(0.8564939, 3.657937e-06, 8.663535e-07, 1, 0.99998623, 0.40726218, 0.3386664, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u1agk"]
+gradient = SubResource("Gradient_n4ih5")
+fill_from = Vector2(1, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_tb6le"]
+offsets = PackedFloat32Array(0.45, 1)
+colors = PackedColorArray(0, 0.23921569, 1, 1, 0.35116833, 0.5531243, 0.9999891, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_v76cn"]
+gradient = SubResource("Gradient_tb6le")
+fill_from = Vector2(0, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iej8s"]
 size = Vector2(292.5, 366)
 
-[node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller", "IA_Contr", "gradient_background_TextureRect", "anunciador_ui")]
+[node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller", "IA_Contr", "placar", "gradient_background_TextureRect", "anunciador_ui")]
 script = ExtResource("1_ss0s5")
 physics_controller = NodePath("PhysicsController")
 IA_Active = true
 IA_Contr = NodePath("IA_Controller")
-gradient_background_TextureRect = NodePath("Gradient_Background")
+placar = NodePath("CanvasLayer_Placar")
+gradient_background_TextureRect = NodePath("CanvasLayer_BackGround/Gradient_Background")
 anunciador_ui = NodePath("AnunciadorUI")
 cena_recompensa_partida = ExtResource("2_5b3c6")
 cena_recompensa_torneio = ExtResource("3_n4ih5")
 audio_murmurio_fundo = ExtResource("4_ba03v")
 
-[node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("5_tb6le")]
+[node name="CanvasLayer_BackGround" type="CanvasLayer" parent="." unique_id=229047291]
+layer = -1
+
+[node name="Gradient_Background" type="TextureRect" parent="CanvasLayer_BackGround" unique_id=1602420539]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ss0s5")
+
+[node name="AnimatedBg" parent="CanvasLayer_BackGround" unique_id=28414625 instance=ExtResource("5_tb6le")]
 offset_left = -685.0
 offset_top = -343.0
 offset_right = -685.0
 offset_bottom = -343.0
 
-[node name="Gradient_Background" type="TextureRect" parent="." unique_id=1602420539]
-z_index = -2
-offset_right = 1920.0
-offset_bottom = 1080.0
-texture = SubResource("GradientTexture2D_ss0s5")
+[node name="CanvasLayer_Placar" type="CanvasLayer" parent="." unique_id=859280900 node_paths=PackedStringArray("labelScoreHome", "labelScoreAway", "backgroundScoreHome", "backgroundScoreAway")]
+layer = -1
+follow_viewport_enabled = true
+script = ExtResource("22_tb6le")
+labelScoreHome = NodePath("Placar_Outline/Placar_BG_Esquerda/Placar_Label_Esquerda")
+labelScoreAway = NodePath("Placar_Outline/Placar_BG_Direita/Placar_Label_Direita")
+backgroundScoreHome = NodePath("Placar_Outline/Placar_BG_Esquerda")
+backgroundScoreAway = NodePath("Placar_Outline/Placar_BG_Direita")
+
+[node name="Placar_Outline" type="TextureRect" parent="CanvasLayer_Placar" unique_id=2041491666]
+z_index = -1
+anchors_preset = -1
+anchor_left = 0.46
+anchor_top = 0.71300006
+anchor_right = 0.54
+anchor_bottom = 0.95400006
+offset_left = -0.2000122
+offset_top = -0.040039063
+offset_right = 0.20007324
+offset_bottom = -0.31860352
+pivot_offset = Vector2(77, 190)
+texture = ExtResource("9_n4ih5")
+
+[node name="Placar_BG_Direita" type="TextureRect" parent="CanvasLayer_Placar/Placar_Outline" unique_id=1647688735]
+self_modulate = Color(1, 0.8032767, 0.7704654, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.731
+anchor_right = 0.9480001
+anchor_bottom = 0.96900004
+offset_left = -6.1035156e-05
+offset_top = -0.061065674
+offset_right = 0.007873535
+offset_bottom = 0.058563232
+texture = SubResource("GradientTexture2D_u1agk")
+expand_mode = 3
+
+[node name="Placar_Label_Direita" type="Label" parent="CanvasLayer_Placar/Placar_Outline/Placar_BG_Direita" unique_id=270303878]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.21000001
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.020000458
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9999996, 0.91342497, 0.8870243, 1)
+theme_override_fonts/font = ExtResource("23_ba03v")
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Placar_BG_Esquerda" type="TextureRect" parent="CanvasLayer_Placar/Placar_Outline" unique_id=1037161339]
+self_modulate = Color(1, 0.8032767, 0.7704654, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.052
+anchor_top = 0.731
+anchor_right = 0.5
+anchor_bottom = 0.96900004
+offset_left = -0.008006096
+offset_top = -0.061065674
+offset_right = -6.1035156e-05
+offset_bottom = 0.058563232
+texture = SubResource("GradientTexture2D_v76cn")
+expand_mode = 3
+
+[node name="Placar_Label_Esquerda" type="Label" parent="CanvasLayer_Placar/Placar_Outline/Placar_BG_Esquerda" unique_id=734504736]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.21000001
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.020000458
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9999996, 0.91342497, 0.8870243, 1)
+theme_override_fonts/font = ExtResource("23_ba03v")
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Placar_Sombra" type="TextureRect" parent="CanvasLayer_Placar/Placar_Outline" unique_id=463501102]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.052
+anchor_top = 0.731
+anchor_right = 0.9480001
+anchor_bottom = 0.781
+offset_left = -0.008006096
+offset_top = -0.061065674
+offset_right = 0.007873535
+offset_bottom = -0.061141968
+texture = ExtResource("24_tb6le")
 
 [node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("6_u1agk")]
 position = Vector2(960, 540)
@@ -68,6 +195,7 @@ time_to_IA_play = 2.0
 AllModes_max_force_steps = 1
 
 [node name="PhysicsController" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("match_state", "IA_Contr", "TopWall_Line", "BotWall_Line", "HomeGoalWall_Line", "AwayGoalWall_Line", "Pitch_Middle_Point")]
+position = Vector2(0, -41)
 script = ExtResource("8_sbrvv")
 match_state = NodePath("..")
 num_threads = 4
@@ -77,6 +205,9 @@ BotWall_Line = NodePath("Pitch/Pitch_Walls/BotWall_Line")
 HomeGoalWall_Line = NodePath("Pitch/Pitch_Walls/HomeGoalWall_Line")
 AwayGoalWall_Line = NodePath("Pitch/Pitch_Walls/AwayGoalWall_Line")
 Pitch_Middle_Point = NodePath("Pitch/Pitch_Middle_Point")
+
+[node name="Score_Position_Node" type="Node2D" parent="PhysicsController" unique_id=1492150844]
+position = Vector2(883, 770)
 
 [node name="Pitch" parent="PhysicsController" unique_id=603521134 instance=ExtResource("7_v76cn")]
 
@@ -142,13 +273,14 @@ playerInfo = ExtResource("12_w1bfq")
 position = Vector2(958, 589)
 
 [node name="Gol_Manager(Temporario)" type="Node2D" parent="." unique_id=632171838 node_paths=PackedStringArray("anunciadorui", "match_state")]
+position = Vector2(0, 4)
 script = ExtResource("15_3ylim")
 anunciadorui = NodePath("../AnunciadorUI")
 match_state = NodePath("..")
 audio_fez_gol = ExtResource("16_uckdl")
 
 [node name="AreaHome" type="Area2D" parent="." unique_id=1861784472]
-position = Vector2(283, 629)
+position = Vector2(283, 588)
 collision_layer = 8
 collision_mask = 2
 
@@ -157,7 +289,7 @@ position = Vector2(47.25, -45)
 shape = SubResource("RectangleShape2D_iej8s")
 
 [node name="AreaAway" type="Area2D" parent="." unique_id=282501590]
-position = Vector2(1525, 629)
+position = Vector2(1525, 588)
 collision_layer = 8
 collision_mask = 2
 
@@ -166,22 +298,17 @@ position = Vector2(86, -44)
 shape = SubResource("RectangleShape2D_iej8s")
 
 [node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("17_jvl26")]
-visible = false
 
 [node name="MatchUI" parent="." unique_id=2001534732 instance=ExtResource("18_3eaht")]
 unique_name_in_owner = true
+layer = -1
 
 [node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("19_h5eqs")]
-visible = false
 
 [node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("20_w8iov")]
-visible = false
 
 [node name="MatchTimer" type="Node" parent="." unique_id=1351562667]
 script = ExtResource("21_qddwe")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=229047291]
-visible = false
 
 [connection signal="body_entered" from="AreaHome" to="Camera2D" method="_on_area_home_body_entered"]
 [connection signal="body_entered" from="AreaAway" to="Camera2D" method="_on_area_away_body_entered"]

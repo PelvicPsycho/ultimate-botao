@@ -12,8 +12,17 @@ signal turno_trocado(turno_atual: turn)
 @export var IA_Active: bool
 @export var IA_Contr: IA_Controller
 
+@export var placar: PlacarController
+
+@export_group("Gradient")
 @export var gradient_background_TextureRect: TextureRect
 var gradient_texture: GradientTexture2D
+var back_ground_can_animate: bool = false
+var home_color_offset: float
+var away_color_offset: float
+
+var home_color_alpha: float = 0.3
+var away_color_alpha: float = 0.3
 
 var allPieces: Array[PhysicsPlayer2D]
 var selectedPiece: PhysicsPlayer2D
@@ -129,6 +138,8 @@ func _ready() -> void:
 			piece.canPlay = (currentTurn == turn.HOME)
 		else:
 			piece.canPlay = (currentTurn == turn.AWAY)
+	
+	placar.change_Score_background_TextureRect_Colors(homeTeam.cor, awayTeam.cor)
 	_atualizar_placar()
 	
 	match timer.tipo_do_timer:
@@ -160,7 +171,16 @@ func _ready() -> void:
 	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, homeTeam.cor if currentTurn == turn.HOME else awayTeam.cor)
 	get_tree().create_timer(2.0).timeout.connect(_on_begin_timeout, CONNECT_ONE_SHOT)
 	atualizar_cores_pecas()
-	
+
+func _process(delta: float) -> void:
+	if back_ground_can_animate:
+		gradient_texture.gradient.set_offset(0, home_color_offset)
+		gradient_texture.gradient.set_offset(1, away_color_offset)
+		
+		change_gradient_background_TextureRect_Colors()
+		
+		gradient_background_TextureRect.texture = gradient_texture
+		
 func _on_begin_timeout():
 	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
 	disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5)
@@ -208,7 +228,8 @@ func assignPieces():
 	physics_controller.all_physicObjects_loaded = true
 
 func _atualizar_placar() -> void:
-	%MatchUI.atualizar_placar(homeScore, awayScore)
+	print("_atualizar_placar")
+	placar.atualizar_placar(homeScore, awayScore)
 
 func _on_punish_team(isHome: bool):
 	_aplicar_punicao_chess(isHome)
@@ -361,15 +382,44 @@ func waitAllStopped() -> bool:
 	return true
 
 # Gradient
-func change_gradient_background_TextureRect_Offsets() -> void:
-	if currentTurn == turn.HOME:
-		gradient_texture.gradient.set_offset(0, 0.75)
-		gradient_texture.gradient.set_offset(1, 1.00)
-	elif currentTurn == turn.AWAY:
-		gradient_texture.gradient.set_offset(0, 0.00)
-		gradient_texture.gradient.set_offset(1, 0.25)
+# Function to tween - offset
+func update_home_color_offset(new_value: float) -> void:
+	home_color_offset = new_value
+func update_away_color_offset(new_value: float) -> void:
+	away_color_offset = new_value
+
+# Function to tween - alpha
+func update_home_color_alpha(new_value: float) -> void:
+	home_color_alpha = new_value
+func update_away_color_alpha(new_value: float) -> void:
+	away_color_alpha = new_value
+
+
+func call_gradient_background_TextureRect_animation() -> void:
+	var tween_home_offset = create_tween()
+	var tween_home_alpha = create_tween()
 	
-	gradient_background_TextureRect.texture = gradient_texture
+	var tween_away_offset = create_tween()
+	var tween_away_alpha = create_tween()
+	
+	if currentTurn == turn.HOME:
+		#gradient_texture.gradient.set_offset(0, 0.75)
+		#gradient_texture.gradient.set_offset(1, 1.00)
+		tween_home_offset.tween_method(update_home_color_offset, 0.00, 0.60, 1.0)
+		tween_away_offset.tween_method(update_away_color_offset, 0.40, 1.00, 1.0)
+		
+		tween_home_alpha.tween_method(update_home_color_alpha, 0.00, 0.30, 1.0)
+		tween_away_alpha.tween_method(update_away_color_alpha, 0.30, 0.00, 1.0)
+	elif currentTurn == turn.AWAY:
+		#gradient_texture.gradient.set_offset(0, 0.00)
+		#gradient_texture.gradient.set_offset(1, 0.25)
+		tween_home_offset.tween_method(update_home_color_offset, 0.60, 0.00, 1.0)
+		tween_away_offset.tween_method(update_away_color_offset, 1.00, 0.40, 1.0)
+		
+		tween_home_alpha.tween_method(update_home_color_alpha, 0.30, 0.00, 1.0)
+		tween_away_alpha.tween_method(update_away_color_alpha, 0.00, 0.30, 1.0)
+	
+	
 
 func change_gradient_background_TextureRect_Colors() -> void:
 	# Get colors from team info
@@ -377,8 +427,8 @@ func change_gradient_background_TextureRect_Colors() -> void:
 	var awayTeam_color = awayTeam.cor
 	
 	# Set transparency 
-	homeTeam_color.a = 0.3
-	awayTeam_color.a = 0.3
+	homeTeam_color.a = home_color_alpha
+	awayTeam_color.a = away_color_alpha
 	
 	# Update gradient with new colors
 	gradient_texture.gradient.set_color(0, homeTeam_color)
@@ -389,9 +439,10 @@ func change_gradient_background_TextureRect_Colors() -> void:
 
 func selectFirstTurn() -> void:
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
-	change_gradient_background_TextureRect_Colors()
-	change_gradient_background_TextureRect_Offsets()
 	
+	call_gradient_background_TextureRect_animation()
+	
+	back_ground_can_animate = true
 	for ball in allBalls:
 		ball.lastTouch = null
 		ball.firstTouch = null
@@ -409,8 +460,7 @@ func changeTurn() -> void:
 		if (currentTurn == turn.HOME and piece.team == homeTeam) or (currentTurn == turn.AWAY and piece.team == awayTeam):
 			piece.playerInfo_atual.processar_expiracao_de_buffs(piece.playerInfo)
 	currentTurn = turn.AWAY if currentTurn == turn.HOME else turn.HOME
-	change_gradient_background_TextureRect_Colors()
-	change_gradient_background_TextureRect_Offsets()
+	call_gradient_background_TextureRect_animation()
 	emit_signal("turno_trocado", currentTurn)
 	for piece in allPieces:
 		piece.canPlay = (currentTurn == turn.HOME) if piece.team == homeTeam else (currentTurn == turn.AWAY)
@@ -442,8 +492,7 @@ func changeTurn() -> void:
 
 func forceTurn(target: turn) -> void:
 	currentTurn = target
-	change_gradient_background_TextureRect_Colors()
-	change_gradient_background_TextureRect_Offsets()
+	call_gradient_background_TextureRect_animation()
 	emit_signal("turno_trocado", currentTurn)
 	turnCounter = 0
 	foulFlag = false

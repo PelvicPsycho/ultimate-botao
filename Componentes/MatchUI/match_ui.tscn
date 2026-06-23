@@ -59,35 +59,6 @@ corner_radius_bottom_left = 64
 font = ExtResource("7_xrqu3")
 font_size = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eukvx"]
-bg_color = Color(0.9254902, 0.9254902, 0.9254902, 1)
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-
-[sub_resource type="LabelSettings" id="LabelSettings_xrqu3"]
-font = ExtResource("7_xrqu3")
-font_size = 32
-font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_snsmq"]
-bg_color = Color(0, 0, 1, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hdx5a"]
-bg_color = Color(1, 0, 0, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-
-[sub_resource type="LabelSettings" id="LabelSettings_rbbqf"]
-font = ExtResource("7_xrqu3")
-font_size = 32
-font_color = Color(0, 0, 0, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxabe"]
 bg_color = Color(0.9254902, 0.9254902, 0.9254902, 1)
 border_width_left = 4
@@ -313,65 +284,6 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "TIME"
 label_settings = SubResource("LabelSettings_vxabe")
-
-[node name="ScorePanel" type="Panel" parent="MarginContainer/Control/VBoxContainer" unique_id=839782283]
-custom_minimum_size = Vector2(148, 74)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_eukvx")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/VBoxContainer/ScorePanel" unique_id=1309089070]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer" unique_id=580662986]
-layout_mode = 2
-
-[node name="ScoreHome" type="Label" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer" unique_id=1470866717]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "0"
-label_settings = SubResource("LabelSettings_xrqu3")
-
-[node name="Control" type="Control" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer" unique_id=1195993823]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer" unique_id=2107609989]
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=961779938]
-custom_minimum_size = Vector2(8, 24)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_snsmq")
-
-[node name="Panel2" type="Panel" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1064332771]
-custom_minimum_size = Vector2(8, 24)
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_hdx5a")
-
-[node name="Control2" type="Control" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer" unique_id=1445441490]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ScoreAway" type="Label" parent="MarginContainer/Control/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer" unique_id=944053184]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "0"
-label_settings = SubResource("LabelSettings_rbbqf")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control" unique_id=1738534711]
 layout_mode = 1
