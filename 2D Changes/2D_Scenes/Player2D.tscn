@@ -15,6 +15,7 @@
 [ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="12_gwudw"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="15_fl8l5"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="15_gwudw"]
+[ext_resource type="Shader" path="res://2D Changes/Shader_2d/gravitational_distortion.gdshader" id="17_pol8b"]
 [ext_resource type="PackedScene" uid="uid://cjab8n13u8gkw" path="res://2D Changes/2D_Scenes/MenuRadial.tscn" id="19_o5120"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pol8b"]
@@ -31,6 +32,142 @@ offsets = PackedFloat32Array(0, 0.096463025)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gwudw"]
 radius = 41.04875
+
+[sub_resource type="Animation" id="Animation_pol8b"]
+resource_name = "Magnetismo"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/tamanho")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.8170000388075, 0.07600000361]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:material:shader_parameter/espessura")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [0.086000004085, 0.002000000095]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:material:shader_parameter/forca")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect:material:shader_parameter/suavizacao_borda")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0970000046075, 0.0250000011875]
+}
+
+[sub_resource type="Animation" id="Animation_v8rn7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/tamanho")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.3690000175275]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:material:shader_parameter/espessura")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:material:shader_parameter/forca")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect:material:shader_parameter/suavizacao_borda")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o5120"]
+_data = {
+&"Magnetismo": SubResource("Animation_pol8b"),
+&"RESET": SubResource("Animation_v8rn7")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v8rn7"]
+shader = ExtResource("17_pol8b")
+shader_parameter/ground_global_position = Vector2(0, 0)
+shader_parameter/ground_size = Vector2(0, 0)
+shader_parameter/forca = 1.0
+shader_parameter/tamanho = 0.3690000175275
+shader_parameter/espessura = 1.0
+shader_parameter/suavizacao_borda = 0.5
+
+[sub_resource type="Curve" id="Curve_pol8b"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.50093806, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_v8rn7"]
+curve = SubResource("Curve_pol8b")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o5120"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 98, 0)
+radial_accel_min = -129.1
+radial_accel_max = -100.0
+tangential_accel_min = 49.999996
+tangential_accel_max = 53.789997
+scale_curve = SubResource("CurveTexture_v8rn7")
 
 [node name="Player2d" type="CharacterBody2D" unique_id=1542391535 node_paths=PackedStringArray("Object_Radius", "sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D") groups=["PhysicsObjects", "Players"]]
 collision_layer = 2
@@ -116,10 +253,30 @@ offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(0.17, 0.17)
 
+[node name="BackBufferCopy" type="BackBufferCopy" parent="Control" unique_id=152504511]
+scale = Vector2(5.882352, 5.882352)
+copy_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/BackBufferCopy" unique_id=1751240958]
+libraries/ = SubResource("AnimationLibrary_o5120")
+autoplay = &"Magnetismo"
+
+[node name="ColorRect" type="ColorRect" parent="Control/BackBufferCopy" unique_id=939941882]
+material = SubResource("ShaderMaterial_v8rn7")
+offset_left = -289.00003
+offset_top = -284.00006
+offset_right = -139.00002
+offset_bottom = -136.00005
+scale = Vector2(3.7999628, 3.8837001)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Control/BackBufferCopy/ColorRect" unique_id=1317587798]
+position = Vector2(76.00001, 73.00001)
+process_material = SubResource("ParticleProcessMaterial_o5120")
+
 [node name="sprite2D_body" type="Sprite2D" parent="Control" unique_id=523510040]
 z_index = 1
 material = ExtResource("15_gwudw")
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.74999994, 0.74999994)
 texture = ExtResource("15_fl8l5")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

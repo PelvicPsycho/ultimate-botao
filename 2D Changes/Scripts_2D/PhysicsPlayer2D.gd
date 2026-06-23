@@ -9,16 +9,16 @@ enum TeamSide {HOME, AWAY}
 @export var teamSide: TeamSide
 var radius: float
 @export var Object_Radius: Node2D
-
+@onready var animation =$Control/BackBufferCopy/AnimationPlayer
 signal ActionExecuted(index, velocity, teamSide)
 var zonaGeloAtiva:bool
 var AI_Active: bool
-
+@onready var efeitoIma =$Control/BackBufferCopy
 #endregion
 @export var pixalizado: float = 8.0
 @export var distanciaDropShadow:int = 75
 @onready var efeito_de_onda = preload("res://2D Changes/2D_Scenes/EfeitoOndaDeShock.tscn")
-
+@onready var CENA_EXPLOSAO = preload("res://2D Changes/2D_Scenes/zona_bomba.tscn")
 var _base_radius: float = 0.0
 # Runtime Variables
 var current_direction: Vector2 = Vector2.ZERO
@@ -564,7 +564,7 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 	last_PhysicObject_collision_position = collision_position
 
 	if playerInfo_atual and playerInfo_atual.peça_bomba_ativa:
-		executar_onda_choque_direta()
+		detonar_bomba()
 		playerInfo_atual.peça_bomba_ativa = false
 		return 
 
@@ -630,6 +630,11 @@ func executar_onda_choque_direta():
 					
 				print("DEBUG: [SUCESSO] Empurrou ", obj.name, " com força ", impulso.length())
 
+func detonar_bomba():
+	var explosao = CENA_EXPLOSAO.instantiate()
+	get_tree().current_scene.add_child(explosao)
+	explosao.global_position = global_position
+	executar_onda_choque_direta()
 func _instanciar_particula_impacto(posicao_colisao: Vector2) -> void:
 	if impactParticles == null:
 		return
@@ -1051,6 +1056,9 @@ func _physics_process(delta: float) -> void:
 	if playerInfo_atual and playerInfo_atual.atrai_bola_ativo:
 		# Passamos a força que também está no Resource
 		aplicar_atracao_bola(delta)
+	elif playerInfo_atual.atrai_bola_ativo == false:
+		efeitoIma.visible = false
+		animation.stop()
 	if playerInfo_atual.onda_choque_ativa:
 			executar_onda_choque_direta()
 			playerInfo_atual.onda_choque_ativa = false
@@ -1085,7 +1093,8 @@ func usar_habilidade_zona_gelo() -> void:
 func aplicar_atracao_bola(delta: float) -> void:
 	var raio: float = 250.0 
 	var forca: float = playerInfo_atual.atrai_bola_forca
-	
+	efeitoIma.visible = true
+	animation.play("Magnetismo")
 	var objetos = get_tree().get_nodes_in_group("PhysicsObjects")
 	
 	for obj in objetos:
