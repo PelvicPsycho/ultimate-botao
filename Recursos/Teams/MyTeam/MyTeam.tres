@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_n3tuv"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_2t8uq"]
 [ext_resource type="Resource" uid="uid://dc0ht3ihkwk3t" path="res://Recursos/Teams/MyTeam/Brogui.tres" id="2_hivfl"]
-[ext_resource type="Texture2D" uid="uid://dpimrabhk7x7c" path="res://Recursos/Teams/MyTeam/Graphics/MyTeam.png" id="2_iqaby"]
+[ext_resource type="Texture2D" uid="uid://c1uwnfr0l3dph" path="res://Recursos/Teams/MyTeam/Graphics/MyTeam.png" id="2_iqaby"]
 [ext_resource type="Resource" uid="uid://cjyd6bkt7lcc6" path="res://Recursos/Teams/MyTeam/Carlinhos.tres" id="2_iymq7"]
 [ext_resource type="Resource" uid="uid://nfpdil4vqo0k" path="res://Recursos/Teams/MyTeam/Giota.tres" id="3_iqaby"]
 [ext_resource type="Resource" uid="uid://daqsw61dp34rx" path="res://Recursos/Teams/MyTeam/Gugs.tres" id="4_iymq7"]
@@ -24,7 +24,7 @@
 script = ExtResource("2_2t8uq")
 name = "My Team"
 ranque = 7
-cor = Color(0.2901961, 0.6509804, 0.42745098, 1)
+cor = Color(0.40392157, 0.75686276, 0.47058824, 1)
 emblem = ExtResource("2_iqaby")
 mainSquad = Array[ExtResource("1_n3tuv")]([ExtResource("2_hivfl"), ExtResource("3_iqaby"), ExtResource("4_iymq7"), ExtResource("5_s2d8k"), ExtResource("6_75tbl")])
 collectedSquad = Array[ExtResource("1_n3tuv")]([ExtResource("2_iymq7")])

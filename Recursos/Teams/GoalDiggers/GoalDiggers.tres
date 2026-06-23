@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://bryg18np2iseq"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_p1ne4"]
+[ext_resource type="Resource" uid="uid://druppmdcwcws2" path="res://Recursos/Teams/GoalDiggers/Carl.tres" id="2_11j7a"]
+[ext_resource type="Resource" uid="uid://bc6466x7ve4hu" path="res://Recursos/Teams/GoalDiggers/Houei.tres" id="3_m4f3b"]
+[ext_resource type="Resource" uid="uid://ceoeidux530hb" path="res://Recursos/Teams/GoalDiggers/Lemmy.tres" id="4_5b1el"]
+[ext_resource type="Resource" uid="uid://bnni3vqso7dee" path="res://Recursos/Teams/GoalDiggers/Mickel.tres" id="5_gxyhm"]
+[ext_resource type="Resource" uid="uid://blb68erjo4kcj" path="res://Recursos/Teams/GoalDiggers/Yasser.tres" id="6_oim04"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="7_kgn56"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="8_5or2w"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="9_gxcpq"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="10_uh62s"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="11_d2ej2"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="12_7spye"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="13_psmfg"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="14_kgvdi"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="15_fdqrr"]
+
+[resource]
+script = ExtResource("7_kgn56")
+name = "Goal Diggers"
+id = 6
+cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
+mainSquad = Array[ExtResource("1_p1ne4")]([ExtResource("2_11j7a"), ExtResource("3_m4f3b"), ExtResource("4_5b1el"), ExtResource("5_gxyhm"), ExtResource("6_oim04")])

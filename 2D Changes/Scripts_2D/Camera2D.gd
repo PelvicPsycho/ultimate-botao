@@ -43,8 +43,8 @@ func _ready():
 		piece.connect("zoom_in_signal", EndZoomOut)
 		if piece.has_signal("zoom_drag_signal"):
 			piece.connect("zoom_drag_signal", UpdateDragZoom)
-		if piece.has_signal("maxForceShot"):
-			piece.connect("maxForceShot", onMaxShot)
+		#if piece.has_signal("maxForceShot"):
+			#piece.connect("maxForceShot", onMaxShot)
 
 	for goal in allGoals:
 		if goal.has_signal("gol"):

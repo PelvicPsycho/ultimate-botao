@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://cphsyhwbv8gny"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_1k1gx"]
+[ext_resource type="Resource" uid="uid://govjesmwq8go" path="res://Recursos/Teams/E Teams/Crown Cap Utd/Silvio.tres" id="2_qvuqi"]
+[ext_resource type="Resource" uid="uid://dp81gu6ivehbh" path="res://Recursos/Teams/E Teams/Crown Cap Utd/Peres.tres" id="3_j653n"]
+[ext_resource type="Resource" uid="uid://csqdqprc0x30l" path="res://Recursos/Teams/E Teams/Crown Cap Utd/Fernandes.tres" id="4_qmctq"]
+[ext_resource type="Resource" uid="uid://bnrsnxap225wk" path="res://Recursos/Teams/E Teams/Crown Cap Utd/Martin.tres" id="5_3wj7l"]
+[ext_resource type="Resource" uid="uid://c5dxwbi6jcpin" path="res://Recursos/Teams/E Teams/Crown Cap Utd/Gonzalves.tres" id="6_foro6"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="8_82wdn"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="9_skqfc"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="10_113a8"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="11_7fq0e"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="12_ojhq2"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="13_eha7j"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="14_yfll3"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="15_5s282"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="16_657mt"]
+
+[resource]
+script = ExtResource("8_82wdn")
+name = "Crown Cap United"
+cor = Color(0.96862745, 0.4117647, 0.2901961, 1)
+mainSquad = Array[ExtResource("1_1k1gx")]([ExtResource("2_qvuqi"), ExtResource("3_j653n"), ExtResource("4_qmctq"), ExtResource("5_3wj7l"), ExtResource("6_foro6")])
+overlay_escolhido = 3
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

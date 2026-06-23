@@ -23,7 +23,7 @@
 script = ExtResource("2_wdtrl")
 name = "Inter"
 id = 2
-cor = Color(1, 0, 0, 1)
+cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
 emblem = ExtResource("2_4vr7p")
 mainSquad = Array[ExtResource("1_t7if8")]([ExtResource("3_hqtxk"), ExtResource("4_nfeg7"), ExtResource("5_a3pbj"), ExtResource("6_6bv8s"), ExtResource("7_02jpn")])
 materialAtivo = ExtResource("2_eb2mv")

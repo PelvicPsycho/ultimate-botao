@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://csqdqprc0x30l"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_mw1vi"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_kmeak"]
+[ext_resource type="Resource" uid="uid://bq1qsd3ojqnsw" path="res://Componentes/Cartas/CardResorce/CartaEncolhedor.tres" id="3_mcnv6"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="4_1qpmd"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_elutm"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="6_kouky"]
+[ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="7_awejs"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="8_72pxe"]
+
+[resource]
+script = ExtResource("6_kouky")
+id_unico = &"fernandes_crown_cap"
+nome = "Fernandes"
+num_camisa = 6
+foto = ExtResource("1_mw1vi")
+quantosSlotes = 4
+slotsUpgrates = Array[ExtResource("2_kmeak")]([ExtResource("7_awejs")])
+mao_cartas = Array[ExtResource("2_kmeak")]([ExtResource("3_mcnv6"), ExtResource("4_1qpmd")])
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

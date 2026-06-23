@@ -572,7 +572,7 @@ func forceTurn(target: turn) -> void:
 	carta_usada_no_turno = false
 
 enum TurnType {ORIGINAL, SIMPLIFIED, INTERSPERSED, ORIGINAL_SHORT}
-@onready var turnDecider: TurnType = TurnType.ORIGINAL
+@onready var turnDecider: TurnType = TurnType.ORIGINAL_SHORT
 
 func decideTurn() -> void:
 	var por_erro: bool = true

@@ -1,14 +1,19 @@
 [gd_resource type="Resource" script_class="Cup" format=3 uid="uid://35pguhtldg0w"]
 
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="1_jismj"]
+[ext_resource type="Resource" uid="uid://cphsyhwbv8gny" path="res://Recursos/Teams/E Teams/Crown Cap Utd/Crown_Cap_Utd.tres" id="2_43cb3"]
 [ext_resource type="Script" uid="uid://fkgtqku055qw" path="res://Recursos/Res_Cup.gd" id="2_h4ti3"]
-[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="3_38u24"]
-[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="4_vi0c3"]
+[ext_resource type="Resource" uid="uid://deh85fd4b1pfv" path="res://Recursos/Teams/E Teams/Newton Athlectic/Newton Athletic.tres" id="3_0vnr7"]
+[ext_resource type="Resource" uid="uid://ch54ysadukp5v" path="res://Recursos/Teams/E Teams/Blackwood Albion/Blackwood_Albion.tres" id="4_4tanh"]
+[ext_resource type="Resource" uid="uid://boir6mmtf0v0m" path="res://Recursos/Teams/Roots BC/RootsBC.tres" id="4_h0u70"]
+[ext_resource type="Resource" uid="uid://dlmfd023emsgn" path="res://Recursos/Teams/Rogue Rovers/Rogue_Rovers.tres" id="5_0vnr7"]
 [ext_resource type="Resource" uid="uid://b0p46wodrhjlf" path="res://Recursos/Teams/ThunderDogs/ThunderDogs.tres" id="5_vi0c3"]
+[ext_resource type="Resource" uid="uid://bryg18np2iseq" path="res://Recursos/Teams/GoalDiggers/GoalDiggers.tres" id="6_4tanh"]
+[ext_resource type="Resource" uid="uid://b72qtlj7tagf5" path="res://Recursos/Teams/AuraStrikers/AuraStrikers.tres" id="7_um1l1"]
 
 [resource]
 script = ExtResource("2_h4ti3")
 cupName = "Noobie Cup"
 cupRank = 6
-teamPool = Array[ExtResource("1_jismj")]([ExtResource("4_vi0c3"), ExtResource("4_vi0c3"), ExtResource("4_vi0c3")])
-nextTeamPool = Array[ExtResource("1_jismj")]([ExtResource("5_vi0c3"), ExtResource("4_vi0c3"), ExtResource("3_38u24")])
+teamPool = Array[ExtResource("1_jismj")]([ExtResource("4_h0u70"), ExtResource("5_0vnr7"), ExtResource("6_4tanh"), ExtResource("7_um1l1"), ExtResource("5_vi0c3")])
+nextTeamPool = Array[ExtResource("1_jismj")]([ExtResource("2_43cb3"), ExtResource("3_0vnr7"), ExtResource("4_4tanh")])

@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="Team" format=3 uid="uid://dlmfd023emsgn"]
-
-[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_knp2c"]
-[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_5shm1"]
-
-[resource]
-script = ExtResource("2_5shm1")
-name = "Brasil"

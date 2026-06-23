@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0j6slt8hdfu4"
-path="res://.godot/imported/ThunderDogs.png-9821ac52d57095ea1a315d5953afc0f5.ctex"
+uid="uid://blusyu5g6axj6"
+path="res://.godot/imported/path1.png-50d34203d401327d08447b2165d679d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Recursos/Teams/ThunderDogs/Graphics/ThunderDogs.png"
-dest_files=["res://.godot/imported/ThunderDogs.png-9821ac52d57095ea1a315d5953afc0f5.ctex"]
+source_file="res://Recursos/Teams/ThunderDogs/Graphics/path1.png"
+dest_files=["res://.godot/imported/path1.png-50d34203d401327d08447b2165d679d7.ctex"]
 
 [params]
 

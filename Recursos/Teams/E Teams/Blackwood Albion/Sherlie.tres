@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bgn2dq0r1b5pq"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_5fjd2"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_x0twp"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_o166j"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_82igp"]
+
+[resource]
+script = ExtResource("3_o166j")
+id_unico = &"sherlie_blackwood"
+nome = "Sherlie"

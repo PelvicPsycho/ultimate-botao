@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bnrsnxap225wk"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_3fug0"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_ucvcy"]
+[ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="3_gdgxq"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="4_guyhi"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_y2lxr"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="6_uswh8"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="7_8di6v"]
+
+[resource]
+script = ExtResource("6_uswh8")
+id_unico = &"martin_crown_cap"
+nome = "Martin"
+num_camisa = 9
+foto = ExtResource("1_3fug0")
+quantosSlotes = 5
+mao_cartas = Array[ExtResource("2_ucvcy")]([ExtResource("3_gdgxq"), ExtResource("4_guyhi")])
+PA = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

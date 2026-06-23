@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://js6bljcnnw1i"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_x1jb7"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_fr0gw"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_csjyb"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_h0abc"]
+
+[resource]
+script = ExtResource("3_csjyb")
+id_unico = &"henry_blackwood"
+nome = "Henry"
+num_camisa = 9
