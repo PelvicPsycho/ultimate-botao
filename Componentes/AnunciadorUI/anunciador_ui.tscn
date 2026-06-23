@@ -2,12 +2,23 @@
 
 [ext_resource type="Script" uid="uid://i4cmxeheqryp" path="res://Componentes/AnunciadorUI/anunciador_ui.gd" id="1_4hmqb"]
 [ext_resource type="LabelSettings" uid="uid://b5kp1l8mylmj2" path="res://Componentes/AnunciadorUI/LabelSettingsAnunciador.tres" id="1_jnd2a"]
+[ext_resource type="VideoStream" uid="uid://cqph1rc6xvpli" path="res://Recursos/WebM/animacao_interface.ogv" id="3_wksv6"]
+[ext_resource type="Shader" uid="uid://uk0r4dxh61d5" path="res://Componentes/AnunciadorUI/anunciador_ui_videoTransparente.gdshader" id="4_c5oib"]
+[ext_resource type="FontFile" uid="uid://4ouu0og1v6nb" path="res://Recursos/Fontes/Rubik/Rubik-BoldItalic.ttf" id="5_cy7v8"]
+[ext_resource type="FontFile" uid="uid://277xsqw2thm7" path="res://Recursos/Fontes/Rubik/Rubik-ExtraBoldItalic.ttf" id="6_c5oib"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_36s4f"]
+shader = ExtResource("4_c5oib")
+shader_parameter/chroma_key_color = Color(0, 0.847, 0, 1)
+shader_parameter/threshold = 0.5200000247
+shader_parameter/smoothing = 0.150000007125
+shader_parameter/color_tint = Color(1, 1, 1, 1)
 
 [node name="AnunciadorUI" type="CanvasLayer" unique_id=263291148]
 auto_translate_mode = 1
 script = ExtResource("1_4hmqb")
 
-[node name="Control" type="Control" parent="." unique_id=450824202]
+[node name="TextoApenas_Control" type="Control" parent="." unique_id=450824202]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,7 +27,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Control" unique_id=317497764]
+[node name="Label" type="Label" parent="TextoApenas_Control" unique_id=317497764]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,3 +40,65 @@ text = "GOOOOOOOL"
 label_settings = ExtResource("1_jnd2a")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Lances_Control" type="Control" parent="." unique_id=1047852821]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Lances_Control" unique_id=1527156552]
+material = SubResource("ShaderMaterial_36s4f")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -556.0
+offset_top = -150.0
+offset_right = 747.0
+offset_bottom = 188.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+stream = ExtResource("3_wksv6")
+
+[node name="Jogador_Label" type="Label" parent="Lances_Control" unique_id=611118734]
+layout_mode = 1
+offset_left = 1354.0
+offset_top = 579.0
+offset_right = 1608.0
+offset_bottom = 651.0
+theme_override_fonts/font = ExtResource("5_cy7v8")
+theme_override_font_sizes/font_size = 60
+text = "Jogador"
+
+[node name="Lances_Label" type="Label" parent="Lances_Control" unique_id=1041939228]
+layout_mode = 0
+offset_left = 396.0
+offset_top = 269.0
+offset_right = 1722.0
+offset_bottom = 644.0
+theme_override_colors/font_color = Color(0.92156863, 0.7647059, 0.08627451, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8235294)
+theme_override_colors/font_outline_color = Color(0.12156863, 0.10980392, 0.08235294, 1)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 14
+theme_override_constants/outline_size = 40
+theme_override_constants/shadow_outline_size = 40
+theme_override_fonts/font = ExtResource("6_c5oib")
+theme_override_font_sizes/font_size = 311
+text = "1º Lance"
+
+[node name="Button" type="Button" parent="." unique_id=147299025]
+offset_left = 297.0
+offset_top = 63.0
+offset_right = 419.0
+offset_bottom = 94.0
+theme_override_font_sizes/font_size = 50
+text = "tocar desgraça"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

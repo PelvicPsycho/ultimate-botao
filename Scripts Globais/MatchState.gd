@@ -168,7 +168,8 @@ func _ready() -> void:
 			timer.punishTeam.connect(_on_punish_team)
 			timer.iniciar_partida(currentTurn == turn.HOME)
 	
-	disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, homeTeam.cor if currentTurn == turn.HOME else awayTeam.cor)
+	#disparar_anuncio_com_pausa(tr("BEGIN"), 100, 2.0, homeTeam.cor if currentTurn == turn.HOME else awayTeam.cor)
+	disparar_anuncio_com_pausa("", 100, 2.0, homeTeam.cor if currentTurn == turn.HOME else awayTeam.cor, true)
 	get_tree().create_timer(2.0).timeout.connect(_on_begin_timeout, CONNECT_ONE_SHOT)
 	atualizar_cores_pecas()
 
@@ -182,8 +183,9 @@ func _process(delta: float) -> void:
 		gradient_background_TextureRect.texture = gradient_texture
 		
 func _on_begin_timeout():
-	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
-	disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5)
+#	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
+	#disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5)
+	disparar_anuncio_com_pausa.bind("", 80, 2.0, true)
 	timer.partida_rodando = true
 
 func loadMatch():
@@ -487,7 +489,10 @@ func changeTurn() -> void:
 	if timer.tipo_do_timer == timer.TimerType.TIMER:
 		timer.iniciar_lance(currentTurn)
 		
-	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
+	#disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
+	disparar_anuncio_com_pausa("", 80, 1.5,Color.WHITE, true)
+	
+	
 	carta_usada_no_turno = false
 
 func forceTurn(target: turn) -> void:
@@ -520,7 +525,8 @@ func forceTurn(target: turn) -> void:
 		timer.isHomeTurn = (currentTurn == turn.HOME)
 	if timer.tipo_do_timer == timer.TimerType.TIMER:
 		timer.iniciar_lance(currentTurn)
-	disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
+	#disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
+	disparar_anuncio_com_pausa("", 80, 1.5, Color.YELLOW, true)
 	carta_usada_no_turno = false
 
 enum TurnType {ORIGINAL, SIMPLIFIED, INTERSPERSED, ORIGINAL_SHORT}
@@ -549,9 +555,12 @@ func decideTurn() -> void:
 						%MatchUI.colorir_turno(awayTeam,turnCounter)
 					
 					if turnCounter < 2:
-						disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+						
+						#disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
 					else:
-						disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
+						#disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
+						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
 					
 					if IA_Active and IA_Contr != null:
 						IA_Contr.SetCurrentTeamSide(currentTurn)
@@ -581,9 +590,11 @@ func decideTurn() -> void:
 						%MatchUI.colorir_turno(awayTeam,turnCounter)
 
 					if turnCounter < 2:
-						disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+						#disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
 					else:
-						disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
+						#disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
+						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
 					
 					if IA_Active and IA_Contr != null:
 						IA_Contr.SetCurrentTeamSide(currentTurn)
@@ -614,9 +625,11 @@ func decideTurn() -> void:
 						%MatchUI.colorir_turno(awayTeam,turnCounter)
 
 					if turnCounter < 1:
-						disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+						#disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
+						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
 					else:
-						disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
+						#disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
+						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
 					
 					if IA_Active and IA_Contr != null:
 						IA_Contr.SetCurrentTeamSide(currentTurn)
@@ -700,9 +713,16 @@ func _sincronizar_estado_congelamento() -> void:
 	for piece in allPieces:
 		piece.disabled = deve_congelar
 		
-func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: Color = Color.WHITE) -> void:
-	congelar_jogo(true, tempo + 0.2)
-	anunciador_ui.mostrar_evento(texto, tamanho, tempo, cor)
+func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: Color = Color.WHITE, evento_lance: bool = false) -> void:
+	congelar_jogo(true, tempo + 0.5)
+	var is_home = true if currentTurn == 0 else false #Descobre o time jogando
+	var cor_time = homeTeam.cor if is_home else awayTeam.cor #Define a cor pra pintar
+	print ("tempo ", tempo)
+	
+	if not evento_lance:
+		anunciador_ui.mostrar_evento(texto, tamanho, tempo, cor)
+	else:
+		anunciador_ui.mostrar_evento_interface(is_home, str(turnCounter + 1), cor_time, tempo)
 	
 	var descongelar = func():
 		congelar_jogo(false)
