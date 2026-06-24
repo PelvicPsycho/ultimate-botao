@@ -6,19 +6,21 @@ extends MarginContainer
 @export var botao_aceitar: TextureButton
 @export var botao_label: Label  # Label filho do TextureButton ("ACEITAR" / "BLOQUEADO")
 @export var grey_texture: Texture
+@onready var reqLabel = $MarginContainer/VBoxContainer/Requisitos_Label
 
 var cup_data: Cup
 var esta_desbloqueado: bool = false
 
 func setup(novo_cup: Cup):
 	cup_data = novo_cup
+	reqLabel.text = tr("REQUISITES")+":"
 	
 	# Atualiza os textos visuais
 	label_titulo.text = cup_data.cupName
 	
 	# Pega o nome do Enum (S, A, B...) em formato de String baseando-se no número salvo
 	var letra_do_rank = Cup.CUP_RANK.keys()[cup_data.cupRank]
-	label_rank.text = "Rank " + letra_do_rank
+	label_rank.text = tr("RANK") + " " + letra_do_rank
 	
 	# Verifica se este torneio está desbloqueado
 	esta_desbloqueado = cup_data.cupName in GameState.torneios_desbloqueados
@@ -34,14 +36,14 @@ func definir_foco(ativo: bool):
 		if esta_desbloqueado:
 			botao_aceitar.disabled = false
 			if botao_label:
-				botao_label.text = "ACEITAR"
+				botao_label.text = tr("ENTER")
 			if animador:
 				animador.esta_bloqueado = false # Libera a animação de hover
 		else:
 			botao_aceitar.disabled = true
 			botao_aceitar.texture_normal = grey_texture
 			if botao_label:
-				botao_label.text = "BLOQUEADO"
+				botao_label.text = tr("LOCKED")
 			if animador:
 				animador.esta_bloqueado = true # Trava a animação de hover
 	else:

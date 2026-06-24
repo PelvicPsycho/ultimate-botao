@@ -31,7 +31,7 @@ custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_ttnwg")
 theme_override_font_sizes/font_size = 120
-text = "TORNEIOS"
+text = "CUPS"
 
 [node name="Control" type="Control" parent="Bloco1_HBoxContainer" unique_id=460513298]
 custom_minimum_size = Vector2(30, 0)
@@ -52,7 +52,7 @@ custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_ttnwg")
 theme_override_font_sizes/font_size = 120
-text = "TORNEIOS"
+text = "CUPS"
 
 [node name="Control" type="Control" parent="Bloco2_HBoxContainer" unique_id=623972631]
 custom_minimum_size = Vector2(30, 0)
@@ -73,7 +73,7 @@ custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_ttnwg")
 theme_override_font_sizes/font_size = 120
-text = "TORNEIOS"
+text = "CUPS"
 
 [node name="Control" type="Control" parent="Bloco3_HBoxContainer" unique_id=1008541725]
 custom_minimum_size = Vector2(30, 0)

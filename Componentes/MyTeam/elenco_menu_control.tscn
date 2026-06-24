@@ -95,6 +95,7 @@ corner_radius_bottom_left = 3
 corner_detail = 5
 
 [node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "az_filter_btn", "rank_filter_btn", "date_filter_btn", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_pai_margincontainer", "center_plainmsg_vbox", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "thumbnail_video_wrapper", "central_video_player", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox", "overlay_video", "fundo_escuro", "video_container", "popup_video_player", "btn_abrir_video", "btn_fechar_video", "center_peca_visual", "right_peca_visual", "top_slots_visuais")]
+auto_translate_mode = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -599,7 +600,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("18_0wqyg")
 theme_override_font_sizes/font_size = 28
-text = "Rank"
+text = "RANK"
 
 [node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/RankFilter_Button" unique_id=1092946135 instance=ExtResource("12_0wqyg")]
 
@@ -890,7 +891,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 35
-text = "Equipar"
+text = "EQUIP"
 
 [node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/MarginContainer/ActionButton_Button" unique_id=2106885778 instance=ExtResource("12_0wqyg")]
 
@@ -998,7 +999,7 @@ vertical_alignment = 1
 [node name="RW_ContagemSlots_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1029797107]
 layout_mode = 2
 theme_override_constants/outline_size = 5
-text = "Slots (0/0)"
+text = "SLOTS (0/0)"
 
 [node name="SlotsIndicator_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1841438748]
 layout_mode = 2
@@ -1013,9 +1014,9 @@ expand_mode = 1
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/outline_size = 5
-text = "Forca
+text = "STRENGTH
 PA
-Slots"
+SLOTS"
 fit_content = true
 
 [node name="Isolate_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1096506412]

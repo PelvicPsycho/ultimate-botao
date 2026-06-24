@@ -492,7 +492,7 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 				#cw_button_label.text = ""
 		
 		var status = _get_status_calculado(item)
-		var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, item.quantosSlotes]
+		var texto_status: String = tr("STRENGTH")+ ": " + str(status.forca) + "\n" + tr("AP") + ": " + str(status.pa) + "\n" + tr("SLOTS") + ": "+ str(item.quantosSlotes)
 		center_peca_stats.text = texto_status
 		
 # --- ATUALIZAÇÃO DO GRID CENTRAL PARA USAR A CENA DE CARTA ---
@@ -616,7 +616,7 @@ func _update_right_window() -> void:
 		#rw_button_label.text = str(index_no_time + 1) if index_no_time != -1 and index_no_time < slot_buttons.size() else " "
 			
 	var status = _get_status_calculado(peca_atual)
-	var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, peca_atual.quantosSlotes]
+	var texto_status: String = tr("STRENGTH")+ ": " + str(status.forca) + "\n" + tr("AP") + ": " + str(status.pa) + "\n" + tr("SLOTS") + ": "+ str(peca_atual.quantosSlotes)
 	right_window_stats.text = texto_status
 
 	if right_slots_indicator_hbox:

@@ -85,7 +85,7 @@ text = "Rank do Torneio"
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_x8n41")
 theme_override_font_sizes/font_size = 25
-text = "Requisitos:"
+text = "REQUISITES:"
 
 [node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=1345276531]
 custom_minimum_size = Vector2(250, 70)
@@ -111,7 +111,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("6_x8n41")
 theme_override_font_sizes/font_size = 25
-text = "ACEITAR"
+text = "ENTER"
 horizontal_alignment = 1
 
 [node name="AnimationHover_Node" parent="MarginContainer/VBoxContainer/TextureButton" unique_id=1375273779 instance=ExtResource("6_i1qlk")]

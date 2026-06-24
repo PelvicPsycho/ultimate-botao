@@ -56,7 +56,7 @@ func _ready():
 	_sincronizar_sliders_com_bola()
 	
 	label_padrao.text = padrao_atual.name
-	set_padrao_atual()
+	#set_padrao_atual()
 	
 	labelPosse.text = posseTypes[posseIndex]
 

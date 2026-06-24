@@ -121,11 +121,11 @@ func mostrar_evento_interface(is_Home: bool = true, texto_lance: String = "1", c
 
 	# ── Configura textos ──
 	if is_Home:
-		jogador_label.text = "Jogador"
+		jogador_label.text = tr("PLAYER")
 	else:
-		jogador_label.text = "Adversário"
+		jogador_label.text = tr("OPPONENT")
 	if not texto_lance.is_empty():
-		lances_label.text = texto_lance + "º Lance"
+		lances_label.text = texto_lance + tr("FIRST" if texto_lance == "1" else "SECOND" if texto_lance == "2" else "THIRD") + " " +tr("SHOT")
 
 	# ── Direção da animação e flip do vídeo ──
 	# Home: entra da esquerda → direita, vídeo normal

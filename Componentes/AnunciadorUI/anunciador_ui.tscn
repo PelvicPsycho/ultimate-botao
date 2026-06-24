@@ -74,7 +74,7 @@ offset_right = 1608.0
 offset_bottom = 651.0
 theme_override_fonts/font = ExtResource("5_cy7v8")
 theme_override_font_sizes/font_size = 60
-text = "Jogador"
+text = "PLAYER"
 
 [node name="Lances_Label" type="Label" parent="Lances_Control" unique_id=1041939228]
 layout_mode = 0
@@ -91,7 +91,7 @@ theme_override_constants/outline_size = 40
 theme_override_constants/shadow_outline_size = 40
 theme_override_fonts/font = ExtResource("6_c5oib")
 theme_override_font_sizes/font_size = 311
-text = "1º Lance"
+text = "1° LANCE"
 
 [node name="Button" type="Button" parent="." unique_id=147299025]
 visible = false
