@@ -98,6 +98,8 @@ func _on_button__recomecar_pressed() -> void:
 
 func _on_button__menu_inicial_pressed() -> void:
 	get_tree().paused = false  # Despausa antes de trocar de cena para o mouse funcionar
+	PvPManager.isPvpMatch = false
+	PvPManager.teams.clear()
 	get_tree().change_scene_to_file("res://Componentes/MainMenu/start_menu_canvas_layer.tscn")
 
 func pegar_todas_pecas():

@@ -58,6 +58,7 @@ func _on_texture_button_pressed() -> void:
 	
 	# 1. Manda o CupManager preparar tudo e salvar o jogo
 	CupManager.iniciar_torneio_selecionado(cup_data)
+	PvPManager.isPvpMatch = false
 	
 	# 2. A UI só se preocupa em mudar de tela
 	#get_tree().change_scene_to_file("res://2D Changes/2D_Scenes/MatchScene2D.tscn")

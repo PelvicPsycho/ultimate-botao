@@ -44,6 +44,8 @@ func _show(winner: String,  score: String, playerWin: bool):
 
 func _on_quit_button_up():
 	_set_match_paused(false)
+	PvPManager.isPvpMatch = false
+	PvPManager.teams.clear()
 	get_tree().change_scene_to_file("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn")
 
 func _on_restart_button_up():
