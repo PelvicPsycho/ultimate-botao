@@ -52,6 +52,14 @@ var botoes_ativos: Array[TextureButton] = []
 var is_open: bool = false
 var _botao_hover_atual: TextureButton = null
 
+var _parent_original: Node = null
+var _canvas_layer: CanvasLayer = null
+
+func _ready() -> void:
+	_canvas_layer = CanvasLayer.new()
+	_canvas_layer.layer = 1
+	_canvas_layer.visible = false
+
 ## Filtra as cartas equipadas e desenha apenas as que são ATIVAS
 func definir_cartas(todas_as_cartas: Array, pa_atual: int) -> void:
 	_limpar_botoes_antigos()
@@ -169,15 +177,35 @@ func _limpar_botoes_antigos() -> void:
 func abrir() -> void:
 	if is_open:
 		return
+
+	_parent_original = get_parent()
+
+	if _canvas_layer.get_parent() == null:
+		get_tree().root.add_child(_canvas_layer)
+
+	var global_pos = global_position
+	_parent_original.remove_child(self)
+	_canvas_layer.add_child(self)
+	global_position = global_pos
+
+	_canvas_layer.visible = true
 	is_open = true
 	show()
-	
+
 func fechar() -> void:
 	if not is_open:
 		return
 	is_open = false
 	_limpar_botoes_antigos()
 	hide()
+
+	if _parent_original and is_instance_valid(_parent_original):
+		var global_pos = global_position
+		_canvas_layer.remove_child(self)
+		_parent_original.add_child(self)
+		global_position = global_pos
+
+	_canvas_layer.visible = false
 
 # ==========================================
 # SISTEMA DE PONTOS DE AÇÃO (PA)

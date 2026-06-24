@@ -24,9 +24,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iej8s"]
 size = Vector2(215, 269)
 
-[node name="MatchScene2d" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("anunciador_ui")]
+[node name="MatchScene2d" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("anunciador_ui", "pause_menu")]
 script = ExtResource("1_iur2g")
 anunciador_ui = NodePath("AnunciadorUI")
+pause_menu = NodePath("PauseMenu")
 cena_recompensa_partida = ExtResource("2_q7h6m")
 cena_recompensa_torneio = ExtResource("3_pnfph")
 audio_murmurio_fundo = ExtResource("4_5a5ja")
@@ -123,10 +124,10 @@ collision_mask = 2
 position = Vector2(54.5, 2.5)
 shape = SubResource("RectangleShape2D_iej8s")
 
-[node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("3_r4ru6")]
-
 [node name="MatchUI" parent="." unique_id=2001534732 instance=ExtResource("4_cdikc")]
 unique_name_in_owner = true
+
+[node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("3_r4ru6")]
 
 [node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("6_gbtg2")]
 

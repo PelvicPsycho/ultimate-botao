@@ -1,4 +1,5 @@
 extends CanvasLayer
+class_name PauseMenu
 
 var Pecas_Jogo: Array[PhysicsPlayer2D] = []
 var a_bola: PhysicsBall2D
@@ -17,6 +18,7 @@ var a_bola: PhysicsBall2D
 @onready var labelPosse = $"Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer17/PosseHbox/Label_Posse"
 var posseTypes = ["Original", "Simplified", "Interspersed", "Original short"]
 var posseIndex = 0
+var pode_abrir: bool = true
 
 func _ready():
 	# Garante que o menu comece invisível quando o jogo roda
@@ -61,16 +63,15 @@ func _ready():
 
 func _unhandled_input(event):
 	# "ui_cancel" é a tecla ESC por padrão
-	if event.is_action_pressed("ui_cancel"):
-		alternar_pause()
+	if pode_abrir:
+		if event.is_action_pressed("ui_cancel"):
+			alternar_pause()
 
 func alternar_pause():
 	var novo_estado = not get_tree().paused
 	get_tree().paused = novo_estado
 	visible = novo_estado
 	
-	# IMPORTANTE: Se o seu jogo for de tiro (FPS) ou capturar o mouse,
-	# descomente as linhas abaixo para liberar o cursor no menu:
 #	if novo_estado:
 #		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 #	else:
@@ -368,8 +369,7 @@ func _on_bola_escala_value_changed(value):
 
 
 func _on_button_pressed() -> void:
+	alternar_pause()
 	var matchscene = get_parent()
 	matchscene.homeScore = 3
 	matchscene._on_partida_acabou()
-	
-	pass # Replace with function body.

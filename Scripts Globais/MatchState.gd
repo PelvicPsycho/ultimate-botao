@@ -24,9 +24,12 @@ var away_color_offset: float
 @export_range(0.0, 1.0) var home_color_alpha: float = 0.3
 @export_range(0.0, 1.0) var away_color_alpha: float = 0.3
 
+@export_group("Nodos")
+@export var anunciador_ui: CanvasLayer
+@export var pause_menu: PauseMenu
+
 var allPieces: Array[PhysicsPlayer2D]
 var selectedPiece: PhysicsPlayer2D
-@export var anunciador_ui: CanvasLayer
 var homeTeam: Team
 var homeScore: int
 var awayTeam: Team
@@ -179,7 +182,7 @@ func _ready() -> void:
 	%MatchUI.contador_de_lances_away.cor_atual_time = awayTeam.cor
 	atualizar_cores_pecas()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if back_ground_can_animate:
 		gradient_texture.gradient.set_offset(0, home_color_offset)
 		gradient_texture.gradient.set_offset(1, away_color_offset)
@@ -267,6 +270,7 @@ func _aplicar_punicao_chess(isHome: bool) -> void:
 
 func _on_partida_acabou() -> void:
 	timer.parar_tudo()
+	pause_menu.pode_abrir = false
 	if homeScore == awayScore:
 		disparar_anuncio_com_pausa(tr("GOLDEN_GOAL"), 80, 1.5, Color.YELLOW)
 		gol_de_ouro = true

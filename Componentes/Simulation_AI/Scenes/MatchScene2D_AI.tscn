@@ -52,7 +52,7 @@ fill_from = Vector2(0, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iej8s"]
 size = Vector2(292.5, 366)
 
-[node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller", "IA_Contr", "placar", "gradient_background_TextureRect", "anunciador_ui")]
+[node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller", "IA_Contr", "placar", "gradient_background_TextureRect", "anunciador_ui", "pause_menu")]
 script = ExtResource("1_ss0s5")
 physics_controller = NodePath("PhysicsController")
 IA_Active = true
@@ -60,6 +60,7 @@ IA_Contr = NodePath("IA_Controller")
 placar = NodePath("CanvasLayer_Placar")
 gradient_background_TextureRect = NodePath("CanvasLayer_BackGround/Gradient_Background")
 anunciador_ui = NodePath("AnunciadorUI")
+pause_menu = NodePath("PauseMenu")
 cena_recompensa_partida = ExtResource("2_5b3c6")
 cena_recompensa_torneio = ExtResource("3_n4ih5")
 audio_murmurio_fundo = ExtResource("4_ba03v")
@@ -297,11 +298,10 @@ collision_mask = 2
 position = Vector2(86, -44)
 shape = SubResource("RectangleShape2D_iej8s")
 
-[node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("17_jvl26")]
-
 [node name="MatchUI" parent="." unique_id=2001534732 instance=ExtResource("18_3eaht")]
 unique_name_in_owner = true
-layer = -1
+
+[node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("17_jvl26")]
 
 [node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("19_h5eqs")]
 
