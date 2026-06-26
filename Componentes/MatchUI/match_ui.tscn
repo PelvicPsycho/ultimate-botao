@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://lajotldv5xxr" path="res://Componentes/MatchUI/match_ui2.gd" id="1_yfw0a"]
 [ext_resource type="Texture2D" uid="uid://tp26m5u35pjg" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/placar/Video da matchscene.mp4_snapshot_00.03.844.jpg" id="2_ky2rs"]
 [ext_resource type="Texture2D" uid="uid://bq5ebrgitptm0" path="res://junk/Untitled.png" id="2_xrqu3"]
+[ext_resource type="Texture2D" uid="uid://iqje35fshfs" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/Bandeira_Times_Fundo.png" id="4_gww17"]
 [ext_resource type="FontFile" uid="uid://b8f7dj4qbp66f" path="res://Recursos/Fontes/Baloo2-Bold.ttf" id="5_1jthf"]
 [ext_resource type="Texture2D" uid="uid://cvj7rqqmgx45x" path="res://Recursos/2D_Art/MatchUI/Gremio_logo.png" id="6_hdx5a"]
 [ext_resource type="Texture2D" uid="uid://bhta1l4ahtw1i" path="res://Recursos/2D_Art/MatchUI/Ativo 3.png" id="6_yfw0a"]
 [ext_resource type="Texture2D" uid="uid://cmn4f0tk60yt0" path="res://Recursos/2D_Art/MatchUI/Ativo 2.png" id="7_jt1jy"]
-[ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="7_xrqu3"]
 [ext_resource type="Material" uid="uid://0bn2sn5jr6hp" path="res://shaders/Lances_Bolinha.tres" id="8_ky2rs"]
 [ext_resource type="Texture2D" uid="uid://jriomq0tn3ni" path="res://Recursos/2D_Art/MatchUI/Ativo 1.png" id="8_xrqu3"]
 [ext_resource type="Texture2D" uid="uid://bspvf8n8v742y" path="res://Recursos/2D_Art/MatchUI/Sport_Club_Internacional_logopng.png" id="9_gww17"]
@@ -75,7 +75,7 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "handle_modes": PackedInt32Array(2),
-"points": PackedFloat32Array(159, 0, 0, 0.11666667, 0),
+"points": PackedFloat32Array(7, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/5/type = "bezier"
@@ -86,7 +86,7 @@ tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "handle_modes": PackedInt32Array(2, 2, 2, 0),
-"points": PackedFloat32Array(156.783, 0, 0, 0.044433337, 0, 180.282, -0.022216668, -1.1743087, 0.09445, 4.992353, 165.782, -0.03333333, -0.79412836, 0.061116666, 1.4560344, 193.78297, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(157, 0, 0, 0.022216668, 3.8803332, 180.282, -0.022216668, -1.1743087, 0.09445, 4.992353, 165.782, -0.03333333, -0.79412836, 0.061116666, 1.4560344, 193.78297, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.1333, 0.3333, 0.7)
 }
 
@@ -144,8 +144,8 @@ tracks/4/path = NodePath("AwayTeam_ProgressBar_Panel/Progress_Background/Label:p
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(159, -0.25, 0, 0.25, 0),
+"handle_modes": PackedInt32Array(2),
+"points": PackedFloat32Array(7, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/5/type = "bezier"
@@ -155,8 +155,8 @@ tracks/5/path = NodePath("AwayTeam_ProgressBar_Panel/Progress_Background/Label:p
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(193.78297, -0.25, 0, 0.25, 0, 156.783, -0.16666667, 6.1666617, 0, 0),
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(194, 0, 0, 0.11666667, -6.2028327, 156.783, -0.16666667, 6.1666617, 0, 0),
 "times": PackedFloat32Array(0, 0.7)
 }
 
@@ -322,8 +322,8 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(2, 0, 0, 1),
-"points": PackedFloat32Array(320, 0, 0, 0, 0, -3, -0.46670377, -81, 0.09996295, 17, 0, -0.1000371, 11, 0, 0, 0, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 1, 1.3, 1.5)
+"points": PackedFloat32Array(347.5, 0, 0, 0.33333334, -3, -0.5, -0.3, 49, 0.09726846, -37, -1.5, -0.069398046, -26, 0.06393528, 36, -0.5, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 1, 1.2666667, 1.5)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -344,7 +344,7 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(2, 0, 0),
-"points": PackedFloat32Array(370, 0, 0, 0.40000004, 0, 50, -0.4000371, -71, 0.13329625, 10, 50, -0.1333704, 9, 0.25, 0),
+"points": PackedFloat32Array(398.5, 0, 0, 0.36666667, -17, 55.5, -0.3811707, 78, 0.08549595, -37, 50, -0.08117068, -15.5, 0.25, 0),
 "times": PackedFloat32Array(0, 1.1333333, 1.5)
 }
 tracks/4/type = "bezier"
@@ -354,9 +354,9 @@ tracks/4/path = NodePath("HomeTeam_ProgressBar_Panel/Progress_Background/Label:p
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(7, -0.25, 0, 0.25, 0, 7, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1.5)
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(7, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 tracks/5/type = "bezier"
 tracks/5/imported = false
@@ -365,9 +365,75 @@ tracks/5/path = NodePath("HomeTeam_ProgressBar_Panel/Progress_Background/Label:p
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(127.00021, -0.25, 0, 0.25, 0, 127.00021, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1.5)
+"handle_modes": PackedInt32Array(0, 0, 2),
+"points": PackedFloat32Array(334, 0, 0, 0.33333334, -5, 138, -0.13333338, 147, 0.05582893, -28, 123, -0.0775044, -17, 0, 0),
+"times": PackedFloat32Array(0, 1.1, 1.3333334)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AwayTeam_ProgressBar_Panel/Progress_Shadow:position:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(31.99998, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AwayTeam_ProgressBar_Panel/Progress_Shadow:position:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0),
+"points": PackedFloat32Array(397.97552, 0, 0, 0.3324548, 0, 56.5, -0.2504732, 29, 0.080224514, -42, 50.5, -0.05310881, -13, 0, 0),
+"times": PackedFloat32Array(0, 1.1333333, 1.5)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AwayTeam_ProgressBar_Panel/Progress_Background:position:x")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-1.9930254e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AwayTeam_ProgressBar_Panel/Progress_Background:position:y")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0, 0),
+"points": PackedFloat32Array(347.97552, 0, 0, 0.33333334, 0, 0, -0.3, 35.5, 0.100000024, -32.5, 0.5, -0.100000024, -33, 0.06666672, 32, 0, -0.06666672, 3.5, 0, 0),
+"times": PackedFloat32Array(0, 1, 1.2666667, 1.5)
+}
+tracks/10/type = "bezier"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("AwayTeam_ProgressBar_Panel/Progress_Background/Label:position:x")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(7, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("AwayTeam_ProgressBar_Panel/Progress_Background/Label:position:y")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0, 0, 2),
+"points": PackedFloat32Array(334, 0, 0, 0.33333334, -7, 192, -0.13333338, 105, 0.0333333, -21, 191, -0.06666672, -20, 0, 0),
+"times": PackedFloat32Array(0, 1.1, 1.3333334)
 }
 
 [sub_resource type="Animation" id="Animation_snsmq"]
@@ -521,45 +587,6 @@ colors = PackedColorArray(0.38431373, 0.67058825, 0.827451, 0.5882353, 0.9450980
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vxabe"]
 gradient = SubResource("Gradient_xrqu3")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yfw0a"]
-bg_color = Color(0.9254902, 0.9254902, 0.9254902, 1)
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_bottom_right = 94
-expand_margin_right = 4.0
-expand_margin_bottom = 4.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jt1jy"]
-bg_color = Color(0.9254902, 0.9254902, 0.9254902, 1)
-border_width_left = 4
-border_width_bottom = 4
-corner_radius_bottom_left = 94
-expand_margin_left = 4.0
-expand_margin_bottom = 4.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrqu3"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ky2rs"]
-bg_color = Color(0, 0, 0, 0.49803922)
-corner_radius_top_left = 64
-corner_radius_top_right = 64
-corner_radius_bottom_right = 64
-corner_radius_bottom_left = 64
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rbbqf"]
-bg_color = Color(0.9254902, 0.9254902, 0.9254902, 1)
-corner_radius_top_left = 64
-corner_radius_top_right = 64
-corner_radius_bottom_right = 64
-corner_radius_bottom_left = 64
-
-[sub_resource type="LabelSettings" id="LabelSettings_vxabe"]
-font = ExtResource("7_xrqu3")
-font_size = 24
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxabe"]
 bg_color = Color(0.9254902, 0.9254902, 0.9254902, 1)
 border_width_left = 4
@@ -685,11 +712,19 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_vxabe")
 
-[node name="EmblemaHome" type="Panel" parent="MarginContainer/Control" unique_id=187398632]
+[node name="EmblemaHome" type="TextureRect" parent="MarginContainer/Control" unique_id=875075992]
 layout_mode = 1
-offset_right = 243.0
-offset_bottom = 243.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_yfw0a")
+anchors_preset = -1
+anchor_right = 0.892
+anchor_bottom = 0.93700004
+offset_left = 184.0
+offset_top = 326.0
+offset_right = -1362.64
+offset_bottom = -187.96002
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.1415927
+texture = ExtResource("4_gww17")
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaHome" unique_id=339068560]
 layout_mode = 1
@@ -698,42 +733,45 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -103.5
-offset_top = -109.0
-offset_right = 103.5
-offset_bottom = 109.0
+offset_left = 83.000015
+offset_top = 8.0
+offset_right = 290.81616
+offset_bottom = 226.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(-0.8, -0.8)
 texture = ExtResource("6_hdx5a")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="EmblemaAway" type="Panel" parent="MarginContainer/Control" unique_id=2019306394]
+[node name="EmblemaAway" type="TextureRect" parent="MarginContainer/Control" unique_id=359675951]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_top = 837.0
-offset_right = 243.0
-offset_bottom = 1079.9996
-grow_horizontal = 0
-rotation = 1.5707964
-theme_override_styles/panel = SubResource("StyleBoxFlat_jt1jy")
+anchors_preset = -1
+anchor_right = 0.892
+anchor_bottom = 0.93700004
+offset_left = 1905.0
+offset_top = 772.0
+offset_right = 358.36
+offset_bottom = 258.03998
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(-1, 1)
+texture = ExtResource("4_gww17")
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaAway" unique_id=1288555093]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaAway" unique_id=250404502]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -104.49999
-offset_top = 100.50012
-offset_right = 102.5
-offset_bottom = 318.50012
+offset_left = 82.999985
+offset_top = -164.99998
+offset_right = 290.5
+offset_bottom = 53.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = -1.5707964
+scale = Vector2(-0.8, 0.8)
 texture = ExtResource("9_gww17")
 expand_mode = 1
 stretch_mode = 5
@@ -761,57 +799,6 @@ offset_top = 773.0
 offset_right = 839.0
 offset_bottom = 813.0
 script = ExtResource("20_gww17")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control" unique_id=1418294573]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -273.0
-offset_right = 278.0
-offset_bottom = 146.0
-grow_horizontal = 2
-theme_override_constants/separation = 0
-
-[node name="TimerBar" type="Panel" parent="MarginContainer/Control/VBoxContainer" unique_id=1360506475]
-custom_minimum_size = Vector2(544, 69)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_xrqu3")
-
-[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/Control/VBoxContainer/TimerBar" unique_id=1556547862]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -256.0
-offset_top = -13.5
-offset_right = 256.0
-offset_bottom = 13.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_ky2rs")
-theme_override_styles/fill = SubResource("StyleBoxFlat_rbbqf")
-max_value = 90.0
-show_percentage = false
-
-[node name="TimeLabel" type="Label" parent="MarginContainer/Control/VBoxContainer/TimerBar/ProgressBar" unique_id=936039720]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "TIME"
-label_settings = SubResource("LabelSettings_vxabe")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control" unique_id=1738534711]
 layout_mode = 1
@@ -1016,7 +1003,7 @@ anchor_bottom = 0.998
 offset_left = 0.008041382
 offset_top = 0.24581528
 offset_right = 0.04623413
-offset_bottom = 0.101867676
+offset_bottom = 0.10546875
 texture = ExtResource("16_gww17")
 
 [node name="Progress_Background" type="TextureRect" parent="MarginContainer/Control/HomeTeam_ProgressBar_Panel" unique_id=1372319063]
@@ -1025,7 +1012,7 @@ anchors_preset = -1
 anchor_right = 0.892
 anchor_bottom = 0.93700004
 offset_right = 0.08821106
-offset_bottom = -3.2702942
+offset_bottom = -3.2723694
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("17_llkwk")
@@ -1062,9 +1049,9 @@ anchor_top = 0.25500003
 anchor_right = 0.95800006
 anchor_bottom = 0.423
 offset_left = 0.027999401
-offset_top = 0.005996704
+offset_top = 0.0065307617
 offset_right = -0.028015137
-offset_bottom = 0.12223816
+offset_bottom = 0.12142944
 theme_override_colors/font_color = Color(1, 0.9490196, 0.8980392, 1)
 theme_override_fonts/font = ExtResource("13_xrqu3")
 theme_override_font_sizes/font_size = 45
@@ -1080,11 +1067,12 @@ anchor_left = 0.010000001
 anchor_top = 0.716
 anchor_right = 0.10700001
 anchor_bottom = 1.2110001
-offset_left = 1882.8
+offset_left = 1696.8
 offset_top = -447.28003
-offset_right = 1882.5597
+offset_right = 1696.5597
 offset_bottom = -446.88892
 rotation = 3.1415927
+scale = Vector2(-1, 1)
 
 [node name="Progress_Shadow" type="TextureRect" parent="MarginContainer/Control/AwayTeam_ProgressBar_Panel" unique_id=2124486354]
 self_modulate = Color(1, 1, 1, 0.5882353)
@@ -1097,7 +1085,7 @@ anchor_bottom = 0.998
 offset_left = 0.008041382
 offset_top = 0.24581528
 offset_right = 0.04623413
-offset_bottom = 0.10308838
+offset_bottom = 0.10168457
 texture = ExtResource("16_gww17")
 
 [node name="Progress_Background" type="TextureRect" parent="MarginContainer/Control/AwayTeam_ProgressBar_Panel" unique_id=507844269]
@@ -1106,7 +1094,7 @@ anchors_preset = -1
 anchor_right = 0.892
 anchor_bottom = 0.93700004
 offset_right = 0.08821106
-offset_bottom = -3.2703552
+offset_bottom = -3.2702942
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("17_llkwk")
@@ -1143,10 +1131,11 @@ anchor_top = 0.25500003
 anchor_right = 0.95800006
 anchor_bottom = 0.423
 offset_left = 152.028
-offset_top = 66.78877
+offset_top = 66.78876
 offset_right = 151.97217
-offset_bottom = 66.90338
+offset_bottom = 66.9039
 rotation = 3.1415927
+scale = Vector2(-1, 1)
 theme_override_colors/font_color = Color(1, 0.9490196, 0.8980392, 1)
 theme_override_fonts/font = ExtResource("13_xrqu3")
 theme_override_font_sizes/font_size = 45

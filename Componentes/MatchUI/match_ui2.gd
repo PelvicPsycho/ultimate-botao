@@ -11,11 +11,6 @@ extends CanvasLayer
 @onready var textureRectAway = $MarginContainer/Control/EmblemaAway/TextureRect
 @onready var emblemPanelAway = $MarginContainer/Control/EmblemaAway
 
-#VARIÁVEIS/COMPONENTES DO TIMER
-@onready var progressBar = $MarginContainer/Control/VBoxContainer/TimerBar/ProgressBar
-@onready var timeLabel = $MarginContainer/Control/VBoxContainer/TimerBar/ProgressBar/TimeLabel
-@onready var timerPanel = $MarginContainer/Control/VBoxContainer/TimerBar
-
 #VARIÁVEIS/COMPONENTES DOS LANCES
 @onready var shotsGroupHome = $MarginContainer/Control/MarginContainer/VBoxContainer
 @onready var shotsCounterHome = $MarginContainer/Control/MarginContainer/VBoxContainer/Panel_LancesHome/MarginContainer/HBox_LancesEsquerda
@@ -95,10 +90,6 @@ func UI_start(home_team: Team, away_team: Team):
 	#changeScoreColor()
 	changeTimersColor()
 	
-	var timerNode = $"../MatchTimer"
-	if timerNode and timerNode.tipo_do_timer == 2:
-		timeLabel.text = str(timerNode.totalShotsRemaining)
-
 func changeTimersColor():
 	var style: StyleBoxFlat
 	
@@ -156,13 +147,6 @@ func changeShotsPanelBorderColor():
 	#labelScoreAway.label_settings.font_color = awayTeam.cor
 
 func colorir_turno(activeTeam: Team, turnCounter: int):
-	var style: StyleBoxFlat
-	
-	style = timerPanel.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
-	style.bg_color = activeTeam.cor
-	timerPanel.add_theme_stylebox_override("panel", style)
-	
-	timeLabel.label_settings.font_color = activeTeam.cor
 	_animar_paineis_posse(activeTeam)
 	
 	if activeTeam == homeTeam:
@@ -259,25 +243,19 @@ func _animar_paineis_posse(activeTeam: Team) -> void:
 		tween.tween_property(shotsGroupAway, "modulate", Color(1.0, 1.0, 1.0, 1.0), duracao_animacao_posse)
 		tween.tween_property(shotsGroupHome, "modulate", Color(1.0, 1.0, 1.0, 0.5), duracao_animacao_posse)
 
-func _atualizar_label_partida(time: float) -> void:
-	progressBar.value = time
-	var timerNode = $"../MatchTimer"
-	if timerNode and timerNode.tipo_do_timer == 2:
-		timeLabel.text = str(timerNode.totalShotsRemaining)
-
 func _atualizar_label_lance(isHome: float, time: float) -> void:
 	var text = format_time(time)
 	if isHome:
 		text = format_time(time)
 		ProgressBarHome_Time_Label.text = text
 		
-		text = format_time(0)
-		shotsProgressBarAway.value = 0.0
+		text = format_time(ProgressBarHome_MaxTime_Label)
+		ProgressBarAway_Time_Label.text = text
 		
 		update_progressbar_Home_position(ProgressBarHome_MaxTime_Label, time)
 		reset_progressbar_Away_position()
 	else:
-		text = format_time(0)
+		text = format_time(ProgressBarAway_MaxTime_Label)
 		ProgressBarHome_Time_Label.text = text
 		
 		text = format_time(time)
@@ -306,7 +284,6 @@ var ProgressBarAway_MaxTime_Label: float
 
 func update_progressbar_Home_position(maxtime: float, currenttime: float) -> void:
 	var value_lerp = 1 - (currenttime / maxtime)
-	#print("value_lerp = ", value_lerp)
 	var new_pos = ProgressBarHome_InitalPosition.lerp(ProgressBarHome_FinalPosition, value_lerp)
 	ProgressBarHome_Value_Texture.position = new_pos
 
@@ -318,7 +295,6 @@ func reset_progressbar_Home_position() -> void:
 
 func update_progressbar_Away_position(maxtime: float, currenttime: float) -> void:
 	var value_lerp = 1 - (currenttime / maxtime)
-	#print("value_lerp = ", value_lerp)
 	var new_pos = ProgressBarAway_InitalPosition.lerp(ProgressBarAway_FinalPosition, value_lerp)
 	ProgressBarAway_Value_Texture.position = new_pos
 

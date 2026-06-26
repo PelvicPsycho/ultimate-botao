@@ -10,6 +10,8 @@ class_name PlacarController
 
 @export_range(0.0, 1.0) var lightened_value: float = 0.3
 
+@export var labelMatchTimer: Label
+
 func change_Score_background_TextureRect_Colors(homeTeam_Color: Color, awayTeam_Color: Color) -> void:
 	print("AAAAAAAAAA")
 	# Get colors from team info
@@ -39,3 +41,18 @@ func atualizar_placar(home_score: int, away_score: int) -> void:
 	print("away_score = ", away_score)
 	labelScoreHome.text = str(home_score)
 	labelScoreAway.text = str(away_score)
+
+func atualizar_Match_Timer(time: float) -> void:
+	if labelScoreHome == null or labelScoreAway == null:
+		push_warning("MatchUI: labels de tempo não encontrados.")
+		return
+	
+	var text = format_time(time)
+	labelMatchTimer.text = text
+
+func format_time(time_in_seconds: float) -> String:
+	var minutes: int = int(time_in_seconds) / 60
+	var seconds: int = int(time_in_seconds) % 60
+	
+	# "%02d" pads numbers with a leading zero if they are single digits
+	return "%02d:%02d" % [minutes, seconds]

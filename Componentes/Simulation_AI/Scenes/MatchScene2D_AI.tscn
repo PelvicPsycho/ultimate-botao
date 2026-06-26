@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://c3jx1lb0wr1pg" path="res://2D Changes/Scripts_2D/CollisionResolution2D.gd" id="8_sbrvv"]
 [ext_resource type="PackedScene" uid="uid://bjuey2wm1ffql" path="res://2D Changes/2D_Scenes/Player2D.tscn" id="9_12ci6"]
 [ext_resource type="Texture2D" uid="uid://bl50wljegqt23" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/placar/Placar-Contorno.png" id="9_n4ih5"]
+[ext_resource type="Texture2D" uid="uid://cxvaiqd66grsc" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/relogio.png" id="10_u1agk"]
 [ext_resource type="Resource" uid="uid://daqsw61dp34rx" path="res://Recursos/Teams/MyTeam/Gugs.tres" id="10_u231a"]
 [ext_resource type="Resource" uid="uid://cjyd6bkt7lcc6" path="res://Recursos/Teams/MyTeam/Carlinhos.tres" id="11_035o7"]
 [ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Grêmio/Mec.tres" id="12_w1bfq"]
@@ -49,6 +50,9 @@ colors = PackedColorArray(0, 0.23921569, 1, 1, 0.35116833, 0.5531243, 0.9999891,
 gradient = SubResource("Gradient_tb6le")
 fill_from = Vector2(0, 1)
 
+[sub_resource type="FontVariation" id="FontVariation_v76cn"]
+base_font = ExtResource("23_ba03v")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iej8s"]
 size = Vector2(292.5, 366)
 
@@ -77,12 +81,12 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_ss0s5")
 
 [node name="AnimatedBg" parent="CanvasLayer_BackGround" unique_id=28414625 instance=ExtResource("5_tb6le")]
-offset_left = -685.0
-offset_top = -343.0
-offset_right = -685.0
-offset_bottom = -343.0
+offset_left = -629.0
+offset_top = -337.0
+offset_right = -629.0
+offset_bottom = -337.0
 
-[node name="CanvasLayer_Placar" type="CanvasLayer" parent="." unique_id=859280900 node_paths=PackedStringArray("labelScoreHome", "labelScoreAway", "backgroundScoreHome", "backgroundScoreAway")]
+[node name="CanvasLayer_Placar" type="CanvasLayer" parent="." unique_id=859280900 node_paths=PackedStringArray("labelScoreHome", "labelScoreAway", "backgroundScoreHome", "backgroundScoreAway", "labelMatchTimer")]
 layer = -1
 follow_viewport_enabled = true
 script = ExtResource("22_tb6le")
@@ -90,6 +94,7 @@ labelScoreHome = NodePath("Placar_Outline/Placar_BG_Esquerda/Placar_Label_Esquer
 labelScoreAway = NodePath("Placar_Outline/Placar_BG_Direita/Placar_Label_Direita")
 backgroundScoreHome = NodePath("Placar_Outline/Placar_BG_Esquerda")
 backgroundScoreAway = NodePath("Placar_Outline/Placar_BG_Direita")
+labelMatchTimer = NodePath("HBoxContainer/Label")
 
 [node name="Placar_Outline" type="TextureRect" parent="CanvasLayer_Placar" unique_id=2041491666]
 z_index = -1
@@ -181,6 +186,24 @@ offset_top = -0.061065674
 offset_right = 0.007873535
 offset_bottom = -0.061141968
 texture = ExtResource("24_tb6le")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer_Placar" unique_id=467491319]
+offset_left = 870.0
+offset_top = 76.0
+offset_right = 1050.0
+offset_bottom = 128.0
+pivot_offset = Vector2(90, 0)
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer_Placar/HBoxContainer" unique_id=1113138252]
+layout_mode = 2
+texture = ExtResource("10_u1agk")
+
+[node name="Label" type="Label" parent="CanvasLayer_Placar/HBoxContainer" unique_id=2129223099]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_v76cn")
+theme_override_font_sizes/font_size = 42
+text = "00:00"
 
 [node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("6_u1agk")]
 position = Vector2(960, 540)

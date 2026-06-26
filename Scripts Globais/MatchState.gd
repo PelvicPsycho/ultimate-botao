@@ -147,28 +147,25 @@ func _ready() -> void:
 	
 	match timer.tipo_do_timer:
 		timer.TimerType.TIMER:
-			%MatchUI.progressBar.max_value = timer.tempo_maximo_partida
 			%MatchUI.shotsProgressBarHome.max_value = timer.tempo_maximo_lance
 			%MatchUI.shotsProgressBarAway.max_value = timer.tempo_maximo_lance
 			%MatchUI.ProgressBarHome_MaxTime_Label = timer.tempo_maximo_lance
 			%MatchUI.ProgressBarAway_MaxTime_Label = timer.tempo_maximo_lance
 			timer.partida_acabou.connect(_on_partida_acabou)
-			timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)
+			timer.time_label_changed.connect(placar.atualizar_Match_Timer)
 			timer.lance_label_changed.connect(%MatchUI._atualizar_label_lance)
 			timer.lance_acabou.connect(_on_lance_acabou)
 			timer.iniciar_partida(currentTurn == turn.HOME)
 			timer.iniciar_lance(currentTurn)
 		timer.TimerType.SHOTS:
-			%MatchUI.progressBar.max_value = timer.totalShots
 			timer.partida_acabou.connect(_on_partida_acabou)
-			timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)
+			timer.time_label_changed.connect(placar.atualizar_Match_Timer)
 			timer.iniciar_partida()
 		timer.TimerType.CHESS:
-			%MatchUI.progressBar.max_value = timer.homeTimeMax
 			%MatchUI.shotsProgressBarHome.max_value = timer.homeTimeMax
 			%MatchUI.shotsProgressBarAway.max_value = timer.homeTimeMax
 			timer.partida_acabou.connect(_on_partida_acabou)
-			timer.time_label_changed.connect(%MatchUI._atualizar_label_partida)
+			timer.time_label_changed.connect(placar.atualizar_Match_Timer)
 			timer.lance_label_changed.connect(%MatchUI._atualizar_label_lance)
 			timer.punishTeam.connect(_on_punish_team)
 			timer.iniciar_partida(currentTurn == turn.HOME)
