@@ -24,14 +24,7 @@ var time: Team
 
 @export_group("Habilidades")
 @export_subgroup("Slots")
-var _quantosSlotes: int = 0
-@export var quantosSlotes: int:
-	set(value):
-		_quantosSlotes = max(value, 0)
-		slotsUpgrates.resize(_quantosSlotes)
-		estimateRank()
-	get:
-		return _quantosSlotes
+var quantosSlotes: int
 @export var slotsUpgrates: Array[CardResource] = []
 @export var mao_cartas: Array[CardResource] = []
 var turnos_congelamento_armazenado: int = 0
@@ -40,21 +33,18 @@ var poder_congelar_turnos: int = 0
 @export_subgroup("Força")
 @export var current_min_force: float = 100.0
 @export var current_max_force: float = 1000.0
-@export var level_force: int # nivel de força da peça (0 a 10)
+var strLVl: int
+@export var level_force: int # nivel de força da peça (1 a 4)
 @export var level_force_weak: int = 3  # Abaixo deste valor = FRACO
 @export var level_force_strong: int = 7  # Acima deste valor = FORTE
 var bonus_passivos: Dictionary = {}
 
 @export_subgroup("PA e outros")
-var _PA: int = 0
-@export var PA: int: #Action Points em ptbr
-	set(value):
-		_PA = value
-		estimateRank()
-	get:
-		return _PA
+var PA: int
+
 @export var disabilitado: bool = false
 @export var turnos_preso:int
+@export var expectedRank: Rank = Rank.D
 var rank: Rank = Rank.D
 
 var congelamento_ativo: bool = false
@@ -99,6 +89,45 @@ func estimateRank() -> Rank:
 	return rank
 	#else:
 		#rank = Rank.F
+
+func generateSkills():
+	var rankPointsRemaining: int = getRankPoints()
+	var slotsNum: int = randi_range(1, min(10, rankPointsRemaining)) #1 a 10 ou PR restante
+	rankPointsRemaining -= slotsNum
+	var paNum: int = randi_range(1, min(6, rankPointsRemaining)) #1 a 6 ou PR restante
+	rankPointsRemaining -= paNum
+	var strengthLvl: int = randi_range(1, min(4, rankPointsRemaining)) #1 a 4 ou PR restante
+	
+	strLVl = strengthLvl
+	setBasicMaxForce()
+	PA = paNum
+	quantosSlotes = slotsNum
+	print("camisa: ", num_camisa, " Rank: ", expectedRank, " ", estimateRank()," forca: ", strLVl, " ", basic_max_force, " PA: ", PA, " slots: ", quantosSlotes)
+
+func setBasicMaxForce():
+	match strLVl:
+		1:
+			basic_max_force = 800
+		2: 
+			basic_max_force = 1000
+		3:
+			basic_max_force = 1300
+		4:
+			basic_max_force = 1500
+
+func getRankPoints() -> int:
+	match expectedRank:
+		Rank.D:
+			return 4
+		Rank.C:
+			return 8
+		Rank.B:
+			return 12
+		Rank.A:
+			return 16
+		Rank.S:
+			return 20
+	return 0
 
 func inicializar_slots() -> void:
 	if slotsUpgrates.size() == 0:
