@@ -1,6 +1,12 @@
 [gd_scene format=3 uid="uid://cmr1tg758m3vc"]
 
 [ext_resource type="Script" uid="uid://dk828cj38hv0o" path="res://Componentes/PauseMenu/pause_menu.gd" id="1_qe3g4"]
+[ext_resource type="Texture2D" uid="uid://b01bdg3e5txkj" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/Pause/pause-fundo.png" id="2_6rko0"]
+[ext_resource type="Texture2D" uid="uid://bx7wu75yjrw2u" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/Pause/pause-continuar.png" id="3_a1023"]
+[ext_resource type="Texture2D" uid="uid://b4om716vtgarw" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/Pause/pause-text.png" id="3_u2f8j"]
+[ext_resource type="Texture2D" uid="uid://ddnxr6mgq168w" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/Pause/pause-config.png" id="4_u2f8j"]
+[ext_resource type="Texture2D" uid="uid://n8nl7ejcrqa4" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/Pause/Pause-desistir.png" id="5_1jlyt"]
+[ext_resource type="Script" uid="uid://b8xa3qtksu7me" path="res://Componentes/AnimationHover/animation_hover_node.gd" id="5_u2f8j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe3g4"]
 bg_color = Color(0.088219516, 0.22485891, 0.14035928, 1)
@@ -31,7 +37,83 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.4392157)
 
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1711727048]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 90.00001
+offset_top = 75.0
+offset_right = 115.555664
+offset_bottom = 109.44446
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+alignment = 1
+
+[node name="TextureRect_Background" type="TextureRect" parent="Control/HBoxContainer" unique_id=1676765667]
+layout_mode = 2
+texture = ExtResource("2_6rko0")
+stretch_mode = 3
+
+[node name="TextureRect_Pause" type="TextureRect" parent="Control/HBoxContainer/TextureRect_Background" unique_id=1343960399]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.178
+anchor_top = 0.065000005
+anchor_right = 1.179
+anchor_bottom = 0.27600002
+offset_left = -3.5586548
+offset_top = 10.013321
+offset_right = -3.4606323
+offset_bottom = 10.00528
+texture = ExtResource("3_u2f8j")
+stretch_mode = 3
+
+[node name="VBoxMenu_Buttons" type="VBoxContainer" parent="Control/HBoxContainer/TextureRect_Background" unique_id=1948797305]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.293
+anchor_right = 0.97800004
+anchor_bottom = 0.78900003
+offset_top = -0.44000244
+offset_right = 0.09197998
+offset_bottom = -0.12005615
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Button - Continuar" type="Button" parent="Control/HBoxContainer/TextureRect_Background/VBoxMenu_Buttons" unique_id=10636318]
+layout_mode = 2
+icon = ExtResource("3_a1023")
+flat = true
+icon_alignment = 1
+
+[node name="AnimadorHover" type="Node" parent="Control/HBoxContainer/TextureRect_Background/VBoxMenu_Buttons/Button - Continuar" unique_id=1271296735]
+script = ExtResource("5_u2f8j")
+metadata/_custom_type_script = "uid://b8xa3qtksu7me"
+
+[node name="Button - Recomecar" type="Button" parent="Control/HBoxContainer/TextureRect_Background/VBoxMenu_Buttons" unique_id=1438065989]
+layout_mode = 2
+icon = ExtResource("4_u2f8j")
+flat = true
+icon_alignment = 1
+
+[node name="AnimadorHover" type="Node" parent="Control/HBoxContainer/TextureRect_Background/VBoxMenu_Buttons/Button - Recomecar" unique_id=1467760511]
+script = ExtResource("5_u2f8j")
+metadata/_custom_type_script = "uid://b8xa3qtksu7me"
+
+[node name="Button - Menu Inicial" type="Button" parent="Control/HBoxContainer/TextureRect_Background/VBoxMenu_Buttons" unique_id=93931786]
+layout_mode = 2
+icon = ExtResource("5_1jlyt")
+flat = true
+icon_alignment = 1
+
+[node name="AnimadorHover" type="Node" parent="Control/HBoxContainer/TextureRect_Background/VBoxMenu_Buttons/Button - Menu Inicial" unique_id=696571998]
+script = ExtResource("5_u2f8j")
+metadata/_custom_type_script = "uid://b8xa3qtksu7me"
+
 [node name="CenterContainer" type="CenterContainer" parent="Control" unique_id=620711891]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,42 +122,16 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TabContainer - Abas" type="TabContainer" parent="Control/CenterContainer" unique_id=1698994393]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qe3g4")
 tab_alignment = 1
 current_tab = 1
 
-[node name="Jogo" type="MarginContainer" parent="Control/CenterContainer/TabContainer - Abas" unique_id=773568432]
+[node name="Jogo" type="VBoxContainer" parent="Control/CenterContainer/TabContainer - Abas" unique_id=1259953882]
 visible = false
 layout_mode = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
 metadata/_tab_index = 0
-
-[node name="VBoxMenu" type="VBoxContainer" parent="Control/CenterContainer/TabContainer - Abas/Jogo" unique_id=1948797305]
-custom_minimum_size = Vector2(300, 250)
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="Label - Jogo Pausado" type="Label" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=990441323]
-layout_mode = 2
-text = "PAUSE"
-horizontal_alignment = 1
-
-[node name="Button - Continuar" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=10636318]
-layout_mode = 2
-text = "CONTINUE"
-
-[node name="Button - Recomecar" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=1438065989]
-layout_mode = 2
-text = "RESTART"
-
-[node name="Button - Menu Inicial" type="Button" parent="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu" unique_id=93931786]
-layout_mode = 2
-text = "QUIT"
 
 [node name="Debug" type="MarginContainer" parent="Control/CenterContainer/TabContainer - Abas" unique_id=1121924991]
 layout_mode = 2
@@ -446,9 +502,9 @@ layout_mode = 2
 text = "SAVE SETTINGS"
 
 [connection signal="gui_input" from="Control/ColorRect - Fundo Preto" to="." method="_on_color_rect__fundo_preto_gui_input"]
-[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu/Button - Continuar" to="." method="_on_button__continuar_pressed"]
-[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu/Button - Recomecar" to="." method="_on_button__recomecar_pressed"]
-[connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Jogo/VBoxMenu/Button - Menu Inicial" to="." method="_on_button__menu_inicial_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/TextureRect_Background/VBoxMenu_Buttons/Button - Continuar" to="." method="_on_button__continuar_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/TextureRect_Background/VBoxMenu_Buttons/Button - Recomecar" to="." method="_on_button__recomecar_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/TextureRect_Background/VBoxMenu_Buttons/Button - Menu Inicial" to="." method="_on_button__menu_inicial_pressed"]
 [connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer17/PosseHbox/Padrao1" to="." method="_on_padrao_1_pressed"]
 [connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer17/PosseHbox/PosseBack" to="." method="_on_posse_back_pressed"]
 [connection signal="value_changed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer/ForcaMultiplicador" to="." method="_on_forca_multiplicador_value_changed"]
