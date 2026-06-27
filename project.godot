@@ -14,7 +14,7 @@ config/name="UltimateBotao"
 config/tags=PackedStringArray("em_desenvolvimento", "grupo", "puc")
 run/main_scene="uid://dtgflpono35aw"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://tmu3yydjtb88"
 
 [audio]
 
