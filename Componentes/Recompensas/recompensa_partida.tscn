@@ -333,41 +333,51 @@ custom_minimum_size = Vector2(50, 220)
 layout_mode = 2
 
 [node name="EquippedCards_GridContainer" type="GridContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer" unique_id=1178925908]
-custom_minimum_size = Vector2(50, 220)
+custom_minimum_size = Vector2(50, 210)
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_constants/h_separation = 20
-theme_override_constants/v_separation = 15
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
 columns = 5
 
 [node name="CartaUI_Button" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=445776678 instance=ExtResource("15_04a5q")]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="CartaUI_Button2" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=804120550 instance=ExtResource("15_04a5q")]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="CartaUI_Button3" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=453146582 instance=ExtResource("15_04a5q")]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="CartaUI_Button4" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=1115962991 instance=ExtResource("15_04a5q")]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="CartaUI_Button5" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=402798954 instance=ExtResource("15_04a5q")]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="CartaUI_Button6" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=1319600211 instance=ExtResource("15_04a5q")]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="CartaUI_Button7" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=550797660 instance=ExtResource("15_04a5q")]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="CartaUI_Button8" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=1958285818 instance=ExtResource("15_04a5q")]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="CartaUI_Button9" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=1742014170 instance=ExtResource("15_04a5q")]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="CartaUI_Button10" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=1065294891 instance=ExtResource("15_04a5q")]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="PontosAcao_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1383214861]

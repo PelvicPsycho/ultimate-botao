@@ -236,6 +236,20 @@ func _limpar_inspecao() -> void:
 		for child in equipped_cards_grid.get_children():
 			child.queue_free()
 
+func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
+	var f_total = peca.forca if "forca" in peca else 1
+	var pa_total = peca.PA if "PA" in peca else 1
+	
+	for carta in peca.slotsUpgrates:
+		if carta != null:
+			match carta.tipo_efeito:
+				CardResource.TipoEfeito.FORCA:
+					f_total += carta.magnitude
+				CardResource.TipoEfeito.PA:
+					pa_total += carta.magnitude
+					
+	return {"forca": f_total, "pa": pa_total}
+
 
 func _on_teste_button_pressed() -> void:
 	# Como você vai ser o seu próprio inimigo, o jogo vai detectar 

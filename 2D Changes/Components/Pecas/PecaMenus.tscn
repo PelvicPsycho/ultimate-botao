@@ -13,4 +13,4 @@ texture = ExtResource("1_oxojg")
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("3_ytww4")
-intensidade_overlay = 0.5
+intensidade_overlay = 0.7

@@ -49,6 +49,9 @@ func set_sfx_volume(vol):
 		var index = AudioServer.get_bus_index(bus)
 		AudioServer.set_bus_volume_linear(index,vol)
 
+func stop_music() -> void:
+	AudioBGM.stop()
+
 # reescrever o loop da música quando tiver uma música \/
 func _on_audio_bgm_finished() -> void:
 	if musica_atual == "musica_inicial" or musica_atual == "musica_retry" or musica_atual == "loop":

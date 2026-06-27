@@ -24,6 +24,7 @@
 [ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="15_utayo"]
 [ext_resource type="Texture2D" uid="uid://ctxn0nxcadoth" path="res://Recursos/2D_Art/IconesCartas/Carta_costas.png" id="16_vb2l2"]
 [ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="21_vb2l2"]
+[ext_resource type="BitMap" uid="uid://db156b5x70fu1" path="res://Recursos/2D_Art/Bau_alpha_1x1_.png" id="24_f8u3f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5gm8o"]
 shader = ExtResource("14_tsond")
@@ -32,7 +33,7 @@ shader_parameter/chroma_sensitivity = 0.414000019665
 shader_parameter/chroma_tolerance = 0.31200001482
 shader_parameter/mask_threshold = 0.92800004408
 
-[node name="RecompensaTorneio_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("video_player", "fundo_azul_2", "fundo_azul_3", "tamanho_vazio", "botao_bau", "inspecao_peca_hbox", "inspecao_carta_hbox", "peca_nome_label", "peca_rank_label", "peca_ap_label", "peca_slots_count_label", "peca_slots_indicator", "peca_equipped_grid", "carta_nome_label", "carta_descricao_label", "carta_slots_indicator", "container_opcoes", "btn_menu")]
+[node name="RecompensaTorneio_Control" type="Control" unique_id=201683394 node_paths=PackedStringArray("video_player", "fundo_azul_2", "fundo_azul_3", "tamanho_vazio", "botao_bau", "inspecao_peca_hbox", "inspecao_carta_hbox", "peca_nome_label", "peca_rank_label", "insp_peca_visual", "peca_ap_label", "peca_slots_count_label", "peca_slots_indicator", "peca_equipped_grid", "carta_nome_label", "carta_descricao_label", "carta_slots_indicator", "container_opcoes", "btn_menu")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -51,10 +52,11 @@ inspecao_peca_hbox = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContain
 inspecao_carta_hbox = NodePath("Panel/Info_VBoxContainer/InspecaoCarta_HBoxContainer")
 peca_nome_label = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/ItemName_Label")
 peca_rank_label = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/MarginContainer/HBoxContainer/PecaRank_Label")
+insp_peca_visual = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Esquerda_VBoxContainer/PecaMenus_TextureRect")
 peca_ap_label = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/PontosAcao_HBoxContainer/PontosdeAcao_Label")
 peca_slots_count_label = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/HBoxContainer/ContagemSlots_Label")
 peca_slots_indicator = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/SlotsIndicator_HBoxContainer")
-peca_equipped_grid = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/EquippedCards_GridContainer")
+peca_equipped_grid = NodePath("Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/ScrollContainer/EquippedCards_GridContainer")
 carta_nome_label = NodePath("Panel/Info_VBoxContainer/InspecaoCarta_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/NomeCarta_Label")
 carta_descricao_label = NodePath("Panel/Info_VBoxContainer/InspecaoCarta_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/DescricaoCarta_Label")
 carta_slots_indicator = NodePath("Panel/Info_VBoxContainer/InspecaoCarta_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/SlotsIndicator_HBoxContainer")
@@ -359,13 +361,58 @@ theme_override_font_sizes/font_size = 25
 text = "Cartas"
 vertical_alignment = 1
 
-[node name="EquippedCards_GridContainer" type="GridContainer" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1178925908]
-custom_minimum_size = Vector2(50, 50)
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1801464776]
+custom_minimum_size = Vector2(5, 210)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EquippedCards_GridContainer" type="GridContainer" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/ScrollContainer" unique_id=1178925908]
+custom_minimum_size = Vector2(50, 210)
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 5
+
+[node name="CartaUI_Button" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=445776678 instance=ExtResource("7_krqhw")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="CartaUI_Button2" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=1301063239 instance=ExtResource("7_krqhw")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="CartaUI_Button3" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=1643979040 instance=ExtResource("7_krqhw")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="CartaUI_Button4" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=2138927569 instance=ExtResource("7_krqhw")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="CartaUI_Button5" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=24230898 instance=ExtResource("7_krqhw")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="CartaUI_Button6" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=38338792 instance=ExtResource("7_krqhw")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="CartaUI_Button7" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=187522334 instance=ExtResource("7_krqhw")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="CartaUI_Button8" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=1870625918 instance=ExtResource("7_krqhw")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="CartaUI_Button9" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=1265019356 instance=ExtResource("7_krqhw")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="CartaUI_Button10" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/ScrollContainer/EquippedCards_GridContainer" unique_id=86986798 instance=ExtResource("7_krqhw")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
 
 [node name="PontosAcao_HBoxContainer" type="HBoxContainer" parent="Panel/Info_VBoxContainer/InspecaoPeca_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer" unique_id=1383214861]
 layout_mode = 2
@@ -457,7 +504,7 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 10
 
-[node name="CartaUI_Button" parent="Panel/Info_VBoxContainer/Recompensas_MarginContainer/Opcoes_HBoxContainer" unique_id=445776678 instance=ExtResource("5_7o35e")]
+[node name="CartaUI_Button" parent="Panel/Info_VBoxContainer/Recompensas_MarginContainer/Opcoes_HBoxContainer" unique_id=1800961410 instance=ExtResource("5_7o35e")]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 
@@ -530,11 +577,19 @@ expand = true
 visible = false
 custom_minimum_size = Vector2(680, 680)
 layout_mode = 1
-offset_left = 635.0
-offset_top = 213.0
-offset_right = 1315.0
-offset_bottom = 893.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.0
+offset_top = -327.0
+offset_right = 355.0
+offset_bottom = 353.0
+grow_horizontal = 2
+grow_vertical = 2
 texture_normal = ExtResource("13_5gm8o")
+texture_click_mask = ExtResource("24_f8u3f")
 ignore_texture_size = true
 stretch_mode = 0
 

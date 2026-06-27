@@ -7,7 +7,6 @@ signal recompensa_coletada
 var pacote_pecas: Array[TeamPlayer] = []
 var pacote_cartas: Array[CardResource] = []
 var grupo_recompensa := ButtonGroup.new()
-var _debug_inserir_myteam := false
 
 @export_group("Animação de Abertura")
 # O nó VideoStreamPlayer que vai tocar o baú
@@ -173,19 +172,19 @@ func _gerar_loot_do_torneio() -> void:
 			pacote_cartas.append(carta_sorteada)
 	
 	# Debug: insere 2 peças do MyTeam entre as duas sorteadas
-	if _debug_inserir_myteam:
-		_debug_inserir_myteam = false
-		var my_team = CupManager.myTeam
-		if my_team and my_team.mainSquad.size() > 0:
-			var inseridas = 0
-			for peca in my_team.mainSquad:
-				if peca != null and inseridas < 2:
-					var copia = peca.duplicate(true)
-					copia.time = CupManager.myTeam
-					pacote_pecas.insert(1 + inseridas, copia)
-					inseridas += 1
-				if inseridas >= 2:
-					break
+	#if _debug_inserir_myteam:
+		#_debug_inserir_myteam = false
+		#var my_team = CupManager.myTeam
+		#if my_team and my_team.mainSquad.size() > 0:
+			#var inseridas = 0
+			#for peca in my_team.mainSquad:
+				#if peca != null and inseridas < 2:
+					#var copia = peca.duplicate(true)
+					#copia.time = CupManager.myTeam
+					#pacote_pecas.insert(1 + inseridas, copia)
+					#inseridas += 1
+				#if inseridas >= 2:
+					#break
 
 # --- DESENHO DA UI ---
 func _desenhar_vitrine() -> void:
@@ -427,7 +426,21 @@ func _definir_style_box():
 	# 3. Ativa o "blend"! 
 	# Isso faz com que a borda não seja uma linha dura, mas crie um degradê suave para dentro.
 	estilo_slot_vazio.border_blend = true
+
+func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
+	var f_total = peca.forca if "forca" in peca else 1
+	var pa_total = peca.PA if "PA" in peca else 1
 	
+	for carta in peca.slotsUpgrates:
+		if carta != null:
+			match carta.tipo_efeito:
+				CardResource.TipoEfeito.FORCA:
+					f_total += carta.magnitude
+				CardResource.TipoEfeito.PA:
+					pa_total += carta.magnitude
+					
+	return {"forca": f_total, "pa": pa_total}
+
 
 # --- AÇÃO FINAL (RESGATE) ---
 func _on_btn_menu_pressed() -> void:
@@ -494,6 +507,40 @@ func _on_teste_button_2_pressed() -> void:
 
 
 func _on_button_pressed() -> void:
-	print("teste button 03 - Inserindo peças do MyTeam")
-	_debug_inserir_myteam = true
-#	iniciar_tela_de_torneio(null)
+	print("Debug: Gerando 6 peças instantaneamente...")
+	
+	# 1. Limpa as listas atuais e remove os itens antigos da tela
+	pacote_pecas.clear() 
+	pacote_cartas.clear() 
+	for child in container_opcoes.get_children():
+		child.queue_free() 
+		
+	# 2. Gera exatamente 6 peças aleatórias (ignorando cartas)
+	var todas_pecas = Database.pecas_db.values()
+	for i in range(6):
+		if todas_pecas.size() > 0:
+			var peca_sorteada = todas_pecas.pick_random().duplicate(true) 
+			peca_sorteada.time = CupManager.myTeam 
+			pacote_pecas.append(peca_sorteada) 
+			
+	# 3. Prepara a UI para aparecer instantaneamente, ignorando o vídeo
+	self.visible = true 
+	botao_bau.visible = false
+	
+	if video_player:
+		video_player.visible = false
+		video_player.stop() # Garante que o áudio/vídeo não continue tocando em segundo plano
+		
+	# Ativa os fundos e o container das opções [cite: 4]
+	fundo_azul_2.visible = true
+	fundo_azul_3.visible = true
+	container_opcoes.visible = true
+	btn_menu.visible = true
+	
+	# Oculta elementos que não devem estar visíveis no momento do sorteio
+	tamanho_vazio.visible = false
+	inspecao_peca_hbox.visible = false
+	inspecao_carta_hbox.visible = false
+	
+	# 4. Chama a função de desenho para instanciar os botões na hora
+	_desenhar_vitrine()

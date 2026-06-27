@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://d3ckt5m6bhi5e"]
 
 [ext_resource type="Script" uid="uid://ljmvhexims2q" path="res://Componentes/MyTeam/inventory_cards_button.gd" id="1_gfv3x"]
+[ext_resource type="Texture2D" uid="uid://xjaip4mdec7e" path="res://Recursos/2D_Art/MyTeam/CartaLarga_background.png" id="1_hmer5"]
 [ext_resource type="Texture2D" uid="uid://v6d1xe484tcc" path="res://Recursos/2D_Art/MyTeam/Rectangle 34.png" id="3_7wxhq"]
-[ext_resource type="Texture2D" uid="uid://cgsamk8f0iwca" path="res://Recursos/2D_Art/MyTeam/Rectangle 33.png" id="3_hadsi"]
-[ext_resource type="Texture2D" uid="uid://sjiecn1fmei" path="res://Recursos/2D_Art/MyTeam/Group 78.png" id="4_7wxhq"]
+[ext_resource type="Texture2D" uid="uid://ctxn0nxcadoth" path="res://Recursos/2D_Art/IconesCartas/Carta_costas.png" id="3_hmer5"]
 [ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="5_hmer5"]
+[ext_resource type="Script" uid="uid://biwcmyl26ar2f" path="res://Componentes/MyTeam/Label_Autoajustar.gd" id="5_sua76"]
+[ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="7_sua76"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoayl"]
 content_margin_left = 4.0
@@ -67,53 +69,113 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 4
 
-[node name="CartaUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "imagem_icone", "quantidade_label", "textura_raridade", "borda_panel")]
-custom_minimum_size = Vector2(440, 80)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1480.0
-offset_bottom = -1000.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CartaUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "imagem_icone", "quantidade_label", "textura_raridade", "borda_panel", "textura_destaque")]
+offset_right = 440.0
+offset_bottom = 80.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_qoayl")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_7wxhq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hmer5")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_sua76")
+flat = true
 script = ExtResource("1_gfv3x")
-nome_label = NodePath("Control/MarginContainer/MarginContainer/HBoxContainer/Nome_Label")
-imagem_icone = NodePath("Control/MarginContainer/MarginContainer/HBoxContainer/ImagePlaceHolder_ColorRect")
-quantidade_label = NodePath("Control/MarginContainer/TextureRect/Quantidade_Label")
-textura_raridade = NodePath("Control/MarginContainer/Raridade_TextureRect")
-borda_panel = NodePath("Control/MarginContainer/WhiteBorder_Panel")
+nome_label = NodePath("Control/MarginContainer2/HBoxContainer/Nome_Label")
+imagem_icone = NodePath("Control/MarginContainer2/HBoxContainer/ImagePlaceHolder_ColorRect")
+quantidade_label = NodePath("Quantidade_Label")
+textura_raridade = NodePath("Control/Raridade_TextureRect")
+borda_panel = NodePath("WhiteBorder_Panel")
+textura_destaque = NodePath("Control/Fundo_TextureRect")
 
 [node name="Control" type="Control" parent="." unique_id=1118418332]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1379569078]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 400.0
-offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer" unique_id=1012841861]
-custom_minimum_size = Vector2(440, 80)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+[node name="Fundo_TextureRect" type="TextureRect" parent="Control" unique_id=1012841861]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("3_hadsi")
+texture = ExtResource("1_hmer5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control" unique_id=1466296230]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = -3
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = -3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer2" unique_id=1880513041]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 15
+
+[node name="ImagePlaceHolder_ColorRect" type="TextureRect" parent="Control/MarginContainer2/HBoxContainer" unique_id=725166944]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+texture = ExtResource("3_hmer5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Nome_Label" type="Label" parent="Control/MarginContainer2/HBoxContainer" unique_id=264130752]
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme_override_fonts/font = ExtResource("5_hmer5")
+theme_override_font_sizes/font_size = 35
+text = "Mega coisa"
+horizontal_alignment = 1
+autowrap_mode = 2
+script = ExtResource("5_sua76")
+
+[node name="Raridade_TextureRect" type="TextureRect" parent="Control" unique_id=567763977]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -62.0
+offset_top = 5.0
+offset_right = -1.0
+offset_bottom = 18.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 2
+texture = ExtResource("3_7wxhq")
 expand_mode = 1
 
-[node name="Quantidade_Label" type="Label" parent="Control/MarginContainer/TextureRect" unique_id=762898747]
+[node name="WhiteBorder_Panel" type="Panel" parent="." unique_id=2009647334]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gvdey")
+
+[node name="Quantidade_Label" type="Label" parent="." unique_id=762898747]
 visible = false
 layout_mode = 1
 anchors_preset = 3
@@ -129,48 +191,4 @@ theme_override_constants/outline_size = 3
 text = "99"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer" unique_id=1466296230]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = -15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = -15
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/MarginContainer" unique_id=1880513041]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 15
-
-[node name="ImagePlaceHolder_ColorRect" type="TextureRect" parent="Control/MarginContainer/MarginContainer/HBoxContainer" unique_id=725166944]
-custom_minimum_size = Vector2(65, 90)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("4_7wxhq")
-expand_mode = 1
-
-[node name="Nome_Label" type="Label" parent="Control/MarginContainer/MarginContainer/HBoxContainer" unique_id=264130752]
-custom_minimum_size = Vector2(300, 20)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("5_hmer5")
-theme_override_font_sizes/font_size = 35
-text = "Mega coisa"
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="WhiteBorder_Panel" type="Panel" parent="Control/MarginContainer" unique_id=2009647334]
-visible = false
-layout_mode = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gvdey")
-
-[node name="Raridade_TextureRect" type="TextureRect" parent="Control/MarginContainer" unique_id=567763977]
-custom_minimum_size = Vector2(75, 20)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-mouse_filter = 2
-texture = ExtResource("3_7wxhq")
-expand_mode = 1
+[node name="AnimationHover_Node" parent="." unique_id=1375273779 instance=ExtResource("7_sua76")]

@@ -4,11 +4,12 @@ extends CanvasLayer
 const TabMenu := preload("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn") 
 
 func _ready():
+	SoundMaster.stop_music()
 	#print("=== CONFIGURAÇÕES CARREGADAS ===")
 	#print("Total de jogadores salvos no GameState: ", GameState.jogadores.size())
 #
 	if GameState.jogadores.size() == 0:
-		print("Nenhum save encontrado. Carregando time inicial (My Team) do Database...")
+#		print("Nenhum save encontrado. Carregando time inicial (My Team) do Database...")
 		_carregar_time_inicial()
 	#else:
 		#print("✔ Jogadores carregados do save com sucesso!")
@@ -19,7 +20,6 @@ func _ready():
 					#print("  - ", s.nome)
 				#else:
 					#print("  - [Vazio]")
-	pass
 
 # Carrega cartas e pecas iniciais se não existe nenhum save
 func _carregar_time_inicial():

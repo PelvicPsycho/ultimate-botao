@@ -11,19 +11,39 @@ var current_tab: CategoryTab = CategoryTab.PIECES
 var item_em_inspecao: Resource = null 
 var inspecionando_carta_equipada: bool = false
 var grupo_janela_esquerda := ButtonGroup.new()
+var grupo_janela_direita := ButtonGroup.new()
+var numero_peca_topbar_escolhida: String
 
 var az_ascending := true
 var rank_ascending := true
 var data_ascending := true # Começa como true (Ascendente)
-var sort_mode := 3         # O padrão agora é 3 (Data)
+var sort_mode := 3
+
+
+# Largura do pai do grid (inventory_list) medida quando o grid está VAZIO,
+# usada para calcular o tamanho ideal dos itens ANTES de populá-lo.
+var _saved_pai_width_pieces: float = 0.0
+var _saved_pai_width_cards: float = 0.0
 
 # --- REFERÊNCIAS DE NÓS (INSPETOR) ---
+@export_group("Panel Containers + Stretch Ratios")
+@export var LeftWindowPanelStrech_Peca: float = 0.76
+@export var LeftWindowPanelStrech_Card: float = 1.05
+@export var CenterWindowPanelStrech_Peca: float = 1
+@export var CenterWindowPanelStrech_Card: float = 0.8
+@export var RightWindowPanelStrech_Peca: float = 1.1
+@export var RightWindowPanelStrech_Card: float = 1.26
+@export var LeftWindow_PanelContainer: PanelContainer
+@export var CenterWindow_PanelContainer: PanelContainer
+@export var RightWindow_PanelContainer: PanelContainer
+
+
 @export_group("Navegação Superior")
 @export var slot_buttons: Array[TextureButton]
 
 @export_group("Texturas dos Slots (Topo)")
-@export var textura_slot_selecionado: Texture2D
-@export var textura_slot_inativo: Texture2D
+@export var textura_slot_selecionado: Texture2D ##DELETAR
+@export var textura_slot_inativo: Texture2D ##DELETAR
 
 @export_group("Menu Lateral")
 @export var tab_pieces_btn: TextureButton
@@ -41,39 +61,51 @@ var sort_mode := 3         # O padrão agora é 3 (Data)
 
 @export_group("Janela Esquerda")
 @export var inventory_list: GridContainer 
+@export var inventory_margincontainer: MarginContainer
 
 @export_group("Janela Central")
+@export var central_descricao_label: Label
 @export var central_nome_label: Label
-@export var central_descricao_label: RichTextLabel
-@export var central_arte_rect: TextureRect
+#@export var central_arte_rect: TextureRect
 @export var center_action_btn: TextureButton
 @export var center_action_label: Label
+@export var display_carta_aspectratioc: AspectRatioContainer
+
 
 @export_group("Janela Central - Visual")
-@export var center_card_view: VBoxContainer
-@export var center_peca_view: VBoxContainer
+@export var center_card_view: MarginContainer
+@export var center_peca_view: MarginContainer
 
 @export_group("Janela Central - Visibilidade")
 @export var center_pai_margincontainer: MarginContainer 
 @export var center_plainmsg_vbox: VBoxContainer
 
 @export_group("Janela Central - Elementos da Peça")
-@export var center_peca_stats: RichTextLabel
+@export var central_forca_label: Label
+@export var central_AP_label: Label
+@export var central_RP_label: Label
+@export var central_rank_label: Label
 @export var center_peca_grid: GridContainer
 @export var cw_button_texture: TextureRect
 @export var cw_button_label: Label
 @export var center_peca_slots_hbox: HBoxContainer
 @export var cw_contagem_slots_label: Label
+@export var cw_pecaname_margincontainer: MarginContainer
+@export var CW_Control_Stats: Control
 
 @export_group("Janela Central - Carta")
-@export var slots_que_ocupa_hbox: HBoxContainer
+#@export var slots_que_ocupa_hbox: HBoxContainer
 @export var icone_de_slot_textura: Texture2D
 @export var thumbnail_video_wrapper: Control #Janela central
 @export var central_video_player: VideoStreamPlayer
 
+
 @export_group("Janela Direita")
 @export var right_nome_label: Label
-@export var right_window_stats: RichTextLabel
+@export var rw_forca_label: Label
+@export var rw_AP_label: Label
+@export var rw_RP_label: Label
+@export var rw_rank_label: Label
 @export var right_window_grid: GridContainer
 @export var rw_contagem_slots_label: Label
 @export var rw_button_texture: TextureRect 
@@ -88,6 +120,14 @@ var sort_mode := 3         # O padrão agora é 3 (Data)
 @export var cena_item_carta: PackedScene
 @export var cena_item_peca: PackedScene
 @export var cena_carta_pequena: PackedScene
+@export var cena_moldura_slot: PackedScene
+@export var tamanho_das_cartas:= Vector2(110,110)
+
+@export_group("Tamanho dos Itens no Inventário")
+## Deixe Vector2.ZERO para cálculo automático. Ex: Vector2(140, 140) para peças.
+@export var tamanho_manual_peca: Vector2 = Vector2.ZERO
+## Deixe Vector2.ZERO para cálculo automático. Ex: Vector2(280, 90) para cartas.
+@export var tamanho_manual_carta: Vector2 = Vector2.ZERO
 
 @export_group("Sistema de Vídeo Cinema")
 @export var overlay_video: Control
@@ -100,6 +140,7 @@ var sort_mode := 3         # O padrão agora é 3 (Data)
 @export_group("Visuais Dinâmicos da Peça (PecaMenuUI)")
 @export var center_peca_visual: PecaMenuUI
 @export var right_peca_visual: PecaMenuUI
+@export var numero_peca_label: Label
 ## Coloque aqui os 5 nós PecaMenuUI que ficam dentro dos botões do topo, na ordem correta (1 a 5).
 @export var top_slots_visuais: Array[PecaMenuUI]
 
@@ -109,12 +150,18 @@ func _ready() -> void:
 	_connect_signals()
 	_atualizar_nomes_dos_slots()
 	_select_slot(1)
-	_switch_tab(CategoryTab.PIECES)
 	_clear_center_window()
 	_atualizar_visuais_dos_filtros()
 	btn_abrir_video.pressed.connect(_abrir_modo_cinema)
-	# O botão de fechar é a área invisível que cobre a tela toda
 	btn_fechar_video.pressed.connect(_fechar_modo_cinema)
+	
+	# Impede que o GridContainer estique verticalmente dentro do pai.
+	# Assim ele "abraça" o conteúdo e as linhas não inflam com poucos itens.
+	inventory_list.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	
+	# Se já estiver visível, dispara a medição/população agora
+	if visible:
+		call_deferred("_ao_mudar_visibilidade")
 
 #func _process(_delta: float) -> void:
 	## Pega exatamente o Control que está debaixo do ponteiro do mouse agora
@@ -153,6 +200,13 @@ func _connect_signals() -> void:
 func _select_slot(slot_index: int) -> void:
 	current_slot = slot_index
 	
+	var botao_clicado = slot_buttons[current_slot - 1] #Repassa o numero da camisa
+	var label_numero = botao_clicado.get_node_or_null("Numero") as Label
+	if label_numero:
+		numero_peca_topbar_escolhida = label_numero.text
+		if numero_peca_label:
+			numero_peca_label.text = numero_peca_topbar_escolhida
+	
 	# === INÍCIO DO DEBUG DE CARTAS DO ELENCO ===
 	if current_slot - 1 >= 0 and current_slot - 1 < GameState.jogadores.size():
 		var peca_selecionada = GameState.jogadores[current_slot - 1]
@@ -183,10 +237,32 @@ func _select_slot(slot_index: int) -> void:
 	elif item_em_inspecao is CardResource and not inspecionando_carta_equipada:
 		_inspecionar_item_na_janela_central(item_em_inspecao, false)
 
+## Dado a largura do pai e número de colunas, calcula quantos px cada item deve ter.
+## Se largura_pai for <= 0, retorna 100 como fallback seguro.
+func _tamanho_da_largura(largura_pai: float, cols: int) -> int:
+	if largura_pai <= 0.0:
+		return 100 # fallback seguro
+	var sep_h: int = inventory_list.get_theme_constant("h_separation")
+	var espaco: float = (largura_pai - 16.0) - float(sep_h) * float(cols - 1)
+	return max(int(floor(espaco / float(cols))), 24)
+
 func _switch_tab(tab: CategoryTab) -> void:
+	if current_tab != tab:
+		center_pai_margincontainer.visible = false
+		center_plainmsg_vbox.visible = true
+	#else:
+		#cw_pecaname_margincontainer.visible = false
+		#CW_Control_Stats.visible = false
 	current_tab = tab
 	
 	if current_tab == CategoryTab.PIECES:
+#		center_plainmsg_vbox.custom_minimum_size.x = 528
+		inventory_list.add_theme_constant_override("v_separation", 15)
+		inventory_margincontainer.add_theme_constant_override("margin_right", 40)
+		inventory_margincontainer.add_theme_constant_override("margin_bottom", 15)
+		LeftWindow_PanelContainer.size_flags_stretch_ratio = LeftWindowPanelStrech_Peca
+		CenterWindow_PanelContainer.size_flags_stretch_ratio = CenterWindowPanelStrech_Peca
+		RightWindow_PanelContainer.size_flags_stretch_ratio = RightWindowPanelStrech_Peca
 		tab_pieces_btn.texture_normal = textura_aba_ativa
 		tab_cards_btn.texture_normal = textura_aba_inativa
 		
@@ -204,9 +280,22 @@ func _switch_tab(tab: CategoryTab) -> void:
 		
 		_apply_sort(pecas_livres)
 		inventory_list.columns = 2
-		_popular_lista(pecas_livres)
+		
+		var tamanho: int
+		if tamanho_manual_peca != Vector2.ZERO:
+			tamanho = int(tamanho_manual_peca.x)
+		else:
+			tamanho = _tamanho_da_largura(_saved_pai_width_pieces, 2)
+		_popular_lista(pecas_livres, tamanho)
 		
 	elif current_tab == CategoryTab.CARDS:
+		inventory_list.add_theme_constant_override("v_separation", 10)
+		center_plainmsg_vbox.custom_minimum_size.x = 60
+		inventory_margincontainer.add_theme_constant_override("margin_right", 40)
+		inventory_margincontainer.add_theme_constant_override("margin_bottom", 25)
+		LeftWindow_PanelContainer.size_flags_stretch_ratio = LeftWindowPanelStrech_Card
+		CenterWindow_PanelContainer.size_flags_stretch_ratio = CenterWindowPanelStrech_Card
+		RightWindow_PanelContainer.size_flags_stretch_ratio = RightWindowPanelStrech_Card
 		tab_pieces_btn.texture_normal = textura_aba_inativa
 		tab_cards_btn.texture_normal = textura_aba_ativa
 		
@@ -228,7 +317,13 @@ func _switch_tab(tab: CategoryTab) -> void:
 						status_de_uso_das_cartas[carta.id_unico] = [peca.nome]
 		
 		_apply_sort(todas_as_cartas)
-		_popular_lista_de_cartas(todas_as_cartas, status_de_uso_das_cartas)
+		
+		var tamanho: int
+		if tamanho_manual_carta != Vector2.ZERO:
+			tamanho = int(tamanho_manual_carta.x)
+		else:
+			tamanho = _tamanho_da_largura(_saved_pai_width_cards, 1)
+		_popular_lista_de_cartas(todas_as_cartas, status_de_uso_das_cartas, tamanho)
 
 
 # --- FILTROS DE ORDENAÇÃO ---
@@ -327,14 +422,20 @@ func _rank_value(item: Resource) -> int:
 
 
 # --- POPULANDO LISTAS (JANELA ESQUERDA) ---
-func _popular_lista_de_cartas(lista_de_cartas: Array, status_de_uso: Dictionary) -> void:
+func _popular_lista_de_cartas(lista_de_cartas: Array, status_de_uso: Dictionary, tamanho_item: int) -> void:
 	for child in inventory_list.get_children():
-		child.queue_free()
+		inventory_list.remove_child(child) # Tira do layout INSTANTANEAMENTE
+		child.queue_free() # Deleta da memória no fim do frame
+	
+	var size_item = Vector2(tamanho_item, 90)
 		
 	for carta in lista_de_cartas:
 		if cena_item_carta:
 			var btn_item = cena_item_carta.instantiate()
 			btn_item.button_group = grupo_janela_esquerda
+			btn_item.size_flags_horizontal = Control.SIZE_FILL
+			btn_item.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+			btn_item.custom_minimum_size = size_item
 			inventory_list.add_child(btn_item)
 			
 			var usuarios = status_de_uso.get(carta.id_unico, [])
@@ -346,9 +447,13 @@ func _popular_lista_de_cartas(lista_de_cartas: Array, status_de_uso: Dictionary)
 			
 			btn_item.pressed.connect(func(): _inspecionar_item_na_janela_central(carta, false, esta_em_uso, nome_do_usuario))
 
-func _popular_lista(lista_de_itens: Array) -> void:
+func _popular_lista(lista_de_itens: Array, tamanho_item: int) -> void:
 	for child in inventory_list.get_children():
-		child.queue_free()
+		inventory_list.remove_child(child) # Tira do layout INSTANTANEAMENTE
+		child.queue_free() # Deleta da memória no fim do frame
+	
+	var cols = inventory_list.columns
+	var size_item = Vector2(tamanho_item, tamanho_item) if cols > 1 else Vector2(tamanho_item, 90)
 		
 	for item in lista_de_itens:
 		var btn_item = null
@@ -360,6 +465,13 @@ func _popular_lista(lista_de_itens: Array) -> void:
 			
 		if btn_item:
 			btn_item.button_group = grupo_janela_esquerda
+			if item is TeamPlayer:
+				btn_item.size_flags_horizontal = Control.SIZE_SHRINK_CENTER | Control.SIZE_EXPAND# | Control.SIZE_FILL
+			else:
+				btn_item.size_flags_horizontal = Control.SIZE_FILL
+			btn_item.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+			btn_item.custom_minimum_size = size_item
+			print (size_item)
 			inventory_list.add_child(btn_item)
 			if btn_item.has_method("setup_item"):
 				var qtd := 0
@@ -382,53 +494,60 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 	
 	center_action_btn.disabled = false
 	center_action_label.modulate = Color.WHITE 
-	central_nome_label.text = item.nome
+	central_nome_label.texto_auto_ajustavel = item.nome
 	
 	if item is CardResource:
 		center_card_view.visible = true
 		center_peca_view.visible = false
+		LeftWindow_PanelContainer.size_flags_stretch_ratio = LeftWindowPanelStrech_Card
+		CenterWindow_PanelContainer.size_flags_stretch_ratio = CenterWindowPanelStrech_Card
+		RightWindow_PanelContainer.size_flags_stretch_ratio = RightWindowPanelStrech_Card
+		cw_pecaname_margincontainer.visible = false
+		CW_Control_Stats.visible = false
 		
 		#if cw_button_texture:
 			#cw_button_texture.visible = false 
 		
 		central_descricao_label.text = _gerar_texto_detalhado_carta(item)
 		
-		# --- LÓGICA DO THUMBNAIL DE VÍDEO ---
-		if "video_preview" in item and item.video_preview != null:
-			thumbnail_video_wrapper.visible = true
-			
-			# Tira o pause da inspeção anterior ANTES de trocar o vídeo!
-			central_video_player.paused = false 
-			
-			# Carrega o vídeo e dá o Play invisível
-			central_video_player.stream = item.video_preview
-			central_video_player.play()
-			
-			## Esperamos a placa de vídeo desenhar o frame na tela
-			#await get_tree().process_frame
-			#await get_tree().process_frame
-			#
-			## Agora que o frame está na tela, congelamos o vídeo!
-			#central_video_player.paused = true
-			
-		else:
-			# Não tem vídeo
-			thumbnail_video_wrapper.visible = false
-			central_video_player.paused = false # Despausa por segurança
-			central_video_player.stop()
+		display_carta_aspectratioc.setup(item)
 		
-		if item.arte:
-			central_arte_rect.texture = item.arte
-			
-		for child in slots_que_ocupa_hbox.get_children():
-			child.queue_free()
-		for i in range(item.custoSlotes):
-			var icone_slot = TextureRect.new()
-			icone_slot.texture = icone_de_slot_textura 
-			icone_slot.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			icone_slot.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			icone_slot.custom_minimum_size = Vector2(25, 25)
-			slots_que_ocupa_hbox.add_child(icone_slot)
+		# --- LÓGICA DO THUMBNAIL DE VÍDEO ---
+		#if "video_preview" in item and item.video_preview != null:
+			#thumbnail_video_wrapper.visible = true
+			#
+			## Tira o pause da inspeção anterior ANTES de trocar o vídeo!
+			#central_video_player.paused = false 
+			#
+			## Carrega o vídeo e dá o Play invisível
+			#central_video_player.stream = item.video_preview
+			#central_video_player.play()
+			#
+			### Esperamos a placa de vídeo desenhar o frame na tela
+			##await get_tree().process_frame
+			##await get_tree().process_frame
+			##
+			### Agora que o frame está na tela, congelamos o vídeo!
+			##central_video_player.paused = true
+			#
+		#else:
+			## Não tem vídeo
+			#thumbnail_video_wrapper.visible = false
+			#central_video_player.paused = false # Despausa por segurança
+			#central_video_player.stop()
+		
+#		if item.arte:
+#			central_arte_rect.texture = item.arte
+		
+		#for child in slots_que_ocupa_hbox.get_children():
+			#child.queue_free()
+		#for i in range(item.custoSlotes):
+			#var icone_slot = TextureRect.new()
+			#icone_slot.texture = icone_de_slot_textura 
+			#icone_slot.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			#icone_slot.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			#icone_slot.custom_minimum_size = Vector2(40, 40)
+			#slots_que_ocupa_hbox.add_child(icone_slot)
 			
 		if inspecionando_carta_equipada:
 			center_action_btn.disabled = false
@@ -477,80 +596,65 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 	elif item is TeamPlayer:
 		center_card_view.visible = false
 		center_peca_view.visible = true
+		cw_pecaname_margincontainer.visible = true
+		LeftWindow_PanelContainer.size_flags_stretch_ratio = LeftWindowPanelStrech_Peca
+		CenterWindow_PanelContainer.size_flags_stretch_ratio = CenterWindowPanelStrech_Peca
+		RightWindow_PanelContainer.size_flags_stretch_ratio = RightWindowPanelStrech_Peca
+		CW_Control_Stats.visible = true
 		
 		if is_instance_valid(center_peca_visual):
-#			center_peca_visual.show()
 			center_peca_visual.setup_peca(item)
 		
-		#if cw_button_texture and cw_button_label:
-			#cw_button_texture.visible = true
-			#var index_no_time = GameState.jogadores.find(item)
-			#
-			#if index_no_time != -1 and index_no_time < slot_buttons.size():
-				#cw_button_label.text = str(index_no_time + 1)
-			#else:
-				#cw_button_label.text = ""
-		
 		var status = _get_status_calculado(item)
-		var texto_status: String = tr("STRENGTH")+ ": " + str(status.forca) + "\n" + tr("AP") + ": " + str(status.pa) + "\n" + tr("SLOTS") + ": "+ str(item.quantosSlotes)
-		center_peca_stats.text = texto_status
+		var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, item.quantosSlotes]
+		print (texto_status)
+		central_AP_label.text = "Pontos de Ação   ·   %d AP" % [status.pa]
+		central_forca_label.text = "Força   ·   lvl %d" % item.level_force#[status.forca]
+		central_RP_label.text = "RP: %d" % (status.pa + item.level_force + item.quantosSlotes)
+		central_rank_label.text = str(TeamPlayer.Rank.keys()[item.estimateRank()])[-1]
+		#center_peca_stats.text = texto_status
 		
-# --- ATUALIZAÇÃO DO GRID CENTRAL PARA USAR A CENA DE CARTA ---
+		# --- ATUALIZAÇÃO DO GRID CENTRAL COM MOLDURAS FIXAS ---
 		for child in center_peca_grid.get_children():
 			child.queue_free()
 			
-		# 1. Lê dinamicamente o tamanho real da sua cena de carta pequena
-		var tamanho_carta_centro = Vector2(50, 70) # Tamanho padrão de segurança
-		if cena_carta_pequena:
-			var btn_fantasma = cena_carta_pequena.instantiate()
-			if btn_fantasma is Control and btn_fantasma.custom_minimum_size != Vector2.ZERO:
-				tamanho_carta_centro = btn_fantasma.custom_minimum_size
-			btn_fantasma.queue_free()
-			
-		# 2. Popula o grid APENAS com as cartas e soma os slots usados
-		var slots_usados_centro = 0
+		# 1. Filtra apenas as cartas reais equipadas (ignora os nulls da array)
+		var cartas_reais_centro = []
 		for carta in item.slotsUpgrates:
 			if carta != null:
-				slots_usados_centro += carta.custoSlotes
+				cartas_reais_centro.append(carta)
 				
-				if cena_carta_pequena:
-					var btn_carta = cena_carta_pequena.instantiate()
-					center_peca_grid.add_child(btn_carta)
-					
-					if btn_carta.has_method("setup_item"):
-						btn_carta.setup_item(carta)
-						
-					# Como é apenas exibição visual no centro, deixamos o botão "surdo"
-					if btn_carta is BaseButton:
-						btn_carta.disabled = true
-					btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
-					
-		# 2.5 Desenha os slots vazios baseando-se na matemática real (Total - Usados)
-		var slots_livres_centro = item.quantosSlotes - slots_usados_centro
-		for i in range(slots_livres_centro):
-			var slot_vazio = ColorRect.new()
-			slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5)
-			slot_vazio.custom_minimum_size = tamanho_carta_centro
-			slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-			slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-			center_peca_grid.add_child(slot_vazio)
-				
-		# 3. Matemática da Escala para a janela central (baseada no tamanho real do componente)
-		var espaco_colunas_centro = center_peca_grid.get_theme_constant("h_separation")
-		var colunas_centro = center_peca_grid.columns if center_peca_grid.columns > 0 else 3
-		var largura_necessaria_centro = (tamanho_carta_centro.x * colunas_centro) + (espaco_colunas_centro * (colunas_centro - 1))
-		
-		var pai_grid_centro = center_peca_grid.get_parent()
-		var espaco_max_centro = pai_grid_centro.custom_minimum_size.x
-		if espaco_max_centro == 0: espaco_max_centro = pai_grid_centro.size.x
-		
-		if largura_necessaria_centro > espaco_max_centro and espaco_max_centro > 0:
-			var escala = espaco_max_centro / largura_necessaria_centro
-			center_peca_grid.scale = Vector2(escala, escala)
-		else:
-			center_peca_grid.scale = Vector2(1, 1)
+# 2. Define a regra fixa de 8 ou 10 molduras na tela baseada nas cartas EQUIPADAS
+		var total_slots_centro = 8
+		if cartas_reais_centro.size() > 8:
+			total_slots_centro = 10
+			
+		# 3. Instancia sempre o número exato de molduras
+		for i in range(total_slots_centro):
+			if cena_moldura_slot:
+				var moldura = cena_moldura_slot.instantiate()
+				center_peca_grid.add_child(moldura)
+
+				# Se houver uma carta para este índice, ela entra como FILHA da moldura
+				if i < cartas_reais_centro.size():
+					if cena_carta_pequena:
+						var btn_carta = cena_carta_pequena.instantiate()
+
+						var container_interno = moldura.get_node("MarginContainer")
+						container_interno.add_child(btn_carta)
+
+						if btn_carta.has_method("setup_item"):
+							btn_carta.setup_item(cartas_reais_centro[i])
+
+						# Como é apenas exibição visual no centro, deixamos o botão "surdo"
+						if btn_carta is BaseButton:
+							btn_carta.disabled = true
+						btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+		# 4. Recalcula o tamanho das molduras pra caberem direitinho no GridContainer
+		call_deferred("_ajustar_grid_ao_container", center_peca_grid)
 		# --- FIM DA ATUALIZAÇÃO DO GRID CENTRAL ---
-				
+
 		if center_peca_slots_hbox:
 			for child in center_peca_slots_hbox.get_children():
 				child.queue_free()
@@ -568,7 +672,7 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 				icone_bolinha.texture = icone_slot_ocupado if i < slots_usados else icone_slot_livre
 				icone_bolinha.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 				icone_bolinha.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-				icone_bolinha.custom_minimum_size = Vector2(20, 20) 
+				icone_bolinha.custom_minimum_size = Vector2(40, 40) 
 				center_peca_slots_hbox.add_child(icone_bolinha)
 				
 		center_action_label.text = "Trocar"
@@ -584,7 +688,7 @@ func _clear_center_window() -> void:
 	# Limpa os dados residuais
 	central_nome_label.text = "" 
 	central_descricao_label.text = ""
-	if central_arte_rect: central_arte_rect.texture = null
+#	if central_arte_rect: central_arte_rect.texture = null
 	
 	if thumbnail_video_wrapper:
 		thumbnail_video_wrapper.visible = false
@@ -605,9 +709,10 @@ func _update_right_window() -> void:
 	if is_instance_valid(right_peca_visual) and peca_atual != null:
 #		right_peca_visual.show()
 		right_peca_visual.setup_peca(peca_atual)
+		
 	
 	if right_nome_label:
-		right_nome_label.text = peca_atual.nome
+		right_nome_label.texto_auto_ajustavel = peca_atual.nome
 		
 	#if rw_button_texture and rw_button_label:
 		#rw_button_texture.visible = true
@@ -616,8 +721,16 @@ func _update_right_window() -> void:
 		#rw_button_label.text = str(index_no_time + 1) if index_no_time != -1 and index_no_time < slot_buttons.size() else " "
 			
 	var status = _get_status_calculado(peca_atual)
-	var texto_status: String = tr("STRENGTH")+ ": " + str(status.forca) + "\n" + tr("AP") + ": " + str(status.pa) + "\n" + tr("SLOTS") + ": "+ str(peca_atual.quantosSlotes)
-	right_window_stats.text = texto_status
+	var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, peca_atual.quantosSlotes]
+#	right_window_stats.text = texto_status
+	#var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, item.quantosSlotes]
+	print (texto_status)
+	rw_AP_label.text = "Pontos de Ação   ·   %d AP" % [status.pa]
+	rw_forca_label.text = "Força   ·   lvl %d" % peca_atual.level_force#[status.forca]
+	rw_RP_label.text = "RP: %d" % (status.pa + peca_atual.level_force + peca_atual.quantosSlotes)
+	rw_rank_label.text = str(TeamPlayer.Rank.keys()[peca_atual.estimateRank()])[-1]
+	
+	
 
 	if right_slots_indicator_hbox:
 		for child in right_slots_indicator_hbox.get_children():
@@ -636,58 +749,58 @@ func _update_right_window() -> void:
 			icone_bolinha.texture = icone_slot_ocupado if i < slots_usados else icone_slot_livre
 			icone_bolinha.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			icone_bolinha.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			icone_bolinha.custom_minimum_size = Vector2(20, 20)
+			#icone_bolinha.size_flags_horizontal = Control.SIZE_SHRINK_CENTER | Control.SIZE_EXPAND
+			icone_bolinha.custom_minimum_size = Vector2(40, 40)
 			right_slots_indicator_hbox.add_child(icone_bolinha)
 
-# --- INÍCIO DA ATUALIZAÇÃO DO GRID DIREITO ---
+# --- INÍCIO DA ATUALIZAÇÃO DO GRID DIREITO COM MOLDURAS FIXAS ---
 	for child in right_window_grid.get_children():
 		child.queue_free()
 
-	# 1. Lê dinamicamente o tamanho real da sua cena de carta
-	var tamanho_carta_dir = Vector2(50, 70) # Tamanho de segurança
-	if cena_carta_pequena:
-		var btn_fantasma = cena_carta_pequena.instantiate()
-		if btn_fantasma is Control and btn_fantasma.custom_minimum_size != Vector2.ZERO:
-			tamanho_carta_dir = btn_fantasma.custom_minimum_size
-		btn_fantasma.queue_free()
-
-	# 2. Desenha APENAS as cartas equipadas e soma os slots usados
-	var slots_usados_dir = 0
+	# 1. Filtra apenas as cartas reais equipadas (ignora os nulls da array)
+	var cartas_reais_dir = []
 	for carta in peca_atual.slotsUpgrates:
 		if carta != null:
-			slots_usados_dir += carta.custoSlotes
-			
-			if cena_carta_pequena:
-				var btn_carta = cena_carta_pequena.instantiate()
-				right_window_grid.add_child(btn_carta)
-				if btn_carta.has_method("setup_item"):
-					btn_carta.setup_item(carta)
-				btn_carta.pressed.connect(func(): _inspecionar_item_na_janela_central(carta, true))
+			cartas_reais_dir.append(carta)
 
-	# 2.5 Desenha os slots vazios com a matemática real
-	var slots_livres_dir = peca_atual.quantosSlotes - slots_usados_dir
-	for i in range(slots_livres_dir):
-		var slot_vazio = ColorRect.new()
-		slot_vazio.color = Color(0.2, 0.2, 0.2, 0.5)
-		slot_vazio.custom_minimum_size = tamanho_carta_dir
-		slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		right_window_grid.add_child(slot_vazio)
+# 2. Define a regra fixa de 8 ou 10 molduras na tela baseada nas cartas EQUIPADAS
+	var total_slots_dir = 8
+	if cartas_reais_dir.size() > 8:
+		total_slots_dir = 10
 
-	# 3. Matemática da Escala para não empurrar a UI
-	var espaco_colunas_dir = right_window_grid.get_theme_constant("h_separation")
-	var colunas_dir = right_window_grid.columns if right_window_grid.columns > 0 else 3
-	var largura_necessaria_dir = (tamanho_carta_dir.x * colunas_dir) + (espaco_colunas_dir * (colunas_dir - 1))
-	
-	var pai_grid_dir = right_window_grid.get_parent()
-	var espaco_max_dir = pai_grid_dir.custom_minimum_size.x
-	if espaco_max_dir == 0: espaco_max_dir = pai_grid_dir.size.x
-	
-	if largura_necessaria_dir > espaco_max_dir and espaco_max_dir > 0:
-		var escala = espaco_max_dir / largura_necessaria_dir
-		right_window_grid.scale = Vector2(escala, escala)
-	else:
-		right_window_grid.scale = Vector2(1, 1)
+	# 3. Instancia sempre o número exato de molduras
+	for i in range(total_slots_dir):
+		if cena_moldura_slot:
+			var moldura = cena_moldura_slot.instantiate()
+			right_window_grid.add_child(moldura)
+
+			# Se houver uma carta para este índice, ela entra como FILHA da moldura
+			if i < cartas_reais_dir.size():
+				if cena_carta_pequena:
+					var btn_carta = cena_carta_pequena.instantiate()
+					
+					if btn_carta is BaseButton:
+						btn_carta.button_group = grupo_janela_direita
+					
+					var container_interno = moldura.get_node("MarginContainer")
+					container_interno.add_child(btn_carta)
+					
+					if btn_carta.has_method("setup_item"):
+						btn_carta.setup_item(cartas_reais_dir[i])
+
+#					btn_carta.pressed.connect(func(): _inspecionar_item_na_janela_central(cartas_reais_dir[i], true))
+					var carta_alvo = cartas_reais_dir[i]
+					btn_carta.pressed.connect(func():
+						# Se não estiver na aba de cartas, muda para ela
+						if current_tab != CategoryTab.CARDS:
+							_switch_tab(CategoryTab.CARDS)
+						
+						# Abre a carta no centro normalmente
+						_inspecionar_item_na_janela_central(carta_alvo, true))
+					
+	# 4. Recalcula o tamanho das molduras pra caberem direitinho no GridContainer
+	call_deferred("_ajustar_grid_ao_container", right_window_grid)
+# --- FIM DA ATUALIZAÇÃO DO GRID DIREITO ---
 
 
 # --- SISTEMA DE AÇÕES ---
@@ -715,6 +828,17 @@ func _on_center_action_pressed() -> void:
 			
 			GameState.jogadores[current_slot - 1] = nova_peca
 			GameState.remover_peca(peca_entrando.id_unico)
+		
+		# =========================================================
+		# NOVA LÓGICA: ATUALIZA O NÚMERO DA CAMISA DA PEÇA EQUIPADA
+		# =========================================================
+		# Pegamos a peça que acabou de ser confirmada no array de titulares
+		var peca_que_assumiu_a_vaga = GameState.jogadores[current_slot - 1]
+		
+		if peca_que_assumiu_a_vaga != null and numero_peca_topbar_escolhida != "":
+			# O método .to_int() transforma a String "5" no inteiro 5 de forma segura
+			peca_que_assumiu_a_vaga.num_camisa = numero_peca_topbar_escolhida.to_int()
+		# =========================================================
 		
 		_atualizar_nomes_dos_slots()
 		_enviar_peca_para_banco(peca_saindo)
@@ -790,8 +914,8 @@ func _on_btn_salvar_sair_pressed() -> void:
 
 # --- UTILIDADES ---
 func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
-	var f_total = peca.forca if "forca" in peca else 10
-	var pa_total = peca.PA if "PA" in peca else 3
+	var f_total = peca.forca if "forca" in peca else 1
+	var pa_total = peca.PA if "PA" in peca else 1
 	
 	for carta in peca.slotsUpgrates:
 		if carta != null:
@@ -805,13 +929,13 @@ func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
 
 func _gerar_texto_detalhado_carta(carta: CardResource) -> String:
 	# 1. A descrição original em itálico
-	var texto = "[i]\"" + carta.descricao + "\"[/i]\n\n"
+	var texto = ""#"[i]\"" + carta.descricao + "\"[/i]\n\n"
 	
 	# 2. Tipo da Carta (Passiva ou Ativa) e Custo de PA
-	if carta.is_passiva:
-		texto += "[b]Tipo:[/b] Passiva\n"
-	else:
-		texto += "[b]Tipo:[/b] Ativa [color=orange](Custo: %d PA)[/color]\n" % carta.custo_energia
+	#if carta.is_passiva:
+		#texto += "[b]Tipo:[/b] Passiva\n"
+	#else:
+		#texto += "[b]Tipo:[/b] Ativa [color=orange](Custo: %d PA)[/color]\n" % carta.custo_energia
 		
 	# 3. Raridade com Cores
 	#var nome_raridade = CardResource.Raridade.keys()[carta.raridade].capitalize()
@@ -823,22 +947,24 @@ func _gerar_texto_detalhado_carta(carta: CardResource) -> String:
 	#texto += "[b]Raridade:[/b] [color=%s]%s[/color]\n" % [cor_raridade, nome_raridade]
 	
 	# 4. Efeito e Magnitude (Usa o capitalize para tirar o "_" do enum e deixar bonito)
-	var nome_efeito = CardResource.TipoEfeito.keys()[carta.tipo_efeito].capitalize()
-	texto += "[b]Efeito:[/b] %s" % nome_efeito
+	#var nome_efeito = CardResource.TipoEfeito.keys()[carta.tipo_efeito].capitalize()
+	#texto += "[b]Efeito:[/b] %s" % nome_efeito
 	#if carta.magnitude > 0:
 		#texto += " [color=cyan](Magnitude: %d)[/color]\n" % carta.magnitude
 	#else:
 #		texto += "\n"
-	texto += "\n"
+#	texto += "\n"
 		
 	# 5. Alvo
-	var nome_alvo = CardResource.TipoAlvo.keys()[carta.tipo_alvo].capitalize()
-	texto += "[b]Alvo:[/b] %s\n" % nome_alvo
+	#var nome_alvo = CardResource.TipoAlvo.keys()[carta.tipo_alvo].capitalize()
+	#texto += "[b]Alvo:[/b] %s\n" % nome_alvo
 	
 	# 6. Duração (só exibe se for maior que 0)
-	if carta.duracao > 0:
-		texto += "[b]Duração:[/b] %d turno(s)" % carta.duracao
-		
+	#if carta.duracao > 0:
+		#texto += "[b]Duração:[/b] %d turno(s)" % carta.duracao
+#	if carta.descricao:
+	texto = carta.descricao
+	
 	return texto
 
 # --- ATUALIZAÇÃO DOS NOMES E VISUAIS DOS SLOTS ---
@@ -846,8 +972,10 @@ func _atualizar_nomes_dos_slots() -> void:
 	for i in range(slot_buttons.size()):
 		var btn = slot_buttons[i]
 		
-		# Procura o nó filho exato chamado "Nome" dentro do botão
+		# Procura os nós filhos exatos dentro do botão
 		var label_nome = btn.get_node_or_null("Nome")
+		var label_numero = btn.get_node_or_null("Numero") 
+		
 		var peca_no_slot: TeamPlayer = null
 		
 		# Verifica se existe uma peça equipada para esse slot no momento
@@ -857,6 +985,13 @@ func _atualizar_nomes_dos_slots() -> void:
 		if peca_no_slot != null:
 			if label_nome: 
 				label_nome.text = peca_no_slot.nome
+				
+			# =========================================================
+			# PEGA O NÚMERO DO BOTÃO E SALVA NA PEÇA
+			# =========================================================
+			if label_numero and label_numero.text.is_valid_int():
+				peca_no_slot.num_camisa = label_numero.text.to_int()
+			# =========================================================
 				
 			# Atualiza o visual da PecaMenuUI correspondente ao slot
 			if i < top_slots_visuais.size() and is_instance_valid(top_slots_visuais[i]):
@@ -873,22 +1008,85 @@ func _atualizar_nomes_dos_slots() -> void:
 # --- REORGANIZAÇÃO DE SLOTS ---
 func _reorganizar_slots_da_peca(peca: TeamPlayer) -> void:
 	var cartas_ativas = []
-	
+
 	# 1. Pega apenas as cartas que existem (ignora os buracos/nulls)
 	for carta in peca.slotsUpgrates:
 		if carta != null:
 			cartas_ativas.append(carta)
-			
+
 	# 2. Cria um novo array limpo com o tamanho total de slots da peça
 	var array_limpo: Array[CardResource] = []
 	array_limpo.resize(peca.quantosSlotes)
-	
+
 	# 3. Coloca as cartas ativas em fila indiana, começando do zero
 	for i in range(cartas_ativas.size()):
 		array_limpo[i] = cartas_ativas[i]
-		
+
 	# 4. Substitui o array velho e bagunçado pelo novo e organizado!
 	peca.slotsUpgrates = array_limpo
+
+
+# --- LAYOUT RESPONSIVO DOS GRIDS DE CARTAS EQUIPADAS ---
+# Recalcula o custom_minimum_size de cada filho do GridContainer
+# para que as colunas caibam direitinho na largura do pai,
+# encolhendo (ou crescendo) conforme o espaço disponível.
+func _ajustar_grid_ao_container(grid: GridContainer) -> void:
+	print("ajustar grid")
+	if not is_instance_valid(grid):
+		return
+
+	# ==========================================
+	# REGRA 1: GRID PRINCIPAL (INVENTÁRIO)
+	# ==========================================
+	if grid == inventory_list:
+		# Tenta usar a largura salva (medida com grid vazio) primeiro
+		var cols: int = grid.columns if grid.columns > 0 else 4
+		var largura_usar: float = 0.0
+		
+		if _saved_pai_width_pieces > 0.0 or _saved_pai_width_cards > 0.0:
+			# Pega a largura salva correspondente à aba atual
+			largura_usar = _saved_pai_width_pieces if current_tab == CategoryTab.PIECES else _saved_pai_width_cards
+		
+		if largura_usar <= 0.0:
+			# Fallback: mede o pai agora (sem garantia de precisão)
+			var pai = grid.get_parent() as Control
+			if not is_instance_valid(pai) or pai.size.x <= 0:
+				return
+			largura_usar = pai.size.x
+		
+		var tamanho: int = _tamanho_da_largura(largura_usar, cols)
+
+		for filho in grid.get_children():
+			if filho is Control:
+				var novo_tamanho = Vector2(tamanho, tamanho) if cols > 1 else Vector2(tamanho, 90)
+
+				if filho.custom_minimum_size != novo_tamanho:
+					filho.custom_minimum_size = novo_tamanho
+
+				# Apenas preenche a célula horizontalmente (SIZE_FILL)
+			# mas NÃO estica verticalmente (SIZE_SHRINK_BEGIN).
+			# Isso evita que itens inchem quando há poucas linhas no grid.
+			filho.size_flags_horizontal = Control.SIZE_FILL
+			filho.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+
+	# ==========================================
+	# REGRA 2: GRIDS LATERAIS (CENTRO E DIREITA)
+	# ==========================================
+	else:
+		# Não medimos o pai flexível! Apenas damos um tamanho fixo e 
+		# seguro para as moldurinhas de status (ex: 45x45)
+		for filho in grid.get_children():
+			if filho is Control:
+				if filho.custom_minimum_size != tamanho_das_cartas:
+					filho.custom_minimum_size = tamanho_das_cartas
+
+				# Removemos o EXPAND para as cartas pararem de empurrar a janela!
+				filho.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+				filho.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+
+
+func _on_grid_resized(grid: GridContainer) -> void:
+	_ajustar_grid_ao_container(grid)
 
 func _abrir_modo_cinema() -> void:
 	if not item_em_inspecao is CardResource or item_em_inspecao.video_preview == null:
@@ -899,7 +1097,7 @@ func _abrir_modo_cinema() -> void:
 	popup_video_player.play()
 	popup_video_player.paused = true 
 	
-	# Espera cirurgicamente 2 frames pro motor ler o cabeçalho do arquivo .ogv
+	# Espera 2 frames pro motor ler o cabeçalho do arquivo .ogv
 	await get_tree().process_frame
 	await get_tree().process_frame
 	
@@ -943,7 +1141,7 @@ func _abrir_modo_cinema() -> void:
 	video_container.modulate.a = 0
 	fundo_escuro.modulate.a = 0
 	
-	# 6. A Mágica Animada
+	# 6. Animação
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(video_container, "global_position", pos_centro_tela, 0.4).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.tween_property(video_container, "scale", Vector2(1.0, 1.0), 0.4).set_trans(Tween.TRANS_QUINT)
@@ -970,9 +1168,32 @@ func _fechar_modo_cinema() -> void:
 	popup_video_player.stop()
 
 func _ao_mudar_visibilidade() -> void:
-	if visible:
-		_atualizar_nomes_dos_slots()
-		_atualizar_visual_dos_slots()
+	if not visible:
+		return
+	
+	_atualizar_nomes_dos_slots()
+	_atualizar_visual_dos_slots()
+	
+	# --- MEDIÇÃO: limpa o grid e espera 1 frame para o layout se ajustar ---
+	for child in inventory_list.get_children():
+		child.queue_free()
+	
+	await get_tree().process_frame
+	
+	# Mede a largura REAL do pai (sem influência de conteúdo dos filhos)
+	var pai = inventory_list.get_parent() as Control
+	if is_instance_valid(pai) and pai.size.x > 0:
+		if current_tab == CategoryTab.PIECES:
+			_saved_pai_width_pieces = pai.size.x
+		else:
+			_saved_pai_width_cards = pai.size.x
+	
+	# Popula a aba atual com o tamanho calculado a partir da largura salva
+	_switch_tab(current_tab)
+	
+	# Ajusta os grids laterais (janelas central e direita)
+	_ajustar_grid_ao_container(center_peca_grid)
+	_ajustar_grid_ao_container(right_window_grid)
 
 func _atualizar_visual_dos_slots() -> void:
 	var tween = create_tween().set_parallel(true)

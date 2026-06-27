@@ -12,6 +12,10 @@ extends Button
 @export var cor_incomum: Color = Color("4caf50") # Verde
 @export var cor_rara: Color = Color("ffc107") # Dourado (Amarelo)
 
+@export_group("Destaque Visual")
+@export var textura_destaque: TextureRect # Arraste o TextureRect que vai mudar de cor aqui
+@export var cor_selecionada: Color = Color(1.0, 1.0, 0) # Ex: Amarelo suave. Escolha no Inspector!
+
 var item_data: Resource
 
 func _ready() -> void:
@@ -24,8 +28,19 @@ func _ready() -> void:
 	toggled.connect(_on_toggled)
 
 func _on_toggled(toggled_on: bool) -> void:
+	# 1. Liga/Desliga a borda que você já tinha configurado
 	if borda_panel:
 		borda_panel.visible = toggled_on
+		
+	# 2. Muda a cor do TextureRect suavemente
+	if textura_destaque:
+		var tween = create_tween()
+		
+		# Define o alvo: se ligou, vai pra cor_selecionada. Se desligou, volta pro branco puro.
+		var cor_alvo = cor_selecionada if toggled_on else Color.WHITE
+		
+		# Faz a transição de cor durar 0.15 segundos para dar um efeito "macio"
+		tween.tween_property(textura_destaque, "modulate", cor_alvo, 0.15)
 
 ## quantidade: se > 1, mostra o label com o número. 0 ou omitido = invisível.
 func setup_item(dados: Resource, quantidade: int = 0):
@@ -33,7 +48,8 @@ func setup_item(dados: Resource, quantidade: int = 0):
 	
 	if dados is CardResource:
 		if nome_label:
-			nome_label.text = dados.nome
+#			nome_label.text = dados.nome
+			nome_label.texto_auto_ajustavel = dados.nome
 			
 		# --- APLICA A COR DA RARIDADE ---
 		if textura_raridade:

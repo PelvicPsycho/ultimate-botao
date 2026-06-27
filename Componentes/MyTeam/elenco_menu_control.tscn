@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dm46qchk382ei" path="res://Componentes/MyTeam/elenco_menu_control.gd" id="1_rox6y"]
 [ext_resource type="Texture2D" uid="uid://de2inw5i1aorq" path="res://Recursos/2D_Art/MyTeam/Group 140.png" id="2_0maoc"]
-[ext_resource type="Texture2D" uid="uid://o5omjcf51pl3" path="res://Recursos/2D_Art/MyTeam/Shape with text.png" id="2_1feu8"]
 [ext_resource type="PackedScene" uid="uid://d3ckt5m6bhi5e" path="res://Componentes/MyTeam/inventory_cards_button.tscn" id="2_mjelh"]
 [ext_resource type="Texture2D" uid="uid://b0j3i4kittphv" path="res://Componentes/Recompensas/SlotPreenchido.png" id="4_uy8iv"]
 [ext_resource type="Texture2D" uid="uid://crifmj85cln87" path="res://Recursos/2D_Art/MyTeam/Rectangle 16.png" id="4_x3s7i"]
@@ -10,19 +9,32 @@
 [ext_resource type="Texture2D" uid="uid://47ugmokghauy" path="res://Recursos/2D_Art/MyTeam/Group 53_.png" id="5_x3s7i"]
 [ext_resource type="Texture2D" uid="uid://7pb1a7h83erj" path="res://Recursos/2D_Art/MyTeam/Group 4_.png" id="6_3vc01"]
 [ext_resource type="PackedScene" uid="uid://orrq0vy3qa51" path="res://Componentes/MyTeam/inventory_pecas_button.tscn" id="7_3c3cq"]
+[ext_resource type="Texture2D" uid="uid://5h2nw7r5f5sj" path="res://Recursos/2D_Art/MyTeam/referencia_myteam_cards.png" id="9_1ql4r"]
 [ext_resource type="Texture2D" uid="uid://sb143gchnnfr" path="res://Recursos/2D_Art/MyTeam/Group 57.png" id="9_cep57"]
-[ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="10_wegx5"]
+[ext_resource type="PackedScene" uid="uid://bpgl4w6ysesns" path="res://Componentes/MyTeam/grid_cartas_texture_rect.tscn" id="9_w350s"]
+[ext_resource type="Texture2D" uid="uid://b1wb00pac1rl7" path="res://Recursos/2D_Art/MyTeam/referencia_myteam_pecas.png" id="10_86tjb"]
 [ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="12_0wqyg"]
 [ext_resource type="PackedScene" uid="uid://cv3g8c3wjj8x0" path="res://2D Changes/Components/Pecas/PecaMenus.tscn" id="12_uy8iv"]
 [ext_resource type="Texture2D" uid="uid://b7i7lscx1xobo" path="res://Recursos/2D_Art/MyTeam/Rectangle 23.png" id="13_0maoc"]
 [ext_resource type="PackedScene" uid="uid://d0h3cghqr1iun" path="res://Componentes/MyTeam/inventory_cards_small_button.tscn" id="13_2ysy5"]
 [ext_resource type="Texture2D" uid="uid://dnafvuhag1c13" path="res://Recursos/2D_Art/MyTeam/Rectangle 24.png" id="13_3c3cq"]
 [ext_resource type="PackedScene" uid="uid://cc3vpg1b6h3m6" path="res://Componentes/MyTeam/banner_colorido_control.tscn" id="16_2ysy5"]
+[ext_resource type="Texture2D" uid="uid://c2tjj3vxiyhx" path="res://Recursos/2D_Art/MyTeam/peca_frente.png" id="16_060cl"]
+[ext_resource type="Texture2D" uid="uid://dmk06sg2jy56b" path="res://Recursos/2D_Art/MyTeam/BackgroundAzul_esq.png" id="16_86tjb"]
 [ext_resource type="Texture2D" uid="uid://c514sn5s761li" path="res://Recursos/2D_Art/MyTeam/botaoplay2.png" id="16_bqv65"]
-[ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="17_y8quf"]
 [ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="18_0wqyg"]
 [ext_resource type="VideoStream" uid="uid://my3ruhqdlh01" path="res://Recursos/WebM/CartaCongelamento.ogv" id="18_bqv65"]
-[ext_resource type="FontFile" uid="uid://bpdotvvypoig5" path="res://Recursos/Fontes/Rubik/Rubik-Italic.ttf" id="19_uy8iv"]
+[ext_resource type="Texture2D" uid="uid://sroellaf8p7i" path="res://Recursos/2D_Art/MyTeam/BackgroundAzul_centro.png" id="20_kclkh"]
+[ext_resource type="Script" uid="uid://biwcmyl26ar2f" path="res://Componentes/MyTeam/Label_Autoajustar.gd" id="22_7ksfy"]
+[ext_resource type="PackedScene" uid="uid://buitkn07hs6y1" path="res://Componentes/MyTeam/display_carta_control.tscn" id="25_cra04"]
+[ext_resource type="FontFile" uid="uid://de61ri4slxwg3" path="res://Recursos/Fontes/Rubik/Rubik-SemiBold.ttf" id="26_fubuq"]
+[ext_resource type="Texture2D" uid="uid://cu85w47wvtug" path="res://Componentes/Recompensas/RetanguloSimples.png" id="26_qgfe3"]
+[ext_resource type="FontFile" uid="uid://4ouu0og1v6nb" path="res://Recursos/Fontes/Rubik/Rubik-BoldItalic.ttf" id="27_md4jv"]
+[ext_resource type="Texture2D" uid="uid://4wfhae0rtdkf" path="res://Recursos/2D_Art/MyTeam/BackgroundAzul_dir.png" id="27_qgfe3"]
+[ext_resource type="Texture2D" uid="uid://cd7x1gtw5y4m6" path="res://Recursos/2D_Art/MyTeam/PainelStatsPeca.png" id="30_05y36"]
+[ext_resource type="Texture2D" uid="uid://ctxn0nxcadoth" path="res://Recursos/2D_Art/IconesCartas/Carta_costas.png" id="32_fubuq"]
+[ext_resource type="Texture2D" uid="uid://5u10tbriytw5" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/peca_frente.png" id="33_3xsoq"]
+[ext_resource type="FontFile" uid="uid://da6ptr7m1ajjs" path="res://Recursos/Fontes/Rubik/Rubik-SemiBoldItalic.ttf" id="34_oxuru"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3c3cq"]
 content_margin_left = 0.0
@@ -36,27 +48,14 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ysy5"]
-bg_color = Color(0, 0, 0, 0.37254903)
-border_width_bottom = 10
-border_color = Color(1, 1, 1, 0.15686275)
-border_blend = true
-corner_radius_top_left = 40
-corner_radius_bottom_left = 40
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lpmc6"]
+texture = ExtResource("16_86tjb")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vb7km"]
-bg_color = Color(0, 0, 0, 0.3647059)
-border_width_bottom = 10
-border_color = Color(1, 1, 1, 0.15686275)
-border_blend = true
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_md4jv"]
+texture = ExtResource("20_kclkh")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqv65"]
-bg_color = Color(0, 0, 0, 0.33333334)
-border_width_bottom = 10
-border_color = Color(1, 1, 1, 0.15686275)
-border_blend = true
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w350s"]
+texture = ExtResource("27_qgfe3")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a48m1"]
 content_margin_left = 4.0
@@ -94,8 +93,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "az_filter_btn", "rank_filter_btn", "date_filter_btn", "inventory_list", "central_nome_label", "central_descricao_label", "central_arte_rect", "center_action_btn", "center_action_label", "center_card_view", "center_peca_view", "center_pai_margincontainer", "center_plainmsg_vbox", "center_peca_stats", "center_peca_grid", "cw_button_texture", "cw_button_label", "center_peca_slots_hbox", "cw_contagem_slots_label", "slots_que_ocupa_hbox", "thumbnail_video_wrapper", "central_video_player", "right_nome_label", "right_window_stats", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox", "overlay_video", "fundo_escuro", "video_container", "popup_video_player", "btn_abrir_video", "btn_fechar_video", "center_peca_visual", "right_peca_visual", "top_slots_visuais")]
-auto_translate_mode = 1
+[node name="ElencoMenu_Control" type="Control" unique_id=1758982721 node_paths=PackedStringArray("LeftWindow_PanelContainer", "CenterWindow_PanelContainer", "RightWindow_PanelContainer", "slot_buttons", "tab_pieces_btn", "tab_cards_btn", "btn_salvar_sair", "az_filter_btn", "rank_filter_btn", "date_filter_btn", "inventory_list", "inventory_margincontainer", "central_descricao_label", "central_nome_label", "center_action_btn", "center_action_label", "display_carta_aspectratioc", "center_card_view", "center_peca_view", "center_pai_margincontainer", "center_plainmsg_vbox", "central_forca_label", "central_AP_label", "central_RP_label", "central_rank_label", "center_peca_grid", "center_peca_slots_hbox", "cw_contagem_slots_label", "cw_pecaname_margincontainer", "CW_Control_Stats", "thumbnail_video_wrapper", "central_video_player", "right_nome_label", "rw_forca_label", "rw_AP_label", "rw_RP_label", "rw_rank_label", "right_window_grid", "rw_contagem_slots_label", "rw_button_texture", "rw_button_label", "right_slots_indicator_hbox", "overlay_video", "fundo_escuro", "video_container", "popup_video_player", "btn_abrir_video", "btn_fechar_video", "center_peca_visual", "right_peca_visual", "numero_peca_label", "top_slots_visuais")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -103,6 +101,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rox6y")
+LeftWindow_PanelContainer = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer")
+CenterWindow_PanelContainer = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer")
+RightWindow_PanelContainer = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer")
 slot_buttons = [NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton1"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton2"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton3"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton4"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton5")]
 tab_pieces_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer/TabPecas_Button")
 tab_cards_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer/TabCartas_Button")
@@ -112,29 +113,35 @@ btn_salvar_sair = NodePath("SAIRR_Button")
 az_filter_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/AZFilter_Button")
 rank_filter_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/RankFilter_Button")
 date_filter_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/DataFilter_Button")
-inventory_list = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/InventoryList_GridContainer")
-central_nome_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer/CW-ItemName_Label")
-central_descricao_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ItemDescription_RichTextLabel")
-central_arte_rect = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer/ItemIMG_TextureRect")
-center_action_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/MarginContainer/ActionButton_Button")
-center_action_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/MarginContainer/ActionButton_Button/EquipTrocar_Label")
-center_card_view = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer")
-center_peca_view = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer")
+inventory_list = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer")
+inventory_margincontainer = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer")
+central_descricao_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CardView_MarginContainer/CardView_VBoxContainer/Central_descricao_Label")
+central_nome_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_PecaName_MarginContainer/CW-PecaName_HBoxContainer/CW-ItemName_Label")
+center_action_btn = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/EquipButton_MarginContainer/ActionButton_Button")
+center_action_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/EquipButton_MarginContainer/ActionButton_Button/EquipTrocar_Label")
+display_carta_aspectratioc = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CardView_MarginContainer/CardView_VBoxContainer/DisplayCarta_AspectRatioC")
+center_card_view = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CardView_MarginContainer")
+center_peca_view = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer")
 center_pai_margincontainer = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer")
-center_plainmsg_vbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/PlainMSG_VBoxContainer")
-center_peca_stats = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer/CENTERStatsLabel_RichTextLabel")
-center_peca_grid = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer/Isolate_Control/CENTEREquippedCards_GridContainer")
-cw_button_texture = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer/CW-ButtonTexture_TextureRect")
-cw_button_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer/CW-ButtonTexture_TextureRect/CW-ButtonLabel_Label")
-center_peca_slots_hbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer/CENTERSlotsIndicator_HBoxContainer")
-cw_contagem_slots_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer/CW_ContagemSlots_Label")
-slots_que_ocupa_hbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/SlotsQueOcupa_HBoxContainer")
+center_plainmsg_vbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/PlainMSG_MarginContainer/PlainMSG_VBoxContainer")
+central_forca_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_Control_Stats/CW_Forca_Label")
+central_AP_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_Control_Stats/CW_AP_Label")
+central_RP_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_Control_Stats/CW_RP_Label")
+central_rank_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_Control_Stats/CW_Rank_Label")
+center_peca_grid = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/Isolate_Control/ScrollContainer/MarginContainer/CENTEREquippedCards_GridContainer")
+center_peca_slots_hbox = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/MarginContainer2/CENTERSlotsIndicator_HBoxContainer")
+cw_contagem_slots_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/Control_Detalhes1/CW_ContagemSlots_Label")
+cw_pecaname_margincontainer = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_PecaName_MarginContainer")
+CW_Control_Stats = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_Control_Stats")
 icone_de_slot_textura = ExtResource("4_uy8iv")
-thumbnail_video_wrapper = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control")
-central_video_player = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer")
+thumbnail_video_wrapper = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CardView_MarginContainer/CardView_VBoxContainer/ThumbnailVideo_Control")
+central_video_player = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CardView_MarginContainer/CardView_VBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer")
 right_nome_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/PieceNameTitle_Label")
-right_window_stats = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/StatsLabel_RichTextLabel")
-right_window_grid = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control/EquippedCards_GridContainer")
+rw_forca_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Control_Stats/RW_Forca_Label")
+rw_AP_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Control_Stats/RW_AP_Label")
+rw_RP_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Control_Stats/RW_RP_Label")
+rw_rank_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Control_Stats/RW_Rank_Label")
+right_window_grid = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control/ScrollContainer/MarginContainer/EquippedCards_GridContainer")
 rw_contagem_slots_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW_ContagemSlots_Label")
 rw_button_texture = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/RW-ButtonTexture_TextureRect")
 rw_button_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/RW-ButtonTexture_TextureRect/RW-ButtonLabel_Label")
@@ -144,15 +151,39 @@ icone_slot_livre = ExtResource("5_1unkj")
 cena_item_carta = ExtResource("2_mjelh")
 cena_item_peca = ExtResource("7_3c3cq")
 cena_carta_pequena = ExtResource("13_2ysy5")
+cena_moldura_slot = ExtResource("9_w350s")
+tamanho_manual_peca = Vector2(133, 133)
+tamanho_manual_carta = Vector2(440, 10)
 overlay_video = NodePath("VideoPreviewOverlay_Control")
 fundo_escuro = NodePath("VideoPreviewOverlay_Control/ColorRect")
 video_container = NodePath("VideoPreviewOverlay_Control/VideoContainer_Control")
 popup_video_player = NodePath("VideoPreviewOverlay_Control/VideoContainer_Control/PopupVideo_VideoStreamPlayer")
-btn_abrir_video = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer/AbrirVideo_TextureButton")
+btn_abrir_video = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CardView_MarginContainer/CardView_VBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer/AbrirVideo_TextureButton")
 btn_fechar_video = NodePath("VideoPreviewOverlay_Control/FecharVideo_Button")
-center_peca_visual = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer/PecaMenus_TextureRect")
+center_peca_visual = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_PecaName_MarginContainer/CW-PecaName_HBoxContainer/MarginContainer/PecaMenus_TextureRect")
 right_peca_visual = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/PecaMenus_TextureRect")
+numero_peca_label = NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/PecaMenus_TextureRect/NumeroPeca_Label")
 top_slots_visuais = [NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton1/PecaMenus_TextureRect"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton2/PecaMenus_TextureRect"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton3/PecaMenus_TextureRect"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton4/PecaMenus_TextureRect"), NodePath("MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton5/PecaMenus_TextureRect")]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1294647468]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_1ql4r")
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=612913445]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_86tjb")
 
 [node name="MainMargin_MarginContainer" type="MarginContainer" parent="." unique_id=259902652]
 layout_mode = 1
@@ -166,13 +197,16 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="TopNav_PanelContainer" type="PanelContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer" unique_id=1815210115]
+custom_minimum_size = Vector2(50, 130)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_3c3cq")
 
 [node name="TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer" unique_id=1586980118]
-custom_minimum_size = Vector2(880, 100)
+custom_minimum_size = Vector2(1200, 120)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 texture = ExtResource("4_x3s7i")
 expand_mode = 1
 
@@ -189,7 +223,7 @@ theme_override_constants/separation = 25
 
 [node name="SlotButton1" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=1399845396]
 z_index = 1
-custom_minimum_size = Vector2(110, 80)
+custom_minimum_size = Vector2(130, 90)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
@@ -206,22 +240,18 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton1" unique_id=802778601]
+[node name="Numero" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton1" unique_id=802778601]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -14.5
-offset_top = -40.0
-offset_right = 14.5
-offset_bottom = 29.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -7.0
+offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 50
-text = "1"
+theme_override_font_sizes/font_size = 40
+text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -234,12 +264,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -114.0
-offset_top = -80.5
+offset_top = 38.0
 offset_right = 116.0
-offset_bottom = -31.5
+offset_bottom = 87.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("26_fubuq")
 theme_override_font_sizes/font_size = 30
 text = "Everton"
 horizontal_alignment = 1
@@ -249,7 +279,7 @@ vertical_alignment = 1
 
 [node name="SlotButton2" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=1884737589]
 z_index = 1
-custom_minimum_size = Vector2(110, 80)
+custom_minimum_size = Vector2(130, 90)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
@@ -266,22 +296,18 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label2" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton2" unique_id=5192055]
+[node name="Numero" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton2" unique_id=5192055]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -14.5
-offset_top = -40.0
-offset_right = 14.5
-offset_bottom = 29.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -7.0
+offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 50
-text = "2"
+theme_override_font_sizes/font_size = 40
+text = "4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -294,12 +320,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -114.0
-offset_top = -80.5
+offset_top = 38.0
 offset_right = 116.0
-offset_bottom = -31.5
+offset_bottom = 87.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("26_fubuq")
 theme_override_font_sizes/font_size = 30
 text = "Everton"
 horizontal_alignment = 1
@@ -309,7 +335,7 @@ vertical_alignment = 1
 
 [node name="SlotButton3" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=1203333085]
 z_index = 1
-custom_minimum_size = Vector2(110, 80)
+custom_minimum_size = Vector2(130, 90)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
@@ -326,22 +352,18 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label3" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton3" unique_id=2057543723]
+[node name="Numero" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton3" unique_id=2057543723]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -14.5
-offset_top = -40.0
-offset_right = 14.5
-offset_bottom = 29.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -7.0
+offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 50
-text = "3"
+theme_override_font_sizes/font_size = 40
+text = "8"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -354,12 +376,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -114.0
-offset_top = -80.5
+offset_top = 38.0
 offset_right = 116.0
-offset_bottom = -31.5
+offset_bottom = 87.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("26_fubuq")
 theme_override_font_sizes/font_size = 30
 text = "Everton"
 horizontal_alignment = 1
@@ -369,7 +391,7 @@ vertical_alignment = 1
 
 [node name="SlotButton4" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=466468303]
 z_index = 1
-custom_minimum_size = Vector2(110, 80)
+custom_minimum_size = Vector2(130, 90)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
@@ -386,22 +408,18 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label4" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton4" unique_id=1246603818]
+[node name="Numero" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton4" unique_id=1246603818]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -14.5
-offset_top = -40.0
-offset_right = 14.5
-offset_bottom = 29.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -7.0
+offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 50
-text = "4"
+theme_override_font_sizes/font_size = 40
+text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -414,12 +432,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -114.0
-offset_top = -80.5
+offset_top = 38.0
 offset_right = 116.0
-offset_bottom = -31.5
+offset_bottom = 87.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("26_fubuq")
 theme_override_font_sizes/font_size = 30
 text = "Everton"
 horizontal_alignment = 1
@@ -429,7 +447,7 @@ vertical_alignment = 1
 
 [node name="SlotButton5" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=1866593553]
 z_index = 1
-custom_minimum_size = Vector2(110, 80)
+custom_minimum_size = Vector2(130, 90)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
@@ -446,22 +464,18 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label5" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton5" unique_id=466581749]
+[node name="Numero" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton5" unique_id=466581749]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -14.5
-offset_top = -40.0
-offset_right = 14.5
-offset_bottom = 29.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -7.0
+offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 50
-text = "5"
+theme_override_font_sizes/font_size = 40
+text = "9"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -474,12 +488,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -114.0
-offset_top = -80.5
+offset_top = 38.0
 offset_right = 116.0
-offset_bottom = -31.5
+offset_bottom = 87.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("26_fubuq")
 theme_override_font_sizes/font_size = 30
 text = "Everton"
 horizontal_alignment = 1
@@ -490,14 +504,15 @@ vertical_alignment = 1
 [node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer" unique_id=1099787996]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 180
+theme_override_constants/margin_left = 65
 theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 180
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 100
 
 [node name="CoreAreaHbox_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer" unique_id=245952719]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 30
 
 [node name="SideMenuVBox_VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer" unique_id=2100082125]
 layout_mode = 2
@@ -505,14 +520,14 @@ size_flags_vertical = 4
 theme_override_constants/separation = 50
 
 [node name="TabCartas_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer" unique_id=311853077]
-custom_minimum_size = Vector2(160, 200)
+custom_minimum_size = Vector2(195, 200)
 layout_mode = 2
 texture_normal = ExtResource("9_cep57")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Carta_TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer/TabCartas_Button" unique_id=125782012]
-custom_minimum_size = Vector2(100, 140)
+custom_minimum_size = Vector2(140, 150)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -526,20 +541,21 @@ offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("10_wegx5")
+texture = ExtResource("32_fubuq")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer/TabCartas_Button" unique_id=1628362272 instance=ExtResource("12_0wqyg")]
 
 [node name="TabPecas_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer" unique_id=1351309353]
-custom_minimum_size = Vector2(160, 200)
+custom_minimum_size = Vector2(195, 200)
 layout_mode = 2
 texture_normal = ExtResource("9_cep57")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Peca_TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer/TabPecas_Button" unique_id=1810854469]
-custom_minimum_size = Vector2(130, 90)
+custom_minimum_size = Vector2(150, 100)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -553,19 +569,22 @@ offset_bottom = 33.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("5_x3s7i")
+texture = ExtResource("16_060cl")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/SideMenuVBox_VBoxContainer/TabPecas_Button" unique_id=441251270 instance=ExtResource("12_0wqyg")]
 
 [node name="LeftWindow_PanelContainer" type="PanelContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer" unique_id=1496457597]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_2ysy5")
+size_flags_stretch_ratio = 1.05
+theme_override_styles/panel = SubResource("StyleBoxTexture_lpmc6")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer" unique_id=1787982407]
 layout_mode = 2
-theme_override_constants/margin_top = 15
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer" unique_id=1125311028]
@@ -575,9 +594,10 @@ theme_override_constants/separation = 15
 [node name="Filters_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1442178262]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_constants/separation = 7
 
 [node name="RankFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer" unique_id=1856155120]
-custom_minimum_size = Vector2(80, 40)
+custom_minimum_size = Vector2(100, 45)
 layout_mode = 2
 texture_normal = ExtResource("13_3c3cq")
 ignore_texture_size = true
@@ -600,12 +620,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("18_0wqyg")
 theme_override_font_sizes/font_size = 28
-text = "RANK"
+text = "Rank"
 
 [node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/RankFilter_Button" unique_id=1092946135 instance=ExtResource("12_0wqyg")]
 
 [node name="AZFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer" unique_id=866524000]
-custom_minimum_size = Vector2(80, 40)
+custom_minimum_size = Vector2(100, 45)
 layout_mode = 2
 texture_normal = ExtResource("13_0maoc")
 ignore_texture_size = true
@@ -632,7 +652,7 @@ text = "A-Z"
 [node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/AZFilter_Button" unique_id=723428573 instance=ExtResource("12_0wqyg")]
 
 [node name="DataFilter_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer" unique_id=1879588817]
-custom_minimum_size = Vector2(80, 40)
+custom_minimum_size = Vector2(100, 45)
 layout_mode = 2
 texture_normal = ExtResource("13_3c3cq")
 ignore_texture_size = true
@@ -658,102 +678,145 @@ text = "Data"
 
 [node name="AnimationHover_Node2" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer/DataFilter_Button" unique_id=1220144031 instance=ExtResource("12_0wqyg")]
 
+[node name="EspacoVazio_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/Filters_HBoxContainer" unique_id=734392914]
+layout_mode = 2
+
 [node name="ScrollContainer" type="ScrollContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=609357060]
 layout_mode = 2
 size_flags_vertical = 3
+horizontal_scroll_mode = 0
 
-[node name="InventoryList_GridContainer" type="GridContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=185042268]
+[node name="Inventory_MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=2146373205]
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 15
+
+[node name="InventoryList_GridContainer" type="GridContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer" unique_id=185042268]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 15
 
-[node name="CartaUI_Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/InventoryList_GridContainer" unique_id=445776678 instance=ExtResource("13_2ysy5")]
+[node name="PecasUI_Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=445776678 instance=ExtResource("7_3c3cq")]
+visible = false
+layout_mode = 2
+
+[node name="PecasUI_Button2" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=1749635910 instance=ExtResource("7_3c3cq")]
+visible = false
+layout_mode = 2
+
+[node name="PecasUI_Button3" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=830299327 instance=ExtResource("7_3c3cq")]
+visible = false
+layout_mode = 2
+
+[node name="PecasUI_Button4" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=306777789 instance=ExtResource("7_3c3cq")]
+visible = false
+layout_mode = 2
+
+[node name="PecasUI_Button5" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=886140268 instance=ExtResource("7_3c3cq")]
+visible = false
+layout_mode = 2
+
+[node name="PecasUI_Button6" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=729900438 instance=ExtResource("7_3c3cq")]
+visible = false
+layout_mode = 2
+
+[node name="PecasUI_Button7" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=1930302249 instance=ExtResource("7_3c3cq")]
+visible = false
+layout_mode = 2
+
+[node name="CartaUI_Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=2067691417 instance=ExtResource("2_mjelh")]
+layout_mode = 2
+
+[node name="CartaUI_Button2" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=1930735118 instance=ExtResource("2_mjelh")]
+layout_mode = 2
+
+[node name="CartaUI_Button3" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=1565068323 instance=ExtResource("2_mjelh")]
+layout_mode = 2
+
+[node name="CartaUI_Button6" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=1109846857 instance=ExtResource("2_mjelh")]
+layout_mode = 2
+
+[node name="CartaUI_Button4" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=1204680395 instance=ExtResource("2_mjelh")]
+layout_mode = 2
+
+[node name="CartaUI_Button5" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/LeftWindow_PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Inventory_MarginContainer/InventoryList_GridContainer" unique_id=1514687805 instance=ExtResource("2_mjelh")]
 layout_mode = 2
 
 [node name="CenterWindow_PanelContainer" type="PanelContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer" unique_id=1886739079]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_vb7km")
+size_flags_stretch_ratio = 0.8
+theme_override_styles/panel = SubResource("StyleBoxTexture_md4jv")
 
 [node name="Pai_MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer" unique_id=548226556]
 layout_mode = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_bottom = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer" unique_id=684321617]
 layout_mode = 2
+theme_override_constants/separation = -20
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer" unique_id=1505196964]
-custom_minimum_size = Vector2(300, 650)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer" unique_id=467573718]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer" unique_id=467573718]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 20
 
-[node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=404617629]
-layout_mode = 2
-
-[node name="CW-PecaName_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer" unique_id=236634062]
-layout_mode = 2
-
-[node name="CW-ItemName_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer" unique_id=1025454950]
-layout_mode = 2
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 30
-text = "ItemName"
-
-[node name="PecaMenus_TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer" unique_id=1367843058 instance=ExtResource("12_uy8iv")]
-custom_minimum_size = Vector2(150, 120)
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="CW-ButtonTexture_TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer" unique_id=778005741]
+[node name="CW_PecaName_MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer" unique_id=404617629]
 visible = false
-z_index = 1
+layout_mode = 2
+
+[node name="CW-PecaName_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_PecaName_MarginContainer" unique_id=236634062]
+layout_mode = 2
+
+[node name="CW-ItemName_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_PecaName_MarginContainer/CW-PecaName_HBoxContainer" unique_id=1025454950]
+custom_minimum_size = Vector2(310, 80)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("18_0wqyg")
+theme_override_font_sizes/font_size = 54
+text = "Peça X"
+autowrap_mode = 2
+script = ExtResource("22_7ksfy")
+tamanho_maximo = 54
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_PecaName_MarginContainer/CW-PecaName_HBoxContainer" unique_id=1440524420]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+theme_override_constants/margin_top = -35
+
+[node name="PecaMenus_TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_PecaName_MarginContainer/CW-PecaName_HBoxContainer/MarginContainer" unique_id=1367843058 instance=ExtResource("12_uy8iv")]
 custom_minimum_size = Vector2(150, 120)
 layout_mode = 2
 size_flags_horizontal = 10
-size_flags_vertical = 8
-texture = ExtResource("5_x3s7i")
-expand_mode = 1
 
-[node name="CW-ButtonLabel_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/CW-PecaName_HBoxContainer/CW-ButtonTexture_TextureRect" unique_id=734834559]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -14.5
-offset_top = -40.0
-offset_right = 14.5
-offset_bottom = 29.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 50
-text = "Label"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="CardView_MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer" unique_id=853733253]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = 25
 
-[node name="CardView_VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=286856364]
+[node name="CardView_VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CardView_MarginContainer" unique_id=286856364]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="ThumbnailVideo_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer" unique_id=919748990]
+[node name="ThumbnailVideo_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CardView_MarginContainer/CardView_VBoxContainer" unique_id=919748990]
+visible = false
 custom_minimum_size = Vector2(200, 160)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="CentralVideo_VideoStreamPlayer" type="VideoStreamPlayer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control" unique_id=1897566612]
+[node name="CentralVideo_VideoStreamPlayer" type="VideoStreamPlayer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CardView_MarginContainer/CardView_VBoxContainer/ThumbnailVideo_Control" unique_id=1897566612]
+visible = false
 custom_minimum_size = Vector2(280, 160)
 layout_mode = 1
 anchors_preset = 8
@@ -771,7 +834,8 @@ stream = ExtResource("18_bqv65")
 expand = true
 loop = true
 
-[node name="AbrirVideo_TextureButton" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer" unique_id=338878200]
+[node name="AbrirVideo_TextureButton" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CardView_MarginContainer/CardView_VBoxContainer/ThumbnailVideo_Control/CentralVideo_VideoStreamPlayer" unique_id=338878200]
+visible = false
 modulate = Color(1, 1, 1, 0.8509804)
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 1
@@ -786,161 +850,367 @@ texture_normal = ExtResource("16_bqv65")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer" unique_id=69626756]
+[node name="DisplayCarta_AspectRatioC" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CardView_MarginContainer/CardView_VBoxContainer" unique_id=692315354 instance=ExtResource("25_cra04")]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 15
+size_flags_horizontal = 1
+size_flags_stretch_ratio = 1.4
 
-[node name="ItemIMG_TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/HBoxContainer" unique_id=568094045]
-custom_minimum_size = Vector2(120, 120)
+[node name="Central_descricao_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CardView_MarginContainer/CardView_VBoxContainer" unique_id=378312004]
+custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
-size_flags_horizontal = 4
-expand_mode = 1
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+theme_override_fonts/font = ExtResource("26_fubuq")
+theme_override_font_sizes/font_size = 25
+text = "A sua peca aumenta de tamanho por 1 turno"
+horizontal_alignment = 1
+autowrap_mode = 2
 
-[node name="ItemDescription_RichTextLabel" type="RichTextLabel" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer" unique_id=383872329]
-custom_minimum_size = Vector2(300, 10)
-layout_mode = 2
-theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("17_y8quf")
-theme_override_fonts/bold_font = ExtResource("18_0wqyg")
-theme_override_fonts/italics_font = ExtResource("19_uy8iv")
-theme_override_font_sizes/normal_font_size = 25
-theme_override_font_sizes/bold_font_size = 25
-theme_override_font_sizes/italics_font_size = 25
-bbcode_enabled = true
-text = "ItemDescription"
-fit_content = true
-
-[node name="SlotsQueOcupa_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer" unique_id=1702098095]
-layout_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/CardView_VBoxContainer/SlotsQueOcupa_HBoxContainer" unique_id=1017894161]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-texture = ExtResource("2_1feu8")
-expand_mode = 1
-
-[node name="PecaView_VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=905191053]
+[node name="PecaView_MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer" unique_id=203999942]
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 20
 
-[node name="CW_ContagemSlots_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=1756251348]
+[node name="PecaView_VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer" unique_id=905191053]
 layout_mode = 2
-theme_override_constants/outline_size = 5
-text = "Slots (0/0)"
+theme_override_constants/separation = 15
 
-[node name="CENTERSlotsIndicator_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=649715996]
+[node name="Control_Detalhes1" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer" unique_id=896366122]
+custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 
-[node name="TextureRect3" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer/CENTERSlotsIndicator_HBoxContainer" unique_id=1824194504]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-texture = ExtResource("2_1feu8")
+[node name="TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/Control_Detalhes1" unique_id=837573662]
+custom_minimum_size = Vector2(492, 17)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.021000002
+anchor_right = 1.0300001
+anchor_bottom = 1.067
+offset_left = -0.17199898
+offset_top = 15.0
+offset_right = -0.040039063
+offset_bottom = -0.010002136
+texture = ExtResource("26_qgfe3")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=148654219]
-layout_mode = 2
-theme_override_constants/outline_size = 5
-text = "Cartas"
+[node name="CW_ContagemSlots_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/Control_Detalhes1" unique_id=1756251348]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0430001
+anchor_bottom = 0.96700007
+offset_left = 10.0
+offset_top = 3.0
+offset_right = -0.124053955
+offset_bottom = 5.989998
+theme_override_fonts/font = ExtResource("27_md4jv")
+theme_override_font_sizes/font_size = 25
+text = "Slots (4/10)"
 
-[node name="CENTERStatsLabel_RichTextLabel" type="RichTextLabel" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=824658106]
+[node name="MarginContainer2" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer" unique_id=1818193899]
 layout_mode = 2
-theme_override_constants/outline_size = 5
-text = "Stats Label Rich Text"
-fit_content = true
+theme_override_constants/margin_right = -15
+theme_override_constants/margin_bottom = -10
 
-[node name="Isolate_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer" unique_id=1856557192]
-custom_minimum_size = Vector2(400, 400)
+[node name="CENTERSlotsIndicator_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/MarginContainer2" unique_id=649715996]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="TextureRect3" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/MarginContainer2/CENTERSlotsIndicator_HBoxContainer" unique_id=1824194504]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/MarginContainer2/CENTERSlotsIndicator_HBoxContainer" unique_id=874232854]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/MarginContainer2/CENTERSlotsIndicator_HBoxContainer" unique_id=419964420]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect6" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/MarginContainer2/CENTERSlotsIndicator_HBoxContainer" unique_id=792278306]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect7" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/MarginContainer2/CENTERSlotsIndicator_HBoxContainer" unique_id=858031407]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect8" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/MarginContainer2/CENTERSlotsIndicator_HBoxContainer" unique_id=1991100245]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect9" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/MarginContainer2/CENTERSlotsIndicator_HBoxContainer" unique_id=37308302]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect10" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/MarginContainer2/CENTERSlotsIndicator_HBoxContainer" unique_id=269327137]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("5_1unkj")
+expand_mode = 1
+
+[node name="TextureRect11" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/MarginContainer2/CENTERSlotsIndicator_HBoxContainer" unique_id=606202888]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("5_1unkj")
+expand_mode = 1
+
+[node name="TextureRect12" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/MarginContainer2/CENTERSlotsIndicator_HBoxContainer" unique_id=2138422075]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("5_1unkj")
+expand_mode = 1
+
+[node name="Control_Detalhes2" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer" unique_id=1036640816]
+custom_minimum_size = Vector2(0, 3)
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/Control_Detalhes2" unique_id=1251348494]
+custom_minimum_size = Vector2(492, 17)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.021000002
+anchor_top = 12.667001
+anchor_right = 1.0300001
+anchor_bottom = 18.333
+offset_left = -0.17199898
+offset_top = -0.0010032654
+offset_right = -0.040039063
+offset_bottom = 0.0009994507
+texture = ExtResource("26_qgfe3")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer" unique_id=148654219]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93333334, 0.83137256, 0.05490196, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.16862746)
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 9
+theme_override_constants/shadow_outline_size = 7
+theme_override_fonts/font = ExtResource("27_md4jv")
+theme_override_font_sizes/font_size = 31
+text = " CARTAS"
+
+[node name="Isolate_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer" unique_id=1856557192]
+custom_minimum_size = Vector2(468, 240)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CENTEREquippedCards_GridContainer" type="GridContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer/Isolate_Control" unique_id=8902318]
-layout_mode = 0
-offset_right = 120.0
-offset_bottom = 120.0
-columns = 5
-
-[node name="CartaUI_Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PecaView_VBoxContainer/Isolate_Control/CENTEREquippedCards_GridContainer" unique_id=870524898 instance=ExtResource("13_2ysy5")]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer" unique_id=1638042819]
-layout_mode = 2
-theme_override_constants/margin_bottom = -60
-
-[node name="ActionButton_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/MarginContainer" unique_id=2026275521]
-custom_minimum_size = Vector2(250, 70)
-layout_mode = 2
-size_flags_horizontal = 4
-texture_normal = ExtResource("6_3vc01")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="EquipTrocar_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/MarginContainer/ActionButton_Button" unique_id=830766560]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/Isolate_Control" unique_id=1993873403]
+custom_minimum_size = Vector2(484, 240)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -65.5
-offset_top = -23.5
-offset_right = 65.5
-offset_bottom = 25.5
+offset_left = -234.0
+offset_top = -120.0
+offset_right = 250.0
+offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 35
-text = "EQUIP"
+horizontal_scroll_mode = 3
 
-[node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/MarginContainer/ActionButton_Button" unique_id=2106885778 instance=ExtResource("12_0wqyg")]
+[node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/Isolate_Control/ScrollContainer" unique_id=1213677657]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_right = 15
 
-[node name="PlainMSG_VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer" unique_id=15331625]
+[node name="CENTEREquippedCards_GridContainer" type="GridContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/Isolate_Control/ScrollContainer/MarginContainer" unique_id=8902318]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = -1
+theme_override_constants/v_separation = -1
+columns = 4
+
+[node name="GridCartas_TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/Isolate_Control/ScrollContainer/MarginContainer/CENTEREquippedCards_GridContainer" unique_id=1415755446 instance=ExtResource("9_w350s")]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+
+[node name="GridCartas_TextureRect2" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/Isolate_Control/ScrollContainer/MarginContainer/CENTEREquippedCards_GridContainer" unique_id=232513216 instance=ExtResource("9_w350s")]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+
+[node name="GridCartas_TextureRect3" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/Isolate_Control/ScrollContainer/MarginContainer/CENTEREquippedCards_GridContainer" unique_id=1898760506 instance=ExtResource("9_w350s")]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+
+[node name="GridCartas_TextureRect4" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer/PecaView_VBoxContainer/Isolate_Control/ScrollContainer/MarginContainer/CENTEREquippedCards_GridContainer" unique_id=1751271489 instance=ExtResource("9_w350s")]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+
+[node name="CW_Control_Stats" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer" unique_id=186148711]
 visible = false
+custom_minimum_size = Vector2(50, 90)
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 100
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/PlainMSG_VBoxContainer" unique_id=461806855]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 50
-
-[node name="TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/PlainMSG_VBoxContainer/HBoxContainer" unique_id=1660687695]
-modulate = Color(0.57, 0.57, 0.57, 0.8)
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-texture = ExtResource("10_wegx5")
+[node name="TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_Control_Stats" unique_id=2089155168]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("30_05y36")
 expand_mode = 1
+stretch_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/PlainMSG_VBoxContainer/HBoxContainer" unique_id=1676015330]
-modulate = Color(0.57, 0.57, 0.57, 0.8)
-custom_minimum_size = Vector2(180, 120)
+[node name="CW_Forca_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_Control_Stats" unique_id=246518510]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 17.0
+offset_right = 106.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("18_0wqyg")
+theme_override_font_sizes/font_size = 18
+text = "Força   ·   lvl 1"
+
+[node name="CW_AP_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_Control_Stats" unique_id=750381691]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 48.0
+offset_right = 193.0
+offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("18_0wqyg")
+theme_override_font_sizes/font_size = 18
+text = "Pontos de Ação   ·   2 AP"
+
+[node name="CW_RP_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_Control_Stats" unique_id=882562832]
+layout_mode = 0
+offset_left = 281.0
+offset_top = 52.0
+offset_right = 323.0
+offset_bottom = 75.0
+theme_override_fonts/font = ExtResource("18_0wqyg")
+theme_override_font_sizes/font_size = 15
+text = "RP: 7"
+
+[node name="Label4" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_Control_Stats" unique_id=831721553]
+layout_mode = 0
+offset_left = 281.0
+offset_top = 18.0
+offset_right = 361.0
+offset_bottom = 56.0
+theme_override_fonts/font = ExtResource("18_0wqyg")
+theme_override_font_sizes/font_size = 31
+text = "Rank"
+
+[node name="CW_Rank_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/CW_Control_Stats" unique_id=210674875]
+layout_mode = 0
+offset_left = 372.0
+offset_top = -4.0
+offset_right = 433.0
+offset_bottom = 91.0
+theme_override_fonts/font = ExtResource("18_0wqyg")
+theme_override_font_sizes/font_size = 80
+text = "C"
+uppercase = true
+
+[node name="EquipButton_MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer" unique_id=1638042819]
 layout_mode = 2
-texture = ExtResource("5_x3s7i")
-expand_mode = 1
+theme_override_constants/margin_bottom = -50
 
-[node name="Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/PlainMSG_VBoxContainer" unique_id=1283336788]
+[node name="ActionButton_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/EquipButton_MarginContainer" unique_id=2026275521]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+texture_normal = ExtResource("6_3vc01")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="EquipTrocar_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/EquipButton_MarginContainer/ActionButton_Button" unique_id=830766560]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("26_fubuq")
+theme_override_font_sizes/font_size = 30
+text = "Equipar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/EquipButton_MarginContainer/ActionButton_Button" unique_id=2106885778 instance=ExtResource("12_0wqyg")]
+
+[node name="PlainMSG_MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer" unique_id=1607751944]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-theme_override_constants/outline_size = 5
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="PlainMSG_VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/PlainMSG_MarginContainer" unique_id=15331625]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/PlainMSG_MarginContainer/PlainMSG_VBoxContainer" unique_id=461806855]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_constants/separation = 50
+
+[node name="Carta" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/PlainMSG_MarginContainer/PlainMSG_VBoxContainer/HBoxContainer" unique_id=1660687695]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("32_fubuq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Botao" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/PlainMSG_MarginContainer/PlainMSG_VBoxContainer/HBoxContainer" unique_id=1676015330]
+custom_minimum_size = Vector2(180, 120)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("33_3xsoq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Texto" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/PlainMSG_MarginContainer/PlainMSG_VBoxContainer" unique_id=1283336788]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9187369, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("34_oxuru")
 theme_override_font_sizes/font_size = 40
 text = "Selecione uma peça ou carta para inspecionar"
 horizontal_alignment = 1
-autowrap_mode = 1
+autowrap_mode = 2
 
 [node name="RightWindow_PanelContainer" type="PanelContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer" unique_id=169942496]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.26
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_bqv65")
+theme_override_styles/panel = SubResource("StyleBoxTexture_w350s")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer" unique_id=2051058442]
 layout_mode = 2
 theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 50
+theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 30
+theme_override_constants/margin_bottom = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer" unique_id=1865697515]
 layout_mode = 2
@@ -949,23 +1219,36 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="PieceNameTitle_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer" unique_id=309090189]
+custom_minimum_size = Vector2(310, 100)
 layout_mode = 2
+size_flags_vertical = 1
 mouse_filter = 1
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 30
-text = "PieceName Label"
-
-[node name="RW-ItemName_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer" unique_id=167573881]
-visible = false
-layout_mode = 2
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 30
-text = "ItemName"
+theme_override_fonts/font = ExtResource("18_0wqyg")
+theme_override_font_sizes/font_size = 54
+text = "Peça X"
+vertical_alignment = 1
+script = ExtResource("22_7ksfy")
+tamanho_maximo = 54
 
 [node name="PecaMenus_TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer" unique_id=1054778971 instance=ExtResource("12_uy8iv")]
 custom_minimum_size = Vector2(150, 120)
 layout_mode = 2
 size_flags_horizontal = 10
+
+[node name="NumeroPeca_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer/PecaMenus_TextureRect" unique_id=813587472]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -11.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 50
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RW-ButtonTexture_TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/RW-PecaName_HBoxContainer" unique_id=1882861952]
 visible = false
@@ -998,43 +1281,225 @@ vertical_alignment = 1
 
 [node name="RW_ContagemSlots_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1029797107]
 layout_mode = 2
-theme_override_constants/outline_size = 5
-text = "SLOTS (0/0)"
+theme_override_fonts/font = ExtResource("27_md4jv")
+theme_override_font_sizes/font_size = 25
+text = "Slots (4/10)"
 
 [node name="SlotsIndicator_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1841438748]
 layout_mode = 2
+theme_override_constants/separation = 12
 
-[node name="TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=1399368133]
-custom_minimum_size = Vector2(30, 30)
+[node name="TextureRect3" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=428780229]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-texture = ExtResource("2_1feu8")
+texture = ExtResource("4_uy8iv")
 expand_mode = 1
 
+[node name="TextureRect4" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=182083249]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=827614835]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect6" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=599556890]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect7" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=119269677]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect8" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=1477676962]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect9" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=2050100460]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_uy8iv")
+expand_mode = 1
+
+[node name="TextureRect10" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=306783537]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("5_1unkj")
+expand_mode = 1
+
+[node name="TextureRect11" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=141615351]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("5_1unkj")
+expand_mode = 1
+
+[node name="TextureRect12" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/SlotsIndicator_HBoxContainer" unique_id=301798659]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("5_1unkj")
+expand_mode = 1
+
+[node name="Control_Detalhes2" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=262362308]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Control_Detalhes2" unique_id=1620957050]
+custom_minimum_size = Vector2(492, 17)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.021000002
+anchor_top = 12.667001
+anchor_right = 1.0300001
+anchor_bottom = 18.333
+offset_left = -3.058999
+offset_top = -584.35004
+offset_right = -21.630066
+offset_bottom = -850.65
+texture = ExtResource("26_qgfe3")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Control_Detalhes2" unique_id=1080167233]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 33.0
+offset_right = 132.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.93333334, 0.83137256, 0.05490196, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.16862746)
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 9
+theme_override_constants/shadow_outline_size = 7
+theme_override_fonts/font = ExtResource("27_md4jv")
+theme_override_font_sizes/font_size = 31
+text = " CARTAS"
+
 [node name="StatsLabel_RichTextLabel" type="RichTextLabel" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=309406376]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/outline_size = 5
-text = "STRENGTH
+text = "Forca
 PA
-SLOTS"
+Slots"
 fit_content = true
 
 [node name="Isolate_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1096506412]
-custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="EquippedCards_GridContainer" type="GridContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control" unique_id=1729462547]
-layout_mode = 0
-offset_right = 120.0
-offset_bottom = 120.0
-columns = 5
+[node name="ScrollContainer" type="ScrollContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control" unique_id=2098374615]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.046000004
+anchor_right = 1.008
+anchor_bottom = 0.67600006
+offset_left = 5.0
+offset_top = 12.004003
+offset_right = -3.1680298
+offset_bottom = 62.623978
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 3
 
-[node name="CartaUI_Button" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control/EquippedCards_GridContainer" unique_id=1971850068 instance=ExtResource("13_2ysy5")]
+[node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control/ScrollContainer" unique_id=1138742085]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_right = 15
+
+[node name="EquippedCards_GridContainer" type="GridContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control/ScrollContainer/MarginContainer" unique_id=1729462547]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = -1
+theme_override_constants/v_separation = -1
+columns = 4
+
+[node name="GridCartas_TextureRect5" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Isolate_Control/ScrollContainer/MarginContainer/EquippedCards_GridContainer" unique_id=629063966 instance=ExtResource("9_w350s")]
 layout_mode = 2
 
+[node name="Control_Stats" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer" unique_id=1358322087]
+custom_minimum_size = Vector2(50, 90)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Control_Stats" unique_id=1288166755]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -14.0
+offset_top = -21.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("30_05y36")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RW_Forca_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Control_Stats" unique_id=345163556]
+layout_mode = 0
+offset_left = 10.0
+offset_top = -4.0
+offset_right = 124.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource("18_0wqyg")
+theme_override_font_sizes/font_size = 22
+text = "Força   ·   lvl 1"
+
+[node name="RW_AP_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Control_Stats" unique_id=731670156]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 33.0
+offset_right = 265.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("18_0wqyg")
+theme_override_font_sizes/font_size = 22
+text = "Pontos de Ação   ·   2 AP"
+
+[node name="RW_RP_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Control_Stats" unique_id=1020629543]
+layout_mode = 0
+offset_left = 311.0
+offset_top = 40.0
+offset_right = 353.0
+offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("18_0wqyg")
+theme_override_font_sizes/font_size = 17
+text = "RP: 7"
+
+[node name="Label4" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Control_Stats" unique_id=409153083]
+layout_mode = 0
+offset_left = 311.0
+offset_top = -3.0
+offset_right = 401.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("18_0wqyg")
+theme_override_font_sizes/font_size = 36
+text = "Rank"
+
+[node name="RW_Rank_Label" type="Label" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/RightWindow_PanelContainer/MarginContainer/VBoxContainer/Control_Stats" unique_id=1765628515]
+layout_mode = 0
+offset_left = 420.0
+offset_top = -30.0
+offset_right = 490.0
+offset_bottom = 89.0
+theme_override_fonts/font = ExtResource("18_0wqyg")
+theme_override_font_sizes/font_size = 100
+text = "C"
+uppercase = true
+
 [node name="EspacoVazio_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer" unique_id=1551192291]
-custom_minimum_size = Vector2(800, 85)
+custom_minimum_size = Vector2(800, 75)
 layout_mode = 2
 
 [node name="SAIRR_Button" type="Button" parent="." unique_id=920692340]
@@ -1058,12 +1523,12 @@ mouse_filter = 2
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_left = -284.99997
-offset_top = 1472.0001
-offset_right = -234.99997
-offset_bottom = 1472.0
+offset_left = -661.99994
+offset_top = 1642.9999
+offset_right = -611.99994
+offset_bottom = 1642.9998
 grow_vertical = 2
-rotation = -1.3962634
+rotation = -1.2391838
 
 [node name="Banner_Dir_Control" type="Control" parent="." unique_id=199277818]
 clip_contents = true
@@ -1083,13 +1548,13 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 265.0
-offset_top = -175.00005
-offset_right = 265.0
-offset_bottom = -175.00006
+offset_left = 377.00006
+offset_top = 13.000004
+offset_right = 377.00006
+offset_bottom = 13.0
 grow_horizontal = 0
 grow_vertical = 2
-rotation = 1.7453293
+rotation = 1.7912633
 
 [node name="VideoPreviewOverlay_Control" type="Control" parent="." unique_id=1463757000]
 visible = false

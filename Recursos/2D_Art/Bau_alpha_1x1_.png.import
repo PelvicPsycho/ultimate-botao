@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://db156b5x70fu1"
+path="res://.godot/imported/Bau_alpha_1x1_.png-2c51767a6893da2199ca8e6696d07fa0.res"
+
+[deps]
+
+source_file="res://Recursos/2D_Art/Bau_alpha_1x1_.png"
+dest_files=["res://.godot/imported/Bau_alpha_1x1_.png-2c51767a6893da2199ca8e6696d07fa0.res"]
+
+[params]
+
+create_from=0
+threshold=0.0

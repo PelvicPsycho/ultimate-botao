@@ -5,7 +5,7 @@
 [resource]
 shader = ExtResource("1_ft45n")
 shader_parameter/pixel_size = 1.0
-shader_parameter/dist = 937
+shader_parameter/dist = 4
 shader_parameter/shadow_color = Color(0, 0, 0, 0.23529412)
 shader_parameter/angle = 154.8350073546625
 shader_parameter/sprite_tint = Color(0.9255518, 0.5382809, 0.14684999, 1)

@@ -3,11 +3,13 @@
 [ext_resource type="StyleBox" uid="uid://oxr2bw7f1064" path="res://Componentes/MyTeam/BotaoStyleNormal.tres" id="1_237jn"]
 [ext_resource type="Script" uid="uid://ljmvhexims2q" path="res://Componentes/MyTeam/inventory_cards_button.gd" id="1_gfv3x"]
 [ext_resource type="StyleBox" uid="uid://c4npex4yttw5w" path="res://Componentes/MyTeam/BotaoStylePressed.tres" id="2_8un7y"]
-[ext_resource type="Texture2D" uid="uid://bcl5m6igrrme" path="res://Componentes/Recompensas/Rectangle 25_.png" id="2_qoayl"]
 [ext_resource type="Texture2D" uid="uid://v6d1xe484tcc" path="res://Recursos/2D_Art/MyTeam/Rectangle 34.png" id="3_7wxhq"]
-[ext_resource type="Texture2D" uid="uid://bu7lkas88dds1" path="res://Recursos/2D_Art/MyTeam/Group 139.png" id="3_qoayl"]
 [ext_resource type="StyleBox" uid="uid://j7l2gv08rxa8" path="res://Componentes/MyTeam/BotaoStyleHover.tres" id="3_tnw60"]
+[ext_resource type="Texture2D" uid="uid://cfxlrqncaju7j" path="res://Recursos/2D_Art/MyTeam/Rectangle_fundocarta.png" id="5_mwsfq"]
+[ext_resource type="Texture2D" uid="uid://ctxn0nxcadoth" path="res://Recursos/2D_Art/IconesCartas/Carta_costas.png" id="6_tnw60"]
+[ext_resource type="FontFile" uid="uid://de61ri4slxwg3" path="res://Recursos/Fontes/Rubik/Rubik-SemiBold.ttf" id="7_mwsfq"]
 [ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="8_8un7y"]
+[ext_resource type="Script" uid="uid://biwcmyl26ar2f" path="res://Componentes/MyTeam/Label_Autoajustar.gd" id="8_mwsfq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_237jn"]
 bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
@@ -23,20 +25,15 @@ corner_radius_bottom_left = 10
 corner_detail = 4
 
 [node name="CartaUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "imagem_icone", "quantidade_label", "textura_raridade", "borda_panel")]
-custom_minimum_size = Vector2(120, 120)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1800.0
-offset_bottom = -960.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+offset_right = 120.0
+offset_bottom = 120.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("1_237jn")
 theme_override_styles/pressed = ExtResource("2_8un7y")
 theme_override_styles/hover = ExtResource("3_tnw60")
 theme_override_styles/disabled = ExtResource("1_237jn")
+flat = true
 script = ExtResource("1_gfv3x")
 nome_label = NodePath("Control/MarginContainer2/VBoxContainer/Nome_Label")
 imagem_icone = NodePath("Control/MarginContainer2/VBoxContainer/ImagePlaceHolder_ColorRect")
@@ -45,7 +42,6 @@ textura_raridade = NodePath("Control/Raridade_TextureRect")
 borda_panel = NodePath("Control/WhiteBorder_Panel")
 
 [node name="Control" type="Control" parent="." unique_id=1118418332]
-custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,14 +60,17 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
-texture = ExtResource("2_qoayl")
+texture = ExtResource("5_mwsfq")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="MarginContainer2" type="MarginContainer" parent="Control" unique_id=1466296230]
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 0
-offset_right = 120.0
-offset_bottom = 120.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
@@ -81,25 +80,38 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer2" unique_id=177174666]
 layout_mode = 2
 mouse_filter = 2
+theme_override_constants/separation = -5
 
 [node name="ImagePlaceHolder_ColorRect" type="TextureRect" parent="Control/MarginContainer2/VBoxContainer" unique_id=725166944]
-custom_minimum_size = Vector2(40, 60)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
 mouse_filter = 2
-texture = ExtResource("3_qoayl")
+texture = ExtResource("6_tnw60")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="Nome_Label" type="Label" parent="Control/MarginContainer2/VBoxContainer" unique_id=264130752]
-custom_minimum_size = Vector2(50, 10)
+custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 14
+theme_override_fonts/font = ExtResource("7_mwsfq")
+theme_override_font_sizes/font_size = 17
 text = "Nome das cartas aqui"
 horizontal_alignment = 1
 autowrap_mode = 2
+script = ExtResource("8_mwsfq")
+
+[node name="WhiteBorder_Panel" type="Panel" parent="Control" unique_id=75844737]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_237jn")
 
 [node name="Quantidade_Label" type="Label" parent="Control" unique_id=244145336]
 visible = false
@@ -117,26 +129,15 @@ theme_override_constants/outline_size = 3
 text = "99"
 horizontal_alignment = 1
 
-[node name="WhiteBorder_Panel" type="Panel" parent="Control" unique_id=75844737]
-visible = false
+[node name="Raridade_TextureRect" type="TextureRect" parent="Control" unique_id=567763977]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 91.0
+offset_bottom = -109.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_237jn")
-
-[node name="Raridade_TextureRect" type="TextureRect" parent="Control" unique_id=567763977]
-custom_minimum_size = Vector2(30, 10)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -30.0
-offset_bottom = 10.0
-grow_horizontal = 0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 mouse_filter = 2
