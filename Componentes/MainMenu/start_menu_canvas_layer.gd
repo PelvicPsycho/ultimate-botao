@@ -37,6 +37,7 @@ func _carregar_time_inicial():
 			if pecas_iniciais.size() < 5:
 				# As primeiras 5 peças vão para o time titular (ativas no campo)
 				var jogador_copia = peca_original.duplicate(true)
+				jogador_copia.time = CupManager.myTeam
 				jogador_copia.slotsUpgrates.resize(jogador_copia.quantosSlotes)
 				pecas_iniciais.append(jogador_copia)
 			else:

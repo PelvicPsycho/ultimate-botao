@@ -197,7 +197,7 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="TopNav_PanelContainer" type="PanelContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer" unique_id=1815210115]
-custom_minimum_size = Vector2(50, 130)
+custom_minimum_size = Vector2(10, 120)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_3c3cq")
@@ -216,6 +216,7 @@ layout_mode = 2
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 0
 
 [node name="TopNavHBox_HBoxContainer" type="HBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer" unique_id=2021018094]
 layout_mode = 2
@@ -276,6 +277,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton1" unique_id=1375273779 instance=ExtResource("12_0wqyg")]
+escala_hover = Vector2(1.2, 1.2)
 
 [node name="SlotButton2" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=1884737589]
 z_index = 1
@@ -332,6 +334,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton2" unique_id=1901993087 instance=ExtResource("12_0wqyg")]
+escala_hover = Vector2(1.2, 1.2)
 
 [node name="SlotButton3" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=1203333085]
 z_index = 1
@@ -388,6 +391,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton3" unique_id=1462905319 instance=ExtResource("12_0wqyg")]
+escala_hover = Vector2(1.2, 1.2)
 
 [node name="SlotButton4" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=466468303]
 z_index = 1
@@ -444,6 +448,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton4" unique_id=1535130825 instance=ExtResource("12_0wqyg")]
+escala_hover = Vector2(1.2, 1.2)
 
 [node name="SlotButton5" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer" unique_id=1866593553]
 z_index = 1
@@ -500,6 +505,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/TopNav_PanelContainer/MarginContainer/TopNavHBox_HBoxContainer/SlotButton5" unique_id=230395769 instance=ExtResource("12_0wqyg")]
+escala_hover = Vector2(1.2, 1.2)
+
+[node name="Vazio_Control" type="Control" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer" unique_id=1084576509]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer" unique_id=1099787996]
 layout_mode = 2

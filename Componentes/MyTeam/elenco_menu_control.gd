@@ -1212,7 +1212,7 @@ func _atualizar_visual_dos_slots() -> void:
 			# Botão Titular: Trava o hover e fica grande
 			if animador: animador.esta_selecionado = true
 			
-			tween.tween_property(btn, "scale", Vector2(1.2, 1.2), 0.15).set_trans(Tween.TRANS_SINE)
+			tween.tween_property(btn, "scale", Vector2(1.3, 1.3), 0.15).set_trans(Tween.TRANS_SINE)
 			tween.tween_property(btn, "modulate", Color.WHITE, 0.15)
 			
 			if textura_slot_selecionado:
