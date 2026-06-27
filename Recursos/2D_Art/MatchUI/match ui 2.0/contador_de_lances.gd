@@ -143,6 +143,7 @@ func _on_saida_terminou() -> void:
 	saida_concluida.emit()
 
 func _aplicar_cores(cor: Color) -> void:
+	
 	$ContadorDeLanceCor.modulate = cor
 	$Bola.modulate = cor
 

@@ -1056,7 +1056,8 @@ func get_player_que_quer_trocar() -> PhysicsPlayer2D:
 	return null
 
 func _physics_process(delta: float) -> void:
-	# Verificamos a booleana DENTRO do Resource playerInfo_atual
+	
+	
 	if playerInfo_atual and playerInfo_atual.atrai_bola_ativo:
 		# Passamos a força que também está no Resource
 		aplicar_atracao_bola(delta)
@@ -1079,16 +1080,11 @@ func usar_habilidade_zona_gelo() -> void:
 		push_error("Erro: zona_gelo_scene não configurada no Inspetor!")
 		return
 			
-		# 1. Instancia a zona fixa no campo
 	zona = zona_gelo_scene.instantiate()
 		
-		# 2. Posiciona exatamente onde a peça está agora
-	zona.global_position = self.global_position
-		
-		# 3. Define o tamanho da zona baseado na magnitude da carta
-		# Se a magnitude for 2, a zona terá o dobro do tamanho original
 	
-		# 4. Adiciona à cena principal (para não mover junto com o player)
+	zona.global_position = self.global_position
+
 	get_tree().current_scene.add_child(zona)
 		
 	

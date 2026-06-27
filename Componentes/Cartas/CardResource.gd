@@ -38,3 +38,5 @@ enum TipoAlvo {
 @export var custoSlotes:int
 @export var duracao: int = 1
 @export var is_passiva: bool = false
+@export var cartaRapida: bool = false
+@export var duracaoLance:int

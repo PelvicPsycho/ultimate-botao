@@ -16,4 +16,6 @@ raridade = 1
 magnitude = 15
 custoSlotes = 1
 duracao = 2
+cartaRapida = true
+duracaoLance = 2
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

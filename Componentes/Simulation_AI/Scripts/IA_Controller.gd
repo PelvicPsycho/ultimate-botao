@@ -482,14 +482,18 @@ func execute_play() -> void:
 	current_time = 0
 
 func use_card_on_selected_piece(_piece_index: int) -> void:
-	#print("Cards ------------------------------------------")
-	#print("Card - Piece Index = ", _piece_index)
-	#print("Card - Num Cards = ", physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates.size())
-	var card_index = randi_range(0, physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates.size() - 1)
-	#print("Card - card_index = ", card_index)
-	#for card in physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates:
-		#print("Card = ", card)
-	var card = physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual.slotsUpgrates[card_index]
+	var player_info = physics_controller.PhysicsObjects_List[_piece_index].playerInfo_atual
+	
+	# SEGURANÇA: Verifica se o array existe e se não está vazio
+	if player_info.slotsUpgrates == null or player_info.slotsUpgrates.size() == 0:
+		print("DEBUG: Peça ", _piece_index, " não possui cartas nos slots.")
+		return
+
+	# Agora é seguro calcular o índice
+	var max_idx = player_info.slotsUpgrates.size() - 1
+	var card_index = randi_range(0, max_idx)
+	
+	var card = player_info.slotsUpgrates[card_index]
 	if card != null:
 		if card.nome == "Carta Aumento De Tamanho":
 			#print(" -- Card - Name = ", card.nome)

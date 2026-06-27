@@ -576,6 +576,10 @@ enum TurnType {ORIGINAL, SIMPLIFIED, INTERSPERSED, ORIGINAL_SHORT}
 @onready var turnDecider: TurnType = TurnType.ORIGINAL_SHORT
 
 func decideTurn() -> void:
+	for piece in allPieces:
+		if piece.playerInfo_atual:
+			
+			piece.playerInfo_atual.processar_expiracao_de_lance(piece.playerInfo)
 	var por_erro: bool = true
 	if goalFlag:
 		goalFlag = false

@@ -124,7 +124,7 @@ func resetar_status(base_info: TeamPlayer) -> void:
 	self.zona_Gelo_ativa = false 
 
 func aplicar_buff(card: CardResource) -> void:
-	# 1. A carta já está equipada: só ativa o efeito.
+	
 	if PA < card.custo_energia:
 		print("PA insuficiente! Custa ", card.magnitude, " PA, tem apenas ", PA)
 		return
@@ -159,14 +159,18 @@ func aplicar_buff(card: CardResource) -> void:
 				zona_Gelo_ativa = true
 				escalaZonaGelo = card.magnitude
 		PA -= card.custo_energia
-		duracao_dos_buffs[card] = card.duracao
+		if card.cartaRapida:
+			duracao_dos_buffs[card] = max(1, card.duracaoLance)
+		else:
+		
+			duracao_dos_buffs[card] = card.duracao
 		recalcular_status()
 		status_mudou.emit()
 		print("--- CARTA ATIVADA! ---")
 		print("Nova Força: ", level_force, " | PA: ", PA)
 
 func aplicar_passivas() -> void:
-	# Primeiro limpa os bônus antigos
+	
 	_remover_passivas()
 	
 	for card in slotsUpgrates:
@@ -194,7 +198,30 @@ func _remover_passivas() -> void:
 
 func processar_passagem_de_turno(base_info: TeamPlayer) -> void:
 	processar_expiracao_de_buffs(base_info)
+	
+func processar_expiracao_de_lance(base_info: TeamPlayer) -> void:
+	var cartas_para_remover: Array[CardResource] = []
+	var houve_mudanca: bool = false
+	
+	
+	var keys = duracao_dos_buffs.keys()
+	
+	for card in keys:
+		if card.cartaRapida: 
+			duracao_dos_buffs[card] -= 1 
+			
+			if duracao_dos_buffs[card] <= 0:
+				_limpar_slot_da_carta(card)
+				duracao_dos_buffs.erase(card)
+				cartas_para_remover.append(card)
+				houve_mudanca = true
+				print("DEBUG: Carta rápida expirou: ", card.nome)
 
+	if houve_mudanca:
+		resetar_status(base_info)
+		for card_ativo in duracao_dos_buffs:
+			_reaplicar_silencioso(card_ativo)
+		status_mudou.emit()
 func processar_expiracao_de_buffs(base_info: TeamPlayer) -> void:
 	if turnos_congelamento_armazenado > 0:
 		turnos_congelamento_armazenado -= 1
