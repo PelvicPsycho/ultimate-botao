@@ -15,6 +15,8 @@ config/tags=PackedStringArray("em_desenvolvimento", "grupo", "puc")
 run/main_scene="uid://dtgflpono35aw"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://tmu3yydjtb88"
+config/macos_native_icon="uid://tmu3yydjtb88"
+config/windows_native_icon="uid://tmu3yydjtb88"
 
 [audio]
 
