@@ -76,6 +76,18 @@ func _carregar_time_inicial():
 func _on_button_pressed() -> void:
 	print("Deletou o save")
 	SaveManager.delete_save()
+	
+	# Limpa os dados dos autoloads para que o jogo recomece do zero
+	GameState.jogadores.clear()
+	GameState.cartas_desbloqueadas.clear()
+	GameState.pecas_desbloqueadas.clear()
+	
+	# Limpa o time do CupManager tambem
+	if CupManager and CupManager.myTeam:
+		CupManager.myTeam.mainSquad.clear()
+		CupManager.myTeam.collectedSquad.clear()
+	
+	get_tree().reload_current_scene()
 
 
 func _on_startbutton_pressed() -> void:

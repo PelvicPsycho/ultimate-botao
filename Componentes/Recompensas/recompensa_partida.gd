@@ -93,7 +93,7 @@ func _criar_botao_de_opcao(peca: TeamPlayer) -> Control:
 	var btn_item = cena_botao_peca.instantiate()
 	btn_item.button_group = grupo_recompensa
 	container_opcoes.add_child(btn_item)
-	
+	btn_item.size_flags_vertical = Control.SIZE_EXPAND_FILL #| Control.SIZE_SHRINK_CENTER
 	btn_item.set_meta("id_peca", peca.id_unico) 
 	
 	if btn_item.has_method("setup_item"):
@@ -127,6 +127,20 @@ func _selecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
 	for child in equipped_cards_grid.get_children():
 		child.queue_free()
 
+	# ====================================================================
+	# 2.1 CALCULA O TAMANHO BASE PRIMEIRO (Antes de criar qualquer coisa)
+	# ====================================================================
+	var tamanho_slot := Vector2(100, 100)
+	if cena_carta_bem_pequena:
+		var ghost = cena_carta_bem_pequena.instantiate()
+		if ghost is Control and ghost.custom_minimum_size.y > 0:
+			tamanho_slot = ghost.custom_minimum_size
+		ghost.queue_free()
+
+
+	# ====================================================================
+	# 2.2 CRIA AS CARTAS EQUIPADAS
+	# ====================================================================
 	var slots_usados = 0
 	for carta in peca.slotsUpgrates:
 		if carta != null:
@@ -136,6 +150,10 @@ func _selecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
 				var btn_carta = cena_carta_bem_pequena.instantiate()
 				equipped_cards_grid.add_child(btn_carta)
 				
+				# Aplica o tamanho mágico e empurra pro topo!
+				btn_carta.custom_minimum_size = tamanho_slot
+				btn_carta.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+				
 				if btn_carta.has_method("setup_item"):
 					btn_carta.setup_item(carta)
 					
@@ -143,23 +161,22 @@ func _selecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
 					btn_carta.disabled = true
 				btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 				
-	# --- CALCULA O TAMANHO DOS SLOTS ---
-	var tamanho_slot := Vector2(100, 100)
-	if cena_carta_bem_pequena:
-		var ghost = cena_carta_bem_pequena.instantiate()
-		if ghost is Control and ghost.custom_minimum_size.y > 0:
-			tamanho_slot = ghost.custom_minimum_size
-		ghost.queue_free()
 	
-	# --- CRIA E ADICIONA OS SLOTS VAZIOS COM PANEL ---
+	# ====================================================================
+	# 2.3 CRIA OS PAINÉIS VAZIOS
+	# ====================================================================
 	var slots_livres = peca.quantosSlotes - slots_usados
 	for i in range(slots_livres):
 		var slot_vazio = Panel.new()
+		
+		# Aplica o MESMO tamanho mágico e empurra pro topo!
 		slot_vazio.custom_minimum_size = tamanho_slot
-		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		
 		slot_vazio.add_theme_stylebox_override("panel", estilo_slot_vazio)
 		equipped_cards_grid.add_child(slot_vazio)
+	# --------------------------------------------------------------------------
 	# --------------------------------------------------------------------------
 			
 	# 3. Atualiza os Slots (Textos e Bolinhas)

@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://c2l1n5xvmq5ab" path="res://Componentes/Recompensas/recompensapartida.png" id="1_1v55f"]
 [ext_resource type="Script" uid="uid://b3chomo5j6b1u" path="res://Componentes/Recompensas/recompensa_partida.gd" id="1_u85iu"]
+[ext_resource type="Texture2D" uid="uid://bl84amjlcppuu" path="res://Componentes/Recompensas/SlotVazio_sem_sombra.png" id="2_edpve"]
 [ext_resource type="PackedScene" uid="uid://orrq0vy3qa51" path="res://Componentes/MyTeam/inventory_pecas_button.tscn" id="2_ml02d"]
 [ext_resource type="Texture2D" uid="uid://47ugmokghauy" path="res://Recursos/2D_Art/MyTeam/Group 53_.png" id="2_u85iu"]
-[ext_resource type="Texture2D" uid="uid://bogm6yps4rlg4" path="res://Componentes/Recompensas/SlotVazio.png" id="2_x43w7"]
-[ext_resource type="Texture2D" uid="uid://b0j3i4kittphv" path="res://Componentes/Recompensas/SlotPreenchido.png" id="3_edpve"]
+[ext_resource type="Texture2D" uid="uid://dxrmedfrp4jf" path="res://Componentes/Recompensas/SlotPreenchido_sem_sombra.png" id="3_edpve"]
 [ext_resource type="Texture2D" uid="uid://o5omjcf51pl3" path="res://Recursos/2D_Art/MyTeam/Shape with text.png" id="3_g3cx5"]
 [ext_resource type="Texture2D" uid="uid://cgxabsu4cebmy" path="res://Componentes/Recompensas/Rectangle 15.png" id="3_uacbv"]
 [ext_resource type="Texture2D" uid="uid://b3uly4nf1rasq" path="res://Componentes/Recompensas/Rectangle 41.png" id="4_2ldjs"]
@@ -35,7 +35,7 @@ contagem_slots_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/Marg
 slots_indicator_hbox = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/SlotsIndicator_HBoxContainer")
 equipped_cards_grid = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/MarginContainer/ScrollContainer/EquippedCards_GridContainer")
 pontos_acao_label = NodePath("Panel/VBoxContainer/Inspecao_HBoxContainer/MarginContainer/HBoxContainer/Direita_VBoxContainer/PontosAcao_HBoxContainer/PontosdeAcao_Label")
-icone_slot_livre = ExtResource("2_x43w7")
+icone_slot_livre = ExtResource("2_edpve")
 icone_slot_ocupado = ExtResource("3_edpve")
 container_opcoes = NodePath("Panel/VBoxContainer/MarginContainer2/Control/Opcoes_HBoxContainer")
 btn_aceitar = NodePath("Panel/VBoxContainer/MarginContainer/AceitarButton_Button")
@@ -406,7 +406,7 @@ custom_minimum_size = Vector2(50, 200)
 layout_mode = 2
 
 [node name="Opcoes_HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/Control" unique_id=191582257]
-custom_minimum_size = Vector2(50, 200)
+custom_minimum_size = Vector2(50, 180)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -414,9 +414,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -470.0
-offset_top = -90.0
+offset_top = -80.0
 offset_right = 570.0
-offset_bottom = 110.0
+offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.9, 0.9)
@@ -455,6 +455,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TESTE_Button" type="Button" parent="." unique_id=444642369]
+visible = false
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
@@ -462,6 +463,7 @@ theme_override_font_sizes/font_size = 30
 text = "BOTAO TESTE Recompensa MYTEAM"
 
 [node name="TESTE_Button2" type="Button" parent="." unique_id=381510245]
+visible = false
 layout_mode = 0
 offset_left = -2.0
 offset_top = 62.0
@@ -471,6 +473,7 @@ theme_override_font_sizes/font_size = 30
 text = "LOAD MYTEAM"
 
 [node name="TESTE_Button3" type="Button" parent="." unique_id=1938422950]
+visible = false
 layout_mode = 0
 offset_left = -2.0
 offset_top = 236.0

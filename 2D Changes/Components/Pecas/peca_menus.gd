@@ -4,9 +4,13 @@ class_name PecaMenuUI
 @export_group("Visual do Menu")
 ## Controla a transparência do overlay (0.0 = Invisível, 1.0 = Totalmente visível)
 @export_range(0.0, 1.0, 0.05) var intensidade_overlay: float = 1.0
+var player_info_g : TeamPlayer
+
 
 ## Chame esta função na hora de instanciar a peça no menu, passando o recurso
 func setup_peca(player_info: TeamPlayer) -> void:
+	player_info_g = player_info
+	print (player_info)
 	if player_info == null or player_info.time == null:
 		push_warning("PecaMenuUI: player_info ou o Team estão ausentes.")
 		return

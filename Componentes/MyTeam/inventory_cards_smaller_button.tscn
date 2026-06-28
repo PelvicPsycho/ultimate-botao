@@ -89,14 +89,17 @@ expand_mode = 1
 [node name="Nome_Label" type="Label" parent="Control/MarginContainer2/VBoxContainer" unique_id=264130752]
 custom_minimum_size = Vector2(50, 10)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("7_a07xs")
 theme_override_font_sizes/font_size = 13
 text = "Nome das cartas aqui"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 script = ExtResource("8_aotj2")
+tamanho_minimo = 15
 
 [node name="WhiteBorder_Panel" type="Panel" parent="." unique_id=1360196988]
 visible = false
@@ -134,6 +137,7 @@ offset_left = 75.0
 offset_bottom = -90.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_horizontal = 8
 size_flags_vertical = 0
 mouse_filter = 2

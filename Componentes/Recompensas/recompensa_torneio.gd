@@ -158,11 +158,16 @@ func _gerar_loot_do_torneio() -> void:
 	# Sorteia 2 Peças
 	for i in range(2):
 		if todas_pecas.size() > 0:
-			var peca_sorteada = todas_pecas.pick_random().duplicate(true)
-			peca_sorteada.time = CupManager.myTeam 
+			# 1. Pega a peça original do Banco de Dados (Ela sabe o time dela)
+			var peca_original = todas_pecas.pick_random()
 			
-			# Mantém as cartas que já vêm configuradas na peça do banco de dados
+			# 2. Cria o clone
+			var peca_sorteada = peca_original.duplicate(true)
 			
+			# 3. Transfere a camisa do time original para o clone!
+			peca_sorteada.time = peca_original.time
+			
+			# Mantém as cartas que já vêm configuradas na peça
 			pacote_pecas.append(peca_sorteada)
 			
 	# Sorteia 4 Cartas
@@ -197,29 +202,30 @@ func _desenhar_vitrine() -> void:
 			continue
 		var btn := cena_botao_peca.instantiate()
 		btn.button_group = grupo_recompensa
-		if btn.has_method("setup_item"):
-			btn.setup_item(peca)
-
+		
+		# O setup_item SAIU daqui!
+		
 		btn.pressed.connect(func(): _inspecionar_peca(peca, btn))
 		botoes_misturados.append({
 			"btn": btn,
 			"original": Vector2(180.0, 180.0),
+			"dado": peca # SALVAMOS A PEÇA AQUI PARA USAR DEPOIS
 		})
 		
-
 	# 2. Prepara os botões de Carta (Tamanho original 120x120)
 	for carta in pacote_cartas:
 		if cena_carta_pequena == null:
 			continue
 		var btn := cena_carta_pequena.instantiate()
 		btn.button_group = grupo_recompensa
-		if btn.has_method("setup_item"):
-			btn.setup_item(carta)
+		
+		# O setup_item SAIU daqui!
 
 		btn.pressed.connect(func(): _inspecionar_carta(carta, btn))
 		botoes_misturados.append({
 			"btn": btn,
 			"original": Vector2(120.0, 120.0),
+			"dado": carta # SALVAMOS A CARTA AQUI PARA USAR DEPOIS
 		})
 
 	# 3. Embaralha a ordem de tudo!
@@ -229,13 +235,13 @@ func _desenhar_vitrine() -> void:
 	for item in botoes_misturados:
 		var btn: Button = item["btn"]
 		var original: Vector2 = item["original"]
+		var dado: Resource = item["dado"] # RECUPERAMOS A INFORMAÇÃO AQUI
 
 		# CAMADA 1: A "Caixa" que avisa o HBoxContainer do tamanho ocupado
 		var wrapper := Control.new()
 		wrapper.custom_minimum_size = tamanho_unificado
 		wrapper.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		wrapper.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		# IMPORTANTE: Garante que a animação possa vazar da caixa sem ser cortada
 		wrapper.clip_contents = false 
 
 		# Calcula a escala matemática
@@ -258,25 +264,17 @@ func _desenhar_vitrine() -> void:
 		btn.offset_right = 0.0
 		btn.offset_bottom = 0.0
 		
-		# Ele volta a ter exatamente o tamanho que tem lá no arquivo .tscn
 		btn.size = original 
 		btn.position = Vector2.ZERO
-		
-		# Coloca o pivô do botão bem no meio dele! 
-		# Assim, quando o seu Hover animar a escala, o botão cresce a partir do centro.
 		btn.pivot_offset = original / 2.0 
 
-		# Monta a boneca russa
+		# Monta a boneca russa (ADICIONA NA ÁRVORE)
 		escalonador.add_child(btn)
 		wrapper.add_child(escalonador)
 		container_opcoes.add_child(wrapper)
-
-	## 6. Auto-seleciona o primeiro item da vitrine
-	#if botoes_misturados.size() > 0:
-		## Agora o nosso botão real é o filho do escalonador, que é filho do wrapper
-		#var primeiro_botao = botoes_misturados[0]["btn"]
-		#primeiro_botao.button_pressed = true
-		#primeiro_botao.pressed.emit()
+		
+		if btn.has_method("setup_item"):
+			btn.setup_item(dado)
 
 # --- SISTEMA DE INSPEÇÃO ALTERNADA ---
 func _inspecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
@@ -301,9 +299,20 @@ func _inspecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
 		for child in peca_equipped_grid.get_children():
 			child.queue_free()
 
+	# ====================================================================
+	# 1. CALCULA O TAMANHO BASE PRIMEIRO (Antes de criar qualquer coisa)
+	# ====================================================================
+	var tamanho_slot := Vector2(100, 100)
+	if cena_carta_bem_pequena:
+		var ghost = cena_carta_bem_pequena.instantiate()
+		if ghost is Control and ghost.custom_minimum_size.y > 0:
+			tamanho_slot = ghost.custom_minimum_size
+		ghost.queue_free()
+
+	# ====================================================================
+	# 2. CRIA AS CARTAS EQUIPADAS
+	# ====================================================================
 	var slots_usados = 0
-	
-	# 1. Varre as cartas equipadas na peça (1 slot = 1 carta, custo ignorado)
 	for carta in peca.slotsUpgrates:
 		if carta != null:
 			slots_usados += 1
@@ -311,27 +320,29 @@ func _inspecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
 			if cena_carta_bem_pequena:
 				var btn_carta = cena_carta_bem_pequena.instantiate()
 				peca_equipped_grid.add_child(btn_carta)
+				
+				# Aplica o tamanho mágico e empurra pro topo!
+				btn_carta.custom_minimum_size = tamanho_slot
+				btn_carta.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+				
 				if btn_carta.has_method("setup_item"):
 					btn_carta.setup_item(carta)
 				if btn_carta is BaseButton:
 					btn_carta.disabled = true
 				btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	# --- CALCULA O TAMANHO DOS SLOTS ---
-	var tamanho_slot := Vector2(100, 100)
-	if cena_carta_bem_pequena:
-		var ghost = cena_carta_bem_pequena.instantiate()
-		if ghost is Control and ghost.custom_minimum_size.y > 0:
-			tamanho_slot = ghost.custom_minimum_size
-		ghost.queue_free()
-	
-	# --- CRIA E ADICIONA OS SLOTS VAZIOS COM PANEL ---
+	# ====================================================================
+	# 3. CRIA OS PAINÉIS VAZIOS
+	# ====================================================================
 	var slots_livres = peca.quantosSlotes - slots_usados
 	for i in range(slots_livres):
 		var slot_vazio = Panel.new()
+		
+		# Aplica o MESMO tamanho mágico e empurra pro topo!
 		slot_vazio.custom_minimum_size = tamanho_slot
-		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		
 		slot_vazio.add_theme_stylebox_override("panel", estilo_slot_vazio)
 		peca_equipped_grid.add_child(slot_vazio)
 	
@@ -519,9 +530,13 @@ func _on_button_pressed() -> void:
 	var todas_pecas = Database.pecas_db.values()
 	for i in range(6):
 		if todas_pecas.size() > 0:
-			var peca_sorteada = todas_pecas.pick_random().duplicate(true) 
-			peca_sorteada.time = CupManager.myTeam 
-			pacote_pecas.append(peca_sorteada) 
+			var peca_original = todas_pecas.pick_random()
+			var peca_sorteada = peca_original.duplicate(true) 
+			
+			# Transfere a camisa do time original para o clone!
+			peca_sorteada.time = peca_original.time
+			
+			pacote_pecas.append(peca_sorteada)
 			
 	# 3. Prepara a UI para aparecer instantaneamente, ignorando o vídeo
 	self.visible = true 

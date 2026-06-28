@@ -28,7 +28,8 @@ enum TipoAlvo {
 @export var id_unico: StringName # Ex: "carta_forca_menor_I"
 @export var nome: String = ""
 @export var custo_energia: int = 0
-@export var arte: Texture2D
+@export var arte: Texture2D #o icone
+@export var display_arte: Texture2D = preload("res://Recursos/2D_Art/MyTeam/CartaExpansao.png")
 @export var video_preview: VideoStream
 @export var descricao: String = ""
 @export var tipo_efeito: TipoEfeito

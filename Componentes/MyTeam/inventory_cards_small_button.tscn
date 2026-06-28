@@ -94,13 +94,16 @@ stretch_mode = 5
 [node name="Nome_Label" type="Label" parent="Control/MarginContainer2/VBoxContainer" unique_id=264130752]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 1
+size_flags_stretch_ratio = 3.0
 theme_override_fonts/font = ExtResource("7_mwsfq")
 theme_override_font_sizes/font_size = 17
 text = "Nome das cartas aqui"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 script = ExtResource("8_mwsfq")
+tamanho_minimo = 15
 
 [node name="WhiteBorder_Panel" type="Panel" parent="Control" unique_id=75844737]
 visible = false

@@ -501,6 +501,16 @@ text = "Vencer Partida"
 layout_mode = 2
 text = "SAVE SETTINGS"
 
+[node name="VencerPartida_Button" type="Button" parent="Control" unique_id=476607466]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 538.0
+offset_right = 633.0
+offset_bottom = 656.0
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 80
+text = "Vencer Partida"
+
 [connection signal="gui_input" from="Control/ColorRect - Fundo Preto" to="." method="_on_color_rect__fundo_preto_gui_input"]
 [connection signal="pressed" from="Control/HBoxContainer/TextureRect_Background/VBoxMenu_Buttons/Button - Continuar" to="." method="_on_button__continuar_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer/TextureRect_Background/VBoxMenu_Buttons/Button - Recomecar" to="." method="_on_button__recomecar_pressed"]
@@ -521,3 +531,4 @@ text = "SAVE SETTINGS"
 [connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/PadroesPerfis/Padrao2" to="." method="_on_padrao_2_pressed"]
 [connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/HBoxContainer6/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Control/CenterContainer/TabContainer - Abas/Debug/VboxDebug/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Control/VencerPartida_Button" to="." method="_on_button_pressed"]
