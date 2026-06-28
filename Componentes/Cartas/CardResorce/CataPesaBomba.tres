@@ -7,9 +7,12 @@
 script = ExtResource("2_onros")
 id_unico = &"Carta_Pesa_Bomba"
 nome = "Peça Explosiva"
-custo_energia = 2
+custo_energia = 3
 arte = ExtResource("1_p1kpu")
+descricao = "Sua peça vira uma bomba que, ao colidir com outra, explode e espalha outras peças ao redor"
 tipo_efeito = 11
+raridade = 2
 magnitude = 2
 custoSlotes = 2
+duracao = 2
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

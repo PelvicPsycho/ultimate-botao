@@ -5,8 +5,10 @@
 [resource]
 script = ExtResource("1_xdse1")
 id_unico = &"Zona_Gelo"
-nome = "Carta Zona Gelo"
-custo_energia = 1
+nome = "Piso de gelo"
+custo_energia = 2
+descricao = "Cria uma área de gelo para as peças escorregarem"
 tipo_efeito = 12
+custoSlotes = 2
 duracao = 2
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

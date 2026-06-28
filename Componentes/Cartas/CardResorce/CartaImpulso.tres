@@ -7,15 +7,13 @@
 [resource]
 script = ExtResource("1_r0qth")
 id_unico = &"corre_peao_01"
-nome = "Corre Peao"
-custo_energia = 4
+nome = "Força Menor I"
+custo_energia = 2
 arte = ExtResource("1_8647a")
 video_preview = ExtResource("3_6vucj")
-descricao = "Peça corre mais rapido"
-raridade = 1
-magnitude = 15
-custoSlotes = 1
+descricao = "Aumenta um level de força por dois turnos"
+magnitude = 1
+custoSlotes = 2
 duracao = 2
-cartaRapida = true
 duracaoLance = 2
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

@@ -7,9 +7,14 @@
 script = ExtResource("1_j0khq")
 id_unico = &"Carta_Onda_De_Shock"
 nome = "Onda de shock"
-custo_energia = 2
+custo_energia = 3
 arte = ExtResource("1_i7305")
+descricao = "Faz uma onda de choque que empurra as peças "
 tipo_efeito = 10
+tipo_alvo = 2
+raridade = 2
 magnitude = 2
 custoSlotes = 1
+cartaRapida = true
+duracaoLance = 1
 metadata/_custom_type_script = "uid://dbejkveogu8jv"

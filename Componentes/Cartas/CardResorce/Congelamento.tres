@@ -8,10 +8,11 @@
 script = ExtResource("1_fid8b")
 id_unico = &"congelar_01"
 nome = "Congelamento"
-custo_energia = 5
+custo_energia = 2
 arte = ExtResource("1_w2tvo")
 video_preview = ExtResource("3_0c2s5")
+descricao = "Sua peça congela as peças adversárias com as quais ela fizer contato. A peça congelada não pode se movimentar por um turno."
 tipo_efeito = 2
 magnitude = 2
-custoSlotes = 3
+custoSlotes = 2
 metadata/_custom_type_script = "uid://dbejkveogu8jv"
