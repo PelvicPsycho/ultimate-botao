@@ -62,6 +62,7 @@ var freeze_level: int = 0
 
 var game_started: bool = false
 var game_paused: bool = false
+var match_ended: bool = false
 
 
 
@@ -714,8 +715,10 @@ func isCorrectSide(team: Team) -> bool:
 ## Mostra a recompensa primeiro. Após coletar, abre o result_canvas
 ## para o jogador decidir o próximo passo (botão Next).
 func endMatch(winner: String):
+	match_ended = true
 	var resultCanvas = $ResultCanvas
 	var jogador_venceu := winner == homeTeam.name
+	congelar_jogo(true, 999999)
 	
 	if not jogador_venceu:
 		await get_tree().create_timer(3.0, true).timeout

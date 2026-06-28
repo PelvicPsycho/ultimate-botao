@@ -147,9 +147,14 @@ func _aplicar_cores(cor: Color) -> void:
 	$ContadorDeLanceCor.modulate = cor
 	$Bola.modulate = cor
 
+# Chamado pelo match_ui2 quando o turnCounter muda
+func notificar_turno(turn_counter: int) -> void:
+	if turn_counter == 1:
+		animar_segundo_lance(not away_team)
+
 # Chame essa função externamente quando o segundo lance for ativado
 func animar_segundo_lance(qual_time: bool) -> void:
-	# 1. Para a oscilação eterna do primeiro lance
+		# 1. Para a oscilação eterna do primeiro lance
 	if tween_oscilacao_lance1 and tween_oscilacao_lance1.is_valid():
 		tween_oscilacao_lance1.kill()
 		

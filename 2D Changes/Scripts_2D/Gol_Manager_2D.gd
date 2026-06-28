@@ -68,6 +68,11 @@ func anunciar_gol_e_resetar_campo(isHome: bool):
 
 
 func anunciar_gol_pt2(isHome):
+	# Se a partida já terminou (golden goal, placar estourado), não faz nada.
+	# O endMatch já congelou o jogo e o fluxo de recompensa está rodando.
+	if match_state.match_ended:
+		return
+	
 	# Reseta e esconde o Label
 	# Reposicionar as peças para as Transforms originais
 	for peca in todas_pecas:

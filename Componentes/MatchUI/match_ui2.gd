@@ -187,6 +187,10 @@ func colorir_turno(activeTeam: Team, turnCounter: int):
 			bolinha.set_instance_shader_parameter("espessura_contorno", 0.0)
 			_animar_bolinha_se_mudou(bolinha, estado_shots_home, i, false)
 
+	# Ativa o segundo lance no contador quando turnCounter == 1
+	if turnCounter == 1 and contador_atual:
+		contador_atual.animar_segundo_lance(activeTeam == homeTeam)
+
 func _inicializar_estado_lances() -> void:
 	estado_shots_home.resize(shotsDotsHomeLst.size())
 	estado_shots_away.resize(shotsDotsAwayLst.size())
