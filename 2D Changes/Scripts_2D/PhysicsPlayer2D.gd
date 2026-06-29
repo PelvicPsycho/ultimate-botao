@@ -88,6 +88,8 @@ var buff_tween: Tween
 
 var playerInfo_atual_Loaded: bool
 
+var match_state: MatchState_AI
+
 func _ready() -> void:
 	team = playerInfo.time
 	is_pointer_inside_piece = false
@@ -139,6 +141,13 @@ func _configurar_status(plInfo) -> void:
 	Update_Values_With_StatusAtual()
 	
 	playerInfo_atual_Loaded = true
+	
+	match_state = get_tree().get_first_node_in_group("MatchState")
+	
+	var label = get_node_or_null("LabelPA")
+	
+	if label and playerInfo_atual:
+		label.text = str(playerInfo_atual.num_camisa)
 
 func _aplicar_visual(plInfo) -> void:
 	if sprite2D_body.material and team:
@@ -243,47 +252,44 @@ func Update_Values_With_StatusAtual() -> void:
 	friction = playerInfo_atual.basic_friction
 
 func _process(delta: float) -> void:
-	var label = get_node_or_null("LabelPA")
-	
-	if label and playerInfo_atual:
-		label.text = str(playerInfo_atual.num_camisa)
-	Draw_Aim()
-	Draw_Dragging_Line()
-	Draw_Velocity_Line()
-	
-	radius = (global_position - Object_Radius.global_position).length()
-	
-	# Mantem a escala do menu radial mesmo se a peça escalar
-	var inverse_scale = Vector2.ONE / self.scale
-	menu_radial.scale = inverse_scale
-	
-	if shaking and sprite2D_body != null:
-		shake_timer += delta
+	if match_state.game_paused == false:
+		Draw_Aim()
+		Draw_Dragging_Line()
+		Draw_Velocity_Line()
 		
-		var t := shake_timer * shake_frequency
+		radius = (global_position - Object_Radius.global_position).length()
 		
-		var offset := Vector2(
-			sin(t * 1.7) * shake_amplitude,
-			cos(t * 1.9) * shake_amplitude
-		)
+		# Mantem a escala do menu radial mesmo se a peça escalar
+		var inverse_scale = Vector2.ONE / self.scale
+		menu_radial.scale = inverse_scale
 		
-		shake_visual_offset = offset
-	else:
-		shake_visual_offset = Vector2.ZERO
+		if shaking and sprite2D_body != null:
+			shake_timer += delta
+			
+			var t := shake_timer * shake_frequency
+			
+			var offset := Vector2(
+				sin(t * 1.7) * shake_amplitude,
+				cos(t * 1.9) * shake_amplitude
+			)
+			
+			shake_visual_offset = offset
+		else:
+			shake_visual_offset = Vector2.ZERO
 
-	_update_velocity_feedback(delta)
+		_update_velocity_feedback(delta)
 
 func _animar_hover(entrando: bool) -> void:
-	
-	if canPlay:
-		if hover_tween and hover_tween.is_valid():
-			hover_tween.kill()
+	if match_state.game_paused == false:
+		if canPlay:
+			if hover_tween and hover_tween.is_valid():
+				hover_tween.kill()
+			
 		
-	
-		hover_tween = create_tween()
-		var target_scale: Vector2 = _get_rest_visual_scale(entrando)
-		var duration: float = 0.2
-		hover_tween.tween_property(sprite2D_body, "scale", target_scale, duration).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)	
+			hover_tween = create_tween()
+			var target_scale: Vector2 = _get_rest_visual_scale(entrando)
+			var duration: float = 0.2
+			hover_tween.tween_property(sprite2D_body, "scale", target_scale, duration).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 
 func definir_estado_visual(ativo: bool) -> void:
 	self.canPlay = ativo
@@ -323,53 +329,54 @@ func Mouse_Dragging_Update():
 
 
 func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
-	if AI_Active:
-		if teamSide == TeamSide.AWAY:
+	if match_state.game_paused == false:
+		if AI_Active:
+			if teamSide == TeamSide.AWAY:
+				return
+			
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			
+			var player_que_quer_trocar = get_player_que_quer_trocar()
+			if player_que_quer_trocar:
+				executar_troca_posicao(player_que_quer_trocar)
+				playerInfo.troca_posicao_ativa = false
+		
+		if is_frozen():
 			return
 		
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if !canPlay or disabled:
+			return
 		
-		var player_que_quer_trocar = get_player_que_quer_trocar()
-		if player_que_quer_trocar:
-			executar_troca_posicao(player_que_quer_trocar)
-			playerInfo.troca_posicao_ativa = false
-	
-	if is_frozen():
-		return
-	
-	if !canPlay or disabled:
-		return
-	
-	# Evento - clique do mouse esquerdo
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			print("Peça clicada! level_force: ", playerInfo_atual.level_force)
+		# Evento - clique do mouse esquerdo
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				print("Peça clicada! level_force: ", playerInfo_atual.level_force)
 
-			clickedPiece.emit(self)
+				clickedPiece.emit(self)
 
-			abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO
+				abrir_botoes_cartas()    # &lt;<&lt; ADICIONADO
+				
+				is_dragging = true
+				
+				SoundMaster.play_sfx(audio_clique) #Toca o som de clique normal
+				sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) #Toca tensao e salva a ref
+				
+				# Emite um sinal que o player foi clicado
+				_on_player_pressed(position)
+				
+				# Zera variaveis
+				current_direction = Vector2.ZERO
+				
+				Set_Current_Velocity(Vector2.ZERO)
+				current_force = 0.0
+				
+				direcao_travada = false
+				
+				# Guarda a posição global do player
+				posicao_inicial_toque_Tela = global_position
 			
-			is_dragging = true
-			
-			SoundMaster.play_sfx(audio_clique) #Toca o som de clique normal
-			sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) #Toca tensao e salva a ref
-			
-			# Emite um sinal que o player foi clicado
-			_on_player_pressed(position)
-			
-			# Zera variaveis
-			current_direction = Vector2.ZERO
-			
-			Set_Current_Velocity(Vector2.ZERO)
-			current_force = 0.0
-			
-			direcao_travada = false
-			
-			# Guarda a posição global do player
-			posicao_inicial_toque_Tela = global_position
-		
-		if Input.is_action_just_pressed("ui_focus_next"): # tecla TAB por padrão
-			debug_status()
+			if Input.is_action_just_pressed("ui_focus_next"): # tecla TAB por padrão
+				debug_status()
 
 func executar_troca_posicao(alvo: PhysicsPlayer2D) -> void:
 	if alvo == null: return
@@ -405,45 +412,47 @@ func executar_troca_posicao(alvo: PhysicsPlayer2D) -> void:
 		push_error("ERRO: Não foi possível encontrar o motor de física para sincronizar a troca!")
 	
 	print("DEBUG: Troca instantânea realizada.")
+
 func _input(event: InputEvent) -> void:
-	if AI_Active:
-		if teamSide == TeamSide.AWAY:
+	if match_state.game_paused == false:
+		if AI_Active:
+			if teamSide == TeamSide.AWAY:
+				return
+			
+		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			if menu_radial and menu_radial.is_open:
+				call_deferred("_verificar_clique_fora_radial")
+		if is_frozen():
+			return
+			
+		if not is_dragging:
 			return
 		
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if menu_radial and menu_radial.is_open:
-			call_deferred("_verificar_clique_fora_radial")
-	if is_frozen():
-		return
-		
-	if not is_dragging:
-		return
-	
-	if !canPlay or disabled:
-		print("disabled")
-		return
+		if !canPlay or disabled:
+			print("disabled")
+			return
 
-	if event is InputEventMouseMotion or event is InputEventScreenDrag:
-		# emite que a peça foi clicada
-		clickedPiece.emit(self)
-		
-		_on_player_pressed(position)
-		
-		# pega a posição do mouse na tela e atualiza força/distância antes dos efeitos visuais
-		posicao_final_toque_Tela = get_global_mouse_position()
-		Mouse_Dragging_Update()
-		update_dragging_effects(event.position)
+		if event is InputEventMouseMotion or event is InputEventScreenDrag:
+			# emite que a peça foi clicada
+			clickedPiece.emit(self)
+			
+			_on_player_pressed(position)
+			
+			# pega a posição do mouse na tela e atualiza força/distância antes dos efeitos visuais
+			posicao_final_toque_Tela = get_global_mouse_position()
+			Mouse_Dragging_Update()
+			update_dragging_effects(event.position)
 
-	var is_mouse_release = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed
-	var is_touch_release = event is InputEventScreenTouch and not event.pressed
-	#print('Pos peca  ', global_position,)
-	if is_mouse_release or is_touch_release:
-		# Se soltou o dedo e ele estava FORA da peça, executa jogada!
-		if not is_pointer_inside_piece:
-			Execute_Action()
-		# Se soltou o dedo EM CIMA da peça, cancela a jogada
-		else:
-			_cancelar_interacao()
+		var is_mouse_release = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed
+		var is_touch_release = event is InputEventScreenTouch and not event.pressed
+		#print('Pos peca  ', global_position,)
+		if is_mouse_release or is_touch_release:
+			# Se soltou o dedo e ele estava FORA da peça, executa jogada!
+			if not is_pointer_inside_piece:
+				Execute_Action()
+			# Se soltou o dedo EM CIMA da peça, cancela a jogada
+			else:
+				_cancelar_interacao()
 
 # Função usada quando o jogador desiste da jogada (solta o mouse no centro)
 func _cancelar_interacao() -> void:
@@ -1237,10 +1246,9 @@ func aplicar_atracao_bola(delta: float) -> void:
 
 func _on_carta_do_radial(carta):
 	print("✅ PhysicsPlayer: Sinal recebido com sucesso! Tentando usar: ", carta.nome)
-	var ms = get_tree().get_first_node_in_group("MatchState2d")
 	
-	if ms:
-		ms.tentar_usar_carta(self, carta)
+	if match_state:
+		match_state.tentar_usar_carta(self, carta)
 	
 	if menu_radial:
 		menu_radial.fechar()
@@ -1266,9 +1274,7 @@ func debug_status():
 	print("  Buffs Ativos:", playerInfo_atual.duracao_dos_buffs)
 
 func abrir_botoes_cartas():
-	var ms = get_tree().get_first_node_in_group("MatchState2d")
-
-	if ms and ms.carta_usada_no_turno:
+	if match_state and match_state.carta_usada_no_turno:
 		print("Já usou carta neste turno, não vai abrir o radial.")
 		return
 		

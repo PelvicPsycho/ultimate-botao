@@ -88,23 +88,23 @@ func SetIADifficulty():
 var start_time_AI
 
 func _process(delta: float) -> void:
-	
-	# All Setted and AI can start choosing the plays it will simulate
-	if AI_Pieces_setted and AI_CanRun and physics_controller.Sim_Controller_list[0].current_pitch_state.all_physic_object_list.size() > 0:
-		#physics_controller.Sim_Controller_list[0].update_pitch_state_variables(physics_controller.current_pitch_state)
-		start_time_AI = Time.get_ticks_usec()
-		AI_start_choosing()
-	
-	# Passes through all simulators and verify if they already simulate and evaluate all plays
-	verify_if_all_plays_are_simulated()
-	
-	# if all simulators ended their simulation and a X time has passed
-	if list_of_plays_simulated.size() >= list_of_plays_to_simulate.size() - 1 and !list_play_sorted and list_separated and current_time >= time_to_IA_play: # and !match_state.game_paused
-		execute_play()
-		var time_taken_AI = (Time.get_ticks_usec() - start_time_AI) / 1000000.0
-		print("AI took: ", time_taken_AI, " seconds")
-	
-	current_time += delta
+	if match_state.game_paused == false:
+		# All Setted and AI can start choosing the plays it will simulate
+		if AI_Pieces_setted and AI_CanRun and physics_controller.Sim_Controller_list[0].current_pitch_state.all_physic_object_list.size() > 0:
+			#physics_controller.Sim_Controller_list[0].update_pitch_state_variables(physics_controller.current_pitch_state)
+			start_time_AI = Time.get_ticks_usec()
+			AI_start_choosing()
+		
+		# Passes through all simulators and verify if they already simulate and evaluate all plays
+		verify_if_all_plays_are_simulated()
+		
+		# if all simulators ended their simulation and a X time has passed
+		if list_of_plays_simulated.size() >= list_of_plays_to_simulate.size() - 1 and !list_play_sorted and list_separated and current_time >= time_to_IA_play: # and !match_state.game_paused
+			execute_play()
+			var time_taken_AI = (Time.get_ticks_usec() - start_time_AI) / 1000000.0
+			print("AI took: ", time_taken_AI, " seconds")
+		
+		current_time += delta
 
 func sort_by_score(size_ordered: int):
 	list_play_sorted = true

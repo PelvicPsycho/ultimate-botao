@@ -269,7 +269,6 @@ func _atualizar_label_lance(isHome: float, time: float) -> void:
 		reset_progressbar_Home_position()
 
 @export var AnimationP_Home: AnimationPlayer 
-@export var AnimationP_Away: AnimationPlayer 
 @export var ProgressBarHome_Value_Texture: TextureRect
 @export var ProgressBarHome_Middle_Texture: TextureRect
 @export var ProgressBarHome_Time_Label: Label
@@ -277,14 +276,16 @@ var ProgressBarHome_MaxTime_Label: float
 @export var ProgressBarHome_InitalPosition: Vector2 = Vector2.ZERO
 @export var ProgressBarHome_FinalPosition: Vector2 = Vector2.ZERO
 
-
-
+@export var AnimationP_Away: AnimationPlayer 
 @export var ProgressBarAway_Value_Texture: TextureRect
 @export var ProgressBarAway_Middle_Texture: TextureRect
 @export var ProgressBarAway_Time_Label: Label
 var ProgressBarAway_MaxTime_Label: float
 @export var ProgressBarAway_InitalPosition: Vector2 = Vector2.ZERO
 @export var ProgressBarAway_FinalPosition: Vector2 = Vector2.ZERO
+
+func play_match_start_animation() -> void:
+	AnimationP_Home.play("Home_TimeBar_Start")
 
 func update_progressbar_Home_position(maxtime: float, currenttime: float) -> void:
 	var value_lerp = 1 - (currenttime / maxtime)

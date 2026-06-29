@@ -15,7 +15,7 @@
 [ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="12_gwudw"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="15_fl8l5"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="15_gwudw"]
-[ext_resource type="Shader" path="res://2D Changes/Shader_2d/gravitational_distortion.gdshader" id="17_pol8b"]
+[ext_resource type="Shader" uid="uid://w0c32ju552la" path="res://2D Changes/Shader_2d/gravitational_distortion.gdshader" id="17_pol8b"]
 [ext_resource type="PackedScene" uid="uid://cjab8n13u8gkw" path="res://2D Changes/2D_Scenes/MenuRadial.tscn" id="19_o5120"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pol8b"]

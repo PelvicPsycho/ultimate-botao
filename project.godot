@@ -47,6 +47,7 @@ Players=""
 Balls=""
 PhysicsObjects=""
 Chao=""
+MatchState=""
 
 [internationalization]
 

@@ -56,7 +56,7 @@ base_font = ExtResource("23_ba03v")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iej8s"]
 size = Vector2(292.5, 366)
 
-[node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller", "IA_Contr", "placar", "gradient_background_TextureRect", "anunciador_ui", "pause_menu")]
+[node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller", "IA_Contr", "placar", "gradient_background_TextureRect", "anunciador_ui", "pause_menu") groups=["MatchState"]]
 script = ExtResource("1_ss0s5")
 physics_controller = NodePath("PhysicsController")
 IA_Active = true

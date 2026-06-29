@@ -64,7 +64,7 @@ var game_started: bool = false
 var game_paused: bool = false
 var match_ended: bool = false
 
-
+var game_initial_pause_ended: bool = false
 
 func _ready() -> void:
 	add_to_group("MatchState2d")  
@@ -73,9 +73,7 @@ func _ready() -> void:
 	%MatchUI.UI_start(homeTeam, awayTeam)
 	
 	gradient_texture = gradient_background_TextureRect.texture as GradientTexture2D
-	
-	selectFirstTurn()
-	
+
 	allPieces.assign(get_tree().get_nodes_in_group("Players"))
 	allBalls = get_tree().get_nodes_in_group("Balls")
 	
@@ -171,14 +169,22 @@ func _ready() -> void:
 			timer.punishTeam.connect(_on_punish_team)
 			timer.iniciar_partida(currentTurn == turn.HOME)
 	
+	# Chamar quando quiser ter uma pausa inicial
+	#congelar_jogo(true, 10)
+	%MatchUI.play_match_start_animation()
+	
+	anunciador_ui.evento_interface_match_start_encerrado.connect(_on_anuncio_match_start_end, CONNECT_ONE_SHOT)
+	
+	# Select what team play first
+	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
+	
+	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
+	var is_home = active_team == homeTeam
+	anunciador_ui.mostrar_evento_interface_texto_livre(is_home, "Começa a Partida", active_team.cor, 2.0)
+	
 	# Inicia a animação do contador de lances do time sorteado
 	congelar_jogo(true)
-	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-	%MatchUI.transicao_concluida.connect(_on_contador_inicial_concluido.bind(active_team), CONNECT_ONE_SHOT)
-	%MatchUI.disparar_animacao_de_turno(active_team)
-	%MatchUI.contador_de_lances_home.cor_atual_time = homeTeam.cor
-	%MatchUI.contador_de_lances_away.cor_atual_time = awayTeam.cor
-	atualizar_cores_pecas()
+	#print("congelar_jogo")
 
 func _process(_delta: float) -> void:
 	if back_ground_can_animate:
@@ -188,7 +194,9 @@ func _process(_delta: float) -> void:
 		change_gradient_background_TextureRect_Colors()
 		
 		gradient_background_TextureRect.texture = gradient_texture
-		
+	
+	_sincronizar_estado_congelamento()
+
 func _on_begin_timeout():
 #	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
 	#disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5)
@@ -236,35 +244,16 @@ func assignPieces():
 	
 	physics_controller.all_physicObjects_loaded = true
 
+func _on_contador_inicial_concluido(active_team: Team) -> void:
+	# Contador de lances inicial terminou a animação de entrada.
+	# Agora mostra o anunciador de lance.
+	var is_home = active_team == homeTeam
+	anunciador_ui.mostrar_evento_interface(is_home, str(turnCounter + 1), active_team.cor, 2.0)
+	anunciador_ui.evento_interface_encerrado.connect(_on_anuncio_inicial_fim, CONNECT_ONE_SHOT)
+
 func _atualizar_placar() -> void:
 	print("_atualizar_placar")
 	placar.atualizar_placar(homeScore, awayScore)
-
-func _on_punish_team(isHome: bool):
-	_aplicar_punicao_chess(isHome)
-	$"Gol_Manager(Temporario)".anunciar_gol_pt2(isHome)
-	timer.resetTimer(isHome)
-
-func _aplicar_punicao_chess(isHome: bool) -> void:
-	# No CHESS, timeout precisa sempre virar penalidade no placar.
-	goalFlag = false
-	rallyCounter = 1
-	foulFlag = false
-
-	if isHome:
-		awayScore += 1
-		if gol_de_ouro:
-			endMatch(awayTeam.name)
-	else:
-		homeScore += 1
-		if gol_de_ouro:
-			endMatch(homeTeam.name)
-
-	if homeScore > 2 or awayScore > 2:
-		var vencedor = homeTeam.name if homeScore > awayScore else awayTeam.name
-		endMatch(vencedor)
-
-	_atualizar_placar()
 
 func _on_partida_acabou() -> void:
 	timer.parar_tudo()
@@ -305,6 +294,7 @@ func onClickedPiece(piece: PhysicsPlayer2D) -> void:
 
 func onTurnPlayed() -> void:
 	congelar_jogo(true)
+	#print("congelar_jogo")
 	if timer.tipo_do_timer == 1:
 		timer.pauseChessTimer()
 	elif timer.tipo_do_timer == 0:
@@ -317,7 +307,8 @@ func onTurnPlayed() -> void:
 	var parado_corretamente: bool = await waitAllStopped()
 	if not parado_corretamente or not is_inside_tree():
 		return
-		
+	
+	#print("congelar_jogo - A")
 	congelar_jogo(false)
 	if timer.tipo_do_timer == 1:
 		timer.resumeChessTimer()
@@ -448,7 +439,7 @@ func change_gradient_background_TextureRect_Colors() -> void:
 	gradient_background_TextureRect.texture = gradient_texture
 
 func selectFirstTurn() -> void:
-	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
+	#currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
 	
 	%MatchUI.play_progressbar_Animations(currentTurn == turn.HOME)
 	call_gradient_background_TextureRect_animation()
@@ -496,6 +487,7 @@ func changeTurn() -> void:
 	
 	# 1. Congela o jogo pra ninguém chutar o botão fora de hora
 	congelar_jogo(true)
+	#print("congelar_jogo")
 	
 	# 2. Fica escutando o sinal da UI. Quando ela terminar, roda o resto do código.
 	# Usamos o bind(active_team) para passar qual time está jogando para a próxima função
@@ -525,19 +517,28 @@ func _continuar_troca_de_turno(active_team: Team) -> void:
 
 func _on_anuncio_turno_fim() -> void:
 	congelar_jogo(false)
-
-func _on_contador_inicial_concluido(active_team: Team) -> void:
-	# Contador de lances inicial terminou a animação de entrada.
-	# Agora mostra o anunciador de lance.
-	var is_home = active_team == homeTeam
-	anunciador_ui.mostrar_evento_interface(is_home, str(turnCounter + 1), active_team.cor, 2.0)
-	anunciador_ui.evento_interface_encerrado.connect(_on_anuncio_inicial_fim, CONNECT_ONE_SHOT)
+	#print("congelar_jogo - B")
 
 func _on_anuncio_inicial_fim() -> void:
 	# Anunciador inicial terminou. Despausa e começa a partida.
 	congelar_jogo(false)
+	#print("congelar_jogo - C")
 	timer.partida_rodando = true
 
+func _on_anuncio_match_start_end() -> void:
+	game_initial_pause_ended
+	#print("match_start animation ended")
+	selectFirstTurn()
+	
+	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
+	%MatchUI.transicao_concluida.connect(_on_contador_inicial_concluido.bind(active_team), CONNECT_ONE_SHOT)
+	%MatchUI.disparar_animacao_de_turno(active_team)
+	
+	%MatchUI.contador_de_lances_home.cor_atual_time = homeTeam.cor
+	%MatchUI.contador_de_lances_away.cor_atual_time = awayTeam.cor
+	atualizar_cores_pecas()
+
+	
 func forceTurn(target: turn) -> void:
 	currentTurn = target
 	%MatchUI.play_progressbar_Animations(currentTurn == turn.HOME)
@@ -719,6 +720,7 @@ func endMatch(winner: String):
 	var resultCanvas = $ResultCanvas
 	var jogador_venceu := winner == homeTeam.name
 	congelar_jogo(true, 999999)
+	#print("congelar_jogo")
 	
 	if not jogador_venceu:
 		await get_tree().create_timer(3.0, true).timeout
@@ -746,7 +748,6 @@ func endMatch(winner: String):
 	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), true)
 
 func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
-	game_paused = congelar
 	if congelar:
 		freeze_level += 1
 	else:
@@ -760,6 +761,7 @@ func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
 func _descongelar_auto() -> void:
 	if is_instance_valid(self) and is_inside_tree():
 		congelar_jogo(false)
+		#print("congelar_jogo - D")
 		
 func _sincronizar_estado_congelamento() -> void:
 	var deve_congelar: bool = freeze_level > 0
@@ -767,12 +769,19 @@ func _sincronizar_estado_congelamento() -> void:
 		piece.disabled = deve_congelar
 	
 	if deve_congelar:
+		if game_paused == false:
+			print("Game Paused = ", true)
+		game_paused = true
 		timer.pausar_lance()
 	else:
+		if game_paused == true:
+			print("Game Paused = ", false)
+		game_paused = false
 		timer.retomar_lance()
 		
 func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: Color = Color.WHITE, evento_lance: bool = false) -> void:
 	congelar_jogo(true, tempo + 0.5)
+	#print("congelar_jogo")
 	var is_home = true if currentTurn == 0 else false #Descobre o time jogando
 	var cor_time = homeTeam.cor if is_home else awayTeam.cor #Define a cor pra pintar
 	
@@ -783,6 +792,7 @@ func disparar_anuncio_com_pausa(texto: String, tamanho: int, tempo: float, cor: 
 	
 	var descongelar = func():
 		congelar_jogo(false)
+		#print("congelar_jogo - E")
 	
 	anunciador_ui.anuncio_encerrado.connect(descongelar, CONNECT_ONE_SHOT)
 
@@ -819,3 +829,29 @@ func get_current_turn_int() -> int:
 		return 1
 	
 	return 0
+
+func _on_punish_team(isHome: bool):
+	_aplicar_punicao_chess(isHome)
+	$"Gol_Manager(Temporario)".anunciar_gol_pt2(isHome)
+	timer.resetTimer(isHome)
+
+func _aplicar_punicao_chess(isHome: bool) -> void:
+	# No CHESS, timeout precisa sempre virar penalidade no placar.
+	goalFlag = false
+	rallyCounter = 1
+	foulFlag = false
+
+	if isHome:
+		awayScore += 1
+		if gol_de_ouro:
+			endMatch(awayTeam.name)
+	else:
+		homeScore += 1
+		if gol_de_ouro:
+			endMatch(homeTeam.name)
+
+	if homeScore > 2 or awayScore > 2:
+		var vencedor = homeTeam.name if homeScore > awayScore else awayTeam.name
+		endMatch(vencedor)
+
+	_atualizar_placar()

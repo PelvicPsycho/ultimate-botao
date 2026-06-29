@@ -435,6 +435,50 @@ tracks/11/keys = {
 "points": PackedFloat32Array(334, 0, 0, 0.33333334, -7, 192, -0.13333338, 105, 0.0333333, -21, 191, -0.06666672, -20, 0, 0),
 "times": PackedFloat32Array(0, 1.1, 1.3333334)
 }
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("EmblemaHome:position:x")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(184, 0, 0, 0.25, 0, 184, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.5)
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("EmblemaHome:position:y")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(-30, 0, 0, 0.25, 59.333332, 326, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.5)
+}
+tracks/14/type = "bezier"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("EmblemaAway:position:x")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(1905, 0, 0, 0.25, 0, 1905, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.5)
+}
+tracks/15/type = "bezier"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("EmblemaAway:position:y")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(1110, 0, 0, 0.25, -56.333332, 772, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.5)
+}
 
 [sub_resource type="Animation" id="Animation_snsmq"]
 length = 0.001
@@ -570,6 +614,50 @@ tracks/11/keys = {
 "points": PackedFloat32Array(193.78297, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("EmblemaHome:position:x")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(184, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("EmblemaHome:position:y")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(326, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/14/type = "bezier"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("EmblemaAway:position:x")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1905, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/15/type = "bezier"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("EmblemaAway:position:y")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(772, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hdx5a"]
 _data = {
@@ -658,16 +746,16 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[node name="MatchUI" type="CanvasLayer" unique_id=2001534732 node_paths=PackedStringArray("contador_de_lances_home", "contador_de_lances_away", "AnimationP_Home", "AnimationP_Away", "ProgressBarHome_Value_Texture", "ProgressBarHome_Middle_Texture", "ProgressBarHome_Time_Label", "ProgressBarAway_Value_Texture", "ProgressBarAway_Middle_Texture", "ProgressBarAway_Time_Label")]
+[node name="MatchUI" type="CanvasLayer" unique_id=2001534732 node_paths=PackedStringArray("contador_de_lances_home", "contador_de_lances_away", "AnimationP_Home", "ProgressBarHome_Value_Texture", "ProgressBarHome_Middle_Texture", "ProgressBarHome_Time_Label", "AnimationP_Away", "ProgressBarAway_Value_Texture", "ProgressBarAway_Middle_Texture", "ProgressBarAway_Time_Label")]
 script = ExtResource("1_yfw0a")
 contador_de_lances_home = NodePath("Resize_LancesHome/ContadorDeLancesHome")
 contador_de_lances_away = NodePath("Resize_LancesAway/ContadorDeLancesAway")
 AnimationP_Home = NodePath("MarginContainer/Control/AnimationPlayer_Home")
-AnimationP_Away = NodePath("MarginContainer/Control/AnimationPlayer_Away")
 ProgressBarHome_Value_Texture = NodePath("MarginContainer/Control/HomeTeam_ProgressBar_Panel/Progress_Background/Progress_Value_Outline")
 ProgressBarHome_Middle_Texture = NodePath("MarginContainer/Control/HomeTeam_ProgressBar_Panel/Progress_Background/Progress_Value_Outline/Progress_Value_Middle")
 ProgressBarHome_Time_Label = NodePath("MarginContainer/Control/HomeTeam_ProgressBar_Panel/Progress_Background/Label")
 ProgressBarHome_FinalPosition = Vector2(0, 310)
+AnimationP_Away = NodePath("MarginContainer/Control/AnimationPlayer_Away")
 ProgressBarAway_Value_Texture = NodePath("MarginContainer/Control/AwayTeam_ProgressBar_Panel/Progress_Background/Progress_Value_Outline")
 ProgressBarAway_Middle_Texture = NodePath("MarginContainer/Control/AwayTeam_ProgressBar_Panel/Progress_Background/Progress_Value_Outline/Progress_Value_Middle")
 ProgressBarAway_Time_Label = NodePath("MarginContainer/Control/AwayTeam_ProgressBar_Panel/Progress_Background/Label")
@@ -720,7 +808,7 @@ anchor_bottom = 0.93700004
 offset_left = 184.0
 offset_top = 326.0
 offset_right = -1362.64
-offset_bottom = -187.96002
+offset_bottom = -187.95923
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 3.1415927
@@ -752,7 +840,7 @@ anchor_bottom = 0.93700004
 offset_left = 1905.0
 offset_top = 772.0
 offset_right = 358.36
-offset_bottom = 258.03998
+offset_bottom = 258.04034
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(-1, 1)
@@ -1003,7 +1091,7 @@ anchor_bottom = 0.998
 offset_left = 0.008041382
 offset_top = 0.24581528
 offset_right = 0.04623413
-offset_bottom = 0.10546875
+offset_bottom = 0.107910156
 texture = ExtResource("16_gww17")
 
 [node name="Progress_Background" type="TextureRect" parent="MarginContainer/Control/HomeTeam_ProgressBar_Panel" unique_id=1372319063]
@@ -1012,7 +1100,7 @@ anchors_preset = -1
 anchor_right = 0.892
 anchor_bottom = 0.93700004
 offset_right = 0.08821106
-offset_bottom = -3.2723694
+offset_bottom = -3.2706604
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("17_llkwk")
@@ -1049,9 +1137,9 @@ anchor_top = 0.25500003
 anchor_right = 0.95800006
 anchor_bottom = 0.423
 offset_left = 0.027999401
-offset_top = 0.0065307617
+offset_top = 0.006095886
 offset_right = -0.028015137
-offset_bottom = 0.12142944
+offset_bottom = 0.12098694
 theme_override_colors/font_color = Color(1, 0.9490196, 0.8980392, 1)
 theme_override_fonts/font = ExtResource("13_xrqu3")
 theme_override_font_sizes/font_size = 45
@@ -1085,7 +1173,7 @@ anchor_bottom = 0.998
 offset_left = 0.008041382
 offset_top = 0.24581528
 offset_right = 0.04623413
-offset_bottom = 0.10168457
+offset_bottom = 0.101745605
 texture = ExtResource("16_gww17")
 
 [node name="Progress_Background" type="TextureRect" parent="MarginContainer/Control/AwayTeam_ProgressBar_Panel" unique_id=507844269]
@@ -1094,7 +1182,7 @@ anchors_preset = -1
 anchor_right = 0.892
 anchor_bottom = 0.93700004
 offset_right = 0.08821106
-offset_bottom = -3.2702942
+offset_bottom = -3.2697449
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("17_llkwk")
@@ -1131,9 +1219,9 @@ anchor_top = 0.25500003
 anchor_right = 0.95800006
 anchor_bottom = 0.423
 offset_left = 152.028
-offset_top = 66.78876
+offset_top = 66.78862
 offset_right = 151.97217
-offset_bottom = 66.9039
+offset_bottom = 66.90422
 rotation = 3.1415927
 scale = Vector2(-1, 1)
 theme_override_colors/font_color = Color(1, 0.9490196, 0.8980392, 1)
