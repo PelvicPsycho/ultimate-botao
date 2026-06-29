@@ -47,6 +47,7 @@ func atualizar_Match_Timer(time: float) -> void:
 		push_warning("MatchUI: labels de tempo não encontrados.")
 		return
 	
+	#print("timer = ", time)
 	var text = format_time(time)
 	labelMatchTimer.text = text
 

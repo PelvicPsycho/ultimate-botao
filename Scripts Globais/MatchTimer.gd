@@ -56,6 +56,7 @@ func iniciar_partida(startHome: bool = false) -> void:
 var tempo_partida_restante: float = 0.0
 var tempo_lance_restante: float = 0.0
 
+var gol_de_ouro: bool = false
 var partida_rodando: bool = false
 var lance_rodando: bool = false
 var pausado: bool = false
@@ -98,9 +99,11 @@ func resumeOngoingPlayFlag():
 	pauseOnGoingPlay = false
 
 func parar_tudo() -> void:
+	print("parar_tudo")
 	lance_rodando = false
 	partida_rodando = false
 	pausado = false
+	gol_de_ouro = false
 
 func _on_alerta_som_terminou() -> void: #arrumar o som aqui para nao ficar com o apito
 	if tocando_alerta and tempo_lance_restante > 0:
@@ -187,17 +190,19 @@ func resetTimer(isHome:bool):
 func _process(delta: float) -> void:
 	if pausado:
 		return
-	if partida_rodando:
+	if partida_rodando or gol_de_ouro:
 		match tipo_do_timer:
 			TimerType.TIMER:
-				tempo_partida_restante -= delta
-				time_label_changed.emit(tempo_partida_restante)
+				if !gol_de_ouro:
+					tempo_partida_restante -= delta
+					time_label_changed.emit(tempo_partida_restante)
 				# emitir o label changed pra progress bar de lance
 				if lance_rodando and !pauseOnGoingPlay:
 					tempo_lance_restante -= delta
 					lance_label_changed.emit(isHomeTurn, tempo_lance_restante)
 					if tempo_lance_restante <= 5.0 and not tocando_alerta:
 						tocar_proximo_alerta()
+						
 					if tempo_lance_restante <= 0.0:
 						tempo_lance_restante = 0.0
 						lance_rodando = false

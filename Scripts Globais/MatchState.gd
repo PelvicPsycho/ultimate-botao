@@ -53,6 +53,7 @@ var jogadores: Array = []
 @export var cena_recompensa_torneio: PackedScene
 
 @onready var timer = $MatchTimer
+#@onready var timer = $MatchTimer
 var gol_de_ouro: bool = false
 
 # Contador de congelamento. Só descongela quando chegar a zero.
@@ -144,31 +145,6 @@ func _ready() -> void:
 	placar.change_Score_background_TextureRect_Colors(homeTeam.cor, awayTeam.cor)
 	_atualizar_placar()
 	
-	match timer.tipo_do_timer:
-		timer.TimerType.TIMER:
-			%MatchUI.shotsProgressBarHome.max_value = timer.tempo_maximo_lance
-			%MatchUI.shotsProgressBarAway.max_value = timer.tempo_maximo_lance
-			%MatchUI.ProgressBarHome_MaxTime_Label = timer.tempo_maximo_lance
-			%MatchUI.ProgressBarAway_MaxTime_Label = timer.tempo_maximo_lance
-			timer.partida_acabou.connect(_on_partida_acabou)
-			timer.time_label_changed.connect(placar.atualizar_Match_Timer)
-			timer.lance_label_changed.connect(%MatchUI._atualizar_label_lance)
-			timer.lance_acabou.connect(_on_lance_acabou)
-			timer.iniciar_partida(currentTurn == turn.HOME)
-			timer.iniciar_lance(currentTurn)
-		timer.TimerType.SHOTS:
-			timer.partida_acabou.connect(_on_partida_acabou)
-			timer.time_label_changed.connect(placar.atualizar_Match_Timer)
-			timer.iniciar_partida()
-		timer.TimerType.CHESS:
-			%MatchUI.shotsProgressBarHome.max_value = timer.homeTimeMax
-			%MatchUI.shotsProgressBarAway.max_value = timer.homeTimeMax
-			timer.partida_acabou.connect(_on_partida_acabou)
-			timer.time_label_changed.connect(placar.atualizar_Match_Timer)
-			timer.lance_label_changed.connect(%MatchUI._atualizar_label_lance)
-			timer.punishTeam.connect(_on_punish_team)
-			timer.iniciar_partida(currentTurn == turn.HOME)
-	
 	# Chamar quando quiser ter uma pausa inicial
 	#congelar_jogo(true, 10)
 	%MatchUI.play_match_start_animation()
@@ -256,12 +232,14 @@ func _atualizar_placar() -> void:
 	placar.atualizar_placar(homeScore, awayScore)
 
 func _on_partida_acabou() -> void:
-	timer.parar_tudo()
 	pause_menu.pode_abrir = false
 	if homeScore == awayScore:
 		disparar_anuncio_com_pausa(tr("GOLDEN_GOAL"), 80, 1.5, Color.YELLOW)
 		gol_de_ouro = true
+		timer.gol_de_ouro = true
 	else:
+		timer.parar_tudo()
+		timer.gol_de_ouro = false
 		var vencedor = homeTeam.name if homeScore > awayScore else awayTeam.name
 		endMatch(vencedor)
 
@@ -273,10 +251,14 @@ func onGoal(isHome: bool) -> void:
 	rallyCounter = 1
 	if isHome and not foulFlag:
 		awayScore += 1
-		if gol_de_ouro: endMatch(awayTeam.name)
+		if gol_de_ouro: 
+			endMatch(awayTeam.name)
+			timer.parar_tudo()
 	elif not foulFlag:
 		homeScore += 1
-		if gol_de_ouro: endMatch(homeTeam.name)
+		if gol_de_ouro: 
+			endMatch(homeTeam.name)
+			timer.parar_tudo()
 		
 	if homeScore > 2 or awayScore > 2:
 		var vencedor = homeTeam.name if homeScore > awayScore else awayTeam.name
@@ -524,11 +506,37 @@ func _on_anuncio_inicial_fim() -> void:
 	congelar_jogo(false)
 	#print("congelar_jogo - C")
 	timer.partida_rodando = true
+	timer.gol_de_ouro = false
 
 func _on_anuncio_match_start_end() -> void:
-	game_initial_pause_ended
+	game_initial_pause_ended = true
 	#print("match_start animation ended")
 	selectFirstTurn()
+	
+	match timer.tipo_do_timer:
+		timer.TimerType.TIMER:
+			%MatchUI.shotsProgressBarHome.max_value = timer.tempo_maximo_lance
+			%MatchUI.shotsProgressBarAway.max_value = timer.tempo_maximo_lance
+			%MatchUI.ProgressBarHome_MaxTime_Label = timer.tempo_maximo_lance
+			%MatchUI.ProgressBarAway_MaxTime_Label = timer.tempo_maximo_lance
+			timer.partida_acabou.connect(_on_partida_acabou)
+			timer.time_label_changed.connect(placar.atualizar_Match_Timer)
+			timer.lance_label_changed.connect(%MatchUI._atualizar_label_lance)
+			timer.lance_acabou.connect(_on_lance_acabou)
+			timer.iniciar_partida(currentTurn == turn.HOME)
+			timer.iniciar_lance(currentTurn)
+		timer.TimerType.SHOTS:
+			timer.partida_acabou.connect(_on_partida_acabou)
+			timer.time_label_changed.connect(placar.atualizar_Match_Timer)
+			timer.iniciar_partida()
+		timer.TimerType.CHESS:
+			%MatchUI.shotsProgressBarHome.max_value = timer.homeTimeMax
+			%MatchUI.shotsProgressBarAway.max_value = timer.homeTimeMax
+			timer.partida_acabou.connect(_on_partida_acabou)
+			timer.time_label_changed.connect(placar.atualizar_Match_Timer)
+			timer.lance_label_changed.connect(%MatchUI._atualizar_label_lance)
+			timer.punishTeam.connect(_on_punish_team)
+			timer.iniciar_partida(currentTurn == turn.HOME)
 	
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
 	%MatchUI.transicao_concluida.connect(_on_contador_inicial_concluido.bind(active_team), CONNECT_ONE_SHOT)
@@ -845,10 +853,12 @@ func _aplicar_punicao_chess(isHome: bool) -> void:
 		awayScore += 1
 		if gol_de_ouro:
 			endMatch(awayTeam.name)
+			timer.parar_tudo()
 	else:
 		homeScore += 1
 		if gol_de_ouro:
 			endMatch(homeTeam.name)
+			timer.parar_tudo()
 
 	if homeScore > 2 or awayScore > 2:
 		var vencedor = homeTeam.name if homeScore > awayScore else awayTeam.name

@@ -94,7 +94,7 @@ labelScoreHome = NodePath("Placar_Outline/Placar_BG_Esquerda/Placar_Label_Esquer
 labelScoreAway = NodePath("Placar_Outline/Placar_BG_Direita/Placar_Label_Direita")
 backgroundScoreHome = NodePath("Placar_Outline/Placar_BG_Esquerda")
 backgroundScoreAway = NodePath("Placar_Outline/Placar_BG_Direita")
-labelMatchTimer = NodePath("HBoxContainer/Label")
+labelMatchTimer = NodePath("MatchTimer/Label")
 
 [node name="Placar_Outline" type="TextureRect" parent="CanvasLayer_Placar" unique_id=2041491666]
 z_index = -1
@@ -187,19 +187,24 @@ offset_right = 0.007873535
 offset_bottom = -0.061141968
 texture = ExtResource("24_tb6le")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer_Placar" unique_id=467491319]
-offset_left = 870.0
-offset_top = 76.0
-offset_right = 1050.0
-offset_bottom = 128.0
+[node name="MatchTimer" type="HBoxContainer" parent="CanvasLayer_Placar" unique_id=467491319]
+anchors_preset = -1
+anchor_left = 0.453
+anchor_top = 0.07
+anchor_right = 0.54700005
+anchor_bottom = 0.119
+offset_left = 0.23999023
+offset_top = 0.40000153
+offset_right = -0.2401123
+offset_bottom = -0.5200043
 pivot_offset = Vector2(90, 0)
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer_Placar/HBoxContainer" unique_id=1113138252]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer_Placar/MatchTimer" unique_id=1113138252]
 layout_mode = 2
 texture = ExtResource("10_u1agk")
 
-[node name="Label" type="Label" parent="CanvasLayer_Placar/HBoxContainer" unique_id=2129223099]
+[node name="Label" type="Label" parent="CanvasLayer_Placar/MatchTimer" unique_id=2129223099]
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontVariation_v76cn")
 theme_override_font_sizes/font_size = 42
@@ -332,6 +337,7 @@ unique_name_in_owner = true
 
 [node name="MatchTimer" type="Node" parent="." unique_id=1351562667]
 script = ExtResource("21_qddwe")
+tempo_maximo_partida = 2.0
 
 [connection signal="body_entered" from="AreaHome" to="Camera2D" method="_on_area_home_body_entered"]
 [connection signal="body_entered" from="AreaAway" to="Camera2D" method="_on_area_away_body_entered"]
