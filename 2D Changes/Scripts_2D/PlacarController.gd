@@ -52,8 +52,10 @@ func atualizar_Match_Timer(time: float) -> void:
 	labelMatchTimer.text = text
 
 func format_time(time_in_seconds: float) -> String:
-	var minutes: int = int(time_in_seconds) / 60
-	var seconds: int = int(time_in_seconds) % 60
+	var time_in_seconds_ceil = ceilf(time_in_seconds)
+	
+	var minutes: int = int(time_in_seconds_ceil) / 60
+	var seconds: int = int(time_in_seconds_ceil) % 60
 	
 	# "%02d" pads numbers with a leading zero if they are single digits
 	return "%02d:%02d" % [minutes, seconds]

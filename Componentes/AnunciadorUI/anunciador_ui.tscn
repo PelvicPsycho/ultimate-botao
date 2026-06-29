@@ -90,8 +90,8 @@ theme_override_constants/shadow_offset_y = 14
 theme_override_constants/outline_size = 40
 theme_override_constants/shadow_outline_size = 40
 theme_override_fonts/font = ExtResource("6_c5oib")
-theme_override_font_sizes/font_size = 279
-text = "1º LANCE"
+theme_override_font_sizes/font_size = 220
+text = "Gol de Ouro"
 clip_text = true
 text_overrun_behavior = 1
 

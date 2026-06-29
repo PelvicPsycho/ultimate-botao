@@ -151,12 +151,14 @@ func _ready() -> void:
 	
 	anunciador_ui.evento_interface_match_start_encerrado.connect(_on_anuncio_match_start_end, CONNECT_ONE_SHOT)
 	
+	anunciador_ui.evento_interface_texto_livre_encerrado.connect(_on_anuncio_text_livre_fim, CONNECT_ONE_SHOT)
+	
 	# Select what team play first
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
 	
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
 	var is_home = active_team == homeTeam
-	anunciador_ui.mostrar_evento_interface_texto_livre(is_home, "Começa a Partida", active_team.cor, 2.0)
+	anunciador_ui.mostrar_evento_interface_match_start(is_home, "Começa a Partida", active_team.cor, 2.0)
 	
 	# Inicia a animação do contador de lances do time sorteado
 	congelar_jogo(true)
@@ -234,7 +236,8 @@ func _atualizar_placar() -> void:
 func _on_partida_acabou() -> void:
 	pause_menu.pode_abrir = false
 	if homeScore == awayScore:
-		disparar_anuncio_com_pausa(tr("GOLDEN_GOAL"), 80, 1.5, Color.YELLOW)
+		#disparar_anuncio_com_pausa(tr("GOLDEN_GOAL"), 80, 1.5, Color.YELLOW)
+		anunciador_ui.mostrar_evento_interface_texto_livre("Gol de Ouro", 220, Color.GOLD, 2.0)
 		gol_de_ouro = true
 		timer.gol_de_ouro = true
 	else:
@@ -507,6 +510,10 @@ func _on_anuncio_inicial_fim() -> void:
 	#print("congelar_jogo - C")
 	timer.partida_rodando = true
 	timer.gol_de_ouro = false
+
+func _on_anuncio_text_livre_fim() -> void:
+	congelar_jogo(false)
+	print("_on_anuncio_text_livre_fim")
 
 func _on_anuncio_match_start_end() -> void:
 	game_initial_pause_ended = true

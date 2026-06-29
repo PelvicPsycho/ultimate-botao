@@ -38,6 +38,8 @@ signal anuncio_encerrado
 signal evento_interface_encerrado
 signal evento_interface_match_start_encerrado
 
+signal evento_interface_texto_livre_encerrado
+
 func _ready():
 	# Esconde o texto quando o jogo começa
 	label.modulate.a = 0.0
@@ -203,7 +205,7 @@ func mostrar_evento_interface(is_Home: bool = true, texto_lance: String = "1", c
 	animacao_interface_atual.tween_interval(pausa_final_s)
 	animacao_interface_atual.tween_callback(_avisar_fim_evento_interface)
 
-func mostrar_evento_interface_texto_livre(is_Home: bool = true, texto: String = "1", cor_animacao: Color = Color.WHITE, duracao_deslize: float = 2.0) -> void:
+func mostrar_evento_interface_match_start(is_Home: bool = true, texto: String = "1", cor_animacao: Color = Color.WHITE, duracao_deslize: float = 2.0) -> void:
 	# Cancela animação anterior se ainda estiver rodando
 	if animacao_interface_atual and animacao_interface_atual.is_valid():
 		animacao_interface_atual.kill()
@@ -289,6 +291,85 @@ func mostrar_evento_interface_texto_livre(is_Home: bool = true, texto: String = 
 	animacao_interface_atual.tween_interval(pausa_final_s)
 	animacao_interface_atual.tween_callback(_avisar_fim_evento_interface_match_start)
 
+func mostrar_evento_interface_texto_livre(texto: String = "1", size_text: float = 150, cor_animacao: Color = Color.WHITE, duracao_deslize: float = 2.0) -> void:
+	# Cancela animação anterior se ainda estiver rodando
+	if animacao_interface_atual and animacao_interface_atual.is_valid():
+		animacao_interface_atual.kill()
+
+	# ── Aplica a cor do time no shader do vídeo ──
+	video_player.material.set_shader_parameter("color_tint", cor_animacao)
+	
+	# ── Configura textos ──
+	lances_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	lances_label.add_theme_font_size_override("font_size", size_text)
+	
+	lances_label.text = tr(texto)
+	jogador_label.text = tr(" ")
+
+	# ── Direção da animação e flip do vídeo ──
+	# Home: entra da esquerda → direita, vídeo normal
+	# Away: entra da direita → esquerda, vídeo espelhado
+	var dir: float
+	var video_x: float
+	var jogador_x: float
+	var lances_x: float
+
+	dir = 1.0
+	video_x = video_center_x - distancia_do_centro
+	jogador_x = jogador_center_x - distancia_do_centro*1.3
+	lances_x = lances_center_x - distancia_do_centro*2
+
+	video_player.scale.x = 1.0
+	
+	# ── Torna tudo visível ──
+	lances_control.visible = true
+	video_player.visible = true
+	jogador_label.visible = true
+	lances_label.visible = true
+	
+	video_player.play()
+
+	var screen_width: float = get_viewport().get_visible_rect().size.x
+	var margem: float = 400.0
+	var offset_fora: float = screen_width + margem
+
+	# Posições iniciais (fora da tela: esquerda p/ Home, direita p/ Away)
+	var video_start_x: float = video_x - dir * offset_fora
+	var jogador_start_x: float = jogador_x - dir * offset_fora
+	var lances_start_x: float = lances_x - dir * offset_fora
+
+	# Posições finais (fora da tela: direita p/ Home, esquerda p/ Away)
+	var video_end_x: float = video_x + dir * offset_fora
+	var jogador_end_x: float = jogador_x + dir * offset_fora
+	var lances_end_x: float = lances_x + dir * offset_fora
+
+	# Aplica posições iniciais
+	video_player.position.x = video_start_x
+	jogador_label.position.x = jogador_start_x
+	lances_label.position.x = lances_start_x
+
+	# ── Cria a animação ──
+	animacao_interface_atual = create_tween()
+
+	# FASE 1: Entrada rápida até o centro (velocidades diferentes)
+	animacao_interface_atual.tween_property(video_player, "position:x", video_x, entrada_video_s)
+	animacao_interface_atual.parallel().tween_property(jogador_label, "position:x", jogador_x, entrada_jogador_s)
+	animacao_interface_atual.parallel().tween_property(lances_label, "position:x", lances_x, entrada_lances_s)
+
+	# FASE 2: Deslize lento (direita p/ Home, esquerda p/ Away)
+	animacao_interface_atual.tween_property(video_player, "position:x", video_x + dir * deslize_distancia_video_px, duracao_deslize) #deslize_duracao_s)
+	animacao_interface_atual.parallel().tween_property(jogador_label, "position:x", jogador_x + dir * deslize_distancia_jogador_px, duracao_deslize) #deslize_duracao_s)
+	animacao_interface_atual.parallel().tween_property(lances_label, "position:x", lances_x + dir * deslize_distancia_lances_px, duracao_deslize) #deslize_duracao_s)
+
+	# FASE 3: Disparam para fora da tela
+	animacao_interface_atual.tween_property(video_player, "position:x", video_end_x, disparo_duracao_s)
+	animacao_interface_atual.parallel().tween_property(jogador_label, "position:x", jogador_end_x, disparo_duracao_s)
+	animacao_interface_atual.parallel().tween_property(lances_label, "position:x", lances_end_x, disparo_duracao_s)
+
+	# FASE 4: Pausa antes de avisar o fim
+	animacao_interface_atual.tween_interval(pausa_final_s)
+	animacao_interface_atual.tween_callback(_avisar_fim_evento_interface_texto_livre)
+
 func _avisar_fim_evento_interface() -> void:
 	video_player.stop()
 	lances_control.visible = false
@@ -298,6 +379,11 @@ func _avisar_fim_evento_interface_match_start() -> void:
 	video_player.stop()
 	lances_control.visible = false
 	evento_interface_match_start_encerrado.emit()
+
+func _avisar_fim_evento_interface_texto_livre() -> void:
+	video_player.stop()
+	lances_control.visible = false
+	evento_interface_texto_livre_encerrado.emit()
 
 #func _input(event: InputEvent) -> void:
 #	if event.is_action_pressed("ui_left"):
