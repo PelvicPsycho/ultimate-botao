@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://h2qvxvcekkf6" path="res://Recursos/2D_Art/SplashScreen/DetalheAzulEscuro.png" id="4_rlkea"]
 [ext_resource type="Texture2D" uid="uid://cteish2yotv5s" path="res://Recursos/2D_Art/SplashScreen/logo 1 1.png" id="4_s1m4f"]
 [ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="4_txp36"]
+[ext_resource type="Script" uid="uid://c1ifdfcclridr" path="res://Componentes/MainMenu/exit_button.gd" id="10_m4o61"]
 [ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="14_l8vg5"]
 
 [sub_resource type="Shader" id="Shader_jdv1h"]
@@ -138,53 +139,6 @@ scale = Vector2(0.65, 0.65)
 velocidade = -150.0
 esconder_label = true
 
-[node name="Startbutton" type="Button" parent="." unique_id=937542176]
-self_modulate = Color(1, 1, 1, 0)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="Startbutton" unique_id=2023151895]
-custom_minimum_size = Vector2(801, 561)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -402.0
-offset_top = -369.0
-offset_right = 399.4286
-offset_bottom = 192.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_s1m4f")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="Startbutton" unique_id=369439649]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -173.0
-offset_top = 138.0
-offset_right = 184.0
-offset_bottom = 269.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/outline_size = 20
-theme_override_fonts/font = ExtResource("4_txp36")
-theme_override_font_sizes/font_size = 110
-text = "START"
-horizontal_alignment = 1
-
-[node name="AnimationHover_Node" parent="Startbutton/Label" unique_id=15659302 instance=ExtResource("14_l8vg5")]
-
 [node name="Button" type="Button" parent="." unique_id=971272928]
 offset_left = 30.0
 offset_top = 960.0
@@ -209,7 +163,69 @@ offset_bottom = 806.0
 theme_override_font_sizes/font_size = 30
 text = "add pecas aleatorias"
 
-[connection signal="pressed" from="Startbutton" to="." method="_on_startbutton_pressed"]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1192362397]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=431328895]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Logo_TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer" unique_id=2023151895]
+custom_minimum_size = Vector2(960, 462)
+layout_mode = 2
+texture = ExtResource("4_s1m4f")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Startbutton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=937542176]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(400, 131)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Startbutton" unique_id=369439649]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("4_txp36")
+theme_override_font_sizes/font_size = 110
+text = "START"
+horizontal_alignment = 1
+
+[node name="AnimationHover_Node" parent="CenterContainer/VBoxContainer/Startbutton/Label" unique_id=15659302 instance=ExtResource("14_l8vg5")]
+
+[node name="Exit_Button" type="TextureButton" parent="CenterContainer/VBoxContainer" unique_id=1363979543]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("10_m4o61")
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Exit_Button" unique_id=241180411]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0500001
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.48610443, 0.41860744, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("4_txp36")
+theme_override_font_sizes/font_size = 70
+text = "EXIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationHover_Node" parent="CenterContainer/VBoxContainer/Exit_Button/Label" unique_id=1375273779 instance=ExtResource("14_l8vg5")]
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="AddTodasCartas" to="." method="_on_add_todas_cartas_pressed"]
 [connection signal="pressed" from="Addpecasaleatorias" to="." method="_on_addpecasaleatorias_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Startbutton" to="." method="_on_startbutton_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Exit_Button" to="CenterContainer/VBoxContainer/Exit_Button" method="_on_pressed"]

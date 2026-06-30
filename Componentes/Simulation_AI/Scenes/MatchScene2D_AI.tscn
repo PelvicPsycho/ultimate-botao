@@ -62,6 +62,7 @@ physics_controller = NodePath("PhysicsController")
 IA_Active = true
 IA_Contr = NodePath("IA_Controller")
 placar = NodePath("CanvasLayer_Placar")
+anunciador_tempo = 1.0
 gradient_background_TextureRect = NodePath("CanvasLayer_BackGround/Gradient_Background")
 anunciador_ui = NodePath("AnunciadorUI")
 pause_menu = NodePath("PauseMenu")
@@ -337,7 +338,6 @@ unique_name_in_owner = true
 
 [node name="MatchTimer" type="Node" parent="." unique_id=1351562667]
 script = ExtResource("21_qddwe")
-tempo_maximo_partida = 2.0
 
 [connection signal="body_entered" from="AreaHome" to="Camera2D" method="_on_area_home_body_entered"]
 [connection signal="body_entered" from="AreaAway" to="Camera2D" method="_on_area_away_body_entered"]

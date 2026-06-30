@@ -14,6 +14,8 @@ signal turno_trocado(turno_atual: turn)
 
 @export var placar: PlacarController
 
+@export var anunciador_tempo: float
+
 @export_group("Gradient")
 @export var gradient_background_TextureRect: TextureRect
 var gradient_texture: GradientTexture2D
@@ -158,7 +160,7 @@ func _ready() -> void:
 	
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
 	var is_home = active_team == homeTeam
-	anunciador_ui.mostrar_evento_interface_match_start(is_home, "Começa a Partida", active_team.cor, 2.0)
+	anunciador_ui.mostrar_evento_interface_match_start(is_home, "Começa a Partida", active_team.cor, anunciador_tempo)
 	
 	# Inicia a animação do contador de lances do time sorteado
 	congelar_jogo(true)
@@ -178,7 +180,7 @@ func _process(_delta: float) -> void:
 func _on_begin_timeout():
 #	var nome = homeTeam.name if currentTurn == turn.HOME else awayTeam.name
 	#disparar_anuncio_com_pausa.bind(tr("TURN_OF")+"\n" + nome, 80, 1.5)
-	disparar_anuncio_com_pausa.bind("", 80, 2.0, true)
+	disparar_anuncio_com_pausa.bind("", 80, anunciador_tempo, true)
 	timer.partida_rodando = true
 
 func loadMatch():
@@ -226,7 +228,7 @@ func _on_contador_inicial_concluido(active_team: Team) -> void:
 	# Contador de lances inicial terminou a animação de entrada.
 	# Agora mostra o anunciador de lance.
 	var is_home = active_team == homeTeam
-	anunciador_ui.mostrar_evento_interface(is_home, str(turnCounter + 1), active_team.cor, 2.0)
+	anunciador_ui.mostrar_evento_interface(is_home, str(turnCounter + 1), active_team.cor, anunciador_tempo)
 	anunciador_ui.evento_interface_encerrado.connect(_on_anuncio_inicial_fim, CONNECT_ONE_SHOT)
 
 func _atualizar_placar() -> void:
@@ -237,7 +239,7 @@ func _on_partida_acabou() -> void:
 	pause_menu.pode_abrir = false
 	if homeScore == awayScore:
 		#disparar_anuncio_com_pausa(tr("GOLDEN_GOAL"), 80, 1.5, Color.YELLOW)
-		anunciador_ui.mostrar_evento_interface_texto_livre("Gol de Ouro", 220, Color.GOLD, 2.0)
+		anunciador_ui.mostrar_evento_interface_texto_livre("Gol de Ouro", 220, Color.GOLD, anunciador_tempo)
 		gol_de_ouro = true
 		timer.gol_de_ouro = true
 	else:
@@ -488,7 +490,7 @@ func _continuar_troca_de_turno(active_team: Team) -> void:
 	# O jogo já está congelado desde changeTurn().
 	# Mostra o anunciador de lance sem congelar novamente.
 	var is_home = active_team == homeTeam
-	anunciador_ui.mostrar_evento_interface(is_home, str(turnCounter + 1), active_team.cor, 1.5)
+	anunciador_ui.mostrar_evento_interface(is_home, str(turnCounter + 1), active_team.cor, anunciador_tempo)
 	anunciador_ui.evento_interface_encerrado.connect(_on_anuncio_turno_fim, CONNECT_ONE_SHOT)
 	
 	
@@ -586,7 +588,7 @@ func forceTurn(target: turn) -> void:
 	if timer.tipo_do_timer == timer.TimerType.TIMER:
 		timer.iniciar_lance(currentTurn)
 	#disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
-	disparar_anuncio_com_pausa("", 80, 1.5, Color.YELLOW, true)
+	disparar_anuncio_com_pausa("", 80, anunciador_tempo, Color.YELLOW, true)
 	carta_usada_no_turno = false
 
 enum TurnType {ORIGINAL, SIMPLIFIED, INTERSPERSED, ORIGINAL_SHORT}
@@ -621,13 +623,13 @@ func decideTurn() -> void:
 					if turnCounter < 2:
 						
 						#disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
-						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
+						disparar_anuncio_com_pausa("", 60, anunciador_tempo, Color.YELLOW, true)
 						var is_home = true if currentTurn == 0 else false #Descobre o time jogando
 						%MatchUI.contador_de_lances_away.animar_segundo_lance(is_home)
 						%MatchUI.contador_de_lances_home.animar_segundo_lance(is_home)
 					else:
 						#disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
-						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
+						disparar_anuncio_com_pausa("", 60, anunciador_tempo, Color.YELLOW, true)
 					
 					if IA_Active and IA_Contr != null:
 						IA_Contr.SetCurrentTeamSide(currentTurn)
@@ -658,10 +660,10 @@ func decideTurn() -> void:
 
 					if turnCounter < 2:
 						#disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
-						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
+						disparar_anuncio_com_pausa("", 60, anunciador_tempo, Color.YELLOW, true)
 					else:
 						#disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
-						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
+						disparar_anuncio_com_pausa("", 60, anunciador_tempo, Color.YELLOW, true)
 					
 					if IA_Active and IA_Contr != null:
 						IA_Contr.SetCurrentTeamSide(currentTurn)
@@ -693,10 +695,10 @@ func decideTurn() -> void:
 
 					if turnCounter < 1:
 						#disparar_anuncio_com_pausa(tr("KEEP_GOING")+"!", 60, 0.5, Color.YELLOW)
-						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
+						disparar_anuncio_com_pausa("", 60, anunciador_tempo, Color.YELLOW, true)
 					else:
 						#disparar_anuncio_com_pausa(tr("LAST_SHOT")+"!", 60, 0.5, Color.YELLOW)
-						disparar_anuncio_com_pausa("", 60, 1.5, Color.YELLOW, true)
+						disparar_anuncio_com_pausa("", 60, anunciador_tempo, Color.YELLOW, true)
 					
 					if IA_Active and IA_Contr != null:
 						IA_Contr.SetCurrentTeamSide(currentTurn)

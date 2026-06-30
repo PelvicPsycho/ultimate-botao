@@ -13,6 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://dbungef2si10m" path="res://Recursos/2D_Art/TabMenu/engrenagem200.png" id="9_3gipf"]
 [ext_resource type="FontFile" uid="uid://b8f7dj4qbp66f" path="res://Recursos/Fontes/Baloo2-Bold.ttf" id="10_3gipf"]
 [ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="10_wwbwe"]
+[ext_resource type="Script" uid="uid://c1ifdfcclridr" path="res://Componentes/MainMenu/exit_button.gd" id="14_2xy54"]
+[ext_resource type="Texture2D" uid="uid://cbmanr35xlgww" path="res://Recursos/2D_Art/MyTeam/Group 57_NoShadow.png" id="15_4koca"]
+[ext_resource type="Texture2D" uid="uid://sb143gchnnfr" path="res://Recursos/2D_Art/MyTeam/Group 57.png" id="15_ca6rd"]
+[ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="15_m2tgg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oet0a"]
 font = ExtResource("10_3gipf")
@@ -201,3 +205,42 @@ size_flags_vertical = 4
 texture_normal = ExtResource("2_lhvel")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=734985879 node_paths=PackedStringArray("label")]
+anchors_preset = -1
+anchor_left = 0.91
+anchor_top = 0.90000004
+anchor_right = 0.98300004
+anchor_bottom = 0.96500003
+offset_left = 4.7999268
+offset_top = 15.999939
+offset_right = 14.639893
+offset_bottom = 20.799927
+texture_normal = ExtResource("15_ca6rd")
+texture_pressed = ExtResource("15_4koca")
+texture_hover = ExtResource("15_4koca")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("14_2xy54")
+label = NodePath("Label")
+label_pos_active = Vector2(0, 5)
+
+[node name="Label" type="Label" parent="TextureButton" unique_id=468912396]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.92600006
+offset_bottom = -0.044006348
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.48610443, 0.41860744, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("15_m2tgg")
+theme_override_font_sizes/font_size = 50
+text = "EXIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="TextureButton" to="TextureButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="TextureButton" to="TextureButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]
