@@ -50,8 +50,8 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 	if firstTouch == null:
 		firstTouch = object_collided
 	lastTouch = object_collided
-	print("lastTouch object name = ", lastTouch.name)
-	print("lastTouch team name = ", lastTouch.team.name)
+	#print("lastTouch object name = ", lastTouch.name)
+	#print("lastTouch team name = ", lastTouch.team.name)
 #endregion
 
 #region Rolling

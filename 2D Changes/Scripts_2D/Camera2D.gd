@@ -36,7 +36,7 @@ func _ready():
 	if zoom == Vector2.ZERO:
 		zoom = zoom_normal
 	target_zoom = zoom
-	
+	posicao_original = global_position
 	# Conect "StartZoomOut" and "EndZoomOut" to playable pieces signals
 	for piece in allPieces:
 		piece.connect("zoom_out_signal", StartZoomOut)
@@ -65,6 +65,8 @@ func _process(delta: float) -> void:
 			global_position = global_position.lerp(bola_rastreada.global_position, clamp(bola_track_speed * delta, 0.0, 1.0))
 		else:
 			_parar_rastreamento()
+	else:
+		global_position = global_position.lerp(posicao_original, clamp(bola_track_speed * delta, 0.0, 1.0))
 			
 	var shake_offset_calc = Vector2.ZERO
 	if shake_active:

@@ -281,6 +281,10 @@ func _process(delta: float) -> void:
 
 func _animar_hover(entrando: bool) -> void:
 	if match_state.game_paused == false:
+		if AI_Active:
+			if teamSide == TeamSide.AWAY:
+				return
+				
 		if canPlay:
 			if hover_tween and hover_tween.is_valid():
 				hover_tween.kill()
@@ -648,6 +652,7 @@ func detonar_bomba():
 	get_tree().current_scene.add_child(explosao)
 	explosao.global_position = global_position
 	executar_onda_choque_direta()
+	
 func _instanciar_particula_impacto(posicao_colisao: Vector2) -> void:
 	if impactParticles == null:
 		return
@@ -665,7 +670,7 @@ func _instanciar_particula_impacto(posicao_colisao: Vector2) -> void:
 	if nova_particula is Node2D:
 		nova_particula.global_position = posicao_colisao
 	
-		print("New Particle on position = ", nova_particula.global_position)
+		#print("New Particle on position = ", nova_particula.global_position)
 	
 	if nova_particula is GPUParticles2D:
 		var gpu := nova_particula as GPUParticles2D
@@ -809,6 +814,10 @@ func _get_rest_visual_scale(hovering: bool = is_pointer_inside_piece) -> Vector2
 	return default_sprite_scale
 
 func _update_velocity_feedback(delta: float) -> void:
+	if AI_Active:
+		if teamSide == TeamSide.AWAY:
+			return
+			
 	if tracer2D == null or sprite2D_body == null:
 		return
 
@@ -951,9 +960,13 @@ func _atualizar_deformacao_arrasto() -> void:
 		sprite2D_body.material.set_shader_parameter("stretch_amount", intensidade)
 
 func _retomar_formato_normal() -> void:
+	if AI_Active:
+		if teamSide == TeamSide.AWAY:
+			return
+				
 	if sprite2D_body == null:
 		return
-
+	
 	if deform_tween and deform_tween.is_valid():
 		deform_tween.kill()
 
