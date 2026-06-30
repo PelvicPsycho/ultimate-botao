@@ -10,7 +10,7 @@ var player_info_g : TeamPlayer
 ## Chame esta função na hora de instanciar a peça no menu, passando o recurso
 func setup_peca(player_info: TeamPlayer) -> void:
 	player_info_g = player_info
-	print (player_info)
+#	print (player_info)
 	if player_info == null or player_info.time == null:
 		push_warning("PecaMenuUI: player_info ou o Team estão ausentes.")
 		return

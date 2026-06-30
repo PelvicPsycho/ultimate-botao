@@ -25,7 +25,7 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 4
 
-[node name="PecasUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "peca_visual", "rank_label", "quantidade_label", "borda_panel")]
+[node name="PecasUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "peca_visual", "rank_label", "quantidade_label", "borda_panel", "textura_destaque")]
 anchors_preset = -1
 anchor_right = 0.094000004
 anchor_bottom = 0.16700001
@@ -44,8 +44,9 @@ script = ExtResource("1_s50es")
 nome_label = NodePath("Control/MarginContainer/ContainerLayout_VBoxContainer/Nome_Label")
 peca_visual = NodePath("Control/MarginContainer/ContainerLayout_VBoxContainer/PecaMenus_TextureRect")
 rank_label = NodePath("Control/Rank_TextureRect/Rank_Label")
-quantidade_label = NodePath("Control/Fundo_TextureRect2/Quantidade_Label")
+quantidade_label = NodePath("Quantidade_Label")
 borda_panel = NodePath("Control/WhiteBorder_Panel")
+textura_destaque = NodePath("Control/Fundo_TextureRect2")
 
 [node name="Control" type="Control" parent="." unique_id=859865856]
 layout_mode = 1
@@ -67,23 +68,6 @@ mouse_filter = 2
 texture = ExtResource("5_d0t74")
 expand_mode = 1
 stretch_mode = 5
-
-[node name="Quantidade_Label" type="Label" parent="Control/Fundo_TextureRect2" unique_id=916016902]
-visible = false
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -21.0
-offset_top = -23.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 18
-text = "99"
-horizontal_alignment = 1
 
 [node name="Rank_TextureRect" type="TextureRect" parent="Control" unique_id=1952571652]
 layout_mode = 1
@@ -158,5 +142,21 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rdpgs")
+
+[node name="Quantidade_Label" type="Label" parent="." unique_id=916016902]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_top = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 18
+text = "99"
+horizontal_alignment = 1
 
 [node name="AnimationHover_Node" parent="." unique_id=1375273779 instance=ExtResource("6_qes8w")]

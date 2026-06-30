@@ -154,6 +154,7 @@ func _ready() -> void:
 	_atualizar_visuais_dos_filtros()
 	btn_abrir_video.pressed.connect(_abrir_modo_cinema)
 	btn_fechar_video.pressed.connect(_fechar_modo_cinema)
+	center_plainmsg_vbox.visible = true
 	
 	# Impede que o GridContainer estique verticalmente dentro do pai.
 	# Assim ele "abraça" o conteúdo e as linhas não inflam com poucos itens.
@@ -471,7 +472,6 @@ func _popular_lista(lista_de_itens: Array, tamanho_item: int) -> void:
 				btn_item.size_flags_horizontal = Control.SIZE_FILL
 			btn_item.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 			btn_item.custom_minimum_size = size_item
-			print (size_item)
 			inventory_list.add_child(btn_item)
 			if btn_item.has_method("setup_item"):
 				var qtd := 0
@@ -606,8 +606,8 @@ func _inspecionar_item_na_janela_central(item: Resource, is_equipped_here: bool 
 			center_peca_visual.setup_peca(item)
 		
 		var status = _get_status_calculado(item)
-		var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, item.quantosSlotes]
-		print (texto_status)
+		#var texto_status = "Força: %d\nPA: %d\nSlots: %d" % [status.forca, status.pa, item.quantosSlotes]
+		#print (texto_status)
 		central_AP_label.text = "Pontos de Ação   ·   %d AP" % [status.pa]
 		central_forca_label.text = "Força   ·   lvl %d" % item.level_force#[status.forca]
 		central_RP_label.text = "RP: %d" % (status.pa + item.level_force + item.quantosSlotes)
@@ -918,7 +918,7 @@ func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
 	var pa_total = peca.PA if "PA" in peca else 1
 	
 	for carta in peca.slotsUpgrates:
-		if carta != null:
+		if carta != null and carta.is_passiva:
 			match carta.tipo_efeito:
 				CardResource.TipoEfeito.FORCA:
 					f_total += carta.magnitude
