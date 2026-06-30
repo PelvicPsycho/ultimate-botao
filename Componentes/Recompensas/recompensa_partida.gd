@@ -15,12 +15,14 @@ var grupo_recompensa := ButtonGroup.new()
 @export var insp_rank_label: Label         
 #@export var insp_arte_rect: TextureRect
 @export var insp_peca_visual: PecaMenuUI   
+@export var contagem_slots_label: Label
+@export var slots_indicator_hbox: HBoxContainer
+@export var pontos_acao_label: Label
+@export var forca_label: Label
+@export var rp_label: Label
 
 @export_group("Janela de Inspeção - Direita")
-@export var contagem_slots_label: Label    
-@export var slots_indicator_hbox: HBoxContainer 
-@export var equipped_cards_grid: GridContainer  
-@export var pontos_acao_label: Label       
+@export var equipped_cards_grid: GridContainer
 
 @export_group("Ícones")
 @export var icone_slot_livre: Texture2D
@@ -32,35 +34,17 @@ var grupo_recompensa := ButtonGroup.new()
 @export var btn_aceitar: TextureButton             
 
 @export_group("Cenas")
-@export var cena_botao_peca: PackedScene    
-@export var cena_carta_pequena: PackedScene 
-@export var cena_carta_bem_pequena: PackedScene 
-
-@export_group("Visual dos Slots Vazios")
-## O valor de arredondamento de todos os cantos
-@export var raio_dos_cantos: int = 15
-## A cor de fundo do espaço vazio (com um pouco de transparência por padrão)
-@export var cor_do_slot: Color = Color(0.1, 0.1, 0.1, 0.5) 
-
-var estilo_slot_vazio: StyleBoxFlat
+@export var cena_botao_peca: PackedScene
+@export var cena_carta_pequena: PackedScene
+@export var cena_carta_bem_pequena: PackedScene
+@export var cena_moldura_slot: PackedScene
+@export var tamanho_das_cartas:= Vector2(100, 100)
 
 func _ready() -> void:
 	_limpar_inspecao()
 	btn_aceitar.disabled = true
 	btn_aceitar.pressed.connect(_on_btn_aceitar_pressed)
-	
-	# 1. Configura o visual do slot uma única vez ao carregar a cena
-	estilo_slot_vazio = StyleBoxFlat.new()
-	estilo_slot_vazio.bg_color = cor_do_slot
-	
-	# 2. Aplica o raio exportado em todos os cantos
-	estilo_slot_vazio.corner_radius_top_left = raio_dos_cantos
-	estilo_slot_vazio.corner_radius_top_right = raio_dos_cantos
-	estilo_slot_vazio.corner_radius_bottom_left = raio_dos_cantos
-	estilo_slot_vazio.corner_radius_bottom_right = raio_dos_cantos
-	
-	# Opcional: Garante que as bordas arredondadas fiquem suaves
-#	estilo_slot_vazio.anti_aliasing = true
+
 
 func iniciar_tela_de_recompensa(time_inimigo: Team) -> void:
 	time_derrotado = time_inimigo
@@ -111,7 +95,7 @@ func _criar_botao_de_opcao(peca: TeamPlayer) -> Control:
 
 func _selecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
 	peca_selecionada = peca
-	
+	var status = _get_status_calculado(peca)
 	# 1. Atualiza Esquerda (Nome, Arte, Rank)
 	insp_nome_label.text = peca.nome
 	insp_rank_label.text = str(TeamPlayer.Rank.keys()[peca.rank])
@@ -121,61 +105,61 @@ func _selecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
 #		insp_peca_visual.show() # Garante que está visível
 		insp_peca_visual.setup_peca(peca)
 	
-	pontos_acao_label.text = "%d AP" % peca.PA
+	pontos_acao_label.text = "Pontos de Ação   ·   %d AP" % [status.pa]
+	forca_label.text = "Força   ·   lvl %d" % status.forca#[status.forca]
+	rp_label.text = "RP: %d" % (status.pa + status.forca + peca.quantosSlotes)
+	#"RP: %d" % ([status.pa_total] + [status.forca] + [peca.quantosSlotes])
 	
-	# 2. Atualiza a Grid de Cartas Equipadas (com a cena quadrada pequena)
+	# 2. Atualiza a Grid de Cartas Equipadas (Usando Molduras)
 	for child in equipped_cards_grid.get_children():
 		child.queue_free()
 
 	# ====================================================================
-	# 2.1 CALCULA O TAMANHO BASE PRIMEIRO (Antes de criar qualquer coisa)
+	# 2.1 FILTRA AS CARTAS E CONTA OS SLOTS USADOS
 	# ====================================================================
-	var tamanho_slot := Vector2(100, 100)
-	if cena_carta_bem_pequena:
-		var ghost = cena_carta_bem_pequena.instantiate()
-		if ghost is Control and ghost.custom_minimum_size.y > 0:
-			tamanho_slot = ghost.custom_minimum_size
-		ghost.queue_free()
-
-
-	# ====================================================================
-	# 2.2 CRIA AS CARTAS EQUIPADAS
-	# ====================================================================
+	var cartas_reais = []
 	var slots_usados = 0
 	for carta in peca.slotsUpgrates:
 		if carta != null:
-			slots_usados += carta.custoSlotes
-			
-			if cena_carta_pequena:
-				var btn_carta = cena_carta_bem_pequena.instantiate()
-				equipped_cards_grid.add_child(btn_carta)
-				
-				# Aplica o tamanho mágico e empurra pro topo!
-				btn_carta.custom_minimum_size = tamanho_slot
-				btn_carta.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-				
-				if btn_carta.has_method("setup_item"):
-					btn_carta.setup_item(carta)
+			cartas_reais.append(carta)
+			slots_usados += carta.custoSlotes # Importante para a Etapa 3 não quebrar!
+
+	# ====================================================================
+	# 2.2 DEFINE A REGRA FIXA DE 8 OU 10 MOLDURAS
+	# ====================================================================
+	var total_slots = 8
+	if cartas_reais.size() > 8:
+		total_slots = 10
+
+	# ====================================================================
+	# 2.3 INSTANCIA AS MOLDURAS E AS CARTAS DENTRO DELAS
+	# ====================================================================
+	for i in range(total_slots):
+		if cena_moldura_slot:
+			var moldura = cena_moldura_slot.instantiate()
+			# Aplica o tamanho base exportado
+			moldura.custom_minimum_size = tamanho_das_cartas
+			equipped_cards_grid.add_child(moldura)
+
+			# Se houver uma carta real para este índice, ela entra como FILHA da moldura
+			if i < cartas_reais.size():
+				if cena_carta_pequena: # Ou cena_carta_pequena, dependendo do que preferir
+					var btn_carta = cena_carta_pequena.instantiate()
 					
-				if btn_carta is BaseButton:
-					btn_carta.disabled = true
-				btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
-				
-	
-	# ====================================================================
-	# 2.3 CRIA OS PAINÉIS VAZIOS
-	# ====================================================================
-	var slots_livres = peca.quantosSlotes - slots_usados
-	for i in range(slots_livres):
-		var slot_vazio = Panel.new()
-		
-		# Aplica o MESMO tamanho mágico e empurra pro topo!
-		slot_vazio.custom_minimum_size = tamanho_slot
-		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-		slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		
-		slot_vazio.add_theme_stylebox_override("panel", estilo_slot_vazio)
-		equipped_cards_grid.add_child(slot_vazio)
+					# Pega o MarginContainer de dentro da moldura para ancorar a carta
+					var container_interno = moldura.get_node_or_null("MarginContainer")
+					if container_interno:
+						container_interno.add_child(btn_carta)
+					else:
+						moldura.add_child(btn_carta) # Fallback caso a moldura mude
+					
+					if btn_carta.has_method("setup_item"):
+						btn_carta.setup_item(cartas_reais[i])
+						
+					# Como é apenas exibição visual, deixamos a carta inerte (surda para cliques)
+					if btn_carta is BaseButton:
+						btn_carta.disabled = true
+					btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# --------------------------------------------------------------------------
 	# --------------------------------------------------------------------------
 			
@@ -243,8 +227,8 @@ func _on_btn_aceitar_pressed() -> void:
 func _limpar_inspecao() -> void:
 	peca_selecionada = null
 	insp_nome_label.text = "Selecione uma Peça"
-	insp_rank_label.text = ""
-	pontos_acao_label.text = ""
+#	insp_rank_label.text = ""
+#	pontos_acao_label.text = ""
 #	insp_arte_rect.texture = null
 	if slots_indicator_hbox:
 		for child in slots_indicator_hbox.get_children():
@@ -258,7 +242,7 @@ func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
 	var pa_total = peca.PA if "PA" in peca else 1
 	
 	for carta in peca.slotsUpgrates:
-		if carta != null:
+		if carta != null and carta.is_passiva:
 			match carta.tipo_efeito:
 				CardResource.TipoEfeito.FORCA:
 					f_total += carta.magnitude

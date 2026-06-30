@@ -337,7 +337,6 @@ unique_name_in_owner = true
 
 [node name="MatchTimer" type="Node" parent="." unique_id=1351562667]
 script = ExtResource("21_qddwe")
-tempo_maximo_partida = 2.0
 
 [connection signal="body_entered" from="AreaHome" to="Camera2D" method="_on_area_home_body_entered"]
 [connection signal="body_entered" from="AreaAway" to="Camera2D" method="_on_area_away_body_entered"]

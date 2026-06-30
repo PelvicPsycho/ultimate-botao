@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://crifmj85cln87" path="res://Recursos/2D_Art/MyTeam/Rectangle 16.png" id="4_x3s7i"]
 [ext_resource type="Texture2D" uid="uid://bogm6yps4rlg4" path="res://Componentes/Recompensas/SlotVazio.png" id="5_1unkj"]
 [ext_resource type="Texture2D" uid="uid://47ugmokghauy" path="res://Recursos/2D_Art/MyTeam/Group 53_.png" id="5_x3s7i"]
-[ext_resource type="Texture2D" uid="uid://7pb1a7h83erj" path="res://Recursos/2D_Art/MyTeam/Group 4_.png" id="6_3vc01"]
 [ext_resource type="PackedScene" uid="uid://orrq0vy3qa51" path="res://Componentes/MyTeam/inventory_pecas_button.tscn" id="7_3c3cq"]
 [ext_resource type="Texture2D" uid="uid://5h2nw7r5f5sj" path="res://Recursos/2D_Art/MyTeam/referencia_myteam_cards.png" id="9_1ql4r"]
 [ext_resource type="Texture2D" uid="uid://sb143gchnnfr" path="res://Recursos/2D_Art/MyTeam/Group 57.png" id="9_cep57"]
@@ -32,6 +31,7 @@
 [ext_resource type="FontFile" uid="uid://4ouu0og1v6nb" path="res://Recursos/Fontes/Rubik/Rubik-BoldItalic.ttf" id="27_md4jv"]
 [ext_resource type="Texture2D" uid="uid://4wfhae0rtdkf" path="res://Recursos/2D_Art/MyTeam/BackgroundAzul_dir.png" id="27_qgfe3"]
 [ext_resource type="Texture2D" uid="uid://cd7x1gtw5y4m6" path="res://Recursos/2D_Art/MyTeam/PainelStatsPeca.png" id="30_05y36"]
+[ext_resource type="Texture2D" uid="uid://bgusi6r17iye4" path="res://Componentes/Recompensas/BotaoVerde.png" id="30_fubuq"]
 [ext_resource type="Texture2D" uid="uid://ctxn0nxcadoth" path="res://Recursos/2D_Art/IconesCartas/Carta_costas.png" id="32_fubuq"]
 [ext_resource type="Texture2D" uid="uid://5u10tbriytw5" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/peca_frente.png" id="33_3xsoq"]
 [ext_resource type="FontFile" uid="uid://da6ptr7m1ajjs" path="res://Recursos/Fontes/Rubik/Rubik-SemiBoldItalic.ttf" id="34_oxuru"]
@@ -877,7 +877,6 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="PecaView_MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer" unique_id=203999942]
-visible = false
 layout_mode = 2
 
 [node name="PecaView_VBoxContainer" type="VBoxContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/VBoxContainer/PecaView_MarginContainer" unique_id=905191053]
@@ -1142,7 +1141,7 @@ theme_override_constants/margin_bottom = -50
 [node name="ActionButton_Button" type="TextureButton" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/EquipButton_MarginContainer" unique_id=2026275521]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
-texture_normal = ExtResource("6_3vc01")
+texture_normal = ExtResource("30_fubuq")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -1162,6 +1161,7 @@ vertical_alignment = 1
 [node name="AnimationHover_Node" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer/Pai_MarginContainer/VBoxContainer/EquipButton_MarginContainer/ActionButton_Button" unique_id=2106885778 instance=ExtResource("12_0wqyg")]
 
 [node name="PlainMSG_MarginContainer" type="MarginContainer" parent="MainMargin_MarginContainer/MainVbox_VBoxContainer/MarginContainer/CoreAreaHbox_HBoxContainer/CenterWindow_PanelContainer" unique_id=1607751944]
+visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 2

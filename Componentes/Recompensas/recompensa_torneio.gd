@@ -12,74 +12,63 @@ var grupo_recompensa := ButtonGroup.new()
 # O nó VideoStreamPlayer que vai tocar o baú
 @export var video_player: VideoStreamPlayer
 # O Panel principal que contém toda a UI (Fundos, VBoxContainer, etc)
-@export var fundo_azul_2: TextureRect
-@export var fundo_azul_3: TextureRect
 @export var tamanho_vazio: Control
 @export var video_com_loop: VideoStream
 @export var botao_bau: TextureButton
 
 @export_group("Janelas Principais")
-@export var inspecao_peca_hbox: Control
-@export var inspecao_carta_hbox: Control
+@export var inspecao_peca_hbox: Control #Essa vai ser a base sempre ligada pós loot
+@export var inspecao_carta_panel: PanelContainer 
 
 @export_group("Inspeção da Peça")
 @export var peca_nome_label: Label         # ItemName_Label
 @export var peca_rank_label: Label         # PecaRank_Label
 #@export var peca_arte_rect: TextureRect    # PecaTexture_TextureRect
 @export var insp_peca_visual: PecaMenuUI
+@export var peca_rp_label: Label
+@export var forca_label: Label
 @export var peca_ap_label: Label           # PontosdeAcao_Label
 @export var peca_slots_count_label: Label  # ContagemSlots_Label
 @export var peca_slots_indicator: HBoxContainer # SlotsIndicator_HBoxContainer da peça
 @export var peca_equipped_grid: GridContainer   # EquippedCards_GridContainer
 
 @export_group("Inspeção da Carta")
-@export var carta_arte_rect: TextureRect   # PecaTexture_TextureRect (dentro da InspecaoCarta)
-@export var carta_nome_label: Label        # NomeCarta_Label
+@export var display_carta: AspectRatioContainer
+#@export var carta_arte_rect: TextureRect   # PecaTexture_TextureRect (dentro da InspecaoCarta)
+#@export var carta_nome_label: Label        # NomeCarta_Label
 @export var carta_descricao_label: Label   # DescricaoCarta_Label
 @export var carta_slots_indicator: HBoxContainer # SlotsIndicator_HBoxContainer (dentro da InspecaoCarta)
 
 @export_group("Ícones de Slot")
 @export var icone_slot_livre: Texture2D
 @export var icone_slot_ocupado: Texture2D
-@export var icone_slot_minimum_size:= Vector2(50, 50)
+@export var icone_slot_minimum_size:= Vector2(40, 40)
 
 @export_group("Opções e Ações")
 @export var container_opcoes: HBoxContainer # Opcoes_HBoxContainer
 @export var btn_menu: TextureButton # Botao Menu
 
-
 @export_group("Cenas")
 @export var cena_botao_peca: PackedScene
 @export var cena_carta_pequena: PackedScene
-@export var cena_carta_bem_pequena: PackedScene 
-
-@export_group("Visual dos Slots Vazios")
-## O valor de arredondamento de todos os cantos
-@export var raio_dos_cantos: int = 15
-## A cor de fundo do espaço vazio (com um pouco de transparência por padrão)
-@export var cor_do_slot: Color = Color(0.1, 0.1, 0.1, 0.3) 
-
-var estilo_slot_vazio: StyleBoxFlat
+@export var cena_carta_bem_pequena: PackedScene
+@export var cena_moldura_slot: PackedScene
+@export var tamanho_das_cartas:= Vector2(100, 100)
 
 
 func _ready() -> void:
-	fundo_azul_2.visible = false
-	fundo_azul_3.visible = false
 	inspecao_peca_hbox.visible = false
-	inspecao_carta_hbox.visible = false
+	inspecao_carta_panel.visible = false
 	tamanho_vazio.visible = true
 	botao_bau.visible = true
 	btn_menu.visible = false
 	container_opcoes.visible = false
 	btn_menu.pressed.connect(_on_btn_menu_pressed)
 	
-	_definir_style_box()
 	
 	if video_player:
 		video_player.finished.connect(_on_video_finished)
 	
-	# Opcional: Garante que as bordas arredondadas fiquem suaves
-#	estilo_slot_vazio.anti_aliasing = true
 
 # O MatchScene ou CupManager vai chamar essa função quando o torneio acabar
 func iniciar_tela_de_torneio(_copa_atual: Resource) -> void: # O desenrolar começa aqui
@@ -143,8 +132,6 @@ func animar_video_para_pequeno() -> void:
 func _on_animacao_video_concluida() -> void:
 	print("O vídeo terminou de encolher e chegou no lugar!")
 	
-	fundo_azul_2.visible = true
-	fundo_azul_3.visible = true
 	container_opcoes.visible = true
 	btn_menu.visible = true
 	_desenhar_vitrine()
@@ -278,11 +265,12 @@ func _desenhar_vitrine() -> void:
 
 # --- SISTEMA DE INSPEÇÃO ALTERNADA ---
 func _inspecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
-	inspecao_carta_hbox.visible = false
+	#inspecao_carta_hbox.visible = false
 	tamanho_vazio.visible = false
 	video_player.visible = false
 	inspecao_peca_hbox.visible = true
-#	_destacar_botao(_botao_clicado)
+	
+	var status = _get_status_calculado(peca)
 	
 	peca_nome_label.text = peca.nome
 	peca_rank_label.text = str(TeamPlayer.Rank.keys()[peca.rank])
@@ -292,59 +280,61 @@ func _inspecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
 #		insp_peca_visual.show()
 		insp_peca_visual.setup_peca(peca)
 	
-	peca_ap_label.text = "%d AP" % peca.PA
+	#peca_ap_label.text = "%d AP" % peca.PA
+	peca_ap_label.text = "Pontos de Ação   ·   %d AP" % [status.pa]
+	peca_rp_label.text = "RP: %d" % (status.pa + status.forca + peca.quantosSlotes)
+	forca_label.text = "Força   ·   lvl %d" % status.forca#[status.forca]
 	
-	# Limpa a janela de cartas equipadas
+	
+	
+# Limpa a janela de cartas equipadas
 	if peca_equipped_grid:
 		for child in peca_equipped_grid.get_children():
 			child.queue_free()
-
+	
 	# ====================================================================
-	# 1. CALCULA O TAMANHO BASE PRIMEIRO (Antes de criar qualquer coisa)
+	# 1. FILTRA AS CARTAS E CONTA OS SLOTS USADOS CORRETAMENTE
 	# ====================================================================
-	var tamanho_slot := Vector2(100, 100)
-	if cena_carta_bem_pequena:
-		var ghost = cena_carta_bem_pequena.instantiate()
-		if ghost is Control and ghost.custom_minimum_size.y > 0:
-			tamanho_slot = ghost.custom_minimum_size
-		ghost.queue_free()
-
-	# ====================================================================
-	# 2. CRIA AS CARTAS EQUIPADAS
-	# ====================================================================
+	var cartas_reais = []
 	var slots_usados = 0
 	for carta in peca.slotsUpgrates:
 		if carta != null:
-			slots_usados += 1
-			
-			if cena_carta_bem_pequena:
-				var btn_carta = cena_carta_bem_pequena.instantiate()
-				peca_equipped_grid.add_child(btn_carta)
-				
-				# Aplica o tamanho mágico e empurra pro topo!
-				btn_carta.custom_minimum_size = tamanho_slot
-				btn_carta.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-				
-				if btn_carta.has_method("setup_item"):
-					btn_carta.setup_item(carta)
-				if btn_carta is BaseButton:
-					btn_carta.disabled = true
-				btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			cartas_reais.append(carta)
+			slots_usados += carta.custoSlotes
 
 	# ====================================================================
-	# 3. CRIA OS PAINÉIS VAZIOS
+	# 2. DEFINE A REGRA FIXA DE 8 OU 10 MOLDURAS
 	# ====================================================================
-	var slots_livres = peca.quantosSlotes - slots_usados
-	for i in range(slots_livres):
-		var slot_vazio = Panel.new()
-		
-		# Aplica o MESMO tamanho mágico e empurra pro topo!
-		slot_vazio.custom_minimum_size = tamanho_slot
-		slot_vazio.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-		slot_vazio.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		
-		slot_vazio.add_theme_stylebox_override("panel", estilo_slot_vazio)
-		peca_equipped_grid.add_child(slot_vazio)
+	var total_slots = 8
+	if cartas_reais.size() > 8:
+		total_slots = 10
+
+	# ====================================================================
+	# 3. INSTANCIA AS MOLDURAS E AS CARTAS DENTRO DELAS
+	# ====================================================================
+	for i in range(total_slots):
+		if cena_moldura_slot:
+			var moldura = cena_moldura_slot.instantiate()
+			moldura.custom_minimum_size = tamanho_das_cartas
+			peca_equipped_grid.add_child(moldura)
+
+			# Se houver uma carta para este índice, ela entra como FILHA da moldura
+			if i < cartas_reais.size():
+				if cena_carta_pequena:
+					var btn_carta = cena_carta_pequena.instantiate()
+					
+					var container_interno = moldura.get_node_or_null("MarginContainer")
+					if container_interno:
+						container_interno.add_child(btn_carta)
+					else:
+						moldura.add_child(btn_carta)
+					
+					if btn_carta.has_method("setup_item"):
+						btn_carta.setup_item(cartas_reais[i])
+						
+					if btn_carta is BaseButton:
+						btn_carta.disabled = true
+					btn_carta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	# Atualiza o texto de contagem de slots (agora usando o valor real de slots_usados)
 	if peca_slots_count_label:
@@ -365,27 +355,12 @@ func _inspecionar_peca(peca: TeamPlayer, _botao_clicado: Control) -> void:
 
 
 func _inspecionar_carta(carta: CardResource, _botao_clicado: Control) -> void:
-	inspecao_peca_hbox.visible = false
-	tamanho_vazio.visible = false
-	video_player.visible = false
-	inspecao_carta_hbox.visible = true
+	inspecao_carta_panel.visible = true
 #	_destacar_botao(_botao_clicado)
-	
-	carta_nome_label.text = carta.nome
+	display_carta.setup(carta)
+
 	carta_descricao_label.text = carta.descricao
-#	if carta.arte:
-#		carta_arte_rect.texture = carta.arte
-		
-	# Desenha as bolinhas de custo da carta
-	if carta_slots_indicator:
-		for child in carta_slots_indicator.get_children():
-			child.queue_free()
-		for i in range(carta.custoSlotes):
-			var icone = TextureRect.new()
-			icone.texture = icone_slot_ocupado
-			icone.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			icone.custom_minimum_size = Vector2(30, 30)
-			carta_slots_indicator.add_child(icone)
+
 
 #func _destacar_botao(_botao_clicado: Control) -> void:
 	## Agora nós varremos as caixas wrapper
@@ -401,49 +376,13 @@ func _on_botao_bau_texture_button_button_up() -> void: #Iniciar recompensa
 	video_player.play()
 	botao_bau.visible = false
 
-func _definir_style_box():
-	
-		# 1. Configura o visual do slot uma única vez ao carregar a cena
-	estilo_slot_vazio = StyleBoxFlat.new()
-	estilo_slot_vazio.bg_color = cor_do_slot
-	
-	# 2. Aplica o raio exportado em todos os cantos
-	estilo_slot_vazio.corner_radius_top_left = raio_dos_cantos
-	estilo_slot_vazio.corner_radius_top_right = raio_dos_cantos
-	estilo_slot_vazio.corner_radius_bottom_left = raio_dos_cantos
-	estilo_slot_vazio.corner_radius_bottom_right = raio_dos_cantos
-	
-	# 3. Define a cor da sombra (ex: Preto com 50% de transparência)
-	estilo_slot_vazio.shadow_color = Color(0, 0, 0, 0.1)
-	
-	# 4. Define o tamanho/desfoque da sombra (quanto maior, mais espalhada)
-	estilo_slot_vazio.shadow_size = 4 
-	
-	# 5. Projeta a sombra nos eixos X e Y usando um Vector2
-	# Valores positivos empurram para a direita (X) e para baixo (Y)
-	estilo_slot_vazio.shadow_offset = Vector2(2, 2)
-	
-	# --- CONFIGURAÇÃO DA BORDA ---
-	
-	# 1. Define a espessura da borda em pixels para cada lado
-	estilo_slot_vazio.border_width_left = 6
-	estilo_slot_vazio.border_width_right =6
-	estilo_slot_vazio.border_width_top = 6
-	estilo_slot_vazio.border_width_bottom = 6
-
-	# 2. Define a cor da borda (ex: um cinza bem claro ou branco com transparência)
-	estilo_slot_vazio.border_color = Color(0.1, 0.1, 0.1, 0.1) 
-
-	# 3. Ativa o "blend"! 
-	# Isso faz com que a borda não seja uma linha dura, mas crie um degradê suave para dentro.
-	estilo_slot_vazio.border_blend = true
 
 func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
 	var f_total = peca.forca if "forca" in peca else 1
 	var pa_total = peca.PA if "PA" in peca else 1
 	
 	for carta in peca.slotsUpgrates:
-		if carta != null:
+		if carta != null and carta.is_passiva:
 			match carta.tipo_efeito:
 				CardResource.TipoEfeito.FORCA:
 					f_total += carta.magnitude
@@ -546,16 +485,24 @@ func _on_button_pressed() -> void:
 		video_player.visible = false
 		video_player.stop() # Garante que o áudio/vídeo não continue tocando em segundo plano
 		
-	# Ativa os fundos e o container das opções [cite: 4]
-	fundo_azul_2.visible = true
-	fundo_azul_3.visible = true
+	# Ativa os fundos e o container das opções
 	container_opcoes.visible = true
 	btn_menu.visible = true
 	
 	# Oculta elementos que não devem estar visíveis no momento do sorteio
 	tamanho_vazio.visible = false
 	inspecao_peca_hbox.visible = false
-	inspecao_carta_hbox.visible = false
+	#inspecao_carta_panel.visible = false
 	
 	# 4. Chama a função de desenho para instanciar os botões na hora
 	_desenhar_vitrine()
+
+
+func _on_control_gui_input(event: InputEvent) -> void:
+	var clicou_com_mouse = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed
+	if clicou_com_mouse:
+		inspecao_carta_panel.visible = false
+
+
+func _on_voltar_carta_button_pressed() -> void:
+	inspecao_carta_panel.visible = false

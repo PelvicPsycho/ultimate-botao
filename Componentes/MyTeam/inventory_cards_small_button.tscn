@@ -24,7 +24,7 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 4
 
-[node name="CartaUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "imagem_icone", "quantidade_label", "textura_raridade", "borda_panel")]
+[node name="CartaUI_Button" type="Button" unique_id=445776678 node_paths=PackedStringArray("nome_label", "imagem_icone", "quantidade_label", "textura_raridade", "borda_panel", "textura_destaque")]
 offset_right = 120.0
 offset_bottom = 120.0
 size_flags_horizontal = 3
@@ -40,6 +40,7 @@ imagem_icone = NodePath("Control/MarginContainer2/VBoxContainer/ImagePlaceHolder
 quantidade_label = NodePath("Control/Quantidade_Label")
 textura_raridade = NodePath("Control/Raridade_TextureRect")
 borda_panel = NodePath("Control/WhiteBorder_Panel")
+textura_destaque = NodePath("Control/TextureRect")
 
 [node name="Control" type="Control" parent="." unique_id=1118418332]
 layout_mode = 1

@@ -248,7 +248,7 @@ func _animar_paineis_posse(activeTeam: Team) -> void:
 		tween.tween_property(shotsGroupHome, "modulate", Color(1.0, 1.0, 1.0, 0.5), duracao_animacao_posse)
 
 func _atualizar_label_lance(isHome: float, time: float) -> void:
-	print("timer = ", time)
+#	print("timer = ", time)
 	var text = format_time(time)
 	
 	if isHome:
