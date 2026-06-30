@@ -8,12 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://b3cpd23vgrn51" path="res://Componentes/TabButtons/menu_torneio.tscn" id="4_ggyg0"]
 [ext_resource type="PackedScene" uid="uid://xk1olpyb3y2w" path="res://Componentes/TabButtons/configuracoes_control.tscn" id="5_5ua05"]
 [ext_resource type="PackedScene" uid="uid://b3shgpcl0crs7" path="res://Componentes/TabButtons/PvP Team Selection/TeamSelection.tscn" id="6_oet0a"]
-[ext_resource type="Texture2D" uid="uid://bxfu5nodorh87" path="res://Recursos/2D_Art/TabMenu/botao200.png" id="7_q76v0"]
-[ext_resource type="Texture2D" uid="uid://deu3s0e8xohwk" path="res://Recursos/2D_Art/TabMenu/trofeu200.png" id="8_5ua05"]
-[ext_resource type="Texture2D" uid="uid://dbungef2si10m" path="res://Recursos/2D_Art/TabMenu/engrenagem200.png" id="9_3gipf"]
+[ext_resource type="Texture2D" uid="uid://cr4ndjrhw6h3w" path="res://Recursos/2D_Art/TabMenu/Torneio.png" id="9_ca6rd"]
 [ext_resource type="FontFile" uid="uid://b8f7dj4qbp66f" path="res://Recursos/Fontes/Baloo2-Bold.ttf" id="10_3gipf"]
 [ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="10_wwbwe"]
-[ext_resource type="Script" uid="uid://c1ifdfcclridr" path="res://Componentes/MainMenu/exit_button.gd" id="14_2xy54"]
+[ext_resource type="Texture2D" uid="uid://c5agxkgeb6kit" path="res://Recursos/2D_Art/TabMenu/Elenco.png" id="11_4koca"]
+[ext_resource type="Texture2D" uid="uid://cnij04ooxd5vw" path="res://Recursos/2D_Art/TabMenu/Configuracoes.png" id="13_kj8tv"]
+[ext_resource type="Script" path="res://Componentes/MainMenu/exit_button.gd" id="14_2xy54"]
 [ext_resource type="Texture2D" uid="uid://cbmanr35xlgww" path="res://Recursos/2D_Art/MyTeam/Group 57_NoShadow.png" id="15_4koca"]
 [ext_resource type="Texture2D" uid="uid://sb143gchnnfr" path="res://Recursos/2D_Art/MyTeam/Group 57.png" id="15_ca6rd"]
 [ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="15_m2tgg"]
@@ -89,34 +89,6 @@ theme_override_constants/margin_right = 100
 [node name="BottomNav_HBoxContainer" type="HBoxContainer" parent="BottomNav_PanelContainer/MarginContainer" unique_id=1031078305]
 layout_mode = 2
 
-[node name="MyTeam_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1387735422]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-texture_normal = ExtResource("2_lhvel")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="TextureRect" type="TextureRect" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/MyTeam_TextureButton" unique_id=469880980]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_q76v0")
-expand_mode = 1
-
-[node name="AnimationHover_Node" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/MyTeam_TextureButton" unique_id=1375273779 instance=ExtResource("10_wwbwe")]
-
 [node name="Torneio_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1874214184]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -140,10 +112,42 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_5ua05")
+texture = ExtResource("9_ca6rd")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="AnimationHover_Node" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/Torneio_TextureButton" unique_id=76116055 instance=ExtResource("10_wwbwe")]
+escala_hover = Vector2(1.2, 1.2)
+
+[node name="MyTeam_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1387735422]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("2_lhvel")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/MyTeam_TextureButton" unique_id=469880980]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_4koca")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimationHover_Node" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/MyTeam_TextureButton" unique_id=1375273779 instance=ExtResource("10_wwbwe")]
+escala_hover = Vector2(1.2, 1.2)
 
 [node name="Selection_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=904572006]
 custom_minimum_size = Vector2(80, 80)
@@ -167,6 +171,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AnimationHover_Node" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/Selection_TextureButton" unique_id=491508051 instance=ExtResource("10_wwbwe")]
+escala_hover = Vector2(1.2, 1.2)
 
 [node name="Configurações_TextureButton" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1360778727]
 custom_minimum_size = Vector2(80, 80)
@@ -191,10 +196,12 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("9_3gipf")
+texture = ExtResource("13_kj8tv")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="AnimationHover_Node" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer/Configurações_TextureButton" unique_id=90598064 instance=ExtResource("10_wwbwe")]
+escala_hover = Vector2(1.2, 1.2)
 
 [node name="TextureButton5" type="TextureButton" parent="BottomNav_PanelContainer/MarginContainer/BottomNav_HBoxContainer" unique_id=1004607767]
 visible = false

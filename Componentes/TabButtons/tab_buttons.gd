@@ -12,7 +12,7 @@ extends CanvasLayer
 @export var tela_selection: Control
 
 var tela_atual: Control = null
-var indice_atual: int = 1 # 1 é o índice inicial (botão Torneios)
+var indice_atual: int = 0 # 0 é o índice inicial (botão Torneios)
 
 # Configurações de "Gamefeel" dos Botões
 const REBOUND_TIME = 0.15
@@ -38,7 +38,7 @@ func _ready():
 	if tela_selection: tela_selection.hide()
 			
 	# Inicia já com a aba do meio (Torneios) aberta
-	var botao_inicial = bottom_nav.get_child(1) 
+	var botao_inicial = bottom_nav.get_child(indice_atual) 
 	if botao_inicial is TextureButton:
 		if tela_torneios:
 			tela_torneios.show()
@@ -54,11 +54,9 @@ func _on_button_up(button: TextureButton):
 		if btn is TextureButton:
 			btn.pivot_offset = btn.size / 2.0
 			
-			var animador = null
+			var animador: AnimadorHover = null
 			for filho in btn.get_children():
-				# Se você tiver uma classe definida globalmente, pode usar "is AnimadorHover"
-				# Usando string para evitar erros dependendo de como você declarou.
-				if filho.name == "AnimadorHover" or filho.has_method("esta_selecionado"):
+				if filho is AnimadorHover:
 					animador = filho
 					break
 			# ----------------------------------
