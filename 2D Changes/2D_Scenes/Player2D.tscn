@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://dujti6r3vl6xq" path="res://Recursos/2D_Art/numeros/Ativo 9.png" id="12_v8rn7"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="15_fl8l5"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="15_gwudw"]
-[ext_resource type="Shader" path="res://2D Changes/Shader_2d/gravitational_distortion.gdshader" id="17_pol8b"]
+[ext_resource type="Shader" uid="uid://w0c32ju552la" path="res://2D Changes/Shader_2d/gravitational_distortion.gdshader" id="17_pol8b"]
 [ext_resource type="PackedScene" uid="uid://cjab8n13u8gkw" path="res://2D Changes/2D_Scenes/MenuRadial.tscn" id="19_o5120"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pol8b"]
@@ -206,9 +206,9 @@ velocity_line2D = NodePath("Line2D_Velocity")
 
 [node name="SpriteNumero" type="Sprite2D" parent="." unique_id=1347167577]
 z_index = 3
-position = Vector2(0, -2)
-scale = Vector2(0.10655741, 0.14655589)
-texture = ExtResource("12_v8rn7")
+position = Vector2(0, -4.485)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("4_ugxyb")
 
 [node name="LabelPA" type="Label" parent="." unique_id=204624804]
 visible = false
