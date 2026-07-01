@@ -432,38 +432,29 @@ func change_gradient_background_TextureRect_Colors() -> void:
 	gradient_background_TextureRect.texture = gradient_texture
 
 func selectFirstTurn() -> void:
-	# 1. Trava de segurança contra execução dupla
+	
 	if back_ground_can_animate: return 
 	
-	# 2. Sorteio do turno inicial
 	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
 	back_ground_can_animate = true
 	
 	print("\n[DEBUG MATCH] --- SORTEIO INICIAL ---")
 	print("[DEBUG MATCH] Vencedor: ", "HOME" if currentTurn == turn.HOME else "AWAY")
 	
-	# 3. Reset de física e estados globais
 	for ball in allBalls:
 		ball.lastTouch = null
 		ball.firstTouch = null
 	physics_controller.reset_last_touch_of_all_pieces()
 	
-	# 4. Configuração da IA para o time correto
 	if IA_Active and IA_Contr != null:
 		IA_Contr.SetCurrentTeamSide(currentTurn)
 
-	# 5. DISTRIBUIÇÃO DE CAMISAS E ATUALIZAÇÃO VISUAL
-	# Chama a lógica centralizada para os números 3, 4, 8, 9, 10
 	validar_e_atribuir_numeros_unicos()
-	
-	# 6. ATUALIZAÇÃO DA UI (Sincronização)
+
 	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
-	
-	# Dispara animações de progresso e gradiente de fundo
 	%MatchUI.play_progressbar_Animations(currentTurn == turn.HOME)
 	call_gradient_background_TextureRect_animation()
 	
-	# Atualiza o indicador de turno e cores na interface
 	if %MatchUI.has_method("colorir_turno"):
 		%MatchUI.colorir_turno(active_team, turnCounter)
 func changeTurn() -> void:
@@ -509,7 +500,7 @@ func changeTurn() -> void:
 func validar_e_atribuir_numeros_unicos() -> void:
 	var todas_as_pecas = get_tree().get_nodes_in_group("Players")
 	
-	# SEUS NÚMEROS DISPONÍVEIS (Exatamente os 5 que você tem arte)
+	
 	var pool_disponivel = [3, 4, 8, 9, 10] 
 	
 	var usados_home = []
@@ -521,9 +512,9 @@ func validar_e_atribuir_numeros_unicos() -> void:
 		var lista_usados = usados_home if piece.team == homeTeam else usados_away
 		var num_atual = piece.playerInfo_atual.num_camisa
 		
-		# Se o número já foi usado por um colega OU não está no seu pool de 5 fotos
+		
 		if num_atual in lista_usados or not num_atual in pool_disponivel:
-			# Procura o primeiro número do seu pool que ainda está livre para este time
+			
 			var atribuido = false
 			for n in pool_disponivel:
 				if not n in lista_usados:
@@ -532,7 +523,7 @@ func validar_e_atribuir_numeros_unicos() -> void:
 					atribuido = true
 					break
 			
-			# Caso extremo: se tiver mais de 5 jogadores, ele repete o primeiro disponível
+			
 			if not atribuido:
 				num_atual = pool_disponivel[0]
 				piece.playerInfo_atual.num_camisa = num_atual

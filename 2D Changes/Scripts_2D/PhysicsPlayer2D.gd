@@ -383,6 +383,9 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 		# Evento - clique do mouse esquerdo
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
+				if AI_Active:
+					if teamSide == TeamSide.AWAY:
+						return
 				print("Peça clicada! level_force: ", playerInfo_atual.level_force)
 
 				clickedPiece.emit(self)
