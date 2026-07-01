@@ -24,6 +24,8 @@ extends Control
 @export var tipo_transicao: Tween.TransitionType = Tween.TRANS_QUAD
 @export var tipo_suavizacao: Tween.EaseType = Tween.EASE_OUT
 
+@export var bgm: AudioStream
+
 var cartas: Array[Control] = []
 var indice_atual = 0
 
@@ -75,7 +77,7 @@ func _ready():
 	
 	# Reage ao redimensionamento da janela para reposicionar os cards
 	area_carrossel.resized.connect(_on_area_carrossel_resized)
-
+	SoundMaster.play_bgm(bgm,"loop")
 
 func _carregar_cups_da_pasta() -> Array[Cup]:
 	var lista_de_cups: Array[Cup] = []

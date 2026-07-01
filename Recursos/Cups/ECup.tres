@@ -2,13 +2,26 @@
 
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="1_m4jb6"]
 [ext_resource type="Script" uid="uid://fkgtqku055qw" path="res://Recursos/Res_Cup.gd" id="2_fexla"]
-[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_tpcgr"]
-[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="4_8k0jk"]
-[ext_resource type="Resource" uid="uid://b0p46wodrhjlf" path="res://Recursos/Teams/ThunderDogs/ThunderDogs.tres" id="5_v7y8g"]
+[ext_resource type="Resource" uid="uid://d0jvk5rpjbadu" path="res://Recursos/Teams/D Teams/Aussie Glory/AussieGlory.tres" id="2_gpfnl"]
+[ext_resource type="Resource" uid="uid://cuhlfes8ftq0j" path="res://Recursos/Teams/D Teams/Chiefs BC/ChiefsBC.tres" id="3_ljtux"]
+[ext_resource type="Resource" uid="uid://b0rme3cf4t8px" path="res://Recursos/Teams/D Teams/Harbour Pirates/HarbourPirates.tres" id="4_t7mf6"]
+[ext_resource type="Resource" uid="uid://b3a1yabb4eiul" path="res://Recursos/Teams/D Teams/Lone Star FC/LoneStarFC.tres" id="5_250lr"]
+[ext_resource type="Resource" uid="uid://deh85fd4b1pfv" path="res://Recursos/Teams/D Teams/Newton Athlectic/Newton Athletic.tres" id="6_5ck15"]
+[ext_resource type="Resource" uid="uid://cpih6srhylpkr" path="res://Recursos/Teams/D Teams/Norde Utd/NordeUtd.tres" id="7_rd3l7"]
+[ext_resource type="Resource" uid="uid://bbxxgoutw630t" path="res://Recursos/Teams/D Teams/Retro Utd/RetroUtd.tres" id="8_hu1om"]
+[ext_resource type="Resource" uid="uid://dlmfd023emsgn" path="res://Recursos/Teams/D Teams/Rogue Rovers/Rogue_Rovers.tres" id="9_pfask"]
+[ext_resource type="Resource" uid="uid://b21n8ejxsvs3x" path="res://Recursos/Teams/D Teams/Sub BC/SubBC.tres" id="10_exx02"]
+[ext_resource type="Resource" uid="uid://ch54ysadukp5v" path="res://Recursos/Teams/D Teams/Blackwood Albion/Blackwood_Albion.tres" id="11_koodm"]
+[ext_resource type="Resource" uid="uid://gdudro7sjj26" path="res://Recursos/Teams/E Teams/Guarani Athletic/GuaraniAthletic.tres" id="13_gy7x6"]
+[ext_resource type="Resource" uid="uid://bnsxppt1xfjxq" path="res://Recursos/Teams/E Teams/Immortal Musketeers/ImmortalMusketeers.tres" id="14_lt6dx"]
+[ext_resource type="Resource" uid="uid://qe54uajk0ce6" path="res://Recursos/Teams/E Teams/Lacadores BC/LacadoresBC.tres" id="15_1r4rq"]
+[ext_resource type="Resource" uid="uid://c8x21b3syvdla" path="res://Recursos/Teams/E Teams/Red Saci/RedSaci.tres" id="16_ix2nn"]
+[ext_resource type="Resource" uid="uid://bk86qtc11pbpu" path="res://Recursos/Teams/E Teams/Regiment Athletic/RegimentAthletic.tres" id="17_uhj25"]
+[ext_resource type="Resource" uid="uid://dhjsldxfdifis" path="res://Recursos/Teams/E Teams/Santa Cruz Utd/SantaCruzUtd.tres" id="18_7on86"]
 
 [resource]
 script = ExtResource("2_fexla")
 cupName = "CITADINO_CUP"
 cupRank = 5
-teamPool = Array[ExtResource("1_m4jb6")]([ExtResource("5_v7y8g"), ExtResource("3_tpcgr"), ExtResource("4_8k0jk")])
-nextTeamPool = Array[ExtResource("1_m4jb6")]([ExtResource("5_v7y8g"), ExtResource("3_tpcgr"), ExtResource("4_8k0jk")])
+teamPool = Array[ExtResource("1_m4jb6")]([ExtResource("13_gy7x6"), ExtResource("14_lt6dx"), ExtResource("15_1r4rq"), ExtResource("16_ix2nn"), ExtResource("17_uhj25"), ExtResource("18_7on86")])
+nextTeamPool = Array[ExtResource("1_m4jb6")]([ExtResource("2_gpfnl"), ExtResource("3_ljtux"), ExtResource("4_t7mf6"), ExtResource("5_250lr"), ExtResource("6_5ck15"), ExtResource("7_rd3l7"), ExtResource("8_hu1om"), ExtResource("9_pfask"), ExtResource("10_exx02"), ExtResource("11_koodm")])

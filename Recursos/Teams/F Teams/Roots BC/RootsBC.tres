@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://boir6mmtf0v0m"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_0861v"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_islvi"]
+[ext_resource type="Resource" uid="uid://dgk7yhwuxlx5s" path="res://Recursos/Teams/F Teams/Roots BC/Emmo.tres" id="2_n6qy2"]
+[ext_resource type="Resource" uid="uid://l0hucbmyr6yw" path="res://Recursos/Teams/F Teams/Roots BC/Mi.tres" id="3_h1mdb"]
+[ext_resource type="Resource" uid="uid://c7woebt1mbnse" path="res://Recursos/Teams/F Teams/Roots BC/Sabin.tres" id="4_je48d"]
+[ext_resource type="Resource" uid="uid://bh518xhcq4yil" path="res://Recursos/Teams/F Teams/Roots BC/Thomaz.tres" id="5_46jr6"]
+[ext_resource type="Resource" uid="uid://cfnmqc6psixpt" path="res://Recursos/Teams/F Teams/Roots BC/Lean.tres" id="6_uw0cj"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="7_doxce"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="8_gmycd"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="9_2x5n8"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="10_3ajm3"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="11_fuqiq"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="12_8lgdo"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="13_1vihp"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="14_fduko"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="15_ds5u5"]
+
+[resource]
+script = ExtResource("7_doxce")
+name = "Roots BC"
+id = 2
+cor = Color(0.61960787, 0.7607843, 0.40392157, 1)
+mainSquad = Array[ExtResource("1_0861v")]([ExtResource("2_n6qy2"), ExtResource("3_h1mdb"), ExtResource("4_je48d"), ExtResource("5_46jr6"), ExtResource("6_uw0cj")])
+overlay_escolhido = 1
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

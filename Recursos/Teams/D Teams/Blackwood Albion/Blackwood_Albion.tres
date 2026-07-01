@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://ch54ysadukp5v"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_rk24c"]
+[ext_resource type="Resource" uid="uid://cjjfr6au56pml" path="res://Recursos/Teams/D Teams/Blackwood Albion/Camila.tres" id="2_rk24c"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_uqxb8"]
+[ext_resource type="Resource" uid="uid://djc5lwu2cy4hx" path="res://Recursos/Teams/D Teams/Blackwood Albion/Henrich.tres" id="3_xq6ux"]
+[ext_resource type="Resource" uid="uid://js6bljcnnw1i" path="res://Recursos/Teams/D Teams/Blackwood Albion/Henry.tres" id="4_00bdp"]
+[ext_resource type="Resource" uid="uid://bgn2dq0r1b5pq" path="res://Recursos/Teams/D Teams/Blackwood Albion/Sherlie.tres" id="5_07e7i"]
+[ext_resource type="Resource" uid="uid://c1r3j5jnqslxc" path="res://Recursos/Teams/D Teams/Blackwood Albion/John.tres" id="6_gxt8w"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="7_pc6w1"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="8_bu8m6"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="9_l0s24"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="10_mrs7a"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="11_jylwk"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="12_comuv"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="13_nghod"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="14_awgse"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="15_7ujtm"]
+
+[resource]
+script = ExtResource("7_pc6w1")
+name = "Blackwood Albion"
+cor = Color(0.40392157, 0.6901961, 0.75686276, 1)
+mainSquad = Array[ExtResource("1_rk24c")]([ExtResource("2_rk24c"), ExtResource("3_xq6ux"), ExtResource("4_00bdp"), ExtResource("5_07e7i"), ExtResource("6_gxt8w")])
+overlay_escolhido = 2

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://b486apwpidrw2"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_s82at"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="2_s82at"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_b6usm"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_3ki5u"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_jbwq7"]
+
+[resource]
+script = ExtResource("4_3ki5u")
+id_unico = &"ali_regiment_athletic"
+nome = "Ali"
+num_camisa = 9
+slotsUpgrates = Array[ExtResource("1_s82at")]([ExtResource("2_s82at")])
+mao_cartas = Array[ExtResource("1_s82at")]([ExtResource("2_s82at")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

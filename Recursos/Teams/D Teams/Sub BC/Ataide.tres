@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cim5q25d4it7s"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_7nsno"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_5wmxq"]
+[ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="2_s27b6"]
+[ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="3_mepib"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_s27b6"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_mepib"]
+
+[resource]
+script = ExtResource("3_s27b6")
+id_unico = &"ataide_sud_bc"
+nome = "Ataide"
+num_camisa = 3
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_7nsno")]([ExtResource("2_s27b6"), ExtResource("3_mepib")])
+mao_cartas = Array[ExtResource("1_7nsno")]([ExtResource("2_s27b6"), ExtResource("3_mepib")])
+strenghtLevel = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

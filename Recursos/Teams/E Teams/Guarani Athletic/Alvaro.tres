@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://b2vv7fj863cf2"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_m1y6j"]
+[ext_resource type="Resource" uid="uid://cnyerld68fmwt" path="res://Componentes/Cartas/CardResorce/Congelamento.tres" id="2_m1y6j"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_nu5q6"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_gjjru"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_vqkch"]
+
+[resource]
+script = ExtResource("4_gjjru")
+id_unico = &"alvaro_guarany_athletic"
+nome = "Alvaro"
+num_camisa = 4
+slotsUpgrates = Array[ExtResource("1_m1y6j")]([ExtResource("2_m1y6j")])
+mao_cartas = Array[ExtResource("1_m1y6j")]([ExtResource("2_m1y6j")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://chvsew25if6vh"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_1ntaq"]
+[ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="2_1ntaq"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_8ffoh"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_ujgg4"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_hc5kf"]
+
+[resource]
+script = ExtResource("4_ujgg4")
+id_unico = &"amos_norde_utd"
+nome = "Amos"
+num_camisa = 9
+quantosSlotes = 1
+slotsUpgrates = Array[ExtResource("1_1ntaq")]([ExtResource("2_1ntaq")])
+mao_cartas = Array[ExtResource("1_1ntaq")]([ExtResource("2_1ntaq")])
+strenghtLevel = 2
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

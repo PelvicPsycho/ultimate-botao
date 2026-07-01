@@ -25,7 +25,7 @@ var time: Team
 @export_group("Habilidades")
 @export_subgroup("Slots")
 var _quantosSlotes: int = 0
-@export var quantosSlotes: int:
+@export_range(1,10,1) var quantosSlotes: int:
 	set(value):
 		_quantosSlotes = max(value, 0)
 		slotsUpgrates.resize(_quantosSlotes)
@@ -43,11 +43,12 @@ var poder_congelar_turnos: int = 0
 @export var level_force: int # nivel de força da peça (0 a 10)
 @export var level_force_weak: int = 3  # Abaixo deste valor = FRACO
 @export var level_force_strong: int = 7  # Acima deste valor = FORTE
+@export_range(1,4,1) var strenghtLevel: int = 1
 var bonus_passivos: Dictionary = {}
 
 @export_subgroup("PA e outros")
 var _PA: int = 0
-@export var PA: int: #Action Points em ptbr
+@export_range(1,6,1) var PA: int: #Action Points em ptbr
 	set(value):
 		_PA = value
 		estimateRank()
@@ -110,6 +111,20 @@ func recalcular_status() -> void:
 		if card != null:
 			bonus_geral += card.magnitude 
 
+func setMaxForceByLvl():
+	var defaultVal = 800
+	match strenghtLevel:
+		1:
+			defaultVal += 0
+		2: 
+			defaultVal += 200
+		3:
+			defaultVal += 500
+		4:
+			defaultVal += 700
+	basic_max_force = defaultVal
+	current_max_force = defaultVal
+	
 func resetar_status(base_info: TeamPlayer) -> void:
 	self.level_force = base_info.level_force
 	

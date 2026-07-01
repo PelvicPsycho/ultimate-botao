@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://nyvklqcbuic8"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_oogrj"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="2_oogrj"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="3_v3cse"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_e5a8t"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="5_mu2d5"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_gidas"]
+
+[resource]
+script = ExtResource("5_mu2d5")
+id_unico = &"athos_sud_bc"
+nome = "Athos"
+num_camisa = 4
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_oogrj")]([ExtResource("2_oogrj"), ExtResource("3_v3cse")])
+mao_cartas = Array[ExtResource("1_oogrj")]([ExtResource("2_oogrj"), ExtResource("3_v3cse")])
+PA = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

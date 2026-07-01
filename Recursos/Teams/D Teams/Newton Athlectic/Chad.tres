@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bw2tkayhu6y5d"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_j13rx"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_o87ko"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="2_pks70"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_bnynj"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_acmfq"]
+
+[resource]
+script = ExtResource("2_o87ko")
+id_unico = &"chad_newton_athletic"
+nome = "Chad"
+num_camisa = 10
+slotsUpgrates = Array[ExtResource("1_j13rx")]([ExtResource("2_pks70")])
+mao_cartas = Array[ExtResource("1_j13rx")]([ExtResource("2_pks70")])
+strenghtLevel = 2
+PA = 3

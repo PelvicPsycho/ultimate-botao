@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://jpuml1nyqblk"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_r0had"]
+[ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="2_82v35"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_j6kx3"]
+[ext_resource type="Resource" uid="uid://cnyerld68fmwt" path="res://Componentes/Cartas/CardResorce/Congelamento.tres" id="3_m6und"]
+[ext_resource type="Resource" uid="uid://cqbnt1i0kov4g" path="res://Componentes/Cartas/CardResorce/CartaTrocaDeLugar.tres" id="4_kg0vq"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_x3sch"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="7_k7cqc"]
+
+[resource]
+script = ExtResource("2_j6kx3")
+id_unico = &"rique_rogue_rovers"
+nome = "Rique"
+num_camisa = 10
+quantosSlotes = 3
+slotsUpgrates = Array[ExtResource("1_r0had")]([ExtResource("2_82v35"), ExtResource("3_m6und"), ExtResource("4_kg0vq")])
+mao_cartas = Array[ExtResource("1_r0had")]([ExtResource("2_82v35"), ExtResource("3_m6und"), ExtResource("4_kg0vq")])
+strenghtLevel = 2

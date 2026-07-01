@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cj12khjv4qi74"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_dbcpc"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_muptw"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_rahs8"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_5o485"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="4_63dsu"]
+
+[resource]
+script = ExtResource("2_muptw")
+id_unico = &"scoorter_aura_strikers"
+nome = "Scooter"
+num_camisa = 3
+quantosSlotes = 1
+slotsUpgrates = Array[ExtResource("1_dbcpc")]([ExtResource("4_63dsu")])
+mao_cartas = Array[ExtResource("1_dbcpc")]([ExtResource("4_63dsu")])
+PA = 1

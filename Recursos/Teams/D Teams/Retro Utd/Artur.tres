@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bi0i23fcyg25a"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_rpayf"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="2_vr6nc"]
+[ext_resource type="Resource" uid="uid://bq1qsd3ojqnsw" path="res://Componentes/Cartas/CardResorce/CartaEncolhedor.tres" id="3_7l5jp"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_5etl1"]
+[ext_resource type="Resource" uid="uid://cq1j88bdgrf6d" path="res://Componentes/Cartas/CardResorce/CartaBolaLeve.tres" id="4_oby7i"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="5_oby7i"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_ax8gi"]
+
+[resource]
+script = ExtResource("5_oby7i")
+id_unico = &"artur_retro_utd"
+nome = "Artur"
+num_camisa = 4
+quantosSlotes = 3
+slotsUpgrates = Array[ExtResource("1_rpayf")]([ExtResource("2_vr6nc"), ExtResource("3_7l5jp"), ExtResource("4_oby7i")])
+mao_cartas = Array[ExtResource("1_rpayf")]([ExtResource("2_vr6nc"), ExtResource("3_7l5jp"), ExtResource("4_oby7i")])
+strenghtLevel = 2
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

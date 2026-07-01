@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://d0jvk5rpjbadu"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_hu6qp"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_k7vet"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_w5wva"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_d6v00"]
+[ext_resource type="Resource" uid="uid://cd0euu81o47x2" path="res://Recursos/Teams/D Teams/Aussie Glory/Ariel.tres" id="3_wquhl"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_ks08j"]
+[ext_resource type="Resource" uid="uid://bpvrr31xn0cyf" path="res://Recursos/Teams/D Teams/Aussie Glory/Arlindo.tres" id="4_ldevm"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_4ijg0"]
+[ext_resource type="Resource" uid="uid://b1xpowqysp0jc" path="res://Recursos/Teams/D Teams/Aussie Glory/Armando.tres" id="5_ht6xw"]
+[ext_resource type="Resource" uid="uid://csapcunf7vgke" path="res://Recursos/Teams/D Teams/Aussie Glory/Arnaldo.tres" id="6_ta3eu"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="6_yqua1"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="7_8ka1y"]
+[ext_resource type="Resource" uid="uid://156ukjryqcre" path="res://Recursos/Teams/D Teams/Aussie Glory/Aron.tres" id="7_uh5iu"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="8_bicdo"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="9_nwl4m"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="10_romgc"]
+
+[resource]
+script = ExtResource("2_k7vet")
+name = "Aussie Glory"
+id = 17
+ranque = 2
+cor = Color(0.40392157, 0.6901961, 0.75686276, 1)
+mainSquad = Array[ExtResource("1_hu6qp")]([ExtResource("3_wquhl"), ExtResource("4_ldevm"), ExtResource("5_ht6xw"), ExtResource("6_ta3eu"), ExtResource("7_uh5iu")])
+overlay_escolhido = 1
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

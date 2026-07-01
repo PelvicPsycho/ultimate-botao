@@ -2,14 +2,24 @@
 
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="1_21wrq"]
 [ext_resource type="Script" uid="uid://fkgtqku055qw" path="res://Recursos/Res_Cup.gd" id="2_crbkn"]
-[ext_resource type="Resource" uid="uid://b0p46wodrhjlf" path="res://Recursos/Teams/ThunderDogs/ThunderDogs.tres" id="2_gaybe"]
-[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_roeym"]
-[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="4_3onoc"]
+[ext_resource type="Resource" uid="uid://bww4p6sixy5ye" path="res://Recursos/Teams/B Teams/Emerald City/EmeraldCity.tres" id="3_ybd3j"]
+[ext_resource type="Resource" uid="uid://bm2jt31axg8mk" path="res://Recursos/Teams/B Teams/Galaxy Explorers/GalaxyExplorers.tres" id="4_jirmc"]
+[ext_resource type="Resource" uid="uid://bb5hqa7axje36" path="res://Recursos/Teams/B Teams/Ironclad Athletic/IroncladAthletic.tres" id="5_n3ya1"]
+[ext_resource type="Resource" uid="uid://4dsvw8hpnnlf" path="res://Recursos/Teams/B Teams/Mystic Dragons/MysticDragons.tres" id="6_gijsx"]
+[ext_resource type="Resource" uid="uid://u2slftbjkrm7" path="res://Recursos/Teams/B Teams/Neon Tigers/NeonTigers.tres" id="7_nnqam"]
+[ext_resource type="Resource" uid="uid://cpj6y0lirenac" path="res://Recursos/Teams/B Teams/Oceanic United/OceanicUnited.tres" id="8_1cv2j"]
+[ext_resource type="Resource" uid="uid://cd85ctrxmykh3" path="res://Recursos/Teams/B Teams/Phantom Rovers/PhantomRovers.tres" id="9_djllx"]
+[ext_resource type="Resource" uid="uid://cvlll4fpun2py" path="res://Recursos/Teams/B Teams/Quantum Strikers/QuantumStrikers.tres" id="10_kujq8"]
+[ext_resource type="Resource" uid="uid://dpdq2ihfknwmm" path="res://Recursos/Teams/B Teams/Royal Knights BC/RoyalKnightsBC.tres" id="11_x63rl"]
+[ext_resource type="Resource" uid="uid://bcmag8gwgubq1" path="res://Recursos/Teams/B Teams/Sapphire FC/SapphireFC.tres" id="12_loynq"]
+[ext_resource type="Resource" uid="uid://cavrcfdj045e7" path="res://Recursos/Teams/B Teams/Silver Wolves/SilverWolves.tres" id="13_jnum7"]
+[ext_resource type="Resource" uid="uid://ce0mdwy41jrmb" path="res://Recursos/Teams/B Teams/Solar Flares/SolarFlares.tres" id="14_w60dk"]
+[ext_resource type="Resource" uid="uid://c4u5p7tu8h8l0" path="res://Recursos/Teams/B Teams/Steel City Wanderers/SteelCityWanderers.tres" id="15_10cyk"]
+[ext_resource type="Resource" uid="uid://1l8a4xdvcd2d" path="res://Recursos/Teams/B Teams/Velvet Thunder/VelvetThunder.tres" id="16_irt2x"]
 
 [resource]
 script = ExtResource("2_crbkn")
 cupName = "CHAMPIONS_CUP"
 cupRank = 2
 numMatches = 7
-teamPool = Array[ExtResource("1_21wrq")]([ExtResource("2_gaybe"), ExtResource("3_roeym"), ExtResource("4_3onoc")])
-nextTeamPool = Array[ExtResource("1_21wrq")]([ExtResource("2_gaybe"), ExtResource("3_roeym"), ExtResource("4_3onoc")])
+teamPool = Array[ExtResource("1_21wrq")]([ExtResource("3_ybd3j"), ExtResource("4_jirmc"), ExtResource("5_n3ya1"), ExtResource("6_gijsx"), ExtResource("7_nnqam"), ExtResource("8_1cv2j"), ExtResource("9_djllx"), ExtResource("10_kujq8"), ExtResource("11_x63rl"), ExtResource("12_loynq"), ExtResource("13_jnum7"), ExtResource("14_w60dk"), ExtResource("15_10cyk"), ExtResource("16_irt2x")])

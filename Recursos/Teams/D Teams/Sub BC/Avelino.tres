@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cbc5w5byhy671"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_5fnqm"]
+[ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="2_p7dbx"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="3_5fnqm"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_wmnfo"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="6_agr1c"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="7_3tixa"]
+
+[resource]
+script = ExtResource("6_agr1c")
+id_unico = &"avelino_sud_bc"
+nome = "Avelino"
+num_camisa = 9
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_5fnqm")]([ExtResource("2_p7dbx"), ExtResource("3_5fnqm")])
+mao_cartas = Array[ExtResource("1_5fnqm")]([ExtResource("2_p7dbx"), ExtResource("3_5fnqm")])
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

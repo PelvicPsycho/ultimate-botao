@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cvpcyi1eba252"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_agfwi"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_32blj"]
+[ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="2_71xt0"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_6r2if"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_q14e8"]
+
+[resource]
+script = ExtResource("3_6r2if")
+id_unico = &"aaron_noname_sports"
+nome = "Aaron"
+num_camisa = 3
+slotsUpgrates = Array[ExtResource("1_agfwi")]([ExtResource("2_71xt0")])
+mao_cartas = Array[ExtResource("1_agfwi")]([ExtResource("2_71xt0")])

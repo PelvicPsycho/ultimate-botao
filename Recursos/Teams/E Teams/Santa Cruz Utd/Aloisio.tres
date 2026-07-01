@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://deh6tbggdpgus"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_dcrtb"]
+[ext_resource type="Resource" uid="uid://cq1j88bdgrf6d" path="res://Componentes/Cartas/CardResorce/CartaBolaLeve.tres" id="2_6s1q3"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_3q6dq"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_jlqql"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_1i2cv"]
+
+[resource]
+script = ExtResource("4_jlqql")
+id_unico = &"aloisio_santa_cruz"
+nome = "Aloisio"
+num_camisa = 8
+slotsUpgrates = Array[ExtResource("1_dcrtb")]([ExtResource("2_6s1q3")])
+mao_cartas = Array[ExtResource("1_dcrtb")]([ExtResource("2_6s1q3")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

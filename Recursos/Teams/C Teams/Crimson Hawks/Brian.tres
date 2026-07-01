@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cc21x62ixbkjs"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_fekri"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="2_8v45n"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="2_loed7"]
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="4_7gi7n"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_ade2f"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="5_7gi7n"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_csinv"]
+
+[resource]
+script = ExtResource("5_7gi7n")
+id_unico = &"brian_crimson_hawks"
+nome = "Brian"
+num_camisa = 9
+quantosSlotes = 3
+slotsUpgrates = Array[ExtResource("1_fekri")]([ExtResource("2_loed7"), ExtResource("2_8v45n"), ExtResource("4_7gi7n")])
+mao_cartas = Array[ExtResource("1_fekri")]([ExtResource("2_loed7"), ExtResource("2_8v45n"), ExtResource("4_7gi7n")])
+strenghtLevel = 4
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

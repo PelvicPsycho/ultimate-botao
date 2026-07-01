@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://v517fjsk87lu"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_edrc0"]
+[ext_resource type="Resource" uid="uid://cqbnt1i0kov4g" path="res://Componentes/Cartas/CardResorce/CartaTrocaDeLugar.tres" id="2_k7uov"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_jpm7k"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="6_sqj36"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="7_gd4w8"]
+
+[resource]
+script = ExtResource("6_sqj36")
+id_unico = &"alessander_crazy_cookers"
+nome = "Alessander"
+num_camisa = 10
+slotsUpgrates = Array[ExtResource("1_edrc0")]([ExtResource("2_k7uov")])
+mao_cartas = Array[ExtResource("1_edrc0")]([ExtResource("2_k7uov")])
+strenghtLevel = 2
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

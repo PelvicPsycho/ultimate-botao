@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://1ukqcjmwnt6p"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_2v7hf"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_8jta4"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="2_rqqno"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="3_3g5vn"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_u3i5d"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_awr4c"]
+
+[resource]
+script = ExtResource("2_8jta4")
+id_unico = &"caul_rogue_rovers"
+nome = "Caul"
+num_camisa = 4
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_2v7hf")]([ExtResource("2_rqqno"), ExtResource("3_3g5vn")])
+mao_cartas = Array[ExtResource("1_2v7hf")]([ExtResource("2_rqqno"), ExtResource("3_3g5vn")])
+PA = 3

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://ev0rw8ftevxu"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_l8k6r"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="2_l8k6r"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_e02sx"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_kubmo"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_vfnc4"]
+
+[resource]
+script = ExtResource("4_kubmo")
+id_unico = &"alessandro_red_saci"
+nome = "Alessandro"
+num_camisa = 10
+slotsUpgrates = Array[ExtResource("1_l8k6r")]([ExtResource("2_l8k6r")])
+mao_cartas = Array[ExtResource("1_l8k6r")]([ExtResource("2_l8k6r")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

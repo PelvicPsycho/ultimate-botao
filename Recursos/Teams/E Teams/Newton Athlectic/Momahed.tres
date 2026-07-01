@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bs1xttld5ptpr"]
-
-[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_fwfcb"]
-[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_051e6"]
-
-[resource]
-script = ExtResource("2_051e6")
-nome = "Momahed"

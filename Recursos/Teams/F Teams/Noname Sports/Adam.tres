@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://c1whcbl22gawr"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_xr4xp"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="2_fsey4"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_hav43"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_fsey4"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_5volh"]
+
+[resource]
+script = ExtResource("3_fsey4")
+id_unico = &"adam_noname_sports"
+nome = "Adam"
+num_camisa = 10
+slotsUpgrates = Array[ExtResource("1_xr4xp")]([ExtResource("2_fsey4")])
+mao_cartas = Array[ExtResource("1_xr4xp")]([ExtResource("2_fsey4")])

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://d1np2smhexq75"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_xi13n"]
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="2_xi13n"]
+[ext_resource type="Resource" uid="uid://cnyerld68fmwt" path="res://Componentes/Cartas/CardResorce/Congelamento.tres" id="3_fxpny"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="4_7v3na"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_rgsr2"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="6_oj1io"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="7_wpbyg"]
+
+[resource]
+script = ExtResource("6_oj1io")
+id_unico = &"augusto_sud_bc"
+nome = "Augusto"
+num_camisa = 10
+quantosSlotes = 3
+slotsUpgrates = Array[ExtResource("1_xi13n")]([ExtResource("2_xi13n"), ExtResource("3_fxpny"), ExtResource("4_7v3na")])
+mao_cartas = Array[ExtResource("1_xi13n")]([ExtResource("2_xi13n"), ExtResource("3_fxpny"), ExtResource("4_7v3na")])
+strenghtLevel = 2
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

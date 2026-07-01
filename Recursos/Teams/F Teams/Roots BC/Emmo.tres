@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dgk7yhwuxlx5s"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_3vqxu"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_bdbt2"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="6_o53h0"]
+[ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="7_p0wtx"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="8_pt48l"]
+
+[resource]
+script = ExtResource("6_o53h0")
+id_unico = &"emmo_roots_bc"
+nome = "Emmo"
+num_camisa = 3
+slotsUpgrates = Array[ExtResource("2_3vqxu")]([ExtResource("7_p0wtx")])
+mao_cartas = Array[ExtResource("2_3vqxu")]([ExtResource("7_p0wtx")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

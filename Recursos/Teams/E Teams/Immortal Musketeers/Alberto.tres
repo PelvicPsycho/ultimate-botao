@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://wefiynto8hbf"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_me3ws"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="2_me3ws"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_gu17g"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_i55ev"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_wet3h"]
+
+[resource]
+script = ExtResource("4_i55ev")
+id_unico = &"alberto_immortal_musketeers"
+nome = "Alberto"
+num_camisa = 8
+slotsUpgrates = Array[ExtResource("1_me3ws")]([ExtResource("2_me3ws")])
+mao_cartas = Array[ExtResource("1_me3ws")]([ExtResource("2_me3ws")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

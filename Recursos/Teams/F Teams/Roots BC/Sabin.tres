@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://c7woebt1mbnse"]
+
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="2_c6nay"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_s8m2q"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_osbqo"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="6_co62i"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="8_lr2pq"]
+
+[resource]
+script = ExtResource("6_co62i")
+id_unico = &"sabin_roots_bc"
+nome = "Sabin"
+num_camisa = 8
+slotsUpgrates = Array[ExtResource("2_s8m2q")]([ExtResource("2_c6nay")])
+mao_cartas = Array[ExtResource("2_s8m2q")]([ExtResource("2_c6nay")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

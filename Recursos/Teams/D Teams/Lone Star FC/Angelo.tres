@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://heilag18gd3t"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_f65bq"]
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="2_f65bq"]
+[ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="3_nmweb"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_vnvtc"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="5_ss3e5"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_beq4l"]
+
+[resource]
+script = ExtResource("5_ss3e5")
+id_unico = &"angelo_lone_star_fc"
+nome = "Angelo"
+num_camisa = 4
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_f65bq")]([ExtResource("2_f65bq"), ExtResource("3_nmweb")])
+mao_cartas = Array[ExtResource("1_f65bq")]([ExtResource("2_f65bq"), ExtResource("3_nmweb")])
+strenghtLevel = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

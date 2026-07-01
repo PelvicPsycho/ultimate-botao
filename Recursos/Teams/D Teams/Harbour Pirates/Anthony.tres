@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://coq3mjqhcd4he"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_k358f"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="2_6mqtt"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_ycs7m"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_6mqtt"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_2ra1q"]
+
+[resource]
+script = ExtResource("3_6mqtt")
+id_unico = &"anthony_harbour_pirates"
+nome = "Anthony"
+num_camisa = 3
+slotsUpgrates = Array[ExtResource("1_k358f")]([ExtResource("2_6mqtt")])
+mao_cartas = Array[ExtResource("1_k358f")]([ExtResource("2_6mqtt")])
+strenghtLevel = 2
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

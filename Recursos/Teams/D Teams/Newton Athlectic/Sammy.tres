@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dpr2mk8ywmmxl"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_ynnco"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="2_6vyc2"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_hc3y5"]
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="3_ckcrc"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_ivsjv"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_i25bx"]
+
+[resource]
+script = ExtResource("2_hc3y5")
+id_unico = &"sammy_newton_athletic"
+nome = "Sammy"
+num_camisa = 9
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_ynnco")]([ExtResource("2_6vyc2"), ExtResource("3_ckcrc")])
+mao_cartas = Array[ExtResource("1_ynnco")]([ExtResource("2_6vyc2"), ExtResource("3_ckcrc")])
+strenghtLevel = 2

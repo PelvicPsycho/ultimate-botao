@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cfmofp1e27l8a"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_a73q7"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="2_4j8y5"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="3_6bt2r"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_a3fsr"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_6bt2r"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_5j44k"]
+
+[resource]
+script = ExtResource("4_6bt2r")
+id_unico = &"alfonso_regiment_athletic"
+nome = "Alfonso"
+num_camisa = 8
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_a73q7")]([ExtResource("2_4j8y5"), ExtResource("3_6bt2r")])
+mao_cartas = Array[ExtResource("1_a73q7")]([ExtResource("2_4j8y5"), ExtResource("3_6bt2r")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

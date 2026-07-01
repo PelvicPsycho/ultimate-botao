@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://clknv72vi5weo"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_vdvhr"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_w6hfl"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_oexv7"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_0d5lh"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="4_w6hfl"]
+
+[resource]
+script = ExtResource("3_oexv7")
+id_unico = &"aden_button_smashers"
+nome = "Aden"
+num_camisa = 8
+slotsUpgrates = Array[ExtResource("1_vdvhr")]([ExtResource("4_w6hfl")])
+mao_cartas = Array[ExtResource("1_vdvhr")]([ExtResource("4_w6hfl")])

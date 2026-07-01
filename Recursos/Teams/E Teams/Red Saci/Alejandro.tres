@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://ddsb6kjcx3r85"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_dev6d"]
+[ext_resource type="Resource" uid="uid://cqbnt1i0kov4g" path="res://Componentes/Cartas/CardResorce/CartaTrocaDeLugar.tres" id="2_dev6d"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_g2lqn"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_1o6d5"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_c5q8q"]
+
+[resource]
+script = ExtResource("4_1o6d5")
+id_unico = &"alejandro_red_saci"
+nome = "Alejandro"
+num_camisa = 8
+slotsUpgrates = Array[ExtResource("1_dev6d")]([ExtResource("2_dev6d")])
+mao_cartas = Array[ExtResource("1_dev6d")]([ExtResource("2_dev6d")])
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

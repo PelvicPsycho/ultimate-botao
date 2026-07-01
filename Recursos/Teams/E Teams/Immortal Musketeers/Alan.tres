@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://buf8bn3xoj5s1"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_wprec"]
+[ext_resource type="Resource" uid="uid://cqbnt1i0kov4g" path="res://Componentes/Cartas/CardResorce/CartaTrocaDeLugar.tres" id="2_kynwe"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_stt3t"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_kynwe"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_ilgcd"]
+
+[resource]
+script = ExtResource("3_kynwe")
+id_unico = &"alan_immortal_musketeers"
+nome = "Alan"
+num_camisa = 3
+slotsUpgrates = Array[ExtResource("1_wprec")]([ExtResource("2_kynwe")])
+mao_cartas = Array[ExtResource("1_wprec")]([ExtResource("2_kynwe")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

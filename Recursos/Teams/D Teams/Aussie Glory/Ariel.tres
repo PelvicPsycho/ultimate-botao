@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cd0euu81o47x2"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_6ibrm"]
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="2_cwa1j"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_n4j4v"]
+[ext_resource type="Resource" uid="uid://cnyerld68fmwt" path="res://Componentes/Cartas/CardResorce/Congelamento.tres" id="3_ahpjc"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_cwa1j"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_ahpjc"]
+
+[resource]
+script = ExtResource("3_cwa1j")
+id_unico = &"ariel_aussie_glory"
+nome = "Ariel"
+num_camisa = 3
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_6ibrm")]([ExtResource("2_cwa1j"), ExtResource("3_ahpjc")])
+mao_cartas = Array[ExtResource("1_6ibrm")]([ExtResource("2_cwa1j"), ExtResource("3_ahpjc")])
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

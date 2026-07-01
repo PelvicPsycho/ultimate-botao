@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dsug5aeapiocn"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_i2vuw"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="2_n5njh"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_rhpuf"]
+[ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="3_55pc4"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_n5njh"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_55pc4"]
+
+[resource]
+script = ExtResource("3_n5njh")
+id_unico = &"amaury_norde_utd"
+nome = "Amaury"
+num_camisa = 3
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_i2vuw")]([ExtResource("2_n5njh"), ExtResource("3_55pc4")])
+mao_cartas = Array[ExtResource("1_i2vuw")]([ExtResource("2_n5njh"), ExtResource("3_55pc4")])
+strenghtLevel = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

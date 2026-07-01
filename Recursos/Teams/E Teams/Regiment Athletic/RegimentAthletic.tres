@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://bk86qtc11pbpu"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_mhdvm"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_lj4go"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_qjn1u"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_6ftrb"]
+[ext_resource type="Resource" uid="uid://dny3cxt66eum8" path="res://Recursos/Teams/E Teams/Regiment Athletic/Alexandre.tres" id="3_318dm"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_gasvj"]
+[ext_resource type="Resource" uid="uid://b3ybpmfthsj1j" path="res://Recursos/Teams/E Teams/Regiment Athletic/Alexsandro.tres" id="4_v4btp"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_e3hkg"]
+[ext_resource type="Resource" uid="uid://cfmofp1e27l8a" path="res://Recursos/Teams/E Teams/Regiment Athletic/Alfonso.tres" id="5_whh5u"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="6_eoiqj"]
+[ext_resource type="Resource" uid="uid://cxicq7keah7mv" path="res://Recursos/Teams/E Teams/Regiment Athletic/Alfredo.tres" id="6_phctp"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="7_01v4o"]
+[ext_resource type="Resource" uid="uid://b486apwpidrw2" path="res://Recursos/Teams/E Teams/Regiment Athletic/Ali.tres" id="7_y27s6"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="8_xfso5"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="9_i57bd"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="10_7uw7v"]
+
+[resource]
+script = ExtResource("2_qjn1u")
+name = "Regiment Athletic"
+id = 10
+ranque = 1
+cor = Color(0.40392157, 0.6901961, 0.75686276, 1)
+mainSquad = Array[ExtResource("1_mhdvm")]([ExtResource("3_318dm"), ExtResource("4_v4btp"), ExtResource("5_whh5u"), ExtResource("6_phctp"), ExtResource("7_y27s6")])
+overlay_escolhido = 1
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

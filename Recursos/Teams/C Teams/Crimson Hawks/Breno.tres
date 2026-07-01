@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://va5rp6u70guf"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_0jbmp"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="2_0eq6f"]
+[ext_resource type="Resource" uid="uid://cnyerld68fmwt" path="res://Componentes/Cartas/CardResorce/Congelamento.tres" id="3_0jbmp"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_2r8t5"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="6_0pakh"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="7_u57p3"]
+
+[resource]
+script = ExtResource("6_0pakh")
+id_unico = &"breno_crimson_hawks"
+nome = "Breno"
+num_camisa = 10
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_0jbmp")]([ExtResource("2_0eq6f"), ExtResource("3_0jbmp")])
+mao_cartas = Array[ExtResource("1_0jbmp")]([ExtResource("2_0eq6f"), ExtResource("3_0jbmp")])
+strenghtLevel = 4
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

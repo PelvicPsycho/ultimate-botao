@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cs6qnjl17881r"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_n4sjh"]
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="2_8upis"]
+[ext_resource type="Resource" uid="uid://bq1qsd3ojqnsw" path="res://Componentes/Cartas/CardResorce/CartaEncolhedor.tres" id="3_5bn0f"]
+[ext_resource type="Resource" uid="uid://cqbnt1i0kov4g" path="res://Componentes/Cartas/CardResorce/CartaTrocaDeLugar.tres" id="4_4v2a6"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_a5tlg"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="5_4v2a6"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_g1yeg"]
+
+[resource]
+script = ExtResource("5_4v2a6")
+id_unico = &"andrei_chiefs_bc"
+nome = "Andrei"
+num_camisa = 8
+quantosSlotes = 3
+slotsUpgrates = Array[ExtResource("1_n4sjh")]([ExtResource("2_8upis"), ExtResource("3_5bn0f"), ExtResource("4_4v2a6")])
+mao_cartas = Array[ExtResource("1_n4sjh")]([ExtResource("2_8upis"), ExtResource("3_5bn0f"), ExtResource("4_4v2a6")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

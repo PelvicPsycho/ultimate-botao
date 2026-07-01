@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cc5g0kuxp03bc"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_kk456"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="2_lhw8i"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_qy866"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_lhw8i"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_ugyj5"]
+
+[resource]
+script = ExtResource("3_lhw8i")
+id_unico = &"berto_crimson_hawks"
+nome = "Berto"
+num_camisa = 3
+slotsUpgrates = Array[ExtResource("1_kk456")]([ExtResource("2_lhw8i")])
+mao_cartas = Array[ExtResource("1_kk456")]([ExtResource("2_lhw8i")])
+strenghtLevel = 4
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

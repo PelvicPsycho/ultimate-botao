@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://bbxxgoutw630t"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_7hyso"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_3ov1g"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_beloa"]
+[ext_resource type="Resource" uid="uid://d3pkg2x1vbfuo" path="res://Recursos/Teams/D Teams/Retro Utd/Arthur.tres" id="3_g1tdx"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_kfv77"]
+[ext_resource type="Resource" uid="uid://bi0i23fcyg25a" path="res://Recursos/Teams/D Teams/Retro Utd/Artur.tres" id="4_kiiis"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_v7jpa"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_5x82k"]
+[ext_resource type="Resource" uid="uid://bptkxosn3slyt" path="res://Recursos/Teams/D Teams/Retro Utd/Ary.tres" id="5_ghnst"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="6_1qdnx"]
+[ext_resource type="Resource" uid="uid://6imxl4ccqvm5" path="res://Recursos/Teams/D Teams/Retro Utd/Aser.tres" id="6_kdcu5"]
+[ext_resource type="Resource" uid="uid://bqyi86dlyot58" path="res://Recursos/Teams/D Teams/Retro Utd/Assis.tres" id="7_6lk20"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="7_bjqm8"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="8_acbcx"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="9_emxub"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="10_0e66q"]
+
+[resource]
+script = ExtResource("2_beloa")
+name = "Retro Utd"
+id = 21
+ranque = 2
+cor = Color(0.40392157, 0.75686276, 0.47058824, 1)
+mainSquad = Array[ExtResource("1_7hyso")]([ExtResource("3_g1tdx"), ExtResource("4_kiiis"), ExtResource("5_ghnst"), ExtResource("6_kdcu5"), ExtResource("7_6lk20")])
+overlay_escolhido = 4
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

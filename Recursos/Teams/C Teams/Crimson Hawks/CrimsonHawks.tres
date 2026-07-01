@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://5ge2oc6hv827"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_pxba8"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_ol6ck"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_v1m7j"]
+[ext_resource type="Resource" uid="uid://cc5g0kuxp03bc" path="res://Recursos/Teams/C Teams/Crimson Hawks/Berto.tres" id="3_4xjly"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_6h1cm"]
+[ext_resource type="Resource" uid="uid://c2g3k8d0jt76q" path="res://Recursos/Teams/C Teams/Crimson Hawks/Beto.tres" id="4_5vq23"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_n5sip"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_bkup1"]
+[ext_resource type="Resource" uid="uid://cdpwihc334qv8" path="res://Recursos/Teams/C Teams/Crimson Hawks/Bill.tres" id="5_jfsq6"]
+[ext_resource type="Resource" uid="uid://va5rp6u70guf" path="res://Recursos/Teams/C Teams/Crimson Hawks/Breno.tres" id="6_lrdbc"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="6_s50ib"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="7_7xjxv"]
+[ext_resource type="Resource" uid="uid://cc21x62ixbkjs" path="res://Recursos/Teams/C Teams/Crimson Hawks/Brian.tres" id="7_gfl86"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="8_2xmbs"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="9_yy5he"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="10_vsb7c"]
+
+[resource]
+script = ExtResource("2_v1m7j")
+name = "Crimson Hawks"
+id = 31
+ranque = 3
+cor = Color(0.8039216, 0.37254903, 0.8901961, 1)
+mainSquad = Array[ExtResource("1_pxba8")]([ExtResource("3_4xjly"), ExtResource("4_5vq23"), ExtResource("5_jfsq6"), ExtResource("6_lrdbc"), ExtResource("7_gfl86")])
+overlay_escolhido = 2
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

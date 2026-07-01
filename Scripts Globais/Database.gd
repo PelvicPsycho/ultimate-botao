@@ -7,7 +7,7 @@ var pecas_db: Dictionary = {}
 func _ready() -> void:
 	print("Carregando Banco de Dados Global...")
 	_carregar_db_cartas("res://Componentes/Cartas/CardResorce/")
-	_carregar_db_pecas("res://Recursos/Teams/") #Busca apenas nas SUBPastas de Teams
+	_carregar_db_pecas("res://Recursos/Teams/F Teams/") #Busca apenas nas SUBPastas de Teams
 
 func _carregar_db_cartas(pasta: String) -> void:
 	if not pasta.ends_with("/"): pasta += "/"

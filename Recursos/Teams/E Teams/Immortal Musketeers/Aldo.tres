@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cd3d0evstsvps"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_px4vc"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="2_px4vc"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_git7i"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_36df4"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_lt5tl"]
+
+[resource]
+script = ExtResource("4_36df4")
+id_unico = &"aldo_immortal_musketeers"
+nome = "Aldo"
+num_camisa = 10
+slotsUpgrates = Array[ExtResource("1_px4vc")]([ExtResource("2_px4vc")])
+mao_cartas = Array[ExtResource("1_px4vc")]([ExtResource("2_px4vc")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

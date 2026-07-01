@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dsc5jb1xxcs0w" path="res://Recursos/2D_Art/TabMenu/referencia.png" id="1_bjpjv"]
 [ext_resource type="Script" uid="uid://dshaarm3s3a52" path="res://Componentes/TabButtons/MenuTorneio.gd" id="1_qvm3y"]
 [ext_resource type="PackedScene" uid="uid://cebbe7ms7qi0u" path="res://Componentes/TabButtons/card_torneio.tscn" id="2_toabo"]
+[ext_resource type="AudioStream" uid="uid://yg5yf7o7oxd7" path="res://Recursos/SFXs/menuBGM.wav" id="3_qc12b"]
 [ext_resource type="PackedScene" uid="uid://cc3vpg1b6h3m6" path="res://Componentes/MyTeam/banner_colorido_control.tscn" id="4_s8nk6"]
 [ext_resource type="PackedScene" uid="uid://b0vytxc3ke4kc" path="res://Componentes/MyTeam/banner_texto_control.tscn" id="5_fw3fr"]
 [ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="7_fw3fr"]
@@ -27,6 +28,7 @@ escala_central_y = 0.7
 escala_lateral_x = 0.4
 escala_lateral_y = 0.4
 opacidade_lateral = 0.7
+bgm = ExtResource("3_qc12b")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=449441331]
 visible = false

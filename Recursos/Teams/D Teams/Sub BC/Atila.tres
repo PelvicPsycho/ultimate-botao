@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bhlx5oh2vwg6e"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_j804k"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="2_8md1o"]
+[ext_resource type="Resource" uid="uid://bq1qsd3ojqnsw" path="res://Componentes/Cartas/CardResorce/CartaEncolhedor.tres" id="2_jifn5"]
+[ext_resource type="Resource" uid="uid://cndo0e8eucob3" path="res://Componentes/Cartas/CardResorce/CartaGeradorMana.tres" id="3_h7do3"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_h7do3"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="5_ktibx"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_00yam"]
+
+[resource]
+script = ExtResource("5_ktibx")
+id_unico = &"atila_sud_bc"
+nome = "Atila"
+num_camisa = 8
+quantosSlotes = 3
+slotsUpgrates = Array[ExtResource("1_j804k")]([ExtResource("2_jifn5"), ExtResource("3_h7do3"), ExtResource("2_8md1o")])
+mao_cartas = Array[ExtResource("1_j804k")]([ExtResource("2_jifn5"), ExtResource("3_h7do3"), ExtResource("2_8md1o")])
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

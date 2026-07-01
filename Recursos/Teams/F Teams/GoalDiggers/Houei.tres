@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bc6466x7ve4hu"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_igdje"]
+[ext_resource type="Resource" uid="uid://cnyerld68fmwt" path="res://Componentes/Cartas/CardResorce/Congelamento.tres" id="2_3o3sl"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_tu0ut"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_w741a"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_3o3sl"]
+
+[resource]
+script = ExtResource("2_w741a")
+id_unico = &"houei_goal_diggers"
+nome = "Houei"
+num_camisa = 3
+slotsUpgrates = Array[ExtResource("1_igdje")]([ExtResource("2_3o3sl")])
+mao_cartas = Array[ExtResource("1_igdje")]([ExtResource("2_3o3sl")])

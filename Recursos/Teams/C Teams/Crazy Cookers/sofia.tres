@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://ej0jx4ux6tsw"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_ufex8"]
+[ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="2_1ya0v"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_yvx8n"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_81x1x"]
+[ext_resource type="Resource" uid="uid://cqbnt1i0kov4g" path="res://Componentes/Cartas/CardResorce/CartaTrocaDeLugar.tres" id="3_uhk7p"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_1ya0v"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="4_42axm"]
+
+[resource]
+script = ExtResource("3_81x1x")
+id_unico = &"sofia_crazy_cookers"
+nome = "Sofia"
+num_camisa = 3
+quantosSlotes = 3
+slotsUpgrates = Array[ExtResource("1_ufex8")]([ExtResource("2_1ya0v"), ExtResource("3_uhk7p"), ExtResource("4_42axm")])
+mao_cartas = Array[ExtResource("1_ufex8")]([ExtResource("2_1ya0v"), ExtResource("3_uhk7p"), ExtResource("4_42axm")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bhg753gib4sh6"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_nkjka"]
+[ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="2_w374h"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="3_5n05o"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_u8het"]
+[ext_resource type="Resource" uid="uid://bq1qsd3ojqnsw" path="res://Componentes/Cartas/CardResorce/CartaEncolhedor.tres" id="4_vxfrg"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="5_vxfrg"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_6qm2t"]
+
+[resource]
+script = ExtResource("5_vxfrg")
+id_unico = &"francesco_crazy_cookers"
+nome = "Francesco"
+num_camisa = 8
+quantosSlotes = 3
+slotsUpgrates = Array[ExtResource("1_nkjka")]([ExtResource("2_w374h"), ExtResource("3_5n05o"), ExtResource("4_vxfrg")])
+mao_cartas = Array[ExtResource("1_nkjka")]([ExtResource("2_w374h"), ExtResource("3_5n05o"), ExtResource("4_vxfrg")])
+PA = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

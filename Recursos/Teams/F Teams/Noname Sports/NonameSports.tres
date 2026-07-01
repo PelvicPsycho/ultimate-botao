@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://bhm22brqu1etd"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_vqmnl"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_bfq8l"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_stvwl"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_ed43s"]
+[ext_resource type="Resource" uid="uid://cvpcyi1eba252" path="res://Recursos/Teams/F Teams/Noname Sports/Aaron.tres" id="3_od40b"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_mmllm"]
+[ext_resource type="Resource" uid="uid://dn4c6mej4sd2t" path="res://Recursos/Teams/F Teams/Noname Sports/Abner.tres" id="4_rwlr2"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_duuv7"]
+[ext_resource type="Resource" uid="uid://dvnnpukxhmu3k" path="res://Recursos/Teams/F Teams/Noname Sports/Adalberto.tres" id="5_ynfwj"]
+[ext_resource type="Resource" uid="uid://c1whcbl22gawr" path="res://Recursos/Teams/F Teams/Noname Sports/Adam.tres" id="6_roauc"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="6_s1o42"]
+[ext_resource type="Resource" uid="uid://ckbuenq3a30e3" path="res://Recursos/Teams/F Teams/Noname Sports/Adan.tres" id="7_8jc3x"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="7_25gds"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="8_qkoq6"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="9_7lstq"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="10_klg2g"]
+
+[resource]
+script = ExtResource("2_stvwl")
+name = "Noname Sports"
+id = 3
+cor = Color(0.8039216, 0.37254903, 0.8901961, 1)
+mainSquad = Array[ExtResource("1_vqmnl")]([ExtResource("3_od40b"), ExtResource("4_rwlr2"), ExtResource("5_ynfwj"), ExtResource("6_roauc"), ExtResource("7_8jc3x")])
+overlay_escolhido = 4
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

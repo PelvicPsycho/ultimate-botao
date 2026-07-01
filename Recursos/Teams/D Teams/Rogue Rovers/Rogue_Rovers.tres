@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://dlmfd023emsgn"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_r0pav"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_8u3nw"]
+[ext_resource type="Resource" uid="uid://cpv7b8gjvojon" path="res://Recursos/Teams/D Teams/Rogue Rovers/Alam.tres" id="2_ms6e2"]
+[ext_resource type="Resource" uid="uid://1ukqcjmwnt6p" path="res://Recursos/Teams/D Teams/Rogue Rovers/Caul.tres" id="3_lag1n"]
+[ext_resource type="Resource" uid="uid://qjqb1esirdn4" path="res://Recursos/Teams/D Teams/Rogue Rovers/Lucca.tres" id="4_l4pte"]
+[ext_resource type="Resource" uid="uid://jpuml1nyqblk" path="res://Recursos/Teams/D Teams/Rogue Rovers/Rique.tres" id="5_7jnt5"]
+[ext_resource type="Resource" uid="uid://dpwtdh2knrgxj" path="res://Recursos/Teams/D Teams/Rogue Rovers/Rogi.tres" id="6_4j7b8"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="7_ntr78"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="8_tppxn"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="9_je6eb"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="10_7mxvb"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="11_t83v0"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="12_0fepx"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="13_arq6e"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="14_073yf"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="15_86ypl"]
+
+[resource]
+script = ExtResource("7_ntr78")
+name = "Rogue Rovers BC"
+id = 4
+cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
+mainSquad = Array[ExtResource("1_r0pav")]([ExtResource("2_ms6e2"), ExtResource("3_lag1n"), ExtResource("4_l4pte"), ExtResource("5_7jnt5"), ExtResource("6_4j7b8")])
+overlay_escolhido = 1

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dpwtdh2knrgxj"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_ici4u"]
+[ext_resource type="Resource" uid="uid://cq1j88bdgrf6d" path="res://Componentes/Cartas/CardResorce/CartaBolaLeve.tres" id="2_7k6mh"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_h0xbp"]
+[ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="3_ugfms"]
+[ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="4_age34"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_n7r2l"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="7_obpeq"]
+
+[resource]
+script = ExtResource("2_h0xbp")
+id_unico = &"rogi_rogue_rovers"
+nome = "Rogi"
+num_camisa = 3
+quantosSlotes = 3
+slotsUpgrates = Array[ExtResource("1_ici4u")]([ExtResource("2_7k6mh"), ExtResource("3_ugfms"), ExtResource("4_age34")])
+mao_cartas = Array[ExtResource("1_ici4u")]([ExtResource("2_7k6mh"), ExtResource("3_ugfms"), ExtResource("4_age34")])
+PA = 3

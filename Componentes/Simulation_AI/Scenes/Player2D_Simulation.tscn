@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dcb2hgssfu30v"]
 
 [ext_resource type="Script" uid="uid://gmi4qfapy37v" path="res://Componentes/Simulation_AI/Scripts/PhysicsPlayer2D_Simulation.gd" id="1_b0ewm"]
-[ext_resource type="Resource" uid="uid://gmvgc073734t" path="res://Recursos/Teams/Inter/Ale.tres" id="2_342hd"]
+[ext_resource type="Resource" uid="uid://gmvgc073734t" path="res://Recursos/Teams/Other Teams/Inter/Ale.tres" id="2_342hd"]
 [ext_resource type="Texture2D" uid="uid://ben3uk3cuad15" path="res://Recursos/2D_Art/Menu/peca base.png" id="14_36b5p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_th6yb"]

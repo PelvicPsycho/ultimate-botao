@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://d2x1g0im1gpdl"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_xrdaw"]
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="2_yeqik"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="3_rcjhs"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_h3a0m"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="5_id1cw"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_cbqsm"]
+
+[resource]
+script = ExtResource("5_id1cw")
+id_unico = &"ari_harbour_pirates"
+nome = "Ari"
+num_camisa = 9
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_xrdaw")]([ExtResource("2_yeqik"), ExtResource("3_rcjhs")])
+mao_cartas = Array[ExtResource("1_xrdaw")]([ExtResource("2_yeqik"), ExtResource("3_rcjhs")])
+strenghtLevel = 3
+PA = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

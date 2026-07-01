@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dn4c6mej4sd2t"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_qd8ri"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_come1"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="2_jwlq6"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_jwlq6"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_06ja8"]
+
+[resource]
+script = ExtResource("3_jwlq6")
+id_unico = &"abner_noname_sports"
+nome = "Abner"
+num_camisa = 4
+slotsUpgrates = Array[ExtResource("1_qd8ri")]([ExtResource("2_jwlq6")])
+mao_cartas = Array[ExtResource("1_qd8ri")]([ExtResource("2_jwlq6")])

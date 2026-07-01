@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://djpx0b2ifyomk"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_yr8tw"]
+[ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="2_axa4j"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_gs8ry"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_o1b8p"]
+[ext_resource type="Resource" uid="uid://bq1qsd3ojqnsw" path="res://Componentes/Cartas/CardResorce/CartaEncolhedor.tres" id="3_33gf4"]
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="4_7pf5k"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="7_jrc64"]
+
+[resource]
+script = ExtResource("2_o1b8p")
+id_unico = &"zwan_newton_athletic"
+nome = "Zwan"
+num_camisa = 3
+quantosSlotes = 3
+slotsUpgrates = Array[ExtResource("1_yr8tw")]([ExtResource("2_axa4j"), ExtResource("3_33gf4"), ExtResource("4_7pf5k")])
+mao_cartas = Array[ExtResource("1_yr8tw")]([ExtResource("2_axa4j"), ExtResource("3_33gf4"), ExtResource("4_7pf5k")])
+strenghtLevel = 2

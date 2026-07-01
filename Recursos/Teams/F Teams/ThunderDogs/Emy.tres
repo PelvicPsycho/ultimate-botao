@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dehwfken68jt1"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_bjmar"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_kdh5x"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_nl5ip"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="3_yc3ke"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_el1xf"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_pnyyk"]
+
+[resource]
+script = ExtResource("2_kdh5x")
+id_unico = &"emy_thunder_dogs"
+nome = "Emy"
+num_camisa = 10
+foto = ExtResource("1_bjmar")
+slotsUpgrates = Array[ExtResource("4_pnyyk")]([ExtResource("3_yc3ke")])
+mao_cartas = Array[ExtResource("4_pnyyk")]([ExtResource("3_yc3ke")])
+strenghtLevel = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

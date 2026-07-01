@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cxrq0wbdvgq6a"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_pr7gu"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_r1fdu"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_xmhio"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_6uba0"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="4_y7iej"]
+
+[resource]
+script = ExtResource("2_xmhio")
+id_unico = &"hurry_aura_strikers"
+nome = "Hurry"
+num_camisa = 8
+slotsUpgrates = Array[ExtResource("1_pr7gu")]([ExtResource("4_y7iej")])
+mao_cartas = Array[ExtResource("1_pr7gu")]([ExtResource("4_y7iej")])

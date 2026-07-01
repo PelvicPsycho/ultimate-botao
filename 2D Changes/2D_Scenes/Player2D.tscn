@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bjuey2wm1ffql"]
 
 [ext_resource type="Script" uid="uid://cm2htggscwnaq" path="res://2D Changes/Scripts_2D/PhysicsPlayer2D.gd" id="1_yglll"]
-[ext_resource type="Resource" uid="uid://gmvgc073734t" path="res://Recursos/Teams/Inter/Ale.tres" id="2_b4028"]
+[ext_resource type="Resource" uid="uid://gmvgc073734t" path="res://Recursos/Teams/Other Teams/Inter/Ale.tres" id="2_b4028"]
 [ext_resource type="AudioStream" uid="uid://dophc5rewn0on" path="res://Recursos/SFXs/ClicouNaPeca_544883__ashboy34__smallgranitedry.wav" id="3_4wfki"]
 [ext_resource type="Texture2D" uid="uid://dd2an5o41fxro" path="res://2D Changes/Others_2D/Ground Effect Bubble.png" id="3_wpyri"]
 [ext_resource type="AudioStream" uid="uid://b8x46eek4pke2" path="res://Recursos/SFXs/SomDePuxarAPeca_freesound_community-wind-up3-89578.wav" id="4_85i0u"]

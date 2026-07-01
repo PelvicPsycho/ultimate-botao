@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://cpih6srhylpkr"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_q242w"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_g6llc"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_k5u17"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_rvhad"]
+[ext_resource type="Resource" uid="uid://dsug5aeapiocn" path="res://Recursos/Teams/D Teams/Norde Utd/Amaury.tres" id="3_ybtqs"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_b0e3g"]
+[ext_resource type="Resource" uid="uid://d1nholhuqs0bx" path="res://Recursos/Teams/D Teams/Norde Utd/Amilcar.tres" id="4_ryg51"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_5mpu8"]
+[ext_resource type="Resource" uid="uid://c8t4ng5umuxwu" path="res://Recursos/Teams/D Teams/Norde Utd/Amilton.tres" id="5_43t3q"]
+[ext_resource type="Resource" uid="uid://duutxdmx0g25q" path="res://Recursos/Teams/D Teams/Norde Utd/Amir.tres" id="6_hmpgd"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="6_wb13f"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="7_kfbnu"]
+[ext_resource type="Resource" uid="uid://chvsew25if6vh" path="res://Recursos/Teams/D Teams/Norde Utd/Amos.tres" id="7_mwx0e"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="8_fs7bs"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="9_3jty6"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="10_4ufit"]
+
+[resource]
+script = ExtResource("2_g6llc")
+name = "Norde Utd"
+id = 13
+ranque = 2
+cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
+mainSquad = Array[ExtResource("1_q242w")]([ExtResource("3_ybtqs"), ExtResource("4_ryg51"), ExtResource("5_43t3q"), ExtResource("6_hmpgd"), ExtResource("7_mwx0e")])
+overlay_escolhido = 3
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://beo4chh82gvfj"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_eo0bi"]
+[ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="2_0v0iy"]
+[ext_resource type="Resource" uid="uid://cndo0e8eucob3" path="res://Componentes/Cartas/CardResorce/CartaGeradorMana.tres" id="3_eo0bi"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_32hts"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="6_ovygp"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="7_beo0g"]
+
+[resource]
+script = ExtResource("6_ovygp")
+id_unico = &"enzo_crazy_cookers"
+nome = "Enzo"
+num_camisa = 4
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_eo0bi")]([ExtResource("2_0v0iy"), ExtResource("3_eo0bi")])
+mao_cartas = Array[ExtResource("1_eo0bi")]([ExtResource("2_0v0iy"), ExtResource("3_eo0bi")])
+strenghtLevel = 2
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

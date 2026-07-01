@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dgntllsa2r83s"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_y5aqc"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="2_b0wqv"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_fqlup"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_kc01t"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_d075a"]
+
+[resource]
+script = ExtResource("2_fqlup")
+id_unico = &"messef_newton_athletic"
+nome = "Messef"
+num_camisa = 4
+slotsUpgrates = Array[ExtResource("1_y5aqc")]([ExtResource("2_b0wqv")])
+mao_cartas = Array[ExtResource("1_y5aqc")]([ExtResource("2_b0wqv")])
+strenghtLevel = 2
+PA = 2

@@ -10,7 +10,7 @@ preload("res://Recursos/Cups/ACup.tres"),
 preload("res://Recursos/Cups/SCup.tres")]
 @onready var cupsPlayed: int = 0
 
-@onready var myTeam: Team = preload("res://Recursos/Teams/MyTeam/MyTeam.tres")
+@onready var myTeam: Team = preload("res://Recursos/Teams/Other Teams/MyTeam/MyTeam.tres")
 @onready var matchesPlayed: int = 0
 
 @onready var currentCompetitor: Team

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dybwytu8ubfup"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_qtrpr"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_i3bqf"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_q7api"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_0dr2r"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_ahm52"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="5_cwgo0"]
+
+[resource]
+script = ExtResource("2_q7api")
+id_unico = &"bob_thunder_dogs"
+nome = "Bob"
+num_camisa = 4
+foto = ExtResource("1_qtrpr")
+slotsUpgrates = Array[ExtResource("4_ahm52")]([ExtResource("5_cwgo0")])
+mao_cartas = Array[ExtResource("4_ahm52")]([ExtResource("5_cwgo0")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

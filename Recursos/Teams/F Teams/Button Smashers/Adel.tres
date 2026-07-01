@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cl5yflm2kdfon"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_iu2pq"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_suh5n"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_awg6y"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_5vn0h"]
+[ext_resource type="Resource" uid="uid://cq1j88bdgrf6d" path="res://Componentes/Cartas/CardResorce/CartaBolaLeve.tres" id="4_qbksb"]
+
+[resource]
+script = ExtResource("3_awg6y")
+id_unico = &"adel_button_smashers"
+nome = "Adel"
+num_camisa = 3
+slotsUpgrates = Array[ExtResource("1_iu2pq")]([ExtResource("4_qbksb")])
+mao_cartas = Array[ExtResource("1_iu2pq")]([ExtResource("4_qbksb")])

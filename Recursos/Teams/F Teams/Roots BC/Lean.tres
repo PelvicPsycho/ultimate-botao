@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cfnmqc6psixpt"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_siobv"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_2c7hq"]
+[ext_resource type="Resource" uid="uid://cqbnt1i0kov4g" path="res://Componentes/Cartas/CardResorce/CartaTrocaDeLugar.tres" id="3_ys7fb"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_ifb4p"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="6_om1kd"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="8_ksfc2"]
+
+[resource]
+script = ExtResource("6_om1kd")
+id_unico = &"lean_roots_bc"
+nome = "Lean"
+num_camisa = 10
+foto = ExtResource("1_siobv")
+slotsUpgrates = Array[ExtResource("2_2c7hq")]([ExtResource("3_ys7fb")])
+mao_cartas = Array[ExtResource("2_2c7hq")]([ExtResource("3_ys7fb")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

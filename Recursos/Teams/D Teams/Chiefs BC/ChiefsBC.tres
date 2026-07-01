@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://cuhlfes8ftq0j"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_4kvui"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_lrd03"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_vt7jv"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_kjnu0"]
+[ext_resource type="Resource" uid="uid://bjywbtc8f0utf" path="res://Recursos/Teams/D Teams/Chiefs BC/Anderson.tres" id="3_q1gi6"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_16nn2"]
+[ext_resource type="Resource" uid="uid://bl7tu17wj05t8" path="res://Recursos/Teams/D Teams/Chiefs BC/Andre.tres" id="4_kmnxv"]
+[ext_resource type="Resource" uid="uid://cs6qnjl17881r" path="res://Recursos/Teams/D Teams/Chiefs BC/Andrei.tres" id="5_mlph4"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_xnfvl"]
+[ext_resource type="Resource" uid="uid://cgvimiasfde1x" path="res://Recursos/Teams/D Teams/Chiefs BC/Andres.tres" id="6_bm7ep"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="6_yc8yb"]
+[ext_resource type="Resource" uid="uid://brokxcfocpqfg" path="res://Recursos/Teams/D Teams/Chiefs BC/Andrew.tres" id="7_8p5gx"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="7_iiwec"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="8_4ejuv"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="9_naay3"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="10_avtc2"]
+
+[resource]
+script = ExtResource("2_vt7jv")
+name = "Chiefs BC"
+id = 14
+ranque = 2
+cor = Color(0.40392157, 0.6901961, 0.75686276, 1)
+mainSquad = Array[ExtResource("1_4kvui")]([ExtResource("3_q1gi6"), ExtResource("4_kmnxv"), ExtResource("5_mlph4"), ExtResource("6_bm7ep"), ExtResource("7_8p5gx")])
+overlay_escolhido = 3
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

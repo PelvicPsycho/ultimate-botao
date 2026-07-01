@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://3v4oy7df44ef" path="res://Componentes/MainMenu/start_menu_canvas_layer.gd" id="1_372uq"]
 [ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="2_7qgsk"]
+[ext_resource type="AudioStream" uid="uid://yg5yf7o7oxd7" path="res://Recursos/SFXs/menuBGM.wav" id="2_kyq2q"]
 [ext_resource type="PackedScene" uid="uid://b0vytxc3ke4kc" path="res://Componentes/MyTeam/banner_texto_control.tscn" id="3_n5ba8"]
 [ext_resource type="Texture2D" uid="uid://dfqvdjgin4twy" path="res://Recursos/2D_Art/SplashScreen/Rectangle 3.png" id="3_rlkea"]
 [ext_resource type="PackedScene" uid="uid://cxvb5u7o6gv0q" path="res://Componentes/MyTeam/banner_azul_control.tscn" id="3_s1m4f"]
@@ -39,6 +40,7 @@ shader_parameter/velocidade_scroll = -0.15
 
 [node name="StartMenu_CanvasLayer" type="CanvasLayer" unique_id=140501578]
 script = ExtResource("1_372uq")
+bgm = ExtResource("2_kyq2q")
 
 [node name="AnimatedBg" parent="." unique_id=28414625 instance=ExtResource("2_7qgsk")]
 

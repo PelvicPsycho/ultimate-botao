@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://qe54uajk0ce6"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_kiorv"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_1nx4p"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_8isyx"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_7df21"]
+[ext_resource type="Resource" uid="uid://cfbc1co5s8hls" path="res://Recursos/Teams/E Teams/Lacadores BC/Adriano.tres" id="3_b7noq"]
+[ext_resource type="Resource" uid="uid://cbevg46eit7kp" path="res://Recursos/Teams/E Teams/Lacadores BC/Afonso.tres" id="4_6my7x"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_ktowt"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_05427"]
+[ext_resource type="Resource" uid="uid://dibvw3yr7t7al" path="res://Recursos/Teams/E Teams/Lacadores BC/Agostinho.tres" id="5_fly7u"]
+[ext_resource type="Resource" uid="uid://b1e11gxls50a2" path="res://Recursos/Teams/E Teams/Lacadores BC/Aguinaldo.tres" id="6_ep370"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="6_i2xoa"]
+[ext_resource type="Resource" uid="uid://jyjrufdcjdro" path="res://Recursos/Teams/E Teams/Lacadores BC/Ailton.tres" id="7_eker5"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="7_nfv3r"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="8_08pxi"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="9_3bj78"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="10_mrcnf"]
+
+[resource]
+script = ExtResource("2_8isyx")
+name = "Lacadores BC"
+id = 7
+ranque = 1
+cor = Color(0.40392157, 0.6901961, 0.75686276, 1)
+mainSquad = Array[ExtResource("1_kiorv")]([ExtResource("3_b7noq"), ExtResource("4_6my7x"), ExtResource("5_fly7u"), ExtResource("6_ep370"), ExtResource("7_eker5")])
+overlay_escolhido = 3
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

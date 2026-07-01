@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bptkxosn3slyt"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_6u10h"]
+[ext_resource type="Resource" uid="uid://cnyerld68fmwt" path="res://Componentes/Cartas/CardResorce/Congelamento.tres" id="2_nqf17"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_y1wwh"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="6_7n8rk"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="7_ngdme"]
+
+[resource]
+script = ExtResource("6_7n8rk")
+id_unico = &"ary_retro_utd"
+nome = "Ary"
+num_camisa = 8
+quantosSlotes = 1
+slotsUpgrates = Array[ExtResource("1_6u10h")]([ExtResource("2_nqf17")])
+mao_cartas = Array[ExtResource("1_6u10h")]([ExtResource("2_nqf17")])
+strenghtLevel = 2
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

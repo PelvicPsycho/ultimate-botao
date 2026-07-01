@@ -2,6 +2,7 @@ extends CanvasLayer
 
 #@onready var new_game_level: PackedScene = preload("res://MatchScene.tscn")
 const TabMenu := preload("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn") 
+@export var bgm: AudioStream
 
 func _ready():
 	SoundMaster.stop_music()
@@ -20,6 +21,7 @@ func _ready():
 					#print("  - ", s.nome)
 				#else:
 					#print("  - [Vazio]")
+	#SoundMaster.play_bgm(bgm, "loop")
 
 # Carrega cartas e pecas iniciais se não existe nenhum save
 func _carregar_time_inicial():

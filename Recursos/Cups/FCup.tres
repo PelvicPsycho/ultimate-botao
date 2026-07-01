@@ -1,19 +1,23 @@
 [gd_resource type="Resource" script_class="Cup" format=3 uid="uid://35pguhtldg0w"]
 
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="1_jismj"]
-[ext_resource type="Resource" uid="uid://cphsyhwbv8gny" path="res://Recursos/Teams/E Teams/Crown Cap Utd/Crown_Cap_Utd.tres" id="2_43cb3"]
 [ext_resource type="Script" uid="uid://fkgtqku055qw" path="res://Recursos/Res_Cup.gd" id="2_h4ti3"]
-[ext_resource type="Resource" uid="uid://deh85fd4b1pfv" path="res://Recursos/Teams/E Teams/Newton Athlectic/Newton Athletic.tres" id="3_0vnr7"]
-[ext_resource type="Resource" uid="uid://ch54ysadukp5v" path="res://Recursos/Teams/E Teams/Blackwood Albion/Blackwood_Albion.tres" id="4_4tanh"]
-[ext_resource type="Resource" uid="uid://boir6mmtf0v0m" path="res://Recursos/Teams/Roots BC/RootsBC.tres" id="4_h0u70"]
-[ext_resource type="Resource" uid="uid://dlmfd023emsgn" path="res://Recursos/Teams/Rogue Rovers/Rogue_Rovers.tres" id="5_0vnr7"]
-[ext_resource type="Resource" uid="uid://b0p46wodrhjlf" path="res://Recursos/Teams/ThunderDogs/ThunderDogs.tres" id="5_vi0c3"]
-[ext_resource type="Resource" uid="uid://bryg18np2iseq" path="res://Recursos/Teams/GoalDiggers/GoalDiggers.tres" id="6_4tanh"]
-[ext_resource type="Resource" uid="uid://b72qtlj7tagf5" path="res://Recursos/Teams/AuraStrikers/AuraStrikers.tres" id="7_um1l1"]
+[ext_resource type="Resource" uid="uid://gdudro7sjj26" path="res://Recursos/Teams/E Teams/Guarani Athletic/GuaraniAthletic.tres" id="2_vfi60"]
+[ext_resource type="Resource" uid="uid://bnsxppt1xfjxq" path="res://Recursos/Teams/E Teams/Immortal Musketeers/ImmortalMusketeers.tres" id="3_we5pv"]
+[ext_resource type="Resource" uid="uid://qe54uajk0ce6" path="res://Recursos/Teams/E Teams/Lacadores BC/LacadoresBC.tres" id="4_aw4y1"]
+[ext_resource type="Resource" uid="uid://c8x21b3syvdla" path="res://Recursos/Teams/E Teams/Red Saci/RedSaci.tres" id="5_ekbsl"]
+[ext_resource type="Resource" uid="uid://bk86qtc11pbpu" path="res://Recursos/Teams/E Teams/Regiment Athletic/RegimentAthletic.tres" id="6_7d0t4"]
+[ext_resource type="Resource" uid="uid://dhjsldxfdifis" path="res://Recursos/Teams/E Teams/Santa Cruz Utd/SantaCruzUtd.tres" id="7_jm8c5"]
+[ext_resource type="Resource" uid="uid://b72qtlj7tagf5" path="res://Recursos/Teams/F Teams/AuraStrikers/AuraStrikers.tres" id="9_b1d0w"]
+[ext_resource type="Resource" uid="uid://dpvfusmqrpmcc" path="res://Recursos/Teams/F Teams/Button Smashers/ButtonSmashers.tres" id="10_sfuax"]
+[ext_resource type="Resource" uid="uid://bryg18np2iseq" path="res://Recursos/Teams/F Teams/GoalDiggers/GoalDiggers.tres" id="11_c1c1w"]
+[ext_resource type="Resource" uid="uid://bhm22brqu1etd" path="res://Recursos/Teams/F Teams/Noname Sports/NonameSports.tres" id="12_d1l6t"]
+[ext_resource type="Resource" uid="uid://boir6mmtf0v0m" path="res://Recursos/Teams/F Teams/Roots BC/RootsBC.tres" id="13_b7ygn"]
+[ext_resource type="Resource" uid="uid://b0p46wodrhjlf" path="res://Recursos/Teams/F Teams/ThunderDogs/ThunderDogs.tres" id="14_vihi5"]
 
 [resource]
 script = ExtResource("2_h4ti3")
 cupName = "BLOOMER _CUP"
 cupRank = 6
-teamPool = Array[ExtResource("1_jismj")]([ExtResource("4_h0u70"), ExtResource("5_0vnr7"), ExtResource("6_4tanh"), ExtResource("7_um1l1"), ExtResource("5_vi0c3")])
-nextTeamPool = Array[ExtResource("1_jismj")]([ExtResource("2_43cb3"), ExtResource("3_0vnr7"), ExtResource("4_4tanh")])
+teamPool = Array[ExtResource("1_jismj")]([ExtResource("9_b1d0w"), ExtResource("10_sfuax"), ExtResource("11_c1c1w"), ExtResource("12_d1l6t"), ExtResource("13_b7ygn"), ExtResource("14_vihi5")])
+nextTeamPool = Array[ExtResource("1_jismj")]([ExtResource("2_vfi60"), ExtResource("3_we5pv"), ExtResource("4_aw4y1"), ExtResource("5_ekbsl"), ExtResource("6_7d0t4"), ExtResource("7_jm8c5")])

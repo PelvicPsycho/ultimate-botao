@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://6imxl4ccqvm5"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_7svgf"]
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="2_vu4sb"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="3_poki0"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_vmd01"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_poki0"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_ifrlj"]
+
+[resource]
+script = ExtResource("4_poki0")
+id_unico = &"aser_retro_utd"
+nome = "Aser"
+num_camisa = 10
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_7svgf")]([ExtResource("2_vu4sb"), ExtResource("3_poki0")])
+mao_cartas = Array[ExtResource("1_7svgf")]([ExtResource("2_vu4sb"), ExtResource("3_poki0")])
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

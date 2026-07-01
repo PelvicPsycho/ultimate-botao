@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://csapcunf7vgke"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_t2ya8"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="2_2x78q"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_68reb"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="5_df3ck"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_07gmr"]
+
+[resource]
+script = ExtResource("5_df3ck")
+id_unico = &"arnaldo_aussie_glory"
+nome = "Arnaldo"
+num_camisa = 10
+slotsUpgrates = Array[ExtResource("1_t2ya8")]([ExtResource("2_2x78q")])
+mao_cartas = Array[ExtResource("1_t2ya8")]([ExtResource("2_2x78q")])
+strenghtLevel = 2
+PA = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://l0hucbmyr6yw"]
+
+[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_bsu1s"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_1083f"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="3_5rhra"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="6_4hypu"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="7_28nqp"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="9_gbvuy"]
+
+[resource]
+script = ExtResource("7_28nqp")
+id_unico = &"mi_roots_bc"
+nome = "Mi"
+num_camisa = 4
+foto = ExtResource("1_bsu1s")
+slotsUpgrates = Array[ExtResource("2_1083f")]([ExtResource("3_5rhra")])
+mao_cartas = Array[ExtResource("2_1083f")]([ExtResource("3_5rhra")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

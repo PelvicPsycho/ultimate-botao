@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://c2g3k8d0jt76q"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_d4ta1"]
+[ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="2_2gwoq"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="2_qic24"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_rd1vu"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="3_tn48a"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_2gwoq"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="5_6ioja"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_tn48a"]
+
+[resource]
+script = ExtResource("4_2gwoq")
+id_unico = &"beto_crimson_hawks"
+nome = "Beto"
+num_camisa = 4
+quantosSlotes = 4
+slotsUpgrates = Array[ExtResource("1_d4ta1")]([ExtResource("2_2gwoq"), ExtResource("3_tn48a"), ExtResource("2_qic24"), ExtResource("5_6ioja")])
+mao_cartas = Array[ExtResource("1_d4ta1")]([ExtResource("2_2gwoq"), ExtResource("3_tn48a"), ExtResource("2_qic24"), ExtResource("5_6ioja")])
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

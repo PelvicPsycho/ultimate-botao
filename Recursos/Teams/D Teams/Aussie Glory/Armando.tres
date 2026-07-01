@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://b1xpowqysp0jc"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_16r6j"]
+[ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="2_sgaeo"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="3_kftkb"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_xb1lk"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_kftkb"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_invr0"]
+
+[resource]
+script = ExtResource("4_kftkb")
+id_unico = &"armando_aussie_glory"
+nome = "Armando"
+num_camisa = 8
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_16r6j")]([ExtResource("2_sgaeo"), ExtResource("3_kftkb")])
+mao_cartas = Array[ExtResource("1_16r6j")]([ExtResource("2_sgaeo"), ExtResource("3_kftkb")])
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

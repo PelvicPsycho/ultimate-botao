@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bnni3vqso7dee"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_se17e"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="2_27yv2"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_smxen"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_wkv5y"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_27yv2"]
+
+[resource]
+script = ExtResource("2_smxen")
+id_unico = &"mickel_goal_diggers"
+nome = "Mickel"
+num_camisa = 8
+slotsUpgrates = Array[ExtResource("1_se17e")]([ExtResource("2_27yv2")])
+mao_cartas = Array[ExtResource("1_se17e")]([ExtResource("2_27yv2")])

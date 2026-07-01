@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://156ukjryqcre"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_5tdxc"]
+[ext_resource type="Resource" uid="uid://25svowd4imjv" path="res://Componentes/Cartas/CardResorce/CartaZonaGelo.tres" id="2_foe4y"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="3_foe4y"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="3_h1pvg"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="4_h1pvg"]
+[ext_resource type="Resource" uid="uid://csp54ggq7lwao" path="res://Componentes/Cartas/CardResorce/CartaImpulso.tres" id="4_s1c11"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_s1c11"]
+
+[resource]
+script = ExtResource("4_h1pvg")
+id_unico = &"aron_aussie_glory"
+nome = "Aron"
+num_camisa = 9
+quantosSlotes = 3
+slotsUpgrates = Array[ExtResource("1_5tdxc")]([ExtResource("2_foe4y"), ExtResource("3_h1pvg"), ExtResource("4_s1c11")])
+mao_cartas = Array[ExtResource("1_5tdxc")]([ExtResource("2_foe4y"), ExtResource("3_h1pvg"), ExtResource("4_s1c11")])
+strenghtLevel = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

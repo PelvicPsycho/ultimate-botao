@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://c8t4ng5umuxwu"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_kfsut"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="2_nwk5a"]
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="3_kfsut"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="5_pcevt"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="6_ccwxj"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="7_1r5sq"]
+
+[resource]
+script = ExtResource("6_ccwxj")
+id_unico = &"amilton_norde_utd"
+nome = "Amilton"
+num_camisa = 8
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_kfsut")]([ExtResource("2_nwk5a"), ExtResource("3_kfsut")])
+mao_cartas = Array[ExtResource("1_kfsut")]([ExtResource("2_nwk5a"), ExtResource("3_kfsut")])
+strenghtLevel = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

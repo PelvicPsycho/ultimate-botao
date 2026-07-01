@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bl7tu17wj05t8"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_7umdp"]
+[ext_resource type="Resource" uid="uid://biyalmc7bcd3l" path="res://Componentes/Cartas/CardResorce/Empurrão.tres" id="2_7umdp"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="3_rmyj5"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_3fru3"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="5_et2g5"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_tlxk4"]
+
+[resource]
+script = ExtResource("5_et2g5")
+id_unico = &"andre_chiefs_bc"
+nome = "Andre"
+num_camisa = 4
+quantosSlotes = 2
+slotsUpgrates = Array[ExtResource("1_7umdp")]([ExtResource("2_7umdp"), ExtResource("3_rmyj5")])
+mao_cartas = Array[ExtResource("1_7umdp")]([ExtResource("2_7umdp"), ExtResource("3_rmyj5")])
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

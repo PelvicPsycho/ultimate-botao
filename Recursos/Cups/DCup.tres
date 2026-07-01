@@ -1,15 +1,32 @@
 [gd_resource type="Resource" script_class="Cup" format=3 uid="uid://x6tg7lv15fjq"]
 
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="1_sh2xi"]
-[ext_resource type="Resource" uid="uid://b0p46wodrhjlf" path="res://Recursos/Teams/ThunderDogs/ThunderDogs.tres" id="2_jrof5"]
+[ext_resource type="Resource" uid="uid://bw34ldfexm8tq" path="res://Recursos/Teams/C Teams/Crazy Cookers/CrazyCookers.tres" id="2_8kj8x"]
 [ext_resource type="Script" uid="uid://fkgtqku055qw" path="res://Recursos/Res_Cup.gd" id="2_jy7sb"]
-[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_j8vho"]
-[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="4_cqmit"]
+[ext_resource type="Resource" uid="uid://5ge2oc6hv827" path="res://Recursos/Teams/C Teams/Crimson Hawks/CrimsonHawks.tres" id="3_o4xst"]
+[ext_resource type="Resource" uid="uid://bjvvv3xi5bjt4" path="res://Recursos/Teams/C Teams/Fire Cats/FireCats.tres" id="4_uube4"]
+[ext_resource type="Resource" uid="uid://bu1hnhxb13mb6" path="res://Recursos/Teams/C Teams/Immortal Stars/ImmortalStars.tres" id="5_npgjm"]
+[ext_resource type="Resource" uid="uid://ba3uruuaivn1b" path="res://Recursos/Teams/C Teams/Lunar Eclipse FC/LunarEclipseFC.tres" id="6_v6llx"]
+[ext_resource type="Resource" uid="uid://bcrwouut6qeal" path="res://Recursos/Teams/C Teams/Newfort/Newfort.tres" id="7_hps0n"]
+[ext_resource type="Resource" uid="uid://bmpkdu16gdh7v" path="res://Recursos/Teams/C Teams/Night Detectives/NightDetectives.tres" id="8_md7es"]
+[ext_resource type="Resource" uid="uid://5mvwhbn76lim" path="res://Recursos/Teams/C Teams/Nighthawks Albion/NighthawksAlbion.tres" id="9_hvkb2"]
+[ext_resource type="Resource" uid="uid://b60bgd2e0u62e" path="res://Recursos/Teams/C Teams/Palmares/Palmares.tres" id="10_1882q"]
+[ext_resource type="Resource" uid="uid://etodhjlxsclj" path="res://Recursos/Teams/C Teams/Totts BC/TottsBC.tres" id="11_b1srm"]
+[ext_resource type="Resource" uid="uid://d0jvk5rpjbadu" path="res://Recursos/Teams/D Teams/Aussie Glory/AussieGlory.tres" id="13_luh30"]
+[ext_resource type="Resource" uid="uid://cuhlfes8ftq0j" path="res://Recursos/Teams/D Teams/Chiefs BC/ChiefsBC.tres" id="14_hhk20"]
+[ext_resource type="Resource" uid="uid://b0rme3cf4t8px" path="res://Recursos/Teams/D Teams/Harbour Pirates/HarbourPirates.tres" id="15_a6iwl"]
+[ext_resource type="Resource" uid="uid://b3a1yabb4eiul" path="res://Recursos/Teams/D Teams/Lone Star FC/LoneStarFC.tres" id="16_3ywh5"]
+[ext_resource type="Resource" uid="uid://deh85fd4b1pfv" path="res://Recursos/Teams/D Teams/Newton Athlectic/Newton Athletic.tres" id="17_twqo3"]
+[ext_resource type="Resource" uid="uid://cpih6srhylpkr" path="res://Recursos/Teams/D Teams/Norde Utd/NordeUtd.tres" id="18_kqkdf"]
+[ext_resource type="Resource" uid="uid://bbxxgoutw630t" path="res://Recursos/Teams/D Teams/Retro Utd/RetroUtd.tres" id="19_8sred"]
+[ext_resource type="Resource" uid="uid://dlmfd023emsgn" path="res://Recursos/Teams/D Teams/Rogue Rovers/Rogue_Rovers.tres" id="20_vl0uc"]
+[ext_resource type="Resource" uid="uid://b21n8ejxsvs3x" path="res://Recursos/Teams/D Teams/Sub BC/SubBC.tres" id="21_kh6c8"]
+[ext_resource type="Resource" uid="uid://ch54ysadukp5v" path="res://Recursos/Teams/D Teams/Blackwood Albion/Blackwood_Albion.tres" id="22_gf5by"]
 
 [resource]
 script = ExtResource("2_jy7sb")
 cupName = "STATE_CUP"
 cupRank = 4
 numMatches = 5
-teamPool = Array[ExtResource("1_sh2xi")]([ExtResource("2_jrof5"), ExtResource("3_j8vho"), ExtResource("4_cqmit")])
-nextTeamPool = Array[ExtResource("1_sh2xi")]([ExtResource("2_jrof5"), ExtResource("3_j8vho"), ExtResource("4_cqmit")])
+teamPool = Array[ExtResource("1_sh2xi")]([ExtResource("13_luh30"), ExtResource("14_hhk20"), ExtResource("15_a6iwl"), ExtResource("16_3ywh5"), ExtResource("17_twqo3"), ExtResource("18_kqkdf"), ExtResource("19_8sred"), ExtResource("20_vl0uc"), ExtResource("21_kh6c8"), ExtResource("22_gf5by")])
+nextTeamPool = Array[ExtResource("1_sh2xi")]([ExtResource("2_8kj8x"), ExtResource("3_o4xst"), ExtResource("4_uube4"), ExtResource("5_npgjm"), ExtResource("6_v6llx"), ExtResource("7_hps0n"), ExtResource("8_md7es"), ExtResource("9_hvkb2"), ExtResource("10_1882q"), ExtResource("11_b1srm")])

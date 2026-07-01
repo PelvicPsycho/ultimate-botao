@@ -9,7 +9,6 @@ enum Rank {F,E,D,C,B,A,S,PLAYER}
 @export var ranque: Rank
 @export var cor: Color
 @export var emblem: Texture2D = preload("res://Recursos/Teams/Generic Emblem/generic.png")
-@export var hasEmblem: bool = false
 
 #@export_category("Elenco")
 @export var mainSquad: Array[TeamPlayer]

@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cxvx4p8j6gj0x" path="res://Recursos/2D_Art/MatchUI/NomeJogadores_Line.png" id="8_d3i7i"]
 [ext_resource type="Material" uid="uid://0bn2sn5jr6hp" path="res://shaders/Lances_Bolinha.tres" id="8_ky2rs"]
 [ext_resource type="Texture2D" uid="uid://jriomq0tn3ni" path="res://Recursos/2D_Art/MatchUI/Ativo 1.png" id="8_xrqu3"]
+[ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="8_y336d"]
 [ext_resource type="Script" uid="uid://biwcmyl26ar2f" path="res://Componentes/MyTeam/Label_Autoajustar.gd" id="9_d3i7i"]
 [ext_resource type="Texture2D" uid="uid://bspvf8n8v742y" path="res://Recursos/2D_Art/MatchUI/Sport_Club_Internacional_logopng.png" id="9_gww17"]
 [ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="13_xrqu3"]
@@ -679,6 +680,10 @@ colors = PackedColorArray(0.38431373, 0.67058825, 0.827451, 0.5882353, 0.9450980
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vxabe"]
 gradient = SubResource("Gradient_xrqu3")
 
+[sub_resource type="LabelSettings" id="LabelSettings_ij7cd"]
+font = ExtResource("8_y336d")
+font_size = 40
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxabe"]
 bg_color = Color(0.9254902, 0.9254902, 0.9254902, 1)
 border_width_left = 4
@@ -882,6 +887,7 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("7_nmdq6")
 theme_override_font_sizes/font_size = 50
 text = "Jogador"
+label_settings = SubResource("LabelSettings_ij7cd")
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("9_d3i7i")
@@ -963,6 +969,7 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("7_nmdq6")
 theme_override_font_sizes/font_size = 50
 text = "Adversário"
+label_settings = SubResource("LabelSettings_ij7cd")
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("9_d3i7i")

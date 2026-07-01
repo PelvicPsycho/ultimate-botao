@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://duutxdmx0g25q"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_0y0uy"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="2_mmlv4"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_qk6lp"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="5_er05o"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="6_n5y1u"]
+
+[resource]
+script = ExtResource("5_er05o")
+id_unico = &"amir_norde_utd"
+nome = "Amir"
+num_camisa = 10
+quantosSlotes = 1
+slotsUpgrates = Array[ExtResource("1_0y0uy")]([ExtResource("2_mmlv4")])
+mao_cartas = Array[ExtResource("1_0y0uy")]([ExtResource("2_mmlv4")])
+PA = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

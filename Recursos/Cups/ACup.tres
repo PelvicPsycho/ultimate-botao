@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Cup" format=3 uid="uid://d011rlei4cqqi"]
 
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="1_wfmpm"]
-[ext_resource type="Resource" uid="uid://b0p46wodrhjlf" path="res://Recursos/Teams/ThunderDogs/ThunderDogs.tres" id="2_5wcld"]
+[ext_resource type="Resource" uid="uid://b0p46wodrhjlf" path="res://Recursos/Teams/F Teams/ThunderDogs/ThunderDogs.tres" id="2_5wcld"]
 [ext_resource type="Script" uid="uid://fkgtqku055qw" path="res://Recursos/Res_Cup.gd" id="2_qcsk5"]
-[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Inter/Inter.tres" id="3_m25eo"]
-[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Grêmio/Gremio.tres" id="4_w6lci"]
+[ext_resource type="Resource" uid="uid://cqnsye86fls8o" path="res://Recursos/Teams/Other Teams/Inter/Inter.tres" id="3_m25eo"]
+[ext_resource type="Resource" uid="uid://dsr512dkuo864" path="res://Recursos/Teams/Other Teams/Grêmio/Gremio.tres" id="4_w6lci"]
 
 [resource]
 script = ExtResource("2_qcsk5")

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bxrpq72gldfjw"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_1ggsp"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_1hoya"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_5mrnl"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_h6cv8"]
+[ext_resource type="Resource" uid="uid://bq1qsd3ojqnsw" path="res://Componentes/Cartas/CardResorce/CartaEncolhedor.tres" id="4_o5inr"]
+
+[resource]
+script = ExtResource("2_1hoya")
+id_unico = &"jim_aura_strikers"
+nome = "Jim"
+num_camisa = 9
+slotsUpgrates = Array[ExtResource("1_1ggsp")]([ExtResource("4_o5inr")])
+mao_cartas = Array[ExtResource("1_1ggsp")]([ExtResource("4_o5inr")])
