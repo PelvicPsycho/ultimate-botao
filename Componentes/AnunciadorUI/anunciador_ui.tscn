@@ -79,7 +79,7 @@ text = "PLAYER"
 [node name="Lances_Label" type="Label" parent="Lances_Control" unique_id=1041939228]
 layout_mode = 0
 offset_left = 396.0
-offset_top = 269.0
+offset_top = 312.0
 offset_right = 1722.0
 offset_bottom = 644.0
 theme_override_colors/font_color = Color(0.92156863, 0.7647059, 0.08627451, 1)
