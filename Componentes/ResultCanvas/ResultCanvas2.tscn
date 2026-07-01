@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b78j7fd60lhmc"]
+
+[ext_resource type="PackedScene" uid="uid://dwdsfv325uopc" path="res://Componentes/ResultCanvas/Components/win_result.tscn" id="1_cx6o8"]
+[ext_resource type="Script" uid="uid://bpdsb6gnmi5tm" path="res://Componentes/ResultCanvas/result_canvas_2.gd" id="1_oedx0"]
+[ext_resource type="PackedScene" uid="uid://c4rgmwfd7g0xb" path="res://Componentes/ResultCanvas/Components/DefeatResult.tscn" id="1_vcty0"]
+
+[node name="ResultCanvas2" type="CanvasLayer" unique_id=166620864]
+script = ExtResource("1_oedx0")
+
+[node name="Control" type="Control" parent="." unique_id=795036015]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WinResult" parent="Control" unique_id=2075215600 instance=ExtResource("1_cx6o8")]
+visible = false
+layout_mode = 1
+
+[node name="DefeatResult" parent="Control" unique_id=1637575366 instance=ExtResource("1_vcty0")]
+visible = false
+layout_mode = 1

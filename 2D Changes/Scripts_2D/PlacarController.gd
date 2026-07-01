@@ -13,7 +13,6 @@ class_name PlacarController
 @export var labelMatchTimer: Label
 
 func change_Score_background_TextureRect_Colors(homeTeam_Color: Color, awayTeam_Color: Color) -> void:
-	print("AAAAAAAAAA")
 	# Get colors from team info
 	var homeTeam_gradient_texture = backgroundScoreHome.texture as GradientTexture2D
 	var awayTeam_gradient_texture = backgroundScoreAway.texture as GradientTexture2D

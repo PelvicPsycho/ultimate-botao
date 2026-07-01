@@ -734,14 +734,14 @@ func isCorrectSide(team: Team) -> bool:
 ## para o jogador decidir o próximo passo (botão Next).
 func endMatch(winner: String):
 	match_ended = true
-	var resultCanvas = $ResultCanvas
+	var resultCanvas = $ResultCanvas2
 	var jogador_venceu := winner == homeTeam.name
 	congelar_jogo(true, 999999)
 	#print("congelar_jogo")
 	
 	if not jogador_venceu:
 		await get_tree().create_timer(3.0, true).timeout
-		resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), false)
+		resultCanvas._show(str(homeScore) + "X" + str(awayScore), false, homeTeam.cor, awayTeam.cor)
 		return
 	
 	# ── Jogador venceu: recompensa primeiro ──
@@ -761,8 +761,7 @@ func endMatch(winner: String):
 			await tela.recompensa_coletada
 	
 	# ── Depois da recompensa, abre o result_canvas ──
-	
-	resultCanvas._show(winner, str(homeScore) + " X " + str(awayScore), true)
+	resultCanvas._show(str(homeScore) + "X" + str(awayScore), true, homeTeam.cor, awayTeam.cor)
 
 func congelar_jogo(congelar: bool, tempo: float = -1.0) -> void:
 	if congelar:

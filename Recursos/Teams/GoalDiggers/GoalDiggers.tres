@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_p1ne4"]
 [ext_resource type="Resource" uid="uid://druppmdcwcws2" path="res://Recursos/Teams/GoalDiggers/Carl.tres" id="2_11j7a"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_m4f3b"]
 [ext_resource type="Resource" uid="uid://bc6466x7ve4hu" path="res://Recursos/Teams/GoalDiggers/Houei.tres" id="3_m4f3b"]
 [ext_resource type="Resource" uid="uid://ceoeidux530hb" path="res://Recursos/Teams/GoalDiggers/Lemmy.tres" id="4_5b1el"]
 [ext_resource type="Resource" uid="uid://bnni3vqso7dee" path="res://Recursos/Teams/GoalDiggers/Mickel.tres" id="5_gxyhm"]
@@ -22,3 +23,4 @@ name = "Goal Diggers"
 id = 6
 cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
 mainSquad = Array[ExtResource("1_p1ne4")]([ExtResource("2_11j7a"), ExtResource("3_m4f3b"), ExtResource("4_5b1el"), ExtResource("5_gxyhm"), ExtResource("6_oim04")])
+overlay_escolhido = 1

@@ -8,7 +8,8 @@ enum Rank {F,E,D,C,B,A,S,PLAYER}
 @export var id: int
 @export var ranque: Rank
 @export var cor: Color
-@export var emblem: Texture2D
+@export var emblem: Texture2D = preload("res://Recursos/Teams/Generic Emblem/generic.png")
+@export var hasEmblem: bool = false
 
 #@export_category("Elenco")
 @export var mainSquad: Array[TeamPlayer]
@@ -29,8 +30,6 @@ enum Rank {F,E,D,C,B,A,S,PLAYER}
 @export var textura_overlay_menu_2: Texture2D = preload("res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png")
 @export var textura_overlay_menu_3: Texture2D = preload("res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png")
 @export var textura_overlay_menu_4: Texture2D = preload("res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png")
-
-
 
 func get_overlay_texture() -> Texture2D:
 	match overlay_escolhido:

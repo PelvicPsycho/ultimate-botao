@@ -21,11 +21,11 @@
 [ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="17_jvl26"]
 [ext_resource type="PackedScene" uid="uid://b8ms3txou0nej" path="res://Componentes/MatchUI/match_ui.tscn" id="18_3eaht"]
 [ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Componentes/PauseMenu/pause_menu.tscn" id="19_h5eqs"]
-[ext_resource type="PackedScene" uid="uid://bpaqxd3esldoa" path="res://Componentes/ResultCanvas/ResultCanvas.tscn" id="20_w8iov"]
 [ext_resource type="Script" uid="uid://ds1v83xrqv51s" path="res://Scripts Globais/MatchTimer.gd" id="21_qddwe"]
 [ext_resource type="Script" uid="uid://dmaaq5gpwxbo8" path="res://2D Changes/Scripts_2D/PlacarController.gd" id="22_tb6le"]
 [ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="23_ba03v"]
 [ext_resource type="Texture2D" uid="uid://clhndkw8oj368" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/placar/Placar-sombra.png" id="24_tb6le"]
+[ext_resource type="PackedScene" uid="uid://b78j7fd60lhmc" path="res://Componentes/ResultCanvas/ResultCanvas2.tscn" id="25_u1agk"]
 
 [sub_resource type="Gradient" id="Gradient_xrqu3"]
 colors = PackedColorArray(0.38431373, 0.67058825, 0.827451, 0.39215687, 0.94509804, 0.4, 0.3882353, 0.39215687)
@@ -33,21 +33,21 @@ colors = PackedColorArray(0.38431373, 0.67058825, 0.827451, 0.39215687, 0.945098
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ss0s5"]
 gradient = SubResource("Gradient_xrqu3")
 
-[sub_resource type="Gradient" id="Gradient_n4ih5"]
+[sub_resource type="Gradient" id="Gradient_u1agk"]
 offsets = PackedFloat32Array(0.45, 1)
 colors = PackedColorArray(0.8564939, 3.657937e-06, 8.663535e-07, 1, 0.99998623, 0.40726218, 0.3386664, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_u1agk"]
-gradient = SubResource("Gradient_n4ih5")
+gradient = SubResource("Gradient_u1agk")
 fill_from = Vector2(1, 1)
 fill_to = Vector2(0, 0)
 
-[sub_resource type="Gradient" id="Gradient_tb6le"]
+[sub_resource type="Gradient" id="Gradient_v76cn"]
 offsets = PackedFloat32Array(0.45, 1)
 colors = PackedColorArray(0, 0.23921569, 1, 1, 0.35116833, 0.5531243, 0.9999891, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_v76cn"]
-gradient = SubResource("Gradient_tb6le")
+gradient = SubResource("Gradient_v76cn")
 fill_from = Vector2(0, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_v76cn"]
@@ -334,7 +334,7 @@ unique_name_in_owner = true
 
 [node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("19_h5eqs")]
 
-[node name="ResultCanvas" parent="." unique_id=1172237795 instance=ExtResource("20_w8iov")]
+[node name="ResultCanvas2" parent="." unique_id=166620864 instance=ExtResource("25_u1agk")]
 
 [node name="MatchTimer" type="Node" parent="." unique_id=1351562667]
 script = ExtResource("21_qddwe")

@@ -1,0 +1,213 @@
+[gd_scene format=3 uid="uid://c4rgmwfd7g0xb"]
+
+[ext_resource type="Texture2D" uid="uid://bski80xv3rta1" path="res://Componentes/ResultCanvas/Graphics/derrota fundo.png" id="1_2vina"]
+[ext_resource type="Script" uid="uid://bdgi7ybmdyuhg" path="res://Componentes/ResultCanvas/Components/Board.gd" id="2_fq0mk"]
+[ext_resource type="Texture2D" uid="uid://cpg51tvrjmd4m" path="res://Componentes/ResultCanvas/Graphics/derrota label.png" id="2_otifg"]
+[ext_resource type="Texture2D" uid="uid://d3rpx48nvwgxl" path="res://Componentes/ResultCanvas/Graphics/final de partida botao (1).png" id="3_tjqxi"]
+[ext_resource type="Texture2D" uid="uid://du827o7o4bdy" path="res://Componentes/ResultCanvas/Graphics/placar fundo1.png" id="4_shi7a"]
+[ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="5_s7wqs"]
+[ext_resource type="Script" uid="uid://b8xa3qtksu7me" path="res://Componentes/AnimationHover/animation_hover_node.gd" id="6_l5ggg"]
+[ext_resource type="FontFile" uid="uid://cy5sv3w4e5qwt" path="res://Recursos/Fontes/Rubik/Rubik-Medium.ttf" id="6_wycb1"]
+[ext_resource type="Texture2D" uid="uid://clhndkw8oj368" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/placar/Placar-sombra.png" id="7_b1g3x"]
+
+[sub_resource type="Gradient" id="Gradient_n4ih5"]
+offsets = PackedFloat32Array(0.45, 1)
+colors = PackedColorArray(0.8564939, 3.657937e-06, 8.663535e-07, 1, 0.99998623, 0.40726218, 0.3386664, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pv6vc"]
+gradient = SubResource("Gradient_n4ih5")
+fill_from = Vector2(1, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6ld5j"]
+font = ExtResource("6_wycb1")
+font_size = 156
+
+[sub_resource type="Gradient" id="Gradient_tb6le"]
+offsets = PackedFloat32Array(0.45, 1)
+colors = PackedColorArray(0, 0.23921569, 1, 1, 0.35116833, 0.5531243, 0.9999891, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m5q3n"]
+gradient = SubResource("Gradient_tb6le")
+fill_from = Vector2(0, 1)
+
+[sub_resource type="Animation" id="Animation_l5ggg"]
+resource_name = "DefeatDance"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-87, -68), Vector2(-87, -84), Vector2(-87, -68)]
+}
+
+[sub_resource type="Animation" id="Animation_d1wu8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-87, -68)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k02ot"]
+_data = {
+&"DefeatDance": SubResource("Animation_l5ggg"),
+&"RESET": SubResource("Animation_d1wu8")
+}
+
+[node name="TextureRect" type="TextureRect" unique_id=1637575366]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.5
+offset_top = -140.0
+offset_right = 280.5
+offset_bottom = 258.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2vina")
+flip_h = true
+script = ExtResource("2_fq0mk")
+
+[node name="Placar_Outline" type="TextureRect" parent="." unique_id=1572261609]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.38200003
+anchor_top = 0.105000004
+anchor_right = 0.61700004
+anchor_bottom = 0.632
+offset_left = -159.80202
+offset_top = -328.79
+offset_right = 158.36298
+offset_bottom = 31.46399
+texture = ExtResource("4_shi7a")
+
+[node name="Placar_BG_Direita" type="TextureRect" parent="Placar_Outline" unique_id=2115882332]
+self_modulate = Color(1, 0.8032767, 0.7704654, 1)
+show_behind_parent = true
+z_index = -2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.039
+anchor_right = 0.95900005
+anchor_bottom = 0.48900002
+offset_left = -6.1035156e-05
+offset_top = -0.22999573
+offset_right = -0.009094238
+offset_bottom = 0.269989
+texture = SubResource("GradientTexture2D_pv6vc")
+
+[node name="Placar_Label_Direita" type="Label" parent="Placar_Outline/Placar_BG_Direita" unique_id=2054829246]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9999996, 0.91342497, 0.8870243, 1)
+theme_override_fonts/font = ExtResource("5_s7wqs")
+theme_override_font_sizes/font_size = 40
+text = "0"
+label_settings = SubResource("LabelSettings_6ld5j")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Placar_BG_Esquerda" type="TextureRect" parent="Placar_Outline" unique_id=944983605]
+self_modulate = Color(1, 0.8032767, 0.7704654, 1)
+show_behind_parent = true
+z_index = -2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.047000002
+anchor_top = 0.040000003
+anchor_right = 0.5
+anchor_bottom = 0.48600003
+offset_left = -0.19697762
+offset_top = -2.800003
+offset_right = 2.5000305
+offset_bottom = -0.020019531
+texture = SubResource("GradientTexture2D_m5q3n")
+
+[node name="Placar_Label_Esquerda" type="Label" parent="Placar_Outline/Placar_BG_Esquerda" unique_id=2133611531]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9999996, 0.91342497, 0.8870243, 1)
+theme_override_fonts/font = ExtResource("5_s7wqs")
+theme_override_font_sizes/font_size = 40
+text = "0"
+label_settings = SubResource("LabelSettings_6ld5j")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Placar_Sombra" type="TextureRect" parent="Placar_Outline" unique_id=1956020354]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.040000003
+anchor_top = 0.46100003
+anchor_right = 0.9480001
+anchor_bottom = 0.51100004
+offset_left = -1.7904892
+offset_top = 0.22998047
+offset_right = 5.72229
+offset_bottom = 0.22991943
+rotation = -0.06633684
+texture = ExtResource("7_b1g3x")
+
+[node name="Label" type="TextureRect" parent="." unique_id=1630141922]
+layout_mode = 0
+offset_left = -87.0
+offset_top = -68.0
+offset_right = 622.0
+offset_bottom = 95.0
+texture = ExtResource("2_otifg")
+
+[node name="Buttons" type="MarginContainer" parent="." unique_id=871706098]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons" unique_id=624599094]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="TextureButton3" type="TextureButton" parent="Buttons/VBoxContainer" unique_id=475907626]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("3_tjqxi")
+
+[node name="AnimadorHover" type="Node" parent="Buttons/VBoxContainer/TextureButton3" unique_id=653282714]
+script = ExtResource("6_l5ggg")
+metadata/_custom_type_script = "uid://b8xa3qtksu7me"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1391633579]
+libraries/ = SubResource("AnimationLibrary_k02ot")
+autoplay = &"DefeatDance"
+
+[connection signal="pressed" from="Buttons/VBoxContainer/TextureButton3" to="." method="_on_quit_btn_pressed"]
