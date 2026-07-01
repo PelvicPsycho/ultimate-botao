@@ -13,7 +13,7 @@
 script = ExtResource("2_ly3ky")
 id_unico = &"pezzo_inter"
 nome = "Pezzo"
-num_camisa = 1
+num_camisa = 4
 foto = ExtResource("1_vs3vr")
 quantosSlotes = 10
 mao_cartas = Array[ExtResource("4_x0kmd")]([ExtResource("3_q1f28"), ExtResource("4_g1642"), ExtResource("5_krof5")])

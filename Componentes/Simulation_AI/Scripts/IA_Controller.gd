@@ -495,19 +495,19 @@ func use_card_on_selected_piece(_piece_index: int) -> void:
 	
 	var card = player_info.slotsUpgrates[card_index]
 	if card != null:
-		if card.nome == "Carta Aumento De Tamanho":
+		if card.nome == "Gigantificação":
 			#print(" -- Card - Name = ", card.nome)
 			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
 			#break
-		elif card.nome == "Atração":
+		elif card.nome == "Magnetismo":
 			#print(" -- Card - Name = ", card.nome)
 			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
 			#break
-		elif card.nome == "Carta Encolhedora":
+		elif card.nome == "Minimização":
 			#print(" -- Card - Name = ", card.nome)
 			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
 			#break
-		elif card.nome == "Corre Peao":
+		elif card.nome == "Chute Forte":
 			#print(" -- Card - Name = ", card.nome)
 			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
 			#break

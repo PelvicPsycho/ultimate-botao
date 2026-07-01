@@ -5,17 +5,25 @@
 [ext_resource type="AudioStream" uid="uid://dophc5rewn0on" path="res://Recursos/SFXs/ClicouNaPeca_544883__ashboy34__smallgranitedry.wav" id="3_4wfki"]
 [ext_resource type="Texture2D" uid="uid://dd2an5o41fxro" path="res://2D Changes/Others_2D/Ground Effect Bubble.png" id="3_wpyri"]
 [ext_resource type="AudioStream" uid="uid://b8x46eek4pke2" path="res://Recursos/SFXs/SomDePuxarAPeca_freesound_community-wind-up3-89578.wav" id="4_85i0u"]
+[ext_resource type="Texture2D" uid="uid://cvin7whtkkl3f" path="res://Recursos/2D_Art/numeros/Ativo 10.png" id="4_ugxyb"]
+[ext_resource type="Texture2D" uid="uid://l55c3chexph3" path="res://Recursos/2D_Art/numeros/Ativo 8.png" id="5_7u86x"]
 [ext_resource type="AudioStream" uid="uid://b30b1yxsrtvue" path="res://Recursos/SFXs/ChutouAPeca_freesound_community-soccer-ball-kick-37625.wav" id="5_c16pp"]
 [ext_resource type="AudioStream" uid="uid://bqpkt6r0ypfx8" path="res://Recursos/SFXs/ChutouAPeca_ribhavagrawal-woosh-230554.wav" id="6_426bi"]
+[ext_resource type="Texture2D" uid="uid://dcuym1rdf3u44" path="res://Recursos/2D_Art/numeros/Ativo 4.png" id="6_c6a1s"]
 [ext_resource type="AudioStream" uid="uid://8wor35bd1myu" path="res://Recursos/SFXs/CancelouAJogada_drop_003.wav" id="7_1440w"]
+[ext_resource type="Texture2D" uid="uid://qgj17wwbe8dr" path="res://Recursos/2D_Art/numeros/Ativo 3.png" id="7_kqsdb"]
 [ext_resource type="AudioStream" uid="uid://dv1awxb4wsu8x" path="res://Recursos/SFXs/BateuEmOutraPeca_freesound_community-clack-85854.wav" id="8_1440w"]
+[ext_resource type="Texture2D" uid="uid://csfo1pf0rxmmm" path="res://Recursos/2D_Art/numeros/Desativado 9.png" id="8_n110c"]
+[ext_resource type="Texture2D" uid="uid://bmlmixmc1oeib" path="res://Recursos/2D_Art/numeros/Desativado 10.png" id="9_lltck"]
 [ext_resource type="AudioStream" uid="uid://d4fx3ptn8m03m" path="res://Recursos/SFXs/BateuNaBola_footstep_carpet_003.wav" id="9_xkhmx"]
 [ext_resource type="AudioStream" uid="uid://clc333t0ptaed" path="res://Recursos/SFXs/BateuNaParede_footstep_wood_003.wav" id="10_fl8l5"]
+[ext_resource type="Texture2D" uid="uid://dknncqdcdlwjl" path="res://Recursos/2D_Art/numeros/Desativado 8.png" id="10_mdf0v"]
 [ext_resource type="AudioStream" uid="uid://c7i8wt5kqjjw6" path="res://Recursos/SFXs/BateuNaTrave_406490__anthousai__hit-metallic-basketball-hoop-pipe-01.wav" id="11_gwudw"]
 [ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="12_gwudw"]
+[ext_resource type="Texture2D" uid="uid://dujti6r3vl6xq" path="res://Recursos/2D_Art/numeros/Ativo 9.png" id="12_v8rn7"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="15_fl8l5"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="15_gwudw"]
-[ext_resource type="Shader" uid="uid://w0c32ju552la" path="res://2D Changes/Shader_2d/gravitational_distortion.gdshader" id="17_pol8b"]
+[ext_resource type="Shader" path="res://2D Changes/Shader_2d/gravitational_distortion.gdshader" id="17_pol8b"]
 [ext_resource type="PackedScene" uid="uid://cjab8n13u8gkw" path="res://2D Changes/2D_Scenes/MenuRadial.tscn" id="19_o5120"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pol8b"]
@@ -178,6 +186,8 @@ Object_Radius = NodePath("CollisionShape2D/Object_Calculate_Radius")
 pixalizado = 14.175
 max_distance = 300.0
 playerInfo = ExtResource("2_b4028")
+numeros_ativos = Array[Texture2D]([ExtResource("12_v8rn7"), ExtResource("4_ugxyb"), ExtResource("5_7u86x"), ExtResource("6_c6a1s"), ExtResource("7_kqsdb")])
+numeros_inativos = Array[Texture2D]([ExtResource("8_n110c"), ExtResource("9_lltck"), ExtResource("10_mdf0v"), null, null])
 velocity_lag_distance = 10.0
 audio_clique = ExtResource("3_4wfki")
 audio_tensao = ExtResource("4_85i0u")
@@ -194,7 +204,14 @@ aim_line2D = NodePath("Line2D_Aim")
 drag_line2D = NodePath("Line2D_Drag")
 velocity_line2D = NodePath("Line2D_Velocity")
 
+[node name="SpriteNumero" type="Sprite2D" parent="." unique_id=1347167577]
+z_index = 3
+position = Vector2(0, -2)
+scale = Vector2(0.10655741, 0.14655589)
+texture = ExtResource("12_v8rn7")
+
 [node name="LabelPA" type="Label" parent="." unique_id=204624804]
+visible = false
 z_index = 2
 anchors_preset = 8
 anchor_left = 0.5

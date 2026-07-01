@@ -59,11 +59,15 @@ size = Vector2(292.5, 366)
 [node name="MatchScene2D_AI" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller", "IA_Contr", "placar", "gradient_background_TextureRect", "anunciador_ui", "pause_menu") groups=["MatchState"]]
 script = ExtResource("1_ss0s5")
 physics_controller = NodePath("PhysicsController")
+show_play_simulation_result = null
+show_play_simulation_result_index = null
 IA_Active = true
 IA_Contr = NodePath("IA_Controller")
 placar = NodePath("CanvasLayer_Placar")
 anunciador_tempo = 1.0
 gradient_background_TextureRect = NodePath("CanvasLayer_BackGround/Gradient_Background")
+home_color_alpha = null
+away_color_alpha = null
 anunciador_ui = NodePath("AnunciadorUI")
 pause_menu = NodePath("PauseMenu")
 cena_recompensa_partida = ExtResource("2_5b3c6")

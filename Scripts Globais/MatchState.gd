@@ -76,7 +76,10 @@ func _ready() -> void:
 	%MatchUI.UI_start(homeTeam, awayTeam)
 	
 	gradient_texture = gradient_background_TextureRect.texture as GradientTexture2D
-
+	allPieces.assign(get_tree().get_nodes_in_group("Players"))
+	for piece in allPieces:
+		if piece.has_method("atualizar_visual_numero"):
+			piece.atualizar_visual_numero()
 	allPieces.assign(get_tree().get_nodes_in_group("Players"))
 	allBalls = get_tree().get_nodes_in_group("Balls")
 	
@@ -214,14 +217,17 @@ func assignPieces():
 		piece.team = homeTeam
 		piece.playerInfo = player
 		piece.loadPlayerInfo(player)
-
+		if piece.has_method("atualizar_visual_numero"):
+			piece.atualizar_visual_numero()
 	for i in range(awayPieces.size()):
 		var piece = awayPieces[i]
 		var player = awayPlayers[i]
 		piece.team = awayTeam
 		piece.playerInfo = player
 		piece.loadPlayerInfo(player)
-	
+		piece.atualizar_visual_numero()
+		if piece.has_method("atualizar_visual_numero"):
+			piece.atualizar_visual_numero()
 	physics_controller.all_physicObjects_loaded = true
 
 func _on_contador_inicial_concluido(active_team: Team) -> void:
@@ -426,24 +432,40 @@ func change_gradient_background_TextureRect_Colors() -> void:
 	gradient_background_TextureRect.texture = gradient_texture
 
 func selectFirstTurn() -> void:
-	#currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
+	# 1. Trava de segurança contra execução dupla
+	if back_ground_can_animate: return 
 	
-	%MatchUI.play_progressbar_Animations(currentTurn == turn.HOME)
-	call_gradient_background_TextureRect_animation()
-	
+	# 2. Sorteio do turno inicial
+	currentTurn = turn.AWAY if randi_range(0, 1) > 0 else turn.HOME
 	back_ground_can_animate = true
+	
+	print("\n[DEBUG MATCH] --- SORTEIO INICIAL ---")
+	print("[DEBUG MATCH] Vencedor: ", "HOME" if currentTurn == turn.HOME else "AWAY")
+	
+	# 3. Reset de física e estados globais
 	for ball in allBalls:
 		ball.lastTouch = null
 		ball.firstTouch = null
-	
 	physics_controller.reset_last_touch_of_all_pieces()
-	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
 	
+	# 4. Configuração da IA para o time correto
 	if IA_Active and IA_Contr != null:
 		IA_Contr.SetCurrentTeamSide(currentTurn)
-		
-	%MatchUI.colorir_turno(active_team, turnCounter) 
+
+	# 5. DISTRIBUIÇÃO DE CAMISAS E ATUALIZAÇÃO VISUAL
+	# Chama a lógica centralizada para os números 3, 4, 8, 9, 10
+	validar_e_atribuir_numeros_unicos()
 	
+	# 6. ATUALIZAÇÃO DA UI (Sincronização)
+	var active_team = homeTeam if currentTurn == turn.HOME else awayTeam
+	
+	# Dispara animações de progresso e gradiente de fundo
+	%MatchUI.play_progressbar_Animations(currentTurn == turn.HOME)
+	call_gradient_background_TextureRect_animation()
+	
+	# Atualiza o indicador de turno e cores na interface
+	if %MatchUI.has_method("colorir_turno"):
+		%MatchUI.colorir_turno(active_team, turnCounter)
 func changeTurn() -> void:
 	for piece in allPieces:
 		if (currentTurn == turn.HOME and piece.team == homeTeam) or (currentTurn == turn.AWAY and piece.team == awayTeam):
@@ -484,8 +506,44 @@ func changeTurn() -> void:
 	# 3. Dá o play na animação do contador
 	%MatchUI.disparar_animacao_de_turno(active_team)
 
+func validar_e_atribuir_numeros_unicos() -> void:
+	var todas_as_pecas = get_tree().get_nodes_in_group("Players")
+	
+	# SEUS NÚMEROS DISPONÍVEIS (Exatamente os 5 que você tem arte)
+	var pool_disponivel = [3, 4, 8, 9, 10] 
+	
+	var usados_home = []
+	var usados_away = []
 
-# 4. Roda quando acabar a animação de entrada do contador de lances
+	print("[DEBUG] Iniciando distribuição única para os números: ", pool_disponivel)
+
+	for piece in todas_as_pecas:
+		var lista_usados = usados_home if piece.team == homeTeam else usados_away
+		var num_atual = piece.playerInfo_atual.num_camisa
+		
+		# Se o número já foi usado por um colega OU não está no seu pool de 5 fotos
+		if num_atual in lista_usados or not num_atual in pool_disponivel:
+			# Procura o primeiro número do seu pool que ainda está livre para este time
+			var atribuido = false
+			for n in pool_disponivel:
+				if not n in lista_usados:
+					piece.playerInfo_atual.num_camisa = n
+					num_atual = n
+					atribuido = true
+					break
+			
+			# Caso extremo: se tiver mais de 5 jogadores, ele repete o primeiro disponível
+			if not atribuido:
+				num_atual = pool_disponivel[0]
+				piece.playerInfo_atual.num_camisa = num_atual
+		
+		lista_usados.append(num_atual)
+		print("[DEBUG] Time: ", ("HOME" if piece.team == homeTeam else "AWAY"), " | Peça: ", piece.name, " | Camisa: ", num_atual)
+
+	# AGORA SIM: Com os números organizados, manda atualizar o visual de todos
+	for piece in todas_as_pecas:
+		if piece.has_method("atualizar_visual_numero"):
+			piece.atualizar_visual_numero()
 func _continuar_troca_de_turno(active_team: Team) -> void:
 	# O jogo já está congelado desde changeTurn().
 	# Mostra o anunciador de lance sem congelar novamente.

@@ -30,7 +30,7 @@ var current_distance: float = 0
 signal carta_clicada(carta)
 var dono: PhysicsPlayer2D
 var efeitos_visuais_ativos: Dictionary = {}
-
+const PATH_NUMEROS = "res://Recursos/2D_Art/numeros/"
 var team: Team
 @export var playerInfo: TeamPlayer
 var playerInfo_atual: TeamPlayer
@@ -41,7 +41,9 @@ var congelado: bool = false
 @onready var impactParticles = preload("res://2D Changes/Components/Particles/ImpactParticles/ImpactParticles.tscn")
 @export var intervalo_minimo_particula_impacto_ms: int = 80
 var ultimo_tempo_particula_impacto_ms: int = -99999
-
+@export var numeros_ativos: Array[Texture2D]
+@export var numeros_inativos: Array[Texture2D]
+@onready var sprite_numero: Sprite2D = $SpriteNumero 
 @export_group("Tracing settings")
 @export var maxLenght: int = 15
 @export var tracer_speed_threshold: float = 18.0
@@ -125,12 +127,39 @@ func _ready() -> void:
 	tracer2D.clear_points()
 	base_tracer_width = tracer2D.width
 	playerInfo_atual_Loaded = false
-
 	
 func loadPlayerInfo(plInfo):
 	_configurar_status(plInfo)
 	_aplicar_visual(plInfo)
 
+	
+func atualizar_visual_numero() -> void:
+	# Busca o nó manualmente se a referência onready falhar
+	if sprite_numero == null:
+		sprite_numero = get_node_or_null("SpriteNumero")
+	
+	if sprite_numero == null or playerInfo_atual == null:
+		return
+
+	var numero = playerInfo_atual.num_camisa
+	# canPlay é definido pelo MatchState no selectFirstTurn
+	var prefixo = "Ativo" if canPlay else "Desativado"
+	
+	var nome_arquivo = prefixo + " " + str(numero) + ".png"
+	var caminho_completo = PATH_NUMEROS + nome_arquivo
+	
+	# Fallback (procura de 1 a 4 se o original falhar)
+	if not ResourceLoader.exists(caminho_completo):
+		for i in range(1, 5):
+			var nome_alt = prefixo + " " + str(i) + ".png"
+			var caminho_alt = PATH_NUMEROS + nome_alt
+			if ResourceLoader.exists(caminho_alt):
+				playerInfo_atual.num_camisa = i
+				caminho_completo = caminho_alt
+				break
+				
+	if ResourceLoader.exists(caminho_completo):
+		sprite_numero.texture = load(caminho_completo)
 func _configurar_status(plInfo) -> void:
 	playerInfo_atual = plInfo.duplicate(true)
 	playerInfo_atual.status_mudou.connect(atualizar_fisica_por_status)
@@ -297,7 +326,7 @@ func _animar_hover(entrando: bool) -> void:
 
 func definir_estado_visual(ativo: bool) -> void:
 	self.canPlay = ativo
-	
+	atualizar_visual_numero()
 
 #region Input
 var is_dragging: bool = false
@@ -334,9 +363,9 @@ func Mouse_Dragging_Update():
 
 func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 	if match_state.game_paused == false:
-		if AI_Active:
-			if teamSide == TeamSide.AWAY:
-				return
+		#if AI_Active:
+			#if teamSide == TeamSide.AWAY:
+				#return
 			
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			
