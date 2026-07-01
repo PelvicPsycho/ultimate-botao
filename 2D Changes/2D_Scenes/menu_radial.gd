@@ -39,7 +39,12 @@ enum ModoDistribuicao { AGRUPADO_CENTRO, EXPANDIDO_ARCO }
 @export_group("Posicionamento Inteligente")
 @export var painel_filho: Panel # Arraste o seu Panel filho aqui no Inspector
 @export var posicao_padrao_cima: float = -420.0 # A posição original que você configurou
-@export var posicao_alternativa_baixo: float = 160.0 # A posição dele quando for para baixo da peça
+@export var posicao_alternativa_baixo: float = 130.0 # A posição dele quando for para baixo da peça
+@export var posicao_padrao_x: float = 0.0 # Posição X padrão do painel
+@export var posicao_x_direita: float = 300.0 # Posição X quando precisa ir para a direita
+@export var posicao_x_esquerda: float = -300.0 # Posição X quando precisa ir para a esquerda
+@export var limiar_borda_x: float = 300.0 # Distância mínima das bordas laterais
+@export var limiar_borda_y: float = 0.0 # Distância mínima do topo da tela
 
 var _tween_popup: Tween
 
@@ -413,20 +418,34 @@ func _esconder_detalhes_carta() -> void:
 
 func _adaptar_painel_a_tela() -> void:
 	if not painel_filho:
-		print ("SEM PAINEL")
 		return
-		
-	print ("COM PAINEL")
-	# Primeiro, força o painel a ir para a posição original de cima
-	painel_filho.position.y = posicao_padrao_cima
 	
-	# FORÇA o Godot a recalcular a posição global na tela imediatamente neste frame
+	var viewport_width = get_viewport().get_visible_rect().size.x
+	# O pivot é top-left → subtrai meia largura para que os valores exportados
+	# representem o centro do painel, não a borda esquerda
+	var meia_largura = painel_filho.size.x / 2.0
+	
+	# Reseta para as posições padrão (cima + X centralizado)
+	painel_filho.position.y = posicao_padrao_cima
+	painel_filho.position.x = posicao_padrao_x - meia_largura
 	painel_filho.force_update_transform()
 	
-	# Se a posição global Y for menor que 0, o topo do painel saiu da tela por cima!
-	if painel_filho.global_position.y < 0:
-		# Move o painel para a posição de baixo
+	# Detecta proximidade das bordas
+	var perto_do_topo: bool = painel_filho.global_position.y < limiar_borda_y
+	var perto_da_direita: bool = painel_filho.global_position.x + painel_filho.size.x > viewport_width - limiar_borda_x
+	var perto_da_esquerda: bool = painel_filho.global_position.x < limiar_borda_x
+	
+	# ── Vertical: perto do topo → joga para baixo ──
+	if perto_do_topo:
 		painel_filho.position.y = posicao_alternativa_baixo
+	
+	# ── Horizontal: perto da direita → joga para esquerda / perto da esquerda → joga para direita ──
+	if perto_da_direita:
+		painel_filho.position.x = posicao_x_esquerda - meia_largura
+		painel_filho.position.y = -painel_filho.size.y / 2.0
+	elif perto_da_esquerda:
+		painel_filho.position.x = posicao_x_direita - meia_largura
+		painel_filho.position.y = -painel_filho.size.y / 2.0
 
 
 #func _on_button_pressed() -> void:
