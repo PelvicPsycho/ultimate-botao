@@ -24,11 +24,14 @@ var time: Team
 
 @export_group("Habilidades")
 @export_subgroup("Slots")
-var _quantosSlotes: int = 0
+var _quantosSlotes: int = 1
 @export_range(1,10,1) var quantosSlotes: int:
 	set(value):
-		_quantosSlotes = max(value, 0)
-		slotsUpgrates.resize(_quantosSlotes)
+		_quantosSlotes = max(value, 1)
+		# Só expande o array, NUNCA encolhe — evita que o carregamento
+		# do .tres apague cartas já populadas (ordem de serialização do Godot)
+		if slotsUpgrates.size() < _quantosSlotes:
+			slotsUpgrates.resize(_quantosSlotes)
 		estimateRank()
 	get:
 		return _quantosSlotes
@@ -40,17 +43,22 @@ var poder_congelar_turnos: int = 0
 @export_subgroup("Força")
 @export var current_min_force: float = 100.0
 @export var current_max_force: float = 1000.0
-@export var level_force: int # nivel de força da peça (0 a 10)
+var _level_force: int = 1
+@export_range(1,10,1) var level_force: int:  # nivel de força da peça (1 a 10)
+	set(value):
+		_level_force = max(value, 1)
+	get:
+		return _level_force
 @export var level_force_weak: int = 3  # Abaixo deste valor = FRACO
 @export var level_force_strong: int = 7  # Acima deste valor = FORTE
 @export_range(1,4,1) var strenghtLevel: int = 1
 var bonus_passivos: Dictionary = {}
 
 @export_subgroup("PA e outros")
-var _PA: int = 0
-@export_range(1,6,1) var PA: int: #Action Points em ptbr
+var _PA: int = 1
+@export_range(1,6,1) var PA: int:  # Action Points em ptbr
 	set(value):
-		_PA = value
+		_PA = max(value, 1)
 		estimateRank()
 	get:
 		return _PA
@@ -83,7 +91,7 @@ var escala_maxima_circulo_atual: float = 0.3
 
 
 func _init():
-	slotsUpgrates.resize(quantosSlotes)
+	pass  # Não redimensiona aqui — o setter de quantosSlotes já cuida disso após o carregamento
 
 func estimateRank() -> Rank:
 	var rankPoints = quantosSlotes + PA

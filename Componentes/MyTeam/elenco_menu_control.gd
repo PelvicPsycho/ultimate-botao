@@ -914,7 +914,7 @@ func _on_btn_salvar_sair_pressed() -> void:
 
 # --- UTILIDADES ---
 func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
-	var f_total = peca.forca if "forca" in peca else 1
+	var f_total = peca.level_force if "level_force" in peca else 1
 	var pa_total = peca.PA if "PA" in peca else 1
 	
 	for carta in peca.slotsUpgrates:

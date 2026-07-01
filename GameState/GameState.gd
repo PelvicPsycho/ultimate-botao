@@ -65,8 +65,8 @@ func imprimir_status_do_time() -> void:
 	print("==================================================")
 	for i in range(jogadores.size()):
 		var player = jogadores[i]
-		var f_atual = player.força if "força" in player else 50
-		var pa_atual = player.PA if "PA" in player else 3
+		var f_atual = player.level_force if "level_force" in player else 1
+		var pa_atual = player.PA if "PA" in player else 1
 		
 		print("\n📍 Slot %d: %s" % [i + 1, player.nome])
 		print("   ↳ Força: %d | PA: %d" % [f_atual, pa_atual])

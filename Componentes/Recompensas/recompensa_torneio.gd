@@ -378,7 +378,7 @@ func _on_botao_bau_texture_button_button_up() -> void: #Iniciar recompensa
 
 
 func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
-	var f_total = peca.forca if "forca" in peca else 1
+	var f_total = peca.level_force if "level_force" in peca else 1
 	var pa_total = peca.PA if "PA" in peca else 1
 	
 	for carta in peca.slotsUpgrates:

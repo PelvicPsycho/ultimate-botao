@@ -238,7 +238,7 @@ func _limpar_inspecao() -> void:
 			child.queue_free()
 
 func _get_status_calculado(peca: TeamPlayer) -> Dictionary:
-	var f_total = peca.forca if "forca" in peca else 1
+	var f_total = peca.level_force if "level_force" in peca else 1
 	var pa_total = peca.PA if "PA" in peca else 1
 	
 	for carta in peca.slotsUpgrates:
