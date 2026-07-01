@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://pmk02davkwb0"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_wd6kx"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_i14l3"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_pjari"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_3a0pa"]
+
+[resource]
+script = ExtResource("3_pjari")
+id_unico = &"gonzalves_fire_cats"
+nome = "Gonzalves"
+num_camisa = 9
+quantosSlotes = 2
+strenghtLevel = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

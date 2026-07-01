@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dhf0l40unmhcg"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_uqb3j"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_myo2d"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_b3ih6"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_ih3on"]
+
+[resource]
+script = ExtResource("3_b3ih6")
+id_unico = &"peres_fire_cats"
+nome = "Peres"
+num_camisa = 4
+PA = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

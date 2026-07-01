@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dvgfesjk2vuou"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_yxp72"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_56pao"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_3pcf7"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_c2wfb"]
+
+[resource]
+script = ExtResource("3_3pcf7")
+id_unico = &"silvio_fire_cats"
+nome = "Silvio"
+num_camisa = 3
+quantosSlotes = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
