@@ -16,4 +16,5 @@ script = ExtResource("2_k7vet")
 name = "Aussie Glory"
 id = 17
 ranque = 2
+cor = Color(0.40392157, 0.6901961, 0.75686276, 1)
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

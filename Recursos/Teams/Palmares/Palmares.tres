@@ -16,4 +16,5 @@ script = ExtResource("2_g6k7w")
 name = "Palmares"
 id = 24
 ranque = 3
+cor = Color(0.40392157, 0.75686276, 0.47058824, 1)
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

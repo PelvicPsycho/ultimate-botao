@@ -16,4 +16,5 @@ script = ExtResource("2_hgh37")
 name = "Guarani Athletic"
 id = 12
 ranque = 1
+cor = Color(0.96862745, 0.7176471, 0.043137256, 1)
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

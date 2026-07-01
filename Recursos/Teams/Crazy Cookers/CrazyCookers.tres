@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://bw34ldfexm8tq"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_n2uy0"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_osaqj"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_1vwce"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_vpc1e"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_i4050"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="6_v5024"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="7_635qm"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="8_16ri8"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="9_b2i8i"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="10_mok1i"]
+
+[resource]
+script = ExtResource("2_osaqj")
+name = "Crazy Cookers"
+id = 30
+ranque = 3
+cor = Color(0.40392157, 0.75686276, 0.47058824, 1)
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

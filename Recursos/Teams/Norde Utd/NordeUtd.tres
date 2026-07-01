@@ -16,4 +16,5 @@ script = ExtResource("2_g6llc")
 name = "Norde Utd"
 id = 13
 ranque = 2
+cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://dpdq2ihfknwmm"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_ern7a"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_itynr"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_7nbum"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_05dns"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_3xhp7"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="6_e4jwr"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="7_u5sql"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="8_i0xp5"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="9_gt7ti"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="10_xdtmh"]
+
+[resource]
+script = ExtResource("2_itynr")
+name = "Royal Knights BC"
+id = 35
+ranque = 4
+cor = Color(0.8039216, 0.37254903, 0.8901961, 1)
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

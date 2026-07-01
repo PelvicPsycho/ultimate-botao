@@ -16,4 +16,5 @@ script = ExtResource("2_mnh1d")
 name = "Lone Star FC"
 id = 15
 ranque = 2
+cor = Color(0.8039216, 0.37254903, 0.8901961, 1)
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

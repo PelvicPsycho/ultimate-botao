@@ -16,4 +16,5 @@ script = ExtResource("2_r1gui")
 name = "Santa Cruz Utd"
 id = 11
 ranque = 1
+cor = Color(0.40392157, 0.75686276, 0.47058824, 1)
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"
