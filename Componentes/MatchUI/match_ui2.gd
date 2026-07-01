@@ -36,10 +36,36 @@ var ultimo_time_posse: int = -1
 @export var escala_painel_inativo: Vector2 = Vector2(0.75, 0.75)
 @export var duracao_animacao_posse: float = 0.22
 
+@export var TempoHome_Label: Label
+@export var TempoAway_Label: Label
+
+@export var NomeCorHome: TextureRect
+@export var NomeCorAway: TextureRect
+@export var NomeJogadorHome: Label
+@export var NomeJogadorAway: Label
+
 @export var contador_de_lances_home = Control
 @export var contador_de_lances_away = Control
 
 var contador_atual: Node = null
+
+# Variáveis dos labels de tempo
+var tempo_home_pos_inicial: Vector2
+var tempo_away_pos_inicial: Vector2
+var tempo_home_pos_final: Vector2
+var tempo_away_pos_final: Vector2
+var tween_home_entry: Tween
+var tween_away_entry: Tween
+var tween_home_pingpong: Tween
+var tween_away_pingpong: Tween
+
+# Variáveis dos painéis NomeCor
+const NOME_HOME_POS_FORA: float = -330.0
+const NOME_HOME_POS_DENTRO: float = 0.0
+const NOME_AWAY_POS_FORA: float = 330.0
+const NOME_AWAY_POS_DENTRO: float = 0.0
+var tween_nome_home: Tween
+var tween_nome_away: Tween
 
 signal transicao_concluida
 
@@ -73,6 +99,8 @@ func _on_entrada_final(novo_contador: Node) -> void:
 
 func _ready() -> void:
 	_inicializar_estado_lances()
+	_inicializar_tempo_labels()
+	_inicializar_nome_cor_labels()
 	#print("Score.global_position = ", Score.global_position)
 	#print("Score_Position_Node.global_position = ", Score_Position_Node.global_position)
 #
@@ -89,6 +117,7 @@ func UI_start(home_team: Team, away_team: Team):
 	changeShotsPanelBorderColor()
 	#changeScoreColor()
 	changeTimersColor()
+	changeNomeCorColors()
 	
 func changeTimersColor():
 	var style: StyleBoxFlat
@@ -314,10 +343,19 @@ func play_progressbar_Animations(isHome: bool) -> void:
 	if isHome:
 		AnimationP_Home.play("Home_TimeBar_Activate")
 		AnimationP_Away.play("Away_TimeBar_Deactivate")
+		_animar_tempo_label_entrada(true)
+		_animar_tempo_label_saida(false)
+		_animar_nome_cor_entrada(true)
+		_animar_nome_cor_saida(false)
 	else:
 		AnimationP_Home.play("Home_TimeBar_Deactivate")
 		AnimationP_Away.play("Away_TimeBar_Activate")
-	
+		_animar_tempo_label_entrada(false)
+		_animar_tempo_label_saida(true)
+		_animar_nome_cor_entrada(false)
+		_animar_nome_cor_saida(true)
+
+
 func format_time(time_in_seconds: float) -> String:
 	var time_in_seconds_ceil = ceilf(time_in_seconds)
 	
@@ -326,3 +364,149 @@ func format_time(time_in_seconds: float) -> String:
 	
 	# "%02d" pads numbers with a leading zero if they are single digits
 	return "%02d:%02d" % [minutes, seconds]
+
+# ── Animação dos Labels de Tempo ──
+
+func _inicializar_tempo_labels() -> void:
+	var viewport_width = get_viewport().get_visible_rect().size.x
+	
+	if TempoHome_Label:
+		tempo_home_pos_inicial = TempoHome_Label.position
+		tempo_home_pos_final = Vector2(tempo_home_pos_inicial.x + 150, tempo_home_pos_inicial.y)
+		TempoHome_Label.position.x = -TempoHome_Label.size.x * 2
+	
+	if TempoAway_Label:
+		tempo_away_pos_inicial = TempoAway_Label.position
+		tempo_away_pos_final = Vector2(tempo_away_pos_inicial.x - 150, tempo_away_pos_inicial.y)
+		TempoAway_Label.position.x = viewport_width + TempoAway_Label.size.x * 2
+
+func _animar_tempo_label_entrada(is_home: bool) -> void:
+	var label = TempoHome_Label if is_home else TempoAway_Label
+	var pos_inicial = tempo_home_pos_inicial if is_home else tempo_away_pos_inicial
+	var pos_final = tempo_home_pos_final if is_home else tempo_away_pos_final
+	
+	if not label:
+		return
+	
+	_matar_tweens_label(is_home)
+	
+	var tween = create_tween()
+	if is_home:
+		tween_home_entry = tween
+	else:
+		tween_away_entry = tween
+	
+	tween.tween_property(label, "position", pos_inicial, 1.5)
+	tween.tween_callback(_iniciar_pingpong.bind(is_home))
+
+func _iniciar_pingpong(is_home: bool) -> void:
+	var label = TempoHome_Label if is_home else TempoAway_Label
+	var pos_inicial = tempo_home_pos_inicial if is_home else tempo_away_pos_inicial
+	var pos_final = tempo_home_pos_final if is_home else tempo_away_pos_final
+	
+	if not label:
+		return
+	
+	var tween = create_tween()
+	tween.set_loops()
+	tween.tween_property(label, "position", pos_final, 10.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(label, "position", pos_inicial, 10.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	
+	if is_home:
+		tween_home_pingpong = tween
+	else:
+		tween_away_pingpong = tween
+
+func _animar_tempo_label_saida(is_home: bool) -> void:
+	var label = TempoHome_Label if is_home else TempoAway_Label
+	
+	if not label:
+		return
+	
+	_matar_tweens_label(is_home)
+	
+	var target_x: float
+	if is_home:
+		target_x = -label.size.x * 2
+	else:
+		target_x = get_viewport().get_visible_rect().size.x + label.size.x * 2
+	
+	var tween = create_tween()
+	tween.tween_property(label, "position:x", target_x, 1.0)
+
+func _matar_tweens_label(is_home: bool) -> void:
+	if is_home:
+		if tween_home_entry:
+			tween_home_entry.kill()
+			tween_home_entry = null
+		if tween_home_pingpong:
+			tween_home_pingpong.kill()
+			tween_home_pingpong = null
+	else:
+		if tween_away_entry:
+			tween_away_entry.kill()
+			tween_away_entry = null
+		if tween_away_pingpong:
+			tween_away_pingpong.kill()
+			tween_away_pingpong = null
+
+# ── Animação dos Painéis NomeCor ──
+
+func _inicializar_nome_cor_labels() -> void:
+	if NomeCorHome:
+		NomeCorHome.position.x = NOME_HOME_POS_FORA
+	if NomeCorAway:
+		NomeCorAway.position.x = NOME_AWAY_POS_FORA
+
+func changeNomeCorColors() -> void:
+	if NomeCorHome:
+		NomeCorHome.self_modulate = homeTeam.cor
+	if NomeJogadorHome:
+		#NomeJogadorHome.text = homeTeam.name
+		NomeJogadorHome.texto_auto_ajustavel = homeTeam.name
+	if NomeCorAway:
+		NomeCorAway.self_modulate = awayTeam.cor
+	if NomeJogadorAway:
+		#NomeJogadorAway.text = awayTeam.name
+		NomeJogadorAway.texto_auto_ajustavel = awayTeam.name
+
+func _animar_nome_cor_entrada(is_home: bool) -> void:
+	var panel = NomeCorHome if is_home else NomeCorAway
+	if not panel:
+		return
+	
+	_matar_tween_nome(is_home)
+	
+	var tween = create_tween()
+	tween.tween_property(panel, "position:x", NOME_HOME_POS_DENTRO if is_home else NOME_AWAY_POS_DENTRO, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	
+	if is_home:
+		tween_nome_home = tween
+	else:
+		tween_nome_away = tween
+
+func _animar_nome_cor_saida(is_home: bool) -> void:
+	var panel = NomeCorHome if is_home else NomeCorAway
+	if not panel:
+		return
+	
+	_matar_tween_nome(is_home)
+	
+	var target = NOME_HOME_POS_FORA if is_home else NOME_AWAY_POS_FORA
+	var tween = create_tween()
+	tween.tween_property(panel, "position:x", target, 0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+	
+	if is_home:
+		tween_nome_home = tween
+	else:
+		tween_nome_away = tween
+
+func _matar_tween_nome(is_home: bool) -> void:
+	if is_home:
+		if tween_nome_home:
+			tween_nome_home.kill()
+			tween_nome_home = null
+	else:
+		if tween_nome_away:
+			tween_nome_away.kill()
+			tween_nome_away = null

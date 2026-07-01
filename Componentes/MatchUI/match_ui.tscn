@@ -1,15 +1,18 @@
 [gd_scene format=3 uid="uid://b8ms3txou0nej"]
 
 [ext_resource type="Script" uid="uid://lajotldv5xxr" path="res://Componentes/MatchUI/match_ui2.gd" id="1_yfw0a"]
-[ext_resource type="Texture2D" uid="uid://tp26m5u35pjg" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/placar/Video da matchscene.mp4_snapshot_00.03.844.jpg" id="2_ky2rs"]
 [ext_resource type="Texture2D" uid="uid://bq5ebrgitptm0" path="res://junk/Untitled.png" id="2_xrqu3"]
 [ext_resource type="Texture2D" uid="uid://iqje35fshfs" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/Bandeira_Times_Fundo.png" id="4_gww17"]
 [ext_resource type="FontFile" uid="uid://b8f7dj4qbp66f" path="res://Recursos/Fontes/Baloo2-Bold.ttf" id="5_1jthf"]
+[ext_resource type="Texture2D" uid="uid://cfx0rpso0qdkw" path="res://Recursos/2D_Art/MatchUI/NomeJogadores_Panel.png" id="6_g1b24"]
 [ext_resource type="Texture2D" uid="uid://cvj7rqqmgx45x" path="res://Recursos/2D_Art/MatchUI/Gremio_logo.png" id="6_hdx5a"]
 [ext_resource type="Texture2D" uid="uid://bhta1l4ahtw1i" path="res://Recursos/2D_Art/MatchUI/Ativo 3.png" id="6_yfw0a"]
 [ext_resource type="Texture2D" uid="uid://cmn4f0tk60yt0" path="res://Recursos/2D_Art/MatchUI/Ativo 2.png" id="7_jt1jy"]
+[ext_resource type="FontFile" uid="uid://de61ri4slxwg3" path="res://Recursos/Fontes/Rubik/Rubik-SemiBold.ttf" id="7_nmdq6"]
+[ext_resource type="Texture2D" uid="uid://cxvx4p8j6gj0x" path="res://Recursos/2D_Art/MatchUI/NomeJogadores_Line.png" id="8_d3i7i"]
 [ext_resource type="Material" uid="uid://0bn2sn5jr6hp" path="res://shaders/Lances_Bolinha.tres" id="8_ky2rs"]
 [ext_resource type="Texture2D" uid="uid://jriomq0tn3ni" path="res://Recursos/2D_Art/MatchUI/Ativo 1.png" id="8_xrqu3"]
+[ext_resource type="Script" uid="uid://biwcmyl26ar2f" path="res://Componentes/MyTeam/Label_Autoajustar.gd" id="9_d3i7i"]
 [ext_resource type="Texture2D" uid="uid://bspvf8n8v742y" path="res://Recursos/2D_Art/MatchUI/Sport_Club_Internacional_logopng.png" id="9_gww17"]
 [ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="13_xrqu3"]
 [ext_resource type="PackedScene" uid="uid://b0thcfrltb1pl" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/contador_de_lances.tscn" id="14_ky2rs"]
@@ -18,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://8tcpu0ghyk22" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/Timer-jogador.png" id="17_llkwk"]
 [ext_resource type="Texture2D" uid="uid://bpc7cnf0ggnnv" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/timer jogador parte Borda.png" id="18_nmdq6"]
 [ext_resource type="Texture2D" uid="uid://b71jjxce8sei3" path="res://Recursos/2D_Art/MatchUI/match ui 2.0/timer jogador parte Meio.png" id="19_g1b24"]
+[ext_resource type="FontFile" uid="uid://4ouu0og1v6nb" path="res://Recursos/Fontes/Rubik/Rubik-BoldItalic.ttf" id="19_gww17"]
 [ext_resource type="Script" uid="uid://b3008pymwpp85" path="res://Componentes/MainMenu/ControleCard.gd" id="20_gww17"]
 
 [sub_resource type="Animation" id="Animation_nmdq6"]
@@ -746,8 +750,14 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[node name="MatchUI" type="CanvasLayer" unique_id=2001534732 node_paths=PackedStringArray("contador_de_lances_home", "contador_de_lances_away", "AnimationP_Home", "ProgressBarHome_Value_Texture", "ProgressBarHome_Middle_Texture", "ProgressBarHome_Time_Label", "AnimationP_Away", "ProgressBarAway_Value_Texture", "ProgressBarAway_Middle_Texture", "ProgressBarAway_Time_Label")]
+[node name="MatchUI" type="CanvasLayer" unique_id=2001534732 node_paths=PackedStringArray("TempoHome_Label", "TempoAway_Label", "NomeCorHome", "NomeCorAway", "NomeJogadorHome", "NomeJogadorAway", "contador_de_lances_home", "contador_de_lances_away", "AnimationP_Home", "ProgressBarHome_Value_Texture", "ProgressBarHome_Middle_Texture", "ProgressBarHome_Time_Label", "AnimationP_Away", "ProgressBarAway_Value_Texture", "ProgressBarAway_Middle_Texture", "ProgressBarAway_Time_Label")]
 script = ExtResource("1_yfw0a")
+TempoHome_Label = NodePath("MarginContainer/Control/TempoHome_Label")
+TempoAway_Label = NodePath("MarginContainer/Control/TempoAway_Label")
+NomeCorHome = NodePath("MarginContainer/Control/EmblemaHome/TextureRect/Control/NomeCorHome_TextureRect")
+NomeCorAway = NodePath("MarginContainer/Control/EmblemaAway/TextureRect/Control/NomeCorAway_TextureRect")
+NomeJogadorHome = NodePath("MarginContainer/Control/EmblemaHome/TextureRect/Control/NomeCorHome_TextureRect/NomeJogadorHome_Label")
+NomeJogadorAway = NodePath("MarginContainer/Control/EmblemaAway/TextureRect/Control/NomeCorAway_TextureRect/NomeJogadorAway_Label")
 contador_de_lances_home = NodePath("Resize_LancesHome/ContadorDeLancesHome")
 contador_de_lances_away = NodePath("Resize_LancesAway/ContadorDeLancesAway")
 AnimationP_Home = NodePath("MarginContainer/Control/AnimationPlayer_Home")
@@ -762,10 +772,8 @@ ProgressBarAway_Time_Label = NodePath("MarginContainer/Control/AwayTeam_Progress
 ProgressBarAway_FinalPosition = Vector2(0, 330)
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=641967731]
-visible = false
 offset_right = 1920.0
 offset_bottom = 1080.0
-texture = ExtResource("2_ky2rs")
 
 [node name="Untitled" type="Sprite2D" parent="." unique_id=220589213]
 visible = false
@@ -832,6 +840,53 @@ texture = ExtResource("6_hdx5a")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="Control" type="Control" parent="MarginContainer/Control/EmblemaHome/TextureRect" unique_id=960275838]
+clip_contents = true
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = -0.25800002
+anchor_right = 2.6660001
+anchor_bottom = 0.74
+offset_left = -1.5661469
+offset_top = -0.005519867
+offset_right = 3.713684
+offset_bottom = -0.069625854
+
+[node name="NomeCorHome_TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaHome/TextureRect/Control" unique_id=545821749]
+layout_mode = 0
+offset_right = 325.68652
+offset_bottom = 83.28626
+texture = ExtResource("6_g1b24")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaHome/TextureRect/Control/NomeCorHome_TextureRect" unique_id=629938232]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_d3i7i")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NomeJogadorHome_Label" type="Label" parent="MarginContainer/Control/EmblemaHome/TextureRect/Control/NomeCorHome_TextureRect" unique_id=1254186196]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -14.753357
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("7_nmdq6")
+theme_override_font_sizes/font_size = 50
+text = "Jogador"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_d3i7i")
+tamanho_maximo = 50
+
 [node name="EmblemaAway" type="TextureRect" parent="MarginContainer/Control" unique_id=359675951]
 layout_mode = 1
 anchors_preset = -1
@@ -863,6 +918,55 @@ scale = Vector2(-0.8, 0.8)
 texture = ExtResource("9_gww17")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="Control" type="Control" parent="MarginContainer/Control/EmblemaAway/TextureRect" unique_id=1702936073]
+clip_contents = true
+layout_mode = 1
+anchor_left = -1.542
+anchor_top = 0.734
+anchor_right = -0.095000006
+anchor_bottom = 1.7320001
+offset_left = -3.784912
+offset_top = -0.012207031
+offset_right = 21.278727
+offset_bottom = -0.076293945
+
+[node name="NomeCorAway_TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaAway/TextureRect/Control" unique_id=1380016030]
+layout_mode = 1
+offset_right = 325.68655
+offset_bottom = 83.28626
+texture = ExtResource("6_g1b24")
+expand_mode = 1
+stretch_mode = 5
+flip_h = true
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/EmblemaAway/TextureRect/Control/NomeCorAway_TextureRect" unique_id=2029527365]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_d3i7i")
+expand_mode = 1
+stretch_mode = 5
+flip_h = true
+
+[node name="NomeJogadorAway_Label" type="Label" parent="MarginContainer/Control/EmblemaAway/TextureRect/Control/NomeCorAway_TextureRect" unique_id=1248100153]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.75
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("7_nmdq6")
+theme_override_font_sizes/font_size = 50
+text = "Adversário"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_d3i7i")
+tamanho_maximo = 50
 
 [node name="BotaoPause" type="TextureButton" parent="MarginContainer/Control" unique_id=1379902925]
 visible = false
@@ -1230,6 +1334,36 @@ theme_override_font_sizes/font_size = 45
 text = "01:30"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TempoHome_Label" type="Label" parent="MarginContainer/Control" unique_id=20270296]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 987.0
+offset_right = 205.0
+offset_bottom = 1024.0
+theme_override_colors/font_color = Color(0.93333334, 0.83137256, 0.05490196, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.16862746)
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 21
+theme_override_constants/shadow_outline_size = 7
+theme_override_fonts/font = ExtResource("19_gww17")
+theme_override_font_sizes/font_size = 60
+text = "TEMPO"
+
+[node name="TempoAway_Label" type="Label" parent="MarginContainer/Control" unique_id=1726719631]
+layout_mode = 0
+offset_left = 1638.0
+offset_top = 35.0
+offset_right = 1847.0
+offset_bottom = 107.0
+theme_override_colors/font_color = Color(0.93333334, 0.83137256, 0.05490196, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.16862746)
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 21
+theme_override_constants/shadow_outline_size = 7
+theme_override_fonts/font = ExtResource("19_gww17")
+theme_override_font_sizes/font_size = 60
+text = "TEMPO"
 
 [node name="Resize_LancesHome" type="Control" parent="." unique_id=1177550993]
 layout_mode = 3
