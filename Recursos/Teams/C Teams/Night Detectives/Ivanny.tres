@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cu8fmtcg1qqhx"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_pn2ba"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_ncyk2"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_vf8el"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_6etr5"]
+
+[resource]
+script = ExtResource("3_vf8el")
+id_unico = &"ivanny_night_detectives"
+nome = "Ivanny"
+num_camisa = 3
+quantosSlotes = 2
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

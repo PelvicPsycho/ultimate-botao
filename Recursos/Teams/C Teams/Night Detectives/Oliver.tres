@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://ck620xsr0l6ql"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_hn7m3"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_8lt6q"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_hnqd0"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_4sjq6"]
+
+[resource]
+script = ExtResource("3_hnqd0")
+id_unico = &"oliver_night_detectives"
+nome = "Oliver"
+num_camisa = 8
+quantosSlotes = 4
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
