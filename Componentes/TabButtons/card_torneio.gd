@@ -16,7 +16,7 @@ func setup(novo_cup: Cup):
 	reqLabel.text = tr("REQUISITES")+":"
 	
 	# Atualiza os textos visuais
-	label_titulo.text = cup_data.cupName
+	label_titulo.text = tr(cup_data.cupName)
 	
 	# Pega o nome do Enum (S, A, B...) em formato de String baseando-se no número salvo
 	var letra_do_rank = Cup.CUP_RANK.keys()[cup_data.cupRank]

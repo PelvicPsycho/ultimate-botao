@@ -8,7 +8,7 @@
 
 [resource]
 script = ExtResource("2_1gtjw")
-cupName = "State Cup"
+cupName = "NATIONS_CUP"
 cupRank = 3
 numMatches = 5
 teamPool = Array[ExtResource("1_ymxas")]([ExtResource("2_mfypy"), ExtResource("3_ohxvr"), ExtResource("4_y61de")])

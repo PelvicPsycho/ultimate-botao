@@ -13,7 +13,7 @@
 
 [resource]
 script = ExtResource("2_h4ti3")
-cupName = "Noobie Cup"
+cupName = "BLOOMER _CUP"
 cupRank = 6
 teamPool = Array[ExtResource("1_jismj")]([ExtResource("4_h0u70"), ExtResource("5_0vnr7"), ExtResource("6_4tanh"), ExtResource("7_um1l1"), ExtResource("5_vi0c3")])
 nextTeamPool = Array[ExtResource("1_jismj")]([ExtResource("2_43cb3"), ExtResource("3_0vnr7"), ExtResource("4_4tanh")])

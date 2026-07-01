@@ -8,7 +8,7 @@
 
 [resource]
 script = ExtResource("2_ig5eq")
-cupName = "Worldly Cup"
+cupName = "SUPER_LEAGUE"
 numMatches = 10
 teamPool = Array[ExtResource("1_sr1dh")]([ExtResource("2_64fwt"), ExtResource("3_xjpuj"), ExtResource("4_7usqk")])
 nextTeamPool = Array[ExtResource("1_sr1dh")]([ExtResource("2_64fwt"), ExtResource("3_xjpuj"), ExtResource("4_7usqk")])
