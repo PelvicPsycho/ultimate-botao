@@ -288,6 +288,7 @@ layout_mode = 2
 text = ">"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="OptionsContainer/Control/VLabelsContainer" unique_id=19902227]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 136
@@ -307,4 +308,3 @@ text = "Delete Save"
 [connection signal="toggled" from="OptionsContainer/Control/FlowContainer/CheckBox" to="." method="_on_check_box_toggled"]
 [connection signal="pressed" from="OptionsContainer/Control/VLabelsContainer/HBoxContainer/HBoxContainer/TimerBack" to="." method="_on_timer_back_pressed"]
 [connection signal="pressed" from="OptionsContainer/Control/VLabelsContainer/HBoxContainer/HBoxContainer/TimerForward" to="." method="_on_timer_forward_pressed"]
-[connection signal="pressed" from="OptionsContainer/Control/VLabelsContainer/HBoxContainer2/DeleteSaveButton" to="." method="_on_delete_save_button_pressed"]

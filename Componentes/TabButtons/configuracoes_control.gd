@@ -90,4 +90,5 @@ func _on_delete_save_button_pressed() -> void:
 		CupManager.myTeam.mainSquad.clear()
 		CupManager.myTeam.collectedSquad.clear()
 	
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://Componentes/MainMenu/start_menu_canvas_layer.tscn")
+	#get_tree().reload_current_scene()
