@@ -14,7 +14,7 @@
 
 [resource]
 script = ExtResource("3_c1pfq")
-name = "Crown City FC"
+name = "Crown City"
 id = 75
 ranque = 6
 cor = Color(0.8039216, 0.37254903, 0.8901961, 1)

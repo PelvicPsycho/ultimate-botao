@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_1k1gx"]
 [ext_resource type="Resource" uid="uid://govjesmwq8go" path="res://Recursos/Teams/Crown Cap Utd/Silvio.tres" id="2_qvuqi"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_xajdk"]
 [ext_resource type="Resource" uid="uid://dp81gu6ivehbh" path="res://Recursos/Teams/Crown Cap Utd/Peres.tres" id="3_j653n"]
 [ext_resource type="Resource" uid="uid://csqdqprc0x30l" path="res://Recursos/Teams/Crown Cap Utd/Fernandes.tres" id="4_qmctq"]
 [ext_resource type="Resource" uid="uid://bnrsnxap225wk" path="res://Recursos/Teams/Crown Cap Utd/Martin.tres" id="5_3wj7l"]
@@ -18,7 +19,7 @@
 
 [resource]
 script = ExtResource("8_82wdn")
-name = "Crown Cap United"
+name = "Crown Cap"
 cor = Color(0.96862745, 0.4117647, 0.2901961, 1)
 mainSquad = Array[ExtResource("1_1k1gx")]([ExtResource("2_qvuqi"), ExtResource("3_j653n"), ExtResource("4_qmctq"), ExtResource("5_3wj7l"), ExtResource("6_foro6")])
 overlay_escolhido = 3

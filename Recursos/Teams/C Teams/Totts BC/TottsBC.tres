@@ -3,11 +3,16 @@
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_sje04"]
 [ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_83nhg"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_x7ny1"]
+[ext_resource type="Resource" uid="uid://bj6obr3lve5vc" path="res://Recursos/Teams/C Teams/Totts BC/Axel.tres" id="3_1pqj0"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_xsaik"]
 [ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_2fg24"]
+[ext_resource type="Resource" uid="uid://dgulc70dm5xah" path="res://Recursos/Teams/C Teams/Totts BC/Ayrton.tres" id="4_jjht8"]
+[ext_resource type="Resource" uid="uid://wpei8xhqso85" path="res://Recursos/Teams/C Teams/Totts BC/Baltazar.tres" id="5_1utjp"]
 [ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_t8dhb"]
+[ext_resource type="Resource" uid="uid://d4fhwyf7jk5l" path="res://Recursos/Teams/C Teams/Totts BC/Balthazar.tres" id="6_4wbga"]
 [ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="6_niw0c"]
 [ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="7_82rl8"]
+[ext_resource type="Resource" uid="uid://c3uws0b81q61n" path="res://Recursos/Teams/C Teams/Totts BC/Baptista.tres" id="7_sf743"]
 [ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="8_de4bt"]
 [ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="9_5dhd2"]
 [ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="10_t1j8r"]
@@ -18,5 +23,6 @@ name = "Totts BC"
 id = 23
 ranque = 3
 cor = Color(0.40392157, 0.6901961, 0.75686276, 1)
+mainSquad = Array[ExtResource("1_sje04")]([ExtResource("3_1pqj0"), ExtResource("4_jjht8"), ExtResource("5_1utjp"), ExtResource("6_4wbga"), ExtResource("7_sf743")])
 overlay_escolhido = 2
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

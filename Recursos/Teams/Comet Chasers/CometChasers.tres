@@ -3,10 +3,15 @@
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_dy4j5"]
 [ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_3y6eo"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="3_7daj4"]
+[ext_resource type="Resource" uid="uid://ovaqqo87kpvu" path="res://Recursos/Teams/Comet Chasers/Emmanuel.tres" id="3_pob1a"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="4_57rwj"]
+[ext_resource type="Resource" uid="uid://c3qtacbomcpfy" path="res://Recursos/Teams/Comet Chasers/Eneas.tres" id="4_b1hf3"]
+[ext_resource type="Resource" uid="uid://uibcs65eg28" path="res://Recursos/Teams/Comet Chasers/Enio.tres" id="5_8hpty"]
 [ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="5_vrtme"]
+[ext_resource type="Resource" uid="uid://bgncovvguiknx" path="res://Recursos/Teams/Comet Chasers/Enrico.tres" id="6_elv5t"]
 [ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="6_pob1a"]
 [ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="7_b1hf3"]
+[ext_resource type="Resource" uid="uid://cbigf1dlpr2bv" path="res://Recursos/Teams/Comet Chasers/Enrique.tres" id="7_g68ao"]
 [ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="8_8hpty"]
 [ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="9_elv5t"]
 [ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="10_g68ao"]
@@ -18,4 +23,5 @@ name = "Comet Chasers"
 id = 61
 ranque = 6
 cor = Color(0.96862745, 0.7176471, 0.043137256, 1)
+mainSquad = Array[ExtResource("1_dy4j5")]([ExtResource("3_pob1a"), ExtResource("4_b1hf3"), ExtResource("5_8hpty"), ExtResource("6_elv5t"), ExtResource("7_g68ao")])
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"
