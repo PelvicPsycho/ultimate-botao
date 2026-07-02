@@ -73,7 +73,7 @@ var game_initial_pause_ended: bool = false
 func _ready() -> void:
 	add_to_group("MatchState2d")  
 	loadMatch()
-	SoundMaster.play_bgm(audio_murmurio_fundo, "loop")
+	#SoundMaster.play_bgm(audio_murmurio_fundo, "loop")
 	%MatchUI.UI_start(homeTeam, awayTeam)
 	
 	gradient_texture = gradient_background_TextureRect.texture as GradientTexture2D
