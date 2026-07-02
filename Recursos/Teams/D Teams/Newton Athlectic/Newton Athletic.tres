@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_vpo88"]
 [ext_resource type="Resource" uid="uid://bw2tkayhu6y5d" path="res://Recursos/Teams/D Teams/Newton Athlectic/Chad.tres" id="2_bpkkp"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_wciwy"]
+[ext_resource type="Texture2D" uid="uid://kdacdnnmpw1t" path="res://Recursos/2D_Art/Emblemas/Newton Athletic.png" id="2_wciwy"]
 [ext_resource type="Resource" uid="uid://dgntllsa2r83s" path="res://Recursos/Teams/D Teams/Newton Athlectic/Messef.tres" id="3_qkg1s"]
 [ext_resource type="Resource" uid="uid://bs1xttld5ptpr" path="res://Recursos/Teams/D Teams/Newton Athlectic/Momahed.tres" id="4_brloh"]
 [ext_resource type="Resource" uid="uid://dpr2mk8ywmmxl" path="res://Recursos/Teams/D Teams/Newton Athlectic/Sammy.tres" id="5_l28mn"]
@@ -22,5 +22,6 @@ script = ExtResource("7_ircne")
 name = "Newton Athletic"
 id = 18
 cor = Color(0.99607843, 0.84705883, 0, 1)
+emblem = ExtResource("2_wciwy")
 mainSquad = Array[ExtResource("1_vpo88")]([ExtResource("2_bpkkp"), ExtResource("3_qkg1s"), ExtResource("4_brloh"), ExtResource("5_l28mn"), ExtResource("6_jamvr")])
 overlay_escolhido = 2

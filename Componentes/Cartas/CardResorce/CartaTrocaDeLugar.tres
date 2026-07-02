@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cqbnt1i0kov4g"]
 
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_lysx1"]
-[ext_resource type="Texture2D" uid="uid://b70rbmif2lwgc" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816120457-removebg-preview.png" id="1_vnqm6"]
+[ext_resource type="Texture2D" uid="uid://bjl82yy0cka4u" path="res://Recursos/2D_Art/IconesCartas/Icone_trocar.png" id="1_nkayk"]
+[ext_resource type="Texture2D" uid="uid://bg1b3cqhskrul" path="res://Recursos/2D_Art/IconesCartas/Carta troca.png" id="2_76fec"]
 [ext_resource type="VideoStream" uid="uid://ddfprhu2nj8ks" path="res://Recursos/WebM/CartaTrocaPeca.ogv" id="3_1vkqn"]
 
 [resource]
@@ -9,7 +10,8 @@ script = ExtResource("1_lysx1")
 id_unico = &"troca_lugar_01"
 nome = "Troca De Lugar"
 custo_energia = 2
-arte = ExtResource("1_vnqm6")
+arte = ExtResource("1_nkayk")
+display_arte = ExtResource("2_76fec")
 video_preview = ExtResource("3_1vkqn")
 descricao = "Troca De Lugar da sua peça com suas ou do adiversario"
 tipo_efeito = 4

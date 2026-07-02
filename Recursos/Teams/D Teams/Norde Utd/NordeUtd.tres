@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_q242w"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_g6llc"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_k5u17"]
+[ext_resource type="Texture2D" uid="uid://dt20ah3jedn1e" path="res://Recursos/2D_Art/Emblemas/Norde Utd.png" id="2_ybtqs"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_rvhad"]
 [ext_resource type="Resource" uid="uid://dsug5aeapiocn" path="res://Recursos/Teams/D Teams/Norde Utd/Amaury.tres" id="3_ybtqs"]
 [ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_b0e3g"]
@@ -23,6 +23,7 @@ name = "Norde Utd"
 id = 13
 ranque = 2
 cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
+emblem = ExtResource("2_ybtqs")
 mainSquad = Array[ExtResource("1_q242w")]([ExtResource("3_ybtqs"), ExtResource("4_ryg51"), ExtResource("5_43t3q"), ExtResource("6_hmpgd"), ExtResource("7_mwx0e")])
 overlay_escolhido = 3
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

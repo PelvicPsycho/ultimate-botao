@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Team" format=3 uid="uid://etodhjlxsclj"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_sje04"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_83nhg"]
+[ext_resource type="Texture2D" uid="uid://cn2cdlc7seute" path="res://Recursos/2D_Art/Emblemas/Totts.png" id="2_1pqj0"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_x7ny1"]
 [ext_resource type="Resource" uid="uid://bj6obr3lve5vc" path="res://Recursos/Teams/C Teams/Totts BC/Axel.tres" id="3_1pqj0"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_xsaik"]
@@ -23,6 +23,7 @@ name = "Totts BC"
 id = 23
 ranque = 3
 cor = Color(0.40392157, 0.6901961, 0.75686276, 1)
+emblem = ExtResource("2_1pqj0")
 mainSquad = Array[ExtResource("1_sje04")]([ExtResource("3_1pqj0"), ExtResource("4_jjht8"), ExtResource("5_1utjp"), ExtResource("6_4wbga"), ExtResource("7_sf743")])
 overlay_escolhido = 2
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

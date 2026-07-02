@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Team" format=3 uid="uid://b21n8ejxsvs3x"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_pvgyd"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_oa2pg"]
+[ext_resource type="Texture2D" uid="uid://dscwhw2s2s12x" path="res://Recursos/2D_Art/Emblemas/Sud FC.png" id="2_jcage"]
 [ext_resource type="Resource" uid="uid://cim5q25d4it7s" path="res://Recursos/Teams/D Teams/Sub BC/Ataide.tres" id="3_jcage"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="3_tf6wh"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="4_do7rj"]
@@ -23,6 +23,7 @@ name = "Sud BC"
 id = 22
 ranque = 2
 cor = Color(0.40392157, 0.75686276, 0.47058824, 1)
+emblem = ExtResource("2_jcage")
 mainSquad = Array[ExtResource("1_pvgyd")]([ExtResource("3_jcage"), ExtResource("4_r0ypb"), ExtResource("5_xmmv3"), ExtResource("6_wvbqd"), ExtResource("7_pjeqb")])
 overlay_escolhido = 2
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

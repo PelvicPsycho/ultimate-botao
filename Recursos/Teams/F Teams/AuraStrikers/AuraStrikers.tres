@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Team" format=3 uid="uid://b72qtlj7tagf5"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_uwv47"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_gyy2b"]
+[ext_resource type="Texture2D" uid="uid://b50ajegqhmfwp" path="res://Recursos/2D_Art/Emblemas/Aura Strikers.png" id="2_gyy2b"]
 [ext_resource type="Resource" uid="uid://ckp07sxqnjq4f" path="res://Recursos/Teams/F Teams/AuraStrikers/Angel.tres" id="2_vv4vo"]
 [ext_resource type="Resource" uid="uid://bgfvki3yha0wm" path="res://Recursos/Teams/F Teams/AuraStrikers/Beanie.tres" id="3_nj1gn"]
 [ext_resource type="Resource" uid="uid://cxrq0wbdvgq6a" path="res://Recursos/Teams/F Teams/AuraStrikers/Hurry.tres" id="4_ile84"]
@@ -22,5 +22,6 @@ script = ExtResource("7_m5iam")
 name = "Aura Strikers"
 id = 4
 cor = Color(0.8039216, 0.37254903, 0.8901961, 1)
+emblem = ExtResource("2_gyy2b")
 mainSquad = Array[ExtResource("1_uwv47")]([ExtResource("2_vv4vo"), ExtResource("3_nj1gn"), ExtResource("4_ile84"), ExtResource("5_yu1uo"), ExtResource("6_x3dxf")])
 overlay_escolhido = 1
