@@ -34,6 +34,7 @@ func play_sfx(audio: AudioStream, pitch: float = 1.0, volume: float = 0.0) -> Au
 func play_bgm(BGM, nome_string) -> void:
 	musica_atual = nome_string
 	AudioBGM.stream = BGM
+	AudioBGM.volume_db = -20
 	AudioBGM.play()
 
 func get_free_sfx_stream():

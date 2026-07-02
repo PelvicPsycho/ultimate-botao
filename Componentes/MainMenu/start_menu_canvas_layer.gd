@@ -7,6 +7,7 @@ const Tutorial_1 := preload("res://2D Changes/Components/Tutorial/Scenes/MatchSc
 
 func _ready():
 	SoundMaster.stop_music()
+	SoundMaster.play_bgm(bgm, "loop")
 	
 	# Desbloqueia todas as copas sempre que o menu inicial é aberto
 	for cup in CupManager.cupList:

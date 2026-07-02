@@ -1,13 +1,16 @@
 [gd_scene format=3 uid="uid://bafr0ruromd8"]
 
 [ext_resource type="Script" uid="uid://eehv305dxa0i" path="res://Componentes/SoundMaster/sound_master.gd" id="1_w2dor"]
+[ext_resource type="AudioStream" uid="uid://yg5yf7o7oxd7" path="res://Recursos/SFXs/menuBGM.wav" id="2_4okl1"]
 
 [node name="SoundMaster" type="Node" unique_id=1100200711]
 script = ExtResource("1_w2dor")
+loopMusica = ExtResource("2_4okl1")
 
 [node name="AudioBGM" type="AudioStreamPlayer" parent="." unique_id=1857867180]
 unique_name_in_owner = true
 volume_db = -10.0
+autoplay = true
 bus = &"BGM"
 
 [node name="GroupSFX" type="Node" parent="." unique_id=279846630]

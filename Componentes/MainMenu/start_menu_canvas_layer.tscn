@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://h2qvxvcekkf6" path="res://Recursos/2D_Art/SplashScreen/DetalheAzulEscuro.png" id="4_rlkea"]
 [ext_resource type="Texture2D" uid="uid://cteish2yotv5s" path="res://Recursos/2D_Art/SplashScreen/logo 1 1.png" id="4_s1m4f"]
 [ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="4_txp36"]
-[ext_resource type="Script" path="res://Componentes/MainMenu/exit_button.gd" id="10_m4o61"]
+[ext_resource type="Script" uid="uid://c1ifdfcclridr" path="res://Componentes/MainMenu/exit_button.gd" id="10_m4o61"]
 [ext_resource type="PackedScene" uid="uid://cgnhk4cnq05i6" path="res://Componentes/AnimationHover/animation_hover_node.tscn" id="14_l8vg5"]
 
 [sub_resource type="Shader" id="Shader_jdv1h"]
