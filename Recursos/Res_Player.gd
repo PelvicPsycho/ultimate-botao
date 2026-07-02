@@ -17,7 +17,7 @@ var time: Team
 
 @export_group("Basic Attributes")
 @export var basic_min_force: float = 100.0
-@export var basic_max_force: float = 1000.0
+@export var basic_max_force: float = 800.0
 @export var basic_mass: float = 5.0
 @export var basic_friction: float = 0.98
 @export var basic_scale: float = 0.75
@@ -120,19 +120,27 @@ func recalcular_status() -> void:
 			bonus_geral += card.magnitude 
 
 func setMaxForceByLvl():
-	var defaultVal = 800
 	match strenghtLevel:
 		1:
-			defaultVal += 0
+			basic_max_force = 800
 		2: 
-			defaultVal += 200
+			basic_max_force = 1000
 		3:
-			defaultVal += 500
+			basic_max_force = 1300
 		4:
-			defaultVal += 700
-	basic_max_force = defaultVal
-	current_max_force = defaultVal
-	
+			basic_max_force = 1500
+
+func getMaxForceByLvl():
+	match strenghtLevel:
+		1:
+			return 0
+		2: 
+			return 200
+		3:
+			return 500
+		4:
+			return 700
+
 func resetar_status(base_info: TeamPlayer) -> void:
 	self.level_force = base_info.level_force
 	

@@ -132,7 +132,10 @@ func loadPlayerInfo(plInfo):
 	_configurar_status(plInfo)
 	_aplicar_visual(plInfo)
 
-	
+func setMaxForce():
+	playerInfo.setMaxForceByLvl()
+	playerInfo_atual.setMaxForceByLvl()
+
 func atualizar_visual_numero() -> void:
 	# Busca o nó manualmente se a referência onready falhar
 	if sprite_numero == null:
@@ -571,6 +574,7 @@ func Execute_Action() -> void:
 	Set_Current_Velocity(current_direction * current_force)
 	
 	ActionExecuted.emit(index, current_velocity, teamSide)
+	print("AAAAA ", current_velocity)
 	
 	_cancelar_interacao()
 	turnPlayed.emit()
@@ -598,7 +602,7 @@ func Execute_Action_parameters(direction: Vector2, force_lerp: float) -> void:
 	Set_Current_Velocity(current_direction * current_force)
 	
 	ActionExecuted.emit(index, current_velocity, teamSide)
-	
+	print("AAAAA ", current_velocity)
 	_cancelar_interacao()
 	turnPlayed.emit()
 

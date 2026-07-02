@@ -13,5 +13,6 @@ nome = "Gugs"
 num_camisa = 3
 foto = ExtResource("1_au6cm")
 quantosSlotes = 8
+strenghtLevel = 4
 PA = 6
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

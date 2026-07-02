@@ -16,5 +16,6 @@ num_camisa = 4
 foto = ExtResource("1_ftqam")
 quantosSlotes = 5
 mao_cartas = Array[ExtResource("2_26eg0")]([ExtResource("3_1y1b3"), ExtResource("4_gok1a")])
+strenghtLevel = 4
 PA = 3
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

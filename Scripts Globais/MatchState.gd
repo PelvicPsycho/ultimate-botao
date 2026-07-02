@@ -220,6 +220,7 @@ func assignPieces():
 		piece.loadPlayerInfo(player)
 		if piece.has_method("atualizar_visual_numero"):
 			piece.atualizar_visual_numero()
+		piece.setMaxForce()
 	for i in range(awayPieces.size()):
 		var piece = awayPieces[i]
 		var player = awayPlayers[i]
@@ -229,6 +230,7 @@ func assignPieces():
 		piece.atualizar_visual_numero()
 		if piece.has_method("atualizar_visual_numero"):
 			piece.atualizar_visual_numero()
+		piece.setMaxForce()
 	physics_controller.all_physicObjects_loaded = true
 
 func _on_contador_inicial_concluido(active_team: Team) -> void:
