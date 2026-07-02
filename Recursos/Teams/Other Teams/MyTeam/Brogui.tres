@@ -12,4 +12,5 @@ id_unico = &"Brogui_MyTeam"
 nome = "Brogui"
 num_camisa = 4
 foto = ExtResource("1_hcf67")
+strenghtLevel = 2
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

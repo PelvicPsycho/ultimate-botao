@@ -10,7 +10,7 @@
 script = ExtResource("1_bb1im")
 id_unico = &"Josue_MyTeam"
 nome = "Josue Ronaldo"
-num_camisa = 7
+num_camisa = 9
 foto = ExtResource("1_w67mv")
 quantosSlotes = 5
 PA = 2

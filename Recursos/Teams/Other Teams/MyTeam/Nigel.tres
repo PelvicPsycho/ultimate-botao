@@ -10,7 +10,7 @@
 script = ExtResource("2_8nsg6")
 id_unico = &"Nigel_MyTeam"
 nome = "Nigel"
-num_camisa = 1
+num_camisa = 3
 foto = ExtResource("1_06cnq")
 quantosSlotes = 5
 strenghtLevel = 4

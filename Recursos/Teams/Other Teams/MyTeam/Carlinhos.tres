@@ -10,7 +10,9 @@
 script = ExtResource("1_e004p")
 id_unico = &"carlinhos_my_team"
 nome = "Carlinhos"
-num_camisa = 4
+num_camisa = 3
 foto = ExtResource("1_ftqam")
 quantosSlotes = 5
+strenghtLevel = 3
+PA = 3
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
