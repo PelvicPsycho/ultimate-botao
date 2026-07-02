@@ -3,9 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_hcf67"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_fls4a"]
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_wtanw"]
-[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="3_lomfa"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="4_0f06n"]
-[ext_resource type="Resource" uid="uid://bq1qsd3ojqnsw" path="res://Componentes/Cartas/CardResorce/CartaEncolhedor.tres" id="4_e27ku"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_i3p2d"]
 
 [resource]
@@ -14,8 +12,4 @@ id_unico = &"Brogui_MyTeam"
 nome = "Brogui"
 num_camisa = 4
 foto = ExtResource("1_hcf67")
-quantosSlotes = 1
-mao_cartas = Array[ExtResource("4_0f06n")]([ExtResource("3_lomfa"), ExtResource("4_e27ku")])
-strenghtLevel = 4
-PA = 3
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
