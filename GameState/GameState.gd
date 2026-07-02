@@ -14,6 +14,8 @@ var torneios_desbloqueados: Array[String] = []
 
 var TimerType: int  = 0
 
+var finished_tutorial: bool = false
+
 func _ready():
 	jogadores = SaveManager.load_game()
 

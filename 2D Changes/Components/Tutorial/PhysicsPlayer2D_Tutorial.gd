@@ -306,7 +306,7 @@ var posicao_final_toque_Tela: Vector2 = Vector2.ZERO
 func Mouse_Dragging_Update():
 	current_direction = posicao_inicial_toque_Tela - posicao_final_toque_Tela
 	current_distance = current_direction.length()
-	print("current_distance = ", current_distance)
+
 	if current_distance > 2.0 and menu_radial and menu_radial.is_open:
 		menu_radial.fechar()
 		

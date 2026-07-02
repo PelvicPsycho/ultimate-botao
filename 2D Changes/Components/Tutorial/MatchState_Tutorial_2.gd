@@ -10,7 +10,7 @@ signal turno_trocado(turno_atual: turn)
 @export var is_final_tutorial: bool
 
 @onready var timer = $Timer
-
+#const SplashScreen := preload("res://Componentes/MainMenu/start_menu_canvas_layer.tscn")
 const TabMenu := preload("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn") 
 const Tutorial_2 := preload("res://2D Changes/Components/Tutorial/Scenes/MatchScene2D_Tutorial_2.tscn") 
 
@@ -437,4 +437,5 @@ func get_current_turn_int() -> int:
 
 
 func _on_timer_timeout() -> void:
-	get_tree().change_scene_to_packed(TabMenu)
+	GameState.finished_tutorial = true
+	get_tree().change_scene_to_file("res://Componentes/MainMenu/start_menu_canvas_layer.tscn")

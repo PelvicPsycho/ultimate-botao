@@ -94,8 +94,10 @@ func _on_button_pressed() -> void:
 
 
 func _on_startbutton_pressed() -> void:
-	#get_tree().change_scene_to_packed(TabMenu)
-	get_tree().change_scene_to_packed(Tutorial_1)
+	if GameState.finished_tutorial == true:
+		get_tree().change_scene_to_packed(TabMenu)
+	else:
+		get_tree().change_scene_to_packed(Tutorial_1)
 
 
 func _on_add_todas_cartas_pressed() -> void:

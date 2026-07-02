@@ -11,6 +11,7 @@ signal turno_trocado(turno_atual: turn)
 
 @onready var timer = $Timer
 
+#const SplashScreen := preload("res://Componentes/MainMenu/start_menu_canvas_layer.tscn")
 const TabMenu := preload("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn") 
 const Tutorial_2 := preload("res://2D Changes/Components/Tutorial/Scenes/MatchScene2D_Tutorial_2.tscn") 
 
