@@ -438,4 +438,5 @@ func get_current_turn_int() -> int:
 
 func _on_timer_timeout() -> void:
 	GameState.finished_tutorial = true
-	get_tree().change_scene_to_file("res://Componentes/MainMenu/start_menu_canvas_layer.tscn")
+	get_tree().change_scene_to_file("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn")
+#	get_tree().change_scene_to_file("res://Componentes/MainMenu/start_menu_canvas_layer.tscn")

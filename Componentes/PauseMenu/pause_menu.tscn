@@ -93,6 +93,7 @@ script = ExtResource("5_u2f8j")
 metadata/_custom_type_script = "uid://b8xa3qtksu7me"
 
 [node name="Button - Recomecar" type="Button" parent="Control/HBoxContainer/TextureRect_Background/VBoxMenu_Buttons" unique_id=1438065989]
+visible = false
 layout_mode = 2
 icon = ExtResource("4_u2f8j")
 flat = true
@@ -502,6 +503,7 @@ layout_mode = 2
 text = "SAVE SETTINGS"
 
 [node name="VencerPartida_Button" type="Button" parent="Control" unique_id=476607466]
+visible = false
 layout_mode = 0
 offset_left = 57.0
 offset_top = 538.0

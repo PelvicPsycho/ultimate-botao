@@ -5,10 +5,10 @@ extends TextureButton
 @export var label_pos_deactive: Vector2
 @export var label_pos_active: Vector2
 
-const SplashScreen := preload("res://Componentes/MainMenu/start_menu_canvas_layer.tscn")
+const TabMenu := preload("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn")
 
 func _on_pressed() -> void:
-	get_tree().change_scene_to_file("res://Componentes/MainMenu/start_menu_canvas_layer.tscn")
+	get_tree().change_scene_to_packed(TabMenu)
 
 
 func _on_mouse_entered() -> void:

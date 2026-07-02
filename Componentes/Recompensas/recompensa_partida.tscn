@@ -608,6 +608,7 @@ vertical_alignment = 1
 [node name="AnimationHover_Node" parent="Panel/Info_VBoxContainer/Botao_MarginContainer/AceitarButton_Button" unique_id=1375273779 instance=ExtResource("18_edpve")]
 
 [node name="TESTE_Button" type="Button" parent="." unique_id=444642369]
+visible = false
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
@@ -615,6 +616,7 @@ theme_override_font_sizes/font_size = 30
 text = "BOTAO TESTE Recompensa MYTEAM"
 
 [node name="TESTE_Button2" type="Button" parent="." unique_id=381510245]
+visible = false
 layout_mode = 0
 offset_left = -2.0
 offset_top = 62.0
@@ -624,6 +626,7 @@ theme_override_font_sizes/font_size = 30
 text = "LOAD MYTEAM"
 
 [node name="TESTE_Button3" type="Button" parent="." unique_id=1938422950]
+visible = false
 layout_mode = 0
 offset_left = -2.0
 offset_top = 236.0
