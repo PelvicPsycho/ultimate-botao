@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dhj4oo7k0kg03"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_stovj"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_2m3l0"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_s1h3d"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_tdpu4"]
+
+[resource]
+script = ExtResource("3_s1h3d")
+id_unico = &"benedito_nighthawks_albion"
+nome = "Benedito"
+num_camisa = 8
+quantosSlotes = 2
+strenghtLevel = 2
+PA = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
