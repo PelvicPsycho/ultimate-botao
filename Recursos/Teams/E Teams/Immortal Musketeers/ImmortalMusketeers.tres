@@ -19,7 +19,7 @@
 
 [resource]
 script = ExtResource("2_bo1f6")
-name = "Immortal Musketeers"
+name = "Immortals"
 id = 8
 ranque = 1
 cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
