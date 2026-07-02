@@ -54,3 +54,13 @@ func _entrou_no_gelo(body):
 
 func _saiu_do_gelo(body):
 	body.friction = 0.98
+
+
+func _on_tree_exiting() -> void:
+	for body in pecas_na_zona:
+		if is_instance_valid(body):
+			_saiu_do_gelo(body)
+	
+	
+	pecas_na_zona.clear()
+	pass

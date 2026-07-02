@@ -65,3 +65,5 @@ clip_children = 2
 position = Vector2(200, 202)
 scale = Vector2(0.80134034, 0.80134034)
 texture = ExtResource("5_o7ygs")
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
