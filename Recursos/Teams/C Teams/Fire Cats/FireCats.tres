@@ -4,14 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_1qodc"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_muoy2"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_bvlxm"]
-[ext_resource type="Resource" uid="uid://bchvdeejjjexv" path="res://Recursos/Teams/C Teams/Fire Cats/Fernandes.tres" id="3_uuld1"]
 [ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_gqur4"]
-[ext_resource type="Resource" uid="uid://pmk02davkwb0" path="res://Recursos/Teams/C Teams/Fire Cats/Gonzalves.tres" id="4_h0cih"]
 [ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_05y2d"]
-[ext_resource type="Resource" uid="uid://25y2a7p45nm8" path="res://Recursos/Teams/C Teams/Fire Cats/Martin.tres" id="5_lympt"]
 [ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="6_7yxcr"]
-[ext_resource type="Resource" uid="uid://dhf0l40unmhcg" path="res://Recursos/Teams/C Teams/Fire Cats/Peres.tres" id="6_s4o8x"]
-[ext_resource type="Resource" uid="uid://dvgfesjk2vuou" path="res://Recursos/Teams/C Teams/Fire Cats/Silvio.tres" id="7_c1yxr"]
 [ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="7_r1b1a"]
 [ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="8_x0pdw"]
 [ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="9_h874q"]
@@ -23,6 +18,5 @@ name = "Fire Cats"
 id = 27
 ranque = 3
 cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
-mainSquad = Array[ExtResource("1_4axnw")]([ExtResource("3_uuld1"), ExtResource("4_h0cih"), ExtResource("5_lympt"), ExtResource("6_s4o8x"), ExtResource("7_c1yxr")])
 overlay_escolhido = 3
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"
