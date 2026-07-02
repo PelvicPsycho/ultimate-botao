@@ -9,7 +9,7 @@ func save_game() -> void:
 		"pecas_desbloqueadas": {},
 		"ultimo_torneio_jogado": GameState.ultimo_torneio_jogado,
 		"torneios_desbloqueados": GameState.torneios_desbloqueados,
-		"finished_tutorial": GameState.finished_tutorial,
+		#"finished_tutorial": GameState.finished_tutorial,
 		"config_audio": {
 			"master": SoundMaster.volume_master,
 			"bgm": SoundMaster.volume_BGM,
@@ -80,7 +80,7 @@ func load_game() -> Array:
 		AudioServer.set_bus_mute(master_bus, esta_mutado)
 	
 	GameState.ultimo_torneio_jogado = parsed.get("ultimo_torneio_jogado", "")
-	GameState.finished_tutorial = parsed.get("finished_tutorial", false)
+	#GameState.finished_tutorial = parsed.get("finished_tutorial", false)
 	
 	# ── Restaura torneios desbloqueados ──
 	GameState.torneios_desbloqueados.clear()
