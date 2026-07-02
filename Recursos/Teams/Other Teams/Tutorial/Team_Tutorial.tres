@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://bswgatv5myovf"]
+
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_cwlr8"]
+[ext_resource type="Texture2D" uid="uid://bspvf8n8v742y" path="res://Recursos/2D_Art/MatchUI/Sport_Club_Internacional_logopng.png" id="2_dkhpp"]
+[ext_resource type="Resource" uid="uid://chtes8nkutsrh" path="res://Recursos/Teams/Tutorial/TeamPlayer_Tutorial_1.tres" id="3_ye1s3"]
+[ext_resource type="Material" uid="uid://3fsnu7d2ec1g" path="res://Componentes/PlayerGradientes/TimeVermelho.tres" id="4_fqmht"]
+[ext_resource type="Material" uid="uid://bhp38tmnccy3v" path="res://Componentes/PlayerGradientes/TimeVermelhoDesactive.tres" id="5_cbx3m"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="6_7eu0n"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="7_4mns8"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="8_ts4xq"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="9_g55wn"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="10_skl4d"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="11_ccd6q"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="12_he7rc"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="13_qugxb"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="14_eck56"]
+
+[resource]
+script = ExtResource("6_7eu0n")
+name = "Inter"
+id = 2
+cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
+emblem = ExtResource("2_dkhpp")
+mainSquad = Array[ExtResource("1_cwlr8")]([ExtResource("3_ye1s3"), ExtResource("3_ye1s3"), ExtResource("3_ye1s3"), ExtResource("3_ye1s3"), ExtResource("3_ye1s3")])
+materialAtivo = ExtResource("4_fqmht")
+materialInativo = ExtResource("5_cbx3m")
+overlay_escolhido = 3
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

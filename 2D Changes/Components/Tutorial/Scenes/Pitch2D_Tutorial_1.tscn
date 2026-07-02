@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://btqivaeipeqe3"]
+
+[ext_resource type="Texture2D" uid="uid://ckjbhc8qko2vf" path="res://2D Changes/Components/Tutorial/Sprites/Clip path group.png" id="1_q0tep"]
+[ext_resource type="Texture2D" uid="uid://bahhkrp4g8a2p" path="res://2D Changes/Components/Tutorial/Sprites/Vector.png" id="2_v4e5s"]
+[ext_resource type="PackedScene" uid="uid://jfc33046hrsg" path="res://2D Changes/Components/Tutorial/Scenes/Goal2D_Tutorial.tscn" id="3_v4e5s"]
+
+[node name="Pitch2D_Tutorial_1" type="Node2D" unique_id=603521134]
+z_index = -2
+
+[node name="Campo" type="Sprite2D" parent="." unique_id=995364415 groups=["Chao"]]
+clip_children = 2
+z_index = 1
+position = Vector2(960, 586)
+texture = ExtResource("1_q0tep")
+
+[node name="Campo_Border" type="Sprite2D" parent="." unique_id=654763055 groups=["Chao"]]
+clip_children = 2
+z_index = 1
+position = Vector2(960, 586)
+texture = ExtResource("2_v4e5s")
+
+[node name="Goal2D" parent="." unique_id=1637700476 instance=ExtResource("3_v4e5s")]
+
+[node name="Pitch_Walls" type="Node2D" parent="." unique_id=2023815139]
+
+[node name="BotWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=411115506]
+position = Vector2(908.99994, 896)
+rotation = 3.1415927
+scale = Vector2(0.9385442, 0.9096873)
+points = PackedVector2Array(-697.88947, 175.88464, -685.1037, 169.289, -678.7109, 159.39545, -677.6453, 145.10486, -525.2817, 18.687805, -492.2519, 6.595703, 492.252, 6.596, 525.282, 18.688, 660.5974, 133.01263, 677.64514, 175.88452)
+width = 1.0
+default_color = Color(1, 0, 0, 0)
+
+[node name="TopWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1970227672]
+position = Vector2(908.99994, 276.00006)
+scale = Vector2(0.9385442, 0.9096873)
+points = PackedVector2Array(697.889, 175.885, 685.104, 169.289, 678.711, 159.395, 677.645, 145.105, 525.282, 18.688, 492.252, 6.596, -492.252, 6.596, -525.282, 18.688, -660.597, 133.013, -677.645, 175.885)
+width = 1.0
+default_color = Color(1, 0, 0, 0)
+
+[node name="LeftWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1490578329]
+position = Vector2(267, 586)
+scale = Vector2(0.9385442, 0.9096873)
+points = PackedVector2Array(6.3928833, 164.89185, 6.3928833, 0.078927994, 6.3928833, -164.89182)
+width = 1.0
+default_color = Color(1, 0, 0, 0)
+
+[node name="AwayGoalWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1848776503]
+position = Vector2(1659.0104, 581.9761)
+rotation = -3.1415927
+scale = Vector2(1.067306, 0.99574405)
+points = PackedVector2Array(89.0188, -154.68225, 12.189819, -154.68225, 12.189819, 146.59995, 89.0188, 146.59998)
+width = 0.3
+default_color = Color(1, 0, 0, 0)

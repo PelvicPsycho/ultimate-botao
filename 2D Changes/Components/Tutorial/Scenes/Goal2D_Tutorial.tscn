@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://jfc33046hrsg"]
+
+[ext_resource type="Script" uid="uid://kg61sq2ilqb" path="res://2D Changes/Scripts_2D/Goal2D.gd" id="1_u73sd"]
+[ext_resource type="AudioStream" uid="uid://br61fcdfiuwpy" path="res://Sons/quase-gol.wav" id="2_qupph"]
+[ext_resource type="PackedScene" uid="uid://pwbv5pt3tysb" path="res://2D Changes/Components/Particles/GoalExplosion/GoalExplosion.tscn" id="4_x2yn4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s80ft"]
+size = Vector2(82, 300)
+
+[node name="Goal2D_Tutorial" type="Node2D" unique_id=1637700476 groups=["Goals"]]
+script = ExtResource("1_u73sd")
+team = 1
+audio_quase_gol = ExtResource("2_qupph")
+
+[node name="GoalArea" type="Area2D" parent="." unique_id=643071716]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalArea" unique_id=195253424]
+z_index = 1
+position = Vector2(1605, 586)
+shape = SubResource("RectangleShape2D_s80ft")
+debug_color = Color(0.972549, 0, 0, 0.41960785)
+
+[node name="GoalExplosion" parent="." unique_id=998256435 instance=ExtResource("4_x2yn4")]
+z_index = 4
+position = Vector2(1641, 533)
+rotation = 3.1415927
+
+[connection signal="body_entered" from="GoalArea" to="." method="_on_area_2d_body_entered"]

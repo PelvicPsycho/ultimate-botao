@@ -1,7 +1,8 @@
 extends CanvasLayer
 
 #@onready var new_game_level: PackedScene = preload("res://MatchScene.tscn")
-const TabMenu := preload("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn") 
+const TabMenu := preload("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn")
+const Tutorial_1 := preload("res://2D Changes/Components/Tutorial/Scenes/MatchScene2D_Tutorial_1.tscn") 
 @export var bgm: AudioStream
 
 func _ready():
@@ -93,7 +94,8 @@ func _on_button_pressed() -> void:
 
 
 func _on_startbutton_pressed() -> void:
-	get_tree().change_scene_to_packed(TabMenu)
+	#get_tree().change_scene_to_packed(TabMenu)
+	get_tree().change_scene_to_packed(Tutorial_1)
 
 
 func _on_add_todas_cartas_pressed() -> void:

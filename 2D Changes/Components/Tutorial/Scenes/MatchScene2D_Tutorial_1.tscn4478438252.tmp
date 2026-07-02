@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://dt1ykv8dgs0od"]
+
+[ext_resource type="Script" uid="uid://dylcosxyo1hii" path="res://2D Changes/Components/Tutorial/MatchState_Tutorial.gd" id="1_8l1wh"]
+[ext_resource type="Resource" uid="uid://bswgatv5myovf" path="res://Recursos/Teams/Tutorial/Team_Tutorial.tres" id="2_mfnnc"]
+[ext_resource type="Script" uid="uid://dx2asfe0bpysd" path="res://2D Changes/Components/Tutorial/CollisionResolution2D_Tutorial.gd" id="4_8l1wh"]
+[ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="5_p3845"]
+[ext_resource type="PackedScene" uid="uid://blaeti31fcy1e" path="res://2D Changes/2D_Scenes/Camera2D.tscn" id="6_bt2lr"]
+[ext_resource type="PackedScene" uid="uid://btqivaeipeqe3" path="res://2D Changes/Components/Tutorial/Scenes/Pitch2D_Tutorial_1.tscn" id="8_mfnnc"]
+[ext_resource type="Script" uid="uid://cclcjfi2w3mqi" path="res://2D Changes/Components/Tutorial/PhysicsPlayer2D_Tutorial.gd" id="8_tpk2o"]
+[ext_resource type="PackedScene" uid="uid://bjuey2wm1ffql" path="res://2D Changes/2D_Scenes/Player2D.tscn" id="9_r5duy"]
+[ext_resource type="PackedScene" uid="uid://v5srrfq0w6hn" path="res://2D Changes/2D_Scenes/Ball2D.tscn" id="10_7dhd6"]
+[ext_resource type="Script" uid="uid://buw3b8c0hrlfb" path="res://2D Changes/Scripts_2D/Gol_Manager_2D.gd" id="11_dmxda"]
+[ext_resource type="AudioStream" uid="uid://cjmj3m8i68a7r" path="res://Recursos/SFXs/gol_5s_fadeout.wav" id="12_doc1f"]
+[ext_resource type="PackedScene" uid="uid://cmr1tg758m3vc" path="res://Componentes/PauseMenu/pause_menu.tscn" id="12_mfnnc"]
+[ext_resource type="PackedScene" uid="uid://dk33s2pkensbi" path="res://Componentes/AnunciadorUI/anunciador_ui.tscn" id="13_1oxmj"]
+
+[sub_resource type="Gradient" id="Gradient_xrqu3"]
+colors = PackedColorArray(0.38431373, 0.67058825, 0.827451, 0.39215687, 0.94509804, 0.4, 0.3882353, 0.39215687)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ss0s5"]
+gradient = SubResource("Gradient_xrqu3")
+
+[node name="MatchScene2D_Tutorial_1" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller", "anunciador_ui", "pause_menu") groups=["MatchState"]]
+script = ExtResource("1_8l1wh")
+physics_controller = NodePath("PhysicsController")
+anunciador_tempo = 1.0
+anunciador_ui = NodePath("AnunciadorUI")
+pause_menu = NodePath("PauseMenu")
+homeTeam = ExtResource("2_mfnnc")
+
+[node name="CanvasLayer_BackGround" type="CanvasLayer" parent="." unique_id=229047291]
+layer = -1
+
+[node name="Gradient_Background" type="TextureRect" parent="CanvasLayer_BackGround" unique_id=1602420539]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ss0s5")
+
+[node name="AnimatedBg" parent="CanvasLayer_BackGround" unique_id=28414625 instance=ExtResource("5_p3845")]
+offset_left = -629.0
+offset_top = -337.0
+offset_right = -629.0
+offset_bottom = -337.0
+
+[node name="Camera2D" parent="." unique_id=476279433 instance=ExtResource("6_bt2lr")]
+position = Vector2(960, 540)
+position_smoothing_enabled = true
+zoom_speed = 6.0
+
+[node name="PhysicsController" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("match_state", "TopWall_Line", "BotWall_Line", "HomeGoalWall_Line", "AwayGoalWall_Line", "Pitch_Middle_Point")]
+position = Vector2(0, -41)
+script = ExtResource("4_8l1wh")
+match_state = NodePath("..")
+TopWall_Line = NodePath("Pitch2D_Tutorial_1/Pitch_Walls/TopWall_Line")
+BotWall_Line = NodePath("Pitch2D_Tutorial_1/Pitch_Walls/BotWall_Line")
+HomeGoalWall_Line = NodePath("Pitch2D_Tutorial_1/Pitch_Walls/LeftWall_Line")
+AwayGoalWall_Line = NodePath("Pitch2D_Tutorial_1/Pitch_Walls/AwayGoalWall_Line")
+Pitch_Middle_Point = NodePath("Pitch2D_Tutorial_1/Pitch_Middle_Point")
+
+[node name="Pitch2D_Tutorial_1" parent="PhysicsController" unique_id=603521134 instance=ExtResource("8_mfnnc")]
+position = Vector2(0, 41)
+
+[node name="Score_Position_Node" type="Node2D" parent="PhysicsController" unique_id=1492150844]
+position = Vector2(883, 770)
+
+[node name="HomeTeam" type="Node2D" parent="PhysicsController" unique_id=2082446946]
+position = Vector2(0, -41)
+
+[node name="HomeTeam_P5" parent="PhysicsController/HomeTeam" unique_id=535361106 instance=ExtResource("9_r5duy")]
+position = Vector2(671, 627)
+script = ExtResource("8_tpk2o")
+
+[node name="AwayTeam" type="Node2D" parent="PhysicsController" unique_id=1460559231]
+position = Vector2(0, -41)
+
+[node name="Balls" type="Node2D" parent="PhysicsController" unique_id=1788694925]
+
+[node name="Ball2d" parent="PhysicsController/Balls" unique_id=1925699982 instance=ExtResource("10_7dhd6")]
+position = Vector2(909, 586)
+
+[node name="Gol_Manager(Temporario)" type="Node2D" parent="." unique_id=632171838 node_paths=PackedStringArray("anunciadorui", "match_state")]
+position = Vector2(0, 4)
+script = ExtResource("11_dmxda")
+anunciadorui = NodePath("../AnunciadorUI")
+match_state = NodePath("..")
+audio_fez_gol = ExtResource("12_doc1f")
+
+[node name="AnunciadorUI" parent="." unique_id=263291148 instance=ExtResource("13_1oxmj")]
+visible = false
+
+[node name="PauseMenu" parent="." unique_id=649671765 instance=ExtResource("12_mfnnc")]
+visible = false
+
+[editable path="PhysicsController/Pitch2D_Tutorial_1"]

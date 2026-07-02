@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://3y6uy5hmidj6"]
+
+[ext_resource type="Texture2D" uid="uid://x4awkopagqqc" path="res://2D Changes/Components/Tutorial/Sprites/Group (1).png" id="1_5c5ua"]
+[ext_resource type="PackedScene" uid="uid://jfc33046hrsg" path="res://2D Changes/Components/Tutorial/Scenes/Goal2D_Tutorial.tscn" id="3_jlcf3"]
+
+[node name="Pitch2D_Tutorial_2" type="Node2D" unique_id=603521134]
+z_index = -2
+
+[node name="Campo" type="Sprite2D" parent="." unique_id=995364415 groups=["Chao"]]
+clip_children = 2
+z_index = 1
+position = Vector2(960, 586)
+texture = ExtResource("1_5c5ua")
+
+[node name="Pitch_Middle_Point" type="Node2D" parent="." unique_id=716940055]
+z_index = 1
+position = Vector2(958, 589)
+
+[node name="Goal2D" parent="." unique_id=1637700476 instance=ExtResource("3_jlcf3")]
+position = Vector2(36, 1)
+
+[node name="Pitch_Walls" type="Node2D" parent="." unique_id=2023815139]
+z_index = 2
+
+[node name="BotWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=411115506]
+position = Vector2(906, 616.00006)
+rotation = 3.1415927
+scale = Vector2(0.9385442, 0.9096873)
+points = PackedVector2Array(-740.50854, -141.80676, -728.7883, -148.40247, -718.13354, -158.29602, -717.068, -176.98376, -572.1627, -295.70587, -545.52576, -305.59937, -516.7578, -302.3015, -41.55371, 6.1035156e-05, -24.506, 7.695, 24.506042, 7.6950073, 42.6192, 1.0993652, 508.23386, -296.80518, 526.34705, -304.50012, 550.853, -304.50012, 573.22815, -294.60663, 692.5619, -196.77087, 709.6096, -173.68604, 719.1989, -139.6084)
+width = 1.0
+default_color = Color(0.6431373, 0, 0.2509804, 0)
+
+[node name="TopWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1513052495]
+position = Vector2(906, 555.00006)
+scale = Vector2(0.9385442, 0.9096873)
+points = PackedVector2Array(740.5085, -140.70773, 728.788, -148.402, 718.134, -158.296, 717.068, -176.984, 572.163, -295.706, 545.5257, -304.50027, 516.75775, -301.20245, 43.684692, 1.0992432, 24.506, 7.695, -24.506, 7.695, -42.619, 1.099, -508.234, -296.805, -526.347, -304.5, -550.853, -304.5, -573.228, -294.607, -692.562, -196.771, -709.61, -173.686, -719.199, -139.608)
+width = 1.0
+default_color = Color(0.6431373, 0, 0.2509804, 0)
+
+[node name="LeftWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1490578329]
+position = Vector2(267, 586)
+scale = Vector2(0.9385442, 0.9096873)
+points = PackedVector2Array(-38.35727, 172.58679, -38.357277, -0.60004044, -38.35727, -173.68604)
+width = 1.0
+default_color = Color(0.6431373, 0, 0.2509804, 0)
+
+[node name="AwayGoalWall_Line" type="Line2D" parent="Pitch_Walls" unique_id=1848776503]
+position = Vector2(1700, 586)
+rotation = -3.1415927
+points = PackedVector2Array(99.00012, -159, 12.000122, -159, 12, 158.99997, 99, 158.99997)
+width = 1.0
+default_color = Color(0.6431373, 0, 0.2509804, 0)
