@@ -17,5 +17,5 @@ foto = ExtResource("1_au6cm")
 quantosSlotes = 4
 slotsUpgrates = Array[ExtResource("2_veswh")]([ExtResource("3_d0g3x"), ExtResource("4_feroo")])
 mao_cartas = Array[ExtResource("2_veswh")]([ExtResource("3_d0g3x"), ExtResource("4_feroo")])
-PA = 4
+PA = 6
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

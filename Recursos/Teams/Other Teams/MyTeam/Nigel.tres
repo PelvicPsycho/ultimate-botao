@@ -5,6 +5,8 @@
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_8ra4q"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_hpabj"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_hpabj"]
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="5_woikr"]
+[ext_resource type="Resource" uid="uid://10mdtpxlmcjg" path="res://Componentes/Cartas/CardResorce/CartaAtracão.tres" id="6_nasxu"]
 
 [resource]
 script = ExtResource("2_8nsg6")
@@ -13,6 +15,8 @@ nome = "Nigel"
 num_camisa = 3
 foto = ExtResource("1_06cnq")
 quantosSlotes = 5
+slotsUpgrates = Array[ExtResource("2_hpabj")]([ExtResource("5_woikr"), ExtResource("6_nasxu")])
+mao_cartas = Array[ExtResource("2_hpabj")]([ExtResource("5_woikr"), ExtResource("6_nasxu")])
 strenghtLevel = 4
-PA = 5
+PA = 6
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
