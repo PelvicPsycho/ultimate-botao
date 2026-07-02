@@ -77,8 +77,9 @@ func disparar_animacao_de_turno(activeTeam: Team) -> void:
 		novo_contador.entrada_concluida.connect(_on_primeira_entrada.bind(novo_contador), CONNECT_ONE_SHOT)
 		novo_contador.animar_entrada(activeTeam.cor)
 	elif contador_atual == novo_contador:
-		# Mesmo time (não deveria acontecer)
-		transicao_concluida.emit()
+		# Mesmo time: faz saída/entrada mesmo assim pra anuncio vir depois da animação
+		contador_atual.saida_concluida.connect(_on_saida_para_entrada.bind(novo_contador, activeTeam.cor), CONNECT_ONE_SHOT)
+		contador_atual.animar_saida()
 	else:
 		# Time diferente: sai o atual, depois entra o novo
 		contador_atual.saida_concluida.connect(_on_saida_para_entrada.bind(novo_contador, activeTeam.cor), CONNECT_ONE_SHOT)

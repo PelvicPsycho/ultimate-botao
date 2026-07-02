@@ -14,6 +14,8 @@ var label_gol: Label
 # Variável para referenciar o seu MatchState (assumindo que ele seja um Autoload ou esteja na cena)
 #@onready var match_state = $".."
 
+var _gol_em_processamento: bool = false  # evita processar o mesmo gol 30x
+
 func _ready() -> void:
 	# Aguarda um frame para garantir que os outros nós terminaram o _ready
 	await get_tree().process_frame
@@ -49,6 +51,10 @@ func _ready() -> void:
 		
 
 func anunciar_gol_e_resetar_campo(isHome: bool):
+	# Evita processar o mesmo gol múltiplas vezes (bola quicando no sensor)
+	if _gol_em_processamento:
+		return
+	_gol_em_processamento = true
 	#print("entrou na func 'anunciar_gol_e_resetar_campo'")
 	
 	# Trava as interações para nenhum jogador clicar nas peças durante a comemoração
@@ -87,11 +93,14 @@ func anunciar_gol_pt2(isHome):
 		ball.current_velocity = Vector2.ZERO
 		ball.lastTouch = null # Evita carregar informações de posse para o novo lance 
 		
-	# Forçar o turno para quem tomou o gol
+	# Forçar o turno para quem tomou o gol (agora com animação do contador)
 	_forcar_turno_para_vitima(isHome)
 	
-	# Destrava as peças para recomeçar
-	match_state.congelar_jogo(false)
+	# Só descongela se veio do anunciar_gol_e_resetar_campo (que congelou antes).
+	# Se foi chamado de outro lugar (ex: CHESS timeout), o _on_anuncio_turno_fim resolve.
+	if _gol_em_processamento:
+		match_state.congelar_jogo(false)
+		_gol_em_processamento = false  # libera para o próximo gol
 
 func _forcar_turno_para_vitima(isHome: bool):
 	if not match_state:

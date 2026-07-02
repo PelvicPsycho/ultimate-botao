@@ -46,6 +46,7 @@ var rallyCounter: int = 1
 var turnCounter: int = 0
 var foulFlag: bool = false
 var goalFlag: bool = false
+var gol_concedido_home: bool = false  # true = HOME sofreu o gol, false = AWAY sofreu
 var jogadores: Array = [] 
 @export_group("Sons do Árbitro")
 @export var audio_mudou_turno: AudioStream
@@ -255,6 +256,7 @@ func _on_partida_acabou() -> void:
 		endMatch(vencedor)
 
 func onGoal(isHome: bool) -> void:
+	gol_concedido_home = isHome  # quem sofreu o gol
 	goalFlag = true
 	if rallyCounter == 1:
 		foulFlag = true
@@ -309,7 +311,7 @@ func onTurnPlayed() -> void:
 		timer.resumeOngoingPlayFlag()
 	if timer.tipo_do_timer == timer.TimerType.SHOTS:
 		timer.countShot()
-	if timer.tipo_do_timer == timer.TimerType.TIMER:
+	if timer.tipo_do_timer == timer.TimerType.TIMER and not goalFlag:
 		timer.iniciar_lance(currentTurn)
 	decideTurn()
 
@@ -546,13 +548,12 @@ func _continuar_troca_de_turno(active_team: Team) -> void:
 	if timer.tipo_do_timer == timer.TimerType.CHESS:
 		timer.isHomeTurn = (currentTurn == turn.HOME)
 		
-	if timer.tipo_do_timer == timer.TimerType.TIMER:
-		timer.iniciar_lance(currentTurn)
-		
 	carta_usada_no_turno = false
 
 func _on_anuncio_turno_fim() -> void:
 	congelar_jogo(false)
+	if timer.tipo_do_timer == timer.TimerType.TIMER:
+		timer.iniciar_lance(currentTurn)
 	#print("congelar_jogo - B")
 
 func _on_anuncio_inicial_fim() -> void:
@@ -634,10 +635,13 @@ func forceTurn(target: turn) -> void:
 	%MatchUI.colorir_turno(active_team, turnCounter)
 	if timer.tipo_do_timer == timer.TimerType.CHESS:
 		timer.isHomeTurn = (currentTurn == turn.HOME)
-	if timer.tipo_do_timer == timer.TimerType.TIMER:
-		timer.iniciar_lance(currentTurn)
-	#disparar_anuncio_com_pausa(tr("TURN_OF")+"\n" + active_team.name, 80, 1.5)
-	disparar_anuncio_com_pausa("", 80, anunciador_tempo, Color.YELLOW, true)
+	
+	# Usa o mesmo fluxo de changeTurn: congela → anima contador → anúncio → descongela
+	congelar_jogo(true)
+	%MatchUI.transicao_concluida.connect(
+		_continuar_troca_de_turno.bind(active_team), CONNECT_ONE_SHOT)
+	%MatchUI.disparar_animacao_de_turno(active_team)
+	
 	carta_usada_no_turno = false
 
 enum TurnType {ORIGINAL, SIMPLIFIED, INTERSPERSED, ORIGINAL_SHORT}
@@ -651,6 +655,9 @@ func decideTurn() -> void:
 	var por_erro: bool = true
 	if goalFlag:
 		goalFlag = false
+		timer.lance_rodando = false  # cancela lance pendente
+		# O Gol_Manager_2D já chama forceTurn com o time correto.
+		# Só precisamos limpar o estado e não duplicar a troca de turno.
 		return
 		
 	for ball in allBalls:
