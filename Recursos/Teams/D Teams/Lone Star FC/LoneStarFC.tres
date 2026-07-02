@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Team" format=3 uid="uid://b3a1yabb4eiul"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_1qyam"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_h1rfs"]
+[ext_resource type="Texture2D" uid="uid://3l7uitct02pq" path="res://Recursos/2D_Art/Emblemas/Lonestar FC.png" id="2_1wlma"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_mnh1d"]
 [ext_resource type="Resource" uid="uid://biud1qxq7ga82" path="res://Recursos/Teams/D Teams/Lone Star FC/Andrey.tres" id="3_1wlma"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_ecj13"]
@@ -23,6 +23,7 @@ name = "Lone Star FC"
 id = 15
 ranque = 2
 cor = Color(0.8039216, 0.37254903, 0.8901961, 1)
+emblem = ExtResource("2_1wlma")
 mainSquad = Array[ExtResource("1_1qyam")]([ExtResource("3_1wlma"), ExtResource("4_vmhw3"), ExtResource("5_7akfd"), ExtResource("6_clust"), ExtResource("7_3jpxn")])
 overlay_escolhido = 1
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

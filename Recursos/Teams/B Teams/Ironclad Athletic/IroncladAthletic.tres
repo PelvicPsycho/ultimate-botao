@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_ychx6"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_f6dmd"]
+[ext_resource type="Texture2D" uid="uid://dblq82iomfyhd" path="res://Recursos/2D_Art/Emblemas/Ironclad Athletic.png" id="2_qdbc2"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_nn3el"]
 [ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_752bb"]
 [ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_eqbmn"]
@@ -17,4 +18,5 @@ name = "Ironclad Athletic"
 id = 37
 ranque = 4
 cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
+emblem = ExtResource("2_qdbc2")
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

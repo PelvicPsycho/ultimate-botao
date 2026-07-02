@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_2vnd2"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_bo1f6"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_bucon"]
+[ext_resource type="Texture2D" uid="uid://b18vn8k4cdap1" path="res://Recursos/2D_Art/Emblemas/Immortal Musketeers.png" id="2_bucon"]
 [ext_resource type="Resource" uid="uid://buf8bn3xoj5s1" path="res://Recursos/Teams/E Teams/Immortal Musketeers/Alan.tres" id="3_67rqk"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_evd44"]
 [ext_resource type="Resource" uid="uid://ni7ltonau7r0" path="res://Recursos/Teams/E Teams/Immortal Musketeers/Alano.tres" id="4_ee7r5"]
@@ -23,6 +23,7 @@ name = "Immortals"
 id = 8
 ranque = 1
 cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
+emblem = ExtResource("2_bucon")
 mainSquad = Array[ExtResource("1_2vnd2")]([ExtResource("3_67rqk"), ExtResource("4_ee7r5"), ExtResource("5_rw2al"), ExtResource("6_tl8rt"), ExtResource("7_0omch")])
 overlay_escolhido = 2
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

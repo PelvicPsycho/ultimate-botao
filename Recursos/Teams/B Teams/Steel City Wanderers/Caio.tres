@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://cg1qd6rmme0d6"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_26lv0"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_r4foq"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_w5xb2"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_ruv8d"]
+
+[resource]
+script = ExtResource("3_w5xb2")
+id_unico = &"caio_steel_city_wanderers"
+nome = "Caio"
+num_camisa = 8
+quantosSlotes = 4
+strenghtLevel = 4
+PA = 4
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

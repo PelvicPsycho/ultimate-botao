@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Team" format=3 uid="uid://bmpkdu16gdh7v"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_imphg"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_fjrfw"]
+[ext_resource type="Texture2D" uid="uid://bmhjf0cj457i8" path="res://Recursos/2D_Art/Emblemas/Night Detectives.png" id="2_1tkqv"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_kawc8"]
 [ext_resource type="Resource" uid="uid://dush22d2jt818" path="res://Recursos/Teams/C Teams/Night Detectives/Florencio.tres" id="3_1tkqv"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_wdpjl"]
@@ -23,6 +23,7 @@ name = "Night Detectives"
 id = 29
 ranque = 3
 cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
+emblem = ExtResource("2_1tkqv")
 mainSquad = Array[ExtResource("1_imphg")]([ExtResource("3_1tkqv"), ExtResource("4_a1ld0"), ExtResource("5_0mvne"), ExtResource("6_5ys4e"), ExtResource("7_1dqga")])
 overlay_escolhido = 3
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

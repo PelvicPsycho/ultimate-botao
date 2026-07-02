@@ -1,12 +1,16 @@
 [gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://25svowd4imjv"]
 
+[ext_resource type="Texture2D" uid="uid://ukj0kbr42g1l" path="res://Recursos/2D_Art/IconesCartas/Icone_area de gelo.png" id="1_spc2s"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_xdse1"]
+[ext_resource type="Texture2D" uid="uid://bgbi2xwaqt2ag" path="res://Recursos/2D_Art/IconesCartas/Carta area de gelo.png" id="2_r5vgr"]
 
 [resource]
 script = ExtResource("1_xdse1")
 id_unico = &"Zona_Gelo"
 nome = "Piso de gelo"
 custo_energia = 2
+arte = ExtResource("1_spc2s")
+display_arte = ExtResource("2_r5vgr")
 descricao = "Cria uma área de gelo para as peças escorregarem"
 tipo_efeito = 12
 custoSlotes = 2

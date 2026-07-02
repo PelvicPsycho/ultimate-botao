@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_rk24c"]
 [ext_resource type="Resource" uid="uid://cjjfr6au56pml" path="res://Recursos/Teams/D Teams/Blackwood Albion/Camila.tres" id="2_rk24c"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_uqxb8"]
+[ext_resource type="Texture2D" uid="uid://dohu2drty6sdu" path="res://Recursos/2D_Art/Emblemas/Blackwood Albion.png" id="2_uqxb8"]
 [ext_resource type="Resource" uid="uid://djc5lwu2cy4hx" path="res://Recursos/Teams/D Teams/Blackwood Albion/Henrich.tres" id="3_xq6ux"]
 [ext_resource type="Resource" uid="uid://js6bljcnnw1i" path="res://Recursos/Teams/D Teams/Blackwood Albion/Henry.tres" id="4_00bdp"]
 [ext_resource type="Resource" uid="uid://bgn2dq0r1b5pq" path="res://Recursos/Teams/D Teams/Blackwood Albion/Sherlie.tres" id="5_07e7i"]
@@ -21,5 +21,6 @@
 script = ExtResource("7_pc6w1")
 name = "Blackwood Albion"
 cor = Color(0.40392157, 0.6901961, 0.75686276, 1)
+emblem = ExtResource("2_uqxb8")
 mainSquad = Array[ExtResource("1_rk24c")]([ExtResource("2_rk24c"), ExtResource("3_xq6ux"), ExtResource("4_00bdp"), ExtResource("5_07e7i"), ExtResource("6_gxt8w")])
 overlay_escolhido = 2

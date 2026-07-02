@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cq1j88bdgrf6d"]
 
+[ext_resource type="Texture2D" uid="uid://c6a2u8hpl4cvx" path="res://Recursos/2D_Art/IconesCartas/Icone_chute forte.png" id="1_0vpgw"]
+[ext_resource type="Texture2D" uid="uid://dpghi0dporshd" path="res://Recursos/2D_Art/IconesCartas/Carta Chute forte.png" id="1_gv6ee"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_juacb"]
-[ext_resource type="Texture2D" uid="uid://d0tpdnmythooq" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816125593-removebg-preview.png" id="1_t748s"]
 [ext_resource type="VideoStream" uid="uid://cd6lg2wswqy5n" path="res://Recursos/WebM/Carta_aumentoForca.ogv" id="3_jln1e"]
 
 [resource]
@@ -9,7 +10,8 @@ script = ExtResource("1_juacb")
 id_unico = &"bola_leve_01"
 nome = "Chute Forte"
 custo_energia = 2
-arte = ExtResource("1_t748s")
+arte = ExtResource("1_0vpgw")
+display_arte = ExtResource("1_gv6ee")
 video_preview = ExtResource("3_jln1e")
 descricao = "A bola será lanaçada de maneira extra forte"
 tipo_alvo = 1

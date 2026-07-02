@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Team" format=3 uid="uid://bcrwouut6qeal"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_c377a"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_5d1fk"]
+[ext_resource type="Texture2D" uid="uid://b2qhg66feafva" path="res://Recursos/2D_Art/Emblemas/Newfort.png" id="2_5d1fk"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_78nmf"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_6h71m"]
 [ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_auhn4"]
@@ -18,5 +18,6 @@ name = "Newfort"
 id = 26
 ranque = 3
 cor = Color(0.96862745, 0.7176471, 0.043137256, 1)
+emblem = ExtResource("2_5d1fk")
 overlay_escolhido = 2
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cndo0e8eucob3"]
 
-[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_ebwee"]
+[ext_resource type="Texture2D" uid="uid://2v4jnernh37i" path="res://Recursos/2D_Art/Radia_icon/Pa_Imagem/Vector (8).png" id="1_ebwee"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_b232q"]
-[ext_resource type="Texture2D" uid="uid://d10tuef0fbvv6" path="res://Recursos/2D_Art/MyTeam/CartaExpansao.png" id="2_csb08"]
 
 [resource]
 script = ExtResource("2_b232q")
 id_unico = &"gerador_mana_01"
 nome = "Aumento de PA"
 arte = ExtResource("1_ebwee")
+display_arte = ExtResource("1_ebwee")
 descricao = "Aumenta Limite de Pa por custo de slot"
 tipo_efeito = 8
 magnitude = 2

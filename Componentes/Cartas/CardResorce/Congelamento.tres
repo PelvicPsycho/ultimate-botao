@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://cnyerld68fmwt"]
 
+[ext_resource type="Texture2D" uid="uid://8y2fb81qafby" path="res://Recursos/2D_Art/IconesCartas/Icone_congelar.png" id="1_5cxpn"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_fid8b"]
-[ext_resource type="Texture2D" uid="uid://b71b3s61p6ar0" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816127033-removebg-preview.png" id="1_w2tvo"]
+[ext_resource type="Texture2D" uid="uid://dpdwimo3na8dj" path="res://Recursos/2D_Art/IconesCartas/Carta congelar.png" id="2_57buf"]
 [ext_resource type="VideoStream" uid="uid://my3ruhqdlh01" path="res://Recursos/WebM/CartaCongelamento.ogv" id="3_0c2s5"]
 
 [resource]
@@ -9,9 +10,10 @@ script = ExtResource("1_fid8b")
 id_unico = &"congelar_01"
 nome = "Congelamento"
 custo_energia = 2
-arte = ExtResource("1_w2tvo")
+arte = ExtResource("1_5cxpn")
+display_arte = ExtResource("2_57buf")
 video_preview = ExtResource("3_0c2s5")
-descricao = "Sua peça congela as peças adversárias com as quais ela fizer contato. A peça congelada não pode se movimentar por um turno."
+descricao = "Sua peça congela a primeira peça adversária que tocar, deixando-a imóvel por um turno."
 tipo_efeito = 2
 magnitude = 2
 custoSlotes = 2
