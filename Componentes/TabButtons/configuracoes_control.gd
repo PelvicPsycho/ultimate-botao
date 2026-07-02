@@ -71,3 +71,23 @@ func _on_timer_forward_pressed():
 	TimerTypeLabel.text = timerTypes[timerIndex]
 	GameState.TimerType = timerIndex
 	print(GameState.TimerType)
+
+
+func _on_delete_save_button_pressed() -> void:
+	SaveManager.delete_save()
+	
+	# Limpa todos os dados do GameState
+	GameState.jogadores.clear()
+	GameState.cartas_desbloqueadas.clear()
+	GameState.pecas_desbloqueadas.clear()
+	GameState.torneios_desbloqueados.clear()
+	GameState.ultimo_torneio_jogado = ""
+	GameState.finished_tutorial = false
+	GameState.TimerType = 0
+	
+	# Limpa o time do CupManager
+	if CupManager and CupManager.myTeam:
+		CupManager.myTeam.mainSquad.clear()
+		CupManager.myTeam.collectedSquad.clear()
+	
+	get_tree().reload_current_scene()

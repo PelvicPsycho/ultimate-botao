@@ -7,6 +7,13 @@ const Tutorial_1 := preload("res://2D Changes/Components/Tutorial/Scenes/MatchSc
 
 func _ready():
 	SoundMaster.stop_music()
+	
+	# Desbloqueia todas as copas sempre que o menu inicial é aberto
+	for cup in CupManager.cupList:
+		if cup.cupName not in GameState.torneios_desbloqueados:
+			GameState.torneios_desbloqueados.append(cup.cupName)
+	SaveManager.save_game()
+	
 	#print("=== CONFIGURAÇÕES CARREGADAS ===")
 	#print("Total de jogadores salvos no GameState: ", GameState.jogadores.size())
 #

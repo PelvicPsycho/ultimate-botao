@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://c4i5usj55plqt" path="res://Componentes/MyTeam/banner_texto_control.gd" id="4_g7qru"]
 [ext_resource type="Texture2D" uid="uid://d4hy1xvave0cr" path="res://Recursos/2D_Art/TabMenu/Detalhe_quadrados_meio.png" id="5_m7w78"]
 [ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="6_mn5s3"]
+[ext_resource type="FontFile" uid="uid://de61ri4slxwg3" path="res://Recursos/Fontes/Rubik/Rubik-SemiBold.ttf" id="7_m7w78"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wc0ug"]
 content_margin_left = 0.0
@@ -286,6 +287,19 @@ custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 text = ">"
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="OptionsContainer/Control/VLabelsContainer" unique_id=19902227]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 136
+
+[node name="DeleteSaveButton" type="Button" parent="OptionsContainer/Control/VLabelsContainer/HBoxContainer2" unique_id=397814412]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_fonts/font = ExtResource("7_m7w78")
+theme_override_font_sizes/font_size = 20
+text = "Delete Save"
+
 [connection signal="value_changed" from="OptionsContainer/Control/FlowContainer/MasterSoundSlider" to="." method="_on_master_sound_slider_value_changed"]
 [connection signal="value_changed" from="OptionsContainer/Control/FlowContainer/BGMSlider" to="." method="_on_bgm_slider_value_changed"]
 [connection signal="drag_ended" from="OptionsContainer/Control/FlowContainer/SFXSlider" to="." method="_on_sfx_slider_drag_ended"]
@@ -293,3 +307,4 @@ text = ">"
 [connection signal="toggled" from="OptionsContainer/Control/FlowContainer/CheckBox" to="." method="_on_check_box_toggled"]
 [connection signal="pressed" from="OptionsContainer/Control/VLabelsContainer/HBoxContainer/HBoxContainer/TimerBack" to="." method="_on_timer_back_pressed"]
 [connection signal="pressed" from="OptionsContainer/Control/VLabelsContainer/HBoxContainer/HBoxContainer/TimerForward" to="." method="_on_timer_forward_pressed"]
+[connection signal="pressed" from="OptionsContainer/Control/VLabelsContainer/HBoxContainer2/DeleteSaveButton" to="." method="_on_delete_save_button_pressed"]
