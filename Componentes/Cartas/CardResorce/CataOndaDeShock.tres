@@ -1,14 +1,16 @@
 [gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://d3y3poafaqkad"]
 
-[ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_i7305"]
+[ext_resource type="Texture2D" uid="uid://c5o7abjr4shni" path="res://Recursos/2D_Art/IconesCartas/Icone_onda de choque.png" id="1_duxxg"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_j0khq"]
+[ext_resource type="Texture2D" uid="uid://dusclko8eluti" path="res://Recursos/2D_Art/IconesCartas/Carta onda de choque.png" id="2_tyt2q"]
 
 [resource]
 script = ExtResource("1_j0khq")
 id_unico = &"Carta_Onda_De_Shock"
 nome = "Onda de shock"
 custo_energia = 3
-arte = ExtResource("1_i7305")
+arte = ExtResource("1_duxxg")
+display_arte = ExtResource("2_tyt2q")
 descricao = "Faz uma onda de choque que empurra as peças "
 tipo_efeito = 10
 tipo_alvo = 2

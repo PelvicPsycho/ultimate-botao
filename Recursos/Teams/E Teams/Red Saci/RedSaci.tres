@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_ofkgm"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_7umhn"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_rv8lf"]
+[ext_resource type="Texture2D" uid="uid://mmym1tku6fq5" path="res://Recursos/2D_Art/Emblemas/Red Saci.png" id="2_rv8lf"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_oeeik"]
 [ext_resource type="Resource" uid="uid://bxnvcw615geyd" path="res://Recursos/Teams/E Teams/Red Saci/Alec.tres" id="3_qru2t"]
 [ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_5opx6"]
@@ -23,6 +23,7 @@ name = "Red Saci"
 id = 9
 ranque = 1
 cor = Color(0.96862745, 0.29411766, 0.29411766, 1)
+emblem = ExtResource("2_rv8lf")
 mainSquad = Array[ExtResource("1_ofkgm")]([ExtResource("3_qru2t"), ExtResource("4_lggkf"), ExtResource("5_bq6xy"), ExtResource("6_b7i83"), ExtResource("7_2x15k")])
 overlay_escolhido = 4
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

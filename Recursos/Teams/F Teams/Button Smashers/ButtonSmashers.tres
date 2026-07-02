@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Team" format=3 uid="uid://dpvfusmqrpmcc"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_7l351"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_1fkm6"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_ltg44"]
+[ext_resource type="Texture2D" uid="uid://blsm41eb07xt4" path="res://Recursos/2D_Art/Emblemas/Button Smashers.png" id="2_xt18y"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_o07bq"]
 [ext_resource type="Resource" uid="uid://cl5yflm2kdfon" path="res://Recursos/Teams/F Teams/Button Smashers/Adel.tres" id="3_xt18y"]
 [ext_resource type="Resource" uid="uid://n835r815x8qc" path="res://Recursos/Teams/F Teams/Button Smashers/Adem.tres" id="4_7w1u4"]
@@ -22,6 +22,7 @@ script = ExtResource("2_ltg44")
 name = "Button Smashers"
 id = 6
 cor = Color(0.96862745, 0.4117647, 0.2901961, 1)
+emblem = ExtResource("2_xt18y")
 mainSquad = Array[ExtResource("1_7l351")]([ExtResource("3_xt18y"), ExtResource("4_7w1u4"), ExtResource("5_frkcm"), ExtResource("6_i2hva"), ExtResource("7_fgmm1")])
 overlay_escolhido = 2
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

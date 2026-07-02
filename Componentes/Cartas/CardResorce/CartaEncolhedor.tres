@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://bq1qsd3ojqnsw"]
 
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_0d516"]
-[ext_resource type="Texture2D" uid="uid://chyxyv805g6ob" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816123970-removebg-preview.png" id="1_xpjp8"]
+[ext_resource type="Texture2D" uid="uid://dmw7onjt0wv5e" path="res://Recursos/2D_Art/IconesCartas/Icone_minimizar.png" id="1_6quqp"]
+[ext_resource type="Texture2D" uid="uid://c127qpiggawhy" path="res://Recursos/2D_Art/IconesCartas/Carta diminir.png" id="2_6quqp"]
 [ext_resource type="VideoStream" uid="uid://on47bpb3cfth" path="res://Recursos/WebM/CartaPequena.ogv" id="3_sbeoe"]
 
 [resource]
@@ -9,7 +10,8 @@ script = ExtResource("1_0d516")
 id_unico = &"encolher_01"
 nome = "Minimização "
 custo_energia = 2
-arte = ExtResource("1_xpjp8")
+arte = ExtResource("1_6quqp")
+display_arte = ExtResource("2_6quqp")
 video_preview = ExtResource("3_sbeoe")
 descricao = "Encolhe a propria peça"
 tipo_efeito = 6

@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://csp54ggq7lwao"]
 
-[ext_resource type="Texture2D" uid="uid://djh351vtbufgc" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816129029-removebg-preview.png" id="1_8647a"]
+[ext_resource type="Texture2D" uid="uid://be7742hei0bwb" path="res://Recursos/2D_Art/IconesCartas/Icone_forca menor.png" id="1_e3era"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_r0qth"]
+[ext_resource type="Texture2D" uid="uid://meln7y0h5pnm" path="res://Recursos/2D_Art/IconesCartas/Carta forca menor.png" id="2_7dt0x"]
 [ext_resource type="VideoStream" uid="uid://cd6lg2wswqy5n" path="res://Recursos/WebM/Carta_aumentoForca.ogv" id="3_6vucj"]
 
 [resource]
@@ -9,7 +10,8 @@ script = ExtResource("1_r0qth")
 id_unico = &"corre_peao_01"
 nome = "Força Menor I"
 custo_energia = 2
-arte = ExtResource("1_8647a")
+arte = ExtResource("1_e3era")
+display_arte = ExtResource("2_7dt0x")
 video_preview = ExtResource("3_6vucj")
 descricao = "Aumenta um level de força por dois turnos"
 magnitude = 1

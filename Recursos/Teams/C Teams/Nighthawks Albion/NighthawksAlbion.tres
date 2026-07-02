@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_upeub"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_6iawa"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_8w7ae"]
+[ext_resource type="Texture2D" uid="uid://d4na2h5keji65" path="res://Recursos/2D_Art/Emblemas/Nighthawks Albion.png" id="2_8w7ae"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_vr3ae"]
 [ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_dijm0"]
 [ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_1p114"]
@@ -18,5 +18,6 @@ name = "Nighthawks Albion"
 id = 25
 ranque = 3
 cor = Color(0.96862745, 0.7176471, 0.043137256, 1)
+emblem = ExtResource("2_8w7ae")
 overlay_escolhido = 4
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

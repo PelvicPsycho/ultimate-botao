@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Team" format=3 uid="uid://bu1hnhxb13mb6"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_udw7v"]
+[ext_resource type="Texture2D" uid="uid://cmp54x4ipx25w" path="res://Recursos/2D_Art/Emblemas/Immortal Stars.png" id="2_53for"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_cur7m"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_ieesc"]
 [ext_resource type="Resource" uid="uid://bv1upguvo4c5c" path="res://Recursos/Teams/C Teams/Immortal Stars/Augustin.tres" id="3_53for"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_jtd8v"]
 [ext_resource type="Resource" uid="uid://uryal4m6qje" path="res://Recursos/Teams/C Teams/Immortal Stars/Federico.tres" id="4_fmchw"]
@@ -23,6 +23,7 @@ name = "Immortal Stars"
 id = 28
 ranque = 3
 cor = Color(0.8039216, 0.37254903, 0.8901961, 1)
+emblem = ExtResource("2_53for")
 mainSquad = Array[ExtResource("1_udw7v")]([ExtResource("3_53for"), ExtResource("4_fmchw"), ExtResource("5_2sjkx"), ExtResource("6_1hqnb"), ExtResource("7_l2tnp")])
 overlay_escolhido = 4
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

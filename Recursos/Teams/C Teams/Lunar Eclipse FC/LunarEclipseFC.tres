@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_k70r8"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_3lnsb"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_cxja4"]
+[ext_resource type="Texture2D" uid="uid://ckec264rf5g5y" path="res://Recursos/2D_Art/Emblemas/Lunar Eclipse.png" id="2_cxja4"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_5l8ph"]
 [ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="4_tyvmw"]
 [ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="5_fo0h4"]
@@ -18,5 +18,6 @@ name = "Lunar Eclipse FC"
 id = 32
 ranque = 3
 cor = Color(0.8039216, 0.37254903, 0.8901961, 1)
+emblem = ExtResource("2_cxja4")
 overlay_escolhido = 1
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"

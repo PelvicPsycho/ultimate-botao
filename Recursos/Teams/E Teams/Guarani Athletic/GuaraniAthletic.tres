@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Team" format=3 uid="uid://gdudro7sjj26"]
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_34m3w"]
-[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="2_2tfkm"]
+[ext_resource type="Texture2D" uid="uid://bbe4ncqe61wuu" path="res://Recursos/2D_Art/Emblemas/Guarany.png" id="2_bddtw"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="2_hgh37"]
 [ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="3_57cdl"]
 [ext_resource type="Resource" uid="uid://b2vv7fj863cf2" path="res://Recursos/Teams/E Teams/Guarani Athletic/Alvaro.tres" id="3_bddtw"]
@@ -23,6 +23,7 @@ name = "Guarany Athletic"
 id = 12
 ranque = 1
 cor = Color(0.96862745, 0.7176471, 0.043137256, 1)
+emblem = ExtResource("2_bddtw")
 mainSquad = Array[ExtResource("1_34m3w")]([ExtResource("3_bddtw"), ExtResource("4_afffi"), ExtResource("5_4ra02"), ExtResource("6_p088t"), ExtResource("7_esdtc")])
 overlay_escolhido = 1
 metadata/_custom_type_script = "uid://bt5y7giq3cyt0"
