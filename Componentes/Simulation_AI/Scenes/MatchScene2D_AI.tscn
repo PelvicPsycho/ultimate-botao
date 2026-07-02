@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://du1nsjujoug16" path="res://Scripts Globais/MatchState.gd" id="1_ss0s5"]
 [ext_resource type="PackedScene" uid="uid://605wdjor2lt6" path="res://Componentes/Recompensas/recompensa_partida.tscn" id="2_5b3c6"]
 [ext_resource type="PackedScene" uid="uid://byarw1jr857h3" path="res://Componentes/Recompensas/recompensa_torneio.tscn" id="3_n4ih5"]
-[ext_resource type="AudioStream" uid="uid://bc64cn1hhr7ym" path="res://Recursos/SFXs/fundo-estadio_loop.wav" id="4_ba03v"]
+[ext_resource type="AudioStream" uid="uid://yg5yf7o7oxd7" path="res://Recursos/SFXs/menuBGM.wav" id="4_u1agk"]
 [ext_resource type="PackedScene" uid="uid://dsl2qmaeehsxq" path="res://2D Changes/Components/AnimatedBG/AnimatedBG.tscn" id="5_tb6le"]
 [ext_resource type="PackedScene" uid="uid://blaeti31fcy1e" path="res://2D Changes/2D_Scenes/Camera2D.tscn" id="6_u1agk"]
 [ext_resource type="Script" uid="uid://dqt3kgmmnk2qm" path="res://Componentes/Simulation_AI/Scripts/IA_Controller.gd" id="7_5b3c6"]
@@ -68,7 +68,7 @@ anunciador_ui = NodePath("AnunciadorUI")
 pause_menu = NodePath("PauseMenu")
 cena_recompensa_partida = ExtResource("2_5b3c6")
 cena_recompensa_torneio = ExtResource("3_n4ih5")
-audio_murmurio_fundo = ExtResource("4_ba03v")
+audio_murmurio_fundo = ExtResource("4_u1agk")
 
 [node name="CanvasLayer_BackGround" type="CanvasLayer" parent="." unique_id=229047291]
 layer = -1

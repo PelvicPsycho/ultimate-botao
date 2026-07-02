@@ -7,6 +7,7 @@ script = ExtResource("1_w2dor")
 
 [node name="AudioBGM" type="AudioStreamPlayer" parent="." unique_id=1857867180]
 unique_name_in_owner = true
+volume_db = -10.0
 bus = &"BGM"
 
 [node name="GroupSFX" type="Node" parent="." unique_id=279846630]
