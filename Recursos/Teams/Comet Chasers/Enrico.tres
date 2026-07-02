@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://bgncovvguiknx"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_qbblq"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_t676p"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_p1uwv"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_j2f5t"]
+
+[resource]
+script = ExtResource("3_p1uwv")
+id_unico = &"enrico_comet_chasers"
+nome = "Enrico"
+num_camisa = 10
+quantosSlotes = 8
+strenghtLevel = 4
+PA = 6
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
