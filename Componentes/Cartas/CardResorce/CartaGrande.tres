@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_g7ju4"]
 [ext_resource type="Texture2D" uid="uid://b8vockl7yb6fl" path="res://Recursos/2D_Art/IconesCartas/Generatedimage_1779816122297-removebg-preview.png" id="1_lonpo"]
+[ext_resource type="Texture2D" uid="uid://d10tuef0fbvv6" path="res://Recursos/2D_Art/MyTeam/CartaExpansao.png" id="2_o6ic8"]
 [ext_resource type="VideoStream" uid="uid://dpuqg0rl1pnx5" path="res://Recursos/WebM/CartaGrandeGif.ogv" id="3_8o5hd"]
 
 [resource]
 script = ExtResource("1_g7ju4")
 id_unico = &"aumentar_01"
-nome = "Gigantificação"
+nome = "Expansão"
 custo_energia = 2
 arte = ExtResource("1_lonpo")
 video_preview = ExtResource("3_8o5hd")
