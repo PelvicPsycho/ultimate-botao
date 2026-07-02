@@ -1,7 +1,7 @@
 extends Node
 @export var imagem_clique: Texture2D = preload("res://Recursos/2D_Art/Cursor/curosr-clique.png")
 @export var imagem_normal: Texture2D = preload("res://Recursos/2D_Art/Cursor/curosr-normal.png")
-@export var ponto_de_clique: Vector2 = Vector2(0, 0)
+@export var ponto_de_clique: Vector2 = Vector2(0, 20)
 
 func _ready() -> void:
 # Assim que o jogo começa, aplicamos o cursor normal.
