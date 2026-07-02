@@ -104,6 +104,7 @@ func parar_tudo() -> void:
 	partida_rodando = false
 	pausado = false
 	gol_de_ouro = false
+	SoundMaster.stop_sfx()
 
 func _on_alerta_som_terminou() -> void: #arrumar o som aqui para nao ficar com o apito
 	if tocando_alerta and tempo_lance_restante > 0:
