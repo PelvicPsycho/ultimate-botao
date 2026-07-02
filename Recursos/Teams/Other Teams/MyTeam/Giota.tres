@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_c2gw2"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_j0rb8"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_veswh"]
+[ext_resource type="Resource" uid="uid://dpe2080k7u0ij" path="res://Componentes/Cartas/CardResorce/CartaGrande.tres" id="3_d0g3x"]
+[ext_resource type="Resource" uid="uid://bdqcx6k1ye5r1" path="res://Componentes/Cartas/CardResorce/CataPesaBomba.tres" id="4_feroo"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_veswh"]
 
 [resource]
@@ -13,5 +15,7 @@ nome = "Gugs"
 num_camisa = 8
 foto = ExtResource("1_au6cm")
 quantosSlotes = 4
+slotsUpgrates = Array[ExtResource("2_veswh")]([ExtResource("3_d0g3x"), ExtResource("4_feroo")])
+mao_cartas = Array[ExtResource("2_veswh")]([ExtResource("3_d0g3x"), ExtResource("4_feroo")])
 PA = 4
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

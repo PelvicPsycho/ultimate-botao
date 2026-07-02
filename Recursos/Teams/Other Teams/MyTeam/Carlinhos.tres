@@ -4,7 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://6vdhg1gchwjd" path="res://icon.svg" id="1_ftqam"]
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_26eg0"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_hc1yi"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="3_jfget"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_8qfc5"]
+[ext_resource type="Resource" uid="uid://bq1qsd3ojqnsw" path="res://Componentes/Cartas/CardResorce/CartaEncolhedor.tres" id="4_xw0sx"]
+[ext_resource type="Resource" uid="uid://cqbnt1i0kov4g" path="res://Componentes/Cartas/CardResorce/CartaTrocaDeLugar.tres" id="5_t8iuw"]
 
 [resource]
 script = ExtResource("1_e004p")
@@ -13,6 +16,8 @@ nome = "Carlinhos"
 num_camisa = 3
 foto = ExtResource("1_ftqam")
 quantosSlotes = 5
+slotsUpgrates = Array[ExtResource("2_26eg0")]([ExtResource("3_jfget"), ExtResource("4_xw0sx"), ExtResource("5_t8iuw")])
+mao_cartas = Array[ExtResource("2_26eg0")]([ExtResource("3_jfget"), ExtResource("4_xw0sx"), ExtResource("5_t8iuw")])
 strenghtLevel = 3
 PA = 3
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"

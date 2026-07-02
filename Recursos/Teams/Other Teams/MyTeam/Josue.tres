@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="2_00ohw"]
 [ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_qdq3a"]
 [ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_00ohw"]
+[ext_resource type="Resource" uid="uid://d3y3poafaqkad" path="res://Componentes/Cartas/CardResorce/CataOndaDeShock.tres" id="5_rmx6b"]
 
 [resource]
 script = ExtResource("1_bb1im")
@@ -13,5 +14,6 @@ nome = "Josue Ronaldo"
 num_camisa = 9
 foto = ExtResource("1_w67mv")
 quantosSlotes = 5
+slotsUpgrates = Array[ExtResource("2_00ohw")]([ExtResource("5_rmx6b")])
 PA = 2
 metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
