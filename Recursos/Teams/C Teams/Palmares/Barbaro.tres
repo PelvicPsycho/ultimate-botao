@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://dudep48y7j7dd"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_gt05r"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_ofplj"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_71cem"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_fddci"]
+
+[resource]
+script = ExtResource("3_71cem")
+id_unico = &"barbaro_palmares"
+nome = "Barbaro"
+num_camisa = 4
+quantosSlotes = 2
+strenghtLevel = 3
+PA = 2
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
