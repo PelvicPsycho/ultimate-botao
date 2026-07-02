@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TeamPlayer" format=3 uid="uid://byy37exqjdn27"]
+
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="1_qw3ho"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="2_o6cyy"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="3_ffmt6"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="4_ua8ck"]
+
+[resource]
+script = ExtResource("3_ffmt6")
+id_unico = &"cadu_steel_city_wanderers"
+nome = "Cadu"
+num_camisa = 3
+quantosSlotes = 4
+PA = 5
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
