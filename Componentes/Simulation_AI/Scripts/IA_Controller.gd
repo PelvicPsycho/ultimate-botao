@@ -28,6 +28,7 @@ var list_of_plays_simulated: Array[Play]
 var list_of_plays_to_simulate: Array[Play]
 
 var list_of_plays_simulated_Ordered: Array[Play]
+var list_of_plays_simulated_Ordered_filtered: Array[Play]
 
 var current_index: int
 
@@ -130,9 +131,26 @@ func sort_by_score(size_ordered: int):
 		
 		list_of_plays_simulated.remove_at(score_max_index)
 	
+	list_of_plays_simulated_Ordered_filtered.clear()
+
 	for play in list_of_plays_simulated_Ordered:
 		print("play score = ", play.score)
+		if play.score <= -5000:
+			print("Score Too Low")
+		else:
+			var new_play_filter = Play.new()
+			new_play_filter.player_index = play.player_index
+			new_play_filter.play_teamSide = play.play_teamSide
+			new_play_filter.force_lerp = play.force_lerp
+			new_play_filter.direction = play.direction
+			new_play_filter.velocity = play.velocity
+			new_play_filter.score = play.score
+			list_of_plays_simulated_Ordered_filtered.append(new_play_filter)
 	
+	if list_of_plays_simulated_Ordered_filtered.size() <= 0:
+		print("Removed All")
+		list_of_plays_simulated_Ordered_filtered.append(list_of_plays_simulated_Ordered[0])
+
 	#list_of_plays_simulated.sort_custom(func(a: Play, b: Play) -> bool: return a.score > b.score)
 
 func Get_piece_Index_By_Team(_teamSide: int, _num: int) -> int:
@@ -450,9 +468,9 @@ func execute_play() -> void:
 	
 	# Sets the plays the AI will replicate
 	var max_index = 0
-	var max_score = list_of_plays_simulated_Ordered[0].score
-	for index in list_of_plays_simulated_Ordered.size():
-		var diff = max_score - list_of_plays_simulated_Ordered[index].score
+	var max_score = list_of_plays_simulated_Ordered_filtered[0].score
+	for index in list_of_plays_simulated_Ordered_filtered.size() - 1:
+		var diff = max_score - list_of_plays_simulated_Ordered_filtered[index].score
 		if diff < 100:
 			max_index += 1
 		else:
@@ -466,19 +484,19 @@ func execute_play() -> void:
 		play_index = randi_range(0, max_index)
 	else:
 		print("Get Random Play By Difficulty")
-		var pivot = (list_of_plays_simulated_Ordered.size()-1)#/2
+		var pivot = (list_of_plays_simulated_Ordered_filtered.size()-1)#/2
 		play_index = GetRandomPlayByDifficulty(pivot)#randi_range(0, max_index)
 	
 	print("Play selected index = ", play_index)
-	print("Play selected force_lerp = ", list_of_plays_simulated_Ordered[play_index].force_lerp)
-	print("Play selected Score = ", list_of_plays_simulated_Ordered[play_index].score)
+	print("Play selected force_lerp = ", list_of_plays_simulated_Ordered_filtered[play_index].force_lerp)
+	print("Play selected Score = ", list_of_plays_simulated_Ordered_filtered[play_index].score)
 	
 	var current_pitch_state_score =  physics_controller.Sim_Controller_list[0].evaluate_pitch_state_based_on_team(physics_controller.current_pitch_state, current_TeamSide)
 	
-	if current_pitch_state_score > list_of_plays_simulated_Ordered[play_index].score:
-		use_card_on_selected_piece(list_of_plays_simulated_Ordered[play_index].player_index)
+	if current_pitch_state_score > list_of_plays_simulated_Ordered_filtered[play_index].score:
+		use_card_on_selected_piece(list_of_plays_simulated_Ordered_filtered[play_index].player_index)
 	
-	physics_controller.PhysicsObjects_List[list_of_plays_simulated_Ordered[play_index].player_index].Execute_Action_parameters(list_of_plays_simulated_Ordered[play_index].direction, list_of_plays_simulated_Ordered[play_index].force_lerp)
+	physics_controller.PhysicsObjects_List[list_of_plays_simulated_Ordered_filtered[play_index].player_index].Execute_Action_parameters(list_of_plays_simulated_Ordered_filtered[play_index].direction, list_of_plays_simulated_Ordered_filtered[play_index].force_lerp)
 	current_time = 0
 
 func use_card_on_selected_piece(_piece_index: int) -> void:
@@ -499,10 +517,10 @@ func use_card_on_selected_piece(_piece_index: int) -> void:
 			#print(" -- Card - Name = ", card.nome)
 			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
 			#break
-		elif card.nome == "Magnetismo":
-			#print(" -- Card - Name = ", card.nome)
-			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
-			#break
+		#elif card.nome == "Magnetismo":
+			##print(" -- Card - Name = ", card.nome)
+			#match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)
+			##break
 		elif card.nome == "Minimização":
 			#print(" -- Card - Name = ", card.nome)
 			match_state.tentar_usar_carta(physics_controller.PhysicsObjects_List[_piece_index], card)

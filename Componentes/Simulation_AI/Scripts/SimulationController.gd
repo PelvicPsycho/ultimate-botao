@@ -55,10 +55,12 @@ var wall_collision_depth: float
 var count_steps = 0
 
 @export var home_goal_polygon: CollisionPolygon2D
+var home_goal_polygon_points: PackedVector2Array
 var home_goal_top_position: Vector2
 var home_goal_bottom_position: Vector2
 
 @export var away_goal_polygon: CollisionPolygon2D
+var away_goal_polygon_points: PackedVector2Array
 var away_goal_top_position: Vector2
 var away_goal_bottom_position: Vector2
 
@@ -145,6 +147,9 @@ func Set_Pitch_Simulation_Lines() -> void:
 	HomeGoalWall_Line_points.clear()
 	AwayGoalWall_Line_points.clear()
 	
+	home_goal_polygon_points.clear()
+	away_goal_polygon_points.clear()
+	
 	for point in TopWall_Line.points:
 		TopWall_Line_points.append(TopWall_Line.to_global(point))
 
@@ -156,6 +161,12 @@ func Set_Pitch_Simulation_Lines() -> void:
 
 	for point in AwayGoalWall_Line.points:
 		AwayGoalWall_Line_points.append(AwayGoalWall_Line.to_global(point))
+	
+	
+	for point in home_goal_polygon.polygon:
+		home_goal_polygon_points.append(home_goal_polygon.to_global(point))
+	for point in away_goal_polygon.polygon:
+		away_goal_polygon_points.append(away_goal_polygon.to_global(point))
 	
 	home_goal_top_position = Goal_Home.Goal_top_position.global_position
 	home_goal_bottom_position = Goal_Home.Goal_bottom_position.global_position
@@ -286,16 +297,15 @@ func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity
 		#print("wall took: ", time_taken_wall, " seconds")
 		
 
-		
 		var start_time_Others = Time.get_ticks_usec()
 		# Check if ball entered the home goal area
 		for object in current_pitch_state.all_physic_object_list:
 			if not object.is_a_player:
-				if check_circle_polygon_collision(object.last_position, object.radius, home_goal_polygon.polygon):
+				if check_circle_polygon_collision(object.last_position, object.radius, home_goal_polygon_points):
 					ball_entered_home_goal = true
 					break
 				
-				if check_circle_polygon_collision(object.last_position, object.radius, away_goal_polygon.polygon):
+				if check_circle_polygon_collision(object.last_position, object.radius, away_goal_polygon_points):
 					ball_entered_away_goal = true
 					break
 		
@@ -600,7 +610,6 @@ func check_circle_polygon_collision(circle_center: Vector2, circle_radius: float
 
 		# Calculate distance from circle center to the closest point
 		var distance_squared = circle_center.distance_squared_to(closest_point)
-		
 		# If the distance is less than the radius, a collision has occurred
 		if distance_squared <= radius_squared:
 			wall_collision_normal = (circle_center - closest_point).normalized()
@@ -608,14 +617,15 @@ func check_circle_polygon_collision(circle_center: Vector2, circle_radius: float
 			if wall_collision_normal == Vector2.ZERO:
 				wall_collision_normal = (next_point - current_point).orthogonal().normalized()
 			
-			wall_collision_depth = radius_squared - distance_squared
+			var distance = sqrt(distance_squared)
+			wall_collision_depth = circle_radius - distance
 			return true
 		
 	# Step 2: interior check (handles when the circle is entirely inside the polygon)
 	if Geometry2D.is_point_in_polygon(circle_center, list_polygons_points):
 		print("Inside Polygon")
 		return true
-		
+
 	return false
 #endregion
 
