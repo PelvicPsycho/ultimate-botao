@@ -164,6 +164,10 @@ func aplicar_buff(card: CardResource) -> void:
 		match card.tipo_efeito:
 			CardResource.TipoEfeito.FORCA:
 				level_force += card.magnitude
+				strenghtLevel += card.magnitude
+				setMaxForceByLvl() 
+				current_min_force = get_min_force()
+				current_max_force = get_max_force()
 			CardResource.TipoEfeito.PA:
 				PA += card.magnitude
 			CardResource.TipoEfeito.Congelamento:
