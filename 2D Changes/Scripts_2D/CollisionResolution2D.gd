@@ -185,8 +185,11 @@ func create_all_simulations() -> void:
 		IA_Contr.SetPieceLists()
 	
 	num_threads = OS.get_processor_count() - 2 #floor(OS.get_processor_count() / 2)
-	if num_threads < 0:
-		num_threads = 0
+	if num_threads < 1:
+		# Always create at least 1 simulation controller.
+		# On web builds, threads may not be available (requires SharedArrayBuffer + COOP/COEP headers),
+		# but the SimulationController will fall back to synchronous execution.
+		num_threads = 1
 	print("Available hardware threads: ", num_threads)
 	
 	# Create all simulations

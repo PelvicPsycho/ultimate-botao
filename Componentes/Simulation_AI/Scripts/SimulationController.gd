@@ -15,8 +15,9 @@ var bad_plays: Array[Play]
 var position_difference: Vector2
 
 var thread: Thread
+var thread_supported: bool = true
 
-@export_group("Test Variables")
+#@export_group("Test Variables")
 var PhysicsObjects_List: Array[PhysicsObject2D]
 var PhysicsObjects_List_balls: Array[PhysicsObject2D]
 
@@ -221,6 +222,11 @@ func create_objects_copy(_show_play_simulation_result: bool) -> void:
 func Replicate_Action(index: int, velocity: Vector2, teamSide: int):
 	count_steps = 0
 
+	if !thread_supported:
+		# Threads not available (e.g., web without SharedArrayBuffer) — run synchronously
+		Execute_Physic_Simulation_Run(0.016667, index, velocity, teamSide)
+		return
+
 	#Execute_Physic_Simulation_Run(0.016667, index, velocity, teamSide, true)
 	# 1. Clean up the thread if it finished its previous run
 	if thread.is_started() and not thread.is_alive():
@@ -232,7 +238,11 @@ func Replicate_Action(index: int, velocity: Vector2, teamSide: int):
 		var task = Callable(self, "Execute_Physic_Simulation_Run").bind(0.016667, index, velocity, teamSide)
 		
 		# Start the thread execution
-		thread.start(task)
+		var error = thread.start(task)
+		if error != OK:
+			printerr("Thread.start() failed in Replicate_Action with error: ", error, ". Falling back to synchronous.")
+			thread_supported = false
+			Execute_Physic_Simulation_Run(0.016667, index, velocity, teamSide)
 
 func update_objects_positions() -> void:
 	var size = current_pitch_state.all_physic_object_list.size()
@@ -361,6 +371,12 @@ func Simulate_and_Evaluate_Thread_Execution(plays: Array[Play]) -> void:
 	list_of_plays_simulated.clear()
 	simulation_ended = false
 	
+	if !thread_supported:
+		# Threads not available (e.g., web without SharedArrayBuffer) — run synchronously
+		print("SimController ", sim_index, " running synchronously (threads unavailable)")
+		Simulate_and_Evaluate_a_List_of_Plays(plays)
+		return
+	
 	# 1. Clean up the thread if it finished its previous run
 	if thread.is_started() and not thread.is_alive():
 		thread.wait_to_finish() # Joins and resets the thread safely
@@ -371,7 +387,12 @@ func Simulate_and_Evaluate_Thread_Execution(plays: Array[Play]) -> void:
 		var task = Callable(self, "Simulate_and_Evaluate_a_List_of_Plays").bind(plays)
 		
 		# Start the thread execution
-		thread.start(task)
+		var error = thread.start(task)
+		if error != OK:
+			printerr("Thread.start() failed in Simulate_and_Evaluate_Thread_Execution with error: ", error, ". Falling back to synchronous.")
+			thread_supported = false
+			# Run synchronously on the main thread
+			Simulate_and_Evaluate_a_List_of_Plays(plays)
 	
 #endregion
 
