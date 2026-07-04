@@ -21,8 +21,9 @@ func _carregar_db_cartas(pasta: String) -> void:
 	dir.list_dir_begin()
 	var file = dir.get_next()
 	while file != "":
-		if file.ends_with(".tres") or file.ends_with(".res"):
-			var recurso = load(pasta + file)
+		var nome_limpo = file.replace(".remap", "")
+		if nome_limpo.ends_with(".tres") or nome_limpo.ends_with(".res"):
+			var recurso = load(pasta + nome_limpo)
 			if recurso is CardResource:
 				# Aqui usamos o ID único que você configurou no CardResource
 				cartas_db[recurso.id_unico] = recurso
@@ -53,8 +54,9 @@ func _carregar_db_pecas(pasta: String) -> void:
 			if file != "." and file != "..":
 				_carregar_db_pecas(pasta + file + "/")
 		else:
-			if file.ends_with(".tres") or file.ends_with(".res"):
-				var recurso = load(pasta + file)
+			var nome_limpo = file.replace(".remap", "")
+			if nome_limpo.ends_with(".tres") or nome_limpo.ends_with(".res"):
+				var recurso = load(pasta + nome_limpo)
 				
 				# --- TRAVA DE SEGURANÇA ---
 				# Garante que só vamos tentar ler e alterar se o arquivo for uma Peça!
