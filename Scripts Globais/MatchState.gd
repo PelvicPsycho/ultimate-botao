@@ -76,6 +76,10 @@ func _ready() -> void:
 	#SoundMaster.play_bgm(audio_murmurio_fundo, "loop")
 	%MatchUI.UI_start(homeTeam, awayTeam)
 	
+	# Hook debug overlay references (F3 to toggle).
+	if DebugOverlay:
+		DebugOverlay.set_references(IA_Contr, physics_controller)
+	
 	gradient_texture = gradient_background_TextureRect.texture as GradientTexture2D
 	allPieces.assign(get_tree().get_nodes_in_group("Players"))
 	for piece in allPieces:

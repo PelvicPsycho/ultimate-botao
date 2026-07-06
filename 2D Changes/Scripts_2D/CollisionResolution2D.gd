@@ -184,13 +184,10 @@ func create_all_simulations() -> void:
 	if AI_Active:
 		IA_Contr.SetPieceLists()
 	
-	num_threads = OS.get_processor_count() - 2 #floor(OS.get_processor_count() / 2)
-	if num_threads < 1:
-		# Always create at least 1 simulation controller.
-		# On web builds, threads may not be available (requires SharedArrayBuffer + COOP/COEP headers),
-		# but the SimulationController will fall back to synchronous execution.
-		num_threads = 1
-	print("Available hardware threads: ", num_threads)
+	# Use centralized concurrency decision from ConcurrencyMgr autoload.
+	# On web (nothreads) this returns 1; on desktop native it returns cores - 2 (min 1, max 8).
+	num_threads = ConcurrencyMgr.get_effective_worker_count()
+	print("Simulation workers: ", num_threads, " (mode: ", "THREADED" if ConcurrencyMgr.is_threaded() else "TIME_SLICED", ")")
 	
 	# Create all simulations
 	for i in num_threads:

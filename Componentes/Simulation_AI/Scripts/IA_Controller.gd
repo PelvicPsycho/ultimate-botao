@@ -1,6 +1,19 @@
 extends Node2D
 class_name IA_Controller
 
+## Explicit state machine for the AI decision cycle.
+## Replaces the soup of boolean flags for easier debugging on web builds.
+enum AIState {
+	IDLE,            ## Waiting for turn to start.
+	SNAPSHOT,        ## Copying pitch state before dispatch.
+	DISPATCHED,      ## Plays sent to simulators (or time-sliced loop started).
+	COLLECTING,      ## Polling simulators for results.
+	READY_TO_PLAY,   ## All results collected, waiting for timing.
+	EXECUTED         ## Play executed; waiting for next turn.
+}
+
+var ai_state: AIState = AIState.IDLE
+
 @export var physics_controller: CollisionResolution2D
 @export var match_state: MatchState_AI
 
@@ -89,23 +102,53 @@ func SetIADifficulty():
 var start_time_AI
 
 func _process(delta: float) -> void:
-	if match_state.game_paused == false:
-		# All Setted and AI can start choosing the plays it will simulate
-		if AI_Pieces_setted and AI_CanRun and physics_controller.Sim_Controller_list[0].current_pitch_state.all_physic_object_list.size() > 0:
-			#physics_controller.Sim_Controller_list[0].update_pitch_state_variables(physics_controller.current_pitch_state)
-			start_time_AI = Time.get_ticks_usec()
-			AI_start_choosing()
+	if match_state.game_paused:
+		return
+	
+	# GUARD: no simulation controllers created yet (web without threads, etc.)
+	if physics_controller.Sim_Controller_list.size() == 0:
+		return
+	
+	match ai_state:
+		AIState.IDLE:
+			# Waiting for turn to be set by SetCurrentTeamSide.
+			pass
 		
-		# Passes through all simulators and verify if they already simulate and evaluate all plays
-		verify_if_all_plays_are_simulated()
+		AIState.SNAPSHOT:
+			# All Setted and AI can start choosing the plays it will simulate
+			if AI_Pieces_setted and AI_CanRun and physics_controller.Sim_Controller_list[0].current_pitch_state.all_physic_object_list.size() > 0:
+				start_time_AI = Time.get_ticks_usec()
+				AI_start_choosing()
+				ai_state = AIState.DISPATCHED
 		
-		# if all simulators ended their simulation and a X time has passed
-		if list_of_plays_simulated.size() >= list_of_plays_to_simulate.size() - 1 and !list_play_sorted and list_separated and current_time >= time_to_IA_play: # and !match_state.game_paused
+		AIState.DISPATCHED:
+			# Plays have been sliced and sent — now polling for completion.
+			ai_state = AIState.COLLECTING
+		
+		AIState.COLLECTING:
+			# Feed time-sliced simulators (nothreads fallback) each frame.
+			for sim in physics_controller.Sim_Controller_list:
+				if sim._ts_active:
+					sim.process_time_slice()
+			
+			# Passes through all simulators and verify if they already simulated and evaluated all plays
+			verify_if_all_plays_are_simulated()
+			
+			# if all simulators ended their simulation and timing condition met
+			if list_of_plays_simulated.size() >= list_of_plays_to_simulate.size() - 1 and !list_play_sorted and list_separated and current_time >= time_to_IA_play:
+				ai_state = AIState.READY_TO_PLAY
+			else:
+				current_time += delta
+		
+		AIState.READY_TO_PLAY:
 			execute_play()
 			var time_taken_AI = (Time.get_ticks_usec() - start_time_AI) / 1000000.0
 			print("AI took: ", time_taken_AI, " seconds")
+			ai_state = AIState.EXECUTED
 		
-		current_time += delta
+		AIState.EXECUTED:
+			# Waiting for next turn — SetCurrentTeamSide will reset to IDLE/SNAPSHOT.
+			pass
 
 func sort_by_score(size_ordered: int):
 	list_play_sorted = true
@@ -367,6 +410,7 @@ func SetCurrentTeamSide(_teamSide: int) -> void:
 		physics_controller.Update_pitch_state_variables_on_Simulations(current_TeamSide)
 		AI_CanRun = true
 		current_time = 0
+		ai_state = AIState.SNAPSHOT
 
 # All Setted and AI can start choosing the plays it will simulate
 func AI_start_choosing() -> void:
@@ -427,10 +471,22 @@ func AI_start_choosing() -> void:
 	current_time = 0
 
 func slice_list_and_send_to_thread_simulate(num_plays: int) -> void:
-	var slice_size = ceil(float(num_plays) / float(physics_controller.num_threads))
-	for i in physics_controller.num_threads:
+	var sim_count = physics_controller.Sim_Controller_list.size()
+	if sim_count <= 0:
+		printerr("IA_Controller: slice_list_and_send_to_thread_simulate called with 0 sim controllers — aborting.")
+		# Mark all plays as simulated with score 0 so the AI doesn't hang forever
+		list_play_sorted = true
+		list_separated = true
+		AI_CanRun = false
+		return
+	
+	var slice_size: int = maxi(1, ceili(float(num_plays) / float(sim_count)))
+	for i in sim_count:
 		var initial_index = i * slice_size
 		var final_index = ((i + 1) * slice_size)
+		
+		if initial_index >= list_of_plays_to_simulate.size():
+			break  # no more plays to distribute
 		
 		if final_index >= list_of_plays_to_simulate.size():
 			final_index = list_of_plays_to_simulate.size()
@@ -491,7 +547,10 @@ func execute_play() -> void:
 	print("Play selected force_lerp = ", list_of_plays_simulated_Ordered_filtered[play_index].force_lerp)
 	print("Play selected Score = ", list_of_plays_simulated_Ordered_filtered[play_index].score)
 	
-	var current_pitch_state_score =  physics_controller.Sim_Controller_list[0].evaluate_pitch_state_based_on_team(physics_controller.current_pitch_state, current_TeamSide)
+	# GUARD: fallback if no sim controllers are available (TIME_SLICED or error)
+	var current_pitch_state_score: int = 0
+	if physics_controller.Sim_Controller_list.size() > 0:
+		current_pitch_state_score = physics_controller.Sim_Controller_list[0].evaluate_pitch_state_based_on_team(physics_controller.current_pitch_state, current_TeamSide)
 	
 	if current_pitch_state_score > list_of_plays_simulated_Ordered_filtered[play_index].score:
 		use_card_on_selected_piece(list_of_plays_simulated_Ordered_filtered[play_index].player_index)

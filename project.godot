@@ -31,6 +31,8 @@ SoundMaster="*uid://bafr0ruromd8"
 CupManager="*uid://e8gnsu8ca5bi"
 PvPManager="*uid://8gtw2yk3gqai"
 CursorManager="*uid://ddws1kxhd51rh"
+ConcurrencyMgr="*res://Scripts Globais/ConcurrencyManager.gd"
+DebugOverlay="*res://Scripts Globais/DebugOverlay.gd"
 
 [display]
 

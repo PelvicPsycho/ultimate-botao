@@ -16,6 +16,7 @@ var position_difference: Vector2
 
 var thread: Thread
 var thread_supported: bool = true
+var _cancel_requested: bool = false
 
 #@export_group("Test Variables")
 var PhysicsObjects_List: Array[PhysicsObject2D]
@@ -82,7 +83,23 @@ func _ready() -> void:
 	#print("current_pitch_state.all_physic_object_list size = ", current_pitch_state.all_physic_object_list.size())
 
 func _exit_tree() -> void:
-	thread.wait_to_finish()
+	# SAFE CLEANUP: never join a live thread on the main thread in Web builds —
+	# it can freeze the tab. Signal cancellation and let it finish naturally.
+	if thread and thread.is_started():
+		if thread.is_alive():
+			# Signal cooperative cancellation (checked in the sim loop).
+			_cancel_requested = true
+			# On native, a short wait is acceptable. On Web, we let the thread
+			# finish asynchronously — the OS will clean up the worker.
+			if not OS.has_feature("web"):
+				# Give the thread a chance to finish, then join.
+				# A production version could use a Semaphore or timeout here.
+				thread.wait_to_finish()
+			# On Web: do NOT call wait_to_finish() on a live thread.
+			# The worker will be terminated when the page unloads.
+		else:
+			# Thread already finished — join is instant and safe.
+			thread.wait_to_finish()
 
 func update_visuals_position() -> void:
 	for object in current_pitch_state.all_physic_object_list:
@@ -277,6 +294,10 @@ func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity
 
 	var start_time_simulation = Time.get_ticks_usec()
 	for i in range(run_num_max_steps + 1):
+		# Cooperative cancellation — checked every step so _exit_tree doesn't hang.
+		if _cancel_requested:
+			print("SimController ", sim_index, " cancelled mid-simulation")
+			return 0
 		
 		var start_time_collision = Time.get_ticks_usec()
 		#
@@ -351,11 +372,62 @@ func Execute_Physic_Simulation_Run(_delta: float, play_index: int, play_velocity
 var simulation_ended: bool = false
 var simulation_data_collected: bool = false
 
-func Simulate_and_Evaluate_a_List_of_Plays(plays: Array[Play]) -> void:
-	#print("plays size = ", plays.size())
+# ---- TIME-SLICED (fallback for nothreads) ----
+# When threads are unavailable, we split the simulation across multiple frames
+# so the main thread never blocks for more than ~4-6 ms.
+var _ts_plays: Array[Play] = []
+var _ts_play_index: int = 0
+var _ts_active: bool = false
+const TS_BUDGET_USEC: int = 5000  # 5 ms per frame max
+
+## Call once to prepare a time-sliced batch. Then call process_time_slice() each frame.
+func start_time_sliced_batch(plays: Array[Play]) -> void:
+	list_of_plays_simulated.clear()
+	simulation_ended = false
+	_ts_plays = plays
+	_ts_play_index = 0
+	_ts_active = true
+
+## Simulate plays until the time budget runs out or all plays are done.
+## Returns true when the batch is complete.
+func process_time_slice() -> bool:
+	if not _ts_active:
+		return true  # nothing to do
 	
+	var deadline: int = Time.get_ticks_usec() + TS_BUDGET_USEC
+	
+	while _ts_play_index < _ts_plays.size():
+		if _cancel_requested:
+			print("SimController ", sim_index, " time-slice cancelled")
+			_ts_active = false
+			simulation_ended = true
+			return true
+		
+		var play: Play = _ts_plays[_ts_play_index]
+		play.score = Execute_Physic_Simulation_Run(0.016667, play.player_index, play.velocity, play.play_teamSide)
+		list_of_plays_simulated.append(play)
+		_ts_play_index += 1
+		
+		# Budget check — yield to the next frame if we're over time.
+		if Time.get_ticks_usec() >= deadline:
+			return false  # more work to do next frame
+	
+	# All plays done.
+	_ts_active = false
+	simulation_ended = true
+	simulation_data_collected = false
+	
+	var time_taken = 0.0  # can't measure across frames easily
+	print("______________________________________________________________________________")
+	print("Simulate_and_Evaluate_a_List_of_Plays ", sim_index, " (time-sliced) complete")
+	return true
+
+func Simulate_and_Evaluate_a_List_of_Plays(plays: Array[Play]) -> void:
 	var start_time = Time.get_ticks_usec()
 	for play in plays:
+		if _cancel_requested:
+			print("SimController ", sim_index, " cancelled during batch simulation")
+			break
 		play.score = Execute_Physic_Simulation_Run(0.016667, play.player_index, play.velocity, play.play_teamSide)
 		list_of_plays_simulated.append(play)
 	
@@ -372,9 +444,10 @@ func Simulate_and_Evaluate_Thread_Execution(plays: Array[Play]) -> void:
 	simulation_ended = false
 	
 	if !thread_supported:
-		# Threads not available (e.g., web without SharedArrayBuffer) — run synchronously
-		print("SimController ", sim_index, " running synchronously (threads unavailable)")
-		Simulate_and_Evaluate_a_List_of_Plays(plays)
+		# Threads not available (e.g., web without SharedArrayBuffer).
+		# Use time-sliced execution so the main thread never blocks for long.
+		print("SimController ", sim_index, " starting time-sliced batch (threads unavailable)")
+		start_time_sliced_batch(plays)
 		return
 	
 	# 1. Clean up the thread if it finished its previous run
@@ -389,10 +462,9 @@ func Simulate_and_Evaluate_Thread_Execution(plays: Array[Play]) -> void:
 		# Start the thread execution
 		var error = thread.start(task)
 		if error != OK:
-			printerr("Thread.start() failed in Simulate_and_Evaluate_Thread_Execution with error: ", error, ". Falling back to synchronous.")
+			printerr("Thread.start() failed in Simulate_and_Evaluate_Thread_Execution with error: ", error, ". Falling back to time-sliced.")
 			thread_supported = false
-			# Run synchronously on the main thread
-			Simulate_and_Evaluate_a_List_of_Plays(plays)
+			start_time_sliced_batch(plays)
 	
 #endregion
 
