@@ -24,6 +24,11 @@ var boot_logged: bool = false
 const RESERVE_DESKTOP: int = 2
 const RESERVE_WEB: int = 1
 
+## Minimum workers on web. navigator.hardwareConcurrency often underreports
+## (Safari/iOS caps at 2, privacy protections, etc.), so we enforce a floor.
+## The actual limit is emscripten_pool_size (12) — see export_presets.cfg.
+const MIN_WORKERS_WEB: int = 4
+
 ## Maximum worker count (configurable at runtime for testing).
 ## On iOS, memory pressure may require lowering this to 4.
 var max_workers: int = 8
@@ -49,6 +54,10 @@ func _detect_and_configure() -> void:
 	var reserve: int = RESERVE_WEB if is_web else RESERVE_DESKTOP
 	var raw_count: int = cores - reserve
 	worker_count = clampi(raw_count, 1, max_workers)
+	
+	# Web: enforce a minimum because navigator.hardwareConcurrency is often capped.
+	if is_web and worker_count < MIN_WORKERS_WEB:
+		worker_count = mini(MIN_WORKERS_WEB, max_workers)
 
 	boot_logged = true
 

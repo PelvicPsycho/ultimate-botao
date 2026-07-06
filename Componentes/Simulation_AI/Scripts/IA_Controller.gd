@@ -26,7 +26,14 @@ var current_TeamSide: TeamSide
 
 @export var max_plays_to_simulate: int
 @export var time_to_IA_play: float = 1
+## Pacing: once simulations finish, wait this many seconds (randomized) from
+## the moment the AI started thinking before executing the play.
+const PACING_MIN_SEC: float = 2.0
+const PACING_MAX_SEC: float = 4.0
+## Hard cap — if simulations still aren't done after this, play anyway.
+const HARD_CAP_SEC: float = 8.0
 var current_time: float = 0
+var _pacing_target: float = 2.0  ## Randomized each turn between PACING_MIN and PACING_MAX
 
 var AI_Pieces_setted: bool = false
 var AI_CanRun: bool = false
@@ -118,6 +125,7 @@ func _process(delta: float) -> void:
 			# All Setted and AI can start choosing the plays it will simulate
 			if AI_Pieces_setted and AI_CanRun and physics_controller.Sim_Controller_list[0].current_pitch_state.all_physic_object_list.size() > 0:
 				start_time_AI = Time.get_ticks_usec()
+				_pacing_target = randf_range(PACING_MIN_SEC, PACING_MAX_SEC)
 				AI_start_choosing()
 				ai_state = AIState.DISPATCHED
 		
@@ -134,8 +142,14 @@ func _process(delta: float) -> void:
 			# Passes through all simulators and verify if they already simulated and evaluated all plays
 			verify_if_all_plays_are_simulated()
 			
-			# if all simulators ended their simulation and timing condition met
-			if list_of_plays_simulated.size() >= list_of_plays_to_simulate.size() - 1 and !list_play_sorted and list_separated and current_time >= time_to_IA_play:
+			# Elapsed seconds since the AI started thinking.
+			var elapsed: float = (Time.get_ticks_usec() - start_time_AI) / 1_000_000.0
+			var all_done: bool = list_of_plays_simulated.size() >= list_of_plays_to_simulate.size() - 1
+			
+			# Play when: all sims done AND pacing target reached, OR hard cap hit.
+			if (all_done and elapsed >= _pacing_target) or elapsed >= HARD_CAP_SEC:
+				if not all_done:
+					printerr("AI: hard cap reached (%.1fs) — playing with incomplete simulations (%d/%d)" % [elapsed, list_of_plays_simulated.size(), list_of_plays_to_simulate.size()])
 				ai_state = AIState.READY_TO_PLAY
 			else:
 				current_time += delta
