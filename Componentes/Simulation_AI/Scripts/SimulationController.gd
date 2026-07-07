@@ -384,6 +384,7 @@ const TS_BUDGET_USEC: int = 5000  # 5 ms per frame max
 func start_time_sliced_batch(plays: Array[Play]) -> void:
 	list_of_plays_simulated.clear()
 	simulation_ended = false
+	simulation_data_collected = false
 	_ts_plays = plays
 	_ts_play_index = 0
 	_ts_active = true
@@ -442,6 +443,7 @@ func Simulate_and_Evaluate_a_List_of_Plays(plays: Array[Play]) -> void:
 func Simulate_and_Evaluate_Thread_Execution(plays: Array[Play]) -> void:
 	list_of_plays_simulated.clear()
 	simulation_ended = false
+	simulation_data_collected = false  # Reset for new batch
 	
 	if !thread_supported:
 		# Threads not available (e.g., web without SharedArrayBuffer).

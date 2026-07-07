@@ -220,7 +220,7 @@ zoom_speed = 6.0
 script = ExtResource("7_5b3c6")
 physics_controller = NodePath("../PhysicsController")
 match_state = NodePath("..")
-max_plays_to_simulate = 50
+max_plays_to_simulate = 80
 time_to_IA_play = 2.0
 AllModes_max_force_steps = 1
 

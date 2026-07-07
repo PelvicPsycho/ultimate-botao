@@ -144,7 +144,7 @@ func _process(delta: float) -> void:
 			
 			# Elapsed seconds since the AI started thinking.
 			var elapsed: float = (Time.get_ticks_usec() - start_time_AI) / 1_000_000.0
-			var all_done: bool = list_of_plays_simulated.size() >= list_of_plays_to_simulate.size() - 1
+			var all_done: bool = list_of_plays_simulated.size() >= list_of_plays_to_simulate.size()
 			
 			# Play when: all sims done AND pacing target reached, OR hard cap hit.
 			if (all_done and elapsed >= _pacing_target) or elapsed >= HARD_CAP_SEC:
