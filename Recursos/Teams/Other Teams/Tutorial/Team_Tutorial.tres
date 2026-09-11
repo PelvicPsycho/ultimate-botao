@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="1_cwlr8"]
 [ext_resource type="Texture2D" uid="uid://bspvf8n8v742y" path="res://Recursos/2D_Art/MatchUI/Sport_Club_Internacional_logopng.png" id="2_dkhpp"]
-[ext_resource type="Resource" uid="uid://chtes8nkutsrh" path="res://Recursos/Teams/Tutorial/TeamPlayer_Tutorial_1.tres" id="3_ye1s3"]
+[ext_resource type="Resource" uid="uid://chtes8nkutsrh" path="res://Recursos/Teams/Other Teams/Tutorial/TeamPlayer_Tutorial_1.tres" id="3_ye1s3"]
 [ext_resource type="Material" uid="uid://3fsnu7d2ec1g" path="res://Componentes/PlayerGradientes/TimeVermelho.tres" id="4_fqmht"]
 [ext_resource type="Material" uid="uid://bhp38tmnccy3v" path="res://Componentes/PlayerGradientes/TimeVermelhoDesactive.tres" id="5_cbx3m"]
 [ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="6_7eu0n"]

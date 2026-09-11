@@ -44,6 +44,10 @@ window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="ignore"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ai_algorithms/plugin.cfg")
+
 [global_group]
 
 Goals=""

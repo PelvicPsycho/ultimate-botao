@@ -1,0 +1,379 @@
+[gd_scene format=3 uid="uid://bj2injf70mcli"]
+
+[ext_resource type="Script" uid="uid://bqj5v3jctb02r" path="res://2D Changes/AI Training/match_scene_2d_ai_train.gd" id="1_xjnl7"]
+[ext_resource type="Resource" uid="uid://bswgatv5myovf" path="res://Recursos/Teams/Other Teams/Tutorial/Team_Tutorial.tres" id="2_yj3ke"]
+[ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="8_ernre"]
+[ext_resource type="Script" uid="uid://dx2asfe0bpysd" path="res://2D Changes/Components/Tutorial/CollisionResolution2D_Tutorial.gd" id="16_0emyl"]
+[ext_resource type="PackedScene" uid="uid://btqivaeipeqe3" path="res://2D Changes/Components/Tutorial/Scenes/Pitch2D_Tutorial_1.tscn" id="17_12ah6"]
+[ext_resource type="Script" uid="uid://cclcjfi2w3mqi" path="res://2D Changes/Components/Tutorial/PhysicsPlayer2D_Tutorial.gd" id="18_3gi2v"]
+[ext_resource type="Resource" uid="uid://chtes8nkutsrh" path="res://Recursos/Teams/Other Teams/Tutorial/TeamPlayer_Tutorial_1.tres" id="19_gycdh"]
+[ext_resource type="AudioStream" uid="uid://dophc5rewn0on" path="res://Recursos/SFXs/ClicouNaPeca_544883__ashboy34__smallgranitedry.wav" id="20_xpa6m"]
+[ext_resource type="AudioStream" uid="uid://b8x46eek4pke2" path="res://Recursos/SFXs/SomDePuxarAPeca_freesound_community-wind-up3-89578.wav" id="21_l0ah3"]
+[ext_resource type="AudioStream" uid="uid://b30b1yxsrtvue" path="res://Recursos/SFXs/ChutouAPeca_freesound_community-soccer-ball-kick-37625.wav" id="22_em70q"]
+[ext_resource type="Script" uid="uid://elao4uom88cb" path="res://2D Changes/AI Training/QLearningTrainingController.gd" id="23_l1p5s"]
+[ext_resource type="AudioStream" uid="uid://bqpkt6r0ypfx8" path="res://Recursos/SFXs/ChutouAPeca_ribhavagrawal-woosh-230554.wav" id="23_xfb38"]
+[ext_resource type="AudioStream" uid="uid://8wor35bd1myu" path="res://Recursos/SFXs/CancelouAJogada_drop_003.wav" id="24_ewqku"]
+[ext_resource type="AudioStream" uid="uid://dv1awxb4wsu8x" path="res://Recursos/SFXs/BateuEmOutraPeca_freesound_community-clack-85854.wav" id="25_73lv7"]
+[ext_resource type="AudioStream" uid="uid://d4fx3ptn8m03m" path="res://Recursos/SFXs/BateuNaBola_footstep_carpet_003.wav" id="26_ktsv6"]
+[ext_resource type="AudioStream" uid="uid://clc333t0ptaed" path="res://Recursos/SFXs/BateuNaParede_footstep_wood_003.wav" id="27_v6rq2"]
+[ext_resource type="AudioStream" uid="uid://c7i8wt5kqjjw6" path="res://Recursos/SFXs/BateuNaTrave_406490__anthousai__hit-metallic-basketball-hoop-pipe-01.wav" id="28_7utyi"]
+[ext_resource type="Texture2D" uid="uid://dd2an5o41fxro" path="res://2D Changes/Others_2D/Ground Effect Bubble.png" id="29_pi67v"]
+[ext_resource type="Shader" uid="uid://w0c32ju552la" path="res://2D Changes/Shader_2d/gravitational_distortion.gdshader" id="30_8e71l"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="31_8kjqg"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="32_gr3yk"]
+[ext_resource type="PackedScene" uid="uid://cjab8n13u8gkw" path="res://2D Changes/2D_Scenes/MenuRadial.tscn" id="33_yl2tg"]
+[ext_resource type="PackedScene" uid="uid://b444afsleasgn" path="res://2D Changes/Components/Tutorial/Scenes/Ball2D_Tutorial.tscn" id="34_cxyn7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pol8b"]
+font = ExtResource("8_ernre")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Curve" id="Curve_fl8l5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_fl8l5"]
+offsets = PackedFloat32Array(0, 0.096463025)
+
+[sub_resource type="Animation" id="Animation_pol8b"]
+resource_name = "Magnetismo"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/tamanho")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.8170000388075, 0.07600000361]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:material:shader_parameter/espessura")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [0.086000004085, 0.002000000095]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:material:shader_parameter/forca")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect:material:shader_parameter/suavizacao_borda")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0970000046075, 0.0250000011875]
+}
+
+[sub_resource type="Animation" id="Animation_v8rn7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/tamanho")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.3690000175275]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:material:shader_parameter/espessura")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:material:shader_parameter/forca")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect:material:shader_parameter/suavizacao_borda")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o5120"]
+_data = {
+&"Magnetismo": SubResource("Animation_pol8b"),
+&"RESET": SubResource("Animation_v8rn7")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v8rn7"]
+shader = ExtResource("30_8e71l")
+shader_parameter/ground_global_position = Vector2(0, 0)
+shader_parameter/ground_size = Vector2(0, 0)
+shader_parameter/forca = 1.0
+shader_parameter/tamanho = 0.3690000175275
+shader_parameter/espessura = 1.0
+shader_parameter/suavizacao_borda = 0.5
+
+[sub_resource type="Curve" id="Curve_pol8b"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.50093806, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_v8rn7"]
+curve = SubResource("Curve_pol8b")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o5120"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 98, 0)
+radial_accel_min = -129.1
+radial_accel_max = -100.0
+tangential_accel_min = 49.999996
+tangential_accel_max = 53.789997
+scale_curve = SubResource("CurveTexture_v8rn7")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gwudw"]
+radius = 41.04875
+
+[node name="MatchScene2D_Tutorial_1" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller") groups=["MatchState"]]
+script = ExtResource("1_xjnl7")
+physics_controller = NodePath("PhysicsController")
+homeTeam = ExtResource("2_yj3ke")
+
+[node name="PhysicsController" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("match_state", "TopWall_Line", "BotWall_Line", "HomeGoalWall_Line", "AwayGoalWall_Line")]
+script = ExtResource("16_0emyl")
+match_state = NodePath("..")
+TopWall_Line = NodePath("Pitch2D_Tutorial_1/Pitch_Walls/TopWall_Line")
+BotWall_Line = NodePath("Pitch2D_Tutorial_1/Pitch_Walls/BotWall_Line")
+HomeGoalWall_Line = NodePath("Pitch2D_Tutorial_1/Pitch_Walls/LeftWall_Line")
+AwayGoalWall_Line = NodePath("Pitch2D_Tutorial_1/Pitch_Walls/AwayGoalWall_Line")
+
+[node name="Pitch2D_Tutorial_1" parent="PhysicsController" unique_id=603521134 instance=ExtResource("17_12ah6")]
+
+[node name="HomeTeam" type="Node2D" parent="PhysicsController" unique_id=2082446946]
+position = Vector2(0, -41)
+
+[node name="HomeTeam_P5" type="CharacterBody2D" parent="PhysicsController/HomeTeam" unique_id=535361106 node_paths=PackedStringArray("Object_Radius", "sprite2D_body", "sprite2D_circulo_limite", "aim_line2D", "drag_line2D", "velocity_line2D") groups=["PhysicsObjects", "Players"]]
+position = Vector2(795, 641)
+collision_layer = 2
+collision_mask = 3
+input_pickable = true
+script = ExtResource("18_3gi2v")
+debug = false
+Object_Radius = NodePath("CollisionShape2D/Object_Calculate_Radius")
+max_distance = 300.0
+playerInfo = ExtResource("19_gycdh")
+audio_clique = ExtResource("20_xpa6m")
+audio_tensao = ExtResource("21_l0ah3")
+audio_chute_normal = ExtResource("22_em70q")
+audio_chute_max = ExtResource("23_xfb38")
+audio_cancelar = ExtResource("24_ewqku")
+audio_impacto_peca = ExtResource("25_73lv7")
+audio_impacto_bola = ExtResource("26_ktsv6")
+audio_impacto_parede = ExtResource("27_v6rq2")
+audio_impacto_trave = ExtResource("28_7utyi")
+sprite2D_body = NodePath("Control/sprite2D_body")
+sprite2D_circulo_limite = NodePath("Sprite2D_CirculoLimite")
+aim_line2D = NodePath("Line2D_Aim")
+drag_line2D = NodePath("Line2D_Drag")
+velocity_line2D = NodePath("Line2D_Velocity")
+
+[node name="LabelPA" type="Label" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=204624804]
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.5
+offset_top = -9.5
+offset_right = 4.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 48
+text = "s"
+label_settings = SubResource("LabelSettings_pol8b")
+
+[node name="Line2D_Aim" type="Line2D" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=700380071]
+
+[node name="Line2D_Drag" type="Line2D" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=1403667517]
+default_color = Color(0.54509807, 0, 0, 0.74509805)
+
+[node name="Line2D_Velocity" type="Line2D" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=29239771]
+default_color = Color(0, 0.30980393, 1, 1)
+
+[node name="Line2D_Trace" type="Line2D" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=875272383]
+show_behind_parent = true
+top_level = true
+width = 8.0
+width_curve = SubResource("Curve_fl8l5")
+gradient = SubResource("Gradient_fl8l5")
+texture_mode = 1
+round_precision = 16
+antialiased = true
+
+[node name="Sprite2D_CirculoLimite" type="Sprite2D" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=1504443643]
+z_index = 1
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("29_pi67v")
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=152504511]
+visible = false
+scale = Vector2(0.9999998, 0.9999998)
+copy_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PhysicsController/HomeTeam/HomeTeam_P5/BackBufferCopy" unique_id=1751240958]
+libraries/ = SubResource("AnimationLibrary_o5120")
+autoplay = &"Magnetismo"
+
+[node name="ColorRect" type="ColorRect" parent="PhysicsController/HomeTeam/HomeTeam_P5/BackBufferCopy" unique_id=939941882]
+material = SubResource("ShaderMaterial_v8rn7")
+offset_left = -289.00003
+offset_top = -284.00006
+offset_right = -139.00002
+offset_bottom = -136.00005
+scale = Vector2(3.7999628, 3.8837001)
+mouse_filter = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="PhysicsController/HomeTeam/HomeTeam_P5/BackBufferCopy/ColorRect" unique_id=1317587798]
+position = Vector2(76.00001, 73.00001)
+process_material = SubResource("ParticleProcessMaterial_o5120")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=566741673]
+shape = SubResource("CircleShape2D_gwudw")
+
+[node name="Object_Calculate_Radius" type="Node2D" parent="PhysicsController/HomeTeam/HomeTeam_P5/CollisionShape2D" unique_id=1905712883]
+position = Vector2(41, 0)
+
+[node name="Control" type="Control" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=886917077]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.17, 0.17)
+
+[node name="sprite2D_body" type="Sprite2D" parent="PhysicsController/HomeTeam/HomeTeam_P5/Control" unique_id=523510040]
+z_index = 1
+material = ExtResource("31_8kjqg")
+scale = Vector2(0.74999994, 0.74999994)
+texture = ExtResource("32_gr3yk")
+
+[node name="RadialMenu" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=115300761 instance=ExtResource("33_yl2tg")]
+visible = false
+z_index = 1
+
+[node name="AwayTeam" type="Node2D" parent="PhysicsController" unique_id=1460559231]
+position = Vector2(0, -41)
+
+[node name="Balls" type="Node2D" parent="PhysicsController" unique_id=1788694925]
+
+[node name="Ball2D_Tutorial" parent="PhysicsController/Balls" unique_id=1925699982 instance=ExtResource("34_cxyn7")]
+position = Vector2(908, 592)
+
+[node name="SpawnPoints" type="Node" parent="." unique_id=1478858147]
+
+[node name="Marker2D" type="Marker2D" parent="SpawnPoints" unique_id=486098656]
+position = Vector2(795, 599)
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnPoints" unique_id=1523838632]
+position = Vector2(799, 802)
+
+[node name="Marker2D3" type="Marker2D" parent="SpawnPoints" unique_id=785426557]
+position = Vector2(799, 378)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnPoints" unique_id=805286915]
+position = Vector2(597, 384)
+
+[node name="Marker2D5" type="Marker2D" parent="SpawnPoints" unique_id=196719556]
+position = Vector2(602, 603)
+
+[node name="Marker2D6" type="Marker2D" parent="SpawnPoints" unique_id=488056401]
+position = Vector2(602, 775)
+
+[node name="Marker2D7" type="Marker2D" parent="SpawnPoints" unique_id=324462368]
+position = Vector2(390, 776)
+
+[node name="Marker2D8" type="Marker2D" parent="SpawnPoints" unique_id=1165088327]
+position = Vector2(390, 609)
+
+[node name="Marker2D9" type="Marker2D" parent="SpawnPoints" unique_id=1496964619]
+position = Vector2(388, 393)
+
+[node name="Marker2D10" type="Marker2D" parent="SpawnPoints" unique_id=1047706847]
+position = Vector2(1009, 393)
+
+[node name="Marker2D11" type="Marker2D" parent="SpawnPoints" unique_id=74117447]
+position = Vector2(1009, 575)
+
+[node name="Marker2D12" type="Marker2D" parent="SpawnPoints" unique_id=1297017664]
+position = Vector2(1007, 792)
+
+[node name="Marker2D13" type="Marker2D" parent="SpawnPoints" unique_id=1063234943]
+position = Vector2(1226, 803)
+
+[node name="Marker2D14" type="Marker2D" parent="SpawnPoints" unique_id=82378441]
+position = Vector2(1216, 593)
+
+[node name="Marker2D15" type="Marker2D" parent="SpawnPoints" unique_id=443553353]
+position = Vector2(1218, 396)
+
+[node name="Marker2D16" type="Marker2D" parent="SpawnPoints" unique_id=1155160539]
+position = Vector2(1420, 368)
+
+[node name="Marker2D17" type="Marker2D" parent="SpawnPoints" unique_id=1141689080]
+position = Vector2(1428, 592)
+
+[node name="Marker2D18" type="Marker2D" parent="SpawnPoints" unique_id=1727848321]
+position = Vector2(1429, 815)
+
+[node name="QLearningTrainingController" type="Node2D" parent="." unique_id=418620034]
+script = ExtResource("23_l1p5s")
+
+[connection signal="input_event" from="PhysicsController/HomeTeam/HomeTeam_P5" to="PhysicsController/HomeTeam/HomeTeam_P5" method="_on_input_event"]
+[connection signal="mouse_entered" from="PhysicsController/HomeTeam/HomeTeam_P5" to="PhysicsController/HomeTeam/HomeTeam_P5" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="PhysicsController/HomeTeam/HomeTeam_P5" to="PhysicsController/HomeTeam/HomeTeam_P5" method="_on_mouse_exited"]
+
+[editable path="PhysicsController/Pitch2D_Tutorial_1"]
