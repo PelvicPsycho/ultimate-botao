@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://b30b1yxsrtvue" path="res://Recursos/SFXs/ChutouAPeca_freesound_community-soccer-ball-kick-37625.wav" id="22_em70q"]
 [ext_resource type="Script" uid="uid://elao4uom88cb" path="res://2D Changes/AI Training/QLearningTrainingController.gd" id="23_l1p5s"]
 [ext_resource type="AudioStream" uid="uid://bqpkt6r0ypfx8" path="res://Recursos/SFXs/ChutouAPeca_ribhavagrawal-woosh-230554.wav" id="23_xfb38"]
+[ext_resource type="FontFile" uid="uid://b8f7dj4qbp66f" path="res://Recursos/Fontes/Baloo2-Bold.ttf" id="24_3jsud"]
 [ext_resource type="AudioStream" uid="uid://8wor35bd1myu" path="res://Recursos/SFXs/CancelouAJogada_drop_003.wav" id="24_ewqku"]
 [ext_resource type="AudioStream" uid="uid://dv1awxb4wsu8x" path="res://Recursos/SFXs/BateuEmOutraPeca_freesound_community-clack-85854.wav" id="25_73lv7"]
 [ext_resource type="AudioStream" uid="uid://d4fx3ptn8m03m" path="res://Recursos/SFXs/BateuNaBola_footstep_carpet_003.wav" id="26_ktsv6"]
@@ -174,6 +175,20 @@ scale_curve = SubResource("CurveTexture_v8rn7")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gwudw"]
 radius = 41.04875
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3jsud"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3jsud"]
+font = ExtResource("24_3jsud")
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yamor"]
+font = ExtResource("24_3jsud")
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [node name="MatchScene2D_Tutorial_1" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller") groups=["MatchState"]]
 script = ExtResource("1_xjnl7")
@@ -371,6 +386,46 @@ position = Vector2(1429, 815)
 
 [node name="QLearningTrainingController" type="Node2D" parent="." unique_id=418620034]
 script = ExtResource("23_l1p5s")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=86587686]
+
+[node name="Panel" type="MarginContainer" parent="CanvasLayer" unique_id=1698108625]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_bottom = 64
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Panel" unique_id=141197379]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3jsud")
+
+[node name="Episode Stats" type="Label" parent="CanvasLayer/Panel/Panel" unique_id=1065084785]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -52.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "hello"
+label_settings = SubResource("LabelSettings_3jsud")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Episode Stats2" type="Label" parent="CanvasLayer/Panel/Panel" unique_id=2140035151]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 52.0
+grow_horizontal = 2
+text = "Episode :"
+label_settings = SubResource("LabelSettings_yamor")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="input_event" from="PhysicsController/HomeTeam/HomeTeam_P5" to="PhysicsController/HomeTeam/HomeTeam_P5" method="_on_input_event"]
 [connection signal="mouse_entered" from="PhysicsController/HomeTeam/HomeTeam_P5" to="PhysicsController/HomeTeam/HomeTeam_P5" method="_on_mouse_entered"]

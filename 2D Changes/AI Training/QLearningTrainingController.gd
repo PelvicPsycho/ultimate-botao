@@ -19,11 +19,16 @@ const MAX_STEPS = 10000
 var qnet: QLearning
 var currentStep: int = 0
 
-var previousReward: float = 0.0
-
 var dist_anterior = 0.0
 
 var _waiting_physics = true
+
+var currentEpisode: int = 0
+var currentRewardSum: float = 0
+var goalCounter: int 
+var episodeCounter: int
+var soma_reward_episodio: float = 0.0
+var soma_steps: int = 0
 
 @onready var _player = $"../PhysicsController/HomeTeam/HomeTeam_P5"
 @onready var _ball = $"../PhysicsController/Balls/Ball2D_Tutorial"
@@ -34,19 +39,29 @@ func _ready():
 	qnet = QLearning.new(OBS_SPACE, ACT_SPACE, true, true)
 	await get_tree().process_frame
 	
+	goalCounter = 0
+	episodeCounter = 0
 	qnet.learning_rate = 0.4              # alpha: velocidade de aprendizado (padrão 0.2)
 	qnet.discounted_factor = 0.9          # gamma: peso de recompensas futuras (padrão 0.9)
 	qnet.exploration_probability = 1.0    # epsilon inicial: começa explorando tudo (padrão 1.0)
 	qnet.exploration_decreasing_decay = 0.01  # quanto epsilon cai a cada decay (padrão 0.01)
 	qnet.min_exploration_probability = 0.01   # epsilon mínimo — nunca para de explorar (padrão 0.01)
 	qnet.decay_per_steps = 100            # a cada quantos passos epsilon decai (padrão 100)
+	qnet.print_debug_info = true
 	
 	MatchScene.connect("goalScored", onGoalScored)
+	updateLabels()
+	_reset_episode()
 
 func _process(_delta: float) -> void:
 	if _waiting_physics and _physics_settled():
 		_waiting_physics = false
+		updateEpisodeStatus2Label()
 		_step()
+
+func _input(event):
+	if event.is_action_pressed("restart"):
+		_reset_episode()
 
 func _physics_settled() -> bool:
 	return _player.current_velocity.length() < 10.0 and _ball.current_velocity.length() < 10.0
@@ -85,9 +100,10 @@ func _apply_action(action_int: int) -> void:
 
 func _step() -> void:
 	currentStep += 1
-
+	var reward = 0
 	if currentStep >= MAX_STEPS:
-		var reward = -0.1
+		reward = -0.1
+		currentRewardSum += reward
 		qnet.predict(encodeState(), reward)
 		_reset_episode()
 		return
@@ -101,23 +117,46 @@ func _step() -> void:
 	var reward_passo = clampf((dist_anterior - dist_atual) / 100.0, -0.1, 0.1)
 	dist_anterior = dist_atual
 	
-	print("Reward atual: ", reward_toque + reward_passo)
-	
-	var action = qnet.predict(encodeState(), reward_toque + reward_passo)
+	reward = reward_toque + reward_passo
+	currentRewardSum += reward
+	var action = qnet.predict(encodeState(), reward)
 	_apply_action(action)
 	_waiting_physics = true
 
 func _reset_episode() -> void:
+	currentEpisode += 1
+	episodeCounter += 1
 	currentStep = 0
-	previousReward = 0.0
+	soma_steps += currentStep
+	if episodeCounter % 50 == 0:
+		print("Reward médio: %.3f" % [soma_reward_episodio / episodeCounter])
+		print("Steps médios: %.1f" % [float(soma_steps) / episodeCounter])
+		print("Episódio %d | Taxa de gols: %.1f%%" % [episodeCounter,float(goalCounter) / episodeCounter * 100.0])
+		updateLabels()
+		episodeCounter = 0
+	soma_reward_episodio = 0.0
+	soma_steps = 0 
 	$"..".pickBallSpawn()
 	$"..".pickPlayerSpawn()
 	_waiting_physics = false
 	call_deferred("_step")
+	updateEpisodeStatus2Label()
 
 func onGoalScored():
 	var reward = 1.0
-	previousReward = 1.0
+	currentRewardSum += reward
+	goalCounter += 1
 	qnet.predict(encodeState(), reward)
-	print("GOOOOL")
 	_reset_episode()
+
+func updateLabels():
+	updateEpisodeStatusLabel()
+	updateEpisodeStatus2Label()
+
+func updateEpisodeStatusLabel():
+	var label = $"../CanvasLayer/Panel/Panel/Episode Stats"
+	label.text = "Last 50 episodes: Avarage reward: %.3f | " % [soma_reward_episodio / episodeCounter] + "Avarage steps: %.1f | " % [float(soma_steps) / episodeCounter] + "Avarage goals: %.1f" % [float(goalCounter) / episodeCounter]
+
+func updateEpisodeStatus2Label():
+	var label = $"../CanvasLayer/Panel/Panel/Episode Stats2"
+	label.text = "Current episode: %d | Total goals: %d | Current step: %d" % [currentEpisode, goalCounter, currentStep]
