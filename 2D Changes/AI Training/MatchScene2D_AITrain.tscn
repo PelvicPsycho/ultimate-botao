@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bqj5v3jctb02r" path="res://2D Changes/AI Training/match_scene_2d_ai_train.gd" id="1_xjnl7"]
 [ext_resource type="Resource" uid="uid://bswgatv5myovf" path="res://Recursos/Teams/Other Teams/Tutorial/Team_Tutorial.tres" id="2_yj3ke"]
-[ext_resource type="Script" uid="uid://dx2asfe0bpysd" path="res://2D Changes/Components/Tutorial/CollisionResolution2D_Tutorial.gd" id="3_3jsud"]
+[ext_resource type="Script" uid="uid://byu78rw05k71v" path="res://2D Changes/AI Training/CollisionResolutionAI.gd" id="3_3jsud"]
 [ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="8_ernre"]
 [ext_resource type="PackedScene" uid="uid://btqivaeipeqe3" path="res://2D Changes/Components/Tutorial/Scenes/Pitch2D_Tutorial_1.tscn" id="17_12ah6"]
 [ext_resource type="Script" uid="uid://cclcjfi2w3mqi" path="res://2D Changes/Components/Tutorial/PhysicsPlayer2D_Tutorial.gd" id="18_3gi2v"]
