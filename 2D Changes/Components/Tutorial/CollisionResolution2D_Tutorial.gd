@@ -31,7 +31,7 @@ var count_steps = 0
 
 func _ready() -> void:
 		
-	var nodes = get_tree().get_nodes_in_group("PhysicsObjects")
+	var nodes = [$HomeTeam/HomeTeam_P5, $Balls/Ball2D_Tutorial]
 	for object in nodes:
 		PhysicsObjects_List.append(object)
 		

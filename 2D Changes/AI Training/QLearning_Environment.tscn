@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://b3dcsqrd37fyn"]
+
+[ext_resource type="Script" uid="uid://c8b2hgkhpiay0" path="res://2D Changes/AI Training/QLEnvironmentController.gd" id="1_1d1bv"]
+[ext_resource type="PackedScene" uid="uid://bj2injf70mcli" path="res://2D Changes/AI Training/MatchScene2D_AITrain.tscn" id="1_ing0j"]
+
+[node name="QLearningController" type="Node" unique_id=348890667]
+script = ExtResource("1_1d1bv")
+
+[node name="Control" type="Control" parent="." unique_id=1062713856]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="Control" unique_id=1069582158]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Control/GridContainer" unique_id=399334724]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/GridContainer/SubViewportContainer" unique_id=384391700]
+handle_input_locally = false
+size = Vector2i(958, 538)
+render_target_update_mode = 4
+
+[node name="MatchScene2D_Tutorial_1" parent="Control/GridContainer/SubViewportContainer/SubViewport" unique_id=1014255883 groups=["Arena"] instance=ExtResource("1_ing0j")]
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="Control/GridContainer" unique_id=837640194]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/GridContainer/SubViewportContainer2" unique_id=148836152]
+handle_input_locally = false
+size = Vector2i(958, 538)
+render_target_update_mode = 4
+
+[node name="MatchScene2D_Tutorial_1" parent="Control/GridContainer/SubViewportContainer2/SubViewport" unique_id=1414658177 groups=["Arena"] instance=ExtResource("1_ing0j")]
+arenaIndex = 1
+
+[node name="SubViewportContainer3" type="SubViewportContainer" parent="Control/GridContainer" unique_id=342748367]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/GridContainer/SubViewportContainer3" unique_id=801477478]
+handle_input_locally = false
+size = Vector2i(958, 538)
+render_target_update_mode = 4
+
+[node name="MatchScene2D_Tutorial_1" parent="Control/GridContainer/SubViewportContainer3/SubViewport" unique_id=1244491448 groups=["Arena"] instance=ExtResource("1_ing0j")]
+arenaIndex = 2
+
+[node name="SubViewportContainer4" type="SubViewportContainer" parent="Control/GridContainer" unique_id=803486412]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/GridContainer/SubViewportContainer4" unique_id=781533796]
+handle_input_locally = false
+size = Vector2i(958, 538)
+render_target_update_mode = 4
+
+[node name="MatchScene2D_Tutorial_1" parent="Control/GridContainer/SubViewportContainer4/SubViewport" unique_id=1834999963 groups=["Arena"] instance=ExtResource("1_ing0j")]
+arenaIndex = 3

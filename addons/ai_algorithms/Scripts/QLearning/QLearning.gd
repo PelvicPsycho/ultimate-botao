@@ -62,8 +62,8 @@ func predict(current_state: int, reward_of_previous_state: float) -> int:
 		action_to_take = QTable.index_of_max_from_row(current_state) # Exploit best known action
 	
 	# Q-Learning vs SARSA Update Rules:
-    # Q-Learning uses max future Q-value: Q(s,a) + α[r + γ*max(Q(s',a')) - Q(s,a)]
-    # SARSA uses actual next action: Q(s,a) + α[r + γ*Q(s',a') - Q(s,a)]
+	# Q-Learning uses max future Q-value: Q(s,a) + α[r + γ*max(Q(s',a')) - Q(s,a)]
+	# SARSA uses actual next action: Q(s,a) + α[r + γ*Q(s',a') - Q(s,a)]
 	if is_learning:
 		# Q-value update only happens if we have a valid previous state
 		if previous_state != -100:

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bqj5v3jctb02r" path="res://2D Changes/AI Training/match_scene_2d_ai_train.gd" id="1_xjnl7"]
 [ext_resource type="Resource" uid="uid://bswgatv5myovf" path="res://Recursos/Teams/Other Teams/Tutorial/Team_Tutorial.tres" id="2_yj3ke"]
+[ext_resource type="Script" uid="uid://dx2asfe0bpysd" path="res://2D Changes/Components/Tutorial/CollisionResolution2D_Tutorial.gd" id="3_3jsud"]
 [ext_resource type="FontFile" uid="uid://btiuj3s5h0ddr" path="res://Recursos/Fontes/Rubik/Rubik-Regular.ttf" id="8_ernre"]
-[ext_resource type="Script" uid="uid://dx2asfe0bpysd" path="res://2D Changes/Components/Tutorial/CollisionResolution2D_Tutorial.gd" id="16_0emyl"]
 [ext_resource type="PackedScene" uid="uid://btqivaeipeqe3" path="res://2D Changes/Components/Tutorial/Scenes/Pitch2D_Tutorial_1.tscn" id="17_12ah6"]
 [ext_resource type="Script" uid="uid://cclcjfi2w3mqi" path="res://2D Changes/Components/Tutorial/PhysicsPlayer2D_Tutorial.gd" id="18_3gi2v"]
 [ext_resource type="Resource" uid="uid://chtes8nkutsrh" path="res://Recursos/Teams/Other Teams/Tutorial/TeamPlayer_Tutorial_1.tres" id="19_gycdh"]
@@ -190,13 +190,16 @@ font_size = 32
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3jsud"]
+size = Vector2(1398, 637)
+
 [node name="MatchScene2D_Tutorial_1" type="Node2D" unique_id=1014255883 node_paths=PackedStringArray("physics_controller") groups=["MatchState"]]
 script = ExtResource("1_xjnl7")
 physics_controller = NodePath("PhysicsController")
 homeTeam = ExtResource("2_yj3ke")
 
 [node name="PhysicsController" type="Node2D" parent="." unique_id=12833940 node_paths=PackedStringArray("match_state", "TopWall_Line", "BotWall_Line", "HomeGoalWall_Line", "AwayGoalWall_Line")]
-script = ExtResource("16_0emyl")
+script = ExtResource("3_3jsud")
 match_state = NodePath("..")
 TopWall_Line = NodePath("Pitch2D_Tutorial_1/Pitch_Walls/TopWall_Line")
 BotWall_Line = NodePath("Pitch2D_Tutorial_1/Pitch_Walls/BotWall_Line")
@@ -328,7 +331,7 @@ position = Vector2(0, -41)
 [node name="Ball2D_Tutorial" parent="PhysicsController/Balls" unique_id=1925699982 instance=ExtResource("34_cxyn7")]
 position = Vector2(908, 592)
 
-[node name="SpawnPoints" type="Node" parent="." unique_id=1478858147]
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=277810609]
 
 [node name="Marker2D" type="Marker2D" parent="SpawnPoints" unique_id=486098656]
 position = Vector2(795, 599)
@@ -403,6 +406,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3jsud")
 
 [node name="Episode Stats" type="Label" parent="CanvasLayer/Panel/Panel" unique_id=1065084785]
+visible = false
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -427,8 +431,21 @@ label_settings = SubResource("LabelSettings_yamor")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=275434237]
+position = Vector2(960, 540)
+zoom = Vector2(0.5, 0.5)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1180415098]
+position = Vector2(908, 590)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1233503057]
+position = Vector2(52, -2.5)
+shape = SubResource("RectangleShape2D_3jsud")
+
+[connection signal="gol" from="PhysicsController/Pitch2D_Tutorial_1/Goal2D" to="." method="_on_goal_2d_gol"]
 [connection signal="input_event" from="PhysicsController/HomeTeam/HomeTeam_P5" to="PhysicsController/HomeTeam/HomeTeam_P5" method="_on_input_event"]
 [connection signal="mouse_entered" from="PhysicsController/HomeTeam/HomeTeam_P5" to="PhysicsController/HomeTeam/HomeTeam_P5" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="PhysicsController/HomeTeam/HomeTeam_P5" to="PhysicsController/HomeTeam/HomeTeam_P5" method="_on_mouse_exited"]
+[connection signal="body_exited" from="Area2D" to="QLearningTrainingController" method="_on_area_2d_body_exited"]
 
 [editable path="PhysicsController/Pitch2D_Tutorial_1"]

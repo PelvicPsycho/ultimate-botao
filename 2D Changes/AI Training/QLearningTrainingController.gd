@@ -14,7 +14,7 @@ const ACT_SPACE = ACT_DIRECOES * ACT_FORCAS
 const MAX_DIST_JOGADOR_BOLA = 900
 const MAX_DIST_BOLA_GOL = 1000
 
-const MAX_STEPS = 10000
+const MAX_STEPS = 1000
 
 var qnet: QLearning
 var currentStep: int = 0
@@ -35,8 +35,12 @@ var soma_steps: int = 0
 @onready var _goal = $"../PhysicsController/Pitch2D_Tutorial_1/Pitch_Walls/AwayGoalWall_Line"
 @onready var MatchScene = $".."
 
+signal goalScoreOnArena(arenaIndex:int)
+
 func _ready():
 	qnet = QLearning.new(OBS_SPACE, ACT_SPACE, true, true)
+	if _shared_qtable != null:
+		qnet.QTable = _shared_qtable
 	await get_tree().process_frame
 	
 	goalCounter = 0
@@ -46,7 +50,7 @@ func _ready():
 	qnet.exploration_probability = 1.0    # epsilon inicial: começa explorando tudo (padrão 1.0)
 	qnet.exploration_decreasing_decay = 0.01  # quanto epsilon cai a cada decay (padrão 0.01)
 	qnet.min_exploration_probability = 0.01   # epsilon mínimo — nunca para de explorar (padrão 0.01)
-	qnet.decay_per_steps = 100            # a cada quantos passos epsilon decai (padrão 100)
+	qnet.decay_per_steps = 50            # a cada quantos passos epsilon decai (padrão 100)
 	qnet.print_debug_info = true
 	
 	MatchScene.connect("goalScored", onGoalScored)
@@ -58,6 +62,24 @@ func _process(_delta: float) -> void:
 		_waiting_physics = false
 		updateEpisodeStatus2Label()
 		_step()
+
+static func save_q_table(q_table: Matrix, path: String) -> bool:
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if not file:
+		push_error("Falha ao abrir arquivo para salvar Q-Table: ", FileAccess.get_open_error())
+		return false
+	
+	file.store_var(q_table)
+	file.close()
+	print("✔ Q-Table salva com sucesso em: ", path)
+	return true
+
+var _shared_qtable: Matrix = null
+
+func set_shared_qtable(table: Matrix) -> void:
+	_shared_qtable = table
+	if qnet != null:
+		qnet.QTable = _shared_qtable
 
 func _input(event):
 	if event.is_action_pressed("restart"):
@@ -128,26 +150,34 @@ func _reset_episode() -> void:
 	episodeCounter += 1
 	currentStep = 0
 	soma_steps += currentStep
-	if episodeCounter % 50 == 0:
-		print("Reward médio: %.3f" % [soma_reward_episodio / episodeCounter])
-		print("Steps médios: %.1f" % [float(soma_steps) / episodeCounter])
-		print("Episódio %d | Taxa de gols: %.1f%%" % [episodeCounter,float(goalCounter) / episodeCounter * 100.0])
-		updateLabels()
+	if episodeCounter > 10:
+		#updateLabels()
+		save_q_table(qnet.QTable, "res://2D Changes/AI Training/q_table.dat")
 		episodeCounter = 0
 	soma_reward_episodio = 0.0
 	soma_steps = 0 
-	$"..".pickBallSpawn()
-	$"..".pickPlayerSpawn()
+	var ball_spawn = null
+	var player_spawn = null
+	while true:
+		ball_spawn = $"..".pickBallSpawn()
+		player_spawn = $"..".pickPlayerSpawn()
+		if ball_spawn != null and player_spawn != null and ball_spawn != player_spawn:
+			break
+	_ball.position = ball_spawn.position
+	_ball.Set_Current_Velocity(Vector2.ZERO)
+	_player.position = player_spawn.position
 	_waiting_physics = false
 	call_deferred("_step")
 	updateEpisodeStatus2Label()
 
-func onGoalScored():
+func onGoalScored(_arenaIndex:int):
 	var reward = 1.0
 	currentRewardSum += reward
 	goalCounter += 1
 	qnet.predict(encodeState(), reward)
-	_reset_episode()
+	print("goooooooooala onGoalScored")
+	goalScoreOnArena.emit(_arenaIndex)
+	#_reset_episode()
 
 func updateLabels():
 	updateEpisodeStatusLabel()
@@ -160,3 +190,7 @@ func updateEpisodeStatusLabel():
 func updateEpisodeStatus2Label():
 	var label = $"../CanvasLayer/Panel/Panel/Episode Stats2"
 	label.text = "Current episode: %d | Total goals: %d | Current step: %d" % [currentEpisode, goalCounter, currentStep]
+
+func _on_area_2d_body_exited(body):
+	if body == _ball or body == _player:
+		_reset_episode()
