@@ -51,7 +51,9 @@ func _ready() -> void:
 		
 	var nodes = get_tree().get_nodes_in_group("PhysicsObjects")
 	for object in nodes:
-		PhysicsObjects_List.append(object)
+		# Each arena owns its physics objects; other arenas may not be initialized yet.
+		if is_ancestor_of(object):
+			PhysicsObjects_List.append(object)
 		
 	print("number of players = ", PhysicsObjects_List.size())
 	

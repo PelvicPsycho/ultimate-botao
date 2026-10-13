@@ -256,14 +256,18 @@ text = "s"
 label_settings = SubResource("LabelSettings_pol8b")
 
 [node name="Line2D_Aim" type="Line2D" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=700380071]
+visible = false
 
 [node name="Line2D_Drag" type="Line2D" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=1403667517]
+visible = false
 default_color = Color(0.54509807, 0, 0, 0.74509805)
 
 [node name="Line2D_Velocity" type="Line2D" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=29239771]
+visible = false
 default_color = Color(0, 0.30980393, 1, 1)
 
 [node name="Line2D_Trace" type="Line2D" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=875272383]
+visible = false
 show_behind_parent = true
 top_level = true
 width = 8.0
@@ -274,6 +278,7 @@ round_precision = 16
 antialiased = true
 
 [node name="Sprite2D_CirculoLimite" type="Sprite2D" parent="PhysicsController/HomeTeam/HomeTeam_P5" unique_id=1504443643]
+visible = false
 z_index = 1
 scale = Vector2(0.01, 0.01)
 texture = ExtResource("29_pi67v")
@@ -436,6 +441,7 @@ position = Vector2(960, 540)
 zoom = Vector2(0.5, 0.5)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1180415098]
+visible = false
 position = Vector2(908, 590)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1233503057]

@@ -400,12 +400,12 @@ func _sincronizar_estado_congelamento() -> void:
 		piece.disabled = deve_congelar
 	
 	if deve_congelar:
-		if game_paused == false:
-			print("Game Paused = ", true)
+		#if game_paused == false:
+			#print("Game Paused = ", true)
 		game_paused = true
 	else:
-		if game_paused == true:
-			print("Game Paused = ", false)
+		#if game_paused == true:
+			#print("Game Paused = ", false)
 		game_paused = false
 		
 

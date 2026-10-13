@@ -12,6 +12,8 @@ enum TeamSide {HOME, AWAY}
 static var _ultimo_quase_gol_ms: int = 0
 const COOLDOWN_QUASE_GOL_MS: int = 15000
 
+@export var turnOffExplosions: bool = false
+
 signal gol(isHome: bool) #True = gol Home, False = gol Away (a principio)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

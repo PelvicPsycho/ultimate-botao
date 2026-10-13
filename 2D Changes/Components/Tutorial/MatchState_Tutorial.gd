@@ -9,7 +9,7 @@ signal turno_trocado(turno_atual: turn)
 
 @export var is_final_tutorial: bool
 
-@onready var timer = $Timer
+#@onready var timer = $Timer
 
 #const SplashScreen := preload("res://Componentes/MainMenu/start_menu_canvas_layer.tscn")
 const TabMenu := preload("res://Componentes/TabButtons/tab_buttons_canvas_layer.tscn") 
@@ -161,7 +161,7 @@ func onGoal(isHome: bool) -> void:
 	
 	endMatch()
 	
-	timer.start()
+	#timer.start()
 	
 	#if is_final_tutorial:
 		#print("TabMenu --------------")

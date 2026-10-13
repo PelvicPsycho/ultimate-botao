@@ -1,0 +1,572 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Carregando Banco de Dados Global...
+Database de Cartas carregado: 13 cartas encontradas.
+Database de Peças carregado: 191 peças encontradas.
+[ConcurrencyManager] OS=Windows | web=false | threads_feature=true | cores=24 | mode=THREADED | workers=8
+Mass = 5.0
+friction = 0.98
+number of players = 3
+Simulation workers: 8 (mode: THREADED)
+11:54:09
+Arena: 0    Episode: 0    Step: 0    Goals: 0    Own Goals: 0
+Mass = 5.0
+friction = 0.98
+number of players = 3
+Simulation workers: 8 (mode: THREADED)
+11:54:09
+Arena: 0    Episode: 0    Step: 0    Goals: 0    Own Goals: 0
+Mass = 5.0
+friction = 0.98
+number of players = 3
+Simulation workers: 8 (mode: THREADED)
+11:54:09
+Arena: 0    Episode: 0    Step: 0    Goals: 0    Own Goals: 0
+Mass = 5.0
+friction = 0.98
+number of players = 3
+Simulation workers: 8 (mode: THREADED)
+11:54:10
+Arena: 0    Episode: 0    Step: 0    Goals: 0    Own Goals: 0
+11:54:10
+Arena: 0    Episode: 1    Step: 0    Goals: 0    Own Goals: 0
+11:54:10
+Arena: 1    Episode: 1    Step: 0    Goals: 0    Own Goals: 0
+11:54:10
+Arena: 2    Episode: 1    Step: 0    Goals: 0    Own Goals: 0
+11:54:10
+Arena: 3    Episode: 1    Step: 0    Goals: 0    Own Goals: 0
+ERROR: No Controller Found
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://2D Changes/AI Training/QLEnvironmentController.gd:14)
+quase gol miss AwayGoal_2D:<Node2D#171496705289>
+11:58:39
+Arena: 0    Episode: 1    Step: 100    Goals: 0    Own Goals: 0
+11:58:41
+Arena: 1    Episode: 1    Step: 100    Goals: 0    Own Goals: 0
+11:58:46
+Arena: 3    Episode: 1    Step: 100    Goals: 0    Own Goals: 0
+11:58:49
+Arena: 2    Episode: 1    Step: 100    Goals: 0    Own Goals: 0
+12:03:15
+Arena: 0    Episode: 1    Step: 200    Goals: 0    Own Goals: 0
+12:03:20
+Arena: 3    Episode: 1    Step: 200    Goals: 0    Own Goals: 0
+12:03:24
+Arena: 1    Episode: 1    Step: 200    Goals: 0    Own Goals: 0
+12:03:28
+Arena: 2    Episode: 1    Step: 200    Goals: 0    Own Goals: 0
+12:07:55
+Arena: 3    Episode: 1    Step: 300    Goals: 0    Own Goals: 0
+12:07:56
+Arena: 0    Episode: 1    Step: 300    Goals: 0    Own Goals: 0
+12:07:57
+Arena: 1    Episode: 1    Step: 300    Goals: 0    Own Goals: 0
+12:08:00
+Arena: 2    Episode: 1    Step: 300    Goals: 0    Own Goals: 0
+quase gol miss AwayGoal_2D:<Node2D#129738213468>
+quase gol miss HomeGoal_2D:<Node2D#204849812106>
+quase gol miss AwayGoal_2D:<Node2D#129738213468>
+quase gol miss AwayGoal_2D:<Node2D#167134628869>
+quase gol miss HomeGoal_2D:<Node2D#138328148572>
+12:12:13
+Arena: 3    Episode: 2    Step: 0    Goals: 1    Own Goals: 0
+12:12:28
+Arena: 0    Episode: 2    Step: 0    Goals: 0    Own Goals: 1
+12:12:28
+Arena: 2    Episode: 1    Step: 400    Goals: 0    Own Goals: 0
+12:12:32
+Arena: 1    Episode: 1    Step: 400    Goals: 0    Own Goals: 0
+quase gol miss AwayGoal_2D:<Node2D#138495920742>
+quase gol miss HomeGoal_2D:<Node2D#135408912814>
+quase gol miss AwayGoal_2D:<Node2D#206108103381>
+12:15:12
+Arena: 2    Episode: 2    Step: 0    Goals: 1    Own Goals: 0
+quase gol miss HomeGoal_2D:<Node2D#183593078553>
+12:16:53
+Arena: 3    Episode: 2    Step: 100    Goals: 1    Own Goals: 0
+quase gol miss HomeGoal_2D:<Node2D#132489677056>
+12:17:01
+Arena: 0    Episode: 2    Step: 100    Goals: 0    Own Goals: 1
+12:17:11
+Arena: 1    Episode: 1    Step: 500    Goals: 0    Own Goals: 0
+12:18:28
+Arena: 1    Episode: 2    Step: 0    Goals: 1    Own Goals: 0
+quase gol miss AwayGoal_2D:<Node2D#188391362422>
+12:19:46
+Arena: 2    Episode: 2    Step: 100    Goals: 1    Own Goals: 0
+12:21:33
+Arena: 3    Episode: 2    Step: 200    Goals: 1    Own Goals: 0
+12:21:36
+Arena: 0    Episode: 2    Step: 200    Goals: 0    Own Goals: 1
+quase gol miss HomeGoal_2D:<Node2D#129570441250>
+12:23:04
+Arena: 1    Episode: 2    Step: 100    Goals: 1    Own Goals: 0
+quase gol miss AwayGoal_2D:<Node2D#179398774303>
+quase gol miss AwayGoal_2D:<Node2D#202836546066>
+12:24:00
+Arena: 3    Episode: 3    Step: 0    Goals: 1    Own Goals: 1
+12:24:27
+Arena: 2    Episode: 2    Step: 200    Goals: 1    Own Goals: 0
+12:26:09
+Arena: 0    Episode: 2    Step: 300    Goals: 0    Own Goals: 1
+12:27:31
+Arena: 1    Episode: 3    Step: 0    Goals: 1    Own Goals: 1
+quase gol miss AwayGoal_2D:<Node2D#171496705289>
+12:28:36
+Arena: 3    Episode: 3    Step: 100    Goals: 1    Own Goals: 1
+12:28:36
+Arena: 1    Episode: 4    Step: 0    Goals: 2    Own Goals: 1
+12:29:01
+Arena: 2    Episode: 2    Step: 300    Goals: 1    Own Goals: 0
+12:29:02
+Arena: 0    Episode: 3    Step: 0    Goals: 0    Own Goals: 2
+quase gol miss AwayGoal_2D:<Node2D#190572400632>
+12:33:13
+Arena: 3    Episode: 3    Step: 200    Goals: 1    Own Goals: 1
+12:33:15
+Arena: 2    Episode: 3    Step: 0    Goals: 1    Own Goals: 1
+12:33:15
+Arena: 1    Episode: 4    Step: 100    Goals: 2    Own Goals: 1
+12:33:42
+Arena: 0    Episode: 3    Step: 100    Goals: 0    Own Goals: 2
+quase gol miss AwayGoal_2D:<Node2D#132657449226>
+quase gol miss HomeGoal_2D:<Node2D#138328148572>
+quase gol miss AwayGoal_2D:<Node2D#182670331618>
+quase gol miss AwayGoal_2D:<Node2D#135576684984>
+12:38:20
+Arena: 1    Episode: 4    Step: 200    Goals: 2    Own Goals: 1
+12:38:21
+Arena: 2    Episode: 3    Step: 100    Goals: 1    Own Goals: 1
+12:38:23
+Arena: 3    Episode: 3    Step: 300    Goals: 1    Own Goals: 1
+12:38:44
+Arena: 0    Episode: 3    Step: 200    Goals: 0    Own Goals: 2
+12:40:42
+Arena: 3    Episode: 4    Step: 0    Goals: 2    Own Goals: 1
+12:43:09
+Arena: 2    Episode: 4    Step: 0    Goals: 1    Own Goals: 2
+12:44:09
+Arena: 1    Episode: 4    Step: 300    Goals: 2    Own Goals: 1
+12:44:28
+Arena: 0    Episode: 3    Step: 300    Goals: 0    Own Goals: 2
+12:46:37
+Arena: 3    Episode: 4    Step: 100    Goals: 2    Own Goals: 1
+12:49:16
+Arena: 2    Episode: 4    Step: 100    Goals: 1    Own Goals: 2
+12:50:33
+Arena: 1    Episode: 4    Step: 400    Goals: 2    Own Goals: 1
+12:50:53
+Arena: 0    Episode: 3    Step: 400    Goals: 0    Own Goals: 2
+12:53:14
+Arena: 3    Episode: 4    Step: 200    Goals: 2    Own Goals: 1
+12:55:50
+Arena: 2    Episode: 4    Step: 200    Goals: 1    Own Goals: 2
+12:57:23
+Arena: 1    Episode: 4    Step: 500    Goals: 2    Own Goals: 1
+12:57:48
+Arena: 0    Episode: 3    Step: 500    Goals: 0    Own Goals: 2
+quase gol miss AwayGoal_2D:<Node2D#205017584276>
+13:00:26
+Arena: 3    Episode: 4    Step: 300    Goals: 2    Own Goals: 1
+13:03:24
+Arena: 2    Episode: 4    Step: 300    Goals: 1    Own Goals: 2
+13:04:51
+Arena: 1    Episode: 4    Step: 600    Goals: 2    Own Goals: 1
+13:05:30
+Arena: 0    Episode: 3    Step: 600    Goals: 0    Own Goals: 2
+13:08:07
+Arena: 3    Episode: 4    Step: 400    Goals: 2    Own Goals: 1
+13:10:37
+Arena: 2    Episode: 4    Step: 400    Goals: 1    Own Goals: 2
+13:12:03
+Arena: 1    Episode: 4    Step: 700    Goals: 2    Own Goals: 1
+13:12:33
+Arena: 0    Episode: 3    Step: 700    Goals: 0    Own Goals: 2
+13:13:28
+Arena: 2    Episode: 5    Step: 0    Goals: 1    Own Goals: 3
+13:15:15
+Arena: 3    Episode: 4    Step: 500    Goals: 2    Own Goals: 1
+quase gol miss HomeGoal_2D:<Node2D#138328148572>
+13:18:37
+Arena: 1    Episode: 4    Step: 800    Goals: 2    Own Goals: 1
+13:18:51
+Arena: 0    Episode: 3    Step: 800    Goals: 0    Own Goals: 2
+quase gol miss HomeGoal_2D:<Node2D#205940331211>
+13:18:56
+Arena: 3    Episode: 5    Step: 0    Goals: 3    Own Goals: 1
+13:19:29
+Arena: 2    Episode: 5    Step: 100    Goals: 1    Own Goals: 3
+quase gol miss AwayGoal_2D:<Node2D#135576684984>
+13:20:05
+Arena: 2    Episode: 6    Step: 0    Goals: 1    Own Goals: 4
+quase gol miss AwayGoal_2D:<Node2D#207198622486>
+13:23:14
+Arena: 1    Episode: 4    Step: 900    Goals: 2    Own Goals: 1
+13:23:26
+Arena: 3    Episode: 5    Step: 100    Goals: 3    Own Goals: 1
+13:23:36
+Arena: 0    Episode: 3    Step: 900    Goals: 0    Own Goals: 2
+13:24:35
+Arena: 2    Episode: 6    Step: 100    Goals: 1    Own Goals: 4
+13:27:46
+Arena: 1    Episode: 5    Step: 0    Goals: 2    Own Goals: 1
+13:28:07
+Arena: 3    Episode: 5    Step: 200    Goals: 3    Own Goals: 1
+13:28:14
+Arena: 0    Episode: 4    Step: 0    Goals: 0    Own Goals: 2
+13:29:08
+Arena: 2    Episode: 6    Step: 200    Goals: 1    Own Goals: 4
+13:32:18
+Arena: 1    Episode: 5    Step: 100    Goals: 2    Own Goals: 1
+quase gol miss HomeGoal_2D:<Node2D#195857223987>
+13:32:46
+Arena: 3    Episode: 5    Step: 300    Goals: 3    Own Goals: 1
+13:32:46
+Arena: 0    Episode: 4    Step: 100    Goals: 0    Own Goals: 2
+13:34:56
+Arena: 2    Episode: 6    Step: 300    Goals: 1    Own Goals: 4
+13:41:55
+Arena: 1    Episode: 5    Step: 200    Goals: 2    Own Goals: 1
+13:42:46
+Arena: 3    Episode: 5    Step: 400    Goals: 3    Own Goals: 1
+13:42:55
+Arena: 0    Episode: 4    Step: 200    Goals: 0    Own Goals: 2
+quase gol miss HomeGoal_2D:<Node2D#135408912814>
+13:45:15
+Arena: 2    Episode: 6    Step: 400    Goals: 1    Own Goals: 4
+13:52:45
+Arena: 1    Episode: 5    Step: 300    Goals: 2    Own Goals: 1
+13:53:42
+Arena: 0    Episode: 4    Step: 300    Goals: 0    Own Goals: 2
+13:53:48
+Arena: 3    Episode: 5    Step: 500    Goals: 3    Own Goals: 1
+quase gol miss HomeGoal_2D:<Node2D#132489677056>
+13:56:24
+Arena: 2    Episode: 6    Step: 500    Goals: 1    Own Goals: 4
+quase gol miss HomeGoal_2D:<Node2D#207030850316>
+14:03:42
+Arena: 1    Episode: 6    Step: 0    Goals: 3    Own Goals: 1
+14:05:01
+Arena: 3    Episode: 5    Step: 600    Goals: 3    Own Goals: 1
+quase gol miss HomeGoal_2D:<Node2D#138328148572>
+14:05:09
+Arena: 3    Episode: 6    Step: 0    Goals: 4    Own Goals: 1
+14:05:13
+Arena: 0    Episode: 4    Step: 400    Goals: 0    Own Goals: 2
+14:07:57
+Arena: 2    Episode: 6    Step: 600    Goals: 1    Own Goals: 4
+quase gol miss HomeGoal_2D:<Node2D#200487735686>
+quase gol miss HomeGoal_2D:<Node2D#201578254791>
+14:15:20
+Arena: 1    Episode: 6    Step: 100    Goals: 3    Own Goals: 1
+14:16:46
+Arena: 0    Episode: 4    Step: 500    Goals: 0    Own Goals: 2
+14:16:47
+Arena: 3    Episode: 6    Step: 100    Goals: 4    Own Goals: 1
+14:17:08
+Arena: 2    Episode: 7    Step: 0    Goals: 2    Own Goals: 4
+quase gol miss HomeGoal_2D:<Node2D#181412040343>
+14:24:18
+Arena: 1    Episode: 7    Step: 0    Goals: 4    Own Goals: 1
+14:24:24
+Arena: 3    Episode: 7    Step: 0    Goals: 5    Own Goals: 1
+14:29:21
+Arena: 0    Episode: 4    Step: 600    Goals: 0    Own Goals: 2
+14:29:24
+Arena: 2    Episode: 7    Step: 100    Goals: 2    Own Goals: 4
+14:37:00
+Arena: 1    Episode: 7    Step: 100    Goals: 4    Own Goals: 1
+14:37:02
+Arena: 3    Episode: 7    Step: 100    Goals: 5    Own Goals: 1
+14:42:07
+Arena: 2    Episode: 7    Step: 200    Goals: 2    Own Goals: 4
+14:42:29
+Arena: 0    Episode: 4    Step: 700    Goals: 0    Own Goals: 2
+14:50:02
+Arena: 3    Episode: 7    Step: 200    Goals: 5    Own Goals: 1
+14:50:20
+Arena: 1    Episode: 7    Step: 200    Goals: 4    Own Goals: 1
+14:53:11
+Arena: 0    Episode: 5    Step: 0    Goals: 1    Own Goals: 2
+14:55:42
+Arena: 2    Episode: 7    Step: 300    Goals: 2    Own Goals: 4
+quase gol miss AwayGoal_2D:<Node2D#163863071554>
+15:04:10
+Arena: 1    Episode: 7    Step: 300    Goals: 4    Own Goals: 1
+15:04:14
+Arena: 3    Episode: 7    Step: 300    Goals: 5    Own Goals: 1
+quase gol miss AwayGoal_2D:<Node2D#168225147974>
+15:06:39
+Arena: 0    Episode: 6    Step: 0    Goals: 1    Own Goals: 3
+quase gol miss HomeGoal_2D:<Node2D#175959444818>
+15:09:45
+Arena: 2    Episode: 7    Step: 400    Goals: 2    Own Goals: 4
+15:10:38
+Arena: 1    Episode: 8    Step: 0    Goals: 5    Own Goals: 1
+quase gol miss HomeGoal_2D:<Node2D#138328148572>
+15:18:39
+Arena: 3    Episode: 7    Step: 400    Goals: 5    Own Goals: 1
+15:20:32
+Arena: 0    Episode: 6    Step: 100    Goals: 1    Own Goals: 3
+15:24:06
+Arena: 2    Episode: 7    Step: 500    Goals: 2    Own Goals: 4
+15:24:45
+Arena: 1    Episode: 8    Step: 100    Goals: 5    Own Goals: 1
+15:27:39
+Arena: 2    Episode: 8    Step: 0    Goals: 3    Own Goals: 4
+15:33:03
+Arena: 3    Episode: 7    Step: 500    Goals: 5    Own Goals: 1
+15:35:15
+Arena: 0    Episode: 6    Step: 200    Goals: 1    Own Goals: 3
+quase gol miss HomeGoal_2D:<Node2D#205940331211>
+15:39:34
+Arena: 1    Episode: 8    Step: 200    Goals: 5    Own Goals: 1
+quase gol miss HomeGoal_2D:<Node2D#200487735686>
+15:42:20
+Arena: 2    Episode: 8    Step: 100    Goals: 3    Own Goals: 4
+15:48:33
+Arena: 3    Episode: 7    Step: 600    Goals: 5    Own Goals: 1
+15:50:52
+Arena: 0    Episode: 6    Step: 300    Goals: 1    Own Goals: 3
+quase gol miss HomeGoal_2D:<Node2D#132489677056>
+quase gol miss AwayGoal_2D:<Node2D#201746026961>
+15:55:30
+Arena: 1    Episode: 8    Step: 300    Goals: 5    Own Goals: 1
+15:58:22
+Arena: 2    Episode: 8    Step: 200    Goals: 3    Own Goals: 4
+quase gol miss HomeGoal_2D:<Node2D#192585666672>
+quase gol miss AwayGoal_2D:<Node2D#203927065171>
+quase gol miss AwayGoal_2D:<Node2D#138495920742>
+quase gol miss AwayGoal_2D:<Node2D#201746026961>
+16:04:21
+Arena: 3    Episode: 7    Step: 700    Goals: 5    Own Goals: 1
+16:05:28
+Arena: 3    Episode: 8    Step: 0    Goals: 5    Own Goals: 2
+16:06:49
+Arena: 0    Episode: 6    Step: 400    Goals: 1    Own Goals: 3
+quase gol miss AwayGoal_2D:<Node2D#180489293408>
+16:07:40
+Arena: 1    Episode: 9    Step: 0    Goals: 5    Own Goals: 2
+quase gol miss HomeGoal_2D:<Node2D#135408912814>
+16:14:54
+Arena: 2    Episode: 8    Step: 300    Goals: 3    Own Goals: 4
+16:21:41
+Arena: 3    Episode: 8    Step: 100    Goals: 5    Own Goals: 2
+16:23:45
+Arena: 0    Episode: 6    Step: 500    Goals: 1    Own Goals: 3
+16:24:05
+Arena: 1    Episode: 9    Step: 100    Goals: 5    Own Goals: 2
+16:31:41
+Arena: 2    Episode: 8    Step: 400    Goals: 3    Own Goals: 4
+16:39:04
+Arena: 3    Episode: 8    Step: 200    Goals: 5    Own Goals: 2
+16:41:02
+Arena: 1    Episode: 9    Step: 200    Goals: 5    Own Goals: 2
+16:41:06
+Arena: 0    Episode: 6    Step: 600    Goals: 1    Own Goals: 3
+quase gol miss HomeGoal_2D:<Node2D#188223590252>
+16:49:07
+Arena: 2    Episode: 8    Step: 500    Goals: 3    Own Goals: 4
+quase gol miss HomeGoal_2D:<Node2D#164785818489>
+quase gol miss HomeGoal_2D:<Node2D#138328148572>
+16:56:36
+Arena: 3    Episode: 8    Step: 300    Goals: 5    Own Goals: 2
+quase gol miss HomeGoal_2D:<Node2D#129570441250>
+16:58:05
+Arena: 0    Episode: 6    Step: 700    Goals: 1    Own Goals: 3
+16:58:13
+Arena: 1    Episode: 9    Step: 300    Goals: 5    Own Goals: 2
+16:58:26
+Arena: 3    Episode: 9    Step: 0    Goals: 6    Own Goals: 2
+17:02:01
+Arena: 2    Episode: 8    Step: 600    Goals: 3    Own Goals: 4
+17:06:37
+Arena: 0    Episode: 6    Step: 800    Goals: 1    Own Goals: 3
+17:06:53
+Arena: 1    Episode: 9    Step: 400    Goals: 5    Own Goals: 2
+17:06:54
+Arena: 3    Episode: 9    Step: 100    Goals: 6    Own Goals: 2
+17:10:35
+Arena: 2    Episode: 8    Step: 700    Goals: 3    Own Goals: 4
+quase gol miss HomeGoal_2D:<Node2D#138328148572>
+17:15:00
+Arena: 0    Episode: 6    Step: 900    Goals: 1    Own Goals: 3
+17:15:39
+Arena: 3    Episode: 9    Step: 200    Goals: 6    Own Goals: 2
+17:15:42
+Arena: 1    Episode: 9    Step: 500    Goals: 5    Own Goals: 2
+quase gol miss AwayGoal_2D:<Node2D#182670331618>
+17:19:23
+Arena: 2    Episode: 8    Step: 800    Goals: 3    Own Goals: 4
+quase gol miss HomeGoal_2D:<Node2D#169147894909>
+17:22:26
+Arena: 3    Episode: 10    Step: 0    Goals: 7    Own Goals: 2
+quase gol miss HomeGoal_2D:<Node2D#129570441250>
+17:23:58
+Arena: 0    Episode: 7    Step: 0    Goals: 1    Own Goals: 3
+quase gol miss HomeGoal_2D:<Node2D#191495147567>
+17:24:48
+Arena: 1    Episode: 9    Step: 600    Goals: 5    Own Goals: 2
+quase gol miss AwayGoal_2D:<Node2D#205017584276>
+quase gol miss AwayGoal_2D:<Node2D#166044109764>
+17:27:19
+Arena: 0    Episode: 8    Step: 0    Goals: 1    Own Goals: 4
+17:28:32
+Arena: 2    Episode: 8    Step: 900    Goals: 3    Own Goals: 4
+17:31:24
+Arena: 3    Episode: 10    Step: 100    Goals: 7    Own Goals: 2
+quase gol miss AwayGoal_2D:<Node2D#179398774303>
+quase gol miss AwayGoal_2D:<Node2D#177217736093>
+17:34:07
+Arena: 1    Episode: 9    Step: 700    Goals: 5    Own Goals: 2
+17:36:27
+Arena: 0    Episode: 8    Step: 100    Goals: 1    Own Goals: 4
+17:38:00
+Arena: 2    Episode: 9    Step: 0    Goals: 3    Own Goals: 4
+quase gol miss HomeGoal_2D:<Node2D#163695299384>
+17:40:47
+Arena: 3    Episode: 10    Step: 200    Goals: 7    Own Goals: 2
+17:43:34
+Arena: 1    Episode: 9    Step: 800    Goals: 5    Own Goals: 2
+quase gol miss AwayGoal_2D:<Node2D#189481881527>
+17:46:02
+Arena: 0    Episode: 8    Step: 200    Goals: 1    Own Goals: 4
+17:47:20
+Arena: 2    Episode: 9    Step: 100    Goals: 3    Own Goals: 4
+17:50:07
+Arena: 1    Episode: 10    Step: 0    Goals: 6    Own Goals: 2
+17:50:45
+Arena: 3    Episode: 10    Step: 300    Goals: 7    Own Goals: 2
+17:59:42
+Arena: 0    Episode: 8    Step: 300    Goals: 1    Own Goals: 4
+18:03:15
+Arena: 2    Episode: 9    Step: 200    Goals: 3    Own Goals: 4
+18:09:06
+Arena: 1    Episode: 10    Step: 100    Goals: 6    Own Goals: 2
+18:09:53
+Arena: 3    Episode: 10    Step: 400    Goals: 7    Own Goals: 2
+quase gol miss AwayGoal_2D:<Node2D#167134628869>
+quase gol miss HomeGoal_2D:<Node2D#135408912814>
+quase gol miss AwayGoal_2D:<Node2D#138495920742>
+18:18:43
+Arena: 3    Episode: 11    Step: 0    Goals: 7    Own Goals: 3
+18:21:52
+Arena: 3    Episode: 12    Step: 0    Goals: 7    Own Goals: 4
+18:22:20
+Arena: 0    Episode: 8    Step: 400    Goals: 1    Own Goals: 4
+18:26:10
+Arena: 2    Episode: 9    Step: 300    Goals: 3    Own Goals: 4
+18:32:40
+Arena: 1    Episode: 10    Step: 200    Goals: 6    Own Goals: 2
+18:45:20
+Arena: 3    Episode: 12    Step: 100    Goals: 7    Own Goals: 4
+18:46:01
+Arena: 0    Episode: 8    Step: 500    Goals: 1    Own Goals: 4
+18:49:49
+Arena: 2    Episode: 9    Step: 400    Goals: 3    Own Goals: 4
+18:56:46
+Arena: 1    Episode: 10    Step: 300    Goals: 6    Own Goals: 2
+19:08:24
+Arena: 3    Episode: 12    Step: 200    Goals: 7    Own Goals: 4
+19:09:42
+Arena: 0    Episode: 8    Step: 600    Goals: 1    Own Goals: 4
+19:14:39
+Arena: 2    Episode: 9    Step: 500    Goals: 3    Own Goals: 4
+quase gol miss HomeGoal_2D:<Node2D#135408912814>
+quase gol miss AwayGoal_2D:<Node2D#163863071554>
+quase gol miss AwayGoal_2D:<Node2D#129738213468>
+19:21:16
+Arena: 1    Episode: 10    Step: 400    Goals: 6    Own Goals: 2
+quase gol miss AwayGoal_2D:<Node2D#202836546066>
+19:33:16
+Arena: 3    Episode: 12    Step: 300    Goals: 7    Own Goals: 4
+19:34:36
+Arena: 0    Episode: 8    Step: 700    Goals: 1    Own Goals: 4
+19:39:01
+Arena: 2    Episode: 9    Step: 600    Goals: 3    Own Goals: 4
+quase gol miss AwayGoal_2D:<Node2D#135576684984>
+19:45:00
+Arena: 2    Episode: 10    Step: 0    Goals: 3    Own Goals: 5
+19:46:29
+Arena: 1    Episode: 10    Step: 500    Goals: 6    Own Goals: 2
+quase gol miss AwayGoal_2D:<Node2D#164953590659>
+quase gol miss AwayGoal_2D:<Node2D#129738213468>
+19:58:58
+Arena: 3    Episode: 12    Step: 400    Goals: 7    Own Goals: 4
+20:00:18
+Arena: 0    Episode: 8    Step: 800    Goals: 1    Own Goals: 4
+quase gol miss AwayGoal_2D:<Node2D#129738213468>
+quase gol miss AwayGoal_2D:<Node2D#170406186184>
+20:10:42
+Arena: 2    Episode: 10    Step: 100    Goals: 3    Own Goals: 5
+20:11:52
+Arena: 1    Episode: 10    Step: 600    Goals: 6    Own Goals: 2
+20:19:42
+Arena: 3    Episode: 13    Step: 0    Goals: 7    Own Goals: 5
+20:25:49
+Arena: 0    Episode: 8    Step: 900    Goals: 1    Own Goals: 4
+20:36:35
+Arena: 2    Episode: 10    Step: 200    Goals: 3    Own Goals: 5
+20:37:47
+Arena: 1    Episode: 10    Step: 700    Goals: 6    Own Goals: 2
+20:45:41
+Arena: 3    Episode: 13    Step: 100    Goals: 7    Own Goals: 5
+20:52:45
+Arena: 0    Episode: 9    Step: 0    Goals: 1    Own Goals: 4
+21:03:48
+Arena: 2    Episode: 10    Step: 300    Goals: 3    Own Goals: 5
+21:05:42
+Arena: 1    Episode: 10    Step: 800    Goals: 6    Own Goals: 2
+quase gol miss AwayGoal_2D:<Node2D#201746026961>
+21:12:37
+Arena: 3    Episode: 13    Step: 200    Goals: 7    Own Goals: 5
+quase gol miss AwayGoal_2D:<Node2D#203927065171>
+quase gol miss AwayGoal_2D:<Node2D#203927065171>
+21:14:04
+Arena: 3    Episode: 14    Step: 0    Goals: 7    Own Goals: 6
+21:19:21
+Arena: 0    Episode: 9    Step: 100    Goals: 1    Own Goals: 4
+21:31:09
+Arena: 2    Episode: 10    Step: 400    Goals: 3    Own Goals: 5
+21:32:55
+Arena: 1    Episode: 10    Step: 900    Goals: 6    Own Goals: 2
+21:41:53
+Arena: 3    Episode: 14    Step: 100    Goals: 7    Own Goals: 6
+quase gol miss AwayGoal_2D:<Node2D#201746026961>
+quase gol miss AwayGoal_2D:<Node2D#203927065171>
+21:47:09
+Arena: 0    Episode: 9    Step: 200    Goals: 1    Own Goals: 4
+21:58:33
+Arena: 2    Episode: 10    Step: 500    Goals: 3    Own Goals: 5
+22:00:39
+Arena: 1    Episode: 11    Step: 0    Goals: 6    Own Goals: 2
+22:08:38
+Arena: 3    Episode: 14    Step: 200    Goals: 7    Own Goals: 6
+22:11:54
+Arena: 0    Episode: 9    Step: 300    Goals: 1    Own Goals: 4
+22:17:25
+Arena: 2    Episode: 10    Step: 600    Goals: 3    Own Goals: 5
+22:18:04
+Arena: 1    Episode: 11    Step: 100    Goals: 6    Own Goals: 2
+quase gol miss AwayGoal_2D:<Node2D#138495920742>
+quase gol miss AwayGoal_2D:<Node2D#200655507856>
+22:22:38
+Arena: 3    Episode: 14    Step: 300    Goals: 7    Own Goals: 6
+22:25:13
+Arena: 0    Episode: 9    Step: 400    Goals: 1    Own Goals: 4
+22:27:46
+Arena: 1    Episode: 12    Step: 0    Goals: 6    Own Goals: 3
+22:29:48
+Arena: 2    Episode: 10    Step: 700    Goals: 3    Own Goals: 5
+quase gol miss AwayGoal_2D:<Node2D#138495920742>
+22:40:39
+Arena: 3    Episode: 14    Step: 400    Goals: 7    Own Goals: 6
+22:43:33
+Arena: 0    Episode: 9    Step: 500    Goals: 1    Own Goals: 4
+22:45:56
+Arena: 1    Episode: 12    Step: 100    Goals: 6    Own Goals: 3
+22:47:36
+Arena: 2    Episode: 10    Step: 800    Goals: 3    Own Goals: 5
+quase gol miss AwayGoal_2D:<Node2D#208289141591>

@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://defk5y242e3x"]
+
+[ext_resource type="Script" uid="uid://c3jx1lb0wr1pg" path="res://2D Changes/Scripts_2D/CollisionResolution2D.gd" id="1_8n8ys"]
+[ext_resource type="Script" uid="uid://n004ms2ehkeb" path="res://2D Changes/AI Training/TrainingScene2/MatchStateAIPlus.gd" id="1_i0ih6"]
+[ext_resource type="PackedScene" uid="uid://cmgl103lkwr8r" path="res://2D Changes/2D_Scenes/Pitch2D.tscn" id="2_i0ih6"]
+[ext_resource type="Script" uid="uid://ckw08qfl7lm4m" path="res://Recursos/Res_Player.gd" id="2_y7t53"]
+[ext_resource type="PackedScene" uid="uid://bjuey2wm1ffql" path="res://2D Changes/2D_Scenes/Player2D.tscn" id="3_1tyoe"]
+[ext_resource type="Script" uid="uid://dbejkveogu8jv" path="res://Componentes/Cartas/CardResource.gd" id="3_6yxtj"]
+[ext_resource type="Material" uid="uid://bylg623wa5do2" path="res://2D Changes/Components/Pecas/MaterialShaderPeças.tres" id="4_riq4y"]
+[ext_resource type="Texture2D" uid="uid://hw5tipsqauis" path="res://2D Changes/Components/Pecas/Textura_peca_campo.png" id="5_42hk1"]
+[ext_resource type="Resource" uid="uid://m8ilx3kupq67" path="res://Recursos/Teams/Other Teams/Grêmio/Mec.tres" id="6_525n2"]
+[ext_resource type="Texture2D" uid="uid://cylptgk6g4qfi" path="res://Recursos/Teams/Generic Emblem/generic.png" id="6_rttgf"]
+[ext_resource type="PackedScene" uid="uid://v5srrfq0w6hn" path="res://2D Changes/2D_Scenes/Ball2D.tscn" id="7_e1k5h"]
+[ext_resource type="Script" uid="uid://bt5y7giq3cyt0" path="res://Recursos/Res_Time.gd" id="7_qfxe5"]
+[ext_resource type="Texture2D" uid="uid://1qyeifbj1y62" path="res://2D Changes/Components/Pecas/padroes/Padrao1.png" id="8_ul0kl"]
+[ext_resource type="Texture2D" uid="uid://2fnld1yfa6nl" path="res://2D Changes/Components/Pecas/padroes/Padrao2.png" id="9_jykx2"]
+[ext_resource type="Texture2D" uid="uid://bey371cqce78v" path="res://2D Changes/Components/Pecas/padroes/Padrao3.png" id="10_w643n"]
+[ext_resource type="Texture2D" uid="uid://btvxil75hchdm" path="res://2D Changes/Components/Pecas/padroes/Padrao4.png" id="11_gd6uh"]
+[ext_resource type="Texture2D" uid="uid://d0hwecyqfod1v" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao1.png" id="12_pjoa5"]
+[ext_resource type="Texture2D" uid="uid://navk68vgxx7e" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao2.png" id="13_rswyg"]
+[ext_resource type="Texture2D" uid="uid://xqj01ijbmngr" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao3.png" id="14_iygya"]
+[ext_resource type="Texture2D" uid="uid://lg0g4si8mkbd" path="res://2D Changes/Components/Pecas/padroes_peca_de_frente/Padrao4.png" id="15_b1bbn"]
+[ext_resource type="Script" uid="uid://drbj76n3dx1g5" path="res://2D Changes/AI Training/TrainingScene2/QLearningTrainingControllerPlus.gd" id="22_riq4y"]
+[ext_resource type="FontFile" uid="uid://08mecybweapi" path="res://Recursos/Fontes/Rubik/Rubik-Bold.ttf" id="23_t2fcn"]
+
+[sub_resource type="Resource" id="Resource_y71kq"]
+script = ExtResource("2_y7t53")
+id_unico = &"p1"
+nome = "p1"
+num_camisa = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
+
+[sub_resource type="Resource" id="Resource_nvdck"]
+script = ExtResource("7_qfxe5")
+name = "Player"
+ranque = 7
+cor = Color(0, 0.59607846, 1, 1)
+mainSquad = Array[ExtResource("2_y7t53")]([SubResource("Resource_y71kq")])
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"
+
+[sub_resource type="Resource" id="Resource_y7t53"]
+script = ExtResource("2_y7t53")
+id_unico = &"o1"
+nome = "o1"
+num_camisa = 3
+metadata/_custom_type_script = "uid://ckw08qfl7lm4m"
+
+[sub_resource type="Resource" id="Resource_6yxtj"]
+script = ExtResource("7_qfxe5")
+name = "Obstacle"
+cor = Color(1, 0, 0, 1)
+mainSquad = Array[ExtResource("2_y7t53")]([SubResource("Resource_y7t53")])
+metadata/_custom_type_script = "uid://bt5y7giq3cyt0"
+
+[sub_resource type="LabelSettings" id="LabelSettings_3bip6"]
+font = ExtResource("23_t2fcn")
+font_size = 32
+
+[node name="MatchScene2dAiTrainPlus" type="Node2D" unique_id=992313699 node_paths=PackedStringArray("physics_controller") groups=["MatchState"]]
+script = ExtResource("1_i0ih6")
+playerTeam = SubResource("Resource_nvdck")
+obstacleTeam = SubResource("Resource_6yxtj")
+physics_controller = NodePath("PhysicsController")
+
+[node name="PhysicsController" type="Node2D" parent="." unique_id=2111429188 node_paths=PackedStringArray("match_state", "TopWall_Line", "BotWall_Line", "HomeGoalWall_Line", "AwayGoalWall_Line", "Pitch_Middle_Point")]
+position = Vector2(0, -41)
+script = ExtResource("1_8n8ys")
+match_state = NodePath("..")
+num_threads = 4
+TopWall_Line = NodePath("Pitch/Pitch_Walls/TopWall_Line")
+BotWall_Line = NodePath("Pitch/Pitch_Walls/BotWall_Line")
+HomeGoalWall_Line = NodePath("Pitch/Pitch_Walls/HomeGoalWall_Line")
+AwayGoalWall_Line = NodePath("Pitch/Pitch_Walls/AwayGoalWall_Line")
+Pitch_Middle_Point = NodePath("Pitch/Pitch_Middle_Point")
+
+[node name="Pitch" parent="PhysicsController" unique_id=603521134 instance=ExtResource("2_i0ih6")]
+
+[node name="HomeGoal_2D" parent="PhysicsController/Pitch" index="2" unique_id=1637700476]
+turnOffExplosions = true
+
+[node name="Marker2D" type="Marker2D" parent="PhysicsController/Pitch/HomeGoal_2D" index="4" unique_id=97924847]
+position = Vector2(231, 588)
+
+[node name="AwayGoal_2D" parent="PhysicsController/Pitch" index="3" unique_id=628271092]
+turnOffExplosions = true
+
+[node name="Marker2D2" type="Marker2D" parent="PhysicsController/Pitch/AwayGoal_2D" index="4" unique_id=2099550959]
+position = Vector2(227.99988, 580)
+rotation = 3.1415925
+
+[node name="HomeTeam" type="Node2D" parent="PhysicsController" unique_id=270269377]
+position = Vector2(0, -41)
+
+[node name="HomeTeam_P1" parent="PhysicsController/HomeTeam" unique_id=1542391535 instance=ExtResource("3_1tyoe")]
+position = Vector2(728, 372)
+debug = false
+
+[node name="AwayTeam" type="Node2D" parent="PhysicsController" unique_id=1581862339]
+position = Vector2(0, -41)
+
+[node name="AwayTeam_P1" parent="PhysicsController/AwayTeam" unique_id=1707068531 instance=ExtResource("3_1tyoe")]
+position = Vector2(1409, 628)
+debug = false
+teamSide = 1
+playerInfo = ExtResource("6_525n2")
+
+[node name="Balls" type="Node2D" parent="PhysicsController" unique_id=1118271894]
+
+[node name="Ball2d" parent="PhysicsController/Balls" unique_id=1925699982 instance=ExtResource("7_e1k5h")]
+position = Vector2(958, 589)
+
+[node name="PlayerSpawnPoints" type="Node2D" parent="." unique_id=1679921867]
+
+[node name="Marker2D" type="Marker2D" parent="PlayerSpawnPoints" unique_id=1374256912]
+position = Vector2(792, 551)
+
+[node name="Marker2D2" type="Marker2D" parent="PlayerSpawnPoints" unique_id=1519416034]
+position = Vector2(792, 857)
+
+[node name="Marker2D3" type="Marker2D" parent="PlayerSpawnPoints" unique_id=656080384]
+position = Vector2(792, 279)
+
+[node name="Marker2D4" type="Marker2D" parent="PlayerSpawnPoints" unique_id=491516238]
+position = Vector2(578, 279)
+
+[node name="Marker2D5" type="Marker2D" parent="PlayerSpawnPoints" unique_id=2073449521]
+position = Vector2(578, 538)
+
+[node name="Marker2D6" type="Marker2D" parent="PlayerSpawnPoints" unique_id=1961092560]
+position = Vector2(578, 860)
+
+[node name="ObstacleSpawnPoints" type="Node2D" parent="." unique_id=2068641665]
+
+[node name="Marker2D" type="Marker2D" parent="ObstacleSpawnPoints" unique_id=115622885]
+position = Vector2(1343, 551)
+
+[node name="Marker2D2" type="Marker2D" parent="ObstacleSpawnPoints" unique_id=887304299]
+position = Vector2(1343, 857)
+
+[node name="Marker2D3" type="Marker2D" parent="ObstacleSpawnPoints" unique_id=271590215]
+position = Vector2(1343, 279)
+
+[node name="Marker2D4" type="Marker2D" parent="ObstacleSpawnPoints" unique_id=957304486]
+position = Vector2(1129, 279)
+
+[node name="Marker2D5" type="Marker2D" parent="ObstacleSpawnPoints" unique_id=1590766437]
+position = Vector2(1129, 538)
+
+[node name="Marker2D6" type="Marker2D" parent="ObstacleSpawnPoints" unique_id=814084482]
+position = Vector2(1129, 860)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=658079959]
+position = Vector2(960, 540)
+zoom = Vector2(0.5, 0.5)
+
+[node name="MatchTimer" type="Timer" parent="." unique_id=1675275830]
+
+[node name="QLearningTrainingController" type="Node2D" parent="." unique_id=468877942]
+script = ExtResource("22_riq4y")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=345277895]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=1605211136]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 32
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer" unique_id=1843453340]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+label_settings = SubResource("LabelSettings_3bip6")
+
+[connection signal="gol" from="PhysicsController/Pitch/HomeGoal_2D" to="." method="_on_goal_2d_gol"]
+[connection signal="gol" from="PhysicsController/Pitch/HomeGoal_2D" to="QLearningTrainingController" method="_on_home_goal_2d_gol"]
+[connection signal="gol" from="PhysicsController/Pitch/AwayGoal_2D" to="." method="_on_goal_2d_gol"]
+[connection signal="gol" from="PhysicsController/Pitch/AwayGoal_2D" to="QLearningTrainingController" method="_on_away_goal_2d_gol"]
+[connection signal="turnPlayed" from="PhysicsController/HomeTeam/HomeTeam_P1" to="." method="_on_home_team_p_1_turn_played"]
+
+[editable path="PhysicsController/Pitch"]

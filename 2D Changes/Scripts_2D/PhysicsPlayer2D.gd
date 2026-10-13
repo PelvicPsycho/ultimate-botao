@@ -574,7 +574,7 @@ func Execute_Action() -> void:
 	Set_Current_Velocity(current_direction * current_force)
 	
 	ActionExecuted.emit(index, current_velocity, teamSide)
-	print("AAAAA ", current_velocity)
+	#print("AAAAA ", current_velocity)
 	
 	_cancelar_interacao()
 	turnPlayed.emit()
@@ -602,7 +602,7 @@ func Execute_Action_parameters(direction: Vector2, force_lerp: float) -> void:
 	Set_Current_Velocity(current_direction * current_force)
 	
 	ActionExecuted.emit(index, current_velocity, teamSide)
-	print("AAAAA ", current_velocity)
+	#print("AAAAA ", current_velocity)
 	_cancelar_interacao()
 	turnPlayed.emit()
 

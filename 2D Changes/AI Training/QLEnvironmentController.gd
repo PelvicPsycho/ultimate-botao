@@ -26,3 +26,9 @@ func OnGoalScoredOnArena(arenaIndex):
 	print("goooooooooala OnGoalScoredOnArena")
 	var arena = controllers[arenaIndex]
 	arena._reset_episode()
+
+func printStatus(arena):
+	pass
+
+func _on_timer_timeout():
+	pass # Replace with function body.

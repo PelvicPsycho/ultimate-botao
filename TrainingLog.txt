@@ -1,0 +1,8 @@
+
+	-----------------------------/n
+	SIMULATION 1/n
+	Episode: 11/n
+	Goal per steps: 0.001224/n
+	Goal per episodes: 0.545455/n
+	Touch per Steps: 0.000000/n
+	

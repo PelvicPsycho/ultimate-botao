@@ -8,7 +8,7 @@ class_name MatchState_Training
 
 var goalsScored = 0
 
-signal goalScored
+signal goalScored(arena:int)
 
 func _ready() -> void:
 	add_to_group("MatchState2d_Tutorial")

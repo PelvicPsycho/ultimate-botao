@@ -95,8 +95,8 @@ func _ready() -> void:
 	team = playerInfo.time
 	is_pointer_inside_piece = false
 	add_to_group("MatchScene2d") 
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
+	#mouse_entered.connect(_on_mouse_entered)
+	#mouse_exited.connect(_on_mouse_exited)
 	
 	sprite2D_circulo_limite.visible = false
 	sprite2D_circulo_limite.self_modulate = Color(1.0, 1.0, 1.0, 0.0)

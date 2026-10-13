@@ -1,4 +1,4 @@
-extends Node
+extends RefCounted
 class_name PhysicObject_Struct
 
 var is_a_player: bool
