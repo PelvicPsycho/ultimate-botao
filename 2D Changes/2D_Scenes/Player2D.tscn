@@ -231,14 +231,18 @@ text = "s"
 label_settings = SubResource("LabelSettings_pol8b")
 
 [node name="Line2D_Aim" type="Line2D" parent="." unique_id=700380071]
+visible = false
 
 [node name="Line2D_Drag" type="Line2D" parent="." unique_id=1403667517]
+visible = false
 default_color = Color(0.54509807, 0, 0, 0.74509805)
 
 [node name="Line2D_Velocity" type="Line2D" parent="." unique_id=29239771]
+visible = false
 default_color = Color(0, 0.16470589, 0.654902, 0)
 
 [node name="Line2D_Trace" type="Line2D" parent="." unique_id=875272383]
+visible = false
 show_behind_parent = true
 top_level = true
 width = 8.0

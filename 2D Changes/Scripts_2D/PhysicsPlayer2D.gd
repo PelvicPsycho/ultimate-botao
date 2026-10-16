@@ -51,7 +51,7 @@ var ultimo_tempo_particula_impacto_ms: int = -99999
 @export var tracer_width_max: float = 10.0
 @export var velocity_lag_distance: float = 7.0
 @export var velocity_scale_boost: float = 0.08
-@onready var tracer2D = $Line2D_Trace
+#@onready var tracer2D = $Line2D_Trace
 var base_tracer_width: float = 8.0
 var zona 
 var hover_tween: Tween
@@ -124,8 +124,8 @@ func _ready() -> void:
 	Start_Dragging_Line()
 	Start_Velocity_Line()
 	
-	tracer2D.clear_points()
-	base_tracer_width = tracer2D.width
+	#tracer2D.clear_points()
+	#base_tracer_width = tracer2D.width
 	playerInfo_atual_Loaded = false
 	
 func loadPlayerInfo(plInfo):
@@ -181,7 +181,7 @@ func _configurar_status(plInfo) -> void:
 	if label and playerInfo_atual:
 		label.text = str(playerInfo_atual.num_camisa)
 
-func _aplicar_visual(plInfo) -> void:
+func _aplicar_visual(_plInfo) -> void:
 	if sprite2D_body.material and team:
 		sprite2D_body.material.set_shader_parameter("sprite_tint", team.cor)
 		if team.has_method("get_overlay_texture"):
@@ -189,8 +189,8 @@ func _aplicar_visual(plInfo) -> void:
 			if tex_overlay != null:
 				sprite2D_body.material.set_shader_parameter("overlay_texture", tex_overlay)
 	
-	if team:
-		tracer2D.self_modulate = team.cor
+	#if team:
+		#tracer2D.self_modulate = team.cor
 	sprite2D_body.self_modulate = Color.WHITE
 
 func Set_AI_Active(_AI_Active: bool) -> void:
@@ -397,8 +397,9 @@ func _on_input_event(camera: Node, event: InputEvent, shape_idx: int) -> void:
 				
 				is_dragging = true
 				
-				SoundMaster.play_sfx(audio_clique) #Toca o som de clique normal
-				sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) #Toca tensao e salva a ref
+				if DisplayServer.get_name() != "headless" and not AI_Active:
+					SoundMaster.play_sfx(audio_clique) #Toca o som de clique normal
+					sfx_tensao_atual = SoundMaster.play_sfx(audio_tensao, 0.8) #Toca tensao e salva a ref
 				
 				# Emite um sinal que o player foi clicado
 				_on_player_pressed(position)
@@ -499,8 +500,8 @@ func _cancelar_interacao() -> void:
 		sfx_tensao_atual.stop()
 	parar_shake()
 	_retomar_formato_normal()
-		
-	SoundMaster.play_sfx(audio_cancelar)
+	if DisplayServer.get_name() != "headless" and not AI_Active:
+		SoundMaster.play_sfx(audio_cancelar)
 	
 	Reset_Aim_Line()
 	Reset_Dragging_Line()
@@ -569,7 +570,9 @@ func Execute_Action() -> void:
 	if lerp_current_force >= 1: 
 		audio_tiro = audio_chute_max
 		maxForceShot.emit(current_direction)
-	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
+	if DisplayServer.get_name() != "headless" and not AI_Active:
+		SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
+	#SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
 
 	Set_Current_Velocity(current_direction * current_force)
 	
@@ -595,7 +598,9 @@ func Execute_Action_parameters(direction: Vector2, force_lerp: float) -> void:
 	if lerp_current_force >= 1: 
 		audio_tiro = audio_chute_max
 		maxForceShot.emit(current_direction)
-	SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
+	if DisplayServer.get_name() != "headless" and not AI_Active:
+		SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
+	#SoundMaster.play_sfx(audio_tiro, randf_range(0.9, 1.1))
 	
 	current_force = lerpf(playerInfo_atual.get_min_force(), playerInfo_atual.get_max_force(), lerp_current_force)
 	
@@ -628,7 +633,7 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 			playerInfo_atual.congelamento_ativo = false
 	
 	if not (object_collided is PhysicsPlayer2D):
-		_instanciar_particula_impacto(collision_position)
+		#_instanciar_particula_impacto(collision_position)
 		return
 	
 	if get_instance_id() > object_collided.get_instance_id():
@@ -640,7 +645,7 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 				object_collided.aplicar_empurrao(self.current_velocity)
 				playerInfo_atual.empurra_aliados_ativo = false
 	
-	_instanciar_particula_impacto(collision_position)
+	#_instanciar_particula_impacto(collision_position)
 
 func animar_pulso(alvo: Node2D) -> void:
 	var tween = create_tween()
@@ -854,25 +859,25 @@ func _update_velocity_feedback(delta: float) -> void:
 		if teamSide == TeamSide.AWAY:
 			return
 			
-	if tracer2D == null or sprite2D_body == null:
-		return
+	# if tracer2D == null or sprite2D_body == null:
+	# 	return
 
 	var intensity: float = _get_velocity_visual_intensity()
 	var tracer_target_length: int = maxLenght
 	var tracer_color: Color = team.cor if team != null else Color.WHITE
 
-	if intensity > 0.0 and is_moving:
-		tracer2D.add_point(global_position)
-		tracer_target_length = maxi(4, roundi(lerpf(4.0, float(maxLenght), intensity)))
-	else:
-		if tracer2D.get_point_count() > 0:
-			tracer2D.remove_point(0)
+	# if intensity > 0.0 and is_moving:
+	# 	tracer2D.add_point(global_position)
+	# 	tracer_target_length = maxi(4, roundi(lerpf(4.0, float(maxLenght), intensity)))
+	# else:
+	# 	if tracer2D.get_point_count() > 0:
+	# 		tracer2D.remove_point(0)
 
-	while tracer2D.get_point_count() > tracer_target_length:
-		tracer2D.remove_point(0)
+	# while tracer2D.get_point_count() > tracer_target_length:
+	# 	tracer2D.remove_point(0)
 
-	tracer2D.width = lerpf(tracer_width_min, max(tracer_width_max, base_tracer_width), intensity)
-	tracer2D.self_modulate = Color(tracer_color.r, tracer_color.g, tracer_color.b, lerpf(0.12, 0.9, intensity))
+	# tracer2D.width = lerpf(tracer_width_min, max(tracer_width_max, base_tracer_width), intensity)
+	# tracer2D.self_modulate = Color(tracer_color.r, tracer_color.g, tracer_color.b, lerpf(0.12, 0.9, intensity))
 
 	if is_dragging:
 		sprite2D_body.position = base_visual_position + shake_visual_offset
@@ -902,7 +907,7 @@ var direcao_travada: bool = false
 
 
 #region Circulo Limite
-func update_dragging_effects(posicao_atual: Vector2) -> void:
+func update_dragging_effects(_posicao_atual: Vector2) -> void:
 	if is_dragging:
 		_atualizar_deformacao_arrasto()
 

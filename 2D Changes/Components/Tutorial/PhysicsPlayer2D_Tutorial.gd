@@ -49,7 +49,8 @@ var ultimo_tempo_particula_impacto_ms: int = -99999
 @export var tracer_width_max: float = 10.0
 @export var velocity_lag_distance: float = 7.0
 @export var velocity_scale_boost: float = 0.08
-@onready var tracer2D = $Line2D_Trace
+#@onready var tracer2D = $Line2D_Trace
+@onready var tracer2D = null
 var base_tracer_width: float = 8.0
 var zona 
 var hover_tween: Tween
@@ -121,8 +122,8 @@ func _ready() -> void:
 	Start_Dragging_Line()
 	Start_Velocity_Line()
 	
-	tracer2D.clear_points()
-	base_tracer_width = tracer2D.width
+	#tracer2D.clear_points()
+	#base_tracer_width = tracer2D.width
 	playerInfo_atual_Loaded = false
 
 	
@@ -158,8 +159,8 @@ func _aplicar_visual(plInfo) -> void:
 			if tex_overlay != null:
 				sprite2D_body.material.set_shader_parameter("overlay_texture", tex_overlay)
 	
-	if team:
-		tracer2D.self_modulate = team.cor
+	#if team:
+		#tracer2D.self_modulate = team.cor
 	sprite2D_body.self_modulate = Color.WHITE
 
 func Set_AI_Active(_AI_Active: bool) -> void:
@@ -589,7 +590,7 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 			playerInfo_atual.congelamento_ativo = false
 	
 	if not (object_collided is PhysicsPlayer2D):
-		_instanciar_particula_impacto(collision_position)
+		#_instanciar_particula_impacto(collision_position)
 		return
 	
 	if get_instance_id() > object_collided.get_instance_id():
@@ -601,7 +602,7 @@ func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collide
 				object_collided.aplicar_empurrao(self.current_velocity)
 				playerInfo_atual.empurra_aliados_ativo = false
 	
-	_instanciar_particula_impacto(collision_position)
+	#_instanciar_particula_impacto(collision_position)
 
 func animar_pulso(alvo: Node2D) -> void:
 	var tween = create_tween()

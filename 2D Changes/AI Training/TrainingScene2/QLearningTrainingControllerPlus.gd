@@ -27,7 +27,10 @@ const RISCO_BLOQUEIO_RAIO := 90.0
 
 const MAX_STEPS = 1000
 
-const Q_TABLE_PATH = "res://2D Changes/AI Training/q-table.dat"
+const Q_TABLE_PATH = "user://q-table-plus.dat"
+const Q_TABLE_SCHEMA = "football-plus-v2"
+const LEGACY_Q_TABLE_PATH = "res://2D Changes/AI Training/q-table.dat"
+const QTableStorage = preload("res://2D Changes/AI Training/QTableStorage.gd")
 
 var qnet: QLearning
 var currentStep: int = 0
@@ -36,7 +39,11 @@ var dist_anterior = 0.0
 var dist_anterior_self_gol = 0.0
 var dist_anterior_jogador_bola = 0.0
 
-var _waiting_physics = true
+var _waiting_physics = false
+var _training_started := false
+var _training_blocked := false
+var _shared_qtable: Matrix
+signal qtable_save_requested
 
 var currentEpisode: int = 0
 var currentRewardSum: float = 0
@@ -55,14 +62,10 @@ var touchCounter: int = 0
 
 signal goalScoreOnArena(arenaIndex:int)
 
+@export var ReuseQTable: bool = false
+
 func _ready():
 	qnet = QLearning.new(OBS_SPACE, ACT_SPACE, true, true)
-	#qnet.load(Q_TABLE_PATH)
-	_shared_qtable = qnet.QTable
-	#if _shared_qtable != null:
-		#qnet.QTable = _shared_qtable
-	await get_tree().process_frame
-	
 	goalCounter = 0
 	episodeCounter = 0
 	qnet.learning_rate = 0.4              # alpha: velocidade de aprendizado (padrão 0.2)
@@ -72,22 +75,58 @@ func _ready():
 	qnet.min_exploration_probability = 0.01   # epsilon mínimo — nunca para de explorar (padrão 0.01)
 	qnet.decay_per_steps = 100            # a cada quantos passos epsilon decai (padrão 100)
 	qnet.print_debug_info = false
-	_reset_episode()
+	call_deferred("_start_training")
 
 func _process(_delta: float) -> void:
 	if _waiting_physics and _physics_settled():
 		_waiting_physics = false
 		_step()
 		
-var _shared_qtable: Matrix = null
+# O ambiente injeta a matriz antes desta chamada deferred. Também funciona sozinho.
+func _start_training() -> void:
+	if _training_started or _training_blocked:
+		return
+	if _shared_qtable == null:
+		set_shared_qtable(load_initial_qtable())
+	_training_started = true
+	_reset_episode()
+
+
+func should_reuse_qtable() -> bool:
+	return ReuseQTable
+
+
+func load_initial_qtable() -> Matrix:
+	if should_reuse_qtable():
+		var table := QTableStorage.load_table(Q_TABLE_PATH, OBS_SPACE, ACT_SPACE, Q_TABLE_SCHEMA)
+		# Migra o arquivo antigo apenas quando ainda não existe um checkpoint novo.
+		if table == null and not FileAccess.file_exists(Q_TABLE_PATH):
+			table = QTableStorage.load_table(LEGACY_Q_TABLE_PATH, OBS_SPACE, ACT_SPACE, Q_TABLE_SCHEMA)
+		if table != null:
+			return table
+	return qnet.QTable
+
 
 func set_shared_qtable(table: Matrix) -> void:
+	assert(table != null and table.rows == OBS_SPACE and table.cols == ACT_SPACE)
 	_shared_qtable = table
-	if qnet != null:
-		qnet.QTable = _shared_qtable
+	qnet.QTable = table
+
+
+# Getter sem I/O: nunca substitui a matriz já compartilhada.
+func getQTable() -> Matrix:
+	return _shared_qtable
+
+
+func _save_qtable() -> void:
+	if qtable_save_requested.has_connections():
+		qtable_save_requested.emit()
+	else:
+		QTableStorage.save_table(Q_TABLE_PATH, _shared_qtable, Q_TABLE_SCHEMA)
+
 
 func _input(event):
-	if event.is_action_pressed("restart"):
+	if _training_started and event.is_action_pressed("restart"):
 		_reset_episode()
 
 func _physics_settled() -> bool:
@@ -217,6 +256,8 @@ func _apply_action(action_int: int) -> void:
 	_player.Execute_Action_parameters(direction, force_lerp)
 
 func _step() -> void:
+	if not _training_started:
+		return
 	currentStep += 1
 	stepCounter+=1
 	var reward = 0
@@ -264,18 +305,20 @@ func _step() -> void:
 	currentRewardSum += reward
 	var action = qnet.predict(encodeStateV2(_player, _ball, _away_goal.global_position, _home_goal.global_position, [_op1]), reward)
 	_apply_action(action)
-	if currentStep % 100 == 0:
-		MatchScene.updateLabel(MatchScene.simulation, currentEpisode, currentStep, goalCounter, selfGoalCounter)
+	MatchScene.updateLabel(MatchScene.simulation, currentEpisode, currentStep, goalCounter, selfGoalCounter)
 	_waiting_physics = true
 
 func _reset_episode() -> void:
+	if not _training_started:
+		return
+	qnet.previous_state = -100
 	currentEpisode += 1
 	episodeCounter += 1
 	currentStep = 0
 	if episodeCounter > 10:
 		#updateLabels()
 		save_log()
-		qnet.save(Q_TABLE_PATH)
+		_save_qtable()
 		episodeCounter = 0
 		stepCounter = 0
 	MatchScene.respawn()
@@ -284,6 +327,8 @@ func _reset_episode() -> void:
 	call_deferred("_step")
 
 func onGoalScored(_arenaIndex:int):
+	if not _training_started:
+		return
 	var reward = 10.0
 	currentRewardSum += reward
 	goalCounter += 1
@@ -297,6 +342,8 @@ func _on_area_2d_body_exited(body):
 		_reset_episode()
 
 func _on_home_goal_2d_gol(_isHome):
+	if not _training_started:
+		return
 	var reward = 10.0
 	currentRewardSum += reward
 	goalCounter += 1
@@ -306,6 +353,8 @@ func _on_home_goal_2d_gol(_isHome):
 	_reset_episode()
 
 func _on_away_goal_2d_gol(_isHome):
+	if not _training_started:
+		return
 	var reward = -10.0
 	currentRewardSum += reward
 	selfGoalCounter += 1
@@ -326,5 +375,6 @@ func save_log():
 	Goal per steps: %f/n
 	Goal per episodes: %f/n
 	Touch per Steps: %f/n
-	" % [MatchScene.simulation, currentEpisode, goal_per_steps, goal_per_eps, toucy_per_eps]
+	Q-Table: %s
+	" % [MatchScene.simulation, currentEpisode, goal_per_steps, goal_per_eps, toucy_per_eps, str(qnet.QTable.data)]
 	file.store_string(content)

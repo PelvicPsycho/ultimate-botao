@@ -113,11 +113,11 @@ func inicializar_slots() -> void:
 	if slotsUpgrates.size() == 0:
 		slotsUpgrates.resize(quantosSlotes)
 		
-func recalcular_status() -> void:
-	var bonus_geral: int = 0
-	for card in slotsUpgrates:
-		if card != null:
-			bonus_geral += card.magnitude 
+#func recalcular_status() -> void:
+	#var bonus_geral: int = 0
+	#for card in slotsUpgrates:
+		#if card != null:
+			#bonus_geral += card.magnitude 
 
 func setMaxForceByLvl():
 	match strenghtLevel:
@@ -195,7 +195,7 @@ func aplicar_buff(card: CardResource) -> void:
 		else:
 		
 			duracao_dos_buffs[card] = card.duracao
-		recalcular_status()
+		#recalcular_status()
 		status_mudou.emit()
 		print("--- CARTA ATIVADA! ---")
 		print("Nova Força: ", level_force, " | PA: ", PA)

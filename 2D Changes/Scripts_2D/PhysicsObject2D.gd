@@ -17,7 +17,7 @@ var last_position_without_collision: Vector2
 func _process(_delta: float) -> void:
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	pass
 
 func Move_Object(_delta: float) -> void:
@@ -26,7 +26,7 @@ func Move_Object(_delta: float) -> void:
 func Set_Current_Velocity(new_velocity: Vector2) -> void:
 	current_velocity = new_velocity
 
-func Set_Last_PhysicObject_Collision(collision_position: Vector2, object_collided: PhysicsObject2D) -> void:
+func Set_Last_PhysicObject_Collision(_collision_position: Vector2, _object_collided: PhysicsObject2D) -> void:
 	pass
 	
 	

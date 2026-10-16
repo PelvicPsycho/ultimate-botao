@@ -183,7 +183,7 @@ func onGoalScored(_arenaIndex:int):
 	currentRewardSum += reward
 	goalCounter += 1
 	qnet.predict_aql(_get_features_for_action, reward, true) # is_terminal = true
-	print("goooooooooala onGoalScored")
+	#("goooooooooala onGoalScored")
 	goalScoreOnArena.emit(_arenaIndex)
 
 func updateLabels():

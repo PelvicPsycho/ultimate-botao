@@ -63,7 +63,7 @@ func assignPieces():
 func _process(_delta: float) -> void:
 	pass
 
-func _on_goal_2d_gol(isHome):
+func _on_goal_2d_gol(_isHome):
 	respawn()
 
 func respawn():
@@ -113,7 +113,7 @@ func _sincronizar_estado_congelamento() -> void:
 		game_paused = false
 		
 func updateLabel(arena:int = 0, episode: int = 0, step:int = 0, goals:int = 0, selfGoals:int = 0):
-	#var label = $CanvasLayer/MarginContainer/Label
-	#label.text = "Arena: %d    Episode: %d    Step: %d    Goals: %d    Own Goals: %d" % [arena, episode, step, goals, selfGoals]
-	print(Time.get_time_string_from_system())
-	print("Arena: %d    Episode: %d    Step: %d    Goals: %d    Own Goals: %d" % [arena, episode, step, goals, selfGoals])
+	var label = $CanvasLayer/MarginContainer/Label
+	label.text = "Time:%d    Arena: %d    Episode: %d    Step: %d    Goals: %d    Own Goals: %d" % [Time.get_ticks_msec()/1000, arena, episode, step, goals, selfGoals]
+	#print(Time.get_time_string_from_system())
+	#print("Arena: %d    Episode: %d    Step: %d    Goals: %d    Own Goals: %d" % [arena, episode, step, goals, selfGoals])

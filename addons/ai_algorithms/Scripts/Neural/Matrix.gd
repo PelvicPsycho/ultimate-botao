@@ -313,3 +313,10 @@ static func max(matrix: Matrix) -> float:
 		for col in range(matrix.cols):
 			max_value = max(max_value, matrix.data[row][col])
 	return max_value
+
+static func isEmpty(matrix:Matrix) -> bool:
+	for row in range(matrix.rows):
+		for col in range(matrix.cols):
+			if matrix.data[row][col] != 0 and matrix.data[row][col] != null:
+				return false
+	return true

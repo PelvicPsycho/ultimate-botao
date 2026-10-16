@@ -51,5 +51,5 @@ func pickBallSpawn():
 
 func _on_goal_2d_gol(_isHome):
 	goalsScored += 1
-	print("goooooooooala")
+	#goooooooooala")
 	goalScored.emit(arenaIndex)

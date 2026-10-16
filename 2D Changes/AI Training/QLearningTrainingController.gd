@@ -5,7 +5,9 @@ const OBS_ANGULO_JOGADOR_BOLA = 8
 const OBS_ANGULO_BOLA_GOL = 8
 const OBS_DISTANCIA_JOGADOR_BOLA = 3
 const OBS_DISTANCIA_BOLA_GOL = 3
-const OBS_SPACE = OBS_ANGULO_JOGADOR_BOLA * OBS_ANGULO_BOLA_GOL * OBS_DISTANCIA_JOGADOR_BOLA * OBS_DISTANCIA_BOLA_GOL
+
+# Deve corresponder exatamente às quatro dimensões de encodeState().
+const OBS_SPACE = OBS_ANGULO_JOGADOR_BOLA * OBS_DISTANCIA_JOGADOR_BOLA * OBS_ANGULO_BOLA_GOL * OBS_DISTANCIA_BOLA_GOL
 
 const ACT_DIRECOES = 16
 const ACT_FORCAS = 3
@@ -16,7 +18,10 @@ const MAX_DIST_BOLA_GOL = 1200
 
 const MAX_STEPS = 1000
 
-const Q_TABLE_PATH = "res://2D Changes/AI Training/q-table.dat"
+const Q_TABLE_PATH = "user://q-table.dat"
+const Q_TABLE_SCHEMA = "football-basic-v1"
+const LEGACY_Q_TABLE_PATH = "res://2D Changes/AI Training/q-table.dat"
+const QTableStorage = preload("res://2D Changes/AI Training/QTableStorage.gd")
 
 var qnet: QLearning
 var currentStep: int = 0
@@ -24,11 +29,17 @@ var currentStep: int = 0
 var dist_anterior = 0.0
 var dist_anterior_jogador_bola = 0.0
 
-var _waiting_physics = true
+var _waiting_physics = false
+var _training_started := false
+var _training_blocked := false
+var _shared_qtable: Matrix
+signal qtable_save_requested
 
 var currentEpisode: int = 0
 var currentRewardSum: float = 0
 var goalCounter: int 
+var stepCounter: int
+var touchCounter: int
 var episodeCounter: int
 var soma_reward_episodio: float = 0.0
 var soma_steps: int = 0
@@ -39,16 +50,13 @@ var soma_steps: int = 0
 @onready var MatchScene = $".."
 
 signal goalScoreOnArena(arenaIndex:int)
+@export var reuseQTable: bool = false
 
 func _ready():
 	qnet = QLearning.new(OBS_SPACE, ACT_SPACE, true, true)
-	#qnet.load(Q_TABLE_PATH)
-	_shared_qtable = qnet.QTable
-	#if _shared_qtable != null:
-		#qnet.QTable = _shared_qtable
-	await get_tree().process_frame
-	
 	goalCounter = 0
+	stepCounter = 0
+	touchCounter = 0
 	episodeCounter = 0
 	qnet.learning_rate = 0.4              # alpha: velocidade de aprendizado (padrão 0.2)
 	qnet.discounted_factor = 0.8          # gamma: peso de recompensas futuras (padrão 0.9)
@@ -59,8 +67,7 @@ func _ready():
 	qnet.print_debug_info = false
 	
 	MatchScene.connect("goalScored", onGoalScored)
-	updateLabels()
-	_reset_episode()
+	call_deferred("_start_training")
 
 func _process(_delta: float) -> void:
 	if _waiting_physics and _physics_settled():
@@ -68,15 +75,52 @@ func _process(_delta: float) -> void:
 		updateEpisodeStatus2Label()
 		_step()
 		
-var _shared_qtable: Matrix = null
+# O ambiente injeta a matriz antes desta chamada deferred. Também funciona sozinho.
+func _start_training() -> void:
+	if _training_started or _training_blocked:
+		return
+	if _shared_qtable == null:
+		set_shared_qtable(load_initial_qtable())
+	_training_started = true
+	_reset_episode()
+	updateLabels()
+
+
+func should_reuse_qtable() -> bool:
+	return reuseQTable
+
+
+func load_initial_qtable() -> Matrix:
+	if should_reuse_qtable():
+		var table := QTableStorage.load_table(Q_TABLE_PATH, OBS_SPACE, ACT_SPACE, Q_TABLE_SCHEMA)
+		# Migra o arquivo antigo apenas quando ainda não existe um checkpoint novo.
+		if table == null and not FileAccess.file_exists(Q_TABLE_PATH):
+			table = QTableStorage.load_legacy_basic_table(LEGACY_Q_TABLE_PATH, OBS_SPACE, ACT_SPACE, Q_TABLE_SCHEMA)
+		if table != null:
+			return table
+	return qnet.QTable
+
 
 func set_shared_qtable(table: Matrix) -> void:
+	assert(table != null and table.rows == OBS_SPACE and table.cols == ACT_SPACE)
 	_shared_qtable = table
-	if qnet != null:
-		qnet.QTable = _shared_qtable
+	qnet.QTable = table
+
+
+# Getter sem I/O: nunca substitui a matriz já compartilhada.
+func getQTable() -> Matrix:
+	return _shared_qtable
+
+
+func _save_qtable() -> void:
+	if qtable_save_requested.has_connections():
+		qtable_save_requested.emit()
+	else:
+		QTableStorage.save_table(Q_TABLE_PATH, _shared_qtable, Q_TABLE_SCHEMA)
+
 
 func _input(event):
-	if event.is_action_pressed("restart"):
+	if _training_started and event.is_action_pressed("restart"):
 		_reset_episode()
 
 func _physics_settled() -> bool:
@@ -115,7 +159,10 @@ func _apply_action(action_int: int) -> void:
 	_player.Execute_Action_parameters(direction, force_lerp)
 
 func _step() -> void:
+	if not _training_started:
+		return
 	currentStep += 1
+	stepCounter+=1
 	var reward = 0
 	if currentStep >= MAX_STEPS:
 		reward = -10.0
@@ -125,7 +172,12 @@ func _step() -> void:
 		return
 
 	# Recompensa por toque: o jogador tocou na bola neste passo?
-	var reward_toque = 0.2 if _ball.lastTouch == _player else -0.1
+	var reward_toque
+	if _ball.lastTouch == _player:
+		reward_toque = 0.2
+		touchCounter+=1
+	else:
+		reward_toque = -0.1
 	_ball.lastTouch = null  # limpa para não contar o mesmo toque duas vezes
 
 	# Recompensa intermediária: bola ficou mais perto do gol?
@@ -154,13 +206,17 @@ func _step() -> void:
 	_waiting_physics = true
 
 func _reset_episode() -> void:
+	if not _training_started:
+		return
+	qnet.previous_state = -100
 	currentEpisode += 1
 	episodeCounter += 1
 	currentStep = 0
 	soma_steps += currentStep
 	if episodeCounter > 10:
 		#updateLabels()
-		qnet.save(Q_TABLE_PATH)
+		save_log()
+		_save_qtable()
 		episodeCounter = 0
 	soma_reward_episodio = 0.0
 	soma_steps = 0 
@@ -179,13 +235,16 @@ func _reset_episode() -> void:
 	updateEpisodeStatus2Label()
 
 func onGoalScored(_arenaIndex:int):
+	if not _training_started:
+		return
 	var reward = 10.0
 	currentRewardSum += reward
 	goalCounter += 1
 	qnet.predict(encodeState(), reward)
-	print("goooooooooala onGoalScored")
+	#print("goooooooooala onGoalScored")
 	goalScoreOnArena.emit(_arenaIndex)
-	#_reset_episode()
+	if not goalScoreOnArena.has_connections():
+		_reset_episode()
 
 func updateLabels():
 	updateEpisodeStatusLabel()
@@ -193,12 +252,28 @@ func updateLabels():
 
 func updateEpisodeStatusLabel():
 	var label = $"../CanvasLayer/Panel/Panel/Episode Stats"
-	label.text = "Last 50 episodes: Avarage reward: %.3f | " % [soma_reward_episodio / episodeCounter] + "Avarage steps: %.1f | " % [float(soma_steps) / episodeCounter] + "Avarage goals: %.1f" % [float(goalCounter) / episodeCounter]
+	label.text = "Last 50 episodes: Avarage reward: %.3f | " % [soma_reward_episodio / maxi(episodeCounter, 1)] + "Avarage steps: %.1f | " % [float(soma_steps) / maxi(episodeCounter, 1)] + "Avarage goals: %.1f" % [float(goalCounter) / maxi(episodeCounter, 1)]
 
 func updateEpisodeStatus2Label():
 	var label = $"../CanvasLayer/Panel/Panel/Episode Stats2"
-	label.text = "Current episode: %d | Total goals: %d | Current step: %d" % [currentEpisode, goalCounter, currentStep]
+	label.text = "Time:%d | Current episode: %d | Total goals: %d | Current step: %d" % [Time.get_ticks_msec()/1000, currentEpisode, goalCounter, currentStep]
 
 func _on_area_2d_body_exited(body):
 	if body == _ball or body == _player:
 		_reset_episode()
+
+func save_log():
+	var file = FileAccess.open("res://TrainingLog.txt", FileAccess.WRITE)
+	var goal_per_steps: float = float(goalCounter)/float(stepCounter)
+	var goal_per_eps: float = float(goalCounter)/float(episodeCounter)
+	var toucy_per_eps: float = float(touchCounter)/float(episodeCounter)
+	var content: String = "
+	-----------------------------/n
+	SIMULATION %d/n
+	Episode: %d/n
+	Goal per steps: %f/n
+	Goal per episodes: %f/n
+	Touch per Steps: %f/n
+	Q-Table: %s
+	" % [MatchScene.arenaIndex, currentEpisode, goal_per_steps, goal_per_eps, toucy_per_eps, str(qnet.QTable.data)]
+	file.store_string(content)

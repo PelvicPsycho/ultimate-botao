@@ -178,6 +178,5 @@ label_settings = SubResource("LabelSettings_3bip6")
 [connection signal="gol" from="PhysicsController/Pitch/HomeGoal_2D" to="QLearningTrainingController" method="_on_home_goal_2d_gol"]
 [connection signal="gol" from="PhysicsController/Pitch/AwayGoal_2D" to="." method="_on_goal_2d_gol"]
 [connection signal="gol" from="PhysicsController/Pitch/AwayGoal_2D" to="QLearningTrainingController" method="_on_away_goal_2d_gol"]
-[connection signal="turnPlayed" from="PhysicsController/HomeTeam/HomeTeam_P1" to="." method="_on_home_team_p_1_turn_played"]
 
 [editable path="PhysicsController/Pitch"]
